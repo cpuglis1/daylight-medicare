@@ -1,0 +1,121 @@
+{
+  "source": "https://www.cms.gov/files/zip/pbp-benefits-json-2027-zip.zip-0",
+  "member_count": 7969,
+  "filename_pattern_match_count": 7969,
+  "uncompressed_bytes": 1775307420,
+  "min_member_bytes": 1667,
+  "max_member_bytes": 471019,
+  "sample_count": 5,
+  "samples": [
+    {
+      "member": "E3014-801-000-2027.json",
+      "bytes": 1770,
+      "shape": {
+        "contractYear": "2027",
+        "section": "MA&RX",
+        "pbp": {
+          "length": 1,
+          "first": "dict"
+        }
+      },
+      "root_keys": [
+        "contractYear",
+        "section",
+        "pbp"
+      ]
+    },
+    {
+      "member": "H0016-001-000-2027.json",
+      "bytes": 2441,
+      "shape": {
+        "contractYear": "2027",
+        "section": "MA&RX",
+        "pbp": {
+          "length": 1,
+          "first": "dict"
+        }
+      },
+      "root_keys": [
+        "contractYear",
+        "section",
+        "pbp"
+      ]
+    },
+    {
+      "member": "H0028-007-000-2027.json",
+      "bytes": 295475,
+      "shape": {
+        "contractYear": "2027",
+        "section": "MA&RX",
+        "pbp": {
+          "length": 1,
+          "first": "dict"
+        }
+      },
+      "root_keys": [
+        "contractYear",
+        "section",
+        "pbp"
+      ]
+    }
+  ],
+  "limitations": [
+    "Only 5 payloads were parsed; not a full benefits-field profile or join audit.",
+    "Filename shape is observed, not a validated universal product identity."
+  ],
+  "candidate_filename_join": {
+    "landscape_distinct_keys": 5884,
+    "matched_filenames": 5883,
+    "landscape_without_pbp_filename": 1,
+    "pbp_filenames_not_in_landscape": 2086,
+    "warning": "Candidate filename join after padding landscape segment; not a full payload identity, status or category reconciliation."
+  },
+  "additional_samples": [
+    {
+      "member": "H0104-012-000-2027.json",
+      "landscape_type": "PPO",
+      "pbp_sections": [
+        "contractId",
+        "planId",
+        "segmentId",
+        "status",
+        "lastUpdatedAt",
+        "planCharacteristics",
+        "standardBid",
+        "benefitOfferings",
+        "planLevelCostSharing",
+        "priorAuthorizationAndReferral",
+        "visitorTravel",
+        "costShareGroups",
+        "vbid",
+        "rx",
+        "benefitDetails"
+      ],
+      "plan_name": "Blue Advantage Complete (PPO)",
+      "status": "Submitted"
+    },
+    {
+      "member": "H0154-011-000-2027.json",
+      "landscape_type": "HMO",
+      "pbp_sections": [
+        "contractId",
+        "planId",
+        "segmentId",
+        "status",
+        "lastUpdatedAt",
+        "planCharacteristics",
+        "standardBid",
+        "benefitOfferings",
+        "planLevelCostSharing",
+        "priorAuthorizationAndReferral",
+        "visitorTravel",
+        "costShareGroups",
+        "vbid",
+        "rx",
+        "benefitDetails"
+      ],
+      "plan_name": "VIVA Medicare Premier (HMO)",
+      "status": "Submitted"
+    }
+  ]
+}

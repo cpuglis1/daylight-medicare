@@ -1,0 +1,891 @@
+{
+  "release_id": "cms-partd-2027-october-20261008-pinned-20261017",
+  "id": "H5434-002-000-2027",
+  "plan_join": {
+    "id": "H5434-002-000-2027",
+    "comparison_scope": true,
+    "landscape_part_d_indicator": "Yes",
+    "status": "matched",
+    "all_geography_puf_rows_for_identity": 17,
+    "selected_plan": {
+      "source_row": 69667,
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "CONTRACT_NAME": "BLUE CROSS AND BLUE SHIELD OF FLORIDA, INC.",
+        "PLAN_NAME": "BlueMedicare Select (PPO)",
+        "FORMULARY_ID": "00027047",
+        "PREMIUM": "154.40",
+        "DEDUCTIBLE": "700",
+        "MA_REGION_CODE": " ",
+        "PDP_REGION_CODE": " ",
+        "STATE": "FL",
+        "COUNTY_CODE": "10100",
+        "SNP": "0",
+        "PLAN_SUPPRESSED_YN": "N"
+      }
+    },
+    "cross_source_amount_checks": {
+      "PREMIUM": {
+        "status": "agrees",
+        "puf_raw": "154.40",
+        "landscape_field": "Part D Total Premium",
+        "landscape_raw": "$154.40 "
+      },
+      "DEDUCTIBLE": {
+        "status": "agrees",
+        "puf_raw": "700",
+        "landscape_field": "Annual Part D Deductible Amount",
+        "landscape_raw": "$700.00 "
+      }
+    }
+  },
+  "input": {
+    "ndc11": "00002143380",
+    "rxcui": null,
+    "pharmacy_npi": "1609197854"
+  },
+  "pricing": {
+    "status": "unavailable_for_2027",
+    "annual_cost": null,
+    "pharmacy_drug_price": null
+  },
+  "limits": [
+    "No 2027 drug-price feed captured; no annual/personal/actual pharmacy price",
+    "Exact proxy NDC/RxCUI rows only, no inferred therapeutic substitution",
+    "Absence in basic formulary alone does not prove noncoverage; check supplemental and indication data",
+    "Raw blank spaces, empty strings and zero are retained distinctly",
+    "NPI identity and pharmacy file status do not prove current physician network participation or purchase readiness"
+  ],
+  "source": {
+    "url": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+    "bytes": 2290695063,
+    "sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+    "path": "data-sources/raw/prescription/2027_20261008.zip",
+    "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/monthly-prescription-drug-plan-formulary-and-pharmacy-network-information",
+    "catalog_distribution": {
+      "@type": "dcat:Distribution",
+      "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+      "mediaType": "application/zip",
+      "format": "ZIP",
+      "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/ed1496ea-23e7-41f1-9292-172fa842ccfb",
+      "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information : 2026-10-15",
+      "modified": "2026-10-15",
+      "temporal": "2026-10-01/2026-10-31"
+    }
+  },
+  "source_tables": {
+    "geography": {
+      "rows": 3279,
+      "uncompressed_sha256": "27fc2feea35c14ef4178d8ce5c34765da80edc8de6312d66f3327d53af6f6644",
+      "non_ascii_bytes": {},
+      "outer_member": "geographic locator file 2027_20261031.zip",
+      "inner_member": "geographic locator file 20261031.txt",
+      "encoding": "ascii",
+      "columns": [
+        "COUNTY_CODE",
+        "STATENAME",
+        "COUNTY",
+        "MA_REGION_CODE",
+        "MA_REGION",
+        "PDP_REGION_CODE",
+        "PDP_REGION"
+      ]
+    },
+    "plan": {
+      "rows": 108263,
+      "uncompressed_sha256": "c43530c4879765e078bed4942c22e7188f70b2bb7cab62e11a71ca233d64f018",
+      "non_ascii_bytes": {
+        "211": 78,
+        "225": 6
+      },
+      "outer_member": "plan information 2027_20261031.zip",
+      "inner_member": "plan information  20261031.txt",
+      "encoding": "latin-1",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "CONTRACT_NAME",
+        "PLAN_NAME",
+        "FORMULARY_ID",
+        "PREMIUM",
+        "DEDUCTIBLE",
+        "MA_REGION_CODE",
+        "PDP_REGION_CODE",
+        "STATE",
+        "COUNTY_CODE",
+        "SNP",
+        "PLAN_SUPPRESSED_YN"
+      ]
+    },
+    "formulary": {
+      "rows": 963666,
+      "uncompressed_sha256": "e0546788078f80dbc1a13cf155d88b36aebd6ca28998bebf735ee32ac836baf1",
+      "non_ascii_bytes": {},
+      "outer_member": "basic drugs formulary file 2027_20261031.zip",
+      "inner_member": "basic drugs formulary file  20261031.txt",
+      "encoding": "ascii",
+      "columns": [
+        "FORMULARY_ID",
+        "FORMULARY_VERSION",
+        "CONTRACT_YEAR",
+        "RXCUI",
+        "NDC",
+        "TIER_LEVEL_VALUE",
+        "QUANTITY_LIMIT_YN",
+        "QUANTITY_LIMIT_AMOUNT",
+        "QUANTITY_LIMIT_DAYS",
+        "PRIOR_AUTHORIZATION_YN",
+        "STEP_THERAPY_YN",
+        "SELECTED_DRUG_YN"
+      ]
+    },
+    "beneficiary": {
+      "rows": 173613,
+      "uncompressed_sha256": "11cf39a02111b90e18bdcab02a31d55c904860921ce5086468173d87ccfac27e",
+      "non_ascii_bytes": {},
+      "outer_member": "beneficiary cost file 2027_20261031.zip",
+      "inner_member": "beneficiary cost file  20261031.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "COVERAGE_LEVEL",
+        "TIER",
+        "DAYS_SUPPLY",
+        "COST_TYPE_PREF",
+        "COST_AMT_PREF",
+        "COST_MIN_AMT_PREF",
+        "COST_MAX_AMT_PREF",
+        "COST_TYPE_NONPREF",
+        "COST_AMT_NONPREF",
+        "COST_MIN_AMT_NONPREF",
+        "COST_MAX_AMT_NONPREF",
+        "COST_TYPE_MAIL_PREF",
+        "COST_AMT_MAIL_PREF",
+        "COST_MIN_AMT_MAIL_PREF",
+        "COST_MAX_AMT_MAIL_PREF",
+        "COST_TYPE_MAIL_NONPREF",
+        "COST_AMT_MAIL_NONPREF",
+        "COST_MIN_AMT_MAIL_NONPREF",
+        "COST_MAX_AMT_MAIL_NONPREF",
+        "TIER_SPECIALTY_YN",
+        "DED_APPLIES_YN"
+      ]
+    },
+    "excluded": {
+      "rows": 14074,
+      "uncompressed_sha256": "1416fa6eedb92ff258b1e3530f7b0d4c6c52bb3a35d90039091bf6fecc11f6a8",
+      "non_ascii_bytes": {},
+      "outer_member": "excluded drugs formulary file 2027_20261031.zip",
+      "inner_member": "excluded drugs formulary file  20261031.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "RXCUI",
+        "TIER",
+        "QUANTITY_LIMIT_YN",
+        "QUANTITY_LIMIT_AMOUNT",
+        "QUANTITY_LIMIT_DAYS",
+        "PRIOR_AUTH_YN",
+        "STEP_THERAPY_YN",
+        "CAPPED_BENEFIT_YN"
+      ]
+    },
+    "indication": {
+      "rows": 112,
+      "uncompressed_sha256": "e7bf6b98c87950ede263c8836eed156a3f582164be10a0cb2c9c562fbd29476c",
+      "non_ascii_bytes": {},
+      "outer_member": "indication based coverage formulary file 2027_20261031.zip",
+      "inner_member": "Indication Based Coverage Formulary File  20261031.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "RXCUI",
+        "DISEASE"
+      ]
+    },
+    "insulin": {
+      "rows": 44855,
+      "uncompressed_sha256": "f00245f9d8dc83f6344e5f4f1bd77f77ffffe9942cb85013adcd98f85fb84000",
+      "non_ascii_bytes": {},
+      "outer_member": "insulin beneficiary cost file 2027_20261031.zip",
+      "inner_member": "insulin beneficiary cost file  20261031.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "TIER",
+        "DAYS_SUPPLY",
+        "copay_amt_pref_insln",
+        "copay_amt_nonpref_insln",
+        "copay_amt_mail_pref_insln",
+        "copay_amt_mail_nonpref_insln",
+        "coin_amt_pref_insln",
+        "coin_amt_nonpref_insln",
+        "coin_amt_mail_pref_insln",
+        "coin_amt_mail_nonpref_insln"
+      ]
+    },
+    "pharmacy_1": {
+      "rows": 54943676,
+      "uncompressed_sha256": "4b8a73bb2b9c9c13060fdb45633694e33fbd38ddb9401d89889abb94ac764bf5",
+      "non_ascii_bytes": {},
+      "outer_member": "pharmacy networks file 2027_20261031 part 1.zip",
+      "inner_member": "pharmacy networks file  20261031 part 1.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ]
+    },
+    "pharmacy_2": {
+      "rows": 54887352,
+      "uncompressed_sha256": "22f682530ec34f5ad5902335c8f28a79d43e8fbdf8e9af812a6e502b41666f87",
+      "non_ascii_bytes": {},
+      "outer_member": "pharmacy networks file 2027_20261031 part 2.zip",
+      "inner_member": "pharmacy networks file  20261031 part 2.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ]
+    },
+    "pharmacy_3": {
+      "rows": 55000000,
+      "uncompressed_sha256": "b3abbafc9a5039b223f5ad54e02c21ec8e39bef87258fd73a23970ba2c29c621",
+      "non_ascii_bytes": {},
+      "outer_member": "pharmacy networks file 2027_20261031 part 3.zip",
+      "inner_member": "pharmacy networks file  20261031 part 3.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ]
+    },
+    "pharmacy_4": {
+      "rows": 55000000,
+      "uncompressed_sha256": "a15685331265742d52a31dc20d744a2a01df27330ed711a1b6527226fb001998",
+      "non_ascii_bytes": {},
+      "outer_member": "pharmacy networks file 2027_20261031 part 4.zip",
+      "inner_member": "pharmacy networks file  20261031 part 4.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ]
+    },
+    "pharmacy_5": {
+      "rows": 55000000,
+      "uncompressed_sha256": "2e6d13658ce63dec5974eb2c2bcc9c7e10ffd208e3b452dd7aef17329138a657",
+      "non_ascii_bytes": {},
+      "outer_member": "pharmacy networks file 2027_20261031 part 5.zip",
+      "inner_member": "pharmacy networks file  20261031 part 5.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ]
+    },
+    "pharmacy_6": {
+      "rows": 32874845,
+      "uncompressed_sha256": "463bb42c9f3d19a236eb57236fe06658a089640bc5eb7fda75eacccbe70ea9f5",
+      "non_ascii_bytes": {},
+      "outer_member": "pharmacy networks file 2027_20261031 part 6.zip",
+      "inner_member": "pharmacy networks file  20261031 part 6.txt",
+      "encoding": "ascii",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ]
+    }
+  },
+  "date_discrepancy": {
+    "outer_name": "2027_20261008.zip",
+    "inner_member_date_token": "20261031",
+    "metadata_modified": "2026-10-15",
+    "disposition": "Unresolved publisher naming/date discrepancy. Do not claim data as of future October 31; use pinned October release with the distinct observed dates."
+  },
+  "status": "listed_with_source_conditions",
+  "basic_formulary": [
+    {
+      "evidence": {
+        "table": "formulary",
+        "source_row": 89216
+      },
+      "raw": {
+        "FORMULARY_ID": "00027047",
+        "FORMULARY_VERSION": "8",
+        "CONTRACT_YEAR": "2027",
+        "RXCUI": "1551300",
+        "NDC": "00002143380",
+        "TIER_LEVEL_VALUE": "3",
+        "QUANTITY_LIMIT_YN": "Y",
+        "QUANTITY_LIMIT_AMOUNT": "2",
+        "QUANTITY_LIMIT_DAYS": "28",
+        "PRIOR_AUTHORIZATION_YN": "Y",
+        "STEP_THERAPY_YN": "N",
+        "SELECTED_DRUG_YN": "N"
+      }
+    }
+  ],
+  "supplemental_and_indication_rows": {
+    "excluded": [],
+    "indication": []
+  },
+  "beneficiary_cost_rows": [
+    {
+      "evidence": {
+        "table": "beneficiary",
+        "source_row": 108186
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "COVERAGE_LEVEL": "1",
+        "TIER": "3",
+        "DAYS_SUPPLY": "1",
+        "COST_TYPE_PREF": "0",
+        "COST_AMT_PREF": "0",
+        "COST_MIN_AMT_PREF": "0",
+        "COST_MAX_AMT_PREF": "0",
+        "COST_TYPE_NONPREF": "2",
+        "COST_AMT_NONPREF": "0.19",
+        "COST_MIN_AMT_NONPREF": "0",
+        "COST_MAX_AMT_NONPREF": "0",
+        "COST_TYPE_MAIL_PREF": "0",
+        "COST_AMT_MAIL_PREF": "0",
+        "COST_MIN_AMT_MAIL_PREF": "0",
+        "COST_MAX_AMT_MAIL_PREF": "0",
+        "COST_TYPE_MAIL_NONPREF": "2",
+        "COST_AMT_MAIL_NONPREF": "0.19",
+        "COST_MIN_AMT_MAIL_NONPREF": "0",
+        "COST_MAX_AMT_MAIL_NONPREF": "0",
+        "TIER_SPECIALTY_YN": "N",
+        "DED_APPLIES_YN": "Y"
+      },
+      "cost_shares": {
+        "PREF": {
+          "raw_type": "0",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "not_offered",
+          "value": null
+        },
+        "NONPREF": {
+          "raw_type": "2",
+          "raw_amount": "0.19",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "coinsurance",
+          "unit": "fraction",
+          "value": "0.19"
+        },
+        "MAIL_PREF": {
+          "raw_type": "0",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "not_offered",
+          "value": null
+        },
+        "MAIL_NONPREF": {
+          "raw_type": "2",
+          "raw_amount": "0.19",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "coinsurance",
+          "unit": "fraction",
+          "value": "0.19"
+        }
+      }
+    },
+    {
+      "evidence": {
+        "table": "beneficiary",
+        "source_row": 108187
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "COVERAGE_LEVEL": "1",
+        "TIER": "3",
+        "DAYS_SUPPLY": "2",
+        "COST_TYPE_PREF": "0",
+        "COST_AMT_PREF": "0",
+        "COST_MIN_AMT_PREF": "0",
+        "COST_MAX_AMT_PREF": "0",
+        "COST_TYPE_NONPREF": "2",
+        "COST_AMT_NONPREF": "0.19",
+        "COST_MIN_AMT_NONPREF": "0",
+        "COST_MAX_AMT_NONPREF": "0",
+        "COST_TYPE_MAIL_PREF": "0",
+        "COST_AMT_MAIL_PREF": "0",
+        "COST_MIN_AMT_MAIL_PREF": "0",
+        "COST_MAX_AMT_MAIL_PREF": "0",
+        "COST_TYPE_MAIL_NONPREF": "2",
+        "COST_AMT_MAIL_NONPREF": "0.19",
+        "COST_MIN_AMT_MAIL_NONPREF": "0",
+        "COST_MAX_AMT_MAIL_NONPREF": "0",
+        "TIER_SPECIALTY_YN": "N",
+        "DED_APPLIES_YN": "Y"
+      },
+      "cost_shares": {
+        "PREF": {
+          "raw_type": "0",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "not_offered",
+          "value": null
+        },
+        "NONPREF": {
+          "raw_type": "2",
+          "raw_amount": "0.19",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "coinsurance",
+          "unit": "fraction",
+          "value": "0.19"
+        },
+        "MAIL_PREF": {
+          "raw_type": "0",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "not_offered",
+          "value": null
+        },
+        "MAIL_NONPREF": {
+          "raw_type": "2",
+          "raw_amount": "0.19",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "coinsurance",
+          "unit": "fraction",
+          "value": "0.19"
+        }
+      }
+    },
+    {
+      "evidence": {
+        "table": "beneficiary",
+        "source_row": 108199
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "COVERAGE_LEVEL": "3",
+        "TIER": "3",
+        "DAYS_SUPPLY": "1",
+        "COST_TYPE_PREF": "1",
+        "COST_AMT_PREF": "0",
+        "COST_MIN_AMT_PREF": "0",
+        "COST_MAX_AMT_PREF": "0",
+        "COST_TYPE_NONPREF": "1",
+        "COST_AMT_NONPREF": "0",
+        "COST_MIN_AMT_NONPREF": "0",
+        "COST_MAX_AMT_NONPREF": "0",
+        "COST_TYPE_MAIL_PREF": "1",
+        "COST_AMT_MAIL_PREF": "0",
+        "COST_MIN_AMT_MAIL_PREF": "0",
+        "COST_MAX_AMT_MAIL_PREF": "0",
+        "COST_TYPE_MAIL_NONPREF": "1",
+        "COST_AMT_MAIL_NONPREF": "0",
+        "COST_MIN_AMT_MAIL_NONPREF": "0",
+        "COST_MAX_AMT_MAIL_NONPREF": "0",
+        "TIER_SPECIALTY_YN": "N",
+        "DED_APPLIES_YN": "Y"
+      },
+      "cost_shares": {
+        "PREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "NONPREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "MAIL_PREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "MAIL_NONPREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "evidence": {
+        "table": "beneficiary",
+        "source_row": 108200
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "COVERAGE_LEVEL": "3",
+        "TIER": "3",
+        "DAYS_SUPPLY": "2",
+        "COST_TYPE_PREF": "1",
+        "COST_AMT_PREF": "0",
+        "COST_MIN_AMT_PREF": "0",
+        "COST_MAX_AMT_PREF": "0",
+        "COST_TYPE_NONPREF": "1",
+        "COST_AMT_NONPREF": "0",
+        "COST_MIN_AMT_NONPREF": "0",
+        "COST_MAX_AMT_NONPREF": "0",
+        "COST_TYPE_MAIL_PREF": "1",
+        "COST_AMT_MAIL_PREF": "0",
+        "COST_MIN_AMT_MAIL_PREF": "0",
+        "COST_MAX_AMT_MAIL_PREF": "0",
+        "COST_TYPE_MAIL_NONPREF": "1",
+        "COST_AMT_MAIL_NONPREF": "0",
+        "COST_MIN_AMT_MAIL_NONPREF": "0",
+        "COST_MAX_AMT_MAIL_NONPREF": "0",
+        "TIER_SPECIALTY_YN": "N",
+        "DED_APPLIES_YN": "Y"
+      },
+      "cost_shares": {
+        "PREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "NONPREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "MAIL_PREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "MAIL_NONPREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "evidence": {
+        "table": "beneficiary",
+        "source_row": 108201
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "COVERAGE_LEVEL": "3",
+        "TIER": "3",
+        "DAYS_SUPPLY": "4",
+        "COST_TYPE_PREF": "1",
+        "COST_AMT_PREF": "0",
+        "COST_MIN_AMT_PREF": "0",
+        "COST_MAX_AMT_PREF": "0",
+        "COST_TYPE_NONPREF": "1",
+        "COST_AMT_NONPREF": "0",
+        "COST_MIN_AMT_NONPREF": "0",
+        "COST_MAX_AMT_NONPREF": "0",
+        "COST_TYPE_MAIL_PREF": "1",
+        "COST_AMT_MAIL_PREF": "0",
+        "COST_MIN_AMT_MAIL_PREF": "0",
+        "COST_MAX_AMT_MAIL_PREF": "0",
+        "COST_TYPE_MAIL_NONPREF": "1",
+        "COST_AMT_MAIL_NONPREF": "0",
+        "COST_MIN_AMT_MAIL_NONPREF": "0",
+        "COST_MAX_AMT_MAIL_NONPREF": "0",
+        "TIER_SPECIALTY_YN": "N",
+        "DED_APPLIES_YN": "Y"
+      },
+      "cost_shares": {
+        "PREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "NONPREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "MAIL_PREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        },
+        "MAIL_NONPREF": {
+          "raw_type": "1",
+          "raw_amount": "0",
+          "raw_amount_state": "reported",
+          "raw_minimum": "0",
+          "raw_maximum": "0",
+          "status": "copay",
+          "unit": "USD",
+          "value": "0"
+        }
+      }
+    }
+  ],
+  "insulin_cost_rows": [
+    {
+      "evidence": {
+        "table": "insulin",
+        "source_row": 27065
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "TIER": "3",
+        "DAYS_SUPPLY": "1",
+        "copay_amt_pref_insln": " ",
+        "copay_amt_nonpref_insln": "35.00",
+        "copay_amt_mail_pref_insln": " ",
+        "copay_amt_mail_nonpref_insln": "35.00",
+        "coin_amt_pref_insln": " ",
+        "coin_amt_nonpref_insln": "0.19",
+        "coin_amt_mail_pref_insln": " ",
+        "coin_amt_mail_nonpref_insln": "0.19"
+      }
+    },
+    {
+      "evidence": {
+        "table": "insulin",
+        "source_row": 27066
+      },
+      "raw": {
+        "CONTRACT_ID": "H5434",
+        "PLAN_ID": "002",
+        "SEGMENT_ID": "000",
+        "TIER": "3",
+        "DAYS_SUPPLY": "2",
+        "copay_amt_pref_insln": " ",
+        "copay_amt_nonpref_insln": "105.00",
+        "copay_amt_mail_pref_insln": " ",
+        "copay_amt_mail_nonpref_insln": "105.00",
+        "coin_amt_pref_insln": " ",
+        "coin_amt_nonpref_insln": "0.19",
+        "coin_amt_mail_pref_insln": " ",
+        "coin_amt_mail_nonpref_insln": "0.19"
+      }
+    }
+  ],
+  "cost_scope": "Plan/tier/phase/days schedules only; not an individual fill or annual cost. Insulin rules require product classification and price evidence before calculation.",
+  "supplemental_lookup_status": "rxcui_checked",
+  "pharmacy": {
+    "status": "listed_in_pinned_network",
+    "rows": [
+      {
+        "evidence": {
+          "table": "pharmacy_4",
+          "source_row": 26281555
+        },
+        "raw": {
+          "CONTRACT_ID": "H5434",
+          "PLAN_ID": "002",
+          "SEGMENT_ID": "000",
+          "PHARMACY_NUMBER": "101609197854",
+          "PHARMACY_ZIPCODE": "34104",
+          "PREFERRED_STATUS_RETAIL": "N",
+          "PREFERRED_STATUS_MAIL": "N",
+          "PHARMACY_RETAIL": "Y",
+          "PHARMACY_MAIL": "N",
+          "IN_AREA_FLAG": "1",
+          "BRAND_DISPENSING_FEE_30": "1",
+          "BRAND_DISPENSING_FEE_60": "1",
+          "BRAND_DISPENSING_FEE_90": "1",
+          "GENERIC_DISPENSING_FEE_30": "1",
+          "GENERIC_DISPENSING_FEE_60": "1",
+          "GENERIC_DISPENSING_FEE_90": "1",
+          "SELECTED_DISPENSING_FEE_30": "30",
+          "SELECTED_DISPENSING_FEE_60": "30",
+          "SELECTED_DISPENSING_FEE_90": "30"
+        }
+      }
+    ]
+  },
+  "identity_confirmation": "Exact source-code lookup only; researcher must confirm medicine/strength/form/quantity/days and location; no suitability or purchase conclusion"
+}

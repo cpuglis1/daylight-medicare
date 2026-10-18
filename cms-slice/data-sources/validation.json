@@ -1,0 +1,38 @@
+{
+  "validation_id": "naples-carrier-sample-20261017-v1",
+  "release_id": "cms-2027-landscape-202609.1-pbp-pinned-20261016",
+  "year": "2027",
+  "county_fips": "12021",
+  "sampling": "Purposive sample of five source records across MA, MA-PD and PDP from one carrier. Not random, representative of all carriers, or a certification of all 70 Naples records.",
+  "artifacts": {
+    "patriot_page": {"path": "data-sources/raw/validation/patriot-page.html", "url": "https://www.floridablue.com/medicare/forms/h5434-bluemedicare-patriot-ppo", "bytes": 131333, "sha256": "cce841b974c1b2314fd5142b75f0e173eb3e54ea56da2a7d1af00e88823b716f"},
+    "select_page": {"path": "data-sources/raw/validation/select-page.html", "url": "https://www.floridablue.com/medicare/forms/h5434-bluemedicare-select-ppo", "bytes": 131569, "sha256": "e6a5c7c60991a57a154e463eb46f6e0e372ab65b6f6d0127f23df8df8a11897b"},
+    "pdp_page": {"path": "data-sources/raw/validation/premier-rx-page.html", "url": "https://www.floridablue.com/medicare/forms/s5904-bluemedicare-premier-rx", "bytes": 126204, "sha256": "d5543d32697d537f44809bdd71b7ea03d215bc8dcf86d0e38f510f1b3bbcb8b7"},
+    "patriot": {"path": "data-sources/raw/validation/patriot-2027-sb.pdf", "url": "https://files.guidewell.com/asset/ac5e8a1c-67f7-400c-988b-3b86ddf30a4c/medicare-forms-2027-sb-fbm2825.pdf", "bytes": 754210, "sha256": "40fb644703b9abed21660e3ba2a74911c1d428b86d83fe524e9127fbe58b6419", "discovery_page": "patriot_page"},
+    "select_002": {"path": "data-sources/raw/validation/select-2027-sb-2813.pdf", "url": "https://files.guidewell.com/asset/4dab57da-5457-4919-8c45-108cbb915ecf/medicare-forms-2027-sb-fbm2813.pdf", "bytes": 771464, "sha256": "dcef9370dbc5fda43f0feead57235e3ea70d655371c79f8686dd2d1232945e7a", "discovery_page": "select_page"},
+    "select_045": {"path": "data-sources/raw/validation/select-2027-sb-2814.pdf", "url": "https://files.guidewell.com/asset/f745c59f-120b-44c7-af46-e941362eeaa1/medicare-forms-2027-sb-fbm2814.pdf", "bytes": 770796, "sha256": "9702d63a225fca4e98e25adba63b6f1d442dad7de270d8fd0507e99d0239cb2d", "discovery_page": "select_page"},
+    "pdp": {"path": "data-sources/raw/validation/premier-rx-2027-sb.pdf", "url": "https://files.guidewell.com/asset/52639953-28e9-42a6-8f73-f7bad4fc4c53/medicare-forms-2027-sb-fbm2829.pdf", "bytes": 601135, "sha256": "0d9648c5678f16867de460940a530f8c2aebde3cbbc283965aa14c88a7746822", "discovery_page": "pdp_page", "columns": ["S5904-001", "S5904-002"]},
+    "monroe_negative": {"path": "data-sources/raw/validation/select-2027-sb-2815.pdf", "url": "https://files.guidewell.com/asset/83683a7a-cab3-4030-9a7e-37cb26ec8dab/medicare-forms-2027-sb-fbm2815.pdf", "bytes": 766953, "sha256": "745698ec76e3392161bc784ceac83dff0f5986605bf4c96445545ca2a13e73e3", "discovery_page": "select_page"},
+    "old_year_negative": {"path": "data-sources/raw/validation/patriot-2026-sb.pdf", "url": "https://files.guidewell.com/m/4e4f109904674f29/original/medicare-forms-2026-sb-fbm2537.pdf", "bytes": 1227368, "sha256": "db01bff15669a0f7530ddc32ba707c39b1a3930ce038bb02f4e1df1de6c29831", "discovery_page": "patriot_page"}
+  },
+  "samples": [
+    {"contract": "H5434", "plan": "002", "segment": "000", "document": "select_002"},
+    {"contract": "H5434", "plan": "045", "segment": "000", "document": "select_045"},
+    {"contract": "H5434", "plan": "042", "segment": "000", "document": "patriot"},
+    {"contract": "S5904", "plan": "001", "segment": "000", "document": "pdp"},
+    {"contract": "S5904", "plan": "002", "segment": "000", "document": "pdp"}
+  ],
+  "negative_candidates": [
+    {"contract": "H5434", "plan": "045", "segment": "000", "document": "select_002", "expected_errors": ["plan_identity_mismatch"]},
+    {"contract": "H5434", "plan": "045", "segment": "000", "document": "monroe_negative", "expected_errors": ["plan_identity_mismatch", "geography_mismatch"]},
+    {"contract": "H5434", "plan": "042", "segment": "000", "document": "old_year_negative", "expected_errors": ["benefit_year_mismatch"]}
+  ],
+  "review": {"method": "Complete cover and page 3 text inspected; all four positive page-3 tables rendered and visually checked, including PDP column order and material qualifications.", "independent_domain_signoff": "pending", "checked_on": "2026-10-17"},
+  "limits": [
+    "Only plan/year identity is printed in these carrier summaries; segment 000 remains qualified by the CMS payload join, not independently printed carrier evidence.",
+    "Published plan premiums are not personalized quotes or total Medicare costs. Part B remains a separate obligation where applicable.",
+    "Part D deductible applicability depends on tier/drug conditions; no medicine-specific conclusion follows from an annual deductible amount.",
+    "Component premium splits, ratings, enrollment capacity, Submitted status and opaque nested benefit codes are not independently validated by these summaries.",
+    "This is an engineering corroboration packet; legal/source-use approval, freshness policy and qualified domain sign-off remain open."
+  ]
+}

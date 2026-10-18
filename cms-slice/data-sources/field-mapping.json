@@ -1,0 +1,40 @@
+{
+  "version": "wp1-v1",
+  "identity": {
+    "landscape": ["Contract Year", "Contract ID", "Plan ID", "Segment ID"],
+    "pbp": ["/contractYear", "/pbp/0/contractId", "/pbp/0/planId", "/pbp/0/segmentId"],
+    "join_rule": "Validate year, contract and three-character plan ID; pad segment to three digits only for comparison. Preserve every original value and its JSON type. Join all four fields; filename alone never proves payload identity.",
+    "grain": "Landscape row: release/year/contract/plan/segment/state/county-label. PBP member in this release: one plan-segment payload; never a geographic offering."
+  },
+  "text_fields": {
+    "plan_name": "Plan Name",
+    "category": "Contract Category Type",
+    "plan_type": "Plan Type",
+    "part_d_coverage_indicator": "Part D Coverage Indicator",
+    "sanctioned_plan": "Sanctioned Plan",
+    "overall_star_rating": "Overall Star Rating"
+  },
+  "money_fields": {
+    "part_c_premium": {"column": "Part C Premium", "unit": "USD/month", "documentation": "Landscape README Note 14", "meaning": "Published Part C basic plus mandatory supplemental premium, net of rebates; not the person's complete premium obligation."},
+    "part_d_basic_premium": {"column": "Part D Basic Premium", "unit": "USD/month", "documentation": "Landscape README Note 07", "allow_negative": true, "meaning": "Published basic Part D component net of rebates. Parenthesized negatives are real source values, not invalid premiums."},
+    "part_d_supplemental_premium": {"column": "Part D Supplemental Premium", "unit": "USD/month", "documentation": "Landscape README Note 08", "meaning": "Published supplemental Part D component net of rebates."},
+    "part_d_total_premium": {"column": "Part D Total Premium", "unit": "USD/month", "documentation": "Landscape README Note 09", "meaning": "Published basic plus supplemental Part D premium, net of rebates."},
+    "consolidated_premium": {"column": "Monthly Consolidated Premium (Part C + D)", "unit": "USD/month", "documentation": "Landscape README Note 15", "meaning": "Part C plus Part D total only when both apply. Preserve Not Applicable for PDP and MA-only; do not call it zero or total Medicare cost."},
+    "annual_part_d_deductible": {"column": "Annual Part D Deductible Amount", "unit": "USD/benefit-year", "documentation": "Landscape README field list and Note 06", "meaning": "Published Part D deductible, not proof that a particular medicine is covered or subject to it."},
+    "in_network_medical_moop": {"column": "In-Network Maximum Out-of-Pocket (MOOP) Amount", "unit": "USD/benefit-year", "documentation": "Landscape README Note 16", "meaning": "Published in-network Part A/B service limit in selected HMO/HMO-POS/PPO scope. Does not cap premiums, Part D or all expenses. No PBP band is substituted."}
+  },
+  "pbp_raw_fields": {
+    "plan_name": "/pbp/0/planCharacteristics/planName",
+    "plan_type_label": "/pbp/0/planCharacteristics/planTypeLabel",
+    "employer_only": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+    "snp": "/pbp/0/planCharacteristics/isSnp",
+    "offers_rx": "/pbp/0/planCharacteristics/isOfferRx",
+    "workflow_status": "/pbp/0/status",
+    "last_updated_at": "/pbp/0/lastUpdatedAt",
+    "opaque_continuation_area_code": "/pbp/0/planCharacteristics/planCharacteristicsDetails/cmsApprovedContArea"
+  },
+  "null_policy": "Each cell keeps raw + state. Distinguish value (including zero), empty/whitespace, Not Applicable, Not Available, JSON null, absent path and rejected value. Sentinel labels are source tokens; their domain-specific reasons are not invented.",
+  "geography": "Explicit versioned county aliases verified against pinned Census file. Statewide PDP records keep source scope All Counties and exact state. No ZIP-to-county or residence eligibility claim.",
+  "uninterpreted": "PBP status Submitted is an observed workflow token, not approval/marketability. Coded nested benefits, moopLimits bands, deletion codes and timestamps remain source evidence. No undocumented benefit-code decoding or timezone conversion.",
+  "lineage": "Top-level release manifest pins archive hashes/URLs. Each cell identifies artifact, member, member hash, data-record ordinal (header=1; first data record=2) and column or JSON pointer. Ordinals are CSV records, not physical lines."
+}

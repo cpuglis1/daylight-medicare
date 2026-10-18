@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "scope": "Facilitated Collier 2027 factual research; no ranking, quote, enrollment or exact clinical network confirmation",
+  "facts": [
+    {
+      "id": "education-parts",
+      "topic": "basics",
+      "text": "Original Medicare consists of Parts A and B. Part D is prescription drug coverage, offered separately or through a Medicare Advantage plan with drug coverage.",
+      "source_id": "medicare-parts",
+      "source_sha256": "c3a910b114266bd5de6c2b5e4ee4293356c4ce6e9cb3352990daa6a5bd11dec0",
+      "support": [
+        "Original Medicare includes Part A and Part B.",
+        "Part D helps cover the cost of prescription drugs."
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending"
+    },
+    {
+      "id": "education-advantage",
+      "topic": "advantage",
+      "text": "Medicare Advantage is a private-plan alternative for receiving Medicare benefits. It usually includes drug coverage; provider networks and prior authorization may apply.",
+      "source_id": "medicare-parts",
+      "source_sha256": "c3a910b114266bd5de6c2b5e4ee4293356c4ce6e9cb3352990daa6a5bd11dec0",
+      "support": [
+        "Medicare Advantage offers an alternative to Original Medicare",
+        "prior authorization"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending"
+    },
+    {
+      "id": "education-medigap",
+      "topic": "medigap",
+      "text": "Medigap is supplemental insurance for cost sharing under Original Medicare. The demo has no personal Medigap quote or underwriting decision.",
+      "source_id": "medicare-medigap",
+      "source_sha256": "841d9c44b47b7e52220aad4f86893e0c799fe854accdf2f0fe70dbda14cb9da0",
+      "support": [
+        "extra insurance you may be able to buy",
+        "out-of-pocket costs in Original Medicare"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending"
+    },
+    {
+      "id": "education-pa",
+      "topic": "prior_authorization",
+      "text": "Prior authorization means a plan requires approval under its rules before covering certain medicines. A formulary listing does not confirm that approval for a person.",
+      "source_id": "medicare-drug-rules",
+      "source_sha256": "9bfdb56752b23570fa3888eff06adb9fa63637b0eb0dcc94cc7927149206c021",
+      "support": [
+        "Prior authorization is approval based on a plan"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending"
+    },
+    {
+      "id": "education-step",
+      "topic": "step_therapy",
+      "text": "Step therapy can require trying another listed medicine first. Your prescriber can help request an exception; this assistant does not choose substitute treatment.",
+      "source_id": "medicare-drug-rules",
+      "source_sha256": "9bfdb56752b23570fa3888eff06adb9fa63637b0eb0dcc94cc7927149206c021",
+      "support": [
+        "Step therapy is a type of prior authorization",
+        "ask for an exception to step therapy"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending"
+    },
+    {
+      "id": "education-quantity",
+      "topic": "quantity_limit",
+      "text": "A plan can restrict the amount of a medicine covered over time. The actual unit, quantity and days supply must be checked for the exact product.",
+      "source_id": "medicare-drug-rules",
+      "source_sha256": "9bfdb56752b23570fa3888eff06adb9fa63637b0eb0dcc94cc7927149206c021",
+      "support": [
+        "Plans may limit the amount of drugs they cover"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending"
+    },
+    {
+      "id": "nch-2027-change",
+      "topic": "nch",
+      "text": "NCH announces that Cigna/HealthSpring and Wellcare Medicare Advantage plans will be out of network beginning January 1, 2027. This notice concerns Medicare Advantage, not standalone drug plans.",
+      "source_id": "nch-2027-change",
+      "source_sha256": "6cbe16db603faec960e932ad6e1f1c6fecd864278a17f481f2f28548369c6275",
+      "support": [
+        "Beginning January 1, 2027, NCH will no longer accept",
+        "Cigna/HealthSpring Medicare Advantage plans and Wellcare Medicare Advantage plans."
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "effective_start": "2027-01-01",
+      "scope": "NCH announced carrier-family MA change; not an exact clinician-plan verification"
+    },
+    {
+      "id": "nch-2026-unchanged",
+      "topic": "nch",
+      "text": "NCH says the announced January 2027 change does not affect care before that effective date. Do not apply the 2027 notice to a 2026 network question.",
+      "source_id": "nch-2027-change",
+      "source_sha256": "6cbe16db603faec960e932ad6e1f1c6fecd864278a17f481f2f28548369c6275",
+      "support": [
+        "will not impact your benefits or care at NCH until January 1, 2027"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "effective_end": "2026-12-31",
+      "scope": "Timing of the announced change only"
+    },
+    {
+      "id": "nch-exact-product",
+      "topic": "nch",
+      "text": "NCH warns that a contract with an insurer does not mean every product is in network. Hospital participation also does not establish the participation of each treating clinician.",
+      "source_id": "nch-contracted-plans",
+      "source_sha256": "3c2dbfddef3b27d8b2e9a249d10699db796afc5d1d7d380a89964cf5844bfdad",
+      "support": [
+        "NCH may not be a network provider for ALL products",
+        "not ALL healthcare practitioners"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "scope": "Provider-published limitation; no plan-specific positive confirmation"
+    },
+    {
+      "id": "nch-setting",
+      "topic": "nch",
+      "text": "The NCH page lists Humana HMO and PPO for the hospital, while the medical group lists Humana PPO only. Keep the hospital and medical group separate when checking access.",
+      "source_id": "nch-contracted-plans",
+      "source_sha256": "3c2dbfddef3b27d8b2e9a249d10699db796afc5d1d7d380a89964cf5844bfdad",
+      "support": [
+        "Humana \u2013 Medicare Advantage (HMO & PPO)",
+        "Humana \u2013 Medicare Advantage (PPO ONLY)"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "scope": "Dated carrier-level directory statements, not exact product confirmation"
+    },
+    {
+      "id": "physicians-regional-check",
+      "topic": "physicians_regional",
+      "text": "Physicians Regional Medical Group publishes general insurance information and asks patients to check with their care location. That page does not verify an exact 2027 Medicare Advantage product or clinician.",
+      "source_id": "physicians-regional-group",
+      "source_sha256": "774bb322989b9be07944554f613a772f024ba1f207661ca060a8bafe599cf6f2",
+      "support": [
+        "accepts most commercial insurance plans, Medicare",
+        "contact the Physicians Regional Medical Group location"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "scope": "Medical group information only, not hospital or exact plan participation"
+    },
+    {
+      "id": "humana-217-medical",
+      "topic": "medical_benefits",
+      "text": "For Humana Gold Plus H1036-217 (HMO), the 2027 summary lists a $0 primary-care office copay and $10 specialist office copay. Referrals and prior authorization conditions may apply; exact provider access remains unverified.",
+      "source_id": "humana-217-sb",
+      "source_sha256": "23ba7d4d0bb61c2579cb9bfb67f2265d7044b8ab163dcce8bf0fb2616c0cc987",
+      "support": [
+        "Primary Care Provider (PCP)",
+        "Specialist's office: $10 copay",
+        "This plan requires prior authorization for certain"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "plan_id": "H1036-217-000-2027",
+      "pdf_page": 4,
+      "scope": "Selected in-network office-visit benefits only"
+    },
+    {
+      "id": "devoted-016-medical",
+      "topic": "medical_benefits",
+      "text": "For DEVOTED CHOICE GIVEBACK 016 FL (PPO), the 2027 summary lists in-network primary care at $0 and specialist visits at $55. Out-of-network primary care is $15 and specialist visits are $65; these facts do not verify a provider or all benefit conditions.",
+      "source_id": "devoted-016-sb",
+      "source_sha256": "f5d2098ea3dd65158c8202f8f1f8f189fa903aec1a665154b7fad9d4d210fd60",
+      "support": [
+        "(PCP): $0 copay",
+        "Specialist: $55 copay",
+        "(PCP): $15 copay",
+        "Specialist: $65 copay"
+      ],
+      "review_status": "engineering_source_check; qualified_domain_review_pending",
+      "plan_id": "H9884-016-000-2027",
+      "pdf_page": 5,
+      "scope": "Selected office-visit table; medical deductible and EOC conditions remain relevant"
+    }
+  ]
+}

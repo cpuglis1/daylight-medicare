@@ -1,0 +1,473 @@
+{
+  "release_id": "cms-2027-landscape-202609.1-pbp-pinned-20261016",
+  "artifact_hashes_verified": true,
+  "acceptance_scope": "Structural inspection and source replay only; domain/consumer publication approval remains open",
+  "landscape": {
+    "rows": 130307,
+    "literal_zero_segments": 117748,
+    "all_counties_rows": 476,
+    "columns": 53,
+    "plan_segment_keys": 5884,
+    "contract_plan_keys": 5412,
+    "offering_keys": 130307,
+    "duplicate_offering_keys": 0,
+    "category_row_counts": {
+      "PDP": 476,
+      "MA-PD": 57209,
+      "MA": 17525,
+      "SNP": 53952,
+      "Cost": 1145
+    },
+    "plan_type_row_counts": {
+      "PDP": 476,
+      "PPO": 38142,
+      "HMO": 13283,
+      "HMO D-SNP": 16806,
+      "HMO C-SNP": 4747,
+      "HMO-POS": 17026,
+      "HMO-POS D-SNP": 9148,
+      "HMO-POS C-SNP": 2560,
+      "PPO D-SNP": 7847,
+      "PPO I-SNP": 3101,
+      "PPO C-SNP": 4779,
+      "Regional PPO": 5458,
+      "HMO-POS I-SNP": 437,
+      "PFFS": 753,
+      "HMO I-SNP": 3747,
+      "Regional PPO D-SNP": 321,
+      "Regional PPO C-SNP": 459,
+      "Cost": 1145,
+      "MSA": 72
+    },
+    "empty_counts": {
+      "Overall Star Rating": 130307,
+      "Part C Summary Star Rating": 130307,
+      "Part D Summary Star Rating": 130307
+    },
+    "not_applicable_counts": {
+      "Annual Part D Deductible Amount": 18336,
+      "Chronic or Disabling Condition SNP (C-SNP) Condition Type": 117762,
+      "D-SNP Applicable Integrated Plan (AIP) Identifier": 96185,
+      "Drug Benefit Category": 18336,
+      "Drug Benefit Type": 18336,
+      "Dual Eligible SNP (D-SNP) Integration Status": 96185,
+      "Enrollment Capacity Limit Accepted": 1621,
+      "Enrollment Capacity Limit Amount": 1621,
+      "In-Network Maximum Out-of-Pocket (MOOP) Amount": 599,
+      "Low Income Premium Subsidy (LIPS) Amount": 21412,
+      "Low Income Subsidy (LIS) Auto Enrollment": 130197,
+      "MA Region": 3701,
+      "MA Region Code": 3701,
+      "Medicare Zero-Dollar Cost Sharing D-SNP": 96185,
+      "Monthly Consolidated Premium (Part C + D)": 18921,
+      "National PDP": 129831,
+      "Offers Drug Tier with No Part D Deductible": 32007,
+      "PDP Region": 129831,
+      "PDP Region Code": 129831,
+      "Part C Premium": 726,
+      "Part D Basic Premium": 18336,
+      "Part D Basic Premium At or Below Regional Benchmark": 130060,
+      "Part D LIPS (CMS Pays)": 18336,
+      "Part D Low Income Beneficiary Premium Amount": 18336,
+      "Part D Out-of-Pocket (OOP) Threshold": 18336,
+      "Part D Supplemental Premium": 18336,
+      "Part D Total Premium": 18336,
+      "SNP Institutional Type": 123022,
+      "SNP Type": 76355
+    },
+    "not_available_counts": {},
+    "negative_amount_counts": {
+      "Part D Basic Premium": 46713
+    },
+    "money_states": {
+      "part_c_premium:not_applicable": 726,
+      "part_d_basic_premium:value": 111971,
+      "part_d_supplemental_premium:value": 111971,
+      "part_d_total_premium:value": 111971,
+      "consolidated_premium:not_applicable": 18921,
+      "annual_part_d_deductible:value": 111971,
+      "in_network_medical_moop:not_applicable": 599,
+      "part_c_premium:value": 129581,
+      "consolidated_premium:value": 111386,
+      "in_network_medical_moop:value": 129708,
+      "part_d_basic_premium:not_applicable": 18336,
+      "part_d_supplemental_premium:not_applicable": 18336,
+      "part_d_total_premium:not_applicable": 18336,
+      "annual_part_d_deductible:not_applicable": 18336
+    },
+    "premium_arithmetic": {
+      "part_d_total:agrees": 111971,
+      "consolidated:not_comparable": 18921,
+      "consolidated:agrees": 111386,
+      "part_d_total:not_comparable": 18336
+    },
+    "multiple_premium_tuples_per_plan_segment": 0
+  },
+  "pbp": {
+    "members": 7969,
+    "uncompressed_bytes": 1775307420,
+    "min_member_bytes": 1667,
+    "max_member_bytes": 471019,
+    "payloads_parsed": 7969,
+    "payload_filename_identity_errors": 0,
+    "one_pbp_entry_per_member": true,
+    "observed": {
+      "pbp_only": 2086,
+      "status:Submitted": 7969,
+      "segment_json_type:int": 7969,
+      "section:MA&RX": 7969,
+      "field_state:plan_name:value": 7969,
+      "field_state:plan_type_label:value": 7969,
+      "field_state:employer_only:value": 7969,
+      "field_state:snp:value": 7969,
+      "field_state:offers_rx:value": 7036,
+      "field_state:workflow_status:value": 7969,
+      "field_state:last_updated_at:value": 7969,
+      "field_state:opaque_continuation_area_code:absent": 608,
+      "field_state:opaque_continuation_area_code:value": 7361,
+      "matched": 5883,
+      "field_state:offers_rx:not_applicable": 933
+    }
+  },
+  "join": {
+    "matched_plan_segments": 5883,
+    "landscape_without_pbp_keys": 1,
+    "landscape_without_pbp_rows": 16,
+    "pbp_only_keys": 2086,
+    "pbp_only_population": {
+      "documented_employer_exclusion": 1672,
+      "documented_national_pace_exclusion": 414
+    },
+    "pbp_only_plan_type_labels": {
+      "Employer/Union Only Direct Contract PDP": 2,
+      "National PACE": 414,
+      "HMO": 584,
+      "Local PPO": 624,
+      "HMOPOS": 121,
+      "1876 Cost": 3,
+      "PFFS": 5,
+      "MSA": 18,
+      "Regional PPO": 32,
+      "Medicare Prescription Drug Plan": 283
+    },
+    "representative_samples": {
+      "documented_employer_exclusion": [
+        {
+          "identity": {
+            "year": "2027",
+            "contract": "E3014",
+            "plan": "801",
+            "segment_join": "000"
+          },
+          "population": "documented_employer_exclusion",
+          "evidence": {
+            "artifact": "pbp",
+            "archive_sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8",
+            "member": "E3014-801-000-2027.json",
+            "member_sha256": "3f9075a633b0fef13d886b5c8168b1c283517ef1a34cdde85a4bc9a74642c837"
+          },
+          "raw_identity": {
+            "contractYear": 2027,
+            "contractId": "E3014",
+            "planId": "801",
+            "segmentId": 0
+          },
+          "source_facts": {
+            "planName": {
+              "raw": "PSERS Health Options Program Plus (Employer PDP)",
+              "state": "value",
+              "value": "PSERS Health Options Program Plus (Employer PDP)"
+            },
+            "isEmployerOnlyPlan": {
+              "raw": "Yes",
+              "state": "value",
+              "value": "Yes"
+            },
+            "planTypeLabel": {
+              "raw": "Employer/Union Only Direct Contract PDP",
+              "state": "value",
+              "value": "Employer/Union Only Direct Contract PDP"
+            }
+          },
+          "paths": {
+            "planName": "/pbp/0/planCharacteristics/planName",
+            "isEmployerOnlyPlan": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+            "planTypeLabel": "/pbp/0/planCharacteristics/planTypeLabel"
+          }
+        },
+        {
+          "identity": {
+            "year": "2027",
+            "contract": "E3014",
+            "plan": "802",
+            "segment_join": "000"
+          },
+          "population": "documented_employer_exclusion",
+          "evidence": {
+            "artifact": "pbp",
+            "archive_sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8",
+            "member": "E3014-802-000-2027.json",
+            "member_sha256": "d6387a8211abc0da4e5b8e007b04bd7d5936b6a3f7a699ae273c16f352d3dd38"
+          },
+          "raw_identity": {
+            "contractYear": 2027,
+            "contractId": "E3014",
+            "planId": "802",
+            "segmentId": 0
+          },
+          "source_facts": {
+            "planName": {
+              "raw": "PSERS Health Options Program Standard (Employer PDP)",
+              "state": "value",
+              "value": "PSERS Health Options Program Standard (Employer PDP)"
+            },
+            "isEmployerOnlyPlan": {
+              "raw": "Yes",
+              "state": "value",
+              "value": "Yes"
+            },
+            "planTypeLabel": {
+              "raw": "Employer/Union Only Direct Contract PDP",
+              "state": "value",
+              "value": "Employer/Union Only Direct Contract PDP"
+            }
+          },
+          "paths": {
+            "planName": "/pbp/0/planCharacteristics/planName",
+            "isEmployerOnlyPlan": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+            "planTypeLabel": "/pbp/0/planCharacteristics/planTypeLabel"
+          }
+        },
+        {
+          "identity": {
+            "year": "2027",
+            "contract": "H0028",
+            "plan": "801",
+            "segment_join": "000"
+          },
+          "population": "documented_employer_exclusion",
+          "evidence": {
+            "artifact": "pbp",
+            "archive_sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8",
+            "member": "H0028-801-000-2027.json",
+            "member_sha256": "13aa6e4a90abfe7fc18a615209dd580ecbc30b14c0c48a1a5b0a86a2d513c0f6"
+          },
+          "raw_identity": {
+            "contractYear": 2027,
+            "contractId": "H0028",
+            "planId": "801",
+            "segmentId": 0
+          },
+          "source_facts": {
+            "planName": {
+              "raw": "Humana Medicare Employer (HMO)",
+              "state": "value",
+              "value": "Humana Medicare Employer (HMO)"
+            },
+            "isEmployerOnlyPlan": {
+              "raw": "Yes",
+              "state": "value",
+              "value": "Yes"
+            },
+            "planTypeLabel": {
+              "raw": "HMO",
+              "state": "value",
+              "value": "HMO"
+            }
+          },
+          "paths": {
+            "planName": "/pbp/0/planCharacteristics/planName",
+            "isEmployerOnlyPlan": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+            "planTypeLabel": "/pbp/0/planCharacteristics/planTypeLabel"
+          }
+        }
+      ],
+      "documented_national_pace_exclusion": [
+        {
+          "identity": {
+            "year": "2027",
+            "contract": "H0016",
+            "plan": "001",
+            "segment_join": "000"
+          },
+          "population": "documented_national_pace_exclusion",
+          "evidence": {
+            "artifact": "pbp",
+            "archive_sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8",
+            "member": "H0016-001-000-2027.json",
+            "member_sha256": "d10b7bf9d14dbe758fba6c3ce7ee8538e4d907fd4c901d5b37837761b2bd591f"
+          },
+          "raw_identity": {
+            "contractYear": 2027,
+            "contractId": "H0016",
+            "planId": "001",
+            "segmentId": 0
+          },
+          "source_facts": {
+            "planName": {
+              "raw": "Life Coordinated Commonwealth Pace (PACE)",
+              "state": "value",
+              "value": "Life Coordinated Commonwealth Pace (PACE)"
+            },
+            "isEmployerOnlyPlan": {
+              "raw": "No",
+              "state": "value",
+              "value": "No"
+            },
+            "planTypeLabel": {
+              "raw": "National PACE",
+              "state": "value",
+              "value": "National PACE"
+            }
+          },
+          "paths": {
+            "planName": "/pbp/0/planCharacteristics/planName",
+            "isEmployerOnlyPlan": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+            "planTypeLabel": "/pbp/0/planCharacteristics/planTypeLabel"
+          }
+        },
+        {
+          "identity": {
+            "year": "2027",
+            "contract": "H0016",
+            "plan": "003",
+            "segment_join": "000"
+          },
+          "population": "documented_national_pace_exclusion",
+          "evidence": {
+            "artifact": "pbp",
+            "archive_sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8",
+            "member": "H0016-003-000-2027.json",
+            "member_sha256": "f77edbca34b189a125946e111abc49dd7c1f2c9b7a4b370388420c8783f5450d"
+          },
+          "raw_identity": {
+            "contractYear": 2027,
+            "contractId": "H0016",
+            "planId": "003",
+            "segmentId": 0
+          },
+          "source_facts": {
+            "planName": {
+              "raw": "Life Coordinated Commonwealth Pace_Medicare Only (PACE)",
+              "state": "value",
+              "value": "Life Coordinated Commonwealth Pace_Medicare Only (PACE)"
+            },
+            "isEmployerOnlyPlan": {
+              "raw": "No",
+              "state": "value",
+              "value": "No"
+            },
+            "planTypeLabel": {
+              "raw": "National PACE",
+              "state": "value",
+              "value": "National PACE"
+            }
+          },
+          "paths": {
+            "planName": "/pbp/0/planCharacteristics/planName",
+            "isEmployerOnlyPlan": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+            "planTypeLabel": "/pbp/0/planCharacteristics/planTypeLabel"
+          }
+        },
+        {
+          "identity": {
+            "year": "2027",
+            "contract": "H0105",
+            "plan": "001",
+            "segment_join": "000"
+          },
+          "population": "documented_national_pace_exclusion",
+          "evidence": {
+            "artifact": "pbp",
+            "archive_sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8",
+            "member": "H0105-001-000-2027.json",
+            "member_sha256": "1cf1f529d44fd2d3fcd10bd3635f6cc6d296b6539b88669fb1441a4a41c088af"
+          },
+          "raw_identity": {
+            "contractYear": 2027,
+            "contractId": "H0105",
+            "planId": "001",
+            "segmentId": 0
+          },
+          "source_facts": {
+            "planName": {
+              "raw": "Orangeburg Senior Helping Center (PACE)",
+              "state": "value",
+              "value": "Orangeburg Senior Helping Center (PACE)"
+            },
+            "isEmployerOnlyPlan": {
+              "raw": "No",
+              "state": "value",
+              "value": "No"
+            },
+            "planTypeLabel": {
+              "raw": "National PACE",
+              "state": "value",
+              "value": "National PACE"
+            }
+          },
+          "paths": {
+            "planName": "/pbp/0/planCharacteristics/planName",
+            "isEmployerOnlyPlan": "/pbp/0/planCharacteristics/isEmployerOnlyPlan",
+            "planTypeLabel": "/pbp/0/planCharacteristics/planTypeLabel"
+          }
+        }
+      ]
+    },
+    "plan_name_conflicts": [],
+    "missing_identity_investigation": [
+      {
+        "expected_member": "H3931-143-000-2027.json",
+        "affected_landscape_records": [
+          116821,
+          117087,
+          118116,
+          118728,
+          118776,
+          118833,
+          118880,
+          119162,
+          119217,
+          120569,
+          120821,
+          121655,
+          122194,
+          122367,
+          123075,
+          123132
+        ],
+        "related_contract_members": [
+          "H3931-094-000-2027.json",
+          "H3931-095-000-2027.json",
+          "H3931-099-000-2027.json",
+          "H3931-100-000-2027.json",
+          "H3931-101-000-2027.json",
+          "H3931-151-000-2027.json",
+          "H3931-157-000-2027.json",
+          "H3931-158-000-2027.json",
+          "H3931-160-000-2027.json",
+          "H3931-162-000-2027.json",
+          "H3931-175-000-2027.json",
+          "H3931-190-000-2027.json",
+          "H3931-191-000-2027.json",
+          "H3931-196-000-2027.json",
+          "H3931-197-000-2027.json",
+          "H3931-198-000-2027.json",
+          "H3931-801-000-2027.json",
+          "H3931-804-000-2027.json",
+          "H3931-808-000-2027.json"
+        ],
+        "same_contract_plan_other_segment_or_year": [],
+        "interpretation": "Not a filename-padding or payload-identity mismatch. Cause of source absence remains unconfirmed; do not substitute a different plan."
+      }
+    ]
+  },
+  "rejected_values_or_arithmetic_conflicts": [],
+  "known_gaps": [
+    "H3931-143-000-2027 has no PBP payload in this archive; root cause unconfirmed",
+    "Submitted status and nested benefit-code meanings are not independently documented here",
+    "No independent Medicare Plan Finder/carrier value cross-check or domain sign-off completed",
+    "Only 3 county aliases are resolved; no national geography certification",
+    "Public downloads are not a complete display/LLM/retention rights assessment or operating approval"
+  ]
+}

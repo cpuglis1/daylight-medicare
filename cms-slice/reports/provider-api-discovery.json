@@ -1,0 +1,129 @@
+{
+  "status": "discovery_only_no_2027_network_confirmation",
+  "queries": [
+    {
+      "query_name": "DEVOTED CHOICE GIVEBACK 016 FL",
+      "returned": 0,
+      "evidence": {
+        "id": "npd-plan-8c686c58892a",
+        "requested_url": "https://directory.cms.gov/fhir/InsurancePlan?name=DEVOTED+CHOICE+GIVEBACK+016+FL&_count=100",
+        "sha256": "77236f7a6ef59167e2bdaadfcc42bfb92a7ce8013064d21847e43d402b99709e",
+        "retrieved_at_utc": "2026-10-18T02:26:19.292978+00:00",
+        "review_after_utc": "2026-10-25T02:26:19.292978+00:00",
+        "freshness": "within_review_window"
+      },
+      "plans": []
+    },
+    {
+      "query_name": "Humana Gold Plus",
+      "returned": 0,
+      "evidence": {
+        "id": "npd-plan-9a89feeea43f",
+        "requested_url": "https://directory.cms.gov/fhir/InsurancePlan?name=Humana+Gold+Plus&_count=100",
+        "sha256": "77236f7a6ef59167e2bdaadfcc42bfb92a7ce8013064d21847e43d402b99709e",
+        "retrieved_at_utc": "2026-10-18T02:26:19.491555+00:00",
+        "review_after_utc": "2026-10-25T02:26:19.491555+00:00",
+        "freshness": "within_review_window"
+      },
+      "plans": []
+    },
+    {
+      "query_name": "BlueMedicare Select",
+      "returned": 0,
+      "evidence": {
+        "id": "npd-plan-768e925416c1",
+        "requested_url": "https://directory.cms.gov/fhir/InsurancePlan?name=BlueMedicare+Select&_count=100",
+        "sha256": "77236f7a6ef59167e2bdaadfcc42bfb92a7ce8013064d21847e43d402b99709e",
+        "retrieved_at_utc": "2026-10-18T02:26:19.683142+00:00",
+        "review_after_utc": "2026-10-25T02:26:19.683142+00:00",
+        "freshness": "within_review_window"
+      },
+      "plans": []
+    },
+    {
+      "query_name": "AARP Medicare Advantage",
+      "returned": 0,
+      "evidence": {
+        "id": "npd-plan-e963ee20c00c",
+        "requested_url": "https://directory.cms.gov/fhir/InsurancePlan?name=AARP+Medicare+Advantage&_count=100",
+        "sha256": "77236f7a6ef59167e2bdaadfcc42bfb92a7ce8013064d21847e43d402b99709e",
+        "retrieved_at_utc": "2026-10-18T02:26:19.935299+00:00",
+        "review_after_utc": "2026-10-25T02:26:19.935299+00:00",
+        "freshness": "within_review_window"
+      },
+      "plans": []
+    },
+    {
+      "query_name": "Aetna Medicare Signature",
+      "returned": 0,
+      "evidence": {
+        "id": "npd-plan-e372868a1044",
+        "requested_url": "https://directory.cms.gov/fhir/InsurancePlan?name=Aetna+Medicare+Signature&_count=100",
+        "sha256": "77236f7a6ef59167e2bdaadfcc42bfb92a7ce8013064d21847e43d402b99709e",
+        "retrieved_at_utc": "2026-10-18T02:26:20.125611+00:00",
+        "review_after_utc": "2026-10-25T02:26:20.125611+00:00",
+        "freshness": "within_review_window"
+      },
+      "plans": []
+    }
+  ],
+  "limits": [
+    "No result is not out of network",
+    "A 2026 period cannot prove 2027 participation",
+    "FHIR capability support is not evidence of complete or correct plan coverage"
+  ],
+  "positive_control": {
+    "actual_sample_name": "DEVOTED CORE 020 AZ (HMO)",
+    "returned": 0,
+    "evidence": {
+      "id": "npd-positive-control",
+      "requested_url": "https://directory.cms.gov/fhir/InsurancePlan?name=DEVOTED+CORE+020+AZ+%28HMO%29&_count=10",
+      "sha256": "77236f7a6ef59167e2bdaadfcc42bfb92a7ce8013064d21847e43d402b99709e",
+      "retrieved_at_utc": "2026-10-18T02:27:34.766926+00:00",
+      "review_after_utc": "2026-10-25T02:27:34.766926+00:00",
+      "freshness": "within_review_window"
+    }
+  },
+  "sample_years": [
+    {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-12-31T00:00:00Z"
+    },
+    {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-12-31T00:00:00Z"
+    }
+  ],
+  "sample_name_type_conflict": {
+    "name": "DEVOTED CORE 020 AZ (HMO)",
+    "type": [
+      {
+        "text": "Medicare Advantage PPO Plan"
+      }
+    ],
+    "disposition": "HMO in name versus PPO type text; do not infer network structure from this sample"
+  },
+  "medicare_gov_physician_probe": {
+    "observed_at_utc": "2026-10-18T02:39:58.774341+00:00",
+    "coverage_year": "2027",
+    "source_url": "https://www.medicare.gov/plan-compare/#/providers?plan_type=PLAN_TYPE_MAPD&fips=12021&zip=34102&lang=en&year=2027&page=1",
+    "public_reference_scenario_only": true,
+    "registry_npi": "1891082467",
+    "registry_name": "Aschanti Abarca Selva",
+    "registry_reported_location": "1735 SW HEALTH PKWY STE 201, NAPLES FL 34109",
+    "queries": [
+      {
+        "first_name": "Aschanti",
+        "last_name": "Abarca",
+        "result_text": "No providers found. Showing 0 results for Aschanti Abarca."
+      },
+      {
+        "first_name": "Aschanti",
+        "last_name": "Abarca Selva",
+        "result_text": "No providers found. Showing 0 results for Aschanti Abarca Selva."
+      }
+    ],
+    "conclusion": "Identity exists in NPPES but exact 2027 plan/location participation remains unresolved; no-result is not out-of-network",
+    "participant_relationship_to_provider": "none; public engineering example"
+  }
+}

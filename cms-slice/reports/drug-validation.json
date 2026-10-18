@@ -1,0 +1,613 @@
+{
+  "benefit_year": "2027",
+  "county_fips": "12021",
+  "formulary_id": "00027047",
+  "plan_ids": [
+    "H5434-002-000-2027",
+    "H5434-045-000-2027"
+  ],
+  "carrier_source": {
+    "url": "https://files.guidewell.com/asset/aece76d0-71bb-4563-ab8c-47ce4a79ef7a/medicare-forms-2027-comprehensive-formulary-fbm2836.pdf",
+    "bytes": 11121653,
+    "sha256": "1e901aa4c9a202a88f2dfacc5a67feeca3f699e0418a96fd78587c0432708e83",
+    "path": "data-sources/raw/prescription/carrier-formulary-2027.pdf"
+  },
+  "visual_review": "PDF pages 62, 63, 64, 65 and 67 rendered and inspected on 2026-10-18 UTC; engineering transcription, qualified review pending",
+  "product_cases": 9,
+  "check_status_counts": {
+    "agrees": 45
+  },
+  "source_replay": {
+    "status": "all_selected_raw_cells_replayed",
+    "rows": 9,
+    "source_ordinals": [
+      89216,
+      89263,
+      89264,
+      89484,
+      90003,
+      90004,
+      91109,
+      91858,
+      91860
+    ],
+    "nested_sha256": "cb893602f835bfe119687935a217af14d9f5453415be784b9066c9fe3b4dc97b"
+  },
+  "cases": [
+    {
+      "rxcui": "1551300",
+      "query": "trulicity",
+      "vocabulary_name": "0.5 ML dulaglutide 1.5 MG/ML Auto-Injector [Trulicity]",
+      "pdf_page": 64,
+      "row_name": "TRULICITY - dulaglutide soln auto-injector 0.75 mg/0.5ml",
+      "vocabulary_source": {
+        "id": "rxnorm-4ae7432cdeece9e9",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=trulicity",
+        "sha256": "91a0845d858224254077e2ee088f1a6e978a4027e8047cd9529086235d73e126",
+        "retrieved_at_utc": "2026-10-18T02:09:37.317726+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.317726+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "3",
+        "prior_authorization_marked": "Y",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "4",
+        "quantity_unit": "pens",
+        "days": "28",
+        "raw_line": "TRULICITY - dulaglutide soln auto-injector 0.75 mg/0.5ml                3          PA, QL (4 pens/28 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 89216
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "1551300",
+            "NDC": "00002143380",
+            "TIER_LEVEL_VALUE": "3",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "2",
+            "QUANTITY_LIMIT_DAYS": "28",
+            "PRIOR_AUTHORIZATION_YN": "Y",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "N"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "2",
+            "cms_unit": null,
+            "carrier_amount": "4",
+            "carrier_unit": "pens",
+            "numeric_amounts_equal": false,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "1364441",
+      "query": "eliquis",
+      "vocabulary_name": "apixaban 2.5 MG Oral Tablet [Eliquis]",
+      "pdf_page": 65,
+      "row_name": "ELIQUIS - apixaban tab 2.5 mg",
+      "vocabulary_source": {
+        "id": "rxnorm-d59ef37d3d471a5c",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=eliquis",
+        "sha256": "9422ec9c85d1aacfb7ef992f2da03d6399e94315a93fb0bd2f0e10fa349694a7",
+        "retrieved_at_utc": "2026-10-18T02:09:37.743800+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.743800+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "3",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "60",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "ELIQUIS - apixaban tab 2.5 mg                                          3            QL (60 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 89263
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "1364441",
+            "NDC": "00003089321",
+            "TIER_LEVEL_VALUE": "3",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "60",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "Y"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "60",
+            "cms_unit": null,
+            "carrier_amount": "60",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "1364447",
+      "query": "eliquis",
+      "vocabulary_name": "apixaban 5 MG Oral Tablet [Eliquis]",
+      "pdf_page": 65,
+      "row_name": "ELIQUIS - apixaban tab 5 mg",
+      "vocabulary_source": {
+        "id": "rxnorm-d59ef37d3d471a5c",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=eliquis",
+        "sha256": "9422ec9c85d1aacfb7ef992f2da03d6399e94315a93fb0bd2f0e10fa349694a7",
+        "retrieved_at_utc": "2026-10-18T02:09:37.743800+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.743800+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "3",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "74",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "ELIQUIS - apixaban tab 5 mg                                             3           QL (74 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 89264
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "1364447",
+            "NDC": "00003089421",
+            "TIER_LEVEL_VALUE": "3",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "74",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "Y"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "74",
+            "cms_unit": null,
+            "carrier_amount": "74",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "1545664",
+      "query": "jardiance",
+      "vocabulary_name": "empagliflozin 10 MG Oral Tablet [Jardiance]",
+      "pdf_page": 62,
+      "row_name": "JARDIANCE - empagliflozin tab 10 mg",
+      "vocabulary_source": {
+        "id": "rxnorm-faa31748c9b6ea27",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=jardiance",
+        "sha256": "b9af16142c1ec9b44f8cd652bdcec2b24686d6f558da98e70b10096784dd8977",
+        "retrieved_at_utc": "2026-10-18T02:09:37.925985+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.925985+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "3",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "30",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "JARDIANCE - empagliflozin tab 10 mg                                     3           QL (30 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 90003
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "1545664",
+            "NDC": "00597015230",
+            "TIER_LEVEL_VALUE": "3",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "30",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "Y"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "30",
+            "cms_unit": null,
+            "carrier_amount": "30",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "1545668",
+      "query": "jardiance",
+      "vocabulary_name": "empagliflozin 25 MG Oral Tablet [Jardiance]",
+      "pdf_page": 62,
+      "row_name": "JARDIANCE - empagliflozin tab 25 mg",
+      "vocabulary_source": {
+        "id": "rxnorm-faa31748c9b6ea27",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=jardiance",
+        "sha256": "b9af16142c1ec9b44f8cd652bdcec2b24686d6f558da98e70b10096784dd8977",
+        "retrieved_at_utc": "2026-10-18T02:09:37.925985+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.925985+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "3",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "30",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "JARDIANCE - empagliflozin tab 25 mg                                     3           QL (30 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 90004
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "1545668",
+            "NDC": "00597015330",
+            "TIER_LEVEL_VALUE": "3",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "30",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "Y"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "30",
+            "cms_unit": null,
+            "carrier_amount": "30",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "861007",
+      "query": "metformin",
+      "vocabulary_name": "metformin hydrochloride 500 MG Oral Tablet",
+      "pdf_page": 63,
+      "row_name": "metformin hcl tab 500 mg",
+      "vocabulary_source": {
+        "id": "rxnorm-1f395089f357f5e6",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=metformin",
+        "sha256": "7995f10c293d2302adc4f0895c8a8000f175cf0a9890d30c9f49511c1cb603fe",
+        "retrieved_at_utc": "2026-10-18T02:09:37.546014+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.546014+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "6",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "150",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "metformin hcl tab 500 mg                                                6          QL (150 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 91858
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "861007",
+            "NDC": "70010006310",
+            "TIER_LEVEL_VALUE": "6",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "150",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "N"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "150",
+            "cms_unit": null,
+            "carrier_amount": "150",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "860975",
+      "query": "metformin",
+      "vocabulary_name": "24 HR metformin hydrochloride 500 MG Extended Release Oral Tablet",
+      "pdf_page": 63,
+      "row_name": "metformin hcl tab er 24hr 500 mg",
+      "vocabulary_source": {
+        "id": "rxnorm-1f395089f357f5e6",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=metformin",
+        "sha256": "7995f10c293d2302adc4f0895c8a8000f175cf0a9890d30c9f49511c1cb603fe",
+        "retrieved_at_utc": "2026-10-18T02:09:37.546014+00:00",
+        "review_after_utc": "2026-10-25T02:09:37.546014+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "6",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "120",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "metformin hcl tab er 24hr 500 mg                                        6          QL (120 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 91860
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "860975",
+            "NDC": "70010049105",
+            "TIER_LEVEL_VALUE": "6",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "120",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "N"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "120",
+            "cms_unit": null,
+            "carrier_amount": "120",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "617312",
+      "query": "atorvastatin",
+      "vocabulary_name": "atorvastatin 10 MG Oral Tablet",
+      "pdf_page": 67,
+      "row_name": "atorvastatin calcium tab 10 mg (base equivalent)",
+      "vocabulary_source": {
+        "id": "rxnorm-eeca1269bf95ff47",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=atorvastatin",
+        "sha256": "e552f7288809e38bd8d876749e7e8dbeac3e1ac663b07c433f543e3ede7b92ed",
+        "retrieved_at_utc": "2026-10-18T02:09:38.121361+00:00",
+        "review_after_utc": "2026-10-25T02:09:38.121361+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "6",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "45",
+        "quantity_unit": "tablets",
+        "days": "30",
+        "raw_line": "atorvastatin calcium tab 10 mg (base equivalent)                        6           QL (45 tablets/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 91109
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "617312",
+            "NDC": "60505257808",
+            "TIER_LEVEL_VALUE": "6",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "45",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "N"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "45",
+            "cms_unit": null,
+            "carrier_amount": "45",
+            "carrier_unit": "tablets",
+            "numeric_amounts_equal": true,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    },
+    {
+      "rxcui": "285018",
+      "query": "lantus",
+      "vocabulary_name": "insulin glargine 100 UNT/ML Injectable Solution [Lantus]",
+      "pdf_page": 62,
+      "row_name": "LANTUS - insulin glargine inj 100 unit/ml",
+      "vocabulary_source": {
+        "id": "rxnorm-2ebd4a56ef3349c9",
+        "requested_url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=lantus",
+        "sha256": "9248cc6db6ce14df4ae1c3932d13db8dcdadfb0dd56d285a44f928b6731e44a3",
+        "retrieved_at_utc": "2026-10-18T02:09:38.298676+00:00",
+        "review_after_utc": "2026-10-25T02:09:38.298676+00:00",
+        "freshness": "within_review_window"
+      },
+      "carrier": {
+        "tier": "3",
+        "prior_authorization_marked": "N",
+        "step_therapy_marked": "N",
+        "quantity_limit_marked": "Y",
+        "quantity": "6",
+        "quantity_unit": "vials",
+        "days": "30",
+        "raw_line": "LANTUS - insulin glargine inj 100 unit/ml                               3            QL (6 vials/30 days)",
+        "meaning": "Symbols printed for this product row, not clinical approval or an exhaustive coverage decision"
+      },
+      "cms_rows": [
+        {
+          "evidence": {
+            "table": "formulary",
+            "source_row": 89484
+          },
+          "raw": {
+            "FORMULARY_ID": "00027047",
+            "FORMULARY_VERSION": "8",
+            "CONTRACT_YEAR": "2027",
+            "RXCUI": "285018",
+            "NDC": "00088222033",
+            "TIER_LEVEL_VALUE": "3",
+            "QUANTITY_LIMIT_YN": "Y",
+            "QUANTITY_LIMIT_AMOUNT": "60",
+            "QUANTITY_LIMIT_DAYS": "30",
+            "PRIOR_AUTHORIZATION_YN": "N",
+            "STEP_THERAPY_YN": "N",
+            "SELECTED_DRUG_YN": "N"
+          },
+          "checks": {
+            "tier": "agrees",
+            "prior_authorization_marked": "agrees",
+            "step_therapy_marked": "agrees",
+            "quantity_limit_marked": "agrees",
+            "days": "agrees"
+          },
+          "quantity_comparison": {
+            "cms_raw_amount": "60",
+            "cms_unit": null,
+            "carrier_amount": "6",
+            "carrier_unit": "vials",
+            "numeric_amounts_equal": false,
+            "status": "unit_unresolved_no_conversion_or_quantity_acceptance"
+          }
+        }
+      ]
+    }
+  ],
+  "domain_signoff": "pending",
+  "live_personal_prices": "unavailable",
+  "limits": [
+    "One carrier/formulary only; no extrapolation to other products, formularies or complete plan coverage",
+    "Tier/PA/ST/QL/days symbols only; no authorization criteria, positive step-therapy sample or independent noncoverage decision",
+    "The PDF does not print NDCs; NLM connects selected RxCUI identity, not package interchangeability",
+    "All raw quantity units remain unresolved, even when the numbers happen to match"
+  ]
+}

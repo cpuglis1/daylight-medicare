@@ -1,0 +1,25 @@
+{
+  "mapping_version": "explicit-county-aliases-v2-naples",
+  "method": "Manually inspected exact Census USPS/GEOID/NAME to exact CMS state/county labels. No national suffix stripping, fuzzy match or ZIP inference. A named-city request requires separately cited city-to-county confirmation.",
+  "markets": {
+    "36061": {"state": "NY", "census_name": "New York County", "landscape_county": "New York"},
+    "51179": {"state": "VA", "census_name": "Stafford County", "landscape_county": "Stafford"},
+    "12021": {
+      "state": "FL", "census_name": "Collier County", "landscape_county": "Collier",
+      "requested_place": "City of Naples, FL",
+      "place_to_county_evidence": {
+        "url": "https://www.naplesgov.com/codeenforcement",
+        "checked_on": "2026-10-17",
+        "observation": "The city's official page locates the City of Naples in Collier County.",
+        "limitation": "This county query does not establish a person's residence from a postal city or ZIP."
+      }
+    }
+  },
+  "full_payload_exports": ["12021"],
+  "scope": {
+    "categories": ["MA", "MA-PD", "PDP"],
+    "plan_types": ["HMO", "HMO-POS", "PPO", "PDP"],
+    "all_counties_rule": "Include exact-state All Counties rows only when category and plan type are PDP. This release has 476 such rows, all PDP. Preserve All Counties as source scope; do not rewrite it to a county offering.",
+    "purpose": "Read-only source experiment. Not a launch approval, eligibility assessment, personalized ranking, quote or enrollment list."
+  }
+}

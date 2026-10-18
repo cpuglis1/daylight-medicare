@@ -1,0 +1,130 @@
+{
+  "audit_date": "2026-10-17",
+  "scope": "Read-only implementation/data/integration review; application source code unchanged",
+  "runtime": "Python 3.14.7",
+  "test_run": {
+    "command": "python3 -m unittest discover -s tests -v",
+    "working_directory": "cms-slice",
+    "tests": 58,
+    "seconds": 31.227,
+    "result": "passed"
+  },
+  "verifiers": {
+    "python3 scripts/cms_slice.py verify": "passed",
+    "python3 scripts/research.py verify": "passed",
+    "python3 scripts/prescription.py verify": "passed",
+    "python3 scripts/reference_evidence.py verify": "passed"
+  },
+  "original_bundle": {
+    "files_checked": 44,
+    "size_or_hash_failures": []
+  },
+  "naples": {
+    "benefit_year": "2027",
+    "county_fips": "12021",
+    "source_records": 70,
+    "comparison_records": 38,
+    "included_categories": {
+      "MA-PD": 20,
+      "MA": 7,
+      "PDP": 11
+    },
+    "included_parent_organizations": 8,
+    "excluded_records": 32,
+    "excluded_snp_records": 27,
+    "excluded_non_snp_regional_ppo_records": 5,
+    "all_part_d_matches": 61,
+    "in_scope_part_d_matches": 31,
+    "carrier_checked_records": 5,
+    "carrier_checked_monetary_facts": 12,
+    "carrier_sample_parent_organizations": 1
+  },
+  "local_benchmark": {
+    "medicine_rxcui": "1551300",
+    "pharmacy_npi": "1609197854",
+    "single_plan_id": "H5434-002-000-2027",
+    "single_plan_seconds": [
+      0.198,
+      0.192,
+      0.193
+    ],
+    "serial_31_plan_seconds": 5.91,
+    "representative_response_json_bytes": 21334,
+    "catalog_file_bytes": 944235,
+    "limits": "Local machine, public example, no model/network latency; not a production benchmark"
+  },
+  "reproduced_findings": [
+    {
+      "id": "alternate_cache_verification",
+      "location": "scripts/prescription.py:440",
+      "method": "Copy the five non-network captures to a temporary cache; change PRIOR_AUTHORIZATION_YN from Y to N for formulary 00027047 / NDC 00002143380; run prescription.py query --plan H5434-002-000-2027 --ndc 00002143380 --cache TEMP --out TEMP/response.json",
+      "changed_real_rows": 1,
+      "cli_exit_code": 0,
+      "returned_prior_authorization": "N",
+      "default_cache_unchanged": true,
+      "cause": "verify(config) uses default cache; query uses args.cache",
+      "limits": "This does not demonstrate bypass of the normal HTTP wrapper's capture checks"
+    },
+    {
+      "id": "ma_only_with_pharmacy",
+      "location": "scripts/research.py:167",
+      "plan_id": "H5434-042-000-2027",
+      "medicine_rxcui": "1551300",
+      "without_pharmacy": "not_applicable_non_part_d",
+      "with_pharmacy_npi": "1609197854",
+      "with_pharmacy_result": "SourceError: Prescription capture unavailable/changed; rebuild and review",
+      "cause": "Wrapper requires pharmacy capture before testing source applicability"
+    }
+  ],
+  "public_provider_directory_probe": {
+    "documentation": "https://directory.cms.gov/developers",
+    "capability_url": "https://directory.cms.gov/fhir/metadata",
+    "http_status": 200,
+    "resource_type": "CapabilityStatement",
+    "fhir_version": "4.0.1",
+    "resource_types": [
+      "Endpoint",
+      "HealthcareService",
+      "InsurancePlan",
+      "Location",
+      "Organization",
+      "OrganizationAffiliation",
+      "Practitioner",
+      "PractitionerRole"
+    ],
+    "sample_insurance_plan_query": "https://directory.cms.gov/fhir/InsurancePlan?_count=1",
+    "sample_insurance_plan_entries": 1,
+    "sample_insurance_plan_has_direct_identifier": false,
+    "location_query_returned_one_resource": true,
+    "limits": "No exact Collier 2027 plan/network mapping, search-filter correctness, clinical participation, or completeness established"
+  },
+  "repository_boundary": {
+    "git_top_level": "/Users/cep4u",
+    "project_has_dedicated_repository": false
+  },
+  "limits": [
+    "Observed results recorded by this audit; not a signed independent certification",
+    "No domain sign-off, consumer study, vendor access, personal quote, enrollment, or policy outcome obtained",
+    "No full national prescription rebuild or repeat UI QA performed during this audit"
+  ],
+  "reviewed_input_sha256": {
+    "PLAN_OF_ATTACK.md": "222f4c2b9cfbd18baac4a91f8caffdf422900e19f6d5b5b5d29dcfe2822999c5",
+    "docs/EXECUTION_STATUS.md": "85cd256feef23bc26d12defc79adb83d260b7cddb008adf3a08793358be36128",
+    "cms-slice/scripts/audit_prescription.py": "da360a7d96b0e2b1e950e23a654b3ad200a70af3e13f3571c0c75f3466675df5",
+    "cms-slice/scripts/check_missing_pbp.py": "42d2c331de1d68bc2c41808a2297b185602991c2ef8161a7c262b6743d03e777",
+    "cms-slice/scripts/cms_slice.py": "5bdb6c58d0c19b913373abee5d595373f0751d82018bef2aad003cba01064de9",
+    "cms-slice/scripts/prescription.py": "3c9291eb0c40ac9a1645eae9c93bf56955afa180f26b0f47e4812033ca62c59c",
+    "cms-slice/scripts/reference_evidence.py": "085846b022d00fc1d694dc934ff8d0bcf910d1a516daec65fc10bea2cd030a39",
+    "cms-slice/scripts/research.py": "2a23ffe40db7ffe308eebf83f58b9f327f567f0584312e27f844d182e3af1445",
+    "cms-slice/scripts/validate_naples.py": "28bb0cef7f28ebf462cd77c3a923dccaf6af34012e5356768fe0b6a3714c7126",
+    "cms-slice/tests/test_cms_slice.py": "94cce62ea7f2f58b1701b7a3f0d9a198d94107ffd71d81e72045dcffc697d490",
+    "cms-slice/tests/test_prescription.py": "a855dbbf1b3d0621c8a032eca2b2a4250fa816ac10917d6d9caa0fea9e60eab6",
+    "cms-slice/tests/test_research.py": "799546a356887feab623021145c866f415389c6b3a20d9e7ac68077a41418826",
+    "cms-slice/data-sources/field-mapping.json": "405153a655403dcd8f0d4e6730c98184398a282fcf23da7e4253400daf5c8df4",
+    "cms-slice/data-sources/markets.json": "a007d81b2d12ec36aa33b86562963330531fa9057fc6d5058f75c92de598bb1b",
+    "cms-slice/data-sources/prescription.json": "cc0424426be1119d5ed7bc7b73be37eebc1e201c75960ba6071bdfc62272dc04",
+    "cms-slice/data-sources/reference-evidence.json": "3b58a9254b9d99ca6a9fb97da8dd94a28dd852cafe86d932e96b9b620d72642d",
+    "cms-slice/data-sources/release.json": "73d5ddbd05ef8991f9236a000c919ed81cc76e840b8cd2ab0c0d7c2a7d1ff24b",
+    "cms-slice/data-sources/validation.json": "e5d36e14b487800e64ea3d2034d878fea7774a117473932e2be60224d1689fef"
+  }
+}

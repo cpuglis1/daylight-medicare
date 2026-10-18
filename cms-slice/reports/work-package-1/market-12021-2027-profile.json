@@ -1,0 +1,81 @@
+{
+  "release_id": "cms-2027-landscape-202609.1-pbp-pinned-20261016",
+  "benefit_year": "2027",
+  "market": {
+    "county_fips": "12021",
+    "state": "FL",
+    "census_name": "Collier County",
+    "landscape_county": "Collier",
+    "requested_place": "City of Naples, FL",
+    "place_to_county_evidence": {
+      "url": "https://www.naplesgov.com/codeenforcement",
+      "checked_on": "2026-10-17",
+      "observation": "The city's official page locates the City of Naples in Collier County.",
+      "limitation": "This county query does not establish a person's residence from a postal city or ZIP."
+    },
+    "mapping_version": "explicit-county-aliases-v2-naples",
+    "census_raw": {
+      "USPS": "FL",
+      "GEOID": "12021",
+      "GEOIDFQ": "0500000US12021",
+      "ANSICODE": "00295754",
+      "NAME": "Collier County",
+      "ALAND": "5172241142",
+      "AWATER": "1574780822",
+      "ALAND_SQMI": "1997.014",
+      "AWATER_SQMI": "608.026",
+      "INTPTLAT": "26.118786",
+      "INTPTLONG": "-81.400955"
+    },
+    "evidence": {
+      "artifact": "counties",
+      "archive_sha256": "4c90d0f805779923b5958ab13d0c1e9b99fe4932b786bfcf75dd739bb2dcb4ea",
+      "member": "2025_Gaz_counties_national.txt",
+      "member_sha256": "1914f0d83243362de83b8ddd298c213b1768d63d62d19464743289abd8bb35b1",
+      "record_ordinal": 334
+    }
+  },
+  "counts": {
+    "source_market_rows": 70,
+    "included": 38,
+    "excluded": 32,
+    "missing_pbp_included": 0
+  },
+  "source_county_label_counts": {
+    "All Counties": 11,
+    "Collier": 59
+  },
+  "category_counts": {
+    "PDP": 11,
+    "SNP": 27,
+    "MA-PD": 23,
+    "MA": 9
+  },
+  "plan_type_counts": {
+    "PDP": 11,
+    "PPO I-SNP": 1,
+    "HMO-POS": 5,
+    "HMO": 8,
+    "HMO C-SNP": 8,
+    "HMO D-SNP": 8,
+    "HMO-POS D-SNP": 2,
+    "HMO-POS C-SNP": 1,
+    "PPO D-SNP": 4,
+    "PPO": 14,
+    "HMO I-SNP": 2,
+    "Regional PPO": 5,
+    "Regional PPO D-SNP": 1
+  },
+  "pbp_payload_count": 70,
+  "pbp_uncompressed_bytes": 16313662,
+  "missing_pbp": [],
+  "plan_name_conflicts": [],
+  "limitations": [
+    "No Medigap or Original Medicare bundle comparison",
+    "No residence, election or SNP eligibility assessment",
+    "No drug-specific coverage/pricing or exact provider-network verification",
+    "No personalized quote, ranking, purchase or enrollment authority",
+    "Published premiums exclude other Medicare obligations and personal adjustments; no all-in cost assertion",
+    "PBP workflow tokens and nested codes are source evidence only"
+  ]
+}

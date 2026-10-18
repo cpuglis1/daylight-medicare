@@ -1,0 +1,180 @@
+{
+  "created_at_utc": "2026-10-18T15:49:17.390092+00:00",
+  "scope": "Verified engineering handoff; qualified domain and consumer-release approval remain pending",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "darwin"
+  },
+  "test_runs": [
+    {
+      "path": "reports/full-tests-20261017-demo.log",
+      "tests_passed": 115,
+      "elapsed_seconds": 66.518,
+      "sha256": "838572325ba34966647e46d6de038ee89b5ff08b6be69015220ca04a7361e3af"
+    },
+    {
+      "path": "reports/demo-boundary-tests-20261017.log",
+      "tests_passed": 45,
+      "elapsed_seconds": 4.256,
+      "sha256": "0158672bf5dea7439e0326c9cd6a2e2786109da93dc608b495c68e7e3f1adfec"
+    },
+    {
+      "path": "reports/portable-tests-20261017.log",
+      "tests_passed": 6,
+      "elapsed_seconds": 22.55,
+      "sha256": "2efe53ddd6cc6ed10a54f001393a47f40047129b701be84a3a70ca37d6aa00ec"
+    }
+  ],
+  "post_full_run_change": "Static NLM attribution only; affected 45 demo tests and six portable-release tests rerun successfully",
+  "upstream_verifiers": {
+    "checked_at_utc": "2026-10-18 15:49:17 UTC",
+    "checks": [
+      {
+        "script": "cms_slice",
+        "status": "fulfilled",
+        "exit_code": 0,
+        "output": "Verified source, code, configuration and report hashes\n"
+      },
+      {
+        "script": "research",
+        "status": "fulfilled",
+        "exit_code": 0,
+        "output": "Verified local read model, source artifacts and carrier-validation artifacts\n"
+      },
+      {
+        "script": "prescription",
+        "status": "fulfilled",
+        "exit_code": 0,
+        "output": "Verified pinned prescription sources, captures and lineage report\n"
+      },
+      {
+        "script": "reference_evidence",
+        "status": "fulfilled",
+        "exit_code": 0,
+        "output": "Verified public identity, vocabulary and source-diligence snapshots\n"
+      }
+    ]
+  },
+  "original_bundle": {
+    "files_checked": 44,
+    "all_sizes_and_hashes_match": true
+  },
+  "market": {
+    "captured": 70,
+    "supported": 38,
+    "excluded_snp": 27,
+    "excluded_regional_ppo": 5,
+    "official_non_snp_records_checked": 43
+  },
+  "quality": {
+    "carrier_records_checked": 16,
+    "carrier_parent_organizations_checked": 3,
+    "carrier_field_checks": {
+      "not_independently_checked": 57,
+      "agrees": 39,
+      "source_not_applicable_or_unavailable": 18
+    },
+    "medicare_gov_field_checks": {
+      "agrees": 96,
+      "not_applicable_agrees": 18
+    },
+    "drug_product_formulary_cases": 12,
+    "drug_specific_agreements": 58,
+    "positive_step_therapy_products": 2,
+    "independent_drug_rows_replayed": 12
+  },
+  "release": {
+    "id": "naples-11bd24daa199900d7394",
+    "snapshot_id": "naples-demo-c33a13b49782ef7851e4",
+    "manifest_sha256": "3b171ea57771080bc8d697cfbfcc0da224c27af473e3497994a915a2e0335339",
+    "bundle_path": "/Users/cep4u/medicare_startup/cms-slice/releases/naples-11bd24daa199900d7394.tar.gz",
+    "bundle_bytes": 25482798,
+    "bundle_sha256": "805fd276feff0147ee3e558a5a5565bde201af7cec45cb3ffbea8ed4badcb2e3",
+    "source_receipt": {
+      "built_at_utc": "2026-10-18T03:09:57.135336+00:00",
+      "upstream_full_source_verification": true,
+      "catalog_version": "naples-read-4cf1fda9016a9b1b",
+      "source_archive_sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+      "knowledge_version": "1cc12c43eea722bab31869c1a0047956fcbccff561d75f0e515ca8ed801af70c",
+      "carrier_records_checked": 16,
+      "carrier_parent_organizations_checked": 3,
+      "drug_product_cases_checked": 9,
+      "drug_sample_check_status_counts": {
+        "agrees": 45
+      },
+      "second_carrier_drug_product_cases_checked": 3,
+      "second_carrier_drug_check_status_counts": {
+        "agrees": 13
+      },
+      "data_review_after_utc": "2026-10-25T03:04:03+00:00",
+      "domain_signoff": "pending",
+      "live_model_evaluation": "not_performed",
+      "scope": "Immutable derived evidence for facilitated factual research; not a quote, recommendation or consumer release approval"
+    }
+  },
+  "evidence_review_bundle": {
+    "path": "releases/naples-evidence-review-20261018.tar.gz",
+    "bytes": 92266554,
+    "sha256": "cdf04062071cd867d956a24a44975d2bdb30ffdba77735ffe525167331ef83a5",
+    "verified_files": 84,
+    "indexed_source_receipts": 62
+  },
+  "benchmark": {
+    "release": "naples-11bd24daa199900d7394",
+    "startup_seconds": 0.20569437486119568,
+    "six_products_all_38_plans_with_pharmacy_first_seconds": 2.669565375195816,
+    "reused_query_seconds": 0.0020261250901967287,
+    "plan_results": 38,
+    "per_product_plan_facts": 228,
+    "limits": "Local published-source queries only; excludes browser, model/network latency; no production SLO"
+  },
+  "pending": {
+    "qualified_domain_source_use_review": "pending",
+    "live_model_evaluation": "not_performed; no configured key/model",
+    "exact_clinical_network_confirmation": "unresolved; actual public directory discovery recorded",
+    "personal_2027_prices": "unavailable",
+    "medigap_quote_access": "unavailable",
+    "participant_sessions": "not_performed",
+    "enrollment": "not_implemented"
+  },
+  "artifacts_sha256": {
+    "../docs/DEMO_EXECUTION.md": "6d5f66c7bd960261d373a7a8d1deffe87da86d82558a500298286e5a190ea71d",
+    "../docs/DEMO_HANDOFF.md": "ec6e30039d9ff58bbb351723db039879a8bd01f9dd5bc2ee0ff94d853099c553",
+    "../docs/NAPLES_DEMO_REAUDIT.md": "5449cabf9b3d531e8523210f7b7774620555ae29e416ccf1b49ab3467d66d71c",
+    "apps/chat/app.js": "b04372ccc69c27b8c7df566ead99200942cd7e601a02a59a0c00bacdd2e37c74",
+    "apps/chat/index.html": "394e2d86b1637dfc15f1c5c08761aeb224225238ac4d981917ec947efb8b1afa",
+    "apps/chat/styles.css": "db16a10ce884e8350e80bff0a9fad6ccc111ed9d1d2af6cb3de149dc329a5b2a",
+    "data-sources/demo-review.json": "894fbda7e804c9f9f3e1b6b0411dd44dd917d53f103bf78c5ddaf61ae8aa3bce",
+    "data-sources/medicare-gov-observations.json": "5522966c3253e774a20c1d5c0e9bd1e1ea0d6e7926e443153321760c52e2c52e",
+    "reports/carrier-provider-probe.json": "eb2d652f973505e490d3b1c475eb369772a669a9ae0b4eed7fda09a0fbe7eb0a",
+    "reports/cms-release-discovery.json": "73cc0d35244e803972cab462440924846b5e2f549caaf529c299ce972bd364d2",
+    "reports/demo-benchmark.json": "5969f0a4589f75e4a8d3aa702e38984b62ebdd098b8320d8efe6a7eba7563920",
+    "reports/demo-browser-qa.json": "86b1a65b305f32cc61c8012e8e0a938ed1be8f00f1917d695861c799b0d6ea67",
+    "reports/demo-quality-manifest.json": "41a249309b0d035a60ec6dbfe94e5d35d9fcd2f7c803902d71d8201da5c38b0a",
+    "reports/demo-quality.json": "95b28239d8f635e18fa728aae8da0e12a438348fe491d3eff2b97fe2cab285cc",
+    "reports/devoted-drug-validation.json": "c8327d97966f6571f53759ddb57d9cd6c6e9220cbcd431a66fcca5ea7bf26def",
+    "reports/drug-validation-manifest.json": "cdacedfe9aef1fc6f9e42269f790ecf624ac6f0ec1864b2d24bb615c6bafc4eb",
+    "reports/drug-validation.json": "50f668ea00e7f8de882a0a12d89f21a27fd97d5dbfc3b417ec9b960426aef7c0",
+    "reports/evidence-review-bundle.json": "8de99d21b2e209d465af2abc55d802df2cd7637e084a88a0313cc64ee00a9069",
+    "reports/provider-api-discovery.json": "57916ddb7a8e7e86fbeeb989d140da405d2601994b2f1f6a8abf3351dfc2099f",
+    "reports/upstream-demo-verification.json": "a9f559de28ae3ba16f71bffe6499efdc9e88e4486bd1701f6e698b3d0c6648bb",
+    "scripts/audit_prescription.py": "da360a7d96b0e2b1e950e23a654b3ad200a70af3e13f3571c0c75f3466675df5",
+    "scripts/carrier_quality.py": "f7c8054c1e4f0ab715fdb96b24d6ea9d481f409a3e701001d8d84b6750a81755",
+    "scripts/chat.py": "f8070a3188f7747153dad799bf261f5629063aa40ac7a35116c1f23e2f25d642",
+    "scripts/check_missing_pbp.py": "42d2c331de1d68bc2c41808a2297b185602991c2ef8161a7c262b6743d03e777",
+    "scripts/cms_slice.py": "5bdb6c58d0c19b913373abee5d595373f0751d82018bef2aad003cba01064de9",
+    "scripts/demo.py": "57262d5e363dd8c20d6ebd81373e231b5db09c8439d86b0b17d340168d9a54c7",
+    "scripts/demo_release.py": "f12632a31f478708e20249495bc566f97c87e954eac66e36b5f1f99109a2f044",
+    "scripts/demo_tools.py": "b4dc61684ed03323c23e6f3b38f05bb207b39e765067bec688295b1e42f5564b",
+    "scripts/drug_validation.py": "6ecc265f99b836f07c220b5b35ef0dff7d7768b7bb82aa023f2a63b5b73ac799",
+    "scripts/evidence_store.py": "a2f7f81cf84c1cd67d5bf487c2b77141de39841282d0a72337c5011a42b8bf79",
+    "scripts/identity_lookup.py": "c44ce70bf3a7dab9166b6347113333647f1618c01c0c437a5f178d6f2fb2b0e2",
+    "scripts/knowledge.py": "623b03f8c245fbbf1439e0dfad32ece90fd5f6d1e0b8a5aae6470f178e89b6cc",
+    "scripts/prescription.py": "87ca7560cf109b75afda5fd06797b0aea96cfd2e61be7b026b3f869fde25ce73",
+    "scripts/reference_evidence.py": "085846b022d00fc1d694dc934ff8d0bcf910d1a516daec65fc10bea2cd030a39",
+    "scripts/research.py": "c98452e17b7f5efd69029bca8101b39bcd8d484c0daf6e9d108346d1c87d0a56",
+    "scripts/source_refresh.py": "58fc43e782ede3170adc8c121b1e024a26d1bc9a9808b311f27678ee6863115b",
+    "scripts/validate_devoted_drugs.py": "1f737f46530e8c8c2f197f5f5f96686da1cd71697e50b92d25d6d5e26cbab87d",
+    "scripts/validate_naples.py": "28bb0cef7f28ebf462cd77c3a923dccaf6af34012e5356768fe0b6a3714c7126"
+  }
+}

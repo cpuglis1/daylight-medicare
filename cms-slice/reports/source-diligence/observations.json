@@ -1,0 +1,290 @@
+{
+  "inspection_date": "2026-10-17",
+  "artifacts": {
+    "npi_individual_sample": {
+      "url": "https://npiregistry.cms.hhs.gov/api/?version=2.1&enumeration_type=NPI-1&address_purpose=LOCATION&state=FL&city=Naples&limit=2",
+      "bytes": 2289,
+      "sha256": "c39c9e315528913a130ed41e9557255f1625baf66dfc8afc877a1939f59e95d4",
+      "path": "data-sources/raw/provider/naples-identities.json"
+    },
+    "npi_pharmacy_city_query": {
+      "url": "https://npiregistry.cms.hhs.gov/api/?version=2.1&enumeration_type=NPI-2&taxonomy_description=Pharmacy&address_purpose=LOCATION&state=FL&city=Naples&limit=200",
+      "bytes": 200417,
+      "sha256": "61a77891c74c87b1a62a748593be347e88cf1289543826e5392191570ceed1f3",
+      "path": "data-sources/raw/provider/naples-pharmacy-identities.json"
+    },
+    "rxnorm_version": {
+      "url": "https://rxnav.nlm.nih.gov/REST/version.json",
+      "bytes": 48,
+      "sha256": "f8155f29c123d26e71c9e4aed23750e5df462150440e29b43b9b148c09dd3445",
+      "path": "data-sources/raw/prescription/rxnorm/version.json"
+    },
+    "rxnorm_exact_properties": {
+      "url": "https://rxnav.nlm.nih.gov/REST/rxcui/1551300/properties.json",
+      "bytes": 208,
+      "sha256": "08e8dd4e8e639891a314af50af0dbcee6e0caa88084a46fd6fffb08f7dcfdd03",
+      "path": "data-sources/raw/prescription/rxnorm/rxcui-1551300.json"
+    },
+    "rxnorm_ndc_properties": {
+      "url": "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=00002143380&ndcstatus=ALL",
+      "bytes": 685,
+      "sha256": "b689285cf4c0236e35edbd0bd1ea252e4a1254ef97afa9fba8816db82358f17e",
+      "path": "data-sources/raw/prescription/rxnorm/ndc-00002143380.json"
+    },
+    "rxnorm_brand_candidates": {
+      "url": "https://rxnav.nlm.nih.gov/REST/drugs.json?name=Trulicity",
+      "bytes": 859,
+      "sha256": "91a0845d858224254077e2ee088f1a6e978a4027e8047cd9529086235d73e126",
+      "path": "data-sources/raw/prescription/rxnorm/trulicity-candidates.json"
+    },
+    "carrier_formulary": {
+      "url": "https://files.guidewell.com/asset/aece76d0-71bb-4563-ab8c-47ce4a79ef7a/medicare-forms-2027-comprehensive-formulary-fbm2836.pdf",
+      "bytes": 11121653,
+      "sha256": "1e901aa4c9a202a88f2dfacc5a67feeca3f699e0418a96fd78587c0432708e83",
+      "path": "data-sources/raw/prescription/carrier-formulary-2027.pdf"
+    },
+    "florida_choices": {
+      "url": "https://floir.gov/consumers/choices-rate-comparison-search",
+      "bytes": 18869,
+      "sha256": "9812130704f5160d7a721fa2cbb3ec8c8ba4526badd1a2bc7530e407892cc667",
+      "path": "data-sources/raw/diligence/florida-choices.html"
+    },
+    "florida_search": {
+      "url": "https://choices.floir.gov/mcws/CWSSearch",
+      "bytes": 2314,
+      "sha256": "4f9376dd1d8a4a0a6333cd2530999bfe5636597663c8176389e04bfdaed2360e",
+      "path": "data-sources/raw/diligence/florida-medigap-search.html"
+    },
+    "csg_offerings": {
+      "url": "https://www.csgactuarial.com/quoting/",
+      "bytes": 1118811,
+      "sha256": "23923c554ebde9276cc160a99f8dd54f7854691b1013a918d2ca7e99249d697f",
+      "path": "data-sources/raw/diligence/csg-api-offerings.html"
+    },
+    "rxnorm_api_terms": {
+      "url": "https://lhncbc.nlm.nih.gov/RxNav/TermsofService.html",
+      "bytes": 16940,
+      "sha256": "96a58ebfb2286b0f3d7f8e61a02136ae70fa2b76a8ba20c3894904117fd2034e",
+      "path": "data-sources/raw/diligence/rxnorm-api-terms.html"
+    },
+    "npi_api_documentation": {
+      "url": "https://npiregistry.cms.hhs.gov/api-page",
+      "path": "data-sources/raw/provider/npi-api-visible.txt",
+      "bytes": 7495,
+      "sha256": "5f3ac19d5b1b8f901cca620553f7543f79af5ef7eea4a0ee824630fa3cc2e950",
+      "capture_method": "chrome_visible_text",
+      "captured_on": "2026-10-17"
+    }
+  },
+  "vocabulary": {
+    "version": {
+      "version": "05-Oct-2026",
+      "apiVersion": "3.1.356"
+    },
+    "brand_search": {
+      "status": "requires_specific_product_confirmation",
+      "candidates": [
+        {
+          "rxcui": "1551300",
+          "name": "0.5 ML dulaglutide 1.5 MG/ML Auto-Injector [Trulicity]",
+          "synonym": "0.5 ML Trulicity 1.5 MG/ML Auto-Injector",
+          "tty": "SBD",
+          "language": "ENG",
+          "suppress": "N",
+          "umlscui": ""
+        },
+        {
+          "rxcui": "1551306",
+          "name": "0.5 ML dulaglutide 3 MG/ML Auto-Injector [Trulicity]",
+          "synonym": "0.5 ML Trulicity 3 MG/ML Auto-Injector",
+          "tty": "SBD",
+          "language": "ENG",
+          "suppress": "N",
+          "umlscui": ""
+        },
+        {
+          "rxcui": "2395779",
+          "name": "0.5 ML dulaglutide 6 MG/ML Auto-Injector [Trulicity]",
+          "synonym": "0.5 ML Trulicity 6 MG/ML Auto-Injector",
+          "tty": "SBD",
+          "language": "ENG",
+          "suppress": "N",
+          "umlscui": ""
+        },
+        {
+          "rxcui": "2395785",
+          "name": "0.5 ML dulaglutide 9 MG/ML Auto-Injector [Trulicity]",
+          "synonym": "0.5 ML Trulicity 9 MG/ML Auto-Injector",
+          "tty": "SBD",
+          "language": "ENG",
+          "suppress": "N",
+          "umlscui": ""
+        }
+      ],
+      "confirmed_rxcui": null,
+      "coverage": null,
+      "price": null
+    },
+    "exact_concept": {
+      "rxcui": "1551300",
+      "name": "0.5 ML dulaglutide 1.5 MG/ML Auto-Injector [Trulicity]",
+      "synonym": "0.5 ML Trulicity 1.5 MG/ML Auto-Injector",
+      "tty": "SBD",
+      "language": "ENG",
+      "suppress": "N",
+      "umlscui": ""
+    },
+    "exact_ndc_mapping": [
+      {
+        "ndcItem": "00002143380",
+        "ndc9": "0002-1433",
+        "ndc10": "0002-1433-80",
+        "rxcui": "1551300",
+        "splSetIdItem": "463050bd-2b1c-40f5-b3c3-0a04bb433309",
+        "packagingList": {
+          "packaging": [
+            "4 SYRINGE in 1 CARTON (0002-1433-80)  / .5 mL in 1 SYRINGE (0002-1433-01)"
+          ]
+        },
+        "propertyConceptList": {
+          "propertyConcept": [
+            {
+              "propName": "BLA",
+              "propValue": "BLA125469"
+            },
+            {
+              "propName": "LABELER",
+              "propValue": "Eli Lilly and Company"
+            },
+            {
+              "propName": "LABEL_TYPE",
+              "propValue": "HUMAN PRESCRIPTION DRUG"
+            },
+            {
+              "propName": "MARKETING_CATEGORY",
+              "propValue": "BLA"
+            },
+            {
+              "propName": "MARKETING_EFFECTIVE_TIME_LOW",
+              "propValue": "20140918"
+            },
+            {
+              "propName": "MARKETING_STATUS",
+              "propValue": "ACTIVE"
+            }
+          ]
+        },
+        "source": "Hybrid"
+      }
+    ],
+    "status": "vocabulary_evidence_only; no consumer confirmation or coverage inference",
+    "nlm_attribution": "This product uses publicly available data from the U.S. National Library of Medicine (NLM), National Institutes of Health, Department of Health and Human Services; NLM is not responsible for the product and does not endorse or recommend this or any other product."
+  },
+  "carrier_sample": {
+    "plan_ids": [
+      "H5434-002-000-2027",
+      "H5434-045-000-2027"
+    ],
+    "formulary_id": "00027047",
+    "rxcui": "1551300",
+    "ndc11": "00002143380",
+    "pdf_page": 64,
+    "printed_page": "48",
+    "document_updated": "2026-10-15",
+    "tier": "3",
+    "prior_authorization": "Y",
+    "carrier_quantity": {
+      "amount": "4",
+      "unit": "pens",
+      "days": "28"
+    },
+    "quantity_comparison_status": "unresolved_unit; CMS raw 2 has no unit stated in inspected layout; no automatic conversion",
+    "scope": "Specific product row; carrier document does not print the proxy NDC. NLM connects the exact proxy to the RxNorm concept; no whole-formulary certification."
+  },
+  "provider_identity": {
+    "query_results": 2,
+    "sample": [
+      {
+        "npi": "1598284069",
+        "raw_number": "1598284069",
+        "source_pointer": "/results/0",
+        "registry_status_raw": "A",
+        "locations": [
+          {
+            "json_pointer": "/addresses/0",
+            "role": "reported_primary_location",
+            "raw": {
+              "address_1": "8275 IBIS CLUB DR APT 702",
+              "address_purpose": "LOCATION",
+              "address_type": "DOM",
+              "city": "NAPLES",
+              "country_code": "US",
+              "country_name": "United States",
+              "postal_code": "341042416",
+              "state": "FL",
+              "telephone_number": "305-303-5351"
+            }
+          }
+        ],
+        "first_address_purpose": "LOCATION",
+        "network_participation": null,
+        "accepting_patients": null,
+        "license_verified": false
+      },
+      {
+        "npi": "1891082467",
+        "raw_number": "1891082467",
+        "source_pointer": "/results/1",
+        "registry_status_raw": "A",
+        "locations": [
+          {
+            "json_pointer": "/addresses/1",
+            "role": "reported_primary_location",
+            "raw": {
+              "address_1": "1735 SW HEALTH PKWY STE 201",
+              "address_purpose": "LOCATION",
+              "address_type": "DOM",
+              "city": "NAPLES",
+              "country_code": "US",
+              "country_name": "United States",
+              "fax_number": "239-249-7803",
+              "postal_code": "34109",
+              "state": "FL",
+              "telephone_number": "239-249-7800"
+            }
+          }
+        ],
+        "first_address_purpose": "MAILING",
+        "network_participation": null,
+        "accepting_patients": null,
+        "license_verified": false
+      }
+    ],
+    "document_order_discrepancy": "NPPES help says LOCATION is first; actual sample contains MAILING first. Explicit address_purpose is authoritative for parsing.",
+    "network_evidence_status": "unavailable; no plan/location participation source captured"
+  },
+  "pharmacy_identity": {
+    "query_city": "Naples",
+    "query_state": "FL",
+    "address_purpose": "LOCATION",
+    "query_limit": 200,
+    "returned": 120,
+    "has_matching_reported_locations": 120,
+    "scope": "Public registry city query; not all Collier County pharmacies, current store operation or clinical-network participation"
+  },
+  "medigap": {
+    "official_sample_source": "https://floir.gov/consumers/choices-rate-comparison-search",
+    "rate_status": "illustrative_public_comparison_only",
+    "quote_receipts": [],
+    "accepted_premium": null,
+    "search_observation": "Official county image map loaded in Chrome. Collier activation was not operable through the extension's visible locator interface; no rate result was obtained.",
+    "supplier_access": "CSG and Connecture describe APIs publicly. No inspected authenticated payload, contract, credentials, quote receipt or carrier acceptance was available; no adapter implemented."
+  },
+  "open_dependencies": [
+    "Medigap supplier access, actual payloads, display/store/transform terms, conditional quote/error receipts and carrier acceptance conditions",
+    "Exact provider location+plan participation evidence and current confirmation process; NPI is identity only",
+    "Carrier/CMS clarification of raw quantity units before quantity conversion",
+    "Qualified domain and source freshness review before public consumer claims",
+    "Connecture public API marketing page was readable through web search but direct snapshot download returned HTTP 403; no access inferred"
+  ]
+}

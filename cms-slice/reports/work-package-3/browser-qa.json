@@ -1,0 +1,47 @@
+{
+  "checked_on": "2026-10-17",
+  "browser": "Chrome via Codex extension",
+  "local_url": "http://127.0.0.1:8765/",
+  "observations": {
+    "landscape_records": 70,
+    "comparison_records": 38,
+    "exclusions": 32,
+    "prescription_context_supported_drug_plans": 31,
+    "actual_brand_product_candidates": 4,
+    "first_lookup": {
+      "plan": "H5434-002-000-2027",
+      "rxcui": "1551300",
+      "pharmacy_npi": "1609197854",
+      "formulary_source_row": 89216,
+      "pharmacy_source_table": "pharmacy_4",
+      "pharmacy_source_row": 26281555,
+      "result": "tier 3; PA required; raw QL 2 per 28 days; current pricing unavailable; carrier quantity-unit question visible"
+    },
+    "second_lookup": {
+      "plan": "S5904-001-000-2027",
+      "rxcui": "1551306",
+      "pharmacy_source_table": "pharmacy_6",
+      "pharmacy_source_row": 28824871,
+      "result": "correct changed product/plan; limited carrier corroboration not carried to unsampled product"
+    },
+    "plan_order_after_drug_lookup": "unchanged; all 38 IDs compared from browser DOM",
+    "controls_reenabled_after_lookup": true,
+    "cost_schedule": "Not offered remains distinct from $0.00 copay; 19% coinsurance rendered as percent",
+    "mobile_viewport_width": 390,
+    "mobile_document_scroll_width": 390,
+    "temporary_viewport_override": "reset"
+  },
+  "screenshots_sha256": {
+    "prescription-mobile.png": "5ef17ecdfab8b2cb55320212555bb53ef38340220ef566a25020a1b286add7f8",
+    "prescription-desktop.png": "64f9d2f6d11446cb5efbf40c09efd977dee1154eae786a7dba86a6c1f351fd28"
+  },
+  "assets_sha256": {
+    "index.html": "238d6e21766e95150b7954d392e958a030634ec095ffee9f1ed346826bbd467c",
+    "styles.css": "cd51739328c277c5558b32c4279213ec41639869a8f390fa3f9a0bfed99f2c5e",
+    "app.js": "a069a2fb94ae7badbdb5fe9028ae2969682f9764f6221db2f88550371c16f48c"
+  },
+  "limitations": [
+    "Manual browser engineering checks, not a full accessibility or consumer comprehension audit",
+    "No personal facts, rank, quote or purchase result confirmed"
+  ]
+}

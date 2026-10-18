@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Aphrodite · Medicare decision workspace</title><link rel="stylesheet" href="/styles.css"><script type="module" src="/app.js"></script></head>
+<body>
+<header><a href="/" class="brand" aria-label="Aphrodite home">aphrodite<span>Medicare, together.</span></a><div class="header-actions"><button id="text-size" type="button">Larger text</button><button id="operator-toggle" type="button" aria-expanded="false" aria-controls="operator">Evaluation tools</button></div></header>
+<div class="demo-notice" role="note"><strong>Design prototype · fictional information only.</strong> Prices, plans and provider checks are examples. This tool cannot enroll you.</div>
+<main>
+ <section class="intro"><p class="eyebrow">YOUR COVERAGE WORKSPACE</p><h1>Make your next choice<br>with a clearer picture.</h1><p>Ask a question. Compare the tradeoffs. Keep the details that matter to you in view.</p></section>
+ <div class="workspace">
+  <section class="conversation panel" aria-labelledby="conversation-heading">
+   <div class="section-head"><div><p class="eyebrow">LET’S TALK</p><h2 id="conversation-heading">Your Medicare guide</h2></div><span class="pill">AI design preview</span></div>
+   <p id="mode-label" class="mode-label">Scripted replay · no language model connected</p>
+   <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+   <div class="suggestions"><button type="button" data-message="Compare my options and explain the tradeoffs.">Compare my options</button><button type="button" data-message="Can I keep my doctors?">Keeping my doctors</button><button type="button" data-message="Do I need to re-enroll every year?">Annual review</button></div>
+   <form id="chat-form"><label for="message">What would you like to understand?</label><textarea id="message" rows="3" maxlength="6000" placeholder="For example: Why would I choose a higher monthly premium?" required></textarea><div class="composer-bottom"><span>Use fictional details only.</span><button class="primary" id="send" type="submit">Ask your guide <span aria-hidden="true">↗</span></button></div></form>
+   <p id="error" role="alert" hidden></p>
+  </section>
+  <section class="decisions" aria-labelledby="decisions-heading">
+   <div class="section-head"><div><p class="eyebrow">THE SAME FACTS, SIDE BY SIDE</p><h2 id="decisions-heading">Your options</h2></div><button type="button" id="profile-toggle" aria-expanded="false" aria-controls="profile-panel">Review your details</button></div>
+   <div id="profile-summary" class="profile-summary"></div>
+   <section id="profile-panel" class="panel profile-editor" hidden aria-label="Edit fictional profile">
+    <form id="profile-form"><h3>Your fictional case</h3><p id="case-note"></p><div class="form-grid"><label>Additional monthly plan premium limit ($)<input id="premium" type="number" min="0" max="2000" step="1" required></label><label>What matters most?<select id="priority"><option value="lowest_cost">Lower estimated annual spending</option><option value="provider_access">Provider flexibility</option><option value="predictable_costs">More predictable costs</option></select></label></div><label class="check"><input id="keep-doctor" type="checkbox">Keeping my cardiologist is required</label><label class="check"><input id="doctor-confirmed" type="checkbox">Example doctor and location are confirmed</label><label class="check"><input id="drug-confirmed" type="checkbox">Example medications and pharmacy are confirmed</label><label class="check"><input id="eligibility-confirmed" type="checkbox">Eligibility is stipulated in this fictional case</label><button type="submit" class="primary">Confirm these details</button></form>
+   </section>
+   <div id="readiness" class="readiness" role="status"></div>
+   <div class="scope-note">Illustrative annual spending includes additional plan premiums, medical costs and prescriptions. <strong>Base Part B, income-related charges and noncovered costs are excluded.</strong></div>
+   <div id="cards" class="cards"></div>
+   <div class="compare-action"><p id="selection-count">Choose up to 3 options to compare.</p><button id="compare" class="primary" type="button" disabled>Compare selected options</button></div>
+   <section id="comparison-panel" class="panel" hidden aria-labelledby="comparison-heading"><div class="section-head"><h3 id="comparison-heading">The important differences</h3><button id="close-comparison" type="button">Close</button></div><div id="comparison-table"></div><p>These fictional estimates do not predict your actual spending. Medical out-of-pocket limits and prescription limits have different scopes.</p></section>
+  </section>
+ </div>
+ <section id="evidence-panel" class="panel evidence-panel" hidden aria-labelledby="evidence-heading"><div class="section-head"><h2 id="evidence-heading">What supports this information</h2><button type="button" id="close-evidence">Close</button></div><div id="evidence-content"></div></section>
+ <section id="operator" class="panel operator" hidden aria-labelledby="operator-heading"><div class="section-head"><div><p class="eyebrow">RESEARCH WORKBENCH</p><h2 id="operator-heading">Prompt, inspect, evaluate</h2></div><button id="export" type="button">Download run JSON</button></div><p>Operator controls are separate from the consumer experience. Replay validates the workflow only. OpenAI mode sends this synthetic case and conversation to the configured API project.</p><div class="form-grid"><label>Synthetic scenario<select id="case-select"></select></label><label>Response mode<select id="mode"><option value="replay">Scripted replay — no LLM</option><option value="openai">OpenAI Responses API</option></select></label></div><label for="operator-prompt">Experiment instructions appended below the fixed advisor prompt</label><textarea id="operator-prompt" rows="4" maxlength="10000" placeholder="For example: Explain each tradeoff in two short sentences. Ask only one question."></textarea><details><summary>Read fixed advisor prompt</summary><pre id="base-prompt"></pre></details><div id="run-summary" class="run-summary">No run yet.</div><details><summary>Inspect tool calls and shared comparison JSON</summary><pre id="trace">Run a question to inspect the result.</pre></details><p class="scope-note">Passing structural checks does not prove that the prose is accurate or the advice is suitable. No real carrier, CMS data, claims connection, or enrollment integration is active.</p></section>
+</main>
+<footer>Aphrodite · Concept and evaluation build · October 2026</footer>
+</body></html>

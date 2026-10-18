@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medicare plan facts · Naples</title>
+  <meta name="description" content="Explore published 2027 Medicare plan facts for Naples and Collier County, with sources and explicit comparison limits.">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to plan facts</a>
+  <header class="top"><span class="wordmark">Medicare research</span><span class="preview">Local research preview</span></header>
+  <main id="main">
+    <section class="intro" aria-labelledby="title">
+      <p class="eyebrow">Naples / Collier County, Florida · 2027</p>
+      <h1 id="title">Understand your options.<br>See where every fact comes from.</h1>
+      <p class="lead">Research for yourself or someone you help. Explore published plan facts and choose up to three records to compare.</p>
+      <p class="notice">These records are in source identity order. There is no personalized ranking. Eligibility, doctors, medicines and purchasing have not been assessed.</p>
+    </section>
+    <section class="inventory" aria-label="Source inventory">
+      <div><strong id="total">—</strong><span>source records</span></div>
+      <div><strong id="included-count">—</strong><span>within comparison scope</span></div>
+      <div><strong id="excluded-count">—</strong><span>retained exclusions</span></div>
+      <div><strong id="sample-count">—</strong><span>records with sample checks</span></div>
+    </section>
+    <section class="basis" aria-label="How to read these facts">
+      <h2>A few things to keep in view</h2>
+      <ul>
+        <li>Plan premiums shown here exclude other Medicare obligations, including Part B where applicable.</li>
+        <li>A drug deductible may depend on the drug or tier. The public prescription example below is separate from your own medicine review.</li>
+        <li>The medical spending limit does not cap premiums, drug costs or all expenses.</li>
+      </ul>
+      <p id="release-note"></p>
+    </section>
+    <section class="prescription-section" aria-labelledby="prescription-title">
+      <p class="eyebrow">New · prescription source evidence</p>
+      <h2 id="prescription-title">Explore a real drug example</h2>
+      <p>This example uses public Trulicity product records and one Naples pharmacy listing. It does not confirm your medicines, prescription quantity or pharmacy. Choose a specific product to see the published restrictions.</p>
+      <details id="prescription-example"><summary>Open the prescription evidence example</summary>
+        <p id="rx-status" role="status" aria-live="polite">Loading the evidence example…</p>
+        <div id="rx-controls" class="rx-controls" hidden>
+          <label>Plan record<select id="rx-plan"></select></label>
+          <label>Specific product<select id="rx-product"></select></label>
+          <label>Pharmacy example<select id="rx-pharmacy"><option value="">Do not check a pharmacy</option></select></label>
+          <button id="rx-lookup" type="button">Read drug evidence</button>
+        </div>
+        <div id="rx-result" aria-live="polite"></div>
+        <p id="nlm-attribution" class="attribution"></p>
+      </details>
+    </section>
+    <section class="selection" aria-label="Comparison selection">
+      <div><strong id="selection-count">0 of 3 selected</strong><span>Selection creates a comparison view; it is not a purchase decision.</span></div>
+      <div class="actions"><button id="clear" class="secondary" type="button" disabled>Clear</button><button id="compare" type="button" disabled>Compare selected</button></div>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite">Loading source facts…</p>
+    <section aria-labelledby="included-title">
+      <div class="section-heading"><h2 id="included-title">Within this comparison scope</h2><span>HMO · HMO-POS · PPO · PDP</span></div>
+      <div id="options" class="cards"></div>
+    </section>
+    <section class="excluded-section" aria-labelledby="excluded-title">
+      <h2 id="excluded-title">All exclusions remain accessible</h2>
+      <p>These records fall outside the current experiment's supported categories or types. This does not mean a person is ineligible. Original source fields and PBP identity evidence remain available.</p>
+      <details id="exclusions"><summary id="exclusions-summary">View exclusions</summary><div id="excluded-options" class="cards compact"></div></details>
+    </section>
+    <footer><p>Purchasing requires a licensed, appointed agent's review, re-verification and explicit authorizations. Purchase requests and submissions are not enabled in this local review.</p><p>No personal information is collected or saved by this page.</p></footer>
+  </main>
+  <dialog id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-top"><h2 id="detail-title">Plan facts</h2><button class="secondary" id="close-detail" type="button">Close</button></div><div id="detail-content"></div></dialog>
+  <dialog id="compare-dialog" aria-labelledby="compare-title"><div class="dialog-top"><h2 id="compare-title">Your selected comparison</h2><button class="secondary" id="close-compare" type="button">Close</button></div><p>Source identity order. This comparison does not rank fit or tell you what to buy.</p><div id="comparison-content"></div></dialog>
+</body>
+</html>

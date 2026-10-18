@@ -1,0 +1,590 @@
+{
+  "validation_id": "naples-carrier-sample-20261017-v1",
+  "release_id": "cms-2027-landscape-202609.1-pbp-pinned-20261016",
+  "year": "2027",
+  "county_fips": "12021",
+  "status": "sample_corroborated_with_open_gates",
+  "counts": {
+    "sample_records": 5,
+    "source_market_records": 70,
+    "unsampled_records": 65,
+    "carrier_document_pdfs_used": 4,
+    "monetary_checks": 12,
+    "monetary_agreements": 12,
+    "monetary_conflicts": 0,
+    "negative_candidates_rejected": 3
+  },
+  "sampling": "Purposive sample of five source records across MA, MA-PD and PDP from one carrier. Not random, representative of all carriers, or a certification of all 70 Naples records.",
+  "review": {
+    "method": "Complete cover and page 3 text inspected; all four positive page-3 tables rendered and visually checked, including PDP column order and material qualifications.",
+    "independent_domain_signoff": "pending",
+    "checked_on": "2026-10-17"
+  },
+  "artifacts": {
+    "patriot_page": {
+      "path": "data-sources/raw/validation/patriot-page.html",
+      "url": "https://www.floridablue.com/medicare/forms/h5434-bluemedicare-patriot-ppo",
+      "bytes": 131333,
+      "sha256": "cce841b974c1b2314fd5142b75f0e173eb3e54ea56da2a7d1af00e88823b716f"
+    },
+    "select_page": {
+      "path": "data-sources/raw/validation/select-page.html",
+      "url": "https://www.floridablue.com/medicare/forms/h5434-bluemedicare-select-ppo",
+      "bytes": 131569,
+      "sha256": "e6a5c7c60991a57a154e463eb46f6e0e372ab65b6f6d0127f23df8df8a11897b"
+    },
+    "pdp_page": {
+      "path": "data-sources/raw/validation/premier-rx-page.html",
+      "url": "https://www.floridablue.com/medicare/forms/s5904-bluemedicare-premier-rx",
+      "bytes": 126204,
+      "sha256": "d5543d32697d537f44809bdd71b7ea03d215bc8dcf86d0e38f510f1b3bbcb8b7"
+    },
+    "patriot": {
+      "path": "data-sources/raw/validation/patriot-2027-sb.pdf",
+      "url": "https://files.guidewell.com/asset/ac5e8a1c-67f7-400c-988b-3b86ddf30a4c/medicare-forms-2027-sb-fbm2825.pdf",
+      "bytes": 754210,
+      "sha256": "40fb644703b9abed21660e3ba2a74911c1d428b86d83fe524e9127fbe58b6419",
+      "discovery_page": "patriot_page"
+    },
+    "select_002": {
+      "path": "data-sources/raw/validation/select-2027-sb-2813.pdf",
+      "url": "https://files.guidewell.com/asset/4dab57da-5457-4919-8c45-108cbb915ecf/medicare-forms-2027-sb-fbm2813.pdf",
+      "bytes": 771464,
+      "sha256": "dcef9370dbc5fda43f0feead57235e3ea70d655371c79f8686dd2d1232945e7a",
+      "discovery_page": "select_page"
+    },
+    "select_045": {
+      "path": "data-sources/raw/validation/select-2027-sb-2814.pdf",
+      "url": "https://files.guidewell.com/asset/f745c59f-120b-44c7-af46-e941362eeaa1/medicare-forms-2027-sb-fbm2814.pdf",
+      "bytes": 770796,
+      "sha256": "9702d63a225fca4e98e25adba63b6f1d442dad7de270d8fd0507e99d0239cb2d",
+      "discovery_page": "select_page"
+    },
+    "pdp": {
+      "path": "data-sources/raw/validation/premier-rx-2027-sb.pdf",
+      "url": "https://files.guidewell.com/asset/52639953-28e9-42a6-8f73-f7bad4fc4c53/medicare-forms-2027-sb-fbm2829.pdf",
+      "bytes": 601135,
+      "sha256": "0d9648c5678f16867de460940a530f8c2aebde3cbbc283965aa14c88a7746822",
+      "discovery_page": "pdp_page",
+      "columns": [
+        "S5904-001",
+        "S5904-002"
+      ]
+    },
+    "monroe_negative": {
+      "path": "data-sources/raw/validation/select-2027-sb-2815.pdf",
+      "url": "https://files.guidewell.com/asset/83683a7a-cab3-4030-9a7e-37cb26ec8dab/medicare-forms-2027-sb-fbm2815.pdf",
+      "bytes": 766953,
+      "sha256": "745698ec76e3392161bc784ceac83dff0f5986605bf4c96445545ca2a13e73e3",
+      "discovery_page": "select_page"
+    },
+    "old_year_negative": {
+      "path": "data-sources/raw/validation/patriot-2026-sb.pdf",
+      "url": "https://files.guidewell.com/m/4e4f109904674f29/original/medicare-forms-2026-sb-fbm2537.pdf",
+      "bytes": 1227368,
+      "sha256": "db01bff15669a0f7530ddc32ba707c39b1a3930ce038bb02f4e1df1de6c29831",
+      "discovery_page": "patriot_page"
+    }
+  },
+  "samples": [
+    {
+      "identity": {
+        "year": "2027",
+        "contract": "H5434",
+        "plan": "002",
+        "segment_join": "000"
+      },
+      "name": "BlueMedicare Select (PPO)",
+      "category": "MA-PD",
+      "document": "select_002",
+      "cover_checks": {
+        "benefit_year": "agrees",
+        "contract_plan": "agrees",
+        "geography": "agrees",
+        "name_type_category": "agrees"
+      },
+      "segment_corroboration": "Not printed in carrier summary; CMS 000 payload join remains the segment evidence",
+      "money_checks": [
+        {
+          "field": "consolidated_premium",
+          "status": "agrees",
+          "cms": {
+            "raw": "$173.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11972,
+              "column": "Monthly Consolidated Premium (Part C + D)"
+            },
+            "value_cents": 17300,
+            "unit": "USD/month"
+          },
+          "carrier": {
+            "raw": "$173.00",
+            "value_cents": 17300,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/4dab57da-5457-4919-8c45-108cbb915ecf/medicare-forms-2027-sb-fbm2813.pdf",
+            "sha256": "dcef9370dbc5fda43f0feead57235e3ea70d655371c79f8686dd2d1232945e7a"
+          }
+        },
+        {
+          "field": "in_network_medical_moop",
+          "status": "agrees",
+          "cms": {
+            "raw": "$7,500.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11972,
+              "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+            },
+            "value_cents": 750000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$7,500",
+            "value_cents": 750000,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/4dab57da-5457-4919-8c45-108cbb915ecf/medicare-forms-2027-sb-fbm2813.pdf",
+            "sha256": "dcef9370dbc5fda43f0feead57235e3ea70d655371c79f8686dd2d1232945e7a"
+          }
+        },
+        {
+          "field": "annual_part_d_deductible",
+          "status": "agrees",
+          "cms": {
+            "raw": "$700.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11972,
+              "column": "Annual Part D Deductible Amount"
+            },
+            "value_cents": 70000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$700",
+            "value_cents": 70000,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/4dab57da-5457-4919-8c45-108cbb915ecf/medicare-forms-2027-sb-fbm2813.pdf",
+            "sha256": "dcef9370dbc5fda43f0feead57235e3ea70d655371c79f8686dd2d1232945e7a"
+          }
+        }
+      ],
+      "uncompared_monetary_fields": [
+        "part_c_premium",
+        "part_d_basic_premium",
+        "part_d_supplemental_premium",
+        "part_d_total_premium"
+      ]
+    },
+    {
+      "identity": {
+        "year": "2027",
+        "contract": "H5434",
+        "plan": "045",
+        "segment_join": "000"
+      },
+      "name": "BlueMedicare Select (PPO)",
+      "category": "MA-PD",
+      "document": "select_045",
+      "cover_checks": {
+        "benefit_year": "agrees",
+        "contract_plan": "agrees",
+        "geography": "agrees",
+        "name_type_category": "agrees"
+      },
+      "segment_corroboration": "Not printed in carrier summary; CMS 000 payload join remains the segment evidence",
+      "money_checks": [
+        {
+          "field": "consolidated_premium",
+          "status": "agrees",
+          "cms": {
+            "raw": "$99.50 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11974,
+              "column": "Monthly Consolidated Premium (Part C + D)"
+            },
+            "value_cents": 9950,
+            "unit": "USD/month"
+          },
+          "carrier": {
+            "raw": "$99.50",
+            "value_cents": 9950,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/f745c59f-120b-44c7-af46-e941362eeaa1/medicare-forms-2027-sb-fbm2814.pdf",
+            "sha256": "9702d63a225fca4e98e25adba63b6f1d442dad7de270d8fd0507e99d0239cb2d"
+          }
+        },
+        {
+          "field": "in_network_medical_moop",
+          "status": "agrees",
+          "cms": {
+            "raw": "$7,150.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11974,
+              "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+            },
+            "value_cents": 715000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$7,150",
+            "value_cents": 715000,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/f745c59f-120b-44c7-af46-e941362eeaa1/medicare-forms-2027-sb-fbm2814.pdf",
+            "sha256": "9702d63a225fca4e98e25adba63b6f1d442dad7de270d8fd0507e99d0239cb2d"
+          }
+        },
+        {
+          "field": "annual_part_d_deductible",
+          "status": "agrees",
+          "cms": {
+            "raw": "$700.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11974,
+              "column": "Annual Part D Deductible Amount"
+            },
+            "value_cents": 70000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$700",
+            "value_cents": 70000,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/f745c59f-120b-44c7-af46-e941362eeaa1/medicare-forms-2027-sb-fbm2814.pdf",
+            "sha256": "9702d63a225fca4e98e25adba63b6f1d442dad7de270d8fd0507e99d0239cb2d"
+          }
+        }
+      ],
+      "uncompared_monetary_fields": [
+        "part_c_premium",
+        "part_d_basic_premium",
+        "part_d_supplemental_premium",
+        "part_d_total_premium"
+      ]
+    },
+    {
+      "identity": {
+        "year": "2027",
+        "contract": "H5434",
+        "plan": "042",
+        "segment_join": "000"
+      },
+      "name": "BlueMedicare Patriot (PPO)",
+      "category": "MA",
+      "document": "patriot",
+      "cover_checks": {
+        "benefit_year": "agrees",
+        "contract_plan": "agrees",
+        "geography": "agrees",
+        "name_type_category": "agrees"
+      },
+      "segment_corroboration": "Not printed in carrier summary; CMS 000 payload join remains the segment evidence",
+      "money_checks": [
+        {
+          "field": "part_c_premium",
+          "status": "agrees",
+          "cms": {
+            "raw": "$0.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11973,
+              "column": "Part C Premium"
+            },
+            "value_cents": 0,
+            "unit": "USD/month"
+          },
+          "carrier": {
+            "raw": "$0",
+            "value_cents": 0,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/ac5e8a1c-67f7-400c-988b-3b86ddf30a4c/medicare-forms-2027-sb-fbm2825.pdf",
+            "sha256": "40fb644703b9abed21660e3ba2a74911c1d428b86d83fe524e9127fbe58b6419"
+          }
+        },
+        {
+          "field": "in_network_medical_moop",
+          "status": "agrees",
+          "cms": {
+            "raw": "$6,750.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11973,
+              "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+            },
+            "value_cents": 675000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$6,750",
+            "value_cents": 675000,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/ac5e8a1c-67f7-400c-988b-3b86ddf30a4c/medicare-forms-2027-sb-fbm2825.pdf",
+            "sha256": "40fb644703b9abed21660e3ba2a74911c1d428b86d83fe524e9127fbe58b6419"
+          }
+        }
+      ],
+      "uncompared_monetary_fields": [
+        "part_d_basic_premium",
+        "part_d_supplemental_premium",
+        "part_d_total_premium",
+        "consolidated_premium",
+        "annual_part_d_deductible"
+      ]
+    },
+    {
+      "identity": {
+        "year": "2027",
+        "contract": "S5904",
+        "plan": "001",
+        "segment_join": "000"
+      },
+      "name": "BlueMedicare Premier Rx (PDP)",
+      "category": "PDP",
+      "document": "pdp",
+      "cover_checks": {
+        "benefit_year": "agrees",
+        "contract_plan": "agrees",
+        "geography": "agrees",
+        "name_type_category": "agrees"
+      },
+      "segment_corroboration": "Not printed in carrier summary; CMS 000 payload join remains the segment evidence",
+      "money_checks": [
+        {
+          "field": "part_d_total_premium",
+          "status": "agrees",
+          "cms": {
+            "raw": "$164.60 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11403,
+              "column": "Part D Total Premium"
+            },
+            "value_cents": 16460,
+            "unit": "USD/month"
+          },
+          "carrier": {
+            "raw": "$164.60",
+            "value_cents": 16460,
+            "source_column": 1,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/52639953-28e9-42a6-8f73-f7bad4fc4c53/medicare-forms-2027-sb-fbm2829.pdf",
+            "sha256": "0d9648c5678f16867de460940a530f8c2aebde3cbbc283965aa14c88a7746822"
+          }
+        },
+        {
+          "field": "annual_part_d_deductible",
+          "status": "agrees",
+          "cms": {
+            "raw": "$700.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11403,
+              "column": "Annual Part D Deductible Amount"
+            },
+            "value_cents": 70000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$700",
+            "value_cents": 70000,
+            "source_column": 1,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/52639953-28e9-42a6-8f73-f7bad4fc4c53/medicare-forms-2027-sb-fbm2829.pdf",
+            "sha256": "0d9648c5678f16867de460940a530f8c2aebde3cbbc283965aa14c88a7746822"
+          }
+        }
+      ],
+      "uncompared_monetary_fields": [
+        "part_c_premium",
+        "part_d_basic_premium",
+        "part_d_supplemental_premium",
+        "consolidated_premium",
+        "in_network_medical_moop"
+      ]
+    },
+    {
+      "identity": {
+        "year": "2027",
+        "contract": "S5904",
+        "plan": "002",
+        "segment_join": "000"
+      },
+      "name": "BlueMedicare Complete Rx (PDP)",
+      "category": "PDP",
+      "document": "pdp",
+      "cover_checks": {
+        "benefit_year": "agrees",
+        "contract_plan": "agrees",
+        "geography": "agrees",
+        "name_type_category": "agrees"
+      },
+      "segment_corroboration": "Not printed in carrier summary; CMS 000 payload join remains the segment evidence",
+      "money_checks": [
+        {
+          "field": "part_d_total_premium",
+          "status": "agrees",
+          "cms": {
+            "raw": "$326.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11404,
+              "column": "Part D Total Premium"
+            },
+            "value_cents": 32600,
+            "unit": "USD/month"
+          },
+          "carrier": {
+            "raw": "$326.00",
+            "value_cents": 32600,
+            "source_column": 2,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/52639953-28e9-42a6-8f73-f7bad4fc4c53/medicare-forms-2027-sb-fbm2829.pdf",
+            "sha256": "0d9648c5678f16867de460940a530f8c2aebde3cbbc283965aa14c88a7746822"
+          }
+        },
+        {
+          "field": "annual_part_d_deductible",
+          "status": "agrees",
+          "cms": {
+            "raw": "$700.00 ",
+            "state": "value",
+            "evidence": {
+              "artifact": "landscape",
+              "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+              "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+              "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+              "record_ordinal": 11404,
+              "column": "Annual Part D Deductible Amount"
+            },
+            "value_cents": 70000,
+            "unit": "USD/benefit-year"
+          },
+          "carrier": {
+            "raw": "$700",
+            "value_cents": 70000,
+            "source_column": 2,
+            "pdf_page": 3,
+            "url": "https://files.guidewell.com/asset/52639953-28e9-42a6-8f73-f7bad4fc4c53/medicare-forms-2027-sb-fbm2829.pdf",
+            "sha256": "0d9648c5678f16867de460940a530f8c2aebde3cbbc283965aa14c88a7746822"
+          }
+        }
+      ],
+      "uncompared_monetary_fields": [
+        "part_c_premium",
+        "part_d_basic_premium",
+        "part_d_supplemental_premium",
+        "consolidated_premium",
+        "in_network_medical_moop"
+      ]
+    }
+  ],
+  "candidate_rejections": [
+    {
+      "contract": "H5434",
+      "plan": "045",
+      "segment": "000",
+      "document": "select_002",
+      "expected_errors": [
+        "plan_identity_mismatch"
+      ],
+      "observed_errors": [
+        "plan_identity_mismatch"
+      ],
+      "status": "rejected"
+    },
+    {
+      "contract": "H5434",
+      "plan": "045",
+      "segment": "000",
+      "document": "monroe_negative",
+      "expected_errors": [
+        "plan_identity_mismatch",
+        "geography_mismatch"
+      ],
+      "observed_errors": [
+        "plan_identity_mismatch",
+        "geography_mismatch"
+      ],
+      "status": "rejected"
+    },
+    {
+      "contract": "H5434",
+      "plan": "042",
+      "segment": "000",
+      "document": "old_year_negative",
+      "expected_errors": [
+        "benefit_year_mismatch"
+      ],
+      "observed_errors": [
+        "benefit_year_mismatch"
+      ],
+      "status": "rejected"
+    }
+  ],
+  "limits": [
+    "Only plan/year identity is printed in these carrier summaries; segment 000 remains qualified by the CMS payload join, not independently printed carrier evidence.",
+    "Published plan premiums are not personalized quotes or total Medicare costs. Part B remains a separate obligation where applicable.",
+    "Part D deductible applicability depends on tier/drug conditions; no medicine-specific conclusion follows from an annual deductible amount.",
+    "Component premium splits, ratings, enrollment capacity, Submitted status and opaque nested benefit codes are not independently validated by these summaries.",
+    "This is an engineering corroboration packet; legal/source-use approval, freshness policy and qualified domain sign-off remain open."
+  ],
+  "display_decisions": [
+    "Published plan premium uses consolidated C+D for MA-PD, Part C for MA-only and Part D total for PDP; these are different source fields, never a synthesized quote",
+    "Keep inapplicable C+D/Part D fields in their original states; no zero substitution",
+    "A Part D deductible needs a tier/drug applicability note; a published amount is not medicine-specific evidence",
+    "Medical MOOP is scoped to medical services and excludes premiums/drug costs; do not label it an all-in annual cap",
+    "No sample result upgrades other fields, unsampled plans, opaque PBP codes, rankings or purchase readiness"
+  ],
+  "input_hashes": {
+    "validation_config": "e5d36e14b487800e64ea3d2034d878fea7774a117473932e2be60224d1689fef",
+    "validator_script": "28bb0cef7f28ebf462cd77c3a923dccaf6af34012e5356768fe0b6a3714c7126",
+    "catalog": "77839df4b258390e069b4fdbee2e60f6682b4fd8e2621ecf157cf0760e47cbfe"
+  }
+}
