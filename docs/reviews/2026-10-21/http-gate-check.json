@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "path": "/api/status",
+      "status": 200,
+      "facts_exposed": false
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "facts_exposed": false
+    },
+    {
+      "path": "/api/catalog",
+      "status": 503,
+      "facts_exposed": false
+    },
+    {
+      "path": "/api/live-chat",
+      "status": 503,
+      "facts_exposed": false
+    },
+    {
+      "path": "/api/conversation",
+      "status": 503,
+      "facts_exposed": false
+    },
+    {
+      "path": "/api/local-resources",
+      "status": 503,
+      "facts_exposed": false
+    }
+  ],
+  "consumer_ready": false,
+  "model_configured": false,
+  "model_calls": 0,
+  "service_port": 8878,
+  "notes": "Actual make_server consumer gate, research tools behind HTTP gate cannot grant admission; no selected-release change."
+}

@@ -11,3 +11,11 @@ tmp/
 cms-slice/data-sources/raw/*
 medicare-project-2026-10-17-v1.2/source-recon/*.zip
 medicare-project-2026-10-17-v1.2/prototype-code-snapshot.zip
+
+# Retained local cleanup checkpoints may include pre-existing private work.
+archive/local-checkpoints/
+# Generated audit exports remain on disk; select a separate backup/storage policy.
+outputs/**/*.zip
+# Per-machine design-hook consent and generated cache (shared config remains visible).
+.impeccable/config.local.json
+.impeccable/hook.cache.json

@@ -1,65 +1,81 @@
-# Medicare company workspace
+# Daylight
 
-Company name remains undecided. Current operating model: **self-directed research, licensed transaction**.
+Daylight is a Medicare learning and research prototype: a step-by-step visual guide, supporting Ask Daylight help, and a published-plan comparison implementation. Its operating model is **self-directed research, licensed transaction**. This repository does not provide insurance enrollment, a binding quote, or a validated personal recommendation.
 
-Retirees use the AI directly to research and understand their own Medicare coverage. Caregivers can also research with or for a beneficiary through permissioned sharing. Caregiver-first acquisition is a distribution priority; both are direct product users.
+The active application is **`cms-slice/apps/chat/` with the Python service in `cms-slice/scripts/`**. The Node app inside the original v1.2 bundle is archived history.
 
-The original v1.2 bundle is preserved in `medicare-project-2026-10-17-v1.2/`. New implementation is in `cms-slice/`; it imports no archived prototype code or fixtures.
+## Start here
 
-## Review and use
+| Need | Read |
+| --- | --- |
+| Binding product direction | [PRODUCT.md](PRODUCT.md), [owner requirements](DAYLIGHT_REQUIREMENTS.md), [agent instructions](AGENTS.md) |
+| Current implementation, blockers, next work | [Current status and plan](docs/CURRENT_STATUS.md) |
+| Run and verify the project | [Developer setup and commands](docs/DEVELOPMENT.md) |
+| Understand modules and request boundaries | [Architecture](docs/ARCHITECTURE.md) |
+| Know what data is captured, usable, or accepted | [Data inventory, provenance and gaps](docs/DATA_INVENTORY.md) |
+| Find all documentation and historical sources | [Documentation index](docs/README.md) |
+| Review this cleanup or roll it back | [Organization and preservation guide](docs/REPOSITORY_ORGANIZATION.md), [review report](docs/reviews/2026-10-21/REVIEW.md) |
 
-Start with the [latest Naples audit](docs/NAPLES_DEMO_REAUDIT.md) and [demo execution checkpoint](docs/DEMO_EXECUTION.md). The [original audit](docs/NAPLES_DEMO_AUDIT.md) is retained as the before-state, including the two defects subsequently fixed.
+The [one-page Collier MVP objectives plan](docs/planning/collier-mvp-2026-10-21/collier-mvp-plan.pdf) remains in place, with its [HTML source](docs/planning/collier-mvp-2026-10-21/collier-mvp-plan.html). It covers data, UX, the model/hosting decision, plan comparison, and a consented human closing handoff. Planned outcomes are not implemented capabilities.
 
-The current demonstration is one Python process with a simple source-grounded chat. It supports published 2027 Collier plan facts, medicine/store identity choices, dated prescription evidence and local provider notices. Personal prices and exact clinical network confirmation still require missing evidence. The source-only mode needs no API key; the optional Responses adapter has controlled tests but has not been exercised with a live account.
+## Current state — reviewed October 21, 2026
 
-From `cms-slice/`, launch the packaged snapshot:
+- The guide starts with what Medicare is, introduces concepts gradually, preserves an experienced comparison shortcut, and offers focused contextual help. Guide answers and notes live in tab memory; explicitly submitted service chat may be sent to the configured model and logged locally. See [privacy and runtime boundaries](docs/ARCHITECTURE.md#state-and-privacy).
+- Repository captures cover **70 published 2027 Collier County records**: 23 MA-PD, 9 MA-only, 27 SNP, and 11 PDP. All **61 drug-bearing pharmacy networks** are packaged. Separate CMS ratings cover **24 contracts**, retaining numeric and official nonnumeric states. Capture and successful joins do not establish current availability or personal suitability.
+- **Consumer data acceptance is pending, with zero approved claims.** Required field, interpretation, source, and exact-release review must be completed. The actual Python consumer service fails closed; a static guide preview is not evidence that consumer data or live chat is available.
+- Personal drug prices, validated Medigap rates/quotes, exact clinical participation, complete benefit review, and qualified release acceptance remain unresolved. The Medicare.gov collector's STOP remains active. No external inquiry or data refresh was performed during this cleanup.
+- Baseline checks: **201 Python tests, 54 frontend tests, and 22 archived-prototype tests pass**; the WP1 hash verifier passes. The selected release `naples-98038a43549f438d8c38` already fails runtime verification against the newer `app.js`, and its engineering review deadline has passed. See the [review evidence and limits](docs/reviews/2026-10-21/REVIEW.md).
+
+## Local use
+
+Python **3.14.7** and Node **23.11.0** were available for this review. The active app uses Python's standard library and plain HTML/CSS/JavaScript; it has no frontend package install or build step. Node is used for frontend regression checks. Optional source-collection tooling has separate dependencies.
+
+From the repository root:
 
 ```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s cms-slice/tests -v
+node --test cms-slice/tests/frontend/journey.test.cjs
+```
+
+To inspect only the guide layout on a free loopback port:
+
+```sh
+python3 -m http.server 8877 --bind 127.0.0.1 --directory cms-slice/apps/chat
+```
+
+Open `http://127.0.0.1:8877/`. This is a **static preview**: source-linked guide explanations work, while catalog APIs and live replies are unavailable. Do not enter real medical or financial details. A separate conspicuously labeled synthetic catalog test server is documented in [Development](docs/DEVELOPMENT.md).
+
+The Python service requires a matching verified release. Do not skip a failed check:
+
+```sh
+cd cms-slice
 python3 scripts/demo_release.py verify current
-python3 scripts/demo.py serve --release current
+# Only after the verification succeeds and review scope is understood:
+python3 scripts/demo.py serve --release current --port 8878
 ```
 
-Open `http://127.0.0.1:8766/`. See the [facilitator handoff](docs/DEMO_HANDOFF.md) for the concrete review and session tasks. Rebuilding the release needs the pinned workspace sources and Poppler; the extracted approximately 26 MB bundle runs with Python alone. The release directory is ignored by Git and must be preserved separately.
+The current selected release fails the first command. Rebuilding is deliberate evidence/review work, not part of organizing files; a new build never supplies human acceptance. Optional model configuration and the difference between workspace, research, and consumer modes are in [Development](docs/DEVELOPMENT.md).
 
-1. [Action reference](ACTION_REFERENCE.md): runnable commands, consumer actions, permissions and failure handling.
-2. [Plan of attack](PLAN_OF_ATTACK.md): actual dependencies, owners and acceptance evidence.
-3. [Architecture review](docs/ARCHITECTURE_REVIEW.md): directory inventory, current capabilities and design assessment.
-4. [Work package 1 findings](docs/WORK_PACKAGE_1.md): verified counts, mappings, lineage, gaps and acceptance limits.
-5. [Minimal persistence proposal](docs/PERSISTENCE_PROPOSAL.md): a review proposal; no migrations were created.
-6. [Product workflow](docs/PRODUCT_WORKFLOW.md): direct retiree use and permissioned caregiver participation.
-7. [Naples / Collier County findings](docs/NAPLES_DATA.md): the next real-data market, complete source capture and scope limits.
-8. [Work package 2](docs/WORK_PACKAGE_2.md): working local comparison, independent carrier sample and Chrome QA.
-9. [Work package 3](docs/WORK_PACKAGE_3.md): real 2027 prescription capture, exact medicine/pharmacy queries and unresolved source questions.
-10. [Execution status](docs/EXECUTION_STATUS.md): progress and concrete remaining dependencies for every plan package.
-11. [Research review protocol](docs/RESEARCH_REVIEW_PROTOCOL.md): concrete retiree/caregiver tasks and acceptance evidence; no study results claimed.
+## Repository layout
 
-## Working public-data slice
-
-From `cms-slice/`, using the tested Python **3.14.7**, with no third-party dependencies:
-
-```sh
-python3 scripts/cms_slice.py fetch
-python3 scripts/cms_slice.py run
-python3 -m unittest discover -s tests -v
-python3 scripts/cms_slice.py verify
+```text
+PRODUCT.md / DAYLIGHT_REQUIREMENTS.md / AGENTS.md   Product authority
+cms-slice/                                       Active app, service, data registries, tests, evidence
+docs/                                           Current guides and indexed historical findings
+  planning/                                     One-page objectives plan
+  archive/product-history/                      Older UI proposals and visual-content specifications
+  reviews/2026-10-21/                            Cleanup ledger, checks, and screenshots
+archive/cleanup-2026-10-21/originals/             Exact before-images of edited/moved documents
+archive/local-checkpoints/                      Ignored local inventory and pre-existing work checkpoint
+audit-evidence/ / outputs/                       Prior walkthroughs, workbooks, exports, before-images
+medicare-project-2026-10-17-v1.2/                 Unchanged original research/prototype bundle
+tmp/                                            Existing ignored scratch/tooling, retained
 ```
 
-Only `fetch` needs the network. It accepts the exact pinned government artifacts, not silently updated content at the same URL. Query, run and tests use local archives. Raw downloads and receipts are ignored by version control. If a pinned URL changes, recover the exact hashed artifact or inspect/register a new release before changing the manifest.
+Runtime data and historical evidence remain at their original paths. Existing [action reference](ACTION_REFERENCE.md), [broad implementation plan](PLAN_OF_ATTACK.md), [Collier gap plan](COLLIER_DATA_GAP_PLAN_current.md), and [owner review queue](COLLIER_OWNER_REVIEW_REQUIRED.md) remain findable; their dates and scope matter. Older proposal prose does not override `PRODUCT.md` or the numbered owner requirements.
 
-The delivered [New York County query](cms-slice/reports/work-package-1/market-36061-2027.json) includes 35 scoped source records and retains 35 excluded SNP records. The [Stafford query](cms-slice/reports/work-package-1/market-51179-2027.json) also exercises missing PBP evidence. These are public-source experiments, not personalized rankings, approved launch markets or purchase-ready results.
+## Working-tree and GitHub publication scope
 
-The next market is [Naples / Collier County, FL](cms-slice/reports/work-package-1/market-12021-2027.json), using the same 2027 release. All 70 matching records and all 70 complete PBP payloads are preserved in a [market source ZIP](cms-slice/reports/work-package-1/market-12021-2027-sources.zip), including records outside the current comparison scope. See the [market profile](cms-slice/reports/work-package-1/market-12021-2027-profile.json).
+The organization review itself made no commit, remote change, upload, publish, or push. The owner subsequently authorized a cleanup commit and push to `cpuglis1/daylight-medicare`. That repository was verified as public and empty at publication preflight. The local branch is `main`, with an existing root commit and substantial pre-existing uncommitted work.
 
-The earlier read-only comparison remains available for source inspection: 38 scoped records, all 32 exclusions and comparison of up to three records. Its original five-carrier-document sample checked twelve monetary fields. The newer demo quality matrix expands that to sixteen records across three parent organizations and checks all 96 applicable selected monetary fields against actual Medicare.gov observations. From `cms-slice/`:
-
-```sh
-python3 scripts/validate_naples.py fetch
-python3 scripts/research.py build
-python3 scripts/research.py serve --port 8765
-```
-
-Open `http://127.0.0.1:8765/`. Rebuilding the carrier sample requires Poppler's `pdftotext`; the read server requires only Python. This earlier source view is separate from the new chat. There is no private customer store, personal ranking/quote engine or enrollment service.
-
-The prescription extension captures 61 drug-bearing Naples records, 24 formularies, 79,793 formulary rows and 3,506,965 complete plan-network rows. Run `python3 scripts/prescription.py fetch`, then `build` and `verify`; the pinned source download is **2.29 GB**. Exact-code queries and the browser's public drug example expose restrictions and source lineage, with 2027 prices explicitly unavailable. See WP3 for required reference snapshots, commands and the two premium/quantity/date questions. Medigap quote access and clinical provider-network evidence remain external dependencies.
-
-See the [validation record](cms-slice/VALIDATION.md) for the test result, independent replay and original-bundle integrity checks.
+**This documentation reviews the full local working tree. A cleanup-only commit excludes the pending application, backend, source-evidence and test changes. A fresh clone will therefore not reproduce the reviewed UI or every linked local artifact until that separate work is reviewed and committed.** Public push must also account for the existing root commit; it cannot be omitted from an ordinary push of this branch. Review [Git readiness](docs/GIT_READINESS.md) before staging. In particular, local raw data/releases are ignored and will not be backed up by a normal push; preserve them separately. A retained generated audit ZIP exceeds GitHub's usual single-file limit and is now narrowly ignored rather than removed.

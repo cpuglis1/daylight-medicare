@@ -1,5 +1,7 @@
 # Medicare public-evidence slice
 
+> **Current status — October 21, 2026:** This page retains detailed historical source commands. Start with the [current workspace README](../README.md), [development guide](../docs/DEVELOPMENT.md), and [data inventory](../docs/DATA_INVENTORY.md). The active UI is the progressive guide in `apps/chat/`; it is no longer a chat-led entry. Consumer acceptance is pending, and the selected release fails verification against newer frontend code. A static guide preview does not provide catalog/live APIs. Earlier “current demo” language below is historical; do not bypass verification/review gates.
+
 This independent Python implementation proves one bounded public-data path. It does not use the archived Node prototype.
 
 See the workspace [action reference](../ACTION_REFERENCE.md), [findings](../docs/WORK_PACKAGE_1.md), and [persistence proposal](../docs/PERSISTENCE_PROPOSAL.md).
