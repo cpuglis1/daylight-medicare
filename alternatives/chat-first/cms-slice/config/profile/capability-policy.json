@@ -1,0 +1,176 @@
+{
+  "version": "customer-input-gates-20261023-v1",
+  "authority": "server_derived",
+  "domainPolicyApproved": false,
+  "personalizedRecommendationEnabled": false,
+  "capabilities": {
+    "availability": {
+      "label": "Plan availability",
+      "external": [
+        "validated_service_area_and_benefit_year"
+      ]
+    },
+    "route_comparison": {
+      "label": "Coverage comparison",
+      "external": [
+        "validated_market_scope",
+        "comparison_and_independence_acceptance"
+      ]
+    },
+    "timing": {
+      "label": "Enrollment/timing review",
+      "external": [
+        "official_enrollment_evidence",
+        "reviewed_timing_policy"
+      ]
+    },
+    "provider_fit": {
+      "label": "Doctor and hospital access",
+      "external": [
+        "provider_identity_resolution",
+        "current_plan_network_verification"
+      ]
+    },
+    "drug_coverage": {
+      "label": "Prescription coverage",
+      "external": [
+        "prescription_identity_resolution",
+        "plan_formulary_verification"
+      ]
+    },
+    "drug_pricing": {
+      "label": "Prescription costs",
+      "external": [
+        "exact_pharmacy_resolution",
+        "validated_formulary_and_pricing_adapter"
+      ]
+    },
+    "medigap_rights": {
+      "label": "Medigap rights review",
+      "external": [
+        "reviewed_federal_and_state_rights_policy",
+        "official_history_evidence"
+      ]
+    },
+    "snp": {
+      "label": "Special Needs Plan qualification",
+      "external": [
+        "program_or_plan_qualification_verification",
+        "reviewed_SNP_policy"
+      ]
+    }
+  },
+  "baselineStaleDependencies": {
+    "RC02": [
+      "comparison.scope.zip",
+      "comparison.scope.county"
+    ],
+    "RC03": [
+      "coverage.requestedStart",
+      "coverage.requestedStartMonth"
+    ],
+    "RC04": [
+      "coverage.current"
+    ],
+    "RC05": [
+      "coverage.current"
+    ],
+    "RC07": [
+      "coverage.current"
+    ],
+    "RC08": [
+      "coverage.current"
+    ],
+    "RC09": [
+      "coverage.current"
+    ],
+    "RC10": [
+      "coverage.current"
+    ],
+    "RC11": [
+      "coverage.current"
+    ],
+    "RC12": [
+      "coverage.current"
+    ],
+    "RC13": [
+      "coverage.current"
+    ],
+    "RC14": [
+      "coverage.current"
+    ],
+    "RC15": [
+      "coverage.current"
+    ],
+    "RC16": [
+      "coverage.current"
+    ],
+    "RC17": [
+      "coverage.current"
+    ],
+    "RC20": [
+      "needs.travel"
+    ],
+    "RC21": [
+      "needs.providersStatus",
+      "needs.providers"
+    ],
+    "RC22": [
+      "needs.medicinesStatus",
+      "needs.medications",
+      "needs.medicationDetails"
+    ],
+    "RC23": [
+      "needs.medicinesStatus",
+      "needs.medications",
+      "needs.pharmacies"
+    ],
+    "RC24": [
+      "needs.medications"
+    ],
+    "RC26": [
+      "coverage.current"
+    ]
+  },
+  "parentReportDependencies": {
+    "RC05": [
+      "RC04"
+    ],
+    "RC10": [
+      "RC06",
+      "RC09"
+    ],
+    "RC11": [
+      "RC09"
+    ],
+    "RC13": [
+      "RC09"
+    ],
+    "RC14": [
+      "RC09"
+    ],
+    "RC15": [
+      "RC05"
+    ],
+    "RC16": [
+      "RC07"
+    ],
+    "RC23": [
+      "RC22"
+    ],
+    "RC24": [
+      "RC22"
+    ]
+  },
+  "missingOrUnknown": "Does not satisfy a required information item. Required items differ by requested capability.",
+  "optionalPreferences": [
+    "knowledge.general",
+    "needs.costPreference",
+    "needs.priorities",
+    "needs.priorityOther",
+    "RC25",
+    "brand_generic_preference"
+  ],
+  "storage": "Existing GuestProfiles + ReadinessProfiles; gates recomputed, not trusted from client completeness/steps.",
+  "sourceBoundary": "External data, policy approval and ranking validation remain held. Samples require explicit browsing."
+}

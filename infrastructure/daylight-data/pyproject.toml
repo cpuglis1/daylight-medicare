@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "daylight-data"
+version = "0.1.0"
+description = "Versioned private 2026 evidence infrastructure; source acceptance remains external"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.162.0", "uvicorn==0.54.0", "psycopg[binary,pool]==3.3.6",
+  "psycopg-pool==3.3.3", "boto3==1.43.122", "ijson==3.6.0"
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.2.0", "httpx==0.28.1"]
+
+[project.scripts]
+daylight-data = "daylight_data.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
