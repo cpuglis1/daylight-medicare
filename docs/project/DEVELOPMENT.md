@@ -4,7 +4,7 @@ This repository contains the current advisor-first source, its exact shared engi
 
 ## Quick start without credentials or research data
 
-Requirements: Git, Python 3.12 or newer, and Node.js 22 for frontend regression tests. The fixture advisor and public checks use Python's standard library and built-in Node test tools; no pip or npm install is needed for this path.
+The repository is currently private; contributors need access and authenticated Git. Requirements: Git, Python 3.12 or newer, and Node.js 22 for frontend regression tests. The fixture advisor and public checks use Python's standard library and built-in Node test tools; no pip or npm install is needed for this path.
 
 ```sh
 git clone https://github.com/cpuglis1/daylight-medicare.git
@@ -33,7 +33,7 @@ The public advisor runner executes every `test_*.py` module except `test_publish
 
 `test_published_reference` remains in source and requires the separately governed exact r4 evidence, original lookup verifier and review receipt. Its absence from public CI is explicit in the runner's JSON report. No invented reference replaces it. Other infrastructure source-population, PostgreSQL/security/recovery and actual-target tests also require their named private inputs or isolated test database; the public checks above do not claim that those were executed.
 
-GitHub's required `repository-checks` job runs the control tests, Git publication checks, metadata preparation, public advisor suite, selected infrastructure contract/safety tests and HTTP smoke check. It uses Python 3.12 and Node 22, SHA-pinned actions, read-only permissions and a standard hosted runner.
+GitHub's `repository-checks` job runs the control tests, Git publication checks, metadata preparation, public advisor suite, selected infrastructure contract/safety tests and HTTP smoke check. It uses Python 3.12 and Node 22, SHA-pinned actions, read-only permissions and a standard hosted runner. In the current private setting, branch-protection enforcement requires GitHub Pro or public visibility; maintainers must verify the run before merging. Private-repository Actions allowances and existing billing limits apply. The term public suite describes its fictional/portable inputs, not the repository’s visibility.
 
 ## Exact metadata preparation
 
