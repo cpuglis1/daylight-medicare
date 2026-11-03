@@ -1,0 +1,26 @@
+{
+  "schema": "daylight-storage-routing-plan/v1",
+  "review_date": "2026-11-02",
+  "pilot_year": 2026,
+  "code_destination": "https://github.com/cpuglis1/daylight-medicare.git",
+  "code_destination_visibility": "public",
+  "cloud_account": null,
+  "cloud_region": null,
+  "database_provider": null,
+  "provisioned": false,
+  "files_moved": false,
+  "objects_uploaded": false,
+  "meaning": "Logical routing and preservation plan only. Not an exhaustive dependency manifest, publication allowlist, migration execution or acceptance record.",
+  "routes": [
+    {"source": "cms-slice and alternatives source/tests/config", "destination": "reviewed public Git source", "gate": "exact selection, content/privacy/rights/history review and clean-clone dependency closure", "preserve": "relative paths and advisor engine lock; no protected-variant or store merge"},
+    {"source": "infrastructure/daylight-data source/migrations/tools/tests/config", "destination": "reviewed public Git source", "gate": "exact selection and reproducibility review", "preserve": "checksummed migrations, source bindings and immutable authority boundaries"},
+    {"source": "root authority files and selected docs", "destination": "reviewed public Git documentation", "gate": "content/privacy/business/source-use review", "preserve": "latest direction, dated status and original evidence scope"},
+    {"source": "plans, docs/data, raw source and sealed artifacts", "destination": "private immutable object archive", "gate": "source-use rights, complete hash/length/lineage/closure manifest and verified transfer", "preserve": "original bytes and locators; additive relocation lookup only"},
+    {"source": "local research PostgreSQL and jobs/review metadata", "destination": "private managed PostgreSQL", "gate": "target/version/role compatibility, full restore, parity and new target binding", "preserve": "observations distinct from acceptance; source STOP and purpose holds"},
+    {"source": "database dump, roles/config recovery inputs and archive manifest", "destination": "private off-machine backup", "gate": "encryption/access/retention and demonstrated recovery", "preserve": "separate database, global-role and external-object recovery scopes"},
+    {"source": "variant guest stores and shared AI budget ledger", "destination": "retain current isolated local stores pending separate design", "gate": "specific customer/privacy migration and durable concurrency approval", "preserve": "owner, consent, deletion, sensitive-save and budget semantics"},
+    {"source": "conversation, education and identity-choice RAM", "destination": "reviewed ephemeral service state", "gate": "restart/multiworker/TTL/permission design", "preserve": "no implicit durable transcript retention"},
+    {"source": ".env and credentials", "destination": "restricted secret service/environment", "gate": "actual account and least-privilege operator", "preserve": "no repository, source artifact or browser exposure"},
+    {"source": "audit-evidence, outputs, archive, historical bundles and scratch", "destination": "classified private artifact/history storage", "gate": "retention, rights/privacy classification and exact recovery mapping", "preserve": "no deletion or deduplication before verified backup and dependency accounting"}
+  ]
+}

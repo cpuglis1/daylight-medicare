@@ -22,7 +22,7 @@ jobs:
   repository-checks:
     name: repository-checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -31,6 +31,9 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
       - name: Test the repository controls
         env:
           PYTHONDONTWRITEBYTECODE: '1'
@@ -49,3 +52,13 @@ jobs:
           else
             python tools/baseline_checks.py --revision HEAD --base HEAD^
           fi
+      - name: Prepare exact development metadata and fictional journey
+        run: python -B tools/prepare_advisor.py
+      - name: Check the public advisor with fictional inputs
+        run: python -B tools/run_advisor_checks.py
+      - name: Check profile contracts and whole-offering safety with fictional records
+        run: |
+          python -B -m unittest discover -s infrastructure/daylight-data/tests -p test_profile_contract_export.py -v
+          python -B -m unittest discover -s infrastructure/daylight-data/tests -p test_whole_offering.py -v
+      - name: Launch the fixture advisor and check HTTP plus assets
+        run: python -B tools/smoke_advisor.py

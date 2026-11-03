@@ -1,0 +1,97 @@
+{
+  "source": "Fictional live attempt audit-evidence/advisor-conversation-quality-20261102/live-attempts/20261102T195504Z-1b2d4cf1",
+  "message": "Please leave the start-month question for later. Explain how prescription medicines fit into the two paths before asking me more personal questions.",
+  "interpretation": {
+    "updates": [
+      {
+        "id": "T06",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "later"
+          }
+        ],
+        "quote": "Please leave the start-month question for later.",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": true,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "routesintro",
+      "original",
+      "advantage"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "learning",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "Explain how prescription medicines fit into the two paths before asking me more personal questions."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "situation_proposals": [],
+    "goal_quote": "",
+    "education_request": {
+      "kind": "explain",
+      "concept_ids": [
+        "prescription_coverage",
+        "coverage_paths",
+        "original_medicare"
+      ],
+      "quote": "Explain how prescription medicines fit into the two paths before asking me more personal questions."
+    }
+  },
+  "composition": {
+    "question_target": null,
+    "reply": "Prescription drug coverage is called Part D. With Original Medicare, drug coverage is separate—you would usually add a standalone Part D drug plan. With Medicare Advantage, most plans include drug coverage as part of the plan.\n\nThe important tradeoff is that medicine coverage is never just “included or not.” In either path, the exact plan can have its own list of covered drugs, pharmacy rules, restrictions, and costs, so a medicine check means looking at your specific prescriptions before relying on coverage.",
+    "question": "",
+    "education_followups": [
+      "If I choose Original Medicare, do I have to buy a drug plan separately?",
+      "What do you need to check to know whether my medicines are covered?"
+    ],
+    "report_refs": [],
+    "evidence_refs": [
+      "drugbasics",
+      "drugs",
+      "original"
+    ],
+    "agenda_update": {
+      "current_concern": "how prescription medicines fit into the two paths",
+      "pause": false
+    },
+    "education": {
+      "purpose": "answer",
+      "updates": [
+        {
+          "concept_id": "prescription_coverage",
+          "depth": "introduced",
+          "reason": "new",
+          "aspect_ids": [
+            "part_d_role",
+            "route_relationship",
+            "exact_medicine_conditions"
+          ],
+          "evidence_refs": [
+            "drugbasics",
+            "drugs"
+          ]
+        }
+      ],
+      "visual": "none"
+    }
+  }
+}
