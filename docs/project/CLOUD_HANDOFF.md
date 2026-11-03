@@ -1,6 +1,6 @@
 # GitHub and cloud handoff
 
-**Code-publication increment · November 2, 2026:** The current advisor/dependency baseline, fictional tests, data-infrastructure implementation and selected contracts are now the curated code-handoff target, with [portable fixture setup and explicit test limits](DEVELOPMENT.md). Required repository CI and branch protection are active. The original organizational review below predates these publication increments; its cloud, archive, customer-data, restoration and purpose-acceptance requirements remain open.
+**Code-publication increment · November 2, 2026:** The current advisor/dependency baseline, fictional tests, data-infrastructure implementation and selected contracts are now the curated code-handoff target, with [portable fixture setup and explicit test limits](DEVELOPMENT.md). Repository CI is active. GitHub reports that enforcing branch protection in this private repository requires Pro or public visibility; see [current controls](REPOSITORY_CHECKS.md). The original organizational review below predates these publication increments; its cloud, archive, customer-data, restoration and purpose-acceptance requirements remain open.
 
 Prepared November 2, 2026 for the owner's existing **[cpuglis1/daylight-medicare](https://github.com/cpuglis1/daylight-medicare)** repository and **2026 controlled Collier pilot**. GitHub metadata confirms the destination is public. No push, visibility change, cloud provisioning, source upload, database migration or customer migration was performed by this review.
 
