@@ -51,7 +51,8 @@ execution is enabled. Add a pip directory when a new independently deployed
 manifest is deliberately published; uncommitted local files are not monitored
 by hosted Dependabot.
 
-Refresh the audit tool lock in an isolated environment with pip-tools 7.6.2:
+Refresh the audit tool lock in an isolated **Python 3.12** environment with
+pip-tools 7.6.2, matching CI's Python minor version:
 
 ```sh
 pip-compile --generate-hashes --allow-unsafe --strip-extras --no-emit-index-url --no-emit-trusted-host --output-file tools/security/requirements.lock tools/security/requirements.txt
