@@ -4,6 +4,7 @@ This exercises the service/budget/serialization boundary omitted by direct
 controller fixtures. It uses no API network access or existing customer records.
 """
 import copy
+from datetime import datetime
 import http.client
 import json
 from pathlib import Path
@@ -37,7 +38,11 @@ class ProviderHttpTests(unittest.TestCase):
             conversation_class=advisor_server.ChatConversation,
             profile_gate_class=advisor_server.ProfileReadiness,
             adaptive_class=advisor_server.NaturalConversation)
-        AdvisorDailyBudget.adopt(self.service.budget, policy_path=HERE/'budget-policy.json')
+        budget = AdvisorDailyBudget.adopt(self.service.budget, policy_path=HERE/'budget-policy.json')
+        # Fake transport + disposable ledger: anchor this fixture to its reviewed
+        # pricing date. Never extend production pricing approval to keep CI green.
+        verified_at = datetime.fromisoformat(budget.rates['verified_at']).timestamp()
+        budget.clock = lambda: verified_at
         self.assertEqual(Path(self.service.budget.path).resolve(), (temporary/'budget.sqlite3').resolve())
         self.thread = threading.Thread(target=self.service.serve_forever, daemon=True)
         self.thread.start()
