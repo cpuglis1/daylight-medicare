@@ -6,3 +6,13 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 3
+  - package-ecosystem: pip
+    directories:
+      - /infrastructure/daylight-data
+      - /tools/security
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    # Proposals only; dependency/engine locks still require deliberate review.
+    insecure-external-code-execution: deny
