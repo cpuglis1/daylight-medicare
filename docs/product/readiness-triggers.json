@@ -1,0 +1,1400 @@
+{
+  "version": "0.1-research-draft",
+  "date": "2026-10-22",
+  "status": "DESIGN ONLY — no live rule engine, no licensed validation",
+  "copy_intro": "A few details can change which coverage fits. Let’s check what matters for you.",
+  "sources": {
+    "S01": {
+      "id": "S01",
+      "title": "Joining a plan",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan",
+      "section": "Am I eligible?; Initial Enrollment Period; Other enrollment periods",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "MA requires A+B; standalone drug plans require A or B. Service area and enrollment periods matter. These are distinct from an application or verified eligibility.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S02": {
+      "id": "S02",
+      "title": "Plan for Medicare",
+      "url": "https://www.ssa.gov/medicare",
+      "section": "Plan for Medicare; When to sign up",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Age-based and non-age Medicare eligibility exist. An age or a coverage preference alone is not an enrollment determination.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S03": {
+      "id": "S03",
+      "title": "When coverage starts",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start",
+      "section": "Initial Enrollment Period; Signing up for premium-free Part A later; Special Enrollment Period",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Initial enrollment and start dates depend on circumstances. First-day birthdays and retroactive Part A are material. Do not treat requested coverage month as an effective date.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S04": {
+      "id": "S04",
+      "title": "Working past 65",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+      "section": "Health insurance from a job; COBRA; Before you sign up",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Current-employment group coverage can differ from retiree/individual coverage. Job and coverage end dates can differ. Employer confirmation matters; HSA contributions can be affected by Medicare start dates.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S05": {
+      "id": "S05",
+      "title": "Who pays first?",
+      "url": "https://www.medicare.gov/health-drug-plans/coordination/who-pays-first",
+      "section": "Current/former group coverage; employer-size paths; Federal Program/TRICARE paths",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "The age-65 coordination questions use 20 employees; the under-65 disability path uses 100. Multi-employer and ESRD circumstances need their own analysis. Do not apply one threshold to everyone.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S06": {
+      "id": "S06",
+      "title": "COBRA coverage",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65/cobra-coverage",
+      "section": "How does COBRA work with Medicare?",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "COBRA is continuation coverage and does not restart the Part B employment-based sign-up period. Possible gaps and payer coordination need review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S07": {
+      "id": "S07",
+      "title": "Retiree insurance",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65/retiree-insurance",
+      "section": "Drug coverage; check before making decisions",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Joining outside coverage can affect retiree/family benefits; obtain benefits-administrator confirmation. Do not infer creditable drug status merely from the word retiree.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S08": {
+      "id": "S08",
+      "title": "Creditable drug coverage",
+      "url": "https://www.medicare.gov/health-drug-plans/part-d/basics/creditable-coverage",
+      "section": "Why do I need creditable coverage?; What you should do",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "A creditable-coverage notice is relevant evidence. A gap of 63 days or more may create a Part D penalty; this is not the same clock as a Part B enrollment period.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S09": {
+      "id": "S09",
+      "title": "When can I buy Medigap?",
+      "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when",
+      "section": "Federal-rights notice; Advantage trial/history questions; situation-specific answers",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Trial/guaranteed-issue possibilities depend on the exact event and history. First Medicare Advantage use and prior Medigap matter. Do not generalize one event-specific 63-day result to all cases.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S10": {
+      "id": "S10",
+      "title": "Medigap basics",
+      "url": "https://www.medicare.gov/health-drug-plans/medigap/basics",
+      "section": "Get Medigap Basics; Open Enrollment",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Federal Medigap open enrollment and later purchase are different. State rights may add protection. Medigap belongs with Original Medicare, not as a new Advantage supplement.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S11": {
+      "id": "S11",
+      "title": "Change Medigap policy",
+      "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/change-policies",
+      "section": "Can I change my Medigap policy?",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Outside protected situations switching can be limited. Do not cancel existing coverage on a provisional match; replacement/free-look details need review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S12": {
+      "id": "S12",
+      "title": "Florida Statutes 627.6741",
+      "url": "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0600-0699/0627/Sections/0627.6741.html",
+      "section": "2026 edition, subsection (1)(a)1 and (1)(a)2; (1)(b)",
+      "jurisdiction": "Florida",
+      "retrieved": "2026-10-22",
+      "note": "Florida provides described six-month opportunities for qualifying residents including certain under-65 disability/ESRD beneficiaries, and a two-month opportunity after qualifying group-policy termination. Application to a particular event and future year requires expert review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S13": {
+      "id": "S13",
+      "title": "Florida Medicare Supplement oversight",
+      "url": "https://www.floir.gov/life-health/medicare-supplement",
+      "section": "Overview; CHOICES rate search; FAQs",
+      "jurisdiction": "Florida",
+      "retrieved": "2026-10-22",
+      "note": "OIR is the state oversight/source route. A sample-rate search is not a binding personal quote or evidence that a particular policy is available to a person.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S14": {
+      "id": "S14",
+      "title": "Help with drug costs",
+      "url": "https://www.medicare.gov/basics/costs/help/drug-costs",
+      "section": "Who gets Extra Help automatically?; applying; wrong amount",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Assistance affects drug costs. Certain Medicaid/MSP/SSI situations can lead to automatic Extra Help, but notice/current status still matters. Do not request bank records here.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S15": {
+      "id": "S15",
+      "title": "Medicare Savings Programs",
+      "url": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "section": "How to qualify; Qualified Medicare Beneficiary",
+      "jurisdiction": "federal/state",
+      "retrieved": "2026-10-22",
+      "note": "States determine MSP eligibility; annual thresholds and state treatment differ. Unknown assistance is not ineligibility; QMB-related cost-sharing protections need correct handling.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S16": {
+      "id": "S16",
+      "title": "Special Needs Plans",
+      "url": "https://www.medicare.gov/health-drug-plans/health-plans/your-health-plan-options/SNP",
+      "section": "Who can join an SNP?; eligibility requirements",
+      "jurisdiction": "federal/state/plan",
+      "retrieved": "2026-10-22",
+      "note": "SNPs have A/B, service-area and category-specific criteria. Being ill, having Extra Help, or wanting extra benefits does not by itself establish SNP eligibility.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S17": {
+      "id": "S17",
+      "title": "Special Enrollment Periods",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan/special-enrollment-periods",
+      "section": "Change where you live; lose coverage; Medicaid/Extra Help; special situations",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "An event can change enrollment opportunities. Allowed changes and dates are event-specific; Medicaid/Extra Help rules must not be reduced to an old quarterly rule.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S18": {
+      "id": "S18",
+      "title": "Travel outside the U.S.",
+      "url": "https://www.medicare.gov/coverage/travel-outside-the-u.s.",
+      "section": "Description; Coverage details",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Routine overseas care, rare Original Medicare exceptions and optional emergency benefits are different. A travel preference does not establish coverage.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S19": {
+      "id": "S19",
+      "title": "Advantage provider networks",
+      "url": "https://www.medicare.gov/publications/11941-Understanding-Your-Medicare-Advantage-Plan.pdf",
+      "section": "pp. 1–3, provider directories and checking with providers/plan",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Plan/provider confirmation and exact location matter. A directory identity or Medicare participation is not proof of participation in a particular Advantage contract.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S20": {
+      "id": "S20",
+      "title": "RxNorm overview",
+      "url": "https://www.nlm.nih.gov/research/umls/rxnorm/overview.html",
+      "section": "Normalized names: ingredient, strength and dose form",
+      "jurisdiction": "technical/federal",
+      "retrieved": "2026-10-22",
+      "note": "Drug identity includes strength and dose form. A normalized identifier alone does not establish a plan formulary match, clinical substitutability or coverage.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S21": {
+      "id": "S21",
+      "title": "How drug plans work",
+      "url": "https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover/how-drug-plans-work",
+      "section": "Formularies; pharmacy network",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Specific formulary and pharmacy information is required for coverage/cost checks. General drug coverage is not a promise about a named prescription.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S22": {
+      "id": "S22",
+      "title": "Drug plan rules",
+      "url": "https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover/plan-rules",
+      "section": "Prior authorization; step therapy; quantity limits",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Coverage may carry restrictions or require an exception supported by the prescriber. Do not assume approval or transfer an old plan authorization to a new plan.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S23": {
+      "id": "S23",
+      "title": "Outpatient prescription drugs",
+      "url": "https://www.medicare.gov/coverage/prescription-drugs-outpatient",
+      "section": "Description; Coverage details",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Some outpatient drugs can be paid under Part B under particular conditions. A Part-D-only estimator must not silently label such treatment uncovered.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S24": {
+      "id": "S24",
+      "title": "Medicare costs",
+      "url": "https://www.medicare.gov/basics/costs/medicare-costs",
+      "section": "Costs for Parts A/B/C/D and Medigap; year-specific tables",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Plan premium is not total spending. Premiums, care use, deductibles, drug costs and possible income adjustments must be labeled by year and inclusion basis.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S25": {
+      "id": "S25",
+      "title": "VA and other insurance",
+      "url": "https://www.va.gov/resources/va-health-care-and-other-insurance/",
+      "section": "VA with Medicare; using each benefit",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "VA and Medicare are distinct care arrangements. VA drug coverage is relevant to Part D coordination; VA coverage is not a blanket reason to delay Part B.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S26": {
+      "id": "S26",
+      "title": "Caregiver permission",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/using-medicare/5-tips-for-using-medicare",
+      "section": "Tip 2: permission to talk to someone trusted",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Permission to research together is not authorization to retrieve Medicare account information or submit an application. Keep formal authorization outside an ordinary guest research chat.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S27": {
+      "id": "S27",
+      "title": "Florida SHINE",
+      "url": "https://www.floridashine.org/",
+      "section": "Who We Are",
+      "jurisdiction": "Florida",
+      "retrieved": "2026-10-22",
+      "note": "Official free, unbiased, confidential counseling option. A referral is optional and does not imply an operating Daylight advisor transfer or insurer endorsement.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S28": {
+      "id": "S28",
+      "title": "ESRD",
+      "url": "https://www.medicare.gov/basics/end-stage-renal-disease",
+      "section": "Group coverage and coordination period",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "ESRD changes some coordination facts, including a possible 30-month period. Do not run ordinary age/disability employer-size logic on this case without specialist review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S29": {
+      "id": "S29",
+      "title": "Applying for Extra Help",
+      "url": "https://www.ssa.gov/medicare/part-d-extra-help",
+      "section": "Apply online; documents",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "A formal assistance application requires financial information at SSA. This readiness check only records optional program status/interest and sends no application.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    }
+  },
+  "triggers": [
+    {
+      "id": "RC01",
+      "title": "One person and requested check",
+      "classification": "baseline_by_capability",
+      "scope": "MVP",
+      "trigger": "A personal comparison is requested and recipient or requested capability is unconfirmed. Reuse a confirmed Ask fact; education-only may bypass.",
+      "question": "Who is this coverage for?",
+      "why": "Why we ask: We need to keep one person’s details together.",
+      "answers": [
+        "Me",
+        "Someone I help",
+        "Research only",
+        "Not sure",
+        "Something else + text"
+      ],
+      "proposed_fields": {
+        "subject.role": "self|helper|research|unknown",
+        "request.capabilities": "explicit set"
+      },
+      "dependencies": [],
+      "resolution": "Person/context and requested check acknowledged; research may end without personal intake.",
+      "ambiguities": "Caregiver describing own drugs mixed with parent’s coverage: separate profiles, never merge people. Do not demand legal authority just to browse.",
+      "evidence_required": "User confirmation for research; formal permission required only before protected-account access/application.",
+      "capability_consequence": "Unknown subject holds personalized fit; education/samples remain available.",
+      "human_referral": "Helper cannot obtain consent or wants official account access: explain authorization and offer SHINE/Medicare.",
+      "sources": [
+        "S26",
+        "S27"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC02",
+      "title": "Residence/service area",
+      "classification": "baseline_by_capability",
+      "scope": "MVP",
+      "trigger": "Requested availability/network check lacks usable home ZIP/county, spans counties, or moving/seasonal facts conflict with home.",
+      "question": "Where is your permanent home?",
+      "why": "Why we ask: Plan availability depends on where you live.",
+      "answers": [
+        "ZIP + county confirmation",
+        "Moving: destination and month",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "scope.homeZip": "5 digits|unknown",
+        "scope.homeCountyFips": "string|unknown",
+        "scope.residence": "permanent|moving|seasonal|unknown"
+      },
+      "dependencies": [
+        "RC01"
+      ],
+      "resolution": "Usable confirmed home scope, or explicit unknown/out-of-area disposition. Do not re-ask an unambiguous confirmed home report solely because it came from Q3.",
+      "ambiguities": "Mailing address, winter address and provider location are not automatically permanent residence. Multi-county ZIP needs county confirmation.",
+      "evidence_required": "Reported home + accepted ZIP/county lookup; actual plan service-area file for plan/year.",
+      "capability_consequence": "Unknown/outside Collier holds local personalized availability; no false unavailable-plan conclusion.",
+      "human_referral": "Unsettled residence or interstate move: SHINE/plan service-area review.",
+      "sources": [
+        "S01",
+        "S17"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC03",
+      "title": "Benefit year and intended start",
+      "classification": "baseline_by_capability",
+      "scope": "MVP",
+      "trigger": "Requested benefit year/start is unknown, mismatches source year, or already-on-Medicare answer supplied no comparison year.",
+      "question": "Which year should we compare?",
+      "why": "Why we ask: Plan benefits and prices can change each year.",
+      "answers": [
+        "2026",
+        "2027",
+        "Another year + year",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "scope.benefitYear": "YYYY|unknown",
+        "timing.requestedStart": "YYYY-MM|unknown"
+      },
+      "dependencies": [
+        "RC01"
+      ],
+      "resolution": "Explicit year, reusing confirmed Q4 requested month/year where it determines the requested comparison.",
+      "ambiguities": "Today’s year, future plan year and current enrollment year are distinct. Unsupported year is not an answer error.",
+      "evidence_required": "Accepted source manifest for exactly that year; source-date and effective-year metadata.",
+      "capability_consequence": "Mismatched/unsupported year holds current cost/availability claims, not general education.",
+      "human_referral": "Urgent effective-date uncertainty: Medicare/SHINE.",
+      "sources": [
+        "S01",
+        "S24"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC04",
+      "title": "Actual A/B enrollment",
+      "classification": "baseline_by_capability",
+      "scope": "MVP",
+      "trigger": "Personal health/drug candidates requested and active/pending Part A/Part B status is not independently represented; Q4 Already on Medicare is insufficient.",
+      "question": "Which Medicare parts do you have now?",
+      "why": "Why we ask: Different plans require different Medicare parts.",
+      "answers": [
+        "A and B",
+        "A only",
+        "B only",
+        "Neither",
+        "Applied; waiting",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "enrollment.partA.status": "active|pending|not_active|unknown",
+        "enrollment.partB.status": "active|pending|not_active|unknown"
+      },
+      "dependencies": [
+        "RC01"
+      ],
+      "resolution": "Both parts have explicit reported/unknown statuses; pending stays pending.",
+      "ambiguities": "An Advantage member still has A/B. Do not call A+B plus Advantage contradictory. Do not infer premium-free A or eligibility from age.",
+      "evidence_required": "Reported status is enough for conditional research; official SSA/Medicare record for verified enrollment. Never collect Medicare number/card image here.",
+      "capability_consequence": "Unknown A/B holds eligible-to-join claims; MA requires both, standalone D A or B. Browse only with explicit assumptions.",
+      "human_referral": "Not enrolled/uncertain: official SSA/Medicare enrollment help.",
+      "sources": [
+        "S01",
+        "S02"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC05",
+      "title": "Actual effective dates",
+      "classification": "baseline_by_capability",
+      "scope": "MVP",
+      "trigger": "Timing/Medigap/change review needs actual A/B dates and they are missing or different from requested start.",
+      "question": "When did Part B start?",
+      "why": "Why we ask: This can affect your enrollment and Medigap options.",
+      "answers": [
+        "Month/year selector",
+        "Not started yet",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "enrollment.partB.effective": "date with precision|pending|unknown",
+        "enrollment.partA.effective": "same, asked separately only if needed"
+      },
+      "dependencies": [
+        "RC04"
+      ],
+      "resolution": "Relevant dates recorded with precision and provenance, or timing explicitly held.",
+      "ambiguities": "One date does not establish both parts. Retroactive A differs from B; requested start is never substituted.",
+      "evidence_required": "Self-report/card dates without identifier for research; official record for confirmed timing.",
+      "capability_consequence": "Missing dates hold affected timing/GI calculations, not already sourced benefit browsing.",
+      "human_referral": "Unexpected/retroactive dates: SSA/SHINE.",
+      "sources": [
+        "S03",
+        "S10"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC06",
+      "title": "Age/eligibility basis",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Timing, premium eligibility or Medigap rights need age/basis that existing confirmed enrollment does not resolve; not a universal diagnosis screen.",
+      "question": "How did you first qualify for Medicare?",
+      "why": "Why we ask: Some enrollment rules depend on how you qualified.",
+      "answers": [
+        "Turning 65",
+        "Disability before 65",
+        "Kidney failure / ESRD",
+        "ALS",
+        "Another reason",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "eligibility.basis": "age|disability|ESRD|ALS|other|unknown",
+        "eligibility.ageBand": "under65|65plus|unknown",
+        "eligibility.birthMonthYear": "optional only when timing needs it",
+        "eligibility.firstDayBirthday": "yes|no|unknown when timing material"
+      },
+      "dependencies": [
+        "RC04"
+      ],
+      "resolution": "Relevant basis/age or explicit unknown; ask birthday month/year only if calculation requires it.",
+      "ambiguities": "Disability benefits are not always active Medicare. ESRD/ALS timing differs. No full birth date or citizenship documents for ordinary research.",
+      "evidence_required": "SSA/Medicare determination for verified eligibility; report alone is provisional.",
+      "capability_consequence": "Unknown holds basis-dependent timing/rights/quotes; no automatic ineligibility or age-based recommendation.",
+      "human_referral": "Non-age/complex eligibility or citizenship/residency eligibility question: SSA/qualified human, without immigration-detail intake.",
+      "sources": [
+        "S02",
+        "S03",
+        "S28"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC07",
+      "title": "Current arrangement vs planned change",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Current medical arrangement has incompatible same-period reports or user wants to leave MA/Medigap without a clear current-versus-future distinction.",
+      "question": "How do you get your A and B benefits now?",
+      "why": "Why we ask: We need to separate current coverage from a possible change.",
+      "answers": [
+        "Original Medicare",
+        "Medicare Advantage",
+        "A change is pending",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "coverage.currentArrangement": "original|advantage|pending_change|unknown",
+        "coverage.planEffective": "dated report|unknown",
+        "coverage.changeIntent": "keep|explore|change|unknown"
+      },
+      "dependencies": [
+        "RC04"
+      ],
+      "resolution": "Current arrangement and any future change separated; contradictory reports preserved with a resolution link.",
+      "ambiguities": "Both Medicare card and MA card can be normal. A reported Medigap policy with MA may be unused/suspended; do not accuse or silently delete it.",
+      "evidence_required": "Plan name/ID from safe manual entry if needed, effective date/notice; no membership number.",
+      "capability_consequence": "Unresolved arrangement holds safe change-path conclusions and duplicate-coverage assumptions.",
+      "human_referral": "Overlapping/pending coverage or cancellation risk: SHINE/plan/benefits administrator.",
+      "sources": [
+        "S01",
+        "S09",
+        "S11"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC08",
+      "title": "Enrollment event/window",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "User requests a change/start outside an established reviewed window, or reports move, loss, plan termination, institutional stay, disaster or other potential event.",
+      "question": "What changed about your coverage?",
+      "why": "Why we ask: This can affect when you can enroll.",
+      "answers": [
+        "Losing coverage",
+        "Moving",
+        "Plan ending/changing service area",
+        "Medicaid/Extra Help change",
+        "Another event + text",
+        "Nothing changed",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "timing.event": "approved enum|other|unknown",
+        "timing.eventDate": "date+precision|unknown",
+        "timing.noticeDate": "date+precision|unknown if relevant"
+      },
+      "dependencies": [
+        "RC03",
+        "RC04",
+        "RC07"
+      ],
+      "resolution": "Applicable event details are available for source-backed review, or window remains unknown.",
+      "ambiguities": "Part B, MA/PDP and Medigap windows are separate. A doctor leaving a network is not automatically any generic SEP. Unknown notice date is not fabricated.",
+      "evidence_required": "Dated notice/event evidence; reviewed rule version and actual election period; no upload required in MVP.",
+      "capability_consequence": "Unknown holds enrollment-action readiness only; scoped browsing may proceed.",
+      "human_referral": "Near/past deadline, disaster or exceptional facts: Medicare/SHINE; do not calculate a deadline from guesswork.",
+      "sources": [
+        "S01",
+        "S17"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC09",
+      "title": "Current employment vs continuation",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Q5 employer/retiree/COBRA or free text indicates job-related insurance, but source of coverage/current-work relationship unclear.",
+      "question": "Is this coverage from someone who is still working?",
+      "why": "Why we ask: Current work can affect your Medicare sign-up window.",
+      "answers": [
+        "My current job",
+        "Spouse’s current job",
+        "Family member’s current job",
+        "Retiree coverage",
+        "COBRA",
+        "Other/Not sure"
+      ],
+      "proposed_fields": {
+        "work.coverageKind": "self_current|spouse_current|family_current|retiree|COBRA|other|unknown"
+      },
+      "dependencies": [
+        "RC07"
+      ],
+      "resolution": "Coverage kind/current work clarified or explicitly unresolved.",
+      "ambiguities": "An employer name does not mean active-employment coverage; a stipend/individual policy may differ. Multiple jobs/plans remain separate.",
+      "evidence_required": "Benefits administrator confirmation of group/current-work status.",
+      "capability_consequence": "Unknown holds delay/payer-order advice; not a reason to suppress noncommercial plan options.",
+      "human_referral": "Self-employed/individual reimbursement/multiple plans: benefits administrator/BCRC/SHINE.",
+      "sources": [
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC10",
+      "title": "Relevant employer size",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Current group coverage plus payer-order question; age/basis known. Do not run age threshold for ESRD.",
+      "question": "Does the employer have 20 or more employees?",
+      "why": "Why we ask: Employer size can change which coverage pays first.",
+      "answers": [
+        "Yes",
+        "No",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "work.sizeBand": "under20|20to99|100plus|unknown",
+        "work.multiEmployer": "yes|no|unknown"
+      },
+      "dependencies": [
+        "RC06",
+        "RC09"
+      ],
+      "resolution": "Age-65 case uses 20 threshold; under-65 disability variant asks “100 or more employees?”; uncertain multi-employer facts remain held.",
+      "ambiguities": "Do not use 20 universally; do not apply either shortcut to ESRD. Family-member coverage under disability needs exact review.",
+      "evidence_required": "Employer/benefits administrator size and group classification, not an LLM/company-web headcount guess.",
+      "capability_consequence": "Unresolved holds payer-order/delay conclusions; plan benefit comparison still possible with warnings.",
+      "human_referral": "Multi-employer or ESRD: BCRC/SHINE; no automatic payer verdict.",
+      "sources": [
+        "S05",
+        "S28"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC11",
+      "title": "Separate loss/job dates",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Coverage/job ending or ended, COBRA/retiree transition, or prospective change needs loss chronology.",
+      "question": "When did the job end?",
+      "why": "Why we ask: Different end dates can change your sign-up window.",
+      "answers": [
+        "Date selector with unknown parts allowed",
+        "Still working",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "work.employmentEnd": "date+precision|still_working|unknown",
+        "work.activeCoverageEnd": "separate date+precision|ongoing|unknown",
+        "work.continuationEnd": "separate if relevant"
+      },
+      "dependencies": [
+        "RC09"
+      ],
+      "resolution": "Ask approved child “When does the job-based health coverage end?” only if missing; save dates independently.",
+      "ambiguities": "Do not substitute retirement, COBRA expiry, notice date or requested start for active group coverage loss. Ranges crossing a deadline stay uncertain.",
+      "evidence_required": "Employer/coverage notices or user’s dated report; actual documents only through an approved future secure path.",
+      "capability_consequence": "Missing dates hold transition/deadline advice; explain which exact check remains open.",
+      "human_referral": "Potential gap/late enrollment: prompt official enrollment review, not automated cancellation.",
+      "sources": [
+        "S03",
+        "S04",
+        "S06"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC12",
+      "title": "Creditable drug coverage/gap",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Part D is absent/ending/unknown and employer/retiree/military/other drug coverage might exist, or user proposes no drug coverage.",
+      "question": "Does your plan say its drug coverage is creditable?",
+      "why": "Why we ask: A gap in qualifying drug coverage can affect later costs.",
+      "answers": [
+        "Yes, according to its notice",
+        "No",
+        "I have no drug coverage",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "drugCoverage.creditableReport": "yes|no|none|unknown",
+        "drugCoverage.lastCoveredDay": "date+precision|ongoing|unknown"
+      },
+      "dependencies": [
+        "RC07",
+        "RC09"
+      ],
+      "resolution": "Notice status and relevant end date recorded or unresolved; no penalty amount invented.",
+      "ambiguities": "No current prescriptions does not mean no need to consider D. The 63-day issue is not an MA/PDP election deadline or the eight-month Part B clock.",
+      "evidence_required": "Current written creditable-coverage notice and coverage dates; assistance status can change penalty analysis.",
+      "capability_consequence": "Unknown holds penalty/transition conclusions; no blanket no-D recommendation.",
+      "human_referral": "Missing notice, gap, family-retiree risk: benefits administrator/Medicare/SHINE.",
+      "sources": [
+        "S08",
+        "S14"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC13",
+      "title": "Retiree/family benefit consequences",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Employer/union/retiree coverage exists and user considers joining outside MA/PDP or dropping group coverage.",
+      "question": "Could a change affect anyone else’s coverage?",
+      "why": "Why we ask: Some changes can affect family or retiree benefits.",
+      "answers": [
+        "Administrator says yes",
+        "Administrator says no",
+        "I have not checked",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "coordination.familyRisk": "yes|no|unchecked|unknown",
+        "coordination.adminChecked": "reported date/source|unknown"
+      },
+      "dependencies": [
+        "RC09"
+      ],
+      "resolution": "Administrator report recorded; unchecked remains a specific action item.",
+      "ambiguities": "Joining an outside plan can have consequences beyond the beneficiary. Do not assume coverage can be restored.",
+      "evidence_required": "Benefits administrator’s plan-specific confirmation, ideally retained notice.",
+      "capability_consequence": "Unconfirmed holds recommended change/action; general comparison can remain available.",
+      "human_referral": "Benefits administrator before any enrollment/cancellation; human help optional.",
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC14",
+      "title": "HSA timing",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "User reports current-work coverage, Medicare deferral/retroactive A or specifically mentions HSA contributions.",
+      "question": "Are you or your employer adding money to an HSA?",
+      "why": "Why we ask: Medicare start dates can affect HSA contributions.",
+      "answers": [
+        "Yes",
+        "No",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "work.hsaContributions": "yes|no|unknown"
+      },
+      "dependencies": [
+        "RC05",
+        "RC09"
+      ],
+      "resolution": "No ends the trigger; yes/unknown creates review task, never an automated tax instruction.",
+      "ambiguities": "An HSA balance differs from current contributions. Do not request balance/account number or equate retirement date with Part A effective date.",
+      "evidence_required": "Actual Part A/benefit application dates and tax/benefits advice, not just a requested start month.",
+      "capability_consequence": "Holds HSA/tax timing advice; not all plan comparisons.",
+      "human_referral": "Benefits/tax professional and SSA for retroactive-date implications.",
+      "sources": [
+        "S03",
+        "S04"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC15",
+      "title": "Florida Medigap purchase window",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Original+Medigap purchase/replacement path requested; age, basis, Part B start or qualifying group-loss dates are missing or not reviewed.",
+      "question": "When did your Part B coverage begin?",
+      "why": "Why we ask: This can affect your Medigap purchase rights.",
+      "answers": [
+        "Month/year selector",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "medigap.partBStart": "reference enrollment date, no duplicate fact",
+        "medigap.rightsReview": "pending|reviewed; never LLM-qualified"
+      },
+      "dependencies": [
+        "RC02",
+        "RC05",
+        "RC06",
+        "RC11"
+      ],
+      "resolution": "Reuse dates already confirmed; evaluate federal and Florida candidates separately. Resolution is facts sufficient for expert review, not guaranteed issue confirmed.",
+      "ambiguities": "Florida six-month and qualifying group-termination two-month provisions differ from federal event-specific rights. Do not promise every policy/price or apply Florida elsewhere.",
+      "evidence_required": "Florida residency, age/basis, B dates and relevant termination evidence; approved jurisdiction/year rule receipt.",
+      "capability_consequence": "Unreviewed rights hold issueability/underwriting-free/quote eligibility claims; public Medigap benefit explanations remain possible.",
+      "human_referral": "Licensed Florida expert/SHINE/OIR when window/rights uncertain.",
+      "sources": [
+        "S10",
+        "S12",
+        "S13"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC16",
+      "title": "Trial/guaranteed-issue history",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Current/recent MA plus interest in Original+Medigap, lost supplement, plan termination/move or alleged insurer misconduct.",
+      "question": "Was this your first Medicare Advantage plan?",
+      "why": "Why we ask: Your coverage history may affect Medigap rights.",
+      "answers": [
+        "Yes",
+        "No",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "medigap.firstMA": "yes|no|unknown",
+        "medigap.maJoinDate": "date+precision|unknown",
+        "medigap.hadPriorPolicy": "yes|no|unknown",
+        "medigap.eventEvidence": "notice type/date|unknown"
+      },
+      "dependencies": [
+        "RC07",
+        "RC08",
+        "RC15"
+      ],
+      "resolution": "Only missing approved child questions asked: “When did it start?” and “Did you have Medigap before it?” Events reach specialist review.",
+      "ambiguities": "First MA at initial Medicare eligibility and dropping Medigap to try MA are distinct trial patterns; plan letters/availability differ. Never convert within-12-month report alone to guaranteed rights.",
+      "evidence_required": "Prior policy/join/end dates, reason for loss and dated notices; rule-specific source and expert receipt.",
+      "capability_consequence": "Holds guaranteed-issue/transition confidence; does not hide Original/MA alternatives.",
+      "human_referral": "Licensed Florida reviewer/SHINE before relinquishing current coverage.",
+      "sources": [
+        "S09",
+        "S11",
+        "S12"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC17",
+      "title": "Existing Medigap replacement",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "User already has Medigap and wants another supplement/carrier or is considering dropping it.",
+      "question": "Are you replacing an existing Medigap policy?",
+      "why": "Why we ask: You may not have the same rights to buy it again.",
+      "answers": [
+        "Yes",
+        "No, keeping it",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "medigap.replacementIntent": "replace|keep|unknown",
+        "medigap.currentPolicy": "letter/carrier/version report|unknown"
+      },
+      "dependencies": [
+        "RC07",
+        "RC15"
+      ],
+      "resolution": "Keep means no replacement intake; replace/unknown retains current coverage and review task.",
+      "ambiguities": "Annual MA/PDP open enrollment is not universal Medigap open enrollment. Do not demand diagnosis/underwriting history in this readiness chat.",
+      "evidence_required": "Current policy letter, issue history and new insurer’s actual acceptance/rate; final replacement rules separate.",
+      "capability_consequence": "Holds accepted/purchasable replacement claim and cancellation steps, not standardized-benefit browsing.",
+      "human_referral": "Licensed reviewer/insurer before cancellation; explain review is optional, not a sales gate.",
+      "sources": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC18",
+      "title": "Assistance status without financial intake",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Subsidy-adjusted costs, a reported Medicaid program, affordability concern or explicit help request makes program status consequential.",
+      "question": "Do you get help with Medicare costs now?",
+      "why": "Why we ask: Assistance can change what you pay.",
+      "answers": [
+        "Medicaid",
+        "Extra Help",
+        "Help paying Part B",
+        "SSI",
+        "None known",
+        "Not sure",
+        "Prefer not to say"
+      ],
+      "proposed_fields": {
+        "assistance.programReports": "set of enums|unknown|declined",
+        "assistance.effectiveYear": "YYYY|unknown"
+      },
+      "dependencies": [
+        "RC01",
+        "RC03"
+      ],
+      "resolution": "Current program reports/unknown/declined recorded; offer official application support, not a local eligibility decision.",
+      "ambiguities": "Medicaid, QMB/MSP, Extra Help and SSI are distinct. Program amount/year can change; no bank, tax-return or account collection here.",
+      "evidence_required": "Current benefit/decision notice or official program check with separate permission; state/SSA determines eligibility.",
+      "capability_consequence": "Unknown holds personalized subsidy-adjusted costs/SNP eligibility, not unsubsidized labeled scenarios.",
+      "human_referral": "SHINE/state Medicaid/SSA; finances submitted directly through approved official process.",
+      "sources": [
+        "S14",
+        "S15",
+        "S29"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC19",
+      "title": "SNP-specific qualification",
+      "classification": "conditional",
+      "scope": "MVP flags/referral; detailed SNP matching future",
+      "trigger": "User asks about an SNP or volunteers Medicaid/qualifying institutional/chronic circumstances and a supported candidate actually requires them.",
+      "question": "Has anyone confirmed you qualify for this type of special-needs plan?",
+      "why": "Why we ask: These plans have additional enrollment requirements.",
+      "answers": [
+        "Yes, current notice/plan confirmation",
+        "No",
+        "Not sure",
+        "I do not want to explore these plans"
+      ],
+      "proposed_fields": {
+        "snp.reportedCategory": "dual|chronic|institutional|unknown",
+        "snp.verification": "pending|verified evidence ref only"
+      },
+      "dependencies": [
+        "RC02",
+        "RC04",
+        "RC18"
+      ],
+      "resolution": "Category and evidence routed to plan/state review; decline closes this optional exploration without erasing known assistance.",
+      "ambiguities": "Extra Help alone is not full Medicaid or proof of D-SNP alignment; a diagnosis mention is not verified C-SNP eligibility. No exhaustive diagnosis questionnaire.",
+      "evidence_required": "Applicable state/plan eligibility proof, A/B, area and alignment requirements for exact plan/year.",
+      "capability_consequence": "Only SNP eligibility/fit held; other available paths not suppressed.",
+      "human_referral": "Plan/state/qualified reviewer for exact criteria.",
+      "sources": [
+        "S16",
+        "S17"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC20",
+      "title": "Seasonal/routine travel",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Q8 another-state/outside-US/unknown or moving/seasonal facts make care locations material to requested provider/travel fit.",
+      "question": "Where will you need routine care away from home?",
+      "why": "Why we ask: Routine care and emergency care can have different coverage.",
+      "answers": [
+        "Another U.S. state + location",
+        "Outside the U.S. + optional country",
+        "Emergency travel cover only",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "travel.routineLocations": "bounded public-location list",
+        "travel.need": "routine|emergency|both|unknown"
+      },
+      "dependencies": [
+        "RC02"
+      ],
+      "resolution": "Routine/emergency need and locations clarified or travel-fit limitation retained.",
+      "ambiguities": "Seasonal stay does not automatically change permanent home. A PPO label or foreign emergency benefit does not promise routine access.",
+      "evidence_required": "Plan EOC/network/travel-benefit terms for year; provider/location checks.",
+      "capability_consequence": "Unknown holds travel-fit claims only; no automated Original-over-Advantage preference.",
+      "human_referral": "Complex residency/long overseas stay: plan/SHINE; travel insurance referral only if requested.",
+      "sources": [
+        "S18",
+        "S19"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC21",
+      "title": "Exact provider identity/location",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Provider-fit requested and Q6 names are unresolved, ambiguous, location-free, or source/network result unavailable.",
+      "question": "Which location do you use for this doctor?",
+      "why": "Why we ask: The office location can affect the network check.",
+      "answers": [
+        "Office/practice + city",
+        "Choose a verified identity candidate",
+        "Add later",
+        "No longer needed"
+      ],
+      "proposed_fields": {
+        "providers.entities": "id,name,public practice/location,priority,report status",
+        "providers.networkChecks": "plan/year/as-of/evidence, separate"
+      },
+      "dependencies": [
+        "RC02",
+        "RC03"
+      ],
+      "resolution": "User confirms the exact provider/location; identity resolution remains separate from network verification.",
+      "ambiguities": "Do not choose among duplicate names by LLM confidence. Hospital/facility and doctor may need distinct checks; Medicare acceptance is not MA participation.",
+      "evidence_required": "Accepted directory plus exact plan contract/year and dated plan/provider confirmation; public provider ID alone insufficient.",
+      "capability_consequence": "Missing identity holds fit for that provider. Missing network source is a system limitation, not a negative score or another user question.",
+      "human_referral": "Conflicting directories/ongoing treatment: plan/provider and optional human.",
+      "sources": [
+        "S19"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC22",
+      "title": "Exact prescription identity",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Drug-fit/cost requested and medication string lacks a unique ingredient/brand, strength or form; preserve original wording.",
+      "question": "Which version of this prescription do you take?",
+      "why": "Why we ask: Strength and form can change the coverage check.",
+      "answers": [
+        "Name/strength/form fields or verified candidates",
+        "Not sure",
+        "Add later",
+        "No longer taking"
+      ],
+      "proposed_fields": {
+        "medications.entities": "id,originalText,ingredient/brand,strength,form,RxNorm candidate/user confirmation",
+        "medications.active": "yes|no|unknown"
+      },
+      "dependencies": [
+        "RC03"
+      ],
+      "resolution": "Confirmed identity tuple or explicit unresolved entity; one prompt per grouped missing tuple, not every field as another page.",
+      "ambiguities": "Similar names, extended-release vs immediate-release, salt/route and brand alternatives must not be silently substituted. Do not recommend medication changes.",
+      "evidence_required": "User confirmation plus accepted terminology mapping and plan formulary identity/version; exact match requires live validated data.",
+      "capability_consequence": "Unknown holds that drug’s coverage/price, not an inferred uncovered verdict or all general plan information.",
+      "human_referral": "Bottle/prescriber/pharmacist clarification; no image upload or medical advice required.",
+      "sources": [
+        "S20",
+        "S21"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC23",
+      "title": "Supply and pharmacy",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "A drug-cost check is requested and days supply/quantity/fill channel or exact pharmacy is missing.",
+      "question": "How do you usually fill this prescription?",
+      "why": "Why we ask: Supply and pharmacy can change the price.",
+      "answers": [
+        "Quantity + days supply; pharmacy/location",
+        "Mail order",
+        "Not sure",
+        "Add later"
+      ],
+      "proposed_fields": {
+        "medications.fill": "quantity,unit,daysSupply|unknown",
+        "pharmacies.preferred": "exact public identity/location|unknown",
+        "pharmacies.channel": "retail|mail|specialty|unknown"
+      },
+      "dependencies": [
+        "RC22"
+      ],
+      "resolution": "Required pricing inputs complete or the cost dimension explicitly withheld.",
+      "ambiguities": "Dose instructions and dispensed quantity differ. Preferred vs standard network, specialty channels and travel pharmacies need evidence, not guesses.",
+      "evidence_required": "Accepted plan pharmacy-network/pricing files for plan/year/fill tuple; user preference does not prove participation.",
+      "capability_consequence": "Missing inputs hold personal drug estimate only; a flat copay or premium must not stand in for total cost.",
+      "human_referral": "Pharmacist/plan when fill pattern or specialty pharmacy unclear.",
+      "sources": [
+        "S21",
+        "S24"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC24",
+      "title": "Restrictions and Part B/D boundary",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Validated source flags PA/ST/quantity restrictions, administration setting is ambiguous, or user reports a current exception/coverage problem.",
+      "question": "Is this given at a clinic or filled at a pharmacy?",
+      "why": "Why we ask: Some medicines use different Medicare coverage rules.",
+      "answers": [
+        "At a clinic",
+        "At a pharmacy",
+        "Both/Not sure"
+      ],
+      "proposed_fields": {
+        "medications.setting": "clinic|pharmacy|both|unknown",
+        "medications.restrictions": "source-derived, not user-guessed",
+        "medications.currentApprovalReport": "yes|no|unknown if material"
+      },
+      "dependencies": [
+        "RC22",
+        "RC23"
+      ],
+      "resolution": "Setting/reported problem preserved; restriction approval remains separate pending plan/prescriber confirmation.",
+      "ambiguities": "An old authorization does not establish approval under a new plan. Do not ask users to diagnose which Medicare part pays or waive requirements.",
+      "evidence_required": "Plan formulary/EOC, indication/setting where officially necessary, and prescriber/plan decision; minimum health context only with consent.",
+      "capability_consequence": "Restricted coverage displayed as conditional; unsupported Part-B drug costing withheld instead of marked not covered.",
+      "human_referral": "Prescriber/pharmacist/plan for approvals, exceptions or continuity issues.",
+      "sources": [
+        "S22",
+        "S23"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC25",
+      "title": "Affordability vs preference",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Cost priority or numeric budget request is material; Q9 cost preference alone does not establish affordability or total annual spending.",
+      "question": "Is there a monthly amount you want to stay under?",
+      "why": "Why we ask: A low plan premium is not the whole cost.",
+      "answers": [
+        "Optional amount/range + what it includes",
+        "No fixed limit",
+        "Not sure",
+        "Prefer not to say"
+      ],
+      "proposed_fields": {
+        "cost.monthlyLimit": "number/range|unknown|declined",
+        "cost.limitBasis": "all recurring premiums|plan only|unknown",
+        "cost.utilizationAssumptions": "explicit scenario, not inferred"
+      },
+      "dependencies": [
+        "RC03",
+        "RC18"
+      ],
+      "resolution": "Budget basis acknowledged or unknown; do not force financial disclosure.",
+      "ambiguities": "Include/exclude Part B, Medigap, drug/medical use and possible income adjustments explicitly. No income/tax documents here; unknown medical use prevents a guaranteed total.",
+      "evidence_required": "Year-specific accepted premium/benefit/drug/rate sources plus clearly dated assumptions; estimated vs binding quote separated.",
+      "capability_consequence": "Unknown budget limits affordability assessment only; absent source/care-use assumptions holds personalized total/ranking, not all browsing.",
+      "human_referral": "SHINE for cost assistance; SSA for income-adjustment questions; clinician never inferred by spending.",
+      "sources": [
+        "S24",
+        "S14",
+        "S15"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC26",
+      "title": "Military/veterans coordination",
+      "classification": "conditional",
+      "scope": "MVP",
+      "trigger": "Q5 military category or free text indicates VA, TRICARE, CHAMPVA or another federal program without exact program context.",
+      "question": "Which military or veterans’ coverage do you have?",
+      "why": "Why we ask: These programs work with Medicare in different ways.",
+      "answers": [
+        "VA health care",
+        "TRICARE For Life",
+        "Other TRICARE",
+        "CHAMPVA",
+        "Another program",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "coordination.federalProgram": "enum|unknown",
+        "coordination.offSystemCare": "reported need|unknown"
+      },
+      "dependencies": [
+        "RC04",
+        "RC12"
+      ],
+      "resolution": "Program classified for correct official referral; unresolved stays unknown.",
+      "ambiguities": "VA is not TRICARE. Do not universally advise joining/dropping D, dropping B or adding Medigap; family consequences may matter.",
+      "evidence_required": "Relevant program/plan eligibility and coordination guidance; no service/membership identifiers.",
+      "capability_consequence": "Unresolved holds coordination and recommended change conclusions, not neutral education.",
+      "human_referral": "VA/TRICARE/program administrator/BCRC/SHINE for exact arrangement.",
+      "sources": [
+        "S05",
+        "S25"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC27",
+      "title": "Material exception/continuity",
+      "classification": "conditional",
+      "scope": "MVP recognition/referral; rare-case automation future",
+      "trigger": "User/notice reports ESRD coordination, institutional stay, disaster, plan misconduct/termination, imminent coverage/refill gap or another source-listed exception. Do not screen everyone for every condition.",
+      "question": "Is there a coverage interruption you need help with now?",
+      "why": "Why we ask: An immediate gap may need a different next step.",
+      "answers": [
+        "Yes + brief optional detail",
+        "No",
+        "Not sure",
+        "I want human help"
+      ],
+      "proposed_fields": {
+        "exceptions.reported": "approved event enum + minimal wording",
+        "exceptions.urgency": "reported|unknown",
+        "exceptions.review": "pending evidence"
+      },
+      "dependencies": [
+        "RC08"
+      ],
+      "resolution": "Route only to approved event child or unresolved human review; no new LLM-generated insurance branch.",
+      "ambiguities": "Never translate serious illness to SNP eligibility, presume ESRD prevents MA enrollment, or infer an exception from vague urgency. No clinical triage/medical recommendation.",
+      "evidence_required": "Event-specific official source/notice; reviewed exception adapter. Rare unsupported events end in a documented human/source check.",
+      "capability_consequence": "Holds only affected timing/coordination/continuity assurances; no false safety guarantee.",
+      "human_referral": "Medicare/SHINE and relevant plan/provider; no automatic external message.",
+      "sources": [
+        "S17",
+        "S22",
+        "S28"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC28",
+      "title": "Conflicting or ambiguous proposed facts",
+      "classification": "integrity_guard",
+      "scope": "MVP",
+      "trigger": "Same person/period has mutually exclusive confirmed reports, unconfirmed text interpretation, or a result conflicts with the profile.",
+      "question": "Which detail should we use?",
+      "why": "Why we ask: These answers lead to different checks.",
+      "answers": [
+        "Explicit existing fact A",
+        "Explicit existing fact B",
+        "They apply at different times + dates",
+        "Neither + text",
+        "Not sure"
+      ],
+      "proposed_fields": {
+        "integrity.conflict": "field/value refs, not deleted facts",
+        "integrity.resolution": "confirmed replacement link|unknown"
+      },
+      "dependencies": [],
+      "resolution": "One explicit resolution or defer; one clarification retry maximum, then held. Facts at different times may both remain valid.",
+      "ambiguities": "A+B membership and MA are not intrinsically inconsistent. Do not silently pick newer-looking text or AI confidence; preserve history and prior confirmed answers.",
+      "evidence_required": "User confirmation for report resolution; independent evidence still separately required for coverage truth.",
+      "capability_consequence": "Only dependent capabilities held; no favorable default/ranking.",
+      "human_referral": "Unresolvable conflict or official notice disagreement: qualified human with user-controlled summary.",
+      "sources": [
+        "S01",
+        "S26"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC29",
+      "title": "Source/data capability guard",
+      "classification": "system_no_question",
+      "scope": "MVP",
+      "trigger": "Rule/source missing, stale, future-year mismatched, expert review absent, API unavailable, acceptance registry pending, or requested capability unsupported.",
+      "question": "No question: show the specific unavailable check.",
+      "why": "Why we ask: Your answers cannot replace a missing source check.",
+      "answers": [
+        "See limitations",
+        "Review saved answers",
+        "See labeled samples",
+        "Optional human help"
+      ],
+      "proposed_fields": {
+        "capabilities.state": "not_supported|data_held|needs_facts|ready_for_scoped_check",
+        "sources.receipt": "manifest/code/rule digest + approved review; null remains held"
+      },
+      "dependencies": [],
+      "resolution": "End affected data check with evidence-based state; do not collect irrelevant extra facts to conceal unavailable data.",
+      "ambiguities": "A technically downloaded file or accurate LLM explanation is not an accepted consumer release. 2026 facts must not be relabeled 2027.",
+      "evidence_required": "Named review receipts for actual release/code/rules, effective year/scope, provider/formulary/rate evidence as applicable.",
+      "capability_consequence": "Capabilities held independently. Current registry is pending, so readiness facts cannot release personalized matches.",
+      "human_referral": "User may choose SHINE or official source assistance; no claim Daylight human transfer is implemented.",
+      "sources": [
+        "S01",
+        "S13",
+        "S19",
+        "S21"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    },
+    {
+      "id": "RC30",
+      "title": "Final plan-specific review",
+      "classification": "post_selection_not_queue",
+      "scope": "Future; separate final gate",
+      "trigger": "Future user selects a plan and requests application/action. Never part of the initial readiness question queue.",
+      "question": "Confirm the final plan and coverage dates before applying.",
+      "why": "Why we ask: An application needs a separate plan-specific review.",
+      "answers": [
+        "Review plan/EOC/effective date",
+        "Confirm details through authorized process",
+        "Keep researching"
+      ],
+      "proposed_fields": {
+        "application.readiness": "separate future state; no Medicare IDs in research profile"
+      },
+      "dependencies": [
+        "RC29"
+      ],
+      "resolution": "Official/plan eligibility and plan-specific confirmations, consent and application permissions completed through separately authorized workflow.",
+      "ambiguities": "Readiness report and source-reviewed comparison are not enrollment, legal eligibility or approved exceptions. Never cancel old coverage from a suggested match.",
+      "evidence_required": "Exact plan/version/year, costs, providers/drugs/restrictions, election period, transition, official enrollment facts and user action approval.",
+      "capability_consequence": "Application/action held; comparison remains scoped and reversible.",
+      "human_referral": "Licensed/official enrollment help where needed; optional self-service remains possible when supported.",
+      "sources": [
+        "S01",
+        "S09",
+        "S19",
+        "S22"
+      ],
+      "retrieved": "2026-10-22",
+      "status": "proposed_not_implemented"
+    }
+  ],
+  "queue_policy": {
+    "max_primary_questions_per_pass": 6,
+    "cap_is": "proposed UX safety bound, not insurance rule; owner review required",
+    "one_clarification_retry_per_instance": 1,
+    "never_auto_repeat_deferred": true,
+    "post_selection_excluded": [
+      "RC30"
+    ],
+    "system_questions_excluded": [
+      "RC29"
+    ],
+    "no_new_eligibility_rules_from_model": true
+  }
+}

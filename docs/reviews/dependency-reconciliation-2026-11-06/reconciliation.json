@@ -1,0 +1,3414 @@
+{
+  "schema": "daylight-dependency-reconciliation/1",
+  "at": "2026-11-06T13:52:44.245349+00:00",
+  "historical_packet": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r3",
+  "historical_manifest_sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+  "historical_lock_sha256": "375c52227496ddbf0babeaf264dd6326ad30f2a5e0a5194746c8211887d04a87",
+  "current_lock_sha256": "81946390d9173c21246e42798e902934a4b0551d316c8bb6eb9bc3a4d466bcab",
+  "historical_packages": 33,
+  "current_packages": 38,
+  "added_packages": {
+    "attrs": "26.1.0",
+    "jsonschema": "4.25.1",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "changed_or_removed_historical_versions": {},
+  "installed_versions": {
+    "annotated-doc": "0.0.5",
+    "annotated-types": "0.8.0",
+    "attrs": "26.1.0",
+    "anyio": "4.15.1",
+    "boto3": "1.43.122",
+    "botocore": "1.43.122",
+    "certifi": "2026.10.23",
+    "click": "8.5.0",
+    "fastapi": "0.162.0",
+    "h11": "0.16.0",
+    "httpcore": "1.0.9",
+    "httpx": "0.28.1",
+    "idna": "3.20",
+    "ijson": "3.6.0",
+    "iniconfig": "2.3.1",
+    "jmespath": "1.1.0",
+    "jsonschema": "4.25.1",
+    "jsonschema-specifications": "2025.9.1",
+    "opentelemetry-api": "1.45.2",
+    "packaging": "26.3",
+    "pluggy": "1.7.0",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "psycopg-pool": "3.3.3",
+    "pydantic": "2.14.2",
+    "pydantic-core": "2.50.2",
+    "pygments": "2.21.0",
+    "pytest": "9.2.0",
+    "python-dateutil": "2.9.0.post0",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1",
+    "s3transfer": "0.19.3",
+    "six": "1.17.0",
+    "starlette": "1.10.0",
+    "typing-inspection": "0.4.4",
+    "typing-extensions": "4.16.0",
+    "urllib3": "2.8.0",
+    "uvicorn": "0.54.0"
+  },
+  "current_environment_matches_current_lock": true,
+  "archive_binding": {
+    "path": "docs/data/infrastructure-execution-2026-10-29/implementation-archive-r4.json",
+    "sha256": "8c4b71cf20ef7fc6a0132c49a2cd15b127d6668449131d1d1ba978b085293ccf",
+    "bundle": "docs/data/infrastructure-execution-2026-10-29/implementation-r4.tar.gz",
+    "bundle_sha256": "2bc84bbe25f3180e096b207763010d832412095a34ecf2bde6ad4502f51e5a20"
+  },
+  "verification_snapshot": "infrastructure/daylight-data/.state/maintenance/20261106-lock-r1/verification-root",
+  "verifier_sha256": "651df62f0d559a7bd763b9c9607c2789dfa13dc62414d47e9b2473cb97b47852",
+  "snapshot_files": [
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/BUILD_MANIFEST.json",
+      "sha256": "21084280f2a8c0728ee2a685804d350393750378d7130d59b93059f4164b51c0",
+      "bytes": 118053,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/CHECKPOINT_DURABILITY.json",
+      "sha256": "17f03905dc60a80e1bc96f34c8b451e0d75950cf67a2c25de5a4c692ad70ae6f",
+      "bytes": 637,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/LOGICAL_CHECKPOINT.json",
+      "sha256": "869253a6bd39525e2bf31cabe8bc18e26e8299a5eced5531356d67c925f98c86",
+      "bytes": 3267,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/LOGICAL_CHECKPOINT_TOC.txt",
+      "sha256": "be3489edfe8e2d8375779282fb758619c06cacd0b5a3f795f4d98ed750ce4733",
+      "bytes": 7624,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/TARGET.json",
+      "sha256": "de802be73bf954bd77ec3c6c71c41860a6a2a80fd5027b6b8939e2f73bb78e73",
+      "bytes": 363,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/00df2d6d67a3e4b38376b3dca8e5b0c4e6a7afd3bc2a93092190a72cbe84f4e7.json",
+      "sha256": "debf05e194decd597ee1567d2f27bfc3c99811dd39c924a6ef26c7f87aebb906",
+      "bytes": 1339,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/0431139c0f5afd632773271d8eaf3edb4ba44e2fe8b083df29f06654bfc2c30b.json",
+      "sha256": "69fa64778b3282dca27073cd26631105f0db96156b7be7e74012bf4f8b8f320c",
+      "bytes": 1333,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/04a151304460b55e26c600f9c534a1ac71db59cc12748aa597f10170a99fab59.json",
+      "sha256": "aa86ef538c413eb614e513b9d76ec91e18a6f78af0f490c470ee6e051d448473",
+      "bytes": 1223,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/0bf65e53d35f5286b3e22bd7d1678661fcc1518435ba0f8b2016a6ef9bd2c154.json",
+      "sha256": "12751cfb369d0f782b0b779c6593e99e861422520e1b3431e65b2e8935d1eb9d",
+      "bytes": 1252,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/0d89fe1e619edf663562df87553632d24b6b8d2dba65d24b25f5d1453cedf8ea.json",
+      "sha256": "cfb862419abb2a728d3998f3bb2c30baf6f79c558df064b5dd950acbf52f9148",
+      "bytes": 1221,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/0ee5de2a1e2204c405f05c4b53d98628991485fc42522b10ec44fcfbd26495c0.json",
+      "sha256": "cd46ca087fcb24f6fd0542ece62ea2b319b16d27ce2daefedaf73539031af2d6",
+      "bytes": 1257,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/0f76a01a7bf0be05e9572e70586c7845517193002d1843b8aa5678555b76ea16.json",
+      "sha256": "720c5bb4d689bb40cedc87cb7c739a792ec78bf6f10c08f77c7fb1f8354a2613",
+      "bytes": 1320,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/0fbd145451c1c9b085eff20fd6a4e27a39ba328188f81782c7a29af50947fe33.json",
+      "sha256": "c5ae2154bef3de781cf11d83a38bab2bd015e1fb93cc84cf31b59277d4c4ebee",
+      "bytes": 1307,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/1145844a9fc2de208b18264c260ae601018376191065349808133fcd6dac37d0.json",
+      "sha256": "dd4081b663b418592c48cb8286b315328544665f24130774b90ac862e74e79f8",
+      "bytes": 1380,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/1182f02c2f426e8122348101e973beeccf2cc0246efef96389ff553af8e6bac7.json",
+      "sha256": "bf92214528b39d90752a399a586a54686afd68b078370b489793f3df8ec66eef",
+      "bytes": 1298,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/12893f7c1d8d977be8ec38d51da7b1e8223fea57059ec637494736ae83cc2ad1.json",
+      "sha256": "5f034020a451d95130b44f9e2a1e3826c37fbe4b914258aacca846b757e4de36",
+      "bytes": 1335,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/1341e9139e923d2c3b785882521a3d5c3e62135d615fab3e83d65689acf32823.json",
+      "sha256": "c318cce34de94e9f6630347c8b7bc3599010f5490fd634c0672b7bfa9ce9cc49",
+      "bytes": 1279,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/149fc1745c54f4d02ca1454e7053e14c5297b9751e1738c7a7971e4a8dc0092c.json",
+      "sha256": "2f62ddadeadd2affafcd4917b9898f136c6a535146894f52aa983b7318cf0ae3",
+      "bytes": 1307,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/167aa42b3f9262499357377e0d0380eee42b3429aee367df4bbca55ff29125ef.json",
+      "sha256": "a1a92dc3bc053b9b1c452e79ba72e3c04c61e248ff4f25d7686fc694de7339a6",
+      "bytes": 1316,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/18b7a97c318a32927adddadd99bc27620e05b117f96969056403c4dd6ebaef75.json",
+      "sha256": "652a407579f35da8a4131844c3f00817835d0c856992a5caae5baf252f87d2b7",
+      "bytes": 1295,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/1c1d5974e1f59cb8a0546e1ae79ea53f0b4be54771aeceb81ffbf3be5d3916b7.json",
+      "sha256": "785c8b938f96d204271bb85c3c561411e4802d769b06c78a00940b9210b8c24e",
+      "bytes": 1312,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/1ed53d9775340843574028220c1be5350278ded02e6ae744b345ab52645c7811.json",
+      "sha256": "690d58676a4d27768dbd6e581b66255c142b312cd0192b3ca2fd1d583e1cbbc5",
+      "bytes": 1333,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/20911f9be3c1e7ed1fd0a89fe1134fbc46e6a05fc2ee977fd45ca8970d6280e9.json",
+      "sha256": "67163aa397efcb8ef95b222e0df31060d604a1fe256b5048d66ceb31c404d636",
+      "bytes": 1234,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2536e8acb2aa4b36aee0f5866c3ef56c653e4d7229517e47c1ac586f3c76c0e5.json",
+      "sha256": "2015d28c1808e2114cae2a0edcec025a8ced70f5ecfa4cabec0e2acd15c8b1fc",
+      "bytes": 1327,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/264bb99cb6e01ce64c410e3544bec5e607c442399b95f0377c110bc851051553.json",
+      "sha256": "36564330a7703be8da0f1c86c69170e4a395ae14a4a60361f158468abd9820e0",
+      "bytes": 1334,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/274ca8f953d634cdd914c9163c75c091ca864dc0d473df9e472946644e892dba.json",
+      "sha256": "ef8efca53fd4646fe13e085f940c2345939bd744fa7062166eee48fb54855d54",
+      "bytes": 1324,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/279b930dc48d2d736ec092062b2dd9d99f7da6395b29c64f8275db97529ab3e9.json",
+      "sha256": "50bfd523bb7da4124efc677f07dcaaaee9ca4b75ca1d930f6b132901e534cc43",
+      "bytes": 1371,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2874ef52ef3d5dbf23a2ede1f912467e0a9294b3a43217ac1b10a79026ca27ef.json",
+      "sha256": "6a148dd03915753b9964aa9395c3e987ebe732c8a76d8f4e8b37d3902aede985",
+      "bytes": 1333,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/29274ffdafe0c4f944990843e3c5de6ba36e45c05b007f62e18b2c940dd65696.json",
+      "sha256": "71e8117ed12386c7f566eab140044295a3b62959f67f3c0eb403607072faf8c9",
+      "bytes": 1234,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2935d3928c6ba92fc0cb76fb67dcba46e0214467630b4c8a411e97a3a9f91c53.json",
+      "sha256": "168f1460e18d3116ef343a7aa11ef96683139637054b8012cc1ce9e776c2fe38",
+      "bytes": 1348,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2aa4fbbcde18f312d39fe3fdc5af9562f6c7578d3e642f2467ec86cb1f40501f.json",
+      "sha256": "ffd76c0bbf25ba1490efd04c52bc52957fb7cfb06178093b34990c38b5723c2b",
+      "bytes": 1343,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2ce47b4339ca136a5d392b2eb6834dd0327645a5b560a35edc02202bb5062fec.json",
+      "sha256": "a31a5b862b68c16a0722cef3aaf3a447ccfbd4e9f080dc05837e02f600a2968e",
+      "bytes": 1306,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2cf038290dc3298470bf1a96d2971c7b8920727c4db40114355016fd916ff543.json",
+      "sha256": "db3ea55d91adf92a71472458abe12d3f8179f17de03c7192842347f39e841829",
+      "bytes": 1303,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2f49ab4cfcfd1a115a153114a5587cec0ff9fd21e687be09dbb231b7c7b1a227.json",
+      "sha256": "2cc6f6876cd394268ba25a5b365de51c6eb934aa365b2a455462c506046e9f7d",
+      "bytes": 1292,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/2fb12108ee6436773ebbb548c50111869d523678154fa4faa209efd0f249003e.json",
+      "sha256": "023b61a1b399e131f68be95f2a2133907df687273997f6342e0077832b6f7a1a",
+      "bytes": 1313,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/32bfc794dec8d3b7ee126c2e43c352a6c52bea6a6246e7ebab9c349f9319d6e2.json",
+      "sha256": "56ff7673ad39d45248f11f7c6affa9d229357c1251b9c56cb3bab6c16cb0597e",
+      "bytes": 1393,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/366ca67c2debe0d4fd4862d8a98ea4230a0a7e2b7d8740bb068ca3a156050ecf.json",
+      "sha256": "b8ee52b179aa8daaad19acc9ee049ac957a3d7de3490c59866686074a89c1322",
+      "bytes": 1325,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/36a903b1f7e8f1c6b9c5db0356a3e080c7ca78798ed83dd5ce9795c882c91d03.json",
+      "sha256": "96320145c0448024ba12726dd8a9d5542b136ff4f664a432abf774a24e3769d1",
+      "bytes": 1336,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/3882bb9d83e8440c973aeddbaf6518d920e187fdd5bd69736998c03bfb91070b.json",
+      "sha256": "2f2aa77ae459c73b992e071b32e43ee6f5146b9c27775a85d2e9b68cc26714b4",
+      "bytes": 1346,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/38a4f4f33aa2db297acebdfce773d6d300ba429e27cb8cad44748de5b625b1f1.json",
+      "sha256": "a9a9b781ec4c8f476e9fc068a831c08a863f703d3c72f556169b1e9ee4a42197",
+      "bytes": 1340,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/3919da9c9d1c8bcdcea320973a5cdfa3243cbdc3f6dcf936e8a2102475184de3.json",
+      "sha256": "40ddb65fe9c56a5e24e02bd3de45f0ed5cdbff8a9dd381352dc3a778e5428c49",
+      "bytes": 1359,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/3b195e98b54d5c3727601091fc99b01961fe784e01947e3576e5983b89acafba.json",
+      "sha256": "1c2875c4e1f2d9fb342c805e7592b472fbbb7bb8fa5ae6b25caafdf1309eb9cb",
+      "bytes": 1327,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/3b63672fa5ab336cd8fcbceab0e7c66e7722286d0d944ff516e65d2f9db0aa84.json",
+      "sha256": "a42a5b2912cdc76302f970c5dcf82df2a2234567e100ba7025f60da655f4333e",
+      "bytes": 1288,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/3c1dd1091cc20cfc92f851ae549daaf331099735a264e023a9b2f65d9d1455a9.json",
+      "sha256": "ce3267741442debd23d90e3e26503f0a34210227d15808071a749d6b1160ce5f",
+      "bytes": 1317,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/437c771b72cc42f7e0121fada64f7d606059c7be9d6c6a53c69aeb6628fea341.json",
+      "sha256": "450d8f09d26a4c6e44b3f0ab8f7ed798fb179f8fb7568e7e8111cbded95ae9cc",
+      "bytes": 1313,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/47a41c7bd963250826691ffea7e5d4ba469163d9fb1542079e7ceeab281aa581.json",
+      "sha256": "8982619295f8ffb00b22e4e1b57492cc5855eca3b1f14cdccf8a88794b61d234",
+      "bytes": 1298,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/47b029619714cf4de8a3750e94c3f94a0d2fa82fec271a06b5742787dad8c05c.json",
+      "sha256": "3e651870b42ae8f18adaf4c6e75bbedaeea88625d428ac195a87c56a7c9f5cb8",
+      "bytes": 1225,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/48c317955923524b8c9c62f9a3ce6d2d71674ada8ec90a7ea2da354ce2e7dff0.json",
+      "sha256": "fbbb5f8c8368cfe5757842d6e306f05dae8e6a450d0b2f98bacd43e6c1fd9ae0",
+      "bytes": 1330,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/4fd69c04ae125eea64b8f11fc8e57716bead876bb8d3bc247d68bf74ea8ffcbf.json",
+      "sha256": "e952bc346375430b559ab0ef058832deba83f48a6fcc5dd20550aa2576c9c3e0",
+      "bytes": 1369,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/504d523325ae14396f86cb370a0c06f087a0deb06f846bf6a90c3ecffa172628.json",
+      "sha256": "9d821da5306c06b3882336c524da030ccfed118c7947dfd4646419502e800f80",
+      "bytes": 1328,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/50b741821fe32e9bb27b30ebfe82dd877e5c7579ab8d1d5ec2ae61d8a488a11f.json",
+      "sha256": "8c57281a08b91b6bf1fcc5b0dcebebf0d5147db70c1bb2add0c1802a209c112b",
+      "bytes": 1252,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/542792c282cbf8baa0a0029a07511b4ea3bb6a2a44fd86f3c78cad4b152b615c.json",
+      "sha256": "2ff40c6f1ea615c39f27f063350cdeff424a2334617f0dcc5b92ecf8ad114cca",
+      "bytes": 1303,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5569c5ed353d90a09c905a5cf2eb2cd417f295325fc908d17bac795837bd15e0.json",
+      "sha256": "fadbc2bc5e6007753f5c0bf2ccb8daf0f197aa0155e5e9a601605fa3f5221949",
+      "bytes": 1288,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5583aa67f59e52fe7f52688df946ea303406627fe02f98014391c1b0c2a58707.json",
+      "sha256": "9c593d9f0628c77f9b43a18efbfcbcdf6bcdd0f24310804a1c6be2d2670a3c9f",
+      "bytes": 1224,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5649c39f3fb8a5bd73114eceaaf5167db9dd3b618ecc9053861c29b8ed715d95.json",
+      "sha256": "f77fb0ea8fc9cbeacea755580c7a0c2d3661d079d9601ae43c0ff5be2a18708b",
+      "bytes": 1304,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/568a2463b576927d48aa871c5da01e5904377c237eed1580750ea4ff2081230f.json",
+      "sha256": "6a156b0525638eee130c9e7891a2ee7ceceedc93ab28abca051eb9f0b8f61745",
+      "bytes": 1352,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5783d3659aad0aad2d83284c6ecf0ae0bd17ceff1192225483a234f7e1492dc1.json",
+      "sha256": "7c733f61ec5616007d196535165df5cc9b307df959dae3b6b706ad656b65e0a8",
+      "bytes": 1241,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5ca523bc0ca846d9ca92149223fd2ebc66081e0d7d0e514906e08fdf0bf4612b.json",
+      "sha256": "b449d27d72f9744f5bd3c4c0eb8f8aaf03f27172fdc7fa39b44bb27e2107665b",
+      "bytes": 1312,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5d2e500abeda4f2c39cb5149f303fcd1cd97bdb8c484d2264b843657c607dd2d.json",
+      "sha256": "b0e72070bbe49760c604e0b64818062a8396db53805b99f3a27066994a12f86e",
+      "bytes": 1248,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5ece76366e2bf0c6bc350b12a2455219761459afea48e5a18678060827537192.json",
+      "sha256": "f59fbde109f9667d62fc150e5d1d8c6e0dcd26f3d2690d163db8b76829b5c348",
+      "bytes": 1247,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/5ee788c93f8c1d997dec4234fcd24b0f51f359ecd75b4449141f1e1bca392b0e.json",
+      "sha256": "0d111d9a63ac6f8f631e736addb31f2333b7f67f21e6eadfd9e70313b474f0af",
+      "bytes": 1324,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/66ccb05a1c54051cd35102080e0d1dd147fe1614c56b56dbc98233413957ae92.json",
+      "sha256": "fa22e9775bcfd6c1bbf86563ec4a659b4f05660ddf778e0957b1f8ce89c1a1ad",
+      "bytes": 1237,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/6796e905467e9552ce2a4b7e52dba843bfba0bc6dc202eaec5c2d2091a73e761.json",
+      "sha256": "bef3eb6a39350c66f6f2a267160272261e6ce58b7ee97a261482f3559222ae46",
+      "bytes": 1364,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/68253f881f4d1caf16a2c0c9030505f00f637a1a30916bef42d64701a14d46e6.json",
+      "sha256": "a8ae743e80476ea14038c6f92f6488f60ece9c2a7fc1ec7b553f23e1bd40377e",
+      "bytes": 1320,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/70928936b0b3b348f60400d489cc27d962b4016f8c0047ce81aa23f2b0d64df5.json",
+      "sha256": "ac0f299072bbdfc9451b643ed417fa209613ec534bbc826c84db70153ffc27bb",
+      "bytes": 1395,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/713fc36b23e27563b3c1257373ede34956f47d256024755668f4ccec213b69e5.json",
+      "sha256": "e29f58b2a678a68d0dd2bec4513f528f8d527d15c86c5a37d8da546098a4656d",
+      "bytes": 1345,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/72e1e4559196b63ca809a0ec02bd2d151fef0107dfc17c2ee1850966d740e685.json",
+      "sha256": "0b4d9ec749c9520628e4eb6f7ec36bf64bebbe2eefd57656f7124d2bec1d2367",
+      "bytes": 1342,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/75e418f55ebaada2f778d13b6eae96b55b2e14c308cdfd6cbd2d14f131adc8f7.json",
+      "sha256": "666bf2f55c0dda3116f3701052bc7706379cf5ca7e351332c9c141af748e4bf2",
+      "bytes": 1220,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/762b0496a085186042c030396aa3894d86005b6b9984e834cb618d4bf3419e0e.json",
+      "sha256": "6a88f048acfddea94dca38844b736d24eeee2fb7250ee473832f98097dd19037",
+      "bytes": 1329,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/77defad18497607e851d6f1c0d0240e1e9016a3671ebbcf591de7ebc60f3c44e.json",
+      "sha256": "72a717f58ff3151a79827d4f3679a6d9363b7d505ff28926468d3e191cdeb48c",
+      "bytes": 1339,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/7918aceefc46c3e673ecd0f50e4245f14eb94367c231e67045ca51485e5915bd.json",
+      "sha256": "9d4a96d8b217391ad5461776868569dc575d72bfdfa1f4283506a6e4797b6381",
+      "bytes": 1312,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/7a44be4b43577efa97a7931b363734e1d774a2208c4cc2bc79f1388616443a00.json",
+      "sha256": "6f2261bdbdf136fac9271a548eab99f07a5283ccc09bc6238e0fbc56ac9fd722",
+      "bytes": 1235,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/811689cc0c74d507b39c16955aa5cb6bd6df3a8d09d4fc23b1901aa058bff949.json",
+      "sha256": "b059d36f6af178b3a7b85484fdf142bae1cb799da2378d26a87c4eafb89e407f",
+      "bytes": 1295,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/81694425a87a1b102f1b44e8082fc0cde3902b314c70d2c7164ed851f7e27167.json",
+      "sha256": "93a9a847c480028efcc3eee40545fe01e3f8376b4c1c1339696a4284474b58fa",
+      "bytes": 1237,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/82bd360769caaf95e7e21abac07804fd0d45db5d185d53c1efe5163dff070fe0.json",
+      "sha256": "767a33b7e8ec078f9b50c5f2639f53c3bc884ae660e8d65bff7671416e7f918e",
+      "bytes": 1338,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/855b9aca1d7c956e1b5f02f6c0a7809a87bab01980174ca7ba4443073a790f88.json",
+      "sha256": "ccb9daea14c2b2581d2b9674140677d9a75f77ebeb206c7bff0db5842ad9c910",
+      "bytes": 1246,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/86bbc0b0e2198f787c4a8cb89dc2ef5c5b5198939d4e2055f96e54e69ebf6e26.json",
+      "sha256": "2e25e680afe101e4707203191405939d3f6514725cd986c1185367ed805bce9a",
+      "bytes": 1226,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/8703abf2a3d6687bf0f28561410196d83131b20e2d9167fa91852f5ce97f1db3.json",
+      "sha256": "cb131a7e10f99af3955fc3b229beb371f7968f25a24b69998316dd469063ed18",
+      "bytes": 1293,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/8d663bf5c703c3fed2b0edda55c1f971ea144c2c38bf78f589beb32234a3bbfc.json",
+      "sha256": "57a9511e1dd55223b6e896974b4b8cdc3ec0e5149ea74574ad7ca8e8c8d2b8a1",
+      "bytes": 1243,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/8ef8087786a9d0964e68723af7b95da023c33c165b04beb55a8a21c6dd51c3e7.json",
+      "sha256": "c95e5ddb254ae25109fa9f022f7c38d9cfb109019e100b5fe959b1d4d2178a7a",
+      "bytes": 1320,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/8faee85b167312c8f29d70e265e51eeacb3035abbdbc5fd097182fc64548b34d.json",
+      "sha256": "3c8e3efbe04995a3d190e177d8864775161a19c1cc10762ba521dd5ac0245738",
+      "bytes": 1410,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/90247883882c9788f4b67e4941972bc774933b9a8eefcfb231dd95602d82cbbc.json",
+      "sha256": "4f81c5ed383540e480f8314d66a769a62b7d790c16a29382065b4692a7331a72",
+      "bytes": 1348,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/93fae8503c3a3ca36fd0ad231b37ca30673a91fd27445005becd24585fe85327.json",
+      "sha256": "b1c49facd0ae7cb01b841ef858c484e3ef99dd69104d65a061735af6cb694c08",
+      "bytes": 1353,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/9c70b740be7cee379977d43fd8ae56405481bad0b7755fe45a4a0fa8f8b6b15a.json",
+      "sha256": "0c83e90b7a3152d28a37f4a0566c48b580ac05fd4b35cdb0923ac6289e9d9025",
+      "bytes": 1315,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/9d8921d1702d6843f516b7b1b93998d138b316de85a9d255f973c5207760a764.json",
+      "sha256": "d194c68d6b532e4cd92b72c3e2b859479b8d1671b0da11215e46e36fb5ec5ca5",
+      "bytes": 1243,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/9e388e428c2e4d60f59cd87dbdd42be10f5b78ea79026697cc2ded510ceb3908.json",
+      "sha256": "67680dd25c5996d0f31d3e8ba72b1c205614fa3db445afbd35cb1c9a4bc960a5",
+      "bytes": 1368,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/9e665cb7327065d171df5daf932b7ad46fd12a74ef34f0f7b3fba729dc3642bd.json",
+      "sha256": "49dba864e4a55f7020e59ff96d18676301b549d26f97bc6bfd3bb3832debaa6c",
+      "bytes": 1283,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/9e9d0bd40367f1b49c9cb19d8be145c3921fed1b0f7d53c1f4a320d799bbf9d8.json",
+      "sha256": "58f1600a87b8f9913c2da3e814e5f0a7dd5152cdb1e59dc7f50fb00623b5db22",
+      "bytes": 1277,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/9f9004acaf186da25a01d442e7db0c3434d3ebf9dca4f772dcd87fe18fccd588.json",
+      "sha256": "7e5d46fc5fe3c61eed14e6ba0c4160c8e926f411363ada96897b9621a99a3ff7",
+      "bytes": 1327,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/a23a967c210f55c887500c5dd7d527a05f9813713e1712cf5a85791e5c1bd492.json",
+      "sha256": "47ed3ae4ebf1a7f7bbca47b4139ede1f28fbfd8efd31d03cf8575466a1fb322c",
+      "bytes": 1376,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/a674baacb609aeaaaee20f3ee95acd0d51cbe17f2114541485d671275159f7c4.json",
+      "sha256": "96d2cf703ad43d4cd0f0bedc0d58a445aa64946837293b2be69b2121e60d5194",
+      "bytes": 1308,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/ac4736861ad6e9af6dd01da5e5539ed88f62aacf778f48ab25996278b1e1fdae.json",
+      "sha256": "f0acd319a59dbedd855473a6f8d1043fc0399767f45c4b3c62d14ad832cf3caa",
+      "bytes": 1381,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/af14434f66c213a200e865ed6848fe6a0c15b20ccc8a3367e032627ad7bea9fe.json",
+      "sha256": "b94d06ee338aeed78fc62fd4110faf5914761f127576a0600917b5a236d06bd0",
+      "bytes": 1224,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/af2278833dd8621c3296e921fb289e14379ede1aa9799691819a7333468307f8.json",
+      "sha256": "55c0f8d00d7eab081ae4416eb5e0c30f617d53dec89503eb00a10c2ab5a13a20",
+      "bytes": 1322,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/b02f9bb4c4796ca8ff0c5e5caf5d6234aac0918b47d6a760ff8cb4f603a18680.json",
+      "sha256": "9206477da0dae1ad6b578fb4d4f2460b1e20dc729ab61f50a9953ff2c5d1477c",
+      "bytes": 1229,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/b062ef8b97fc4c174faffae7bec61a6705583df54fb55768db49a5d7ae9bde5a.json",
+      "sha256": "6d81baa01a285ede558719c7b996fd5e85a252bc24f4d1b59f1bb85ca6558858",
+      "bytes": 1231,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/b1253ddc23183dd25a06f5295855f2162cac860848c04efecfa8b5f595be9347.json",
+      "sha256": "f3a5b55c8d5db42de42b0dac9d8d3a816013d88afc7342baf17d57b64dfbccfc",
+      "bytes": 1336,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/b1274cec624e3bf22ef02797f1dbcfe671d66ab0fab34b1a1a3e61fa0bd5fcd3.json",
+      "sha256": "4d3cc256c169b6d538d5a5c6bf4608d07eaf82809c24cb42f33e5df7988d63e1",
+      "bytes": 1294,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/b5e607c89fa778988a36d8b8c02b55e4c0532f5ab9a5ee1a030a68660c1d0ce6.json",
+      "sha256": "95096ec3139e0607bb31d110db1435c83dc814b519209a0810dc16dd0fe3c27e",
+      "bytes": 1306,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/bb5eb678fa58ba32091364fc194dbbbf1cebcd6cc2a8653288d3f6de858c724f.json",
+      "sha256": "6f86bc5f4c900dfa6dfe0d99311b0faa1183dd0bd250cd39dfc376ecf607ffdb",
+      "bytes": 1360,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/bda294aac1c2bba74ddc8f0571c4e45bbc160d30d2ed1501f90431030d26d842.json",
+      "sha256": "7b481ffe31d03f18f2e52ce67b0c816dd2ad9aeae44a7a418b6c06d9ba9903a5",
+      "bytes": 1313,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/beb355756d651bf2b1c150a7a87dac741a52a3d5d8b1d327a5cd85274c82b388.json",
+      "sha256": "db71cea992e78f281fef5c6f68c4cdf36815fce5613cebc5bef96e4f3ccec604",
+      "bytes": 1325,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/c312e2b66e301dd15fbb462a206052ef18df5272d30bcd08185f354973e9f402.json",
+      "sha256": "c340e402a856ff565b62553922874c7ffc52acf8f3275bdb655150b7f67ae437",
+      "bytes": 1325,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/c8093d7af515b8b87b3aca833f41b81b33884194020501a251570493c1f52ae8.json",
+      "sha256": "6e47fb1acb0926b3ee0fa7d1f266de2b1a68659ee3ada1ac294bf8eef839dbda",
+      "bytes": 1312,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/c891f713c26b9b23d62f05d3386135ec3e1834917dc552c09516f01688301945.json",
+      "sha256": "b08dc430964a8fa7aea55c3606b4ba5b5a1a1a81904a92ec77d7afd51a3aa3e2",
+      "bytes": 1315,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/c91579ac52013d4cac05393cad2018e82d5b4f59aa81f2b193724122289e4f26.json",
+      "sha256": "5db25a18964042a74da2cc3e23f979a968ca11c1a74b4b6bca6276690e3e719f",
+      "bytes": 1318,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/c9dc2d64fed82cca8a632b0c967fc253d45c0b9c826b60ac6d843493f07f273a.json",
+      "sha256": "8194294202f4af9cc8abf6f9c05beae5dee6c8413daca2f9a65d83d6008f9ad9",
+      "bytes": 1325,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/ca6b90559fba29877299d78cf819e5338c37c0b8a66ee111ef92d72d17a2cbd2.json",
+      "sha256": "13cab17dd1835597be518fac11366d4726aa46a9408a652132bad2a3beb15e80",
+      "bytes": 1253,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/cbc67ebc5536fef22f37b074e68031e955d06ad6e7726cbbe64899998ddc3724.json",
+      "sha256": "aa8c4d95885f8a1e7bd36926e7aa1620c4ddc73504ff1d3d3048a81488d7d2ca",
+      "bytes": 1241,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/cfacec81b27479556684141807216da7eda9f484f9491d2f94888577fd46d3ee.json",
+      "sha256": "96c4eff4825bf0ce1231cc3079aeff55b21477981a2c0aea1c9d67a6e42870df",
+      "bytes": 1342,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/d406a64b9b2e0afd138eac1270c5ecccf1c287038e7d351606c49101f609de78.json",
+      "sha256": "3ae93d68eff76003255955e0f72ce711c1cc2c5a80d572979bfa0ec711c720d9",
+      "bytes": 1387,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/d548792095ff49ca78814bae377bf432e20602143b1f51277a82fe33d7ca4e77.json",
+      "sha256": "c6520e0a48e9da45c07589cea6caf90c78d8ee89a7d74d0bd8481afa446a980d",
+      "bytes": 1234,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/d79c3bbd1145cae133163f27c0445b42e01fc6a0b9fbf9821e6b3d214cfcf9bb.json",
+      "sha256": "b4193645b5b646194f6016fcfda9ba04415b131e44f1d6b052505df95b24c5bc",
+      "bytes": 1302,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/da28b5be3a4134fefaa435785616db652f927afa2e1a3cb7494d15f443522f1a.json",
+      "sha256": "f510372cb79f04df42c0c27b2ec860186531bd89f49b4a10cf4f9d268c9ef4c2",
+      "bytes": 1262,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/dbc322492622fa252d6372d19678391a4d95716af8aa6dfcfd6edd37aa6fc700.json",
+      "sha256": "0ef522fa5d3fb0c14404e6da34d4a07e46035bb4b894f875936c461cc0b61472",
+      "bytes": 1329,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/dd313cdf042bd3bf7b6dff111dc1ff8c77eaced69b01dc2cc1d87a47b59398fa.json",
+      "sha256": "addd5847977fea00c83e326b16e7d1304982b8c03bd977fca591da3b45825181",
+      "bytes": 1317,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/dd3be3c06831d38b198396cdaf6207c8143dd390ecd8f9b27b9e3f748a6f683e.json",
+      "sha256": "64b5fe90b990042572bad3b5e8738292fe92a805b8ee2c443dc88cd38c9f77b7",
+      "bytes": 1326,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/ddaa3c6ee1e2ecb8474b4df2eb23a022848dfd200d77872849aba401339b1f77.json",
+      "sha256": "34373e31f85186b735ad30146dba932f88a168d132511e07fd95bdd0c19bec03",
+      "bytes": 1341,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/de8d27b3a3907b1a6840cfa138db3fba94ae08a65d949266f698085188ea8f77.json",
+      "sha256": "a6e76cb6043f34fbba0b4011c9df3911a832d652544548bba94c2497f108f219",
+      "bytes": 1345,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/e2c1e387842376aeb4424451036663ad25d070071885428d92efe142973a0aaa.json",
+      "sha256": "c85420a24f9ba395bae6a63be99cceb7ed2f93e340d9a94bdb60d5a26412cf40",
+      "bytes": 1341,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/e4ada5a414fab9aa06ddaaacfce55aec8703bf34cc0fcd5fcb43868d61aa9e67.json",
+      "sha256": "696285746dd0054a90b5e41a78113744832f75e30303b161852524f96f8728f3",
+      "bytes": 1297,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/e4b488f76b347969d25afede9e03d3ec9fb8135d596cc1b759dbe8be34770e8f.json",
+      "sha256": "5c42e154ad4187c00b880c20f4082ffd7c7f697b4e4a00c51eafc60ec194fe60",
+      "bytes": 1306,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/e9220e6fb5236ebea3dca8ff5e1b073f471fd9f017e7f2e6c184a7c83f0f985c.json",
+      "sha256": "5d3f5a10afb0eba94c4e322a14147d64e863e9c3bf13022c9643532b3f87920d",
+      "bytes": 1283,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/eafca81b07c9b5fea1a3ebeaa740a43c9885fc34d2a648930c26a349c56f1500.json",
+      "sha256": "5016ff85b00d1041417811e3a16ab0f61ec28129f72c47aae85e0360418aa587",
+      "bytes": 1236,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/f5f0f10a91236f2e70e18eeaa7b17d377b0842ba65cac5ac90aba3bd0f6a8e69.json",
+      "sha256": "cdc08fbc7ef5334b88a2d63523073c14f0c08e8d23127dbb652223c9a4c9ba3d",
+      "bytes": 1228,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/fb80b40eb13dea7a059b2e0dc6fc177bae1d6d49968e63cf0aae71d978d4820f.json",
+      "sha256": "f88227e8f757dbaf30373bb10273535e92b7d98557e0cba07ae72522a1171ff6",
+      "bytes": 1324,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r2/units/ffc739530593886e04d74b0c5c3a09da951ba09060e3c384fd39ef589b1c4f34.json",
+      "sha256": "bde83a1759cbcee708da048bbdbda03c4639a4eeb783c63b7cbe2b586348d4be",
+      "bytes": 1304,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r3/BUILD_MANIFEST.json",
+      "sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+      "bytes": 204576,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r3/LOAD_COMPLETE.json",
+      "sha256": "8fe943aa4510fe626adede59049b580f5d19294aef89097bf92989569aa76efb",
+      "bytes": 4100,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r3/TARGET.json",
+      "sha256": "5cfcb3ef33da4e83a28ea2dc2fb56cafe7ff2f5c7e792ad581a2e60701214160",
+      "bytes": 615,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/SUMMARY.json",
+      "sha256": "7d9ee60259932768fc72d74d5a85445ebe925cb7a8dd8c31e0523da60bb93fb1",
+      "bytes": 172024,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L01.json",
+      "sha256": "ed5474e513bd81c2ef93675f32abb2951245c6101904030af6cf421ef71d90e8",
+      "bytes": 2026,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L02.json",
+      "sha256": "aeb2fc388d93edeb445fb98751f507ce3c4263b68a79a2779b1b97af20d17eb7",
+      "bytes": 4789,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L04.json",
+      "sha256": "69956b5b03bd6581f73f4b93771197b726be2649595ca934439ef272066976d3",
+      "bytes": 4810,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L05.json",
+      "sha256": "9a4328806062b55b78663a0fc36c164b44e3031357ff95bcbb79323bc6855a7e",
+      "bytes": 13321,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L06.json",
+      "sha256": "0ef49f835824d837d3564777231e9acc7659027a7c135c621d402806acde67d7",
+      "bytes": 9218,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L09.json",
+      "sha256": "cacef7bb8d44b17219ae6e7ce6492cc18d4abce286241870483883725b1232f6",
+      "bytes": 3136,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L10.json",
+      "sha256": "c4cd7bfa561bb996136a37178fc76a9b54ec3871336275a2d647a6d5a86bccdd",
+      "bytes": 24193,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L11.json",
+      "sha256": "2f2080e478acca4adfd40ff9588cffc4c7dcfdc15978776ea04b4e60d7d6b5f0",
+      "bytes": 5402,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L12.json",
+      "sha256": "dbaab25f5c37b25b2591237d2be60d3d2475fc59b82463bbff5340fd2baf6963",
+      "bytes": 2626,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L13.json",
+      "sha256": "ff5b01f46aec47b3ee8c6260598c4b723bc6df2a1e9014385ca9fd61ce5c8ced",
+      "bytes": 1512,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L14.json",
+      "sha256": "0afc623f1a43cc3f0afb46c3f0ea436a306c0b186c43ce73b043620f782aaed3",
+      "bytes": 16538,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/L15.json",
+      "sha256": "211e0ec8c2d101cbd88d4d781eeab6f1df2d54b21e5dd64b2c24cf44cb6c1fc2",
+      "bytes": 3677,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/016064e70854f19b71186e3acff40b60625647192e51019b3d493ed8ac22f6c8.json",
+      "sha256": "8e65d0b96fae2952d035e04f3d96a04843d5cfa8a7b4bf0f97c90d726c827f34",
+      "bytes": 6623,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/02b9a27c1009dcc62d98b117a8a18905a45c16c140dce2ffc34edec577df76dd.json",
+      "sha256": "0f6eb933aabb5f1d7a3e7c40d7fc1949b5f74a133bfaa3c3088f68e30dd2c012",
+      "bytes": 6638,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/04519a0313842c6ccc089472b9265cf5770f4e2fa7f5f2694c579c12a5149789.json",
+      "sha256": "0007b5776859916a8b675e2f2e95fecf3a352fc6b236d0d7f90982811a3d94bd",
+      "bytes": 6647,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/051c8d7c485abbc54f4d9cc708cf2981f4e0b2d5802e74dd9e46db54c89a2696.json",
+      "sha256": "a836ec22f94cd96434dd6376395b67b63bb5b871906d58cc493b27aaed8a4402",
+      "bytes": 6646,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/064dc3deadea8276b30458d2d7cb0c288ac39a68b966d448c710e24ac76c4076.json",
+      "sha256": "77fba402e1f311164fe0569d8a0c3e49efbcff88ce4b93c754c3384a1e06226d",
+      "bytes": 6665,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/08efdab965a36ee2a901ea46361a91b69846238814832b79c21ecdd8ab74aba2.json",
+      "sha256": "2c3d937c72817bb252bc51d51013af2b5639349ed86f67a2c09c3fa0711a8da5",
+      "bytes": 6647,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/095ecf7cdb7e9bc6bebb37f47bb26ff41326db79f843a8fed5f834909cf9fc36.json",
+      "sha256": "fdfff127870ad1d44c6862fa11c5abb4c84e576ec9f5e3acb7b390d969fac4ee",
+      "bytes": 6599,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0ac17f7d92f2fa1a709f0a63992558ff055056ff30605cacc1e5ddf9394b19c1.json",
+      "sha256": "94324669691d08ee7672ec002fad07fd6f76f537ef5fdb064fe4d453d981357e",
+      "bytes": 6585,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0b09242255af7a1eb26efe0e487899dc2db08b583127e09c6995afa6e6c5bba9.json",
+      "sha256": "d4b85e8551a24c976dcf6b903bb624212d7cd87904615105701e52147f4706db",
+      "bytes": 7029,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0b7de1f649b50bf8d6be0da835c6b4d961d12f38977b2c2fe6412d11d9a191ed.json",
+      "sha256": "f492ec874e8f498bf979f70207f55bfeeee3212f60788cdc8dd3f565ecf94603",
+      "bytes": 6602,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0c19f3914a084d7123097809a08897f76c2f1a95a04feefb64556518d8aed6b0.json",
+      "sha256": "23a21e3f9a5c4c82603230bf3f865f3905e962153bea5a390d21035ea4940a98",
+      "bytes": 6631,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0c9f4b0a12dd689c4068a3000710c1b3b009ef43d51b64216e250e8557e18a0b.json",
+      "sha256": "b548a78156305e3d5edf114353683e948e521c00fd41729dd0852d7fd0a182aa",
+      "bytes": 6589,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0cd2ccb480e87ef6518ec48f6526fb1f3cffead612ca5bb90ce191407c9bf59c.json",
+      "sha256": "d9d912a774edb8e1b88c1e9d5109f64d8c9a0fcbf5ef4abe400b81808921d323",
+      "bytes": 6615,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/0f17fb01b43a0946eb1980f74aa3e48ecddec535d3d6e271da951ff51701a8d3.json",
+      "sha256": "f09c9488bb00d65a76c118742668b4016c258a1f95fcf9f3bd5d4ad9c4b4b8db",
+      "bytes": 6622,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/11c9ef034e606201221db9dc64a181cc22fab90d25860a266fc3b2a1096a0505.json",
+      "sha256": "78ce8c5d2c7d4b8f9eea7bb9dd249e868907678771b62dee581fa16dd7c80b4d",
+      "bytes": 6625,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/14c1de43bded7f59e0710fb25eb4fddefbd46a3e09e9ce30d9e48358df3d4977.json",
+      "sha256": "b42df8edaa8feeae783bbf74700d1b406c143dbd74255328a0290debbc2553d0",
+      "bytes": 6614,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/184924343172a45d209adc8e61368364ad74372eb6073eb75915420e2bab672d.json",
+      "sha256": "c412981a8f421a45a42be258b59dd87b1021973a753c1f486bf1259aec2e8d0e",
+      "bytes": 6623,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/19c2e283e94e5f3d320afbbc3997a39210dd573654e915088b594e9c448d3926.json",
+      "sha256": "89344de90b0aec408296428131c6ad6a8d61e730ca2b3c290e61d9be53f79a0c",
+      "bytes": 6669,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/19efc7380c4689a2752a2e0cf2f840e455590b22cf40fc658f43cd91e17092ec.json",
+      "sha256": "4e3dddb782d8d28b80bb4929c23bfdec6cd01603b1a425403e8001fc18e28dd0",
+      "bytes": 6612,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/1a2887e6e952eff09dabe098d4008c55f952d0a0628cb29916c775b2df1fcec5.json",
+      "sha256": "98cc157436e9db39a942fbe50b3a49dfa057efd86eb40eb882492808b19568d7",
+      "bytes": 6624,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/1be8f91baddd4c0c7bab71ed4f3fdac013e12053e72f36e9dcaa8071c8e324b5.json",
+      "sha256": "a49009fe79e0bafec54ca4ca8f132bb75807158ee6f855b98d80eeb0914bd4dd",
+      "bytes": 6602,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/1cf426e5fe5d1d3507c3c80c6d36732a21257eb89b3448aefb8f0cbb376fb467.json",
+      "sha256": "362cd6b41a155369d8016c73aeb54f4da4e481762ec6b7b6f10f0124dbc1f86a",
+      "bytes": 6605,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/1d394a9b21dfbc661347d3d24d3c3c32893a880180a239bd33c198750fa82866.json",
+      "sha256": "b9a17463f5a7ee0ea8e7081db72fa634af65238ec6d2c30519b21e9762fd8521",
+      "bytes": 6630,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/24d4eccbca281952689e9cd997af14e40db0c9ea5932c010a69df1f9f06b4e4a.json",
+      "sha256": "44bb00e78a3724a6de287aa6616a267146ad8160e58a599da7788726b6925967",
+      "bytes": 6628,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/27fcc9b11579d2fb8b3873014d7e3f83b78f343d5a523de42d51145d307f1da5.json",
+      "sha256": "2a959d9cbc6adecdf8b800854d2ea7f0bcc841402e741115efbaf1abdc8327f0",
+      "bytes": 6590,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/29139538f6dd961a35b7eb1ba33f83dc5a658d30048a47da97b84a0f75c25004.json",
+      "sha256": "d7cf3a786c8f561f2f2005420291f76a67b7f3f248f8aedb4002a5cc5c4156ac",
+      "bytes": 6612,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/29dac10cbda4b61e3ad31f565b20465a620a5e51665eea8933518fb954ef698a.json",
+      "sha256": "daccc7ae2c2ce947a7c46d43b8543038424ae9244d06d58eab6693f72b1bfcfb",
+      "bytes": 6612,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/2bcc066de91aa3bb42233f0606e4ad23d94df76b5a85d683d68ebc1eb3ec8a17.json",
+      "sha256": "bb47e4685617bd6f8ecdc70b118fdd9e4b5c08a0ecf535482d03154871c329ca",
+      "bytes": 6617,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/2d8a9b097023a8bb5740db6cb4848390e8773e40be1edc73f39f87860b4fec06.json",
+      "sha256": "685cc28d03798c21698b3af517a6d3f905626f91b57111c626cdef1f9912c9d6",
+      "bytes": 6595,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/33f105f57a696bab0ce380428901f5c554d313f8d277fbf83d2a78c7205354a4.json",
+      "sha256": "a8c5c863b8794436e25c04860026a844d5beb9b299069ec4ce36289b3a1c1e08",
+      "bytes": 6600,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/35bd5fc9a23660e506b556254d8352c5a16e1fd4adba28ce1c56f80fc6ea4a3c.json",
+      "sha256": "49b200476ada410de97039beb2ddc6abd8ef7c19de9d63a4621236b53f1b65ad",
+      "bytes": 6641,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/378de1e4672e23f07451da695c60da0da4f7d4821fb9b5a387b25be0ec81d844.json",
+      "sha256": "04fa0e4fd2e8006372d615e92f1304a3d4156368f87f61c4c147bb2ec7669fd3",
+      "bytes": 6606,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/396a9e9aca197b4b6a2a05e17c490d74a57f74970fdcd713c7786b938995ba92.json",
+      "sha256": "ec177cb82b66c8d4bc243ec4dd31d67bbc14b19d47fb764b03a3906a6930fc2b",
+      "bytes": 6622,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/3a66252ff0e1fc964d774b1acd37e1c18cf97f3121402038bcecc7bcf3917a8b.json",
+      "sha256": "c8c6e69bc1e3378772d18743d5129b654258dba8b485d8f47f29ad8ba29abcdd",
+      "bytes": 6656,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/3ac5e5b856be0f04fcc7ef82579dc4e3e9149906a0a078b58bca2ec0f4cb7645.json",
+      "sha256": "a326441c2da982e1c218ec24963c2cb43d1b81fde58153dda91d9e8db84b76c7",
+      "bytes": 6598,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/3e5b2cb9021e491f95bae603f0e1169ce1714c6fd6069f19047a92f99788b1c3.json",
+      "sha256": "c1b9fb98863ace9129e8736d313059f6f98408ef2b499efc9f1715320cf9c5f4",
+      "bytes": 6660,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/3e94254730178c3e39f754f55dd3856a6abb02a9fd2d45f081d9281b5b64fb58.json",
+      "sha256": "e8bdc28dcd0bd34efbaebe0ae431092f6d5f1966a97b5021693e4f6d763fefdf",
+      "bytes": 6622,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/3f4d28e6158291b28e3d1bf0a2807dd5d25b940116eef4e3726f2c58e8885963.json",
+      "sha256": "d1a4060f2392f6c2ff74a8eab36fc44dc423cff4eb7cea7a103e8effc3f8d26d",
+      "bytes": 6626,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/4059f091d3610e810497036bfc95b400009710c64ef121dcdd2fe80ef79549c7.json",
+      "sha256": "51b9c17129cf8ae7115bca1e0148ed5b8e4a2820f8e624158300aaa47499dc8d",
+      "bytes": 6654,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/43917038bec6565bd6ebc59815d741b6cc91f33219c89121b242d70ef030827c.json",
+      "sha256": "d0918fbee2159385d4fc56e7177ffc03febe57259b2c155c394029c0d6eaaeae",
+      "bytes": 6615,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/448b6898c3027f8bc4f2834f9d8bf2664bcb9cf3f7c127f47f738009907b3105.json",
+      "sha256": "2100ef88fdfcb381dc6912b3c28542984856542c507ebfbfa0ac6a4cdfbcc433",
+      "bytes": 6628,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/45395d33b2069dfe195f1311518bfc40806827e57a1f7439ea6044c7b65fdf3e.json",
+      "sha256": "4e5e2410fb9417a19b3957806d2a267c42d05301b49068ab0a18f1d82b33470f",
+      "bytes": 6654,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/4c59abadc02791bd788e19c499ea6d6dace7d5ae046e962abb0d625fe47c59ca.json",
+      "sha256": "033f496e2edd525214a17dbb366490ad497d0c5007ca21a61cb99898cecd0cff",
+      "bytes": 6643,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/4f1a072ac09b09e227ee50b680245d5bb3e0d0733c98871fc7ebcc2d0705c63f.json",
+      "sha256": "e9ab92a6db5489445599ec6483129c16d6883b8bee20362b2fbdceb3c96f85c6",
+      "bytes": 6597,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/50107c1b89c50c6fbb2c0d35068925219442bb49a0ac96ba41582aef78db9dcd.json",
+      "sha256": "36aa2a18efc14bde8c31d63ae05529b309afc4febeac5988f6924218c6fe2c74",
+      "bytes": 6623,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/51592f84c2b2b953e12f8b46e837f05f6a63adda21054136b495a1e9fc861005.json",
+      "sha256": "9477689773e5fb0dcc99da3d566caf97deb59bea84602d42b58589ca9eabca5f",
+      "bytes": 6594,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/5420411f6064a02f42a30b130ef1815de89a3e8c6ace763f93f3b7b845be525e.json",
+      "sha256": "8199ec4091724c05f7f1d6deb0e3722bd088de4772d1a62a82b09b25a1a6ca4a",
+      "bytes": 6641,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/54c8d6bec6cfb3dbf16d0897d4ffa600c8f3824b6a27de42a0342ed0410a83a9.json",
+      "sha256": "8e9f1922c8605316ab291a15550eab6a4750826c1b952e8b631760015ec9a0aa",
+      "bytes": 6638,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/54d2b0d1f2ba9bf95dd9f146bc8a6fa6bfc11380ba1026c5dee77fc7d559a004.json",
+      "sha256": "cd1d19f7eb6386e01389bf646f8abeb75dccaec018926b43c0cfb2503a66347e",
+      "bytes": 6614,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/5798407610cdb36dbb5e461d1e43e72960e8956881a774e9f9c6eafb9f93e364.json",
+      "sha256": "5fc6755121c648d6c3c5ca68759829578e6b9433a2dc72023e4cebe9f82a255c",
+      "bytes": 6634,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/5858b837e9c631c0520dc6d5d2a81703ee663cdd5dc0344af3bfbf937fe4272e.json",
+      "sha256": "c0645d15fa91d2a573015d3c2da83253d338ccbdcac7960ed291eda17d9258a1",
+      "bytes": 6648,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/5a0ff525b82a7c66692f21743556cdab61e68b65b1dd382417ead25abb51e3d6.json",
+      "sha256": "ad96cdede402e19966f7f96d75006c323da34959d55ffd373cec57f66bf2df90",
+      "bytes": 6600,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/5be73d8e72f963d19f722237615d0b2fe4e78b9515170a0b6528d8ccf2fcb0e7.json",
+      "sha256": "16b4f8c8b8a38cd51edf83798b664f38df2d330bd26ef27c35224b79f36b9dc3",
+      "bytes": 6624,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/5cfce756290831f20e6fdb5316405b21db91e76d1a2bd97ffc721a46e3451bbd.json",
+      "sha256": "42d359245a930173a00efb71fce45aacc3754ed817f9c1c1e79a9d3d4db0c9df",
+      "bytes": 6667,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/626d257aaf0055f374cab9cc92ca18214717d3494d6480cb7d4c5d5c5f11e2c9.json",
+      "sha256": "ecd8c77d221f43cf77c0b005fcf3501e81481b6600e1abc01843de382642962c",
+      "bytes": 6608,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/651f7a24dd122ea1218f4743d49a83f8309b983dfe1584ca5c9f6a5269894a46.json",
+      "sha256": "aa9b4b8ab3430936aa6a9881672294246a55fecc59c0460fd034bd2bbf83765d",
+      "bytes": 6597,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/658e1315dd2eb47c54b7b8eab6312a61c03e68dbc6528fbae4000f573503f4a9.json",
+      "sha256": "07f1058a6b15bf4502dd346f9d3bdcd4c03088165a7bc0fc8480fa2033620352",
+      "bytes": 6610,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/67aade7661c8fdd2d27485c581139b3290fd7e8bc5dfac6b3ebb780f64ac6413.json",
+      "sha256": "dd150a24eeac7dab5ad47cb2d1be9e870d8123de7c6b654b2af7de23527c01d4",
+      "bytes": 6623,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/68531a12311cd1ec3d17aac9e77d6c502044d65d4b470b60575096de3edfe751.json",
+      "sha256": "3fb5662e964fb489a511ddad1cd78160d2e503dfaf78a4fd48a572665c9ce0dc",
+      "bytes": 6639,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/6887058a2eb9d2f4e0bec95c0376c715a4da1bc1f85acac54d94918788fdac55.json",
+      "sha256": "e8c0de03152c1228996cd41f152ea3f4c0d819becc03fed9e399796839491ec8",
+      "bytes": 6641,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/691ac4a150680af5b0a4700e7a6ebd12015910bd09c4085357037c51ce3634f9.json",
+      "sha256": "74874c4ff8a3ec3406f6a2cef1a2ec56eb3416d5a8f99abc1e4df1b95b54c6a3",
+      "bytes": 6627,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/6ae9b0f5cbbbdaeca7dd2354cbdbacd428c3c185f24ed7ccd25737b18a1a24bc.json",
+      "sha256": "e37440f1273b5ed8def62ac5991845add33137b153d3c597770b14bf48a44007",
+      "bytes": 6630,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/6b88747fe6816fb6127199bce440d4b8ad5473540bb9ef5c2ecee9fd09ccf30f.json",
+      "sha256": "f41aeaabe1e7ee28917c18f42512bff7c2bf11a146bacc7959c2664a82d5ac0a",
+      "bytes": 6636,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/6badbe5ada4e9328d23af2640f070364b7509f5059686c4762748e8275f8fbf4.json",
+      "sha256": "61fa847c1a492eef41c3dbbb6f2f62770d8a0d0430d4d076b39e1ac40c5864ad",
+      "bytes": 6628,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/6ce3bcb4b80d14059c39351bc186877d3b8c64e8ecbcde91e643a2bceae7e387.json",
+      "sha256": "911f06478d169900b58e2f5b124446607de26abd42a62100be8e01ed81d9c946",
+      "bytes": 6621,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/6fe5a7695c3b0eacfe0936ce29f3a5cb79da9ac5e824825cfc426a24471fb54a.json",
+      "sha256": "3526f742754167f10d78168e92b8e21f245dfdf82f9ad8240ac7ee5aa0f84bcc",
+      "bytes": 6625,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/712a3763995fad28e6a28e6ef36211e4f708e080392b6123c351046b1eabefe0.json",
+      "sha256": "e63275722c279a2e1ef0c5ac1ba1af2f996c126cb65601c5a8ea55ea7379aa7c",
+      "bytes": 6644,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/71dffa4a18d46a61eef2ef85e63100ba291779415453ea2aadacab1a869ce8d7.json",
+      "sha256": "ef9d05b2751d840c3218d1e4a4ec83e0e9fd96026ae4701b9430b9e040e72dd4",
+      "bytes": 6648,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/7277f8a483f564b401b67f2eb44bc42078d9e23fe178400011efd8fef0543b9b.json",
+      "sha256": "d785dd2a6bdff6c92a749718ba42d3ff42dd6555420d246082e095ba3556246f",
+      "bytes": 6617,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/72e131c8c9ea9a1a0e0422b92aad5d4296f9eb37b7978931b701cc0f2ac392c2.json",
+      "sha256": "b4d0491e8e1d77a4025bd52e4985b916f804921ce6db458a420aedbda77359f3",
+      "bytes": 6644,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/7343c2d28d81803550f23261a0275777a0ce0bf91e441a7bd44b55413c6b95a5.json",
+      "sha256": "436cfb827e41fa5f67845679d1504b7fb2b49f9ca670c4268cdda0279a664907",
+      "bytes": 6659,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/73f523ea148d7680445a7c8fb570ef55b1dde17d6465c7aad384d2f92da94664.json",
+      "sha256": "158f305af9c6243647a1d685e624bec956db1e65db6efc2ba24c2932bba5235b",
+      "bytes": 6649,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/77ff4d063f6faa7d88b4b89720a63d1b5039b26ceac10f06e3f395acdf3db67d.json",
+      "sha256": "c5b4a40d184585b3cb895c8e5ec81efc8e770fe887320aca7a0c80ce71f1829a",
+      "bytes": 6621,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/790df844ef75d259c23cd4bf067c87ee6dfe32302163ef1ec2818934fa5d49a7.json",
+      "sha256": "3b885c734411cb3f71b5f710ad7db850bab65a3dc0d11b6e30f102cfe61718ca",
+      "bytes": 6615,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/797a0f15fab4be482041a134ae9ea305bf1601d931b43ea3484ea66dd5baf7bd.json",
+      "sha256": "ccd3053558cf41b12aa3f1176e5c03f1b089f9b8a9e9c728bef7568c7ff436cf",
+      "bytes": 6599,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/7be86d5eb81540bb2733d0fcd01227f28a63805291211a09b261d6ea57f155da.json",
+      "sha256": "1df3625faa06fbc19eacf5f70d255f6862ac0134f9c51977eb304f880fdc50d9",
+      "bytes": 6695,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/81a52693c62485a2cac6c5731abf55a16e6e73d723375a8fb0b2c9a195106b38.json",
+      "sha256": "8725dd78f6390991747478e3791aed877891b247de90bb7acace4fd977a82e21",
+      "bytes": 6662,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/81d013ff97576f420b52b7f316aacc9e3aa485256e31604dbbd429b7e1887d97.json",
+      "sha256": "933fba96673f01ed01bb12cdd04a807de0c0daf3c1bf8fc71f2b18740e35e643",
+      "bytes": 6655,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/81f8e771a6c350a40536773a27aec36cab4494e45b3071cdb97f170593b55d75.json",
+      "sha256": "2883e54826ee635961eb0d771a8372969f0c656ed1a20fd6f1b05fc6572bf6e5",
+      "bytes": 6614,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8270cbb9184987b021310767833938b14700f02bb867daa593eac4c3a1867523.json",
+      "sha256": "996d6093c9d375a24d72b368ba39415491ac855c1e5075014477f94e9a4ae9a1",
+      "bytes": 6597,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/84089517be4b35dc1d831defecaf3786989e4bea8dad96ad20c4b89ecf6de209.json",
+      "sha256": "cde01ca224cf38d39fb69cf35de3e9775818c293e4ead61be5e13ab701c4f03f",
+      "bytes": 6658,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8465aed8d4c264dd4df4630e43bd96ad75e06a31964294f6b1d7976eadb2fbd8.json",
+      "sha256": "dbf5a94c36501a63cb5af6c43df6ee2be0e079236732e3b53983620f4a7508b0",
+      "bytes": 6596,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8570c6a8676789700e5290199d36345db9416dbd74f4ddb1b93998f6182d479e.json",
+      "sha256": "e87ff4365b8404096c75fea22fec92e7e7e203d29e55237819fa8847907d7624",
+      "bytes": 6646,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8633572f5a6d833ea0439fca5cb0cee18410ae1e3b1f0a89e42b090f60dcf0e2.json",
+      "sha256": "1f474c23384d4350237124d0f45d6b6eee2955ffc43f4681d055d56b4a1e663f",
+      "bytes": 6604,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/870952f8ee797f87a4b297148d5f8e718489a857a43a9eb570870a1631d670e2.json",
+      "sha256": "a683a3a61b7af742afb67000415c9e51eb622ba6055ee8e6cedd1add2ce5379b",
+      "bytes": 6612,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/87cb551db9e96739d5c3faa69a8cb0d2c407c41effc9c10ae5daf75a8aaf1978.json",
+      "sha256": "234bfb422a73d7b1f113aaef1477cd0377655a9e7550edf707b66787ea761d9b",
+      "bytes": 6619,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8849027acd241213fc0f8fae47f94390beb47f83cf116c3ac15e593df779a128.json",
+      "sha256": "bffef7a2770c483594682d742adefec86c7ef9405715dfbbf56d1e98f3f20f5b",
+      "bytes": 6593,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8a344a84d592249ac98d9e0be33d4d310242d7fe631d404f26d4a29c749b1367.json",
+      "sha256": "5921f8e61f41ec6cb7b87badfb4999fe7d0c82c333bda344f592d5875479ef73",
+      "bytes": 6638,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8c59a78388b5a42acbb6a8b38e10b31a3e3abdb95d77aab028ac4236cef656e8.json",
+      "sha256": "854bf6ebaf7d3c8e465a13628301bee08065d3383771182cef777de1cd00dcea",
+      "bytes": 6605,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8d45005d04b856163e32f19f5b513bcd9256b80ec93152c60fc42e3cea71ba91.json",
+      "sha256": "60baf8f26be5c4d682b49962691ca0af2efb4b70c3335f9a62ec0431287edb99",
+      "bytes": 6590,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/8f01d1defa4381a5e6bab79f580397fb4d3e9d519050d719ea642e685473c8d3.json",
+      "sha256": "0d1048c5faf7ae18dc6b63ecee60050d215343e5f94ff96af8be498b1cd03682",
+      "bytes": 6602,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/92fa58be5079ee43b563aaf4e34c9f3217fdf91f979d4af874ec99aaab2fa63d.json",
+      "sha256": "7542e58224b22c7405ba08012cfd4278ea0bb374ca0ca1fab1f75b7f8700f0e0",
+      "bytes": 6641,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/935ccf3f72e6dcca6d3d4eae79dd098bc6deea006ac5716ccce6aa375c04079b.json",
+      "sha256": "8433886d1e1ce1f15ab759341a0802917b860dd0767ccb0fb53524d1f27ba8d2",
+      "bytes": 6628,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/936c924b32da8a19a04c6d01a25c4350a0e9ff680db09a462a125ab7d36c90b2.json",
+      "sha256": "fd318a1c41e3de9cb86109283ccb388e4ac1d9fd44fdefa2863b00568fab9889",
+      "bytes": 6624,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/9612c64808382d2fcdefea485d70700fd4971fdd3ed014280fa80559ea96d385.json",
+      "sha256": "b0cb1b6ca4356baa23a57f3e2caebb8f4363254584aa446ff9b88ba4ddd84d2f",
+      "bytes": 6610,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/995f8fbb97cfb7fa474a472adabde49decd25982153d70756e6226414d49d784.json",
+      "sha256": "5ac13a7975629434e2cf8b754e984c213717ffda923a12a9cb23a61bae6d8400",
+      "bytes": 6633,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/9ca1057de2b5555ecd5f759edd58c2b9b0de5941c512a6be38f6b6445ccf1e0d.json",
+      "sha256": "c064e5ce6cc5ad18ef3bbef7791eeb67648ec6486fe9b88bfe1e39af4f9fe29c",
+      "bytes": 6594,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/9e4d01715226a851c5d2d504f1f32f09c14f9264846900aa04771b54148278ab.json",
+      "sha256": "506a94586aaa4980277b494b354e517fb91ec17102fa10c5fdc411073d55f087",
+      "bytes": 6592,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/9e6ac806188b69ceb5e2c4a87106942099325e5a78c7bc29f66ae6164824e531.json",
+      "sha256": "40b364169e20c2b9581be46810b0cc463c7923fb90b7f4a282ae8654d2b71c58",
+      "bytes": 6645,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/9f0087f22b0378a8a0d0997f02bb3ed8f9dd14372cbeb59a82aa5b0b13de9799.json",
+      "sha256": "1b32487db46b166e6c9c3a82025e4919315f135e6e31fdc66db153af2180c361",
+      "bytes": 6625,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/a242c94e3cdeb782fb90ff98cafd4e0fa5d3999380db6c380ebdec25598d8263.json",
+      "sha256": "b0e46b72f5c04c133126720c1f61d7d7360103c1b8f0fa286edf6da9a14203e2",
+      "bytes": 6665,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/a54bfd120e337a80558a1d69cb14b7219f4c84fb7cb7c10385b68ed46ab83f87.json",
+      "sha256": "238ff75181a870cf48756bc6f5bb7ba6a62975f73d5b6a45d00f32cb1d26297e",
+      "bytes": 6643,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/a8543ba43dc855760a6011321be710114d20a0d2f55fadd733e1055d3427296a.json",
+      "sha256": "389e03e0a5ef3eff6f8085274897f554274540d92480e47d6f2c67489c4a81f8",
+      "bytes": 6606,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/a8b1a81c0f189ac10a541252ae930a6360ed054ce66213a07870b5bb3f8b123e.json",
+      "sha256": "249ea7014f1b157efd1bd584d530eb7482cfaccd5f504a56a92448504e5da860",
+      "bytes": 6631,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/acebcd0a46149b33bf95280fb572f657eadb387381931ef3ee9ad9b9fb06bfe1.json",
+      "sha256": "cbdebe92cdbbbb4936afa3f086bf9706d868d9faa3d63a1c7249519a48a1470b",
+      "bytes": 7001,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/acf3355c8e6acf2423ba9d8f7e4e2ef3622d58c45065a5a1e1312b46e04d346f.json",
+      "sha256": "18e761d15f7c71431ee564185bf6f5bf6552bcdd4ca02e0a633daa93e068bb7e",
+      "bytes": 6614,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/ad3673eb36f9ef7e0a01f4d97ed38227dffd33e183ae4facb53d9298e249a4d4.json",
+      "sha256": "f3c8731af44cb802242056b20808dd8c8fb9a8f66d1ca6205677758d5e86058a",
+      "bytes": 6688,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b16db9c129415777a59707baf38f53217e644e27afd82ef5b50a1ff06c5e3e40.json",
+      "sha256": "839eee5560794ac1df8bfc84e9103ab7d064ff6935400868176ccaa46ee6fb02",
+      "bytes": 6608,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b2ab07f838b4c1c48bded606bdc477482eafb6bcf190eacfd0c7140db1b8366e.json",
+      "sha256": "2d19df5b0ee74ddf3dfe8ba402b9bc00942c0efd4e93a3f75d50274b98a04fcd",
+      "bytes": 6680,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b3144d4fed04c3e15d8577e7340babab4f31daafab21dfa693376ad894afe93b.json",
+      "sha256": "18f763dd17fee1e9408fd99cd5ca559850a46b110ed00188d176098ee0032064",
+      "bytes": 6656,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b47153c701b7637564c57c8b6c1bef51d180f8037da6db93d0b46013c936ef6b.json",
+      "sha256": "d8d8505c3d9326d7605a69b7cef68456cefd711e11c87a48f6393c9cea3e694c",
+      "bytes": 6621,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b71d3093edd95454be61d7f0d052d5613c40d4eadb6e0d39ad12fd726a013a9e.json",
+      "sha256": "3d05e4b16cc9f4ddff61d21fae7341b156debe04ac19c265742051dcb05b19bd",
+      "bytes": 6651,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b816df95670aeacc44d0688e8f20bfbe352944c5f12f52deec3412c2a7b8b130.json",
+      "sha256": "db978536ce93a6368a48489b7826179f399614d2729a91e74501b7b575d3377b",
+      "bytes": 6992,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b958b16e3c8607109c2d8f381dea53ee53a4863859f8014ce2bfa9c5c0b47447.json",
+      "sha256": "97a95a3d2d08ec69e2cfad3b2366f8ce56596793ae289b6a94918c36ccfe86bb",
+      "bytes": 6669,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b99d1b7af9f0c43f6c90e0b2c52315c43355e5968e6bb126a4d63aff9ab71274.json",
+      "sha256": "ab67a7368fbbfe3d7ebb58dbe9c49c4ada900d6291681d3c46e5eb37ce60709b",
+      "bytes": 6641,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/b9fd464469ea4d348054fa2a25ba32d588e7bc706c50d12aae3f55ea58961d20.json",
+      "sha256": "8d239d647659737e6f90558811c68e4d9fc830aced115336212f59de564f1dd1",
+      "bytes": 6645,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/bb2b7a8d1833477fbb63255bbb509572d041dd0801ac931d4e5b791a8935e14f.json",
+      "sha256": "146da1b3a137234bbe43db50c172378166c0fd28aeac9c96da0c6f226e9efd9b",
+      "bytes": 6684,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/bb7f2bfcbb4a7c68ebc3d222b5020f602748e9a07daa8afce202cbf98c612700.json",
+      "sha256": "bbe471794b214c825574d45b4cf26bcc1081a07b950aeccf3bc5c249e29be1a5",
+      "bytes": 6632,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/bc34fd1fffa3dc30adcda61b50b494ca062a7183b5e0c936bda4953950afc908.json",
+      "sha256": "2d671e3ea02e2a524e5da3da3112d780ea8b5281d7dc9d3e197060dcc1d2cf12",
+      "bytes": 6606,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/bd0f5450f95fe11df07457d8b9f75d873b7653815a9c7f39dbfdf5931ceaf70d.json",
+      "sha256": "4fc76dba6b42023c1de53354a1ed3d35728b138de529585f017eea5e0809fe30",
+      "bytes": 7174,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/bd9b9fbdcf985b007ee16e80c23ffb449574e9c38b542c25c3610b568defcb37.json",
+      "sha256": "6a878cf40d94c5a606edc62806a314178025ae679b5363c2e915f81470c405f7",
+      "bytes": 6646,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/bdc9aa6a9d545cb05f6fdf66ca68e922395901b358eb53f116e1866cd571083e.json",
+      "sha256": "e2e84fc76c6e2eb20679625815ddab0f86c9e0336257f50306fddd5e92da3107",
+      "bytes": 6624,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/be390a82bed19f8d097c089b9ed6c78eb2aebcb795823fd1bfa00f04e4fba390.json",
+      "sha256": "5679700cf2ca45452e6c9294824fc4b96495f125909ee09d5430341a9bb5fb2b",
+      "bytes": 6616,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/c91351d2c31894c39468e24e068eb3d89e26e11014504d62cd529d1c57363aa5.json",
+      "sha256": "e3f0c5ba29623dd63f2b3b7a6688e236e3d2e6caa6fe98d287476595a1578b85",
+      "bytes": 6667,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/c94def2a1267a3b5b1420d560d10c150f5ac9060a0daa74b7e5b22f40c8c4f35.json",
+      "sha256": "92183ad030da1dbcb9e5eb10123495d7427d576079bf443b3afd52ee95b85c26",
+      "bytes": 6621,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/cc820c138cc0e30893a6497cedb569165924cb5e3583e52b8be8649483d6e948.json",
+      "sha256": "33b5791842f78f773e68ace4c102272cadfebecec8043c3f0c8f9142ac5fbdb5",
+      "bytes": 6607,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/ccc8fb313be7db74aa03893914572ab7e0a0479450625f3d655e5c42f8624f77.json",
+      "sha256": "06cbcc62c64ea8e28e71f24fa0a1b59b52736c558f9ff1f31d124c19e2e87263",
+      "bytes": 6620,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/cebef56c3bff1ddc627d4d88aca56fb5d7ac7436efa4b09817ded1c5e3970799.json",
+      "sha256": "eef35f885a8cb77a47acb24b1038f4165039d281cff3b0e0bfa447080ec2f0d1",
+      "bytes": 6604,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d0a84f733996ceebc7a51d470b1320f89bbe508645b34267a80a2719a88548c4.json",
+      "sha256": "51d4f2b776b4d864e1375499b158ea221a75d531df1d33a50e7ae17f174b0daa",
+      "bytes": 6611,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d2bbf24d5f5fde6440be505850a7a3849478a42a47ed6ce57352cec415110614.json",
+      "sha256": "75c8c56bd98817b0fa2f8b933aa24d96c12bb2f021a586109502b02c49dcf13a",
+      "bytes": 6607,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d2e6756fd2b10f676448fd75176681db4dbfe831ec86fe65b647eea08e6d6022.json",
+      "sha256": "c22f73c4102ed9590a7fdc6017e790abf1e1129754dff26a5c45386a8c22eb62",
+      "bytes": 6656,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d3a85d6c938b5ca3115486861204596558cb8036f6560fcf7ea1c4012bd5a671.json",
+      "sha256": "d6ceaabcd2c92ee469f442a4ef9d8c4dccded7d8c815911fdb8d0827c6c56f7a",
+      "bytes": 6607,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d4510f3709d516412635afe609f293239d51ea998094d19aa86e9133a96d0da6.json",
+      "sha256": "367e276105d73556413fd24d74cdbb6803ba391fe1d908404dd47c3aa66a21f4",
+      "bytes": 6608,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d494be7eb1710131335c3923d897109d2da669f3ab3c23fb32fddddcabfab08e.json",
+      "sha256": "d1834296bc669620a3e7b37cb4f601530152a7f5caf6fe252caf04a00a5228b5",
+      "bytes": 6616,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d61f8407c4e112653ecb59c6036eee5cf66e027b77807661f85208080df7701a.json",
+      "sha256": "28f3e99b11b9b9b8b3e4bfc0f192b71164b9b6ce1dddf4efafc29bb9965a9f6e",
+      "bytes": 6616,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d64dabe5f44ed171a4bcd479ee9a7f723fc961ce07046cde3566d36f2eadb0ba.json",
+      "sha256": "f0891624dda2daf6783263ab6237bf49a5e613e24210e8d24f09a9709bf3c51b",
+      "bytes": 6595,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d78a030aadaced279fedb01fe5ec20602b508aa47532af6a12f3a42df648c67a.json",
+      "sha256": "08bcf6e461f92bcb1ef4e14e9664c183210800a8fa5789252d0b538dec71abea",
+      "bytes": 6643,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/d88bc2a77fa029688cf7639c17e41c1a0ec2b42f80673596ccc64cb4267bdfdc.json",
+      "sha256": "583f644e447955c67748525b60adaaadebe868989cf31a269392c228d2da8a9f",
+      "bytes": 6603,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/dbc5cbe41317b35e9a03249b56a16428d2099bc7e7e97ea659e85a41cbc396d0.json",
+      "sha256": "ec7e94f06caf585df9fa565f4654383d87875d9f5144c2c84ff5020ed1fc9f23",
+      "bytes": 6618,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/dc1ea4fd6040f729d1c2fc33ab88437c3fefb39c43bdcbebd28edcba6c7976f8.json",
+      "sha256": "be1f07450118190598bb1d645d2eb7b13ca6f25c7c42584d4f4621cb346577ac",
+      "bytes": 6644,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/dd232f3cf7d7b2e1c58406e9385c114f581de6f4a44ec44c924def493ea40e40.json",
+      "sha256": "276ef20c6ff6bd5828e4fdf714764cc7c85983352f3b4ed4edef1bf1d3963da2",
+      "bytes": 6638,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/de05b3b740d4e8bf622657de791d2a7c2d4e03f85c8c4d6c60211b134c1fc21f.json",
+      "sha256": "02b84df2802b0ee6f5ed277aaae936b4a8df1bbeabab66f88b3c357c1cd05ed3",
+      "bytes": 6597,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/dfaef6f7589893a38764e64dd4ddd42b6b757d20880c45046d83857ca4bb84fb.json",
+      "sha256": "d302ea57488e544f8411df872478fbc8bd0ba3b1bc157d7a29c0c1c9227dfd8a",
+      "bytes": 6634,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/e484d52c5ff02cbc21d80ca8566074a4f4ac0f9d028edbaf421efbaf532b7916.json",
+      "sha256": "f28d9b9878e7645735097908391842d1fa5c5154a621a9e21412308fcd223abf",
+      "bytes": 6667,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/e4ad3a1bd379e4d32cb7d9a12ecc659854e8f1463d68b53c5351bb5e92af6a0b.json",
+      "sha256": "df70567b9354976171a8e40dab77aecf0ddd82a45a94f86d734511d5acac4fe5",
+      "bytes": 6653,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/e9b347e7efc65ca25d317814aa0e4db24bf0cde38cef3754af18225bb824dc96.json",
+      "sha256": "14ad05748ea142333bf30981d9de2ea0909409df56e735dffeb9781589e52052",
+      "bytes": 6604,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/e9beb46814b5849f40590557ea39a042af1e38b6b8995d754f4b9c9a2b9180ac.json",
+      "sha256": "6bed77327c5941f0519e1ffd022eb0a5f13eff6f2f55a47262aa7825821642c4",
+      "bytes": 6619,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/eb5e12483a75ee6ecd5d8f735e50ddf221af59636c4b4ea2df32e6838e1f621b.json",
+      "sha256": "f45ec3972f20cd8109b2c702d0089a5e52405c635f7435adb6abe501b052247e",
+      "bytes": 6597,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/ed9c51170e80ae7bcf8ccb08f4f9bb4546720831b885415e808d743309430463.json",
+      "sha256": "1a829b239f95680c675dfd2144edaebf88252499b2d6752bace6c5d07a718e90",
+      "bytes": 6613,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/f096ef2080913e1e578d8aad903994131eb29c646ae20e7cff5a64f1fb450d3a.json",
+      "sha256": "e3530b321e5e12bafa9df1dd48b38ddc8333dd561f15f3546041d08934a99caf",
+      "bytes": 6659,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/f1834f0904b34e0d14c97b702ba24c0fb90ab447c5b8b0dfae867b9d6da6c564.json",
+      "sha256": "442286fd8815d6ec12f2a85bf38f4d8ecc7f5fa595695120b8ee6033ccec75f0",
+      "bytes": 6621,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/f59454da7f652c316359ac4938fa343bedb152440a297f28d61d02013055361a.json",
+      "sha256": "2588aea882fcd67d868b8f829346d352e43dcf4964534accb7e13277610212b3",
+      "bytes": 6606,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/f9f5c81a402f88500c2b4500d654594d8946e40452eeadfdd6d21f5bb5a0c3b2.json",
+      "sha256": "fe41150e96691699520f2325e05d1a9a7017640181f498f61ec297ae2b8188c3",
+      "bytes": 6627,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/fba58aee44cf6158a2c03db6a94f83cc61c15622085bfef742a9f8770f503d7b.json",
+      "sha256": "eafca04d327f1d18094272cd6baeb27a1837da48a187afe108bb18ed839a76f3",
+      "bytes": 6625,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r2/units/fca4b30d5494bc46105ea626e296c3f801b40b47f36a096ac2638495a4c059d1.json",
+      "sha256": "2e3f73d389e16c53cce5934003e4fdf95adcfb5d857434bda08669b2dcca39b7",
+      "bytes": 6598,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/L03.json",
+      "sha256": "3913af6deead6bf2b16520f0f9dc1d050a7c55d94904e7eb7f39363b94bcb957",
+      "bytes": 91724,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/L07.json",
+      "sha256": "cd9da3ce07b7845e3105524487f246bc0e6b4a945883d04355566af95e77be73",
+      "bytes": 42706,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/L08.json",
+      "sha256": "573f7e416598e2e5ac28f9f358ecefd5ca9b302ab60366aebc284208712ae170",
+      "bytes": 76603,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/0024c72353f5ade0c4b672d42640f8bd0dc2c1140569febfdb670f0c230c887e.json",
+      "sha256": "dbaa41890b374be095828a054d4f934b3bb49729b97e111ca3db607d3f8ba4ac",
+      "bytes": 6862,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/01229fb534f16c50d47a5c36df6d2976c6757ba42e57408c90b8e0b81692cb83.json",
+      "sha256": "2796e9718cd3c9d7ca56f925b41767b87226b763b1da1fad54daa13e0885a826",
+      "bytes": 6871,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/020d65c4f1bb5c086f34c6fd45ed2bbd99252aac6e16ba82d42c40e0fc7196ff.json",
+      "sha256": "d6a1a4dcfc340482e20b1b073b3d0b181782b015f8c30b990d91c9fb25b38284",
+      "bytes": 6880,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/037f370f8dba1b1f95ae58ecb0b569235f191e5899812afabddabeb4509996e2.json",
+      "sha256": "737ac789a250ec99cf578f24dc5a11d80d62fd0bfb08563954ed66fcf4270218",
+      "bytes": 6925,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/06fcbabac000580efd2c60b408144b37f9d9cfb22587927b055b82d522fddad1.json",
+      "sha256": "87aab589fef068c09387f9b20768b4ad98b50352314557c84349ba89c7055f27",
+      "bytes": 6846,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/0952213f11f55ace1f0e8830f0d25427d7bf165cdb6bca8abaa0ae4fb272c212.json",
+      "sha256": "30f5ac785c7adedfa8776f2ea8846b44fe5bfb40f96a2fb1829b7961cf93c068",
+      "bytes": 6832,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/0b974e91fe86f87a213d017bf644a67e2a1f26adac0ac742a3aa6caad86a7780.json",
+      "sha256": "6e92fc7b0902365193068cbfc629d2b25c1629d56f069d609a505c86845f0fd4",
+      "bytes": 6844,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/0bf9aa50b67dc827e3a62eff9f58859b153afa7502af30b4cdc06ea3c47f8023.json",
+      "sha256": "3a1364647ae8a76ada5874457507750af4930544628ed5f810f66a770626b874",
+      "bytes": 6803,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/0d376ed69f794a63ff49144754cc06d8fdeb6eff3d1e635879d2049c8304f30c.json",
+      "sha256": "ab8303469b0a5f356c461aff129b2332e6a3b863352fcaf5c68413826ddf8811",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/0fb0efecfabb441cd1459ed6b829212b556df4de36f6d61787535ac7552f6ed9.json",
+      "sha256": "067edbdd55076d0d160c7b786f956bdcac0c509112ce8086e53008d82d2b7083",
+      "bytes": 6802,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1369b06a766cfd0831d3adcafa5d312b4c41a8b173b184a413b987bfe27f87cc.json",
+      "sha256": "3467ee74b7a14db9978323d5f25b156b15071b7f4c6040ceaa10d50dd23bacc4",
+      "bytes": 6797,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/138edd444a08c486e689c06da34e77bf90d8bf6330b39a096d1081204c282864.json",
+      "sha256": "9ac1e3e290343a6413cc3ad5a99db7a216136a6b8785a588510a125f93e5fd7e",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/13d4648e2b082ee4a445047b5443581e16dfe6942c68eb3aa1df5b2ceecfc6be.json",
+      "sha256": "b18aa98a4e048268e3e71777834444531eb482c3dd1934f7cc86a9ca8beb8e1b",
+      "bytes": 6879,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/157acaffc3246ee4fa858a7269f7f5ccd92f209e420669b7217ffa938b47e9c4.json",
+      "sha256": "3aec3a61d738b749d85de00e3ceb96fddb3014f3451b444d169176394d3a84b5",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1774081cdbaca1da4e727722d6c127d2a90a71be9e8ab9ae48989c65894cafad.json",
+      "sha256": "3644fd7cb6b6c5f0a37e30f5ec5a69cb1643a0a7bab08f9d6a658c7e3a7aa0d9",
+      "bytes": 6818,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/17761053a2233d69c481818d48077fa4bbd1feeb29f7cea174c86a9412bc8be5.json",
+      "sha256": "7b130bcff2c1be0915c150b123f978800f07220651218569a9d80336769ef0d5",
+      "bytes": 6890,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1830132634e504a25c2402e151f359ab85ae07ab8411d759d3a2b53f9e4b9f45.json",
+      "sha256": "ce9aa9d5eea9d5487b26b072de037eb6b1f62dc83b62127534dad338e69bd225",
+      "bytes": 6853,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1943c537611d85c384f33377a2fb51d08615c051b4424b9c3010e29cfd9b6824.json",
+      "sha256": "511774003f94c4e85d02da841663de06f9bce31fa48f4423078c67d2c1920e07",
+      "bytes": 6854,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1c6a6e860aae5c6532a80249bce0b369ff263dadcc7435c942c0203abf7d4652.json",
+      "sha256": "40c7cf8a69b0ad4f71754ed27e8f03220ea8df852aae1db914c116b61f080da5",
+      "bytes": 6834,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1db6ce394e3416baac2f4e5660c3c8e25c29a9d7725d8b999b977d1b130b260e.json",
+      "sha256": "3262be95c1b2db2c6bca9932f435e88fd0ce02a3954bf6f8e1ca31fcfbe520b4",
+      "bytes": 6825,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/1ef33b2befd49a338878db85d83063968e896fa26979e52f5aa4aceaad4696a6.json",
+      "sha256": "d49b82f94acc4d75c96785c448eaf0381e0f25aa4afae8dc3560c87708634e9b",
+      "bytes": 6812,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/213c4bc89155a1cb12e4983c27694aa9ea1f7a0dd1aea83dca59ff0e6f277e92.json",
+      "sha256": "942b585d97f4cad43dace3c1fb81094a18e7038c8d814247c227a630ba753722",
+      "bytes": 6856,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/22090e05538d71b8e6fc320eb396f7190350e35d0c8bdd10fd15764526a77ed2.json",
+      "sha256": "5a6a90524a7c0ada47a6e0d37fc07a0a36616b1de11035bcd612d25da34d2a3d",
+      "bytes": 6856,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/228e0b1634f89f4ec5fcda0c7e21e2971e884f0dee785fa1aa6cecf869e53f9e.json",
+      "sha256": "8830c02cc7d1c86d71a1e09ced665591aa114523453b54c44b809dc1bb61d7f4",
+      "bytes": 6843,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/229b2fc531b42962dc8adc550751e6e8f89c4c4aab47247c485345ff0e83e21f.json",
+      "sha256": "f74ffa57ee75813d8f678d6fbd0d83f0b86ab37b1bfaa2cdbbf42f5fa36512da",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/249b9ecedd477715aa983ecb56f3fc72b11032a774303fcf3d2f51cad81e8a13.json",
+      "sha256": "b31eaec1efc0777e0f8edefa827ba7af355518eb6589ef41db44e05a05f439de",
+      "bytes": 6797,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/2700098e62c378cb40862faf727010ed852f0c9bfaaf1e192016bdbfd4e19e9b.json",
+      "sha256": "03f0aa72c475995be20cdb0b14fcbea27d8ad4dd0e4d31e88b87d7b20722373b",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/277e10ce4c27542122341d1e35c7c53ea76e2488faa1ffd9d8a17d9f6c4a0c77.json",
+      "sha256": "773b263aa7b73aab0df6f13a583b4b26a25942e489858168cf4104488a617fcc",
+      "bytes": 6872,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/28e7df9e642672ca17cc290140664bda4ee8cd4902b56d18f8b69772ceb2103f.json",
+      "sha256": "dd30098257928fdd3102ee3a60e4d82957300766a16d9d17d42de173810bceb1",
+      "bytes": 6823,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/2afa361cc09191c12eaa0023d9800d5398590600b24be48df79d39a49e2675c3.json",
+      "sha256": "327360e8582647eade453305720bbe4e105d3974942642a4957440e8a3a2591e",
+      "bytes": 6794,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/2e02a133808bbaf1e77d50052c298315526aa1f942244fe4c66b225ac3db9675.json",
+      "sha256": "c34bf3f427948061b21ec6fd1e473a88c16276f9accc730a9cbe20b0a449480a",
+      "bytes": 6869,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/2e5f7ff672e71f4b2105054a64f67335c747da7baa5d8dbeaa24ebe6899d3641.json",
+      "sha256": "3110359a6b067e3615339bd662916c27a1c60826ab46ae04877cd33cabb53610",
+      "bytes": 6846,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/2fde7e922957e4824bba1ab3e2a6fab3b8951c13c266fad6e5bd9563f8a63108.json",
+      "sha256": "d054ce2f5e87daa0573998df523b56b52462704472dc61faf98548a71f91033e",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/32e4a077860bee75ec7a73642f54518f91c337bd3a7d84a4c3bb7465e05fbe91.json",
+      "sha256": "da34cbdad69c2ae4e027f8984b9d08e386544f45404e102021b97b5c630481cc",
+      "bytes": 6870,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/33b63f3bb9764f6901186f9aa1c2faf3658f87c24e798123df3db17e58eaace2.json",
+      "sha256": "a836fb22a44d4413127f57ace901136bd79aa7fe07787f7fa107422910c1b76f",
+      "bytes": 6827,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/341a442255f70b46ed52cc10fb5d53dd10ff0cb189c40338d563e81b19c5d2bd.json",
+      "sha256": "e35c0179faecfcba3cb2576e1d91da7e2274b55946527332dc1fc75f02a2d1ac",
+      "bytes": 6854,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/350d2d58050853f6c8ce8c981b90b70e439206d8fb10a4093513f16aa757c214.json",
+      "sha256": "42ab6fd32d8c749d2b5a62c90a73f89b1589ba12577ec65bcf6090a421de6a19",
+      "bytes": 6868,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/35a1640193e7914410068dec6c9496b0170d21d217c8437118a024fbb1cdcfcb.json",
+      "sha256": "c2b9bd4f2ed130b279287d4f99a471ec6ccc1eebef90fe69c76ce815bcdb245d",
+      "bytes": 6829,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/35b691a702a971c377d511be15b407585e19d0dddc85f0d6cf12eb3b6f38dc1b.json",
+      "sha256": "868713c820003b09886759dff34d9e6ae5b96fb08bb492d8d8410306263acf92",
+      "bytes": 6794,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/36d7e38853e75ae3265b43101b94aa850b9d2722f429175b98ece188e7f31ccf.json",
+      "sha256": "0f2f818fd900e1d107607f0a6966519ff7a41477eac5981ca9778941755d9711",
+      "bytes": 6828,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3741a66fc350929ed87536be4db61e98c1146cfafbdacceccfc14c2f8aa33bf5.json",
+      "sha256": "6e7726d9b108b83f7a2945f8ecc40f5dc027bf3e37bc13b54ce288b929cccbb3",
+      "bytes": 6803,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/395c556e08098b0bbcae30df64cc8735b41f94576572ab8d36e2a5eb8110ca50.json",
+      "sha256": "261d222f2bf512834c0a3c961a77a322214add7c59c6bd530f23eb4fb7115d6c",
+      "bytes": 6864,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/395df3d0194707a65d756424247e0675e758989f49792de430667a01f0d252dd.json",
+      "sha256": "89c998b434aa5ac922761a79a5ba0088305b644bba0b27a342c0aab367ca0f54",
+      "bytes": 6845,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/39616feee4acb5953e0dc5c8b754f96951fccc56647a5108670fe4fb10f9b986.json",
+      "sha256": "805d6fad3da1f3464c7a6f8453a7502eaba6adec9c19edd71949a1d84502ee52",
+      "bytes": 6842,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3a300dcf54fd3a703d7dbc660913c708fab500802de8d27f64e5ed8867d0c50d.json",
+      "sha256": "a2257c71fff3820461c2a56f26345ff36f6e76d5f039f3400b810d86de45d18d",
+      "bytes": 6925,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3a4bdbdec93a78a187d6c836ca31a9c0092b862330175bfc21aafd750b0cb18a.json",
+      "sha256": "d29e0069e49cbe68e50d3be0b4fd074b90bb495339e6baaa81c12d57287f8f1c",
+      "bytes": 6859,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3b7b271300ef5bddb4bb222bf703762dc896181feca8bd1eef285012a47fdad5.json",
+      "sha256": "209650113fc4e50ee5af5d793f4b64c5b3582fb73f13000032827c34bcc748d5",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3c85e2464dc6d2d8dffb1fef17729001af3fef3b408fdc084e666834942f29a1.json",
+      "sha256": "35eafa863d79f42442309428de0a18f61e41b232a6870763e821cd7fb6477c15",
+      "bytes": 6822,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3d016212c45ece48fff00860488fcb47110d1b378b306c57c65810d167ce3c84.json",
+      "sha256": "75e2b78fab13300698a16b9034586c07d22442765e0b4001692ed30a72c7f3df",
+      "bytes": 6821,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/3f9ae8b08a39cb6873ebec5e5f896d426bcc12a1b1529057737a81de0a9241a2.json",
+      "sha256": "e0ad5392d34f826639350dfb657b460191d638300fa2de22d40babc1c524acaa",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/406654efdb87ec0f0fc44c8dc457c7d7377712c2106b489fc91d08bf720ba648.json",
+      "sha256": "ced50feafdc56ba6e1ca3e61b1fc98d3717c8c4cbbce42854f8181cdce6884b3",
+      "bytes": 6869,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/4311390ac65f0d689c8ee3c6d6c9a316acdea0dc3c6993def5ae2a4dc21f1e36.json",
+      "sha256": "4db0a5ce0a7fd69210a760790199bba6b375f44885cb8c9aa37873fe4c098f52",
+      "bytes": 6822,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/4332b32090d121d627160841af3a80a34790724d221a2dd5048f2b88b61bf679.json",
+      "sha256": "676486f7db078f83002696ba5d62e2389ee5d750b3bbd9bcfe3120a84febd6a6",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/433e3c68b454e6800a98a15ff072846b1009d2322f26d614046f29f26086146c.json",
+      "sha256": "686d4087e7e3172ed104f2badd6af9e536ba27ba5ead5672d83eac5a30a498ad",
+      "bytes": 6864,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/441c1236f1f492a017d78a73c3c29a70f66905c60df016e2dc832f0c8ce441c2.json",
+      "sha256": "046b42323753fa0d21c574146cc849fcd0de72e8c106d3bc4bdaccad65004850",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/476ac3858b530efc84770455e8d133e3d7d4585d3efd96fd49e7552721e57501.json",
+      "sha256": "0ba26bd37152f79609c9a089b2243db534e898627def22e0fb5ebc1493cc0379",
+      "bytes": 6817,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/47f6adab32da46c6c8df8767bee37c3c32fdb17cc2d695adbd4140d00b6b4a99.json",
+      "sha256": "9b357ecd7165f7f800f05d294a32799f4a1df45edebea99c180f3bc1e5745ba2",
+      "bytes": 6845,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/49ca1656892db0bb60cc772288ec7773ecf872f09323186df41f8ab9a65c6985.json",
+      "sha256": "d8775b17a55bf9295c404b77e9f346ddb09d5c986e6fb7c5be9200accc075319",
+      "bytes": 6881,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/4d215400de3fe3678986d9a6391d79de9c33b5229535d3a812d7dd2c2928fd1f.json",
+      "sha256": "791a45746b5eee3734c52fb77ff16f4a1e47dab2b7281aa30c4d8d41589e33f2",
+      "bytes": 6834,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/4d8de6d5b2f3c3d61cb673146ddd41aa785d476487a471ae1aa13be59aafb316.json",
+      "sha256": "9e2b2b6d94908a8ed57513f019dad88ab58935f9df00c5219399690e9df1c92d",
+      "bytes": 6810,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/4eac6b69e55e6a46401099da6611c010f6bcbad345de5ab17a16002f7496519c.json",
+      "sha256": "99933ff0051bd4eb7e1f081f889d691c296237f70c650d2ff943d3633584e749",
+      "bytes": 6849,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/4eb0aaa80711e3edaafbd394984c07f96d6ab5ef0f6d13f91cc5cd279a3dacbf.json",
+      "sha256": "18556eb20b0eedd97de973efac899fc3ef80b3539e4692ce15d636b9e7730e11",
+      "bytes": 6938,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/516232105f050287cab53542129f0a5afd889bc8e43bdf7b046aea4a0779ecb6.json",
+      "sha256": "5c1cab6b6a144967f042fc783decc22e1087c7a1d7deb9fcea84095fbccca2b4",
+      "bytes": 6889,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/52d54d1418b7e31f29ecf3e215007506ded77ee0ccbabe024427a1542e579b79.json",
+      "sha256": "8baa35c9526b6c8b98d7ad6abbd7c72cb5048dcd10e4e35e825391f49daa590b",
+      "bytes": 6804,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5346b45db6fa63fd49fbc50fdf6b0ebff0a83da3f30d64e893f70a4b6e3f2f68.json",
+      "sha256": "90b3bf6ddfe3e7e3462f8fcce69fe4cbd48ef45b4bc5f320962f8d3ad4b3bf32",
+      "bytes": 6845,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5354a1575ed138cb73b3e7b4bb80d164081801e7ce5ee0b0e1a9e5a9bb147535.json",
+      "sha256": "3916aaeecfab809379f6972a792dd369909fd7912a38ce21adb48c5e08fe422a",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5707136c890a3856c0c7f0476d8f7a14635888dbf1de5a1d8197f5195aed4649.json",
+      "sha256": "a9649554728247f1fdccf9d263650ac46e179608e66b4b61a03829a991972aed",
+      "bytes": 6869,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/57951db7aeefc2064a52fab921d1e64649507afc3c89804c9d01c00cd7e7f91c.json",
+      "sha256": "89efcbbc1afc8f07cca6b4d807bde8e1bcd9d69ecfbaeff35bd904cd43d87c53",
+      "bytes": 6811,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/57f444020928fb7e7489c753a5acde9ce08b74cd17f4a7497e7067d95ad8a06d.json",
+      "sha256": "f5637371ae17f46a7c3a106aab9484e9ccf8e1c008fefdd87d372a97af3b7ed8",
+      "bytes": 6871,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5859119a36c7828b4e30c4d8f2ba65206863161625f398254d3a69ceec3bcc7e.json",
+      "sha256": "8cac44c1b9eab2b60574391c829b7494a79eb2f75e79199c8a92fb4a8c511a11",
+      "bytes": 6858,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/58776593e4cf36a802ae4cfafbac6b5121517696b239efdd3458f2c3a8028a4a.json",
+      "sha256": "3e8c71b95319a99d0bd5c01ca05051a3976a8be761d35256606cdd499e36decb",
+      "bytes": 6879,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/59b8039bb818097db92cae8614afd67b15ce47fbced907c23178237086171175.json",
+      "sha256": "344c838605bfc0e4594f023614f1ad9d20ee5b4a56ee3602c3bec1084b5cd28e",
+      "bytes": 6818,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5aa57a3b0afa5a5029868f2965565453ec765e575c6512336e105fae3931faad.json",
+      "sha256": "9cdfe73de145e4d486006be07e1c22fa5884fcaaeb89f69bae07b5e338b3b576",
+      "bytes": 6887,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5b18286d015fb8ed5159cec4cc6f0ac9975945c30acf098c5b2be5693d108aa6.json",
+      "sha256": "5994e4f4e6233627ae10a5551e01162401469cdaf1e2b67c049378a0fd7ca60e",
+      "bytes": 6865,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5b6ae5378e44fab514965c93aea3bf39ebc8473a468cccb9a3df59939d914c24.json",
+      "sha256": "43c8517b6d082fba57f14cb734b00f6645c17ef35a47877136b817213736e1ac",
+      "bytes": 6852,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5c746ec712d0531371b4b1cd4985af9ffe0fbab8d0d2a9e2dc8835d97d7728b2.json",
+      "sha256": "7e2e4e5e819582d5edaf36eb964d5dd055998d87e88cee8efbca0734552b9546",
+      "bytes": 6844,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5cc7c28b4b2bc6fea1d977b6f437ba8d679b8dfb6c676cdda832635e10ca062e.json",
+      "sha256": "ad80052159d835f0bba7ba6dc9950f23ce56e4d001583920c7f6b6ad9bb38c09",
+      "bytes": 6806,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5d562b9bea07a1151f4ad1cbbb6c8101f73c5520aea806fb1b10927f6930586e.json",
+      "sha256": "215cfbe78a299354bba3d7bea9a7ed6c77049eaa76e7eba2de42df8166df47d2",
+      "bytes": 6861,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5e72b0b493b13993ccde5b7d3b1d9e9774665b42d4828d3e20916439049fb532.json",
+      "sha256": "0b8e61d583cb441c0c82ecfd5d87e396a6f02a93fc757ed88f3ace9095d37c43",
+      "bytes": 6870,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/5f097b6313c8576609d2d33f2ed45991d96b919daf89fa6c153f5540d5023c83.json",
+      "sha256": "28ea219897b5c3b70519d64fe48fee03e84cc2b0632c8f1752a571204094f9e0",
+      "bytes": 6845,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/60df11259bd8789828042c96e43473b1722191031139aaa1cb13b9d161ed5ebe.json",
+      "sha256": "720a780fc3086d6699e9ec7eb1c366ff0ca7d413067716e21f42257c930d46f4",
+      "bytes": 6834,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/615facbc69dd39e4797235314f53e92d307adfa227f27b58a5e50a51ecf18ed4.json",
+      "sha256": "4f28aa75b03ac216b25feaaa1d72c3b54a09c9f2ba6b334c192c70d2edb060d4",
+      "bytes": 6890,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/645381a5774743422076fdee04016dfa6fdc0f20aacc3310c914567fc9773d10.json",
+      "sha256": "b90d79bf4744d91153fb8718762dd0b47f407dcedfd2e7ff2b9ca8572204b165",
+      "bytes": 6828,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/654469bcb7d17441d9df3372b7abe01c0c837375685fd56efea88acfc09e79c5.json",
+      "sha256": "dff77419c37052ba6c1593d7e4d187e25fe4adfcbcf8ea149185601e489eee8f",
+      "bytes": 6890,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/65f1614b8cb237387fc1f20a6d1d53496d7c3190d1028e8e84991d6670da35c5.json",
+      "sha256": "476080fc01f1367edede6f1c478471ec0b2e7310cabb75804c65ef8520578891",
+      "bytes": 6813,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/663c3733dce29c3138abdb69c457b7adbbe1dddceebc3df312da4d6df0950c71.json",
+      "sha256": "3f267c9ed55bb96ab306bddb87dac874083e5f3c0351252cb1bd64eaa3e6c574",
+      "bytes": 6858,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/6659b5ecebb9479726f0fdc08c68bacf82f94cb0d20632ab2db90a5953e4cc61.json",
+      "sha256": "b119d35d566a0d7cc94b16c4282e1a3a1a24127ba95563a6bf4b3a5b8ed36b4a",
+      "bytes": 6805,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/67468b2a4f35dfb4cc4f8a7805e3a07507e5acf534c478ca239a400fd100cc16.json",
+      "sha256": "4adcde4f6c5cc328bfc13c1c0027544362cd0ac491464d85353251a539bb8d5f",
+      "bytes": 6794,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/6839cc1cccd7fe470d8cc75f61496703459fa8dc68e9076a2ef2dab00f646a50.json",
+      "sha256": "717282930fa4309e11dda28f1e023e3b205a136e3aa53a6ab8f609b66493edb5",
+      "bytes": 6839,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/6954d61d77e7b52f83358541e3b9ecef874ee1793784f10ea7810a1ec5761383.json",
+      "sha256": "0830cbce287bf9704c6b0f846e75b4816fbc78c4df8eef39764659fa201c7fe7",
+      "bytes": 6819,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/6b59aac32dabbc8491416f6d8663e1a3192636e9b2a5e2e0e8ad60d0dfe9dda6.json",
+      "sha256": "7f0223fe02d46a8360dba15d77835e5f2718cdb34a24b165f1b62ee4a9e55a71",
+      "bytes": 6798,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/6c003692af35632effdd2da648d02dcac829c124cb78ddb5af0a9036f074fea4.json",
+      "sha256": "c5105585a310bf93aa889e769d3f0d1999ed04e9c08264d18dad354415ca86b7",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/6e38e3146824a8c4778d5e638255bd822b749cc4828899beb70569adbda09da0.json",
+      "sha256": "78bce69d1421212f554e9c60fe66a50e4c67216ae682647fa6a19ae0deca844a",
+      "bytes": 6826,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/70807a1c495a66e98742f10de45aa5711f5a72a58ea5f60dbddaced3a052f717.json",
+      "sha256": "dc664ecfff6c8221748225d33abd5e8fd86da234bd89b13c23760d985c959fc1",
+      "bytes": 6886,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/709d06733a76b4715399635a9550ef2ba5144f8f7def68c0d53b721e425ae7a4.json",
+      "sha256": "75144d4e176148ace9ef505b7846dc86f56412e32c4b102d61eacac83b8e2073",
+      "bytes": 6873,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/75349ca637cded629c169c032c9b3690b7bdc2c90dc8c23347fc2f4ef95355ed.json",
+      "sha256": "ed1dc88f89152dd700b6b81153f510578ae20d5aae2bbbd251dc4f5fb6f3d2a3",
+      "bytes": 6881,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/76858fd62063a224f118b200eb8d19d16a6c63a9f7f81b36236b5f7ecc75f131.json",
+      "sha256": "b3b777965fbeaa6143285159b4d04a7da4c5c05b24340c1e8ba2bb75a024d9c2",
+      "bytes": 6818,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/77950ae8d13001a399a8e8a6dff67a823c13812ad109d063bf2abc31cdba0282.json",
+      "sha256": "1dd5faa34f554ccad0c9757df4bc37e037e51aba852a9766ea42fe4004480bf3",
+      "bytes": 6837,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/78116fd0b9c705149086f8cd12600e64b867161b26641e78ed858de355b3a303.json",
+      "sha256": "28ff55095cc5ad67e2aae7012d5b6faac6b6a7bba625ee6a9f38b330ea54e9df",
+      "bytes": 6844,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/78acb8339179c19741e34f516b1cb76455e427c07499d26687d257d2f79fbf82.json",
+      "sha256": "f72dfa52e729c894899aeb149164346f57045767d90ca7a3ed00191d3a4a840f",
+      "bytes": 6841,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/7926bd67dc3da1927404a169ef91b41b3c493febeed5dc1ab95f33a89b48ae42.json",
+      "sha256": "6c4238e5aeb7b94259ba2ff8f13f930aaa70c8b536ee3ef0bb821155d3aacfc4",
+      "bytes": 6879,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/79cafe2e0ba77a11797789506338d00cc8837f41093f65a2dc6351b5467cdb10.json",
+      "sha256": "83a977193ed5d4cb5fceb49c684a246ef5deeef71bb9a27f8ed2c6f979281e9d",
+      "bytes": 6857,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/7b00b58e603a8731dcba8c0b705b2986051ae82e3e8a9afbee20619e7e76b100.json",
+      "sha256": "f507f09bd328f6a53b59c147184a4ca4e0a247652146ef10c79bc912a8bdba7c",
+      "bytes": 6822,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/7bf34d9be57acf915233fa7a9f7266ab2e0e02494f95d282db1817741b006edd.json",
+      "sha256": "85eebda0f8e17a133084a600c3c2b875892215f01b17e34098cbd6c1360503a8",
+      "bytes": 6850,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/7c9abdcc5d5667a9017a77771167095674d8ba325d12370a2e6fa0e81336705f.json",
+      "sha256": "d323baa40b8a247852173258d9894f61867006fb36bef23398c002de5874d65d",
+      "bytes": 6824,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/7e429863542d71f942d3aa03ae604dfe061b2221eab301dd382a91415aab7f20.json",
+      "sha256": "744669807a59153599a0f325121bfe0059823f8fd9549401ba10b7b881feb997",
+      "bytes": 6859,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/828298145420ef2b99ca6ec30c93f82708cd969d5e5d4dd278f93ed97302bd8b.json",
+      "sha256": "20288a9577ed6357fc550b5d13cc1467e2bdf81717f48bc82807de2eb2699dd8",
+      "bytes": 6859,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/82be1c42e542e35c5e3ecbf983e6f1723e8b91c4721458b807fe9f6deedebcee.json",
+      "sha256": "4ff3e1f789b7f945ab54cc311f51aac70949acfce455792027a2f10e04125755",
+      "bytes": 6823,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/836e0c6414527aa426bd1235898056975946ff79a2beb0ed7d304edc901b8913.json",
+      "sha256": "ff4a99dcf60ec0f20e38bd2baec002f33a6a2c72619adfaf3d955eb406b62bef",
+      "bytes": 6834,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/839a271ab16b37ec2cf07fec67104ef579124ebbaa9024833b88cae28e35f1b8.json",
+      "sha256": "17439d14dd3c7181a2b3b8676cb1690e76a45396b2a83e842b7dcc46d76d8177",
+      "bytes": 6842,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/84034a094d37027293302bb61e229330c59648e34bdb06bea315e3afd1077ebe.json",
+      "sha256": "ebb4b3c75ca698bf3af04d619dce48e4d691de5383d9063bbf501a3ec70784aa",
+      "bytes": 6869,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/8499b8c15ed8dbf4b5139143b8090792a182652d974d1ce8436920e5e14e9345.json",
+      "sha256": "af1a8cb92db6f0909add2c6ce4c5879220dea7d19b854cf0fa65916ce8c7ee5a",
+      "bytes": 6860,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/84a278d8dae3544fb67bc233baa63102e7e800cb53845d1983619bc4f1991174.json",
+      "sha256": "68b502dbf5c437f8955ce6678ffc32fe52e5e7871c7b2f81a491ee11de234af2",
+      "bytes": 6857,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/8689f291c0d7af8a54e075fef7c06780910947070bf36cad05ec1734944315a3.json",
+      "sha256": "5149a822b5d7964d55794e40ba5756f9815d76d6589dd4f9ca3d8f90f63c710c",
+      "bytes": 6812,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/87a55482758c8a25390e6222573a7d6d759383ae83aeec342018bb70df901b18.json",
+      "sha256": "f03a0932c0d1565c5e2b2253daac4f6eb29ab2a46f73ea840ea37210a97f046f",
+      "bytes": 6833,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/880a70f31020b62a036759e5bb0a721a171c8280afa1b7c80c812a87c0cc8c4e.json",
+      "sha256": "829aeae431a685052e07d586ecb43e2f3640bcdd6b1d34cf1779174a23dcc809",
+      "bytes": 6868,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/889094649c728eb8c82edab159dc9e2473be522ad75d54d4edb6e5b95ffb4d0e.json",
+      "sha256": "1a7610cac7a64cf0341f943328cad0775d16003a9dfa30cb237137ae1e5ed09f",
+      "bytes": 6825,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/89ef72eeac9c6fa8fe91eec34f8bd9bcad941e96672bf0a93648f6d5f7116453.json",
+      "sha256": "e95dd2c9c5b92ddb7b41c1571e71bbcbc8b363ed5e90e39e9adf209350794e5e",
+      "bytes": 6804,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/8b64a8a221e6706a78bbddc8cba77faf695c6e414abad6b8ebf17ed83f70c6b8.json",
+      "sha256": "4394b1b5f5d548856456b3f3d26619e24b04d98b9cd9a0d2e51a796860504d74",
+      "bytes": 6887,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/8bbb86f9c1fd59d2a1601d198f404e730989345810166ab9b53b70624c677baa.json",
+      "sha256": "9f531bf6db33f6ce82420df18f7ccee189ce5b95f221b2a627b1744341d1ffac",
+      "bytes": 6856,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/8c6ce6abfe5579d4ab1b13837a9e1ab9d29766b7a840e6dca352c78d2e642522.json",
+      "sha256": "b00b8867fd6dcb1778984ad2df6c821921768ee1021de7bf770b55482e415a27",
+      "bytes": 6866,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/8d85e10f5c81646ffc668c799b270040ea5c62edc0e6af44acca1951f9df1cc4.json",
+      "sha256": "571893370ee88d37eb785c84f7d315b71fb8cc4c067da36e2e688e13223f17c3",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9144c8b3da2df31457ff7421bdb513fc5d741359e0a3a11e7ca0855b9baa0edf.json",
+      "sha256": "778c5355aa56038366a8e457cda4b133d48acf5893e557b7de0cccabbe3e6936",
+      "bytes": 6853,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9356c08c8ec5607946d640edf2093759a3f58ddbb60983b3a70a82ec07df4afe.json",
+      "sha256": "951120b888d0ef46ef520b9f1e6c7afdd2691839a1508565bf296b7eeab6814d",
+      "bytes": 6821,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/94ae972e75e060c0331a2710b840c9af7fb45f065f16b75a1f1fae43ca5bb11f.json",
+      "sha256": "e883c52585edff16244788484646c8a611cf277fffee91f876f03aba7c492d2c",
+      "bytes": 6872,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/94cfc828510b82ee6534face559b560744d2ebde564749e3a4c9cc34386bd4e0.json",
+      "sha256": "1a994b6e3f631d9f52f250921a75d584d012e1f8c17e15d3e04e1fd09653a5d4",
+      "bytes": 6840,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/969024a82b421dbfc2464d5fbcaf6e0045780d724c600f2ec4339b4eee3a5ed8.json",
+      "sha256": "0e15e6e5667b9de52e51752c564474139a5bea801c9a628d456373ddea5cf84c",
+      "bytes": 6809,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/96975012951ac6442907b39fc60e7dd1c984406b63f98b358461b9c3332f02be.json",
+      "sha256": "8a1fdcfd1e8478331f25f36a132036cc561c79baf8c7f388d9d13e620f6e2781",
+      "bytes": 6861,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9872475f18682bf6703bc4f018c4cddcf9f3d757ad8eebf30c379ce58abcc362.json",
+      "sha256": "27d155dd385b95271a769274a6198e7f3730047932c7c05f6bbb980f6d6158f3",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/98cf5457aba919db6ed0efcc36eee056dbe0235863c9e36c2f156b5dae175a47.json",
+      "sha256": "dd5e441fe6a6dcd13fdbe54a0f443875490dff634e4fbd4b9c9d3f079ce52759",
+      "bytes": 6823,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9932e716abb8b01a24d3660399fa0e14061e59fc5cfb85c3b93076aac4758230.json",
+      "sha256": "57854a188be77536ddf2dadc14ae815683719d4be1730512466042119de2fea2",
+      "bytes": 6860,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9da21fc193cf564e74f93d26271109641c5d83a03c93c88998d21ea2b703a426.json",
+      "sha256": "3c5ad9d393ae82f6e273f46f38ec577eec2f63eda5346aa350b9dd8194a1b13e",
+      "bytes": 6783,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9eb80ca96fb40f6b271183d7c372ac0fdfa1996b85e4330db74feacc6665f67a.json",
+      "sha256": "eebb53b2a37901654f202038070475f9f85175c6c15ff5f27137c7b83391c7ca",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9edea029f102077d4c713f4930c78ae9c0a945c0ced83eca8e60755cbba06fd0.json",
+      "sha256": "7a91b2048b3465433bd6bdea9eb8addeb1175c67366ee39f99b4ae944b0f4947",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9f6179d9708c437102eaafc1b930acb8d007cc7954acab00aa2704c485d944d7.json",
+      "sha256": "6661c783b25cf232afdebbc7c74629f28b645a198c193770dd569710ad4a6f8f",
+      "bytes": 6880,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/9fdaf18f4ececee786fbf9a50577b8cf96c570b5947dfb3707e7707ed5d6bb91.json",
+      "sha256": "e53ed318498bd682071fcbe596af1359a725284b2543cfc9751318c3423e4a0c",
+      "bytes": 6867,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a2b155bbb649f3ff50eae991de28a3bd042408fe790d536b68001a735c3aa41c.json",
+      "sha256": "abcd58854729c6571daedfa9119ee86a2cf00736ca99d0a72c687066a1e29585",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a4e030594afff2ba0bfa580fd4276b44662c18a38366e00305e9881066e7b14f.json",
+      "sha256": "d68c0d6eaf75b7a69732d502e495f2192e2e08da9cab23b7071555ca87b63fa1",
+      "bytes": 6884,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a801043a1e9228917d8cfadb994b7bc156d39544339172de12913517713f0c40.json",
+      "sha256": "7ebcfec87a8a372c4447ee2375257039140f262c446e7a3f9b6d19e934d93430",
+      "bytes": 6887,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a8a981401d5670b036d4096a39f547cd18898662eddd0f36be8eb4a8ee2cb6cc.json",
+      "sha256": "f8c9c95e590d355ab451895a2ecbe891c90853846fd018a526bf6072eedd40f7",
+      "bytes": 6854,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a8eb674f78f9920c8ba76029c0382af1ebad28730e633bd1a85c2a07e0486606.json",
+      "sha256": "75141a7f2512195c5855b59070971abd38533ba1e5fb6e70b350d2abcbe5fce1",
+      "bytes": 6828,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a919cda3dadc79040cb7c1c428a0f38dfcfe135093f3c2579c2f80f434215885.json",
+      "sha256": "a49e8f4d914a7b3d174abf2a8a9ebeddaaa1ff81d84f9de9bb1bdba2a746be40",
+      "bytes": 6847,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a933e58f6c5b89fd1d6294501df89db57c9d0d703ca12b618fbb2a131b9d4f98.json",
+      "sha256": "e49ecc167bc23758a71bf241cc2bac980770ea91ab70a21e3b0c20179ca63c9c",
+      "bytes": 6832,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/a9bcf4004399e7c01eabb3be64bcb363dfd2ced6e0c9c47230b9b413e0b9f5a6.json",
+      "sha256": "db66919c7382db1583b196948f061d88941bd58d9f3a771f4b9a0c187cd2ef77",
+      "bytes": 6898,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/abbb5816cf3d92caa714146b77244526cf1b3be091ebbc1e3472f1b2347a9280.json",
+      "sha256": "0e3200a4a38a7f47604ce7b1d5e5dd9f6fd7cdfb739331ad1a4e2e7b161a9f52",
+      "bytes": 6826,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ad584a518071186f8d074cfe118a47e9e30581b4e008edcb4f1aca5f1d082afa.json",
+      "sha256": "eb36a0d9645c489525c24cd06e35caa88deaab45a777c03629b959eba691b4f8",
+      "bytes": 6869,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ae2e90ccc44315e7c626e8c40d51369d2529ffeca241eb27a84fbfa999aa1d6c.json",
+      "sha256": "a2e5afc24dc8d74f62f4bb936245d8f8cc1a398d1cf1f024428b759433318d19",
+      "bytes": 6829,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/afd029993a8e53aa95f7fb36a54e0aa8f8136dc4ceb2d173ba277dbc8084b452.json",
+      "sha256": "14488110820a151066870d3750f5d19b9c7b54a772d34aa56dc866234b88301f",
+      "bytes": 6814,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b14ad103014b1b2aac41738807025b5639cfdc98c54c67a408fb4268b6916abe.json",
+      "sha256": "66e8fe9506f52212e519162b946f4c270003ca55a47ceb5143e71f1b43a04f3c",
+      "bytes": 6888,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b1918ce8e625749daad8b37e34fc249d65e1638aea3ff92c956c12122111e98f.json",
+      "sha256": "f497b2fc765fc5a17f1989b89ad5d82f64a4412e5392f5d58d40315e0c3b679d",
+      "bytes": 6888,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b19b3a18dbedeadfc3ab6c5d5d138179fd1affd43f42cacffe491bd368871b4a.json",
+      "sha256": "a01baa24bbbad2ac6c38f0aa6d48beb925b83e67b956188a4a04cd040b107d23",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b32cd9c8fc39b7b8b1e49f66b485b922928656126f308d6093b1fa8a1a641646.json",
+      "sha256": "c2e57809bed55e5197fac67e5d774d604bb6fcf1e6015bfe9f0389aace7877a9",
+      "bytes": 6779,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b587f38be50e6afdca1067d51a95fd76600a3c04961328082ef1471ca057bada.json",
+      "sha256": "6f47572ae7679f7557f7f7ced72210fa86f99470d5a70d4e145ca23ac07e1625",
+      "bytes": 6854,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b70fcdc348569711956213e10a80805dbe02eb4dd36e16e2ddc022a81a26cd8f.json",
+      "sha256": "507d7a715c2b45d16b3c717b9083a4fbf248895f954d4a9d50434e41ea43a51b",
+      "bytes": 6792,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/b9be0b590e3dd82fbf2732400978e7d0e8e30aca9d2f45a1c45a9de15d030f98.json",
+      "sha256": "b60ca1a80d2a51e4916a07d285b9bf0f5fab6924a95196bebb5d81903b109a60",
+      "bytes": 6861,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/bbb07a3c83703ac42d0309fc3819646bcafc0914e6e9a68aa72aa7caebbc58cf.json",
+      "sha256": "47cbd6f8372f35a7ec3497e8561257a2b54ddf5e8fb08ddc55db3eb6a864d713",
+      "bytes": 6880,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/be1a4b66688d0cb6682462712654d7ea7a7155d660323531e9d9a47ad763e24f.json",
+      "sha256": "5d8c2797eea5c0d116ff73a1f919c0c007bdbed453c5b86412dad9e4c2a24b53",
+      "bytes": 6865,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/bf24c88e9da6e053a8797c52fe1dcae6ac3a790db66834ae5cea5192bd6e8b7a.json",
+      "sha256": "c4effb26d80941c98b0d5ae69d7f9c27f5195b5e01bf1efb5342c54eedb59f24",
+      "bytes": 6871,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/c051aa7bd587c5d45d2050713331066c48973a493166110f6b6678f0b5dde3e8.json",
+      "sha256": "4166edeffc2cd8816793e4fc443eef417c3ad523110a7a706370265ef768676d",
+      "bytes": 6810,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/c2bc78c1db00c277dd4100f9beae3aafee7faffdb48c014af9571fcc1476cb61.json",
+      "sha256": "5a8eba5f10bea48b7b935bcd23125194823496fd90908e5a500eda607de95b45",
+      "bytes": 6870,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/c517231aa3e86e5ca74b64c9bc6c43266f8e7f52b6f83565a4bf4de7cea1d043.json",
+      "sha256": "f3e388559c6cc31c400546c13eac0abe96028ccf80ba8329e79755b087aaf181",
+      "bytes": 6884,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/c6f63e8d98b46beee248bf7f2d579ad80a83523c9755c2fb3a6f91f431c6cd3a.json",
+      "sha256": "34235da3fa73adbcbcad46c568be1edce44f681bb12bd739ca9edd34491eaae8",
+      "bytes": 6867,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/c7232eed8f47156128ec1e02e555e25d2da6e4788ea62a880f057ea43dbacdb5.json",
+      "sha256": "1b7242e2c0d9edc119bbdc416e1287a8d6212d18dbc0fb7f22418f0f8e848686",
+      "bytes": 6818,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/c93f8fb417ece82262470367ff11f4ea25fe017cdff9e091191eec4e10c867ad.json",
+      "sha256": "15cd7e5412fdfffa1de5ddf1906647c150898e2ad3cdf7f961576d00e599f3c2",
+      "bytes": 6823,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/cb88cfa4cf27cd79e45c4a8145a5edd45bb062c938fb07008dd8328496fbe3f7.json",
+      "sha256": "3d95824d6b1032496e714aa6e91b70c37f9f9ee3cb4429af3dfed722ac813553",
+      "bytes": 6806,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/cc1534bfc60efd3a3d4baa25e55d9b3b7c0988cda5861014c1167a2ff004b198.json",
+      "sha256": "f3b8e771a1295d05dffc30bb1b61dc61870c3c6ce306448401758e34de77ebe7",
+      "bytes": 6825,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/cf37a983d423238679b3895ca4135d1127ef3b262c48c3b6552212b1dea6918b.json",
+      "sha256": "39a8b8a6fbf00f90ef068183252933ca93525d46066a98722dfd7a1e5888f7b3",
+      "bytes": 6864,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d10a7bd2b0edddc402ab2113c4713b2ce05bf88ad75cbbe6eb0b1af67e142b31.json",
+      "sha256": "3fff6e52ae862decc8b29a83c2ffd517942b80520c59972af1a3df217039de52",
+      "bytes": 6863,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d136c46ba7aad84a8274e4122ef3ee5c374e35cb9e8a59a7edfe00ea8f228965.json",
+      "sha256": "d3e68c13287b1d23aab74527b2e17e07f635ccb73489c3cc1213adf29d57ca34",
+      "bytes": 6853,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d3f98da962b5bf26ce1186a2067013ef8de0bed3f2cf294dd8378c08acee6ea2.json",
+      "sha256": "4d9068eea2585839ca217a93f40686e498424169ff1158179d30d72847cce2c6",
+      "bytes": 6858,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d4fb4b560b7e8cc5ff55eeb8e6319dbd33ecf981c6786e3faec39d75ad3bc585.json",
+      "sha256": "f07d9f8acd334424614610208fb0ee25d37208ac6dc177a5bf71ca064c5d5b78",
+      "bytes": 6809,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d61c04922318bd0ad7c8c57fda9c959112c37de111ab66ee878fbe3c65640d12.json",
+      "sha256": "2421cbdfc73dc48de9d5b29ac7a07d014da9399b2a5ace70b58c04f5605713d8",
+      "bytes": 6891,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d691a34567f92d113c99c53990750c700b2a127496dde2db0e30cbbdd134fad2.json",
+      "sha256": "df186d4cb4be893752dec0d1fff552ae9a2dadc98cd03d650281dd60daf905bf",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d71fc8fcd3e4f40cbe1d7445de90298a575c9b398cc644acd9c2963f63db62af.json",
+      "sha256": "5c182963e67687a86c6b447404314e6eaea6dc4673e058070214882e16e19a19",
+      "bytes": 6868,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d8255cb3ef56e0fd2dfa82e5a3eab65c0676bc5b632890865be0ba564a22fac2.json",
+      "sha256": "c2cc4fe6827293d370eb2c592c0233480aaf9f1f0907c060e13589b2bcf04ef0",
+      "bytes": 6835,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d8260e45ecce885cc66ab7bc1f8c31c61e881eb988099565cb4657aa020e36b1.json",
+      "sha256": "117d9adeabb50be201636dce9808ecd60b79773fb2c368fc85466ed3af149206",
+      "bytes": 6858,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/d9695e713193cf9848aad6ca1e998c2e85499bbfec38cc2b31e8283dbbcb8356.json",
+      "sha256": "00f329d5efd1472ddac520671f51ba1a998174d5646e0b38143074357a697de5",
+      "bytes": 6867,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/da1f5e29af14685ef8eddb340a91db0fb928a3da89f8a7b429ddf9f221c06a52.json",
+      "sha256": "ef6ec87f53caaaaf8ed4e32492084b5ef2c4a9a96293d15a061dbf35e7a0f76c",
+      "bytes": 6845,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/db310bff6fbdcb70beccf8f7218987a8541275b6c0bcf503ddc45d569332c6cc.json",
+      "sha256": "df3e217b0ab933db9805666a41bfebfc9fb5f02d44c0cde6e88cb718a4699d7e",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/deeaa4e39c30ffed5a2029719210beb3739380dc6365c22a4837b5c3ae31960f.json",
+      "sha256": "b9ee7e6432e0390db4a806913be3633928d77ad3d0d7308ef2de214f573aeb11",
+      "bytes": 6850,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/dfb2bbe54823d6bdb402607932026e8b5bfa6cbfa0d955fcb587e828357f873d.json",
+      "sha256": "1553f36c3fad517a75a9d100f19888f33b7c4e7b0c190298d0728b4b73a8451c",
+      "bytes": 6802,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e041ae7f0ca7dc5eaf89316ac8fd9dac5c7c8a5d33085b5e07583046a49ef529.json",
+      "sha256": "a32dae7184a7ad3a05704c4ad09ff526cb242203f41e8545fcb32e79abebb800",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e06e92d5053e89384cf6555631c6ce9fb400b17d103769983d0fa6cd33bd7656.json",
+      "sha256": "732a24dbc555337050437dcc9a211450b314570fde2c79ffd9b7547ddaae127e",
+      "bytes": 6868,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e243aae1641196448d3def38f26fff19cdc6c7f6029bfb71f10b9a010e4aae9c.json",
+      "sha256": "0d52429b44847851c2087a801f76578f6dd58b66c284fc7a9495a0c878aede50",
+      "bytes": 6838,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e437a32d4ed8b88f842dea3aab22ccf37a69023bed15305010022965d21fa2a0.json",
+      "sha256": "a80f59198d5db945398646bee5a64be26c308ee5c841e2fa34424d8d608f57c8",
+      "bytes": 6870,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e49bd6def4c55c7c182effeacf1178621989bc6a6c806297caac8c2f8a87954c.json",
+      "sha256": "c1a922408719f1c81d7c6344b37f06a94e2dc21f84b4db0e84a0788f2dbcaa6c",
+      "bytes": 6880,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e64fc56eb1c887e6309e5e24f0eb38abc7d2de250bce6b3e5e693ef527f863b7.json",
+      "sha256": "b822af19275a40d8c3d4f462ff9739a564c1ce9da75f27be83b8237c4fb54df9",
+      "bytes": 6821,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e6b6a2e271efc6c950da5634f58d2b02a6ed9263df4059ac90d84fa898e9892d.json",
+      "sha256": "c37694452e3e9cdea2c2adadcb18b0ff21477451622ef8ca71842d60cb9d10f9",
+      "bytes": 6875,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e6d00fabe0148161510bf75476537ccf2cc39d5b8693f1fd2f06624bc0ca9aa4.json",
+      "sha256": "3576a6a285284087d93204c97a3347d71100ca096d42d11c5976109466c88b03",
+      "bytes": 6836,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e70dec58e818a6d5c2dd32d43805bb03a348f0e5723e7577214e9938bb71b890.json",
+      "sha256": "1f0638b2288be4ed23012e266e42b90b4a4b29099131f43be0c666a721f58b2b",
+      "bytes": 6876,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/e814e0573c8c9af7590883d354df3d839181f99bda2edfb41cb7b63e43365049.json",
+      "sha256": "ee8c9f64ec553d110b8e12d1d158f04e0b41addb128501412fcc539cd05008d9",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ea95eb1a94667675d88cebe594be6003e0f9f3372d4e5ddf7193fc245ee1f072.json",
+      "sha256": "f339d7ec281a1e1f58755edd0b5bc8f12f9974acd32e63cf9d49fe1789004427",
+      "bytes": 6862,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/eac3e37932dc91fb638f62047677c5309f2c38c2c4e530e0308870200dbd4984.json",
+      "sha256": "c57335dc9cb7caffbc48f3a85d7a1f2bce28d07246bf017d9a5f933f6dca58a8",
+      "bytes": 6933,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/eb32bed7ee923d05253e9df0fcc908e279d5321d28abdd0ea6b243d490b0ea83.json",
+      "sha256": "f5f20fb17ac5042031f8a647dc68da879c0f225ce77db9a5a3581685935b5440",
+      "bytes": 6847,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ed041a7d6207a0e11c998e6afab833a6408c84601dd4b27dc4f89cb486438ab4.json",
+      "sha256": "d5e5132934afc9e49962b67bfe3c7f81fabd6c94b1fa468e4452def57190178f",
+      "bytes": 6856,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ee1fe3c5af36885725d63fd843861fe00a2dde006109d0ac7120ab39772b940e.json",
+      "sha256": "aed44e45f6b1170d33f6f33b40ec143277b3cd45e62b68be0711a40e95acbcd7",
+      "bytes": 6837,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ee8742f41b1ba38787b2f34861357b25cd99049959a7a3c1e85fedf961f56a6d.json",
+      "sha256": "d6e58faff8e83a07a39012ec33e03f910c8ec83eb49f904f1cf6477f72d67dc0",
+      "bytes": 6836,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/ef79caa59544855926e3f81c1bb4fe18b5bbc8200548be06da0cee403521e675.json",
+      "sha256": "f11457f86019ae4b3869761877c901bdd2f7ef940467e6ad351d917af2de298b",
+      "bytes": 6870,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/efa66784e0f79e980ccfd8ddbbf524021c24f1ff3fc79231146383d3b7fca038.json",
+      "sha256": "2550079e1f55375862ff5a792a591aff34a6520af5b9c8113354362e264c5a11",
+      "bytes": 6844,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/efe708175271eefb0729ca5b3e7a4b9d7243a0ce51ef2044e9ab3419bf0e7493.json",
+      "sha256": "bd9d82f1c8a465ca14a34deeacfc7efb782411155e6348ae6704eaf53ee4aed4",
+      "bytes": 6867,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/f010badc60efb74efdeb04cf53b9909877e4bbad2d83f52e7645794026b7507d.json",
+      "sha256": "7728d8aa16f1e514b2c10a39083b47b3888024302ccc9eccbf5a9cb5482b5a80",
+      "bytes": 6791,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/f0b507c693ad92a4251b44608e6fec56247c121d4625d655b00763c543b19c63.json",
+      "sha256": "23e484ab94fb89b7313a4ded7d26c7d1bf9ebe9126b5d018e17357d67c75a118",
+      "bytes": 6828,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/f70661275076db9062b0148d54e3fc54cf5de3437ea8bbfe3f5335a3af43b942.json",
+      "sha256": "912f1e2e4fb50d38299248d810037d14dce59d2558f20ffd27e6df82d6a86048",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/f8ab3ac9845e5dc1a7b2e54e4d1523d13d3a005cf724e72cb5ee0ac8142509ac.json",
+      "sha256": "35e8a55c8165d02d35b55fe5e728276815c9addd49dd642385cd22639de16d34",
+      "bytes": 6877,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/f9f8048867a10fb9f9bce6982f9999bd1627c82292f1f76558ed0204bffb40e1.json",
+      "sha256": "9c83de9b17463bfa55fb654715d3bbe826f86bb9cf711311c9535da0beb9c88a",
+      "bytes": 6808,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/fa32a1a49af16628a5e4e636288d8b928bf2eb121308786d88871ac46724d445.json",
+      "sha256": "d7e788f46d60a870ab14e2b97a54555c06feb58c37972d80524f00d0698c4214",
+      "bytes": 6874,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/fb0b96c475c0c4c62938b9cf401034a38d3ecb1746b02b9cd99c8c0d1448f617.json",
+      "sha256": "f6e1436443a79828af14296c416a8c73e49cea2f68dfe258ee53aa051182ce52",
+      "bytes": 6826,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-sizing/sizing-r3/units/feb9b1183136d81e9a6bd7100ee5c9aa72d29d9fe403524357115379201a6e89.json",
+      "sha256": "1ac0ec31d08e14f597ed4fd08d29fc2c8453267698da30e8b7fdd21d23b3a40d",
+      "bytes": 6849,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/.state/checkpoints/interrupted-r2-776748a46b6042389254e9d2d44a29c9.dump.gz",
+      "sha256": "02cd498acc8fbfd0a50f281e157295bac488a5687b23cddf988e657e8c09da0f",
+      "bytes": 3149093404,
+      "method": "independent_archive_cow_clone"
+    },
+    {
+      "path": "infrastructure/daylight-data/config/profile-contract.2026.json",
+      "sha256": "4594aafa66aa5d50df5982225fda3c73c4ce61ca1cd352298dfd2238a0d65d27",
+      "bytes": 736710,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/config/source-composition.2026.json",
+      "sha256": "eccf8200870dd68333caa65a1cafe72a8d0441057ce51ea65d4eacdef177ddc3",
+      "bytes": 106528,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/001_control_and_sources.sql",
+      "sha256": "cb0233332d97e6750031f592ca796a74b2f794923d7b8a1e2ed72eea250ab162",
+      "bytes": 4522,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/002_domain_evidence.sql",
+      "sha256": "1ad76ee6067cada9cbe667954739c9180a5f37bed51af5ea7cf9336678192655",
+      "bytes": 3190,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/003_profile_contract_metadata.sql",
+      "sha256": "aae038ee5792cb6d3abdbd09b5aae5f2a4b8bde79f228fdf0528eedfcb0b3515",
+      "bytes": 707,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/004_release_boundaries.sql",
+      "sha256": "c987631ccc764ed4bf46a587341de6724e39ff1d5fa2a20a466a9a96777660d4",
+      "bytes": 1581,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/005_durable_source_stop.sql",
+      "sha256": "8277f69f7e2ecebed9df0f9c8c4c5f5d0584cfd5748b5932f679d845dd0e7502",
+      "bytes": 569,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/006_stop_only_worker_privilege.sql",
+      "sha256": "f48cff4725bf0333d12601b85a8a962ede7adb42e90bfdc41d62af0db04888df",
+      "bytes": 1048,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/007_source_use_authority_boundary.sql",
+      "sha256": "b63004ea045fb51e147c41be473123012af68cb632364db90763f81fc46feb70",
+      "bytes": 286,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/008_exact_adapter_code_binding.sql",
+      "sha256": "7df623cf86afb5075683e28d3fa2df27a57e76c2ddae990a7e50b9b3e2211fc2",
+      "bytes": 319,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/migrations/009_observation_source_lineage.sql",
+      "sha256": "25f53a97c99333af70abb2943a4996dc4a85982cd7f56269835de7d13e92b33d",
+      "bytes": 313,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/requirements.lock",
+      "sha256": "375c52227496ddbf0babeaf264dd6326ad30f2a5e0a5194746c8211887d04a87",
+      "bytes": 585,
+      "method": "exact_archived_member"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/__init__.py",
+      "sha256": "76b90451c236a76544a444c3d4207222781f208c25887d6fc521f955967524b9",
+      "bytes": 103,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/__init__.py",
+      "sha256": "59845df6491f1fa8e9f00df5be03730b5f6af183013192a3875844ef0eca1151",
+      "bytes": 663,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/audit.py",
+      "sha256": "074daec93f544d5779e2ef19081b770dfd4c1fd1379a22491b320e2257107d0e",
+      "bytes": 3267,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/closure.py",
+      "sha256": "307284c8072b70bf0f980120b3dbb66ff3397602327ae678ace775454440ab56",
+      "bytes": 32818,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/common.py",
+      "sha256": "e95c9134b3fc3bf8d1902262cfb3564cd926e3c3dea1a668f00f4740f5ea771a",
+      "bytes": 8895,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l01.py",
+      "sha256": "6353b866e7f2b8a579c483c83ff10c5fec5bd9dd1bb902eb67b597af15feae38",
+      "bytes": 3353,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l02.py",
+      "sha256": "fb02fc378fb494034965fdc44dff7f34dae69a06ba2a6f2feb0d036b09799186",
+      "bytes": 2991,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l03.py",
+      "sha256": "cf8ae475a894979a1cfa0fe244c760130b71edca7ddb39d01d6b30277d6c9cd3",
+      "bytes": 7807,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l04.py",
+      "sha256": "815d17e378f48b747222faee87111b1546e342214e895ad7b67a678d2db3245e",
+      "bytes": 3379,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l05.py",
+      "sha256": "232bcb34b85da7f875d31696af80edd80e4c517cf5e036efa400e271dacddbe1",
+      "bytes": 23669,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l06.py",
+      "sha256": "bc1c682072e1cf5c650024ced5e596cea2cc3a4f6bc54d2e8a9b1f97d777d9de",
+      "bytes": 19733,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l07.py",
+      "sha256": "aa9cc6f2495ba6f3807f19da659a24f32a0e9a28cf48d499e54a99d3e73ef3da",
+      "bytes": 22989,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l08.py",
+      "sha256": "899ad343a3c73c32e87dde2bcf7be5acab7e25678823de7a75f443d5a70476d6",
+      "bytes": 4809,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l09.py",
+      "sha256": "bbf9ba085cd9e762b3b38093215180618f55108376ae564d6d1364c4cfeb87e9",
+      "bytes": 2372,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l10.py",
+      "sha256": "a65cc7762617569aac76136f2519e52a1655a701d45d1d53821ff85359c1416a",
+      "bytes": 2583,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l11.py",
+      "sha256": "9dc45eef12cc6a38518f3f6ceefe3afc8564344000d98e17ce058103fef92c7b",
+      "bytes": 4341,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l12.py",
+      "sha256": "1f66b195cbce20edeb4def20e96fbe27ef8cdec2ceb98a5c31ced935d781cbb5",
+      "bytes": 5578,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l13.py",
+      "sha256": "9d5c135a1bdb5da5c9490e4c990123c34f5d9dc8721dacfd7e14c9e66eabca51",
+      "bytes": 2795,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l14.py",
+      "sha256": "2fc7777a0a34d6350141eeba7bc3e316f97a8816b4975cb00c6ea6e6c33cfb89",
+      "bytes": 3724,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/l15.py",
+      "sha256": "d3a87dc544448e27da9b3a205962385cf247d21471d6a253a6a738354d74f817",
+      "bytes": 3542,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/adapters/streaming.py",
+      "sha256": "9a0e2dd06542507a9a0289aad857f3050af1b9b17d6e3c0cda779bdfa50e1bc0",
+      "bytes": 5286,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/api/__init__.py",
+      "sha256": "25f490b0ca30ce9fe740709541c472389ca4d04edc6536c9811f16d16e3c33b3",
+      "bytes": 82,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/api/app.py",
+      "sha256": "acb125c025b3ada7f153dd7e663859f2bd71fc246a65afb03cd73f4d2a3f1097",
+      "bytes": 6898,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/cli.py",
+      "sha256": "09992dc70b3d95ba6c2cea10b9872080c95289ad1549c9c624a280acb5ed91ad",
+      "bytes": 3734,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/database.py",
+      "sha256": "d404000a98ec26dc644012093c41cc13386e387d713b25c745de9f7f4a037f5a",
+      "bytes": 2478,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/ingestion/__init__.py",
+      "sha256": "9e27f15830f4c8132e2301197b4265a1bc42d54287db19bf4af6b2e8e9df9d97",
+      "bytes": 58,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/ingestion/jobs.py",
+      "sha256": "0f05ca6bc9787c2c07123e04b8e945048de9582d1ead2b50f27190766ad318f5",
+      "bytes": 3135,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/ingestion/loader.py",
+      "sha256": "9b1f3aff8fe375fd430d640bd60fd38368035963b6b891367df60eb8d0b0f5ea",
+      "bytes": 11243,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/profile_metadata.py",
+      "sha256": "535566becf820669326851ebb9f207567bfdd284401daa8addde43b083d3768d",
+      "bytes": 2082,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/settings.py",
+      "sha256": "ca907f222f51b0fd4d0c19994b3855ddc80b8117e422f6aa573e3415f64e374d",
+      "bytes": 779,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/src/daylight_data/storage.py",
+      "sha256": "035c69869a17137a4d5884059ab72838c66b28466c598e3b6de05e8c3bdf6ce2",
+      "bytes": 9604,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/tools/benchmark_local_layers.py",
+      "sha256": "8c49133259bb415c375964d9ec35d127ad52d4e0abf260380d5e9de19407d577",
+      "bytes": 20384,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/tools/build_local_database.py",
+      "sha256": "e54c59e467a3ae930b1fe82d801578c73f408b324dd77947c874df2b57068a1d",
+      "bytes": 45051,
+      "method": "exact_small_file_copy"
+    },
+    {
+      "path": "infrastructure/daylight-data/tools/verify_local_database.py",
+      "sha256": "651df62f0d559a7bd763b9c9607c2789dfa13dc62414d47e9b2473cb97b47852",
+      "bytes": 69030,
+      "method": "exact_small_file_copy"
+    }
+  ],
+  "socket_alias_only": "existing project-private Unix socket; same target/cluster guards",
+  "historical_pins_waived": false,
+  "sealed_history_modified": false,
+  "current_lock_modified": false,
+  "packages_installed_or_removed": false,
+  "source_method_purpose_acceptance_changed": false,
+  "historical_environment_recreated": false,
+  "verification_runtime": "current environment; every historical locked version remains identical; five additions retained",
+  "python_version": "3.14.7"
+}

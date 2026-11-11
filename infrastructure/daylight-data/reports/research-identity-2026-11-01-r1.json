@@ -1,0 +1,783 @@
+{
+  "authority": {
+    "enrollment": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "personal_comparison": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "published_display": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "quote": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "ranking": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "recommendation": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    }
+  },
+  "binding": {
+    "accepted_release_id": null,
+    "adapter_sha256": "6fc4ced90931bf5503e035ae571999cd1e126a9dd0cd8e1ae1ed3406207dd3fb",
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "manifest_sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+    "selected_derivations": {
+      "drug_identity": {
+        "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+        "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+        "layer_id": "L05",
+        "source_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+        "source_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+        "source_table": "drug_identities"
+      }
+    },
+    "snapshot_id": "1d089ed72759285418e14ba15e6ec89a1df6a8d85cf3d46418cdf266f334f161"
+  },
+  "candidate_checks": [
+    {
+      "automatic_profile_binding": false,
+      "candidate_id": "L05:4a39eaf9c6c6fc8bd371e70fc5e9f65b6f50ca267d1942a68bd0eaff3871caea",
+      "concept_type": "SCD",
+      "current_terminology_status_verified": false,
+      "identity_detail_state": "source_details_present",
+      "identity_grain": "drug_product_concept",
+      "lineage": {
+        "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+        "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+        "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+        "ordinal_basis": "sqlite_primary_key_order:rxcui",
+        "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+        "raw_sha256": "97918a48ebc41e7f374f8388ea6398036c39e0328480c6e1d7f391cbded32d2f",
+        "record_id": "4a39eaf9c6c6fc8bd371e70fc5e9f65b6f50ca267d1942a68bd0eaff3871caea",
+        "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+        "source_row_key": "[\"1000048\"]",
+        "source_row_ordinal": 2,
+        "source_table": "drug_identities"
+      },
+      "missing_identity_details": [],
+      "native_projected_rxcui_equal": true,
+      "output_authority": "held",
+      "raw_hash_verified": true,
+      "rxcui": "1000048",
+      "snapshot_source_use_state": "not_newly_reviewed",
+      "source_history": null,
+      "source_locator": {
+        "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+        "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+        "kind": "CMS_2026_FRF",
+        "member": "CY26 FRF_20260924.csv",
+        "record_ordinal": 2070
+      },
+      "states": {
+        "evidence_state": "source_observed",
+        "freshness_state": "historical_2026_snapshot",
+        "output_acceptance_state": "research_only",
+        "semantic_review_state": "not_newly_reviewed",
+        "source_use_state": "existing_source_policy_applies",
+        "value_state": "source_observed"
+      }
+    },
+    {
+      "automatic_profile_binding": false,
+      "candidate_id": "L05:fa732add224ddd9a1df45e7666996fefc6424054e14921f25dd2fafecb0b649c",
+      "concept_type": "BPCK",
+      "current_terminology_status_verified": false,
+      "identity_detail_state": "source_details_present",
+      "identity_grain": "pack_concept",
+      "lineage": {
+        "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+        "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+        "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+        "ordinal_basis": "sqlite_primary_key_order:rxcui",
+        "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+        "raw_sha256": "1102f26d9f64fc7e8e85b06cbf37780a0e5f2c88d8103b548db8f4e3705961c7",
+        "record_id": "fa732add224ddd9a1df45e7666996fefc6424054e14921f25dd2fafecb0b649c",
+        "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+        "source_row_key": "[\"1000487\"]",
+        "source_row_ordinal": 17,
+        "source_table": "drug_identities"
+      },
+      "missing_identity_details": [],
+      "native_projected_rxcui_equal": true,
+      "output_authority": "held",
+      "raw_hash_verified": true,
+      "rxcui": "1000487",
+      "snapshot_source_use_state": "not_newly_reviewed",
+      "source_history": null,
+      "source_locator": {
+        "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+        "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+        "kind": "CMS_2026_FRF",
+        "member": "CY26 FRF_20260924.csv",
+        "record_ordinal": 2493
+      },
+      "states": {
+        "evidence_state": "source_observed",
+        "freshness_state": "historical_2026_snapshot",
+        "output_acceptance_state": "research_only",
+        "semantic_review_state": "not_newly_reviewed",
+        "source_use_state": "existing_source_policy_applies",
+        "value_state": "source_observed"
+      }
+    },
+    {
+      "automatic_profile_binding": false,
+      "candidate_id": "L05:c1e5af8c280314afd670eb1b28665e8353923f03358ce02fd27917ff9aacaedb",
+      "concept_type": "SCD",
+      "current_terminology_status_verified": false,
+      "identity_detail_state": "partial",
+      "identity_grain": "drug_product_concept",
+      "lineage": {
+        "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+        "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+        "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+        "ordinal_basis": "sqlite_primary_key_order:rxcui",
+        "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+        "raw_sha256": "c41a9ee20798aaf57a9cabe8c5cb0431faf96f61005fdb9c846fd4a3c86491fa",
+        "record_id": "c1e5af8c280314afd670eb1b28665e8353923f03358ce02fd27917ff9aacaedb",
+        "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+        "source_row_key": "[\"1367410\"]",
+        "source_row_ordinal": 425,
+        "source_table": "drug_identities"
+      },
+      "missing_identity_details": [
+        "dose_form",
+        "ingredient_strength_description"
+      ],
+      "native_projected_rxcui_equal": true,
+      "output_authority": "held",
+      "raw_hash_verified": true,
+      "rxcui": "1367410",
+      "snapshot_source_use_state": "not_newly_reviewed",
+      "source_history": {
+        "activeEndDate": "",
+        "activeStartDate": "022013",
+        "isCurrent": "YES",
+        "releaseEndDate": "",
+        "releaseStartDate": "022013",
+        "remappedDate": "",
+        "source": "RXNORM",
+        "status": "Active"
+      },
+      "source_locator": {
+        "kind": "NLM_RxNorm_history",
+        "path": "docs/data/l05-drug-coverage-2026-10-25/supplemental-r1/raw/fbe183d4a343d7e3b882fff4455f19923f92bf8c65e4706c366ddb4e11bb3f0f",
+        "retrieved_at_utc": "2026-10-25T23:16:17.567495+00:00",
+        "sha256": "fbe183d4a343d7e3b882fff4455f19923f92bf8c65e4706c366ddb4e11bb3f0f",
+        "url": "https://rxnav.nlm.nih.gov/REST/rxcui/1367410/historystatus.json"
+      },
+      "states": {
+        "evidence_state": "source_observed",
+        "freshness_state": "historical_2026_snapshot",
+        "output_acceptance_state": "research_only",
+        "semantic_review_state": "not_newly_reviewed",
+        "source_use_state": "existing_source_policy_applies",
+        "value_state": "source_observed"
+      }
+    }
+  ],
+  "checks": {
+    "accepted_release_null": true,
+    "all_consumer_purposes_held": true,
+    "cms_product_candidate": true,
+    "existing_indexes_observed": true,
+    "frozen_code_hashes_verified": true,
+    "missing_id_stays_unknown": true,
+    "nlm_missing_strength_form_preserved": true,
+    "no_automatic_customer_binding": true,
+    "no_global_observation_sequential_scan": true,
+    "no_offering_grain": true,
+    "pack_not_single_product": true,
+    "physical_database_matches_exact_target": true,
+    "physical_source_bytes_match_selected_hash": true,
+    "population_exactly_4547": true,
+    "research_role_effective": true,
+    "selected_raw_hashes_and_native_ids_verified": true,
+    "snapshot_replay_equal": true,
+    "source_access_absence_explicit_unregistered": true,
+    "transaction_read_only": true,
+    "transaction_repeatable_read": true,
+    "year_exactly_2026": true
+  },
+  "code_hashes": {
+    "infrastructure/daylight-data/src/daylight_data/serving/identity.py": "97a1e3a43a3248d6caa1988ee984ec8503d0aea2541bc7605cac6bc7149671cc",
+    "infrastructure/daylight-data/tests/test_research_identity.py": "672a8a123d56c609c66aa564f71e42ed23700ae3a6936e78464faf2a9379e41f"
+  },
+  "consumer_release": false,
+  "contract_id": "l05-exact-rxcui-research-r1",
+  "dictionary_scope": {
+    "benefit_year": 2026,
+    "formulary_grain": null,
+    "offering_grain": null,
+    "selected_rows": 4547,
+    "source_table": "drug_identities",
+    "terminology_currentness": "dated_retained_source_not_reverified"
+  },
+  "final_replay_measurements": {
+    "lookup_wall_ms": 22.682,
+    "measurement_basis": "New bounded four-ID replay captured with frozen final identity.py bytes; one local timing, not p95/concurrency evidence.",
+    "sql_explain_analyze_execution_ms": 1.055,
+    "sql_planning_ms": 0.751
+  },
+  "gaps_preserved": [
+    "G05",
+    "G08",
+    "G09",
+    "G11",
+    "G14"
+  ],
+  "matches": [
+    {
+      "automatic_profile_binding": false,
+      "candidate_refs": [
+        "L05:4a39eaf9c6c6fc8bd371e70fc5e9f65b6f50ca267d1942a68bd0eaff3871caea"
+      ],
+      "reason_codes": [],
+      "rxcui": "1000048",
+      "state": "exact_id_candidate"
+    },
+    {
+      "automatic_profile_binding": false,
+      "candidate_refs": [
+        "L05:c1e5af8c280314afd670eb1b28665e8353923f03358ce02fd27917ff9aacaedb"
+      ],
+      "reason_codes": [],
+      "rxcui": "1367410",
+      "state": "exact_id_candidate"
+    },
+    {
+      "automatic_profile_binding": false,
+      "candidate_refs": [
+        "L05:fa732add224ddd9a1df45e7666996fefc6424054e14921f25dd2fafecb0b649c"
+      ],
+      "reason_codes": [],
+      "rxcui": "1000487",
+      "state": "exact_id_candidate"
+    },
+    {
+      "automatic_profile_binding": false,
+      "candidate_refs": [],
+      "reason_codes": [
+        "SELECTED_DICTIONARY_ID_NOT_OBSERVED"
+      ],
+      "rxcui": "9999999999",
+      "state": "not_observed_in_selected_dictionary"
+    }
+  ],
+  "new_acceptance": false,
+  "observed_at": "2026-11-01T17:41:35.682453+00:00",
+  "operator_only": true,
+  "passed": true,
+  "physical_target_binding": {
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "cluster_system_identifier": "7702175360224817979",
+    "created_at": "2026-10-30T19:03:46.633784+00:00",
+    "creation_build_id": "3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "database": "daylight_research_2026_r2",
+    "database_oid": 2448635,
+    "execution_started_at": "2026-10-30T20:32:05.549632+00:00",
+    "marker": "daylight-local-full/1:3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "predecessor_target_sha256": "de802be73bf954bd77ec3c6c71c41860a6a2a80fd5027b6b8939e2f73bb78e73"
+  },
+  "prior_session_measurements": {
+    "basis": "Historical in-session observations retained separately; earlier full plan JSON and complete binding receipts were not saved and are not reconstructed.",
+    "final_materialized_query_lookup_wall_ms": 19.711,
+    "final_materialized_query_sql_execution_ms": 1.31,
+    "initial_simple_equality_sql_execution_ms": 1.121,
+    "intermediate_before_materialized_query_lookup_wall_ms": 39.699,
+    "intermediate_before_materialized_query_sql_execution_ms": 11.181
+  },
+  "profile_or_guest_data_read": false,
+  "query_plan": {
+    "explain_analyze_buffers_json": {
+      "Execution Time": 1.055,
+      "Plan": {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Actual Startup Time": 0.03,
+        "Actual Total Time": 1.029,
+        "Async Capable": false,
+        "Disabled": false,
+        "Inner Unique": true,
+        "Join Type": "Inner",
+        "Local Dirtied Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Written Blocks": 0,
+        "Node Type": "Nested Loop",
+        "Parallel Aware": false,
+        "Plan Rows": 1,
+        "Plan Width": 1731,
+        "Plans": [
+          {
+            "Actual Loops": 1,
+            "Actual Rows": 3.0,
+            "Actual Startup Time": 0.006,
+            "Actual Total Time": 0.991,
+            "Async Capable": false,
+            "Disabled": false,
+            "Local Dirtied Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Written Blocks": 0,
+            "Node Type": "Limit",
+            "Parallel Aware": false,
+            "Parent Relationship": "InitPlan",
+            "Plan Rows": 1,
+            "Plan Width": 1177,
+            "Plans": [
+              {
+                "Actual Loops": 1,
+                "Actual Rows": 3.0,
+                "Actual Startup Time": 0.006,
+                "Actual Total Time": 0.991,
+                "Alias": "observation",
+                "Async Capable": false,
+                "Disabled": false,
+                "Filter": "((entity_type = 'drug_product'::text) AND ((fields ->> 'rxcui'::text) = ANY ('{1000048,1367410,1000487,9999999999}'::text[])))",
+                "Index Cond": "((derivation_id = 'c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e'::text) AND (source_table = 'drug_identities'::text))",
+                "Index Name": "observation_source_lineage",
+                "Index Searches": 1,
+                "Local Dirtied Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Written Blocks": 0,
+                "Node Type": "Index Scan",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 1,
+                "Plan Width": 1177,
+                "Relation Name": "observation",
+                "Rows Removed by Filter": 4544,
+                "Rows Removed by Index Recheck": 0,
+                "Scan Direction": "Forward",
+                "Shared Dirtied Blocks": 0,
+                "Shared Hit Blocks": 584,
+                "Shared Read Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Startup Cost": 0.69,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Total Cost": 20.8
+              }
+            ],
+            "Shared Dirtied Blocks": 0,
+            "Shared Hit Blocks": 584,
+            "Shared Read Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Startup Cost": 0.69,
+            "Subplan Name": "CTE matched",
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Total Cost": 20.8
+          },
+          {
+            "Actual Loops": 1,
+            "Actual Rows": 3.0,
+            "Actual Startup Time": 0.027,
+            "Actual Total Time": 1.024,
+            "Async Capable": false,
+            "Disabled": false,
+            "Inner Unique": true,
+            "Join Filter": "(d.derivation_id = o.derivation_id)",
+            "Join Type": "Inner",
+            "Local Dirtied Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Written Blocks": 0,
+            "Node Type": "Nested Loop",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 1,
+            "Plan Width": 1568,
+            "Plans": [
+              {
+                "Actual Loops": 1,
+                "Actual Rows": 3.0,
+                "Actual Startup Time": 0.023,
+                "Actual Total Time": 1.018,
+                "Async Capable": false,
+                "Disabled": false,
+                "Inner Unique": true,
+                "Join Type": "Inner",
+                "Local Dirtied Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Written Blocks": 0,
+                "Node Type": "Nested Loop",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 1,
+                "Plan Width": 1503,
+                "Plans": [
+                  {
+                    "Actual Loops": 1,
+                    "Actual Rows": 3.0,
+                    "Actual Startup Time": 0.007,
+                    "Actual Total Time": 0.993,
+                    "Alias": "o",
+                    "Async Capable": false,
+                    "CTE Name": "matched",
+                    "Disabled": false,
+                    "Local Dirtied Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Maximum Storage": 19,
+                    "Node Type": "CTE Scan",
+                    "Parallel Aware": false,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 1,
+                    "Plan Width": 620,
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Hit Blocks": 584,
+                    "Shared Read Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Startup Cost": 0.0,
+                    "Storage": "Memory",
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Total Cost": 0.02
+                  },
+                  {
+                    "Actual Loops": 3,
+                    "Actual Rows": 1.0,
+                    "Actual Startup Time": 0.008,
+                    "Actual Total Time": 0.008,
+                    "Alias": "r",
+                    "Async Capable": false,
+                    "Disabled": false,
+                    "Index Cond": "((derivation_id = o.derivation_id) AND (source_table = o.source_table) AND (source_row_ordinal = o.source_row_ordinal))",
+                    "Index Name": "source_record_pkey",
+                    "Index Searches": 3,
+                    "Local Dirtied Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Node Type": "Index Scan",
+                    "Parallel Aware": false,
+                    "Parent Relationship": "Inner",
+                    "Plan Rows": 1,
+                    "Plan Width": 902,
+                    "Relation Name": "source_record",
+                    "Rows Removed by Index Recheck": 0,
+                    "Scan Direction": "Forward",
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Hit Blocks": 18,
+                    "Shared Read Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Startup Cost": 0.69,
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Total Cost": 8.71
+                  }
+                ],
+                "Shared Dirtied Blocks": 0,
+                "Shared Hit Blocks": 602,
+                "Shared Read Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Startup Cost": 0.69,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Total Cost": 8.73
+              },
+              {
+                "Actual Loops": 3,
+                "Actual Rows": 1.0,
+                "Actual Startup Time": 0.001,
+                "Actual Total Time": 0.001,
+                "Alias": "d",
+                "Async Capable": false,
+                "Disabled": false,
+                "Index Cond": "(derivation_id = r.derivation_id)",
+                "Index Name": "derivation_pkey",
+                "Index Searches": 3,
+                "Local Dirtied Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Written Blocks": 0,
+                "Node Type": "Index Scan",
+                "Parallel Aware": false,
+                "Parent Relationship": "Inner",
+                "Plan Rows": 1,
+                "Plan Width": 195,
+                "Relation Name": "derivation",
+                "Rows Removed by Index Recheck": 0,
+                "Scan Direction": "Forward",
+                "Shared Dirtied Blocks": 0,
+                "Shared Hit Blocks": 9,
+                "Shared Read Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Startup Cost": 0.27,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Total Cost": 5.92
+              }
+            ],
+            "Rows Removed by Join Filter": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Hit Blocks": 611,
+            "Shared Read Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Startup Cost": 0.96,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Total Cost": 14.66
+          },
+          {
+            "Actual Loops": 3,
+            "Actual Rows": 1.0,
+            "Actual Startup Time": 0.001,
+            "Actual Total Time": 0.001,
+            "Alias": "s",
+            "Async Capable": false,
+            "Disabled": false,
+            "Index Cond": "(snapshot_id = d.snapshot_id)",
+            "Index Name": "source_snapshot_pkey",
+            "Index Searches": 3,
+            "Local Dirtied Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Written Blocks": 0,
+            "Node Type": "Index Scan",
+            "Parallel Aware": false,
+            "Parent Relationship": "Inner",
+            "Plan Rows": 1,
+            "Plan Width": 228,
+            "Relation Name": "source_snapshot",
+            "Rows Removed by Index Recheck": 0,
+            "Scan Direction": "Forward",
+            "Shared Dirtied Blocks": 0,
+            "Shared Hit Blocks": 9,
+            "Shared Read Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Startup Cost": 0.27,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Total Cost": 5.57
+          }
+        ],
+        "Shared Dirtied Blocks": 0,
+        "Shared Hit Blocks": 620,
+        "Shared Read Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Startup Cost": 22.03,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0,
+        "Total Cost": 41.09
+      },
+      "Planning": {
+        "Local Dirtied Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Written Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Hit Blocks": 185,
+        "Shared Read Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0
+      },
+      "Planning Time": 0.751,
+      "Triggers": []
+    },
+    "interpretation": "Existing indexes bound the observation read to the exact selected 4,547-row dictionary derivation; RxCUI equality filters that bounded slice. There is no dedicated RxCUI index or claim of a full-table name lookup.",
+    "nodes": [
+      {
+        "actual_loops": 1,
+        "actual_rows": 3.0,
+        "index_name": null,
+        "node_type": "Nested Loop",
+        "relation_name": null,
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 1,
+        "actual_rows": 3.0,
+        "index_name": null,
+        "node_type": "Limit",
+        "relation_name": null,
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 1,
+        "actual_rows": 3.0,
+        "index_name": "observation_source_lineage",
+        "node_type": "Index Scan",
+        "relation_name": "observation",
+        "rows_removed_by_filter": 4544
+      },
+      {
+        "actual_loops": 1,
+        "actual_rows": 3.0,
+        "index_name": null,
+        "node_type": "Nested Loop",
+        "relation_name": null,
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 1,
+        "actual_rows": 3.0,
+        "index_name": null,
+        "node_type": "Nested Loop",
+        "relation_name": null,
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 1,
+        "actual_rows": 3.0,
+        "index_name": null,
+        "node_type": "CTE Scan",
+        "relation_name": null,
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 3,
+        "actual_rows": 1.0,
+        "index_name": "source_record_pkey",
+        "node_type": "Index Scan",
+        "relation_name": "source_record",
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 3,
+        "actual_rows": 1.0,
+        "index_name": "derivation_pkey",
+        "node_type": "Index Scan",
+        "relation_name": "derivation",
+        "rows_removed_by_filter": null
+      },
+      {
+        "actual_loops": 3,
+        "actual_rows": 1.0,
+        "index_name": "source_snapshot_pkey",
+        "node_type": "Index Scan",
+        "relation_name": "source_snapshot",
+        "rows_removed_by_filter": null
+      }
+    ],
+    "parameters": [
+      "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+      [
+        "1000048",
+        "1367410",
+        "1000487",
+        "9999999999"
+      ]
+    ],
+    "sql": "WITH matched AS MATERIALIZED (\n SELECT * FROM dl_evidence.observation\n WHERE derivation_id=%s AND entity_type='drug_product' AND source_table='drug_identities'\n AND fields->>'rxcui'=ANY(%s) ORDER BY source_row_ordinal LIMIT 101)\n SELECT o.*,r.raw_payload,r.raw_sha256,r.record_id,r.source_row_key,r.ordinal_basis,\n d.snapshot_id,d.adapter_code_sha256,s.original_path,s.artifact_sha256,\n s.source_use_state AS snapshot_source_use_state\n FROM matched o\n JOIN dl_evidence.source_record r USING(derivation_id,source_table,source_row_ordinal)\n JOIN dl_control.derivation d USING(derivation_id)\n JOIN dl_control.source_snapshot s USING(snapshot_id)\n ORDER BY o.source_row_ordinal",
+    "sql_sha256": "0252442b280e336033ef96f3b6d2416c1ce8290cf1b01ead650c39508ed79a3d"
+  },
+  "remaining_limits": [
+    "Internal identity research only; no accepted consumer purpose or current terminology guarantee.",
+    "Exact RxCUI dictionary candidates need item-specific confirmation; no customer item is bound here.",
+    "No free-text name search, brand substitution, pack decomposition, dose inference or NDC conversion.",
+    "A missing dictionary ID is unknown within this selection; it is not absence of coverage or a negative clinical finding.",
+    "Strength/form/history retain missing and dated source states; names are not parsed to fill them.",
+    "The dictionary has no offering/formulary membership, quantity, pharmacy, price or personal approval grain.",
+    "No free-text care-item resolver, NDC/product conversion, provider lookup, plan/formulary membership or customer-confirmed binding is implemented.",
+    "The three returned sample candidates have verified raw-parent hashes; this receipt does not claim whole-dictionary semantic review.",
+    "Ambiguity, source STOP, malformed requests and lineage mismatch are covered by synthetic unit tests; no real source/DB row was changed to exercise those cases."
+  ],
+  "request": {
+    "rxcuis": [
+      "1000048",
+      "1367410",
+      "1000487",
+      "9999999999"
+    ],
+    "year": 2026
+  },
+  "runtime_guard_observation": {
+    "database": "daylight_research_2026_r2",
+    "effective_role": "daylight_research_reader",
+    "transaction_isolation": "repeatable read",
+    "transaction_read_only": "on"
+  },
+  "schema": "local-research-identity-audit/1",
+  "scope": {
+    "category": "retained_drug_identity_dictionary",
+    "geography": "no_personal_geography_or_offering_scope",
+    "year": 2026
+  },
+  "serving_code_hashes": {
+    "__init__.py": "48528101cdeaea9cf3583c267c67427dcc2baf353a0d6fab4bae99294c7bb46a",
+    "binding.py": "fc4618811408d57499959ac9295413386e310f57ac146a7fd03bf3f006d23c4a",
+    "identity.py": "97a1e3a43a3248d6caa1988ee984ec8503d0aea2541bc7605cac6bc7149671cc",
+    "native_lineage.py": "588ac35588b539622b3f09f592696b49f33e50ee450c4465caab9a5cea782c8b",
+    "repository.py": "850c8322957841463d9a69d1486eb42a233c2be2c6858fff9a86cf9c4674ae5d"
+  },
+  "source_access_registration": {
+    "absence_is_permission": false,
+    "output_authority": "held",
+    "registered_source_ids": [],
+    "requested_source_ids": [
+      "sealed-local:L05",
+      "L05"
+    ],
+    "state": "unregistered"
+  },
+  "source_access_states": [],
+  "source_artifact": {
+    "bytes": 140193792,
+    "observed_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+    "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+    "population_controls": {
+      "max_year": 2026,
+      "min_year": 2026,
+      "offering_rows": 0,
+      "rows": 4547
+    },
+    "selected_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7"
+  },
+  "source_or_database_mutated": false,
+  "source_policy_binding": {
+    "path": "infrastructure/daylight-data/config/source-composition.2026.json",
+    "sha256": "eccf8200870dd68333caa65a1cafe72a8d0441057ce51ea65d4eacdef177ddc3"
+  },
+  "tests": {
+    "command": "PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_research_identity.py tests/test_research_serving.py",
+    "elapsed_seconds": 0.14,
+    "observation": "Earlier focused run in this session, not rerun by report generation.",
+    "passed": 49
+  }
+}

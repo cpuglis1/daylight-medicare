@@ -1,0 +1,197 @@
+{
+  "eligibility": {
+    "state": "initial_election_path_supported_on_fictional_inputs",
+    "zip": "34102",
+    "county_fips": "12021",
+    "first_a_and_b": "2026-11-01",
+    "election": "2026-11-04",
+    "initial_election_start": "2026-08-01",
+    "initial_election_end": "2027-02-28",
+    "initial_election_effective": "2026-12-01",
+    "annual_election_effective": "2027-01-01",
+    "personal_entitlement_or_enrollment_verified": false
+  },
+  "provider_by_offering": {
+    "2026:H1036:217:000": {
+      "december_status": "unresolved_adverse_group_signal",
+      "exact_directory_match": null,
+      "december_access_verified": false
+    },
+    "2026:H1032:198:000": {
+      "december_status": "dated_exact_listing_personal_access_unresolved",
+      "directory_record": "0df9a6f407d4cb00aeba77d22a9dd57944496779e0c7cd271e79addbbfb8e851:listing:474",
+      "december_access_verified": false,
+      "page": 13,
+      "nch_termination_effective": "2027-01-01"
+    }
+  },
+  "shared_comparison_terms": {
+    "2026:H1036:217:000": {
+      "part_b_reduction_usd_month": "3.00",
+      "medical_in_network_limit_usd_year": "3800.00",
+      "hospital_three_day_component_usd": "540.00"
+    },
+    "2026:H1032:198:000": {
+      "part_b_reduction_usd_month": "77.00",
+      "medical_in_network_limit_usd_year": "7200.00",
+      "hospital_three_day_component_usd": "1200.00"
+    }
+  },
+  "comparison_terms_source": "../recommendation-scope-2026-11-04-r4/pilot.json",
+  "public_observations_source": "public-observations.json",
+  "cases": [
+    {
+      "form": "immediate_release",
+      "doctor_is_must_have": false,
+      "medicine_by_offering": {
+        "2026:H1036:217:000": {
+          "formulary_id": "00026411",
+          "formulary_version": "16",
+          "formulary_row": 994315,
+          "rxcui": "861007",
+          "ndc": "70010006310",
+          "tier": 1,
+          "quantity_limit": false,
+          "limit_amount": null,
+          "limit_days": null,
+          "limit_unit": null,
+          "prior_authorization_flag": false,
+          "step_therapy_flag": false,
+          "pharmacy_source": {
+            "part": 1,
+            "ordinal": 31819782,
+            "channel": "standard"
+          },
+          "plan_finder": {
+            "selection": "Metformin hydrochloride 500mg tablet",
+            "december_drug_estimate_usd": "0.00"
+          }
+        },
+        "2026:H1032:198:000": {
+          "formulary_id": "00026188",
+          "formulary_version": "17",
+          "formulary_row": 449162,
+          "rxcui": "861007",
+          "ndc": "70010006310",
+          "tier": 6,
+          "quantity_limit": true,
+          "limit_amount": "150",
+          "limit_days": 30,
+          "limit_unit": null,
+          "prior_authorization_flag": false,
+          "step_therapy_flag": false,
+          "pharmacy_source": {
+            "part": 1,
+            "ordinal": 28798708,
+            "channel": "preferred"
+          },
+          "plan_finder": {
+            "selection": "Metformin hydrochloride 500mg tablet",
+            "december_drug_estimate_usd": "0.00",
+            "tier": 6,
+            "quantity_limit_amount": "150",
+            "quantity_limit_days": 30,
+            "quantity_limit_unit": null
+          }
+        }
+      },
+      "comparison_state": "tradeoffs_ready_for_review",
+      "next_action": "confirm_initial_election_and_compare_acceptable_2026_coverage_paths",
+      "personal_recommendation": null
+    },
+    {
+      "form": "extended_release",
+      "doctor_is_must_have": true,
+      "medicine_by_offering": {
+        "2026:H1036:217:000": {
+          "formulary_id": "00026411",
+          "formulary_version": "16",
+          "formulary_row": 994317,
+          "rxcui": "860975",
+          "ndc": "70010049105",
+          "tier": 1,
+          "quantity_limit": true,
+          "limit_amount": "120",
+          "limit_days": 30,
+          "limit_unit": null,
+          "prior_authorization_flag": false,
+          "step_therapy_flag": false,
+          "pharmacy_source": {
+            "part": 1,
+            "ordinal": 31819782,
+            "channel": "standard"
+          },
+          "plan_finder": {
+            "selection": "Metformin hcl er 500mg tablet extended release 24 hour",
+            "december_drug_estimate_usd": "0.00",
+            "tier": 1,
+            "quantity_limit_amount": "120",
+            "quantity_limit_days": 30,
+            "quantity_limit_unit": null
+          }
+        },
+        "2026:H1032:198:000": {
+          "formulary_id": "00026188",
+          "formulary_version": "17",
+          "formulary_row": 449164,
+          "rxcui": "860975",
+          "ndc": "70010049105",
+          "tier": 6,
+          "quantity_limit": true,
+          "limit_amount": "120",
+          "limit_days": 30,
+          "limit_unit": null,
+          "prior_authorization_flag": false,
+          "step_therapy_flag": false,
+          "pharmacy_source": {
+            "part": 1,
+            "ordinal": 28798708,
+            "channel": "preferred"
+          },
+          "plan_finder": {
+            "selection": "Metformin hcl er 500mg tablet extended release 24 hour",
+            "december_drug_estimate_usd": "0.00",
+            "tier": 6,
+            "quantity_limit_amount": "120",
+            "quantity_limit_days": 30,
+            "quantity_limit_unit": null
+          }
+        }
+      },
+      "comparison_state": "must_have_hold",
+      "next_action": "resolve_exact_doctor_access_and_scope_2027_separately",
+      "personal_recommendation": null
+    }
+  ],
+  "fixture_checks": {
+    "hypothetical_verified_control": {
+      "known_meets": [
+        "fixture:b"
+      ],
+      "known_conflicts": [],
+      "unresolved": [
+        "fixture:a"
+      ]
+    },
+    "same_candidate_with_unresolved_access": {
+      "known_meets": [],
+      "known_conflicts": [],
+      "unresolved": [
+        "fixture:a",
+        "fixture:b"
+      ]
+    },
+    "old_site_receipt_after_correction": {
+      "known_meets": [],
+      "known_conflicts": [],
+      "unresolved": [
+        "fixture:a",
+        "fixture:b"
+      ]
+    },
+    "old_drug_identity_before_correction": "bound",
+    "old_drug_identity_after_correction": "unresolved",
+    "wrong_year_preview_rejected": true,
+    "advisor_recommendation_authority": "held"
+  }
+}

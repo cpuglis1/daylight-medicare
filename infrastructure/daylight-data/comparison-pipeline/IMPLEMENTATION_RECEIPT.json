@@ -1,0 +1,89 @@
+{
+  "schema": "daylight-comparison-backend-implementation/2",
+  "recorded_at_utc": "2026-11-04T01:25:49.999395+00:00",
+  "requirements": [
+    "D64",
+    "D73",
+    "D77",
+    "D85",
+    "D87"
+  ],
+  "bindings": {
+    "code-r1/MANIFEST.json": "7f921ba74bf3e84bf5bb235dd50045bcdf67fbe113b5ac1f80d505a51d3e431e",
+    "code-r2/MANIFEST.json": "f7afa3e1fb0f2d81f6993db08882309afafde525f68d77fa0f3a76273d07e6fb",
+    "prepared-r1/batch-manifest.json": "5a16d45f473086f9dcf54064363a3924a9d988d5c59501b7842bc92909c7dce3",
+    "prepared-r1/preparation-provenance.json": "dbd81a7823352d6d288d9d84685cf291ad4812641a90777c426b5c671b6877bb",
+    "benchmark-r2/benchmark.json": "e385083b405b3afb80cd4eea0cac235277f76d363159f33380132351a6cb3ae3",
+    "benchmark-r3/benchmark.json": "4a54a2d4fb0bfc0276a3e51d80606cc6edb8488ef95fe02d1e73f3f1efe3b642",
+    "independent-review.json": "f55643014e116ce513fbde1aa0bede2adb3d7c8370d57951bad77246b26c095c",
+    "independent-review-r2.json": "e4ebe418cf7e8e45045eae1ce4763f2aa7fa17c0cffaa9d463583e01d9ddf0ef",
+    "review-export-r1/MANIFEST.json": "e1acc37b313c801f542c2603933cff9341169ac99b7e65633e694e8f2fbc23a6",
+    "review-export-r2/MANIFEST.json": "6640cf5dd59aecacb9c6016f1c24e4750e268799493239100ffe0e71d461e76b"
+  },
+  "current_run_id": "1132805f3faf4f4dbf20f36e7b433920",
+  "current_rule_fingerprint": "fcff83aabc0787b86b7e05e4027e3220d4fba3d3db2011a5a8b5ef9890002ecc",
+  "tests": {
+    "command": "env PYTHONDONTWRITEBYTECODE=1 infrastructure/daylight-data/.venv/bin/python -m pytest infrastructure/daylight-data/tests/test_pipeline_*.py infrastructure/daylight-data/tests/test_comparison_pilot.py infrastructure/daylight-data/tests/test_whole_offering.py infrastructure/daylight-data/tests/test_reconcile_whole_offering.py infrastructure/daylight-data/tests/test_research_serving.py -q",
+    "passed": 223,
+    "subtests_passed": 181,
+    "failed": 0,
+    "elapsed_seconds": 4.52
+  },
+  "inventory_before_after": {
+    "global_required": [
+      392570,
+      392570
+    ],
+    "first_offering_required": [
+      4675,
+      4675
+    ],
+    "r4_accepted_reference_preserved": [
+      535,
+      535
+    ],
+    "first_offering_missing_predicates": [
+      16,
+      16
+    ],
+    "originals_added": 0,
+    "originals_removed": 0
+  },
+  "trial": {
+    "catalog_records": 1384,
+    "strict_components": 1368,
+    "source_gap_records": 16,
+    "work_tasks": 1318,
+    "first_offering_originals_with_candidate_inputs": 1758,
+    "first_offering_originals_without_candidate_inputs": 2917,
+    "global_originals_without_candidate_inputs": 390812,
+    "one_condition_delta": {
+      "recomputed_tasks": 1,
+      "reused_tasks": 1317,
+      "recomputed_components": 1,
+      "reused_components": 1367
+    }
+  },
+  "source_review_contracts": {
+    "v1": "strict technical and source bindings preserved",
+    "v2": "full exact meaning and source bindings; technical changes rerun mechanics without granting fresh source authority",
+    "historical_reviews_auto_imported": 0,
+    "legacy_migration": "remaining internal work"
+  },
+  "scope_limits": {
+    "source_fact_approval": false,
+    "whole_original_completion_authority": false,
+    "full_plan_complete": false,
+    "new_reference_acceptances": 0,
+    "consumer_usable": false,
+    "cloud_resources_provisioned": false,
+    "personal_data_or_ui_changes": false
+  },
+  "export_verified": {
+    "file_sha256_and_sizes": true,
+    "tasks": 1318,
+    "components": 1368,
+    "explicit_no_input_originals": 390812,
+    "all_consumer_reference_flags_false": true
+  }
+}

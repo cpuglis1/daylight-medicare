@@ -1,0 +1,50 @@
+{
+  "observed_on": "2026-11-04",
+  "use": "Manual public observations for an offline fictional comparison",
+  "plan_finder": {
+    "year": 2026,
+    "county_fips": "12021",
+    "zip": "34102",
+    "account": "anonymous",
+    "subsidy_report": "none",
+    "pharmacy": {"name": "Publix Pharmacy #1434", "address": "1981 Tamiami Trl N, Naples, FL 34102", "npi": "1841534534"},
+    "quantity": 30,
+    "frequency": "Every month",
+    "estimate_month": "2026-12",
+    "plans": {
+      "2026:H1036:217:000": {
+        "url": "https://www.medicare.gov/plan-compare/?year=2026#/plan-details/2026-H1036-217-0?plan_type=PLAN_TYPE_MAPD&fips=12021&zip=34102&lang=en&year=2026&page=1#drug-coverage",
+        "retail_channel": "standard",
+        "immediate_release": {"selection": "Metformin hydrochloride 500mg tablet", "december_drug_estimate_usd": "0.00"},
+        "extended_release": {"selection": "Metformin hcl er 500mg tablet extended release 24 hour", "december_drug_estimate_usd": "0.00", "tier": 1, "quantity_limit_amount": "120", "quantity_limit_days": 30, "quantity_limit_unit": null}
+      },
+      "2026:H1032:198:000": {
+        "url": "https://www.medicare.gov/plan-compare/?year=2026#/plan-details/2026-H1032-198-0?plan_type=PLAN_TYPE_MAPD&fips=12021&zip=34102&lang=en&year=2026&page=1#drug-coverage",
+        "retail_channel": "preferred",
+        "immediate_release": {"selection": "Metformin hydrochloride 500mg tablet", "december_drug_estimate_usd": "0.00", "tier": 6, "quantity_limit_amount": "150", "quantity_limit_days": 30, "quantity_limit_unit": null},
+        "extended_release": {"selection": "Metformin hcl er 500mg tablet extended release 24 hour", "december_drug_estimate_usd": "0.00", "tier": 6, "quantity_limit_amount": "120", "quantity_limit_days": 30, "quantity_limit_unit": null}
+      }
+    }
+  },
+  "provider": {
+    "name": "Mark Josephson, MD",
+    "practice": "NCH Concierge Medicine South",
+    "address": "311 9th Street North, Suite 306, Naples, FL 34102",
+    "office_phone": "239-624-0340",
+    "site_source": "https://nchmd.org/services/concierge-medicine/concierge-physicians/",
+    "practice_conditions_source": "https://nchmd.org/services/concierge-medicine/",
+    "group_insurance_source": "https://nchmd.org/patients-and-visitors/contracted-insurance-plans/",
+    "group_insurance_last_update": "2026-08-27",
+    "humana_group_signal": "NCH Medical Group lists Humana Medicare Advantage PPO only. The NCH hospital has a different list.",
+    "wellcare_group_signal": "NCH Medical Group lists Wellcare Medicare Advantage with a year-end termination. The dated 2026 carrier directory lists this exact site.",
+    "wellcare_nch_out_of_network_start": "2027-01-01",
+    "termination_source": "https://nchmd.org/maupdate/",
+    "december_office_and_plan_confirmation": null,
+    "individual_nch_profile_status": "HTTP 403; stopped at this route and used the public NCH clinic page"
+  },
+  "enrollment_sources": [
+    "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-B/section-422.62",
+    "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-B/section-422.68",
+    "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan"
+  ]
+}

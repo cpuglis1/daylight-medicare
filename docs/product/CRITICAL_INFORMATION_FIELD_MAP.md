@@ -1,0 +1,1425 @@
+# Critical information field map · consolidated draft
+
+October 25–27, 2026 · D79. **78 existing field paths; all seven mapping parts populated. Review-only, not accepted Medicare policy, runtime behavior or proof of semantic completeness.**
+
+Existing inputs are reused from the alternative alongside main-project governance. No new questionnaire or customer profile is created. Baseline rows preserve their reviewed records. RC01's conditional/context-reuse rule, RC02's T03 consolidation/missing-details-only rule, RC03's T04 consolidation/missing-timing-details-only rule, RC04's T05 consolidation/missing-A/B-status-only rule, RC05's conditional month/year/missing-details-at-point-of-need rule, RC06's independently conditional basis/age use, RC07's conditional T05 clarification with both help options, RC08's internal check/specific-follow-ups-only rule, RC09's T05 missing-detail check, RC10's conditional applicable size options/help, RC11's conditional missing-date clarification, RC12's conditional use with help/unknown, RC13's simpler conditional spouse/dependent examples with help/unknown, RC14's removal from routine intake, RC15's internal check/missing-details-only use, RC16's conditional missing-details-only use, RC17's goal/current-coverage consolidation, RC18's conditional direct program-receipt wording/missing-details-only use, RC19's internal check/missing-details-only use, RC20's T08 consolidation/missing-details-only use, RC21's T06 consolidation/missing-details-only use, RC22's T07 consolidation/missing-details-only use, RC23's conditional/dropdowns/missing-details-only use, RC24's internal check/specific-missing-details-only use, RC25's optional cost-conversation/missing-details-only use, RC26's conditional T05/missing-details-only use, RC27's internal check/specific-missing-details-only use, RC28's internal correction/unresolved-details-only use, RC11.C1's within-RC11/missing-dates-only use, RC16.C1's within-RC16/missing-dates-only use and RC16.C2's within-RC16/missing-details-only use are owner-approved. All 41 inventory treatments have completed this product review pass in their recorded scopes. Other explicitly proposed details and semantic/evidence gaps retain their recorded status. Product agreement does not establish domain or runtime acceptance.
+
+See [conversation design, consolidation and gaps](SHORTEST_SUFFICIENT_CONVERSATION.md) and [owner review record](CRITICAL_INFORMATION_MAP_REVIEW.md). [Machine-readable map](CRITICAL_INFORMATION_FIELD_MAP.json).
+
+Known-fact reuse requires a specific report/source reference, person, period, entity, confirmation and revision. Question links alone are not evidence that a fact is known. Unknown does not satisfy a required fact. Report-disposition and internal-link rows do not become extra consumer questions.
+
+## `guide.fields.intent.goal`
+
+Existing prompt(s): [T01](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:17). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which requested task to serve and which capability's facts may be needed; no coverage-path recommendation follows from goal alone. |
+| Mandatory / conditional / optional | Conditional: required to scope a personal comparison/task when no clear confirmed request is already known. General education/browsing can remain available. |
+| Trigger | New or changed task whose goal is unresolved; otherwise reuse the confirmed request. |
+| Acceptable evidence / confirmation | Explicit inline selection or clear confirmed user report, including an explicit task-entry action with known meaning. Any interpretation changing meaning needs confirmation; retain provenance/revision. |
+| Unknown / conflict handling | Keep unanswered/unknown/deferred explicit. Something else is unresolved until enough meaning is known. If goals coexist, clarify which to do first only when necessary; do not assume inconsistency. Conflicting task interpretations require clarification without overwriting prior reports. |
+| Source / data layer | Customer-reported intent in the existing guide envelope; question-map T01. No L01–L04 evidence needed to establish intent. |
+| Readiness gate | Requested-task/input-scope gate only. Does not establish eligibility, personal fit, source acceptance or recommendation release. |
+
+## `guide.fields.intent.goalDetail`
+
+Existing prompt(s): [T01](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:17). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Clarifies an ambiguous or uncategorized request and its task boundaries. |
+| Mandatory / conditional / optional | Optional for a clear goal; conditional only when a requested specific task otherwise cannot be understood. |
+| Trigger | Something else or ambiguous free text, only to the extent missing meaning matters. Do not require text after a sufficient inline selection. |
+| Acceptable evidence / confirmation | Explicit relevant user text plus confirmation of a material interpretation; a previously confirmed specific request may supply this detail. Do not collect unnecessary sensitive details. |
+| Unknown / conflict handling | Missing text remains missing and does not imply a goal. Preserve unresolved/deferred status and ask only for the missing meaning when needed. If it contradicts the selected goal, clarify the current task before dependent personal work. |
+| Source / data layer | Customer-reported intent in the existing guide envelope; question-map T01. Not external evidence. |
+| Readiness gate | Blocks only the specific task that cannot be scoped; does not block useful general education or labeled browsing. External holds remain independent. |
+
+## `guide.fields.knowledge.general`
+
+Existing prompt(s): [T02](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:35). Role: `reported_preference`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Explanation depth for the person interacting; not which coverage is suitable or which consequential facts are required. |
+| Mandatory / conditional / optional | Optional preference. |
+| Trigger | Explanation depth would help the current task and no explicit current preference/self-report is known. Skip a separate ask when the person has already said it or can proceed with useful brief help. |
+| Acceptable evidence / confirmation | Explicit inline choice or clear self-report by the learner/helper. Confirm a material ambiguous interpretation; do not quiz or infer mastery. A helper's familiarity is not evidence about the beneficiary. |
+| Unknown / conflict handling | Unknown/declined/unanswered remains explicit and never loops or becomes an inferred knowledge label. Let the user correct it or ask for more/less explanation; update presentation only. Conflicting old/new preferences need clarification only if consequential to the current help. |
+| Source / data layer | User-reported preference in the existing guide envelope; T02. No external Medicare-data layer establishes familiarity. The schema's empty state is metadata, not a report. |
+| Readiness gate | No availability, timing, drug/provider, cost, Medigap or recommendation gate. Optional familiarity never blocks these conclusions; required factual and external gates remain unchanged. |
+
+## `guide.fields.comparison.scope.zip`
+
+Existing prompt(s): [T03](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:53). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Geographic scope of the requested availability/local coverage check for the established beneficiary and relevant period. |
+| Mandatory / conditional / optional | Conditional: needed when the requested check requires ZIP and an adequate confirmed location is not already known. Not required for general education. |
+| Trigger | A requested geographically scoped check has missing, stale or conflicting home location. Reuse an explicit prior report for the same person/period; ask about the beneficiary, not an unconfirmed helper location. |
+| Acceptable evidence / confirmation | Explicit user-reported home ZIP from typed entry or a previously confirmed relevant report. Formatting validation is not residency verification. Do not silently use device/IP location or a historical address as the current home. |
+| Unknown / conflict handling | Accept unknown/deferred without inventing a ZIP or borrowing the helper's address. If other reported location facts may suffice, assess them against the exact check's rules; otherwise withhold only affected geographic conclusions. Ask the relevant RC02 clarification when move/seasonal reports conflict. Preserve previous reports and invalidate affected location-dependent results. |
+| Source / data layer | Customer-reported profile fact. A dated/source-scoped ZIP reference can help resolve geography; exact MA availability uses L02 evidence, and a Florida standalone PDP reference uses L04 regional scope as applicable. Those data layers do not verify residency or personal eligibility. |
+| Readiness gate | Blocks the affected location-specific check only when required geography remains unresolved. No general-learning block; no ZIP answer alone releases personal recommendations, source acceptance or pricing. |
+
+## `guide.fields.comparison.scope.county`
+
+Existing prompt(s): [T03](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:53). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact county/state scope when required by the source and requested check; disambiguates a ZIP spanning more than one county. |
+| Mandatory / conditional / optional | Conditional on a county-specific capability/source. No redundant customer question when an adequate known county or unique sourced lookup already supplies it. |
+| Trigger | County is required but missing, ambiguous, stale or contradicted by another report; for a unique exact lookup, derive rather than ask again. |
+| Acceptable evidence / confirmation | Explicit beneficiary-home county/state report, or a unique ZIP-to-county relationship from an identified dated reference, with origin distinguished. An ambiguous ZIP needs the person's county choice or explicit unknown; never pick the largest/most likely county. |
+| Unknown / conflict handling | Unknown keeps county-specific conclusions unresolved. A lookup failure is a source gap rather than evidence the ZIP is invalid; permit a reported county where supported. Do not silently substitute a nearby county. Reconcile moving/seasonal conflict through the existing RC02 branch. |
+| Source / data layer | User-reported geography or derived ZIP reference in the existing profile. L02 county/year service-area evidence remains separate; statewide L04 published data does not by itself establish individual plan eligibility. |
+| Readiness gate | County-specific availability/network/comparison scope only. State-level reference information can remain within its stated source scope; exact personal claims and independent external gates remain held. |
+
+## `guide.fields.comparison.scope.locationEvidence`
+
+Existing prompt(s): [T03](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:53). Role: `reference_provenance`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether the geographic scope is traceable, reported or derived, and which results need review after location/source changes. |
+| Mandatory / conditional / optional | Conditional provenance requirement whenever a location-derived result is used; system/source bookkeeping, not another customer question. |
+| Trigger | Location is reported, derived, corrected or refreshed for the requested check. |
+| Acceptable evidence / confirmation | Existing report confirmation/provenance or the actual lookup's source, scope/period and relationship. Never mark a ZIP lookup as verified residency or fabricate a source receipt. Preserve distinction between direct report and derivation. |
+| Unknown / conflict handling | Missing/failed/conflicting source evidence stays explicit. Do not create another personal ask to fill absent reference evidence. Withhold unsupported derived claims, preserve the person's report, and reassess only affected results when corrected. |
+| Source / data layer | Existing guide envelope provenance plus exact ZIP-reference evidence. Availability/benefit-source acceptance is separate from location provenance; this field adds no new data layer or personal fact. |
+| Readiness gate | Traceability guard for the affected geographic derivation/result. Does not establish residence verification, enrollment eligibility, external source acceptance or recommendation readiness. |
+
+## `guide.fields.coverage.requestedStart`
+
+Existing prompt(s): [T04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:71). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether the requested task concerns a desired future start, reported existing Medicare or unresolved timing, and which timing details to check next. |
+| Mandatory / conditional / optional | Conditional: required only when this distinction changes the requested task; not a universal learning/browsing requirement. |
+| Trigger | Relevant requested timing is missing, changed or ambiguous. Skip the ask when a sufficiently specific confirmed request already supplies it. |
+| Acceptable evidence / confirmation | Explicit choice (`month`, `already`, `unknown`) or a clear relevant report recorded with existing confirmation/provenance. Confirm consequential ambiguity rather than inferring enrollment from age, coverage labels or the calendar. |
+| Unknown / conflict handling | Not sure/unanswered/deferred remains unresolved. “Already” does not supply a benefit year, parts or effective dates. Distinguish current status from requested change timing before treating them as conflicting; clarify consequential contradictions without overwriting known reports or looping on unknown. |
+| Source / data layer | Customer-reported request/status in the existing profile; T04 or a confirmed already-known fact. It determines which RC03–RC08 details may matter. It is not official enrollment evidence or an accepted timing-policy rule. |
+| Readiness gate | Blocks only conclusions needing the unresolved requested-start context. General explanations can continue. It never establishes eligibility, a valid enrollment window, an approved effective date or recommendation readiness; official evidence/review remain separate. |
+
+## `guide.fields.coverage.requestedStartMonth`
+
+Existing prompt(s): [T04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:71). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Desired month/year for a new start or change, applicable source/benefit year and which exact timing checks are needed. |
+| Mandatory / conditional / optional | Conditional: required when the requested conclusion depends on a desired month/year. A separately confirmed benefit year can scope a year-only check without inventing a requested month, subject to that capability's reviewed rules. |
+| Trigger | A start-dependent requested check has a missing/ambiguous desired month or year; a relevant correction changes the target period. |
+| Acceptable evidence / confirmation | Explicit user-selected Month and Year or a confirmed report normalized to `YYYY-MM`, with person/task/provenance retained. Confirm consequential interpretations of imprecise or relative dates; no silent current-year, January or day-one assumption. |
+| Unknown / conflict handling | Partial or unknown dates stay partial/unresolved in the report; no completed date is fabricated. Previously saved ambiguous wording remains available for correction, not silently parsed. Keep desired timing separate from actual enrollment dates. Reassess affected year/timing results on correction. |
+| Source / data layer | Customer-reported desired timing, not published cost/eligibility evidence. Match the explicit target year to exact L01 cost-reference, L02 MA availability, L03 MA benefits or L04 PDP source-year scope only where those sources are used. Actual eligibility/timing conclusions need separate official enrollment evidence and reviewed policy through the existing readiness branches. |
+| Readiness gate | Blocks a requested date-dependent conclusion when the desired period is unresolved, or a year-specific personal check when no other valid confirmed year exists. A requested date does not prove legal ability to start then. Unsupported source years, personal applicability and independent release holds remain explicit. |
+
+## `guide.fields.coverage.current`
+
+Existing prompt(s): [T05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:89). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported current-coverage baseline for comparing keep/change paths; which employment, drug-coverage, military, assistance, Medigap or transition checks are consequential. Category selection alone does not settle those checks or identify the exact policies. |
+| Mandatory / conditional / optional | Conditional: mandatory for a personal keep/change, coordination or timing conclusion that depends on current coverage. Not required for general Medicare learning or a published availability check that does not depend on current coverage. |
+| Trigger | Requested task needs the current coverage baseline, but categories for the same beneficiary/current period are missing, stale, ambiguous or conflicting. Reuse clear confirmed categories already supplied; ask only for missing consequential distinctions. |
+| Acceptable evidence / confirmation | Explicit multi-select report or sufficiently specific confirmed user statement, linked to T05 or the original known-fact report with beneficiary, period, provenance and confirmation retained. One reply can supply several categories. Category-level reports can support preparation; verified enrollment, benefits or continuity claims require the relevant official/program/carrier evidence separately. Do not request government ID numbers to establish a category. |
+| Unknown / conflict handling | Silence is unanswered, never None. Explicit None and Not sure are different and are exclusive global choices in the existing control. Preserve known categories when only a later detail is unknown; do not replace the entire baseline with unknown. Do not auto-correct apparently incompatible same-person/same-period Original/Advantage reports; clarify through RC07/RC28, including whether they refer to different periods. Unsupported coverage types remain explicit gaps rather than forced categories. Allow correction, preserve prior reports, and invalidate only affected dependent conclusions. |
+| Source / data layer | User-reported customer-profile field; existing T05 map/contract or a specific already-known fact. When used, exact published evidence may come from L01 federal costs, L02/L03 MA availability/benefits, L04 PDP, L10 Medigap products/rates, L11 buying rights, L12 assistance, L13 timing/coordination and L14 other paths. Exact drug/provider claims also need L05–L08 evidence. These layer assignments identify dependencies, not accepted personal conclusions; current coverage is not inferred from a catalog match. |
+| Readiness gate | Missing consequential current-coverage context blocks the affected personal keep/change, coordination, timing, rights or cost-baseline conclusion. A reported category satisfies only that report-level item, not every dependent fact. Exact A/B status/dates, program/benefit details, policy identities, accepted rules and external coverage evidence remain separate where relevant. General explanations and independently supported availability information can continue; neither unknown nor a complete category list releases personal recommendations. |
+
+## `guide.fields.needs.providersStatus`
+
+Existing prompt(s): [T06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:107). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether the requested personal comparison includes named-provider checks and which further details are relevant. An explicit none-to-check report defines requested scope, not absence of providers or need for care. |
+| Mandatory / conditional / optional | Conditional: required when a requested personal fit/comparison conclusion depends on named-provider scope. Not required for general learning or source-scoped availability alone. |
+| Trigger | Relevant scope is missing, changed, unclear or contradicted by another report. Reuse explicit known scope instead of asking a separate status question. |
+| Acceptable evidence / confirmation | Explicit free-text report naming providers, stating none requested, deferring or saying unknown, linked to the same beneficiary/task. Confirm a consequential ambiguous interpretation in the echo. Named providers can establish list scope without a preceding Add selection; do not infer list completeness or an absolute exclusion constraint. |
+| Unknown / conflict handling | Unanswered, unknown and deferred remain distinct from none. Preserve known names and item-level uncertainty. A failed catalog match never means the user has no provider. Clarify conflicts about the requested scope without silently deleting prior names; corrections invalidate affected checks only. |
+| Source / data layer | User-reported profile fact from T06 or a specific already-known report, with person/period/confirmation/provenance. The L08 inventory supplies candidate identities, not user preferences. Later access verification needs exact plan/year and accepted provider evidence. |
+| Readiness gate | Unknown/deferred scope blocks a claim that all relevant named-provider needs have been assessed. An explicit none-to-check report closes that requested list only; it does not guarantee access or release recommendations. Candidate matches or autocomplete selections without required explicit confirmation do not establish resolved identity. |
+
+## `guide.fields.needs.providers`
+
+Existing prompt(s): [T06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:107). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which doctor/hospital and office each typed reference means, and which confirmed identities require access investigation for the requested comparison. Supports every reported item. |
+| Mandatory / conditional / optional | Conditional: required when named-provider checks are requested. New candidate identity bindings need explicit echo confirmation before use as confirmed identities; no names are required for explicit none. |
+| Trigger | A new/changed name needs matching, several candidates fit, or consequential identifying detail remains missing. Reuse previously confirmed current identity/office bindings rather than requesting a repeat confirmation without a relevant change. |
+| Acceptable evidence / confirmation | Preserve the original free-text names/list. Retrieve evidence-backed candidates from the available inventory, show full identity/practice/location, and obtain the user's explicit confirmation of the intended doctor/office. The same reply/selection can supply existing RC21 entity/practice/city facts. No candidate is silently preselected; confirmation of intended identity remains separate from external record accuracy or plan access verification. |
+| Unknown / conflict handling | Keep candidate, user-confirmed and unresolved item states distinct. Retain unmatched/uncertain names; offer correction, another match or not-listed/unsure. No match is not proof of provider absence or noncoverage. Ask only for missing distinguishing detail. An unavailable source stays an external hold; do not repeat the entire names/location question or erase other confirmed items. |
+| Source / data layer | Customer-reported T06 list plus exact candidate-source record and the user's identity/office confirmation; RC21 entity/practice/city are the existing downstream bindings. L08 Doctors and hospitals is the candidate identity/access layer, with recorded scope/freshness, exact provider/office and relevant plan/product/year for later access checks. L02/L03 provide relevant MA identity/benefit context. Catalog completeness and a working trusted matching adapter are not established here. |
+| Readiness gate | Intended identity remains unresolved until a new candidate is explicitly confirmed or a sufficiently specific existing confirmed binding is reused. Confirmed identity still requires accepted path/plan/year-specific access evidence before a provider-fit claim. An unresolved item blocks its result and an all-providers conclusion, while separately supported results can remain visible. Identity confirmation alone establishes neither coverage, appointments, costs nor recommendation readiness. |
+
+## `guide.fields.needs.medicinesStatus`
+
+Existing prompt(s): [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether the requested personal review has reported current prescriptions to check, an explicit report of none, or unresolved/deferred drug scope. It does not establish whether drug insurance is needed or creditable. |
+| Mandatory / conditional / optional | Conditional: required when the requested personal coverage/cost conclusion depends on prescription scope. Not required for general learning or independent published availability. |
+| Trigger | Relevant current drug scope is missing, unclear, changed or conflicting for the same beneficiary/period. Reuse an explicit existing report instead of requiring a separate yes/no turn. |
+| Acceptable evidence / confirmation | Explicit free-text report/list or current supported selection indicating prescriptions, none, unknown or defer. Preserve beneficiary, period and confirmation/provenance. If a consequential interpretation is unclear, confirm it in the echo; do not infer a complete list from one named drug. |
+| Unknown / conflict handling | Unanswered/unknown/deferred never becomes none. Preserve known items if other medicines or details remain unknown. Clarify a consequential conflict between a prior list and a new none report; do not silently erase names. No catalog match is not evidence of no prescriptions. |
+| Source / data layer | Customer-reported T07 profile fact or a specific already-known current report. Neither L05 formulary records nor L06 prices establish what this person takes. RC12 drug-coverage notice/history is a separate reported fact, not inferred from prescription use. |
+| Readiness gate | Unresolved relevant scope blocks claiming the person's drug needs have been fully evaluated. Explicit none closes the current reported prescription list only; it does not establish insurance sufficiency, enrollment timing, future medicine coverage or recommendation readiness. General work and unaffected supported checks can continue. |
+
+## `guide.fields.needs.medications`
+
+Existing prompt(s): [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which reported medicines need exact identity resolution, coverage/restriction investigation and, when requested, price evaluation. Includes every requested item rather than only the first name. |
+| Mandatory / conditional / optional | Conditional: required when the person reports prescriptions and requests a drug-related personal conclusion. No list is required for an explicit none report; deferred names remain unresolved. |
+| Trigger | A relevant requested medicine is unnamed, ambiguous, newly added, changed or removed. Reuse the current confirmed list and ask only about affected items. |
+| Acceptable evidence / confirmation | Explicit reported names/list with original wording; user confirmation of consequential identity interpretations or evidence-backed candidate matches. A prior confirmed fact can supply a name. A carrier/formulary name match alone cannot establish which product the person takes. Medication use does not imply a diagnosis or SNP qualification. |
+| Unknown / conflict handling | Keep each unresolved or unmatched item visible; do not pick a likely drug, drop nonmatched products or turn missing source evidence into a noncoverage finding. Retain supported items while clarifying one ambiguous name. Corrections invalidate affected drug results, not the entire profile. |
+| Source / data layer | Customer-reported T07 list plus a trusted, source/version-linked drug-identity reference where available; existing RC22 item fields hold exact reported name/strength/form details. L05 Drug coverage lists provides exact plan/year formulary/restriction evidence; L06 prices are separate. Identity-source completeness and a matching adapter are not established by this review. |
+| Readiness gate | Missing exact identity blocks that medicine's coverage/price conclusion and any claim that all requested medicines were checked. A clear name alone is not sufficient if strength/form remains ambiguous. Confirmed product identity still needs accepted plan/year formulary/restriction evidence; a reported list never releases recommendations. |
+
+## `guide.fields.needs.medicationDetails`
+
+Existing prompt(s): [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact reported strength/form and other relevant per-medicine details for identity/coverage; fill quantity/days supply and consequential administration context for a requested cost/coverage check. This field can retain supplied detail without making every detail mandatory up front. |
+| Mandatory / conditional / optional | Conditional by capability: exact consequential identity details are required for a concrete drug coverage check; fill quantities/days supply only for the requested pricing scenario. Optional brand/generic preference does not become a universal gate. No unnecessary diagnosis or full clinical history is required. |
+| Trigger | A named drug cannot be uniquely identified for the requested check, a pricing request lacks required fill detail, or a source-supported administration/coverage issue makes a missing detail consequential. Reuse details already given and bound to the correct item. |
+| Acceptable evidence / confirmation | Explicit per-medicine reported strength and form; quantity and days supply when relevant; current confirmed prior facts. Echo consequential interpretations and correct item bindings. Existing RC22/RC23/RC24 fields carry relevant structured details; do not demand a duplicate response merely because T07 stores a text summary. |
+| Unknown / conflict handling | Preserve partial details and unknowns per item. Never invent strength, form, brand/generic product, fill quantity or days supply. A dosing frequency alone does not supply an actual fill quantity or days supply. Distinguish optional brand/generic preference from unresolved actual drug identity; do not substitute a different medicine or infer a clinical instruction. Clarify conflicts before dependent results. |
+| Source / data layer | Customer-reported T07 detail, with item-specific RC22 identity, RC23 fill and RC24 consequential setting/problem reports. L05 coverage/restrictions and L06 pricing use the exact relevant product/scenario; source records and reviewed rules remain separate from what the person reports. |
+| Readiness gate | Unknown consequential strength/form blocks that drug's exact coverage and pricing conclusions. Missing required fill detail blocks the requested price calculation, not an otherwise supportable formulation-level coverage check. Unknown optional brand preference does not erase known identity. Clinic/pharmacy ambiguity holds only the conclusions needing that distinction; external evidence/acceptance remains independent. |
+
+## `guide.fields.needs.pharmacies`
+
+Existing prompt(s): [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which pharmacy/location or mail-order channel should be used for a requested pharmacy-network or fill-price comparison. A preferred pharmacy is a reported preference, not evidence it is in-network or has the lowest price. |
+| Mandatory / conditional / optional | Conditional: exact pharmacy/location and relevant channel are required for a pharmacy-specific network/price conclusion. Optional/not collected when the requested drug check does not depend on pharmacy. |
+| Trigger | The requested pricing/network scenario needs a store/channel that is missing, ambiguous or changed. Reuse an already confirmed relevant pharmacy rather than asking for every medicine again. |
+| Acceptable evidence / confirmation | Explicit exact pharmacy/branch/location or mail-order report, linked to the relevant fills; confirm a consequential interpretation or ambiguous branch match. A clear shared pharmacy can supply several RC23 items. If the person has no preference, record that rather than inventing a usual store; any proposed comparison scenario needs explicit agreement and a clear label. |
+| Unknown / conflict handling | Keep unknown/deferred/no preference distinct. A chain name does not silently identify a branch; do not select the nearest store or assume retail/mail order. Missing directory/source evidence is an external gap, not pharmacy absence or a free/zero price. Preserve other known fill facts and ask only for the missing consequential detail. |
+| Source / data layer | Customer-reported T07 pharmacy text plus existing RC23 per-fill pharmacy/channel reports. L07 Pharmacy networks supplies exact identity/network evidence; L06 Personal drug price estimates requires the exact accepted pharmacy/product/fill/plan/year scenario. Directory identity, network participation and price are distinct evidence claims. |
+| Readiness gate | Missing exact relevant pharmacy/channel blocks that pharmacy-specific price/network conclusion, not unrelated general education or a pharmacy-independent coverage finding. A chain/name report alone is not enough for exact store pricing. Complete reports cannot replace the pharmacy identity/network/pricing adapters or source/release acceptance. |
+
+## `guide.fields.needs.travel`
+
+Existing prompt(s): [T08](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:143). Role: `reported_fact`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which home/away-care locations, provider access and plan/policy terms matter when comparing coverage paths or investigating personal travel fit. Distinguishes intended routine care from emergency-only concerns; it does not choose a coverage route. |
+| Mandatory / conditional / optional | Conditional: required when the requested personal path/provider/travel conclusion depends on the geography of intended care. Not required for general learning or source-scoped availability alone. Location/duration detail is collected only when a requested exact check needs it. |
+| Trigger | Relevant routine-care scope is unassessed, changed, unclear or contradicted by another report. Ask once when consequential; skip when explicit current care-location needs are already known. Open only missing relevant RC20 detail afterward. |
+| Acceptable evidence / confirmation | Explicit inline selection or clear confirmed free-text report for the same beneficiary/task/period, including sufficiently specific already-known care needs. Confirm whether a vague travel/seasonal statement actually implies routine care away; do not infer that from a trip or a provider's mailing address alone. Record source and confirmation/provenance. |
+| Unknown / conflict handling | Unknown/deferred never becomes Local only. Preserve known locations when another remains uncertain. Clarify routine versus emergency-only intent and apparent home/seasonal conflicts; a seasonal stay does not silently rewrite permanent residence. Same-state away care is an explicit current-option representation gap, not a forced Local/Another-state choice. Corrections invalidate affected travel/provider results only; do not loop on an unchanged unknown. |
+| Source / data layer | Customer-reported T08 fact or a specific already-known report; RC20 supplies consequential location/context. External evidence must match the actual path, year, destination/provider and service: L03 exact MA benefit/EOC terms, L08 provider/access evidence, relevant L10 Medigap policy terms and reviewed official Original Medicare coverage/access rules where applicable. L02 home/service-area scope remains separate. The accepted L01 published cost reference is not travel-coverage authority, and no data-layer label by itself establishes accepted personal travel fit. |
+| Readiness gate | Missing consequential geography/context blocks the affected away-care/provider-fit conclusion and a complete personal comparison depending on it. It does not block unrelated supported work. Local only closes the reported away-routine-care branch but proves no local access. Unknown is not readiness; a broad travel answer, plan label or an emergency benefit is insufficient evidence of routine access. Accepted exact provider/benefit/policy evidence remains a separate gate; no automatic Original-versus-Advantage preference or recommendation release follows. |
+
+## `guide.fields.needs.costPreference`
+
+Existing prompt(s): [T09](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:161). Role: `reported_preference`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which monthly-payment versus care-cost tradeoffs to emphasize in the requested explanation and later accepted comparison. Does not itself select/filter/rank a coverage path, prove affordability or establish lowest total cost. |
+| Mandatory / conditional / optional | Optional preference. Never a universal eligibility, coverage, cost-input or recommendation-readiness requirement. |
+| Trigger | The requested task would benefit from this distinction and an explicit usable current preference is not already known. Skip the ask when a prior confirmed report already states it or when a useful balanced explanation suffices. |
+| Acceptable evidence / confirmation | Explicit inline choice or a clear confirmed current report, tied to beneficiary/task and provenance. A literal matching T10 preference can supply it; a broad statement that cost matters is not enough to infer which cost dimension. Confirm consequential interpretations of nuanced free text rather than assigning a presumed risk/financial profile. |
+| Unknown / conflict handling | Explicit No preference yet differs from unanswered, unknown, deferred or declined. Do not default to low monthly payments or assume unlimited budget. Preserve mixed/conditional preferences; if the current single-choice value cannot represent them, keep classification unresolved rather than forcing a false choice. Clarify a conflict only if needed for the requested task; preserve old reports and permit revision. |
+| Source / data layer | User-reported customer-profile preference from T09 or a specific already-known confirmed report. No external dataset establishes what the user prefers. Any actual cost tradeoff needs separate exact-scope evidence from relevant L01 federal costs, L03 MA benefits, L04 PDP facts, L06 drug pricing, L10 Medigap rates and L12 assistance, with accepted applicability/assumptions where required. T09 does not extend the scoped L01 reference acceptance into personal calculations. |
+| Readiness gate | No factual readiness gate. Unknown/no preference does not block independently supported checks or balanced explanations and does not satisfy missing required facts elsewhere. A preference-specific conclusion cannot pretend to honor an unknown preference. An answered preference supplies neither personal totals, affordability, eligibility nor independent recommendation/cost-model/source acceptance. |
+
+## `guide.fields.needs.priorities`
+
+Existing prompt(s): [T10](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:179). Role: `reported_preference`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which tradeoffs to emphasize and which user-stated needs deserve further relevant investigation in an accepted comparison/explanation. Does not itself verify those needs are satisfied or authorize ranking, exclusions or a coverage-path choice. |
+| Mandatory / conditional / optional | Optional preferences. Not a universal factual eligibility, coverage, cost-input or recommendation-readiness requirement. |
+| Trigger | A genuine unresolved tradeoff or interpretation of an explicit priority affects the requested conclusion. Reuse earlier explicit priorities; no routine closing/top-three question and no question solely to fill an empty optional field. |
+| Acceptable evidence / confirmation | Explicit selections or a clear confirmed statement tied to the beneficiary/task, with source/confirmation/provenance. A matching T09 predictable-cost preference can supply that priority; a stated wish to keep a named provider can supply a doctor priority. Merely listing a medicine/provider or mentioning travel is not an automatic priority, hard constraint or ranked preference. |
+| Unknown / conflict handling | Unanswered, Not sure, deferred and no stated priority are distinct from explicit selected priorities. Never preselect, infer numeric weights, rank by click order or truncate additional volunteered meaning. Multiple priorities can coexist; clarify a genuine tradeoff/conflict only when it affects the requested conclusion. Preserve known priorities while any extra detail remains unresolved; permit revision and reassess affected explanations. |
+| Source / data layer | Customer-reported T10 preference or a specific already-known report; T09 can contribute only an exact semantic match. No external data or commercial relationship establishes the person's priorities. Claims about satisfying them need exact relevant evidence: L08 providers, L05–L07 medicines/pricing/pharmacies, applicable L01/L03/L04/L06/L10/L12 cost evidence and path-specific travel/policy sources. The preference field does not accept or verify those external claims. |
+| Readiness gate | No universal factual gate. Unknown priorities do not block balanced, independently supported work and cannot satisfy required facts elsewhere. A priority-specific or declared-constraint-satisfying conclusion must remain unresolved when its meaning or required evidence is missing. Selecting Doctors, Prescriptions or Travel does not fill T06/T07/T08 identities/locations or remove external holds; recommendations and personal cost claims remain independently gated. |
+
+## `guide.fields.needs.priorityOther`
+
+Existing prompt(s): [T10](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:179). Role: `reported_preference`. Status: preserved_baseline_working_mapping_see_owner_decision_scope.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | The meaning and boundaries of an explicitly stated custom priority that the predefined categories do not capture, and which additional supported checks it may require. |
+| Mandatory / conditional / optional | Optional detail; clarification is conditional only when understanding this stated custom priority is necessary to the requested conclusion. It is not a universal intake/readiness requirement. |
+| Trigger | Something else or a relevant volunteered custom preference is present but unclear enough to affect the requested task. Skip the follow-up when a specific already-confirmed report supplies its meaning; do not ask for text after an adequate predefined selection. |
+| Acceptable evidence / confirmation | Explicit relevant user text or a specific already-known confirmed report; preserve intended meaning and beneficiary context. Echo consequential interpretations rather than inventing a priority, clinical fact, benefit, budget or unsupported service. Collect only enough detail to understand the request. |
+| Unknown / conflict handling | Blank/unknown/deferred stays an unspecified custom priority. Keep separately known predefined priorities. Clarify a conflict only when consequential; do not overwrite or shoehorn the request into a near-enough category. If unsupported by the schema/data/service, retain the limitation rather than promise satisfaction or silently omit it. |
+| Source / data layer | User-reported T10 custom preference, with provenance/confirmation. Any resulting factual check requires its own identified source/data layer, exact scope and release acceptance; the text itself is not external evidence. If no supported evidence layer or fact binding exists, record that as a gap linked to T10/the original report rather than inventing a source. |
+| Readiness gate | Blocks only an unsupported claim to understand/honor that custom priority when its meaning/evidence remains unresolved. General explanations and unaffected factual checks continue. Blank Other text cannot become a required-facts success, blanket recommendation hold, invented benefit or approval of unsupported functionality. |
+
+## `readiness.facts.RC01.value.choice`
+
+Existing prompt(s): [RC01](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:197). Role: `reported_fact`. Status: owner_approved_conditional_context_reuse_rule_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `T01 confirmed task-entry report`; `confirmed subject.role report where supported`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whose situation the requested personal check describes. |
+| Mandatory / conditional / optional | Conditional: mandatory before using personal coverage facts if recipient is unknown. |
+| Trigger | Personal work is requested and no confirmed recipient exists. |
+| Acceptable evidence / confirmation | Explicit self/helper/research report or clear conversational context; no separate selection or confirmation turn when unambiguous. Preserve the supporting report and subject/task provenance; confirm tentative or consequentially ambiguous attribution before use. |
+| Unknown / conflict handling | Unknown blocks person-specific attribution; education continues. Never default to self or merge people. Resolve conflicting context or a recipient change before reusing affected personal facts. Helper role is not sharing/legal authority. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; customer-reported identity context. No external coverage layer determines the intended beneficiary. This describes required evidence, not independent acceptance. |
+| Readiness gate | Blocks person-specific conclusions only; does not grant persistence, AI transfer or handoff consent. |
+
+## `readiness.facts.RC02.value.choice`
+
+Existing prompt(s): [RC02](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:215). Role: `report_disposition`. Status: owner_approved_T03_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.comparison.scope.zip`; `guide.fields.comparison.scope.county`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether relevant home details are explicitly supplied. |
+| Mandatory / conditional / optional | Conditional report disposition; no separate question when explicit details already establish it. |
+| Trigger | Requested geographic check has missing/conflicting home details. |
+| Acceptable evidence / confirmation | A confirmed home-detail reply establishes the details disposition; no extra Add-details question. |
+| Unknown / conflict handling | A details flag alone does not supply ZIP/county or resolve residency. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; dated ZIP reference and exact L02/L04 service-area/year scope. A reference relationship does not verify residency or enrollment. This describes required evidence, not independent acceptance. |
+| Readiness gate | Only substantive geographic facts satisfy geography; control completion never does. |
+
+## `readiness.facts.RC02.value.zip`
+
+Existing prompt(s): [RC02](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:215). Role: `reported_fact`. Status: owner_approved_T03_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.comparison.scope.zip`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Home geography for a requested location-specific check. |
+| Mandatory / conditional / optional | Conditional when the exact geographic check requires ZIP. |
+| Trigger | Usable beneficiary ZIP is absent, stale or contradicted; do not repeat T03. |
+| Acceptable evidence / confirmation | Explicit beneficiary-home ZIP or confirmed T03 report with provenance. |
+| Unknown / conflict handling | Unknown is not another person's ZIP. Lookup failure is a source gap, not invalid residency. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; dated ZIP reference and exact L02/L04 service-area/year scope. A reference relationship does not verify residency or enrollment. This describes required evidence, not independent acceptance. |
+| Readiness gate | Unresolved required geography holds the affected local result; learning is unaffected. |
+
+## `readiness.facts.RC02.value.county`
+
+Existing prompt(s): [RC02](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:215). Role: `reported_fact`. Status: owner_approved_T03_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.comparison.scope.county`; `guide.fields.comparison.scope.locationEvidence`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | County/state identity for county-scoped sources. |
+| Mandatory / conditional / optional | Conditional when county is required by the requested source/check. |
+| Trigger | County is missing, ambiguous or conflicting after reusing T03. |
+| Acceptable evidence / confirmation | Explicit county/state report or uniquely sourced dated ZIP relationship; label reported versus derived. |
+| Unknown / conflict handling | Never choose a likely county or substitute a nearby one. Ask only actual ambiguity. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; dated ZIP reference and exact L02/L04 service-area/year scope. A reference relationship does not verify residency or enrollment. This describes required evidence, not independent acceptance. |
+| Readiness gate | Holds county-specific conclusions, not all research. Derived county is not verified residency. |
+
+## `readiness.facts.RC02.value.homeStatus`
+
+Existing prompt(s): [RC02](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:215). Role: `reported_fact`. Status: owner_approved_T03_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.travel`; `readiness.facts.RC20.value.location`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which address is permanent home versus seasonal/moving context. |
+| Mandatory / conditional / optional | Conditional when residence ambiguity affects scope or a requested eligibility check. |
+| Trigger | A moving/seasonal report conflicts with otherwise usable home geography. |
+| Acceptable evidence / confirmation | User's explicit home/move clarification and relevant period; reuse volunteered facts. |
+| Unknown / conflict handling | Seasonal care location does not silently replace permanent home. Conflicting periods need clarification. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; dated ZIP reference and exact L02/L04 service-area/year scope. A reference relationship does not verify residency or enrollment. This describes required evidence, not independent acceptance. |
+| Readiness gate | Holds affected home/service-area conclusions until clarified; care-location facts remain distinct. |
+
+## `readiness.facts.RC03.value.choice`
+
+Existing prompt(s): [RC03](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:233). Role: `reported_fact`. Status: owner_approved_T04_consolidation_missing_timing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.requestedStartMonth`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Benefit year for exact published comparisons. |
+| Mandatory / conditional / optional | Conditional: required only when the requested year-specific result still lacks a usable intended coverage period; no routine year menu. |
+| Trigger | The requested coverage start/change or review period is missing, ambiguous or conflicting after T04/chat reuse. Ask in task-specific language for only the missing timing detail. A source-year mismatch alone is not another customer question. |
+| Acceptable evidence / confirmation | Clear intended start/change or review-period report. Extract its year and record person/task/period provenance without another selection. An explicit relative period can be resolved against its documented conversation-date anchor and echoed; confirm consequential ambiguity. A current-coverage review does not require inventing a future start date. |
+| Unknown / conflict handling | Do not default current year/next January. Already on Medicare or a month without a year supplies no comparison year. Preserve corrections and clarify the intended scope only when ambiguous; unavailable evidence for a known requested year is a source hold. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; customer-reported intended year plus exact year/version of the requested availability, benefit, formulary, price or policy source. Intent needs no coverage verification; published evidence must match that intended scope and its own effective period. This describes required evidence, not independent acceptance. |
+| Readiness gate | No year-specific personal result without resolved scope and exact accepted source year. |
+
+## `readiness.facts.RC03.value.year`
+
+Existing prompt(s): [RC03](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:233). Role: `reported_fact`. Status: owner_approved_T04_consolidation_missing_timing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.requestedStartMonth`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact comparison year when Other is selected. |
+| Mandatory / conditional / optional | Conditional only when an exact year outside the listed choices is needed and not already clear; no separate Another-year selection or follow-up for a supplied year. |
+| Trigger | The applicable out-of-list year remains missing or ambiguous. Ask only the missing part in the user's timing context, such as January of which year; skip when chat already establishes it. |
+| Acceptable evidence / confirmation | Exact year from the user's intended start/change or review-period report, with task/period provenance; derive the internal Another-year disposition without a duplicate selection. An exact year alone never fabricates a desired month/day. |
+| Unknown / conflict handling | Unknown year stays unresolved; unsupported year is an external scope gap, not another personal question. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; customer-reported intended year plus exact year/version of the requested availability, benefit, formulary, price or policy source. The exact year is a scope report, not proof of enrollment or source availability. This describes required evidence, not independent acceptance. |
+| Readiness gate | Holds the affected year-specific conclusion; does not substitute a different source year. |
+
+## `readiness.facts.RC04.value.choice`
+
+Existing prompt(s): [RC04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:251). Role: `reported_fact`. Status: owner_approved_T05_consolidation_missing_AB_status_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current`; `guide.fields.coverage.requestedStart`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported active/pending Part A and Part B status. |
+| Mandatory / conditional / optional | Conditional when the requested path/eligibility/timing check needs parts status. |
+| Trigger | Relevant actual parts status remains missing, ambiguous, changed or conflicting after reusing T05/chat for the same person/period. Ask only the missing part; do not show the full question when status is clear. |
+| Acceptable evidence / confirmation | Explicit current A/B/neither/pending report or a clear existing statement/selection expressly identifying the parts, with person/period/confirmation provenance. No separate confirmation turn for an unambiguous report. Reading relevant status/effective-date text from an official notice can support the report without collecting Medicare numbers or a whole document; verification remains separate. |
+| Unknown / conflict handling | Generic Medicare/carrier names and Already on Medicare do not establish actual parts; pending is not active. Preserve known A when B is unknown/pending and vice versa. A-active/B-pending or approved-but-not-yet-effective cannot be faithfully collapsed into the single existing choice: retain the explicit report/representation gap and hold dependent conclusions. Clarify consequential same-period conflicts, keep different periods separate, and allow unknown/deferred without defaulting to neither. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. |
+| Readiness gate | Holds only conclusions depending on unresolved parts/status for the relevant period; general learning and independent availability work can continue. A report does not verify enrollment/effective dates or alone establish plan eligibility, a valid enrollment window or a possible start. Exact required dates/evidence and independent release gates remain separate. |
+
+## `readiness.facts.RC05.value.choice`
+
+Existing prompt(s): [RC05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:269). Role: `report_disposition`. Status: owner_approved_conditional_month_year_missing_details_at_point_of_need_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC05.value.month`; `specific actual Part B date report`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether actual Part B start details are supplied. |
+| Mandatory / conditional / optional | Conditional report disposition; no separate question when explicit details already establish it. |
+| Trigger | The requested timing/rights check needs actual Part B start details that remain missing or ambiguous after reusing chat/profile reports. |
+| Acceptable evidence / confirmation | Derive the disposition from substantive actual-date information supplied in the same or an existing report; no separate Add-details question or selection. |
+| Unknown / conflict handling | A details flag without the required date/precision cannot satisfy timing. Unknown/deferred remains distinct from an actual date report. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; customer-reported actual-date disposition metadata. Official enrollment chronology and reviewed rules are separate; a control completion is not date evidence. This describes required evidence, not independent acceptance. |
+| Readiness gate | No independent readiness credit. Required substantive actual dates, scope/precision and external evidence determine sufficiency. |
+
+## `readiness.facts.RC05.value.month`
+
+Existing prompt(s): [RC05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:269). Role: `reported_fact`. Status: owner_approved_conditional_month_year_missing_details_at_point_of_need_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific confirmed actual Part B date report; not requestedStartMonth by default`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Actual Part B start month for relevant timing/rights review. |
+| Mandatory / conditional / optional | Conditional when a personal timing/Medigap conclusion depends on actual B start. |
+| Trigger | At the point of a requested check that demonstrably depends on actual B start, the relevant date remains absent, partial, ambiguous or conflicting after person/status/period and report reuse. Identify the affected check and explain the need before asking only a missing month/year or consequential date-type distinction. B-active status, inventory order and unrelated learning/provider/drug work alone never trigger this ask; an unchanged unknown is not a retry trigger. |
+| Acceptable evidence / confirmation | Explicit actual Part B start month/year or a current sufficiently precise report of the relevant notice/card date, with person/period/date-type/confirmation provenance. Reuse unambiguous reports without another selection; request only relevant date text, not identifiers/full documents. Confirm consequential relative-date or first-start/restart ambiguity only when the reviewed rule requires it. |
+| Unknown / conflict handling | Unknown/deferred/approximate dates remain unresolved at their actual precision. Never copy desired-start T04/RC03, Part A dates, age-65 assumptions or an invented day. Approved future-effective coverage is not a past actual start; retain that distinction without coercing this field. Preserve conflicting reports and clarify only consequential differences. If first versus later B chronology or day precision is required but unsupported, record that gap and hold the dependent conclusion. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L11 Medigap rights, with L13 timing. Exact state, official history/notices and reviewed policy are needed for personal rights conclusions. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing required actual B date/precision/type holds only dependent timing/Medigap conclusions; unaffected work continues. A reported month/year supplies no enrollment verification, complete rights finding, Part A chronology or source/release acceptance. Exact rule-required dates/history and official evidence remain separate. |
+
+## `readiness.facts.RC06.value.choice`
+
+Existing prompt(s): [RC06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:287). Role: `reported_fact`. Status: owner_approved_independently_conditional_basis_age_at_point_of_need_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific relevant first/current/expected qualification report with provenance`; `minimal official-notice basis summary supplied by the user`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Relevant basis of Medicare qualification for the requested rule branch. |
+| Mandatory / conditional / optional | Conditional only when the requested timing/eligibility/rights rule needs this qualification basis and a usable same-person/period report is not already known; not universal intake or diagnosis screening. |
+| Trigger | At the specific check needing basis, identify the consequence and missing basis after report reuse. Ask only the needed current/first/expected basis and explain the reason. Completion of RC04/RC05, age alone, or a missing external source is not a trigger; an age-only check does not open diagnosis choices. |
+| Acceptable evidence / confirmation | Explicit user-reported relevant first/current/expected basis, selection or minimal relevant official-notice summary, with person/period/date-type/provenance. Reuse an unambiguous report without a separate confirmation turn; a single reply can also supply a separately explicit current age fact. For Another reason ask only missing meaning consequential to the rule, not medical history. |
+| Unknown / conflict handling | Unknown/deferred/prefer-not-to-answer stays unresolved, never age65/Other by default. Do not infer basis or diagnosis from current age, medicines, providers, coverage labels or active A/B. First basis may differ from current circumstances; preserve each meaning and clarify only consequential conflict. Multiple or unlisted bases exceed a single choice when no supported binding exists: retain the original report/explicit gap, do not force a closest category or claim diagnosis/eligibility verification. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. State/year-specific Medigap consequences also require L11 review; personal premium applicability remains separately held under G03, not supplied by the L01 published reference. |
+| Readiness gate | Missing required basis holds only the basis-dependent conclusion. Age-only or unrelated work continues; required official evidence, exact dates, state rules and release acceptance remain separate. A reported basis is not a diagnosis or verified entitlement. |
+
+## `readiness.facts.RC06.value.ageBand`
+
+Existing prompt(s): [RC06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:287). Role: `reported_fact`. Status: owner_approved_independently_conditional_basis_age_at_point_of_need_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific dated current-age or age-band report for the beneficiary`; `explicit age fact supplied in the same qualification reply`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Age range when needed to identify a reviewed rule branch. |
+| Mandatory / conditional / optional | Conditional independently of qualification basis: only the minimum age range actually needed by the requested rule, if not already known. No universal birthday request. |
+| Trigger | At an age-dependent requested check, the relevant age band remains missing, stale, ambiguous or conflicting after report reuse. Do not ask age merely because a basis was selected, or basis merely because age is needed. |
+| Acceptable evidence / confirmation | Explicit relevant age band/current-age report or a dated existing age fact sufficient for that rule, with person/as-of-period/provenance. Extract it from the same reply as basis when explicitly supplied; ask only the minimum missing range, not an exact birthday by default. |
+| Unknown / conflict handling | Unknown/deferred is not 65-plus. Never assume current age from Medicare enrollment or age at original qualification. Preserve original versus current periods, refresh only consequential stale facts and clarify contradictions. A broad range cannot supply an exact birthday, entitlement date or first-day distinction; G01 remains explicit. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Relevant state/year-specific Medigap rules need L11 evidence; a report or a band does not verify eligibility. |
+| Readiness gate | Missing required age range holds only age-dependent conclusions. A supplied range never clears a rule needing a more precise age/date anchor, official evidence or independent release acceptance; unrelated work continues. |
+
+## `readiness.facts.RC07.value.choice`
+
+Existing prompt(s): [RC07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:305). Role: `reported_fact`. Status: owner_approved_conditional_within_T05_both_self_discovery_help_options_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current`; `readiness.facts.RC28.value.choice`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Current Original/Advantage delivery versus a pending future change. |
+| Mandatory / conditional / optional | Conditional only when the requested comparison/transition/rights check needs the current delivery arrangement or current-versus-future distinction and T05/chat does not already establish it. No routine second coverage question. |
+| Trigger | A consequential missing/ambiguous arrangement or genuine same-person/same-period conflict remains after report reuse. Ask only that missing distinction at the relevant check. RC06 completion is not a trigger; explicit absence of a relevant current Medicare arrangement closes this branch with a recorded reason. |
+| Acceptable evidence / confirmation | Explicit current Original/Advantage report, T05 selection or clear current/future narrative, with beneficiary/period/provenance. Reuse clear reports without a repeat selection. Optional What's the difference / How can I tell help can support a later user report but reading it supplies no coverage fact. A volunteered plan name or user-read current coverage summary can support investigation/confirmation; no credentials, identifiers or full-document collection solely for broad category. |
+| Unknown / conflict handling | Unknown/deferred never defaults to Original Medicare. Help selection, educational exposure or having a Medicare card establishes no current arrangement; I'm still not sure remains valid after help, without a forced quiz/retry. A/B status or a carrier name alone does not establish delivery. Preserve current and proposed/pending future facts independently; A change is pending alone supplies no current arrangement or effective date, and an application is not an effective switch. Do not treat mere A/B plus Advantage mentions as a same-period conflict without a consequential delivery contradiction. Clarify only genuine ambiguity; keep prior reports inspectable. The single choice cannot fully encode current arrangement plus pending destination/period: retain the supported report/explicit gap, never overwrite known current coverage with Pending. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Exact current policy/period verification is the separate G04 binding/evidence requirement; L11 applies only to requested Medigap consequences. General help uses Medicare.gov coverage/card/account guidance checked October 26, not evidence of this person's enrollment or new L03 acceptance. A plan catalog match proves no enrollment. |
+| Readiness gate | Unresolved consequential arrangement/period holds only dependent keep/change/path/rights conclusions. It does not erase known A/B status or block unrelated work. A reported category or pending choice supplies no exact current policy, effective date, verified enrollment, valid change window or release acceptance. |
+
+## `readiness.facts.RC08.value.choice`
+
+Existing prompt(s): [RC08](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:323). Role: `reported_fact`. Status: owner_approved_internal_event_check_specific_followups_only_when_needed_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current`; `readiness.facts.RC11.value.coverageEnd`; `RC02 confirmed move context`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which reported event needs a timing/change review. |
+| Mandatory / conditional / optional | Conditional only when the requested personal timing/change/rights check depends on a relevant event that is not already established. No universal life-event checklist or automatic follow-up from RC07. |
+| Trigger | First classify explicit existing insurance-ending/move/plan/program facts from T04/T05/chat and move/end-date reports. At a requested check that still needs an unresolved event fact, name the precise insurance/location/program event and purpose in a targeted follow-up. No broad What changed about your coverage/needs question or routine event menu. Intent to enroll/change is already task context, not a qualifying event; care-needs/preferences changes use their existing branches. If a reviewed route and known facts already resolve the requested timing, skip event discovery. Missing sources or inventory order cannot trigger it. |
+| Acceptable evidence / confirmation | Explicit relevant past/upcoming event report, selection or minimal notice summary tied to beneficiary, affected insurance/program/location and period/provenance. Reuse an unambiguous account without another menu. Retirement alone does not establish insurance ending: clarify only that consequential relation when missing. Another event needs only consequential missing meaning; intent to re-enroll and help exposure supply no event fact. |
+| Unknown / conflict handling | Explicit no-change-to-report differs from unknown/deferred; silence is neither. A reported event is not an enrollment-right finding, and no reported event is not proof that no other enrollment route exists or that Medicare must be re-enrolled annually. Preserve multiple/unlisted events and each binding; the single choice is an explicit representation limitation if it cannot express them. Confirm consequential same-event conflicts without erasing known facts or forcing a closest category. Contextual Why does this matter / Help me find the details can return to still-unknown without a quiz or retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Select the exact policy for A/B enrollment, MA/PDP changes or Medigap rights; Medicare.gov's general MA/drug-plan Special Enrollment Periods page does not verify A/B or Medigap applicability. |
+| Readiness gate | Missing necessary event context holds only the event-dependent conclusion. A selected event or None proves no special enrollment period, deadline or permitted effective date. Required event-specific details, dates, official evidence/reviewed policy and independent release acceptance remain separate; unrelated work continues. |
+
+## `readiness.facts.RC08.value.eventDate`
+
+Existing prompt(s): [RC08](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:323). Role: `reported_fact`. Status: owner_approved_internal_event_check_specific_followups_only_when_needed_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC11.value.jobEnd`; `readiness.facts.RC11.value.coverageEnd`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Date/period of the event used in a requested timing check. |
+| Mandatory / conditional / optional | Conditional when the specific event's date affects the requested conclusion. |
+| Trigger | The relevant event and date type are identified, and the requested reviewed rule still lacks the necessary date/precision after reuse. Name the actual needed date (coverage ends, job ends, move, notice received, or program change) rather than asking a generic event date. Ask only the missing part; a known event alone does not always require a date question. |
+| Acceptable evidence / confirmation | Explicit date/period or relevant notice text bound to beneficiary, exact event, affected coverage and date type, with provenance. Reuse RC11 job/coverage end dates only when literally the same event/date type; one reply can supply several distinct existing fields. Anchor explicit relative timing to the documented conversation date and confirm consequential ambiguity. Request relevant text, not identifiers/full documents. |
+| Unknown / conflict handling | Unknown/deferred/partial/approximate remains at reported precision. Never interchange notice, job-end, coverage-end, move or desired new-start dates, or invent a day/year. Multiple events/dates exceed the single date binding unless supported by existing per-event reports/fields: preserve the limitation and hold the affected conclusion. Clarify only consequential conflicts; no changed date means no automatic retry of unknown. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing required date/type/precision holds only dependent event-specific deadline, timing or rights conclusions. Other supported work continues. A reported date does not prove event qualification or a legal window; exact accepted policy and official evidence remain separate. |
+
+## `readiness.facts.RC09.value.choice`
+
+Existing prompt(s): [RC09](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:341). Role: `reported_fact`. Status: owner_approved_missing_detail_check_within_T05_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current`; `specific beneficiary/job/period-bound work-source report`; `minimal benefits-administrator or coverage-notice summary`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Current-work relationship versus retiree/COBRA source of group coverage. |
+| Mandatory / conditional / optional | Conditional for a requested coordination/timing check needing this distinction. |
+| Trigger | Before an ask, identify the beneficiary's specific job-linked insurance from a prior T05/chat report, the requested timing/coordination conclusion and the exact missing worker/current-work distinction. Name that insurance/relationship in the follow-up; an unanchored this coverage fails the trigger. T05 retiree/COBRA and clear own/spouse/family current-job reports already supply their classification. If only whose job remains consequential, ask only that; if only current versus former work remains, ask only that. Place beside the relevant T05 answer or later explicit work-related timing task, never as a new topic after RC08. Explicit absence closes the branch; unknown T05 does not silently become no job coverage. Unrelated learning/doctor/drug work, inventory order and source gaps cannot trigger it. |
+| Acceptable evidence / confirmation | Explicit own/spouse/family current-job, retiree or COBRA report/selection or relevant benefits-administrator/notice summary, tied to beneficiary, actual job providing this insurance, policy/period and provenance. Reuse a clear T05 retiree/COBRA or current-job/source report without another menu/confirmation turn. If kind is known, ask only whose job; if the worker is known, ask only current-work status. Confirm consequential interpretation of vague employer coverage, not every literal report. |
+| Unknown / conflict handling | Unknown/deferred is not retired, COBRA or active employment. Employer/carrier name, who pays premiums, beneficiary retirement or caregiver role does not establish the insured worker/current-work relationship. The relevant worker may have a different current job from the one providing this coverage. Preserve multiple job-linked policies and their periods; a single choice cannot encode them all. A broad family-member label is insufficient when the reviewed rule needs the exact relationship: retain the explicit report/binding gap and ask only that necessary detail. No auto-classification from the beneficiary being retired, and no unchanged-unknown retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Exact benefits-administrator/employment/plan-period evidence must support the rule in use; own/spouse/other-family cases are not assumed interchangeable. Medicare.gov Working past 65, checked October 27, supports the general distinction between current-employment and retiree/COBRA coverage for Part B timing, not this person's eligibility or independent L13 acceptance. G04/G13 policy/partial-classification and G10 basis-specific coordination gaps remain explicit. Optional conceptual/practical help is education, not verified employment or enrollment. |
+| Readiness gate | Missing necessary work/relationship context holds only dependent coordination, payer-order or enrollment-timing conclusions. A report alone establishes no right to delay Medicare, primary payer, creditable drug coverage, end dates or verified enrollment. Known categories and unrelated work remain usable; exact policy, dates, reviewed basis-specific rules and independent evidence/release gates stay separate. |
+
+## `readiness.facts.RC10.value.choice`
+
+Existing prompt(s): [RC10](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:359). Role: `reported_fact`. Status: owner_approved_conditional_applicable_size_options_optional_help_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific same-employer/period size report or administrator classification`; `readiness.facts.RC06.value.choice for rule applicability only, not size`; `readiness.facts.RC06.value.ageBand for rule applicability only`; `readiness.facts.RC09.value.choice for employer/relationship binding only`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported employer-size threshold for a relevant reviewed payer-order branch. |
+| Mandatory / conditional / optional | Conditional only when the requested payer-order or coordination-dependent timing check needs the applicable 20-employee distinction and no usable employer/plan/period fact exists. No universal work follow-up or exact staff-count request. |
+| Trigger | Known beneficiary/age-basis/period and specific current-employment group health coverage establish the applicable reviewed rule; the requested result still needs a missing size category after reuse. Name the employer providing the known insurance. RC09 completion alone, mere employment, unrelated provider/drug work and unavailable policy evidence are insufficient triggers. Unknown applicability is not permission to ask the 20 question. |
+| Acceptable evidence / confirmation | Explicit threshold or clear employee-count report for the actual employer/coverage period, or relevant benefits-administrator/materials classification, with entity/period/threshold/provenance. Collect only the category; reuse known reports. Independently accepted direct coordination evidence may supersede a size ask but must not be relabeled as an employee-count answer. Optional conceptual/practical help supplies no fact. |
+| Unknown / conflict handling | Unknown/deferred/around threshold is not fewer than 20. Do not infer legal employer size from carrier/brand, office coworkers or number insured. Keep employer size separate from multi-employer-plan qualification; a small employer alone does not resolve a relevant shared-plan exception. Do not apply 20 to disability/ESRD or other inapplicable rules, or silently reuse another threshold's Yes/No semantic binding. Counting definitions/period and conflicts stay explicit; no unchanged-unknown retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Exact L13 Medicare Secondary Payer rule, employer/plan-period classification and administrator evidence are separate. Medicare.gov Who pays first, checked October 27, distinguishes age/basis thresholds and multi-employer conditions; general reading is not independent policy acceptance or a personal result. G10 retains unsupported threshold/definition/exception bindings. |
+| Readiness gate | Missing required size, applicable definition or multi-employer/exception context holds only dependent payer-order/coordination conclusions. Size alone supplies no primary payer, right to delay Part B, deadline, drug creditability or verified coverage. Unrelated work continues; exact evidence/rule/release gates stay separate and unsupported G10 branches remain held rather than forcing a value. |
+
+## `readiness.facts.RC11.value.choice`
+
+Existing prompt(s): [RC11](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:377). Role: `report_disposition`. Status: owner_approved_conditional_missing_dates_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC09.value.choice for known current-work context only`; `readiness.facts.RC11.value.jobEnd`; `readiness.facts.RC11.value.coverageEnd`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether distinct job/coverage end dates are supplied or work continues. |
+| Mandatory / conditional / optional | Conditional report disposition; no separate question when explicit details already establish it. |
+| Trigger | A requested job-related transition/timing check needs chronology and a substantive date/status reply is available; derive its disposition without a separate Add-dates or Still-working question. |
+| Acceptable evidence / confirmation | Explicit dates or ongoing-work report from chat/notice summary for the actual worker/job and insurance, with provenance. One reply can populate all supported RC11 facts; reuse RC09 current-work context instead of asking it again. |
+| Unknown / conflict handling | Still working does not establish insurance continues or no future retirement date. A worker can be active now with a scheduled end; preserve both facts if supported, otherwise flag the single-choice representation gap. Unknown, no planned end and known prospective dates are distinct. A details flag alone supplies no date. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; customer-reported chronology/disposition metadata. Official employment/insurance date evidence and reviewed L13 timing policy remain separate. This describes required evidence, not independent acceptance. |
+| Readiness gate | No independent readiness credit. Evaluate each substantive job/insurance date or actual branch non-applicability separately. |
+
+## `readiness.facts.RC11.value.jobEnd`
+
+Existing prompt(s): [RC11](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:377). Role: `reported_fact`. Status: owner_approved_conditional_missing_dates_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC08.value.eventDate only when explicitly the same worker/job employment end`; `specific relevant employment-end report already supplied in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Employment end date for a requested transition check. |
+| Mandatory / conditional / optional | Conditional when employment chronology affects the requested rule. |
+| Trigger | Relevant work transition is known and the requested timing check needs this worker/job's employment-end date or schedule, still missing/partial/ambiguous/conflicting after reuse. Name the worker/job already identified in T05/RC09. RC10 completion alone is not a trigger. Ask only missing precision, grouped with insurance end only when both are needed and unknown. |
+| Acceptable evidence / confirmation | Explicit job-end/retirement date or relevant employer/notice summary bound to actual insured worker, job and period, with provenance, precision and actual/scheduled/estimated status. Reuse literal same-job RC08/chat facts. A clear ongoing-work/no-planned-end report can resolve only a branch not requiring a scheduled date; never fabricate a date. |
+| Unknown / conflict handling | Unknown/deferred/approximate stays at reported precision. Do not copy insurance end, desired Medicare start, notice date or assumed month-end into job end. Still working now does not erase a scheduled retirement; last day physically at work may not mean employment-end date when the reviewed rule needs a different meaning. Clarify only consequential date/period conflicts; multiple jobs/status/date meanings beyond the field remain explicit gaps. Prospective estimates are not actual official dates. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing required employment date/type/precision holds only job-date-dependent conclusions. Known insurance facts and unrelated work remain usable. No date report alone proves a special enrollment period, deadline, permissible start or verified employment; exact evidence/applicable rule/release gates remain separate. |
+
+## `readiness.facts.RC11.value.coverageEnd`
+
+Existing prompt(s): [RC11](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:377), [RC11.C1](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:701). Role: `reported_fact`. Status: owner_approved_conditional_missing_dates_only_not_domain_or_runtime_acceptance.
+
+Child-prompt review scope (separate from parent approval): RC11.C1: `owner_approved_within_RC11_missing_dates_only_not_domain_or_runtime_acceptance`.
+
+Potential known-fact reuse: `readiness.facts.RC08.value.eventDate only when explicitly the same insurance and end-date type`; `specific benefits/coverage-end report supplied in chat`; `RC11.C1 identical field, not a second fact`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Job health-coverage end date for a requested transition check. |
+| Mandatory / conditional / optional | Conditional when coverage-loss chronology affects the requested rule. |
+| Trigger | The requested timing/gap/transition check needs the identified insurance's end date, still missing/partial/ambiguous/conflicting after reuse. Confirm which insurance/coverage basis is ending when unclear before asking a date. Name the actual insurance; ask only missing precision. RC11.C1 is the same fact, never an extra ask after the parent or RC08 supplied it. |
+| Acceptable evidence / confirmation | Explicit coverage-end date or minimal benefits-administrator/notice summary tied to beneficiary, actual policy, current-employment versus COBRA/retiree basis, period/date meaning, precision and actual/scheduled/estimated status. Reuse same-policy/date-type RC08 or chat reports. No plan numbers/full notice are required solely to report dates. |
+| Unknown / conflict handling | Unknown/deferred/partial is not an assumed last day of month. Never copy employment end or desired start, or use a COBRA/retiree end as the end of active-employment coverage when that is the date the rule needs. Still working does not establish insurance continues. Preserve a stated ongoing/no-planned-end status without inventing a date; clarify only material conflicts or inclusive-end meaning needed by the check. Multiple policy/end-date bindings unsupported by the single field remain explicit gaps; no child retry for an unchanged unknown. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing required insurance date/type/precision holds only dependent coverage-loss/gap/timing conclusions; unaffected work continues. A date report does not verify continuity, qualifying group coverage, a legal window or a safe new start. Exact policy/basis/date evidence, reviewed rule and release gates stay separate; COBRA continuation cannot silently reset a different applicable clock. |
+
+## `readiness.facts.RC12.value.choice`
+
+Existing prompt(s): [RC12](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:395). Role: `reported_fact`. Status: owner_approved_conditional_with_help_unknown_option_and_removed_comparison_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific dated prescription-plan/program creditability notice/report supplied in chat`; `guide.fields.coverage.current only for explicit drug-insurance existence, not creditability`; `RC26 exact-program report plus independently accepted applicable program evidence where supported`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported creditable-drug notice status or explicit no drug coverage. |
+| Mandatory / conditional / optional | Conditional internal missing-fact check only when an actual requested Part D enrollment/deferral/continuity finding or contemplated coverage action needs other prescription-insurance creditability not already established. No routine notice request for other insurance, retirement, browsing, medicine/formulary/price checks or RC11 completion. Applicability belongs to the system, not the user; branch frequency is unmeasured. |
+| Trigger | Identify the beneficiary, named other prescription plan/program, relevant period and concrete consequence from T01/T04/T05/chat (RC09/RC26 only if needed). An explicit penalty question is unnecessary if a contemplated deferral/transition itself needs the check. Reuse an adequately bound notice/program determination/report first. Only then explain why and ask what the named employer/plan told the person, with optional practical/terminology help. Owner explicitly removed the as-good-as-Medicare-standard comparison from proposed consumer wording; never ask them to judge benefit equivalence or require comprehension of that standard. Explicit no drug insurance skips the notice question; history is independently conditional. |
+| Acceptable evidence / confirmation | Explicit positive/negative notice wording or user report of a relevant employer/plan/program determination, with issuer, exact coverage/period and provenance. Reuse a current sufficiently scoped fact without another selection. Ask for only relevant wording/effective period, not member numbers/full documents. Current notice alone proves neither past-year status nor actual continuous enrollment. Exact accepted program evidence can support the fact only with a valid beneficiary/program/period binding. |
+| Unknown / conflict handling | No notice/not checked/unknown/deferred is not an explicit noncreditable determination. The original No and compound yes/no are ambiguous unless meaning is established; never silently reinterpret legacy No. No prescriptions, discount cards, employer size, medical-insurance category or a broad military label supplies drug creditability or absence. Explicit no current drug coverage is distinct from historical continuity. Preserve conflicting notices by plan/period; incomplete or unrepresentable notice/binding meaning remains a gap. Help exposure supplies no fact and unchanged unknown gets no retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Exact dated plan/program creditability determination, actual enrollment-period evidence and relevant L14 program sources separately. L05 formulary coverage, L01 published costs and payer order do not establish creditable insurance. Medicare.gov creditable-coverage guidance checked October 27 supports general terminology, not a personal or independent policy finding. |
+| Readiness gate | Missing required status holds only creditability/deferral/continuity-dependent conclusions. Respond to owner discouragement concern with a brief plain-language purpose and optional practical plan/administrator help alongside the necessary ask, without a prerequisite terminology/document task or mandatory helper/menu turn. Unknown/defer permits other useful work and return/correction; state the exact open finding and evidenced material timing constraints without a global incomplete-profile message or unchanged-unknown retry. Reported Yes alone proves no penalty-free delay, complete history, safe change or verified enrollment. Official evidence, applicable policy, eligibility anchor (G01), assistance/exemption facts (G09) and release gates remain separate. |
+
+## `readiness.facts.RC12.value.gap`
+
+Existing prompt(s): [RC12](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:395). Role: `reported_fact`. Status: owner_approved_conditional_with_help_unknown_option_and_removed_comparison_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC11.value.coverageEnd only with explicit same-prescription-insurance/end-date binding`; `explicit prior drug-coverage history/no-gap report for the relevant period`; `relevant dated drug-insurance notices supplied in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported continuity/gap dates for qualifying drug coverage. |
+| Mandatory / conditional / optional | Conditional internal missing-fact check independently of current notice: only when an actual requested Part D continuity/possible-penalty/timing finding or contemplated enrollment action needs relevant coverage history. No universal history interview, user expertise prerequisite or unsupported branch-frequency assumption. |
+| Trigger | Identify the actual history-dependent finding/action and minimum rule-relevant period/eligibility anchor first; its actual Medicare-drug or other creditable-insurance history remains incomplete after reuse. Explain the consequence and ask only whether an interruption occurred, or only missing dates if already reported. Do not demand lifetime history or user day-count arithmetic, and do not ask because a notice was selected. |
+| Acceptable evidence / confirmation | Explicit no-interruption statement for a named relevant period or prior drug-insurance end/replacement start dates with beneficiary, policy, creditability period and provenance. One reply can supply both notice meaning and continuity. Reuse RC11 dates only when explicitly also the same prescription insurance/date type; medical insurance end alone is insufficient. Preserve exact/partial/scheduled precision; collect only what the requested rule needs. |
+| Unknown / conflict handling | Blank/unknown/deferred is not no gap; explicit no current coverage proves no earlier history. A current positive notice does not establish uninterrupted past creditable insurance. Do not assume medical/drug dates match or use last prescription fill as insurance end. Keep multiple gaps/plan periods, true versus uncertain creditability and date precision distinct. Free-text gap notes do not guarantee calculable chronology; missing anchor/date boundaries remain explicit G01/representation gaps. Do not infer a penalty from a gap alone or re-ask unchanged unknown. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Dated prescription-insurance history and exact plan/program creditability determinations; L12 assistance/exemption evidence where relevant. Official Part D creditability/penalty guidance checked October 27 supports general distinctions, not a completed personal assessment. |
+| Readiness gate | Missing necessary history/anchor/date precision holds only dependent continuity/penalty/timing conclusions. Unknown/defer permits unrelated useful work and later return/correction; explain the specific open finding and evidenced material timing constraints, with optional practical help and no mandatory helper/menu turn, broad penalty warning, global incomplete-profile message or unchanged-unknown retry. No-gap report satisfies only that reported scope; a gap alone proves no penalty or amount. Relevant official evidence, reviewed policy, eligibility/assistance exceptions and release acceptance remain separate. |
+
+## `readiness.facts.RC13.value.choice`
+
+Existing prompt(s): [RC13](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:413). Role: `reported_fact`. Status: owner_approved_conditional_simple_spouse_dependent_examples_help_unknown_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current plus RC09 only for named group-insurance context, not consequences`; `specific prior administrator-confirmation report for the same policy/action/period`; `relevant dated plan/retiree benefit terms supplied in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether a specific contemplated Medicare enrollment/group-insurance change would alter existing employer/union/retiree benefits for the beneficiary or connected people; relevant to a supported route/transition comparison and retaining existing coverage. |
+| Mandatory / conditional / optional | Conditional only when the requested comparison/action depends on consequences for known group-related benefits. No universal household question or automatic follow-up from RC12/RC09; basic education, published plan browsing and unaffected checks continue. |
+| Trigger | T05/RC09/chat establishes the named group/retiree coverage and a concrete contemplated action, such as adding outside MA/PDP or leaving group insurance. Explain the consequence in simple language naming the known spouse/child/person and change, with only a relevant short example: does the wife/child keep work insurance if the person leaves that plan, or do both spouses keep work insurance if one adds Medicare drug coverage? Reuse a relevant confirmation already reported, then ask only the missing plan-specific effect. Examples imply no automatic loss and open no extra family interview. RC12 creditability, retirement or a spouse's existence alone does not trigger it. No relevant connected policy/action means explicit not-applicable reason rather than an assumed no effect. |
+| Acceptable evidence / confirmation | Explicit user report of what the actual plan/benefits administrator confirmed, or relevant policy/notice wording, tied to beneficiary, policy, exact proposed action, affected relationship/benefits and period. Minimal relevant passage or summary suffices for reported input; no family names/member numbers/full document. Record yes/no as the reported impact, with confirmation/source/revision provenance and verified:false. Reuse a sufficiently specific prior reply; not-checked/unknown/deferred is a valid response, not evidence of the outcome. |
+| Unknown / conflict handling | Unchecked/unknown/deferred/administrator unsure never becomes no effect. A user's expectation, creditable status, employer size, active-work status or only being the sole insured does not establish all plan-specific consequences. Preserve conflicting statements by policy/action/period and ask only a material clarification. One choice cannot encode what changes, who is affected, dates, re-entry conditions or mixed outcomes; retain available original report/evidence bindings and explicit G04/representation gaps, with no fabricated details or forced closest value. Recheck changed policy/action/period, without retrying an unchanged unknown. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Exact employer/union/retiree benefit terms and dated administrator confirmation for this action/period remain separate from general Medicare rules and published MA benefit records. Medicare.gov creditable-coverage guidance checked October 27 supports possible group/family coverage impacts, not a personal determination. Relevant policy/action binding remains G04; no new source acceptance is implied. |
+| Readiness gate | Missing required consequence holds only claims that this action preserves existing benefits, has no household impact or is an established suitable transition. Keep otherwise supported comparisons with explicit limitations. An impact report does not automatically exclude a route or prove cancellation permission, eligibility, enrollment timing or re-entry rights. Explain the precise open finding, offer optional practical help, accept unknown/defer and continue unaffected work. Independent plan evidence, reviewed policy and release gates remain; generic yes/no alone cannot unlock recommendations. |
+
+## `readiness.facts.RC14.value.choice`
+
+Existing prompt(s): [RC14](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:431). Role: `reported_fact`. Status: owner_approved_out_of_routine_intake_internal_dependency_at_actual_timing_decision_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific prior payroll/employer/HSA contribution report for the beneficiary's account and relevant period`; `explicit no HSA/no contributions report scoped to the relevant period`; `T04/T05/RC04/RC09 only for beneficiary/timing/work context, not contribution status`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether contributions to the beneficiary's own health savings account create a relevant unresolved Medicare-start/deferral/retroactive-enrollment consideration. |
+| Mandatory / conditional / optional | Conditional internal dependency check; suppress routine-intake asking and defer collection until an actual supported contribution-sensitive enrollment/timing decision needs the missing status. Assess necessity, intrusion, comprehension/document burden and added turns before wording the ask. A desired start month, current-work coverage or incomplete template field alone is insufficient. Legitimate timing work can still require the status before HSA use is volunteered; do not assume no contributions. |
+| Trigger | First identify the concrete requested timing action/result, relevant beneficiary/period, how different contribution answers change that result/next step and whether collecting now can advance useful supported work. Reuse explicit adequately bound reports/evidence from chat rather than asking again. If external holds make further personal intake unhelpful, defer collection and retain the precise dependent limitation. Only a necessary missing status earns a contextual ask, with an evident purpose or one short clause, not a long explanation. Explicit no HSA/contributions for the relevant period skips asking; a current no alone cannot close a separately necessary prior-period check. RC05 B dates are neither a universal prerequisite nor actual A chronology. Unasked is unanswered/not required for this task with an explicit reason, never a fabricated no, user deferral or verified non-applicability. |
+| Acceptable evidence / confirmation | Explicit user report of contributions by the person, employer or another contributor, or explicit none for the relevant account/period; an adequately scoped payroll/benefits/account contribution summary can be reused. Preserve account owner, period, source/confirmation/revision and verified:false. Account identifiers, balance, full statements and amounts are unnecessary solely to answer this status question. A reply giving a contribution amount can supply yes without re-asking or collecting more amounts. Unknown/defer is valid but supplies no contribution finding. |
+| Unknown / conflict handling | Unknown/defer is never no. Having a high-deductible plan, account/card/balance or using saved money for bills does not establish new contributions. Neither self no nor an empty payroll deduction proves employer/other contributions absent. Preserve materially conflicting period reports and clarify only what the requested check needs. A spouse's separate HSA is distinct from the beneficiary's, even on family insurance. Current no does not prove no relevant past contributions. The single choice cannot encode contributor/account/period, contribution tax-year allocation, actual deposit dates or future stop plans; retain supplied bindings and explicit G02/G07 gaps. No unchanged-unknown retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L13 enrollment/coordination. Official enrollment/administrator notices and reviewed rule versions are separate from a user report. This describes required evidence, not independent acceptance. Qualified official Medicare/HSA tax rules for the relevant period and actual enrollment/contribution evidence remain separate. Medicare.gov Working past 65 and IRS Publication 969 (2025 version) checked October 27 support general contribution/Medicare distinctions only; this does not accept a 2026 personal tax calculation or inherit L01 cost-reference acceptance. |
+| Readiness gate | Missing necessary contribution status holds only the dependent HSA-related timing/deferral finding. Reported yes/no supplies no exact stop date, eligibility/excess-contribution/tax result or permission to delay Medicare. G02 actual Part A/application/retroactive chronology and G07 contribution periods/allocation remain separately necessary when the requested rule needs them; do not copy B/desired dates or apply a universal six-month instruction. Offer optional terminology/practical help and accept unknown/defer while continuing unaffected comparisons with the precise HSA timing issue open. Qualified policy/evidence and release gates remain separate. |
+
+## `readiness.facts.RC15.value.choice`
+
+Existing prompt(s): [RC15](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:449). Role: `report_disposition`. Status: owner_approved_internal_check_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC08.value.choice for an explicitly reported event`; `readiness.facts.RC11.value.coverageEnd only as a bound event detail`; `specific prior coverage-change/notice report in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Internal disposition of a reported coverage event/notice for a requested personal Medigap purchase/change-rights check; no independent substantive eligibility finding. |
+| Mandatory / conditional / optional | Conditional internal report disposition only when that actual rights task needs event review. Suppress the standalone broad question and details/none menu; preserve the existing ID/field. General education/path browsing requires no event intake. |
+| Trigger | A supported requested Medigap purchase/change conclusion needs an event-based protection still unresolved after reusing state, relevant age/basis, actual B history and existing event/end-date reports. If another established applicable federal/state protection suffices for this conclusion, skip unnecessary event collection. Derive disposition from an explicit substantive event/no-known-event report without a second selection. Missing B/state/age facts stay linked to RC02/RC05/RC06, not a duplicate RC15 questionnaire; an external policy hold alone earns no new personal question. |
+| Acceptable evidence / confirmation | An explicit user event/notice description or explicit no-known-event statement, with person, policy, period, source/confirmation/revision. A sufficiently specific report from RC08/RC11/chat can establish reported details disposition; that does not confirm a legal qualifying event. Unknown/defer is accepted without supplying a disposition outcome. No requirement to possess or upload a letter solely for this internal field. |
+| Unknown / conflict handling | No known change/notice is not no purchase protection, and no letter is not no event. A blank/unasked/unknown is not none or verified non-applicability. Preserve known events if part of the history is uncertain and keep conflicting periods/policies distinct. Event-report presence is separate from legal relevance; do not default voluntary loss to no rights or a reported loss to guaranteed issue. Reuse B dates as dates only, never as an event report. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L11 Medigap rights, with L13 timing. Exact state, official history/notices and reviewed policy are needed for personal rights conclusions. This describes required evidence, not independent acceptance. Exact state/federal rights, dated coverage terms and relevant notice evidence remain separate. Medicare.gov When can I buy a Medigap policy and the official Choosing a Medigap Policy guide checked October 27 support the distinctions; this is no accepted personal L11 policy or automatic activation of legacy B-date research wording. |
+| Readiness gate | This internal choice independently unlocks no purchase-right, deadline, underwriting, price or recommendation claim. Only the unresolved event-dependent conclusion is held when event information is actually needed; keep other established protections and supported comparisons available. No-known-event is not a negative rights decision. Actual substantive event/date facts, reviewed L11/L13 rules, jurisdiction and independent evidence/release acceptance remain separate. |
+
+## `readiness.facts.RC15.value.event`
+
+Existing prompt(s): [RC15](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:449). Role: `reported_fact`. Status: owner_approved_internal_check_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC08.value.choice`; `readiness.facts.RC08.value.eventDate only when the same event/date meaning`; `readiness.facts.RC11.value.coverageEnd only when the same policy/end-date type`; `specific relevant notice/coverage-history report already supplied in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Specific change/notice supporting a requested Medigap rights check. |
+| Mandatory / conditional / optional | Conditional substantive fact only when a supported personal Medigap purchase/change-rights result needs a missing event detail. Ask a targeted clarification, not the broad original prompt; reuse reports or defer when collection cannot advance useful work under an external hold. |
+| Trigger | First assess the actual requested conclusion and relevant known jurisdiction/age/basis/B/history route. Identify the specific unknown event fact that could change which protection or timeline to check. Reuse RC08/RC11 and later-history reports already volunteered. Ask only a still-missing reason, coverage type, date or notice passage, with context evident. Neither merely mentioning Medigap nor having a missing template field opens a life-event/document checklist. Another sufficiently established applicable right may make this event unnecessary for the requested conclusion. |
+| Acceptable evidence / confirmation | Explicit report or minimal notice/administrator summary of what happened, named coverage/beneficiary, why it ends/changes, actual versus scheduled status and period/date precision as required. Reuse already supplied facts. Request only a specific relevant passage/date if needed; no full document, member numbers, diagnosis or general health history. Keep source/confirmation/revision and verified:false; one reply can supply disposition, reason and dates. |
+| Unknown / conflict handling | Unknown/no notice is not absence of an event/right; voluntary departure alone proves no absence of all federal/state protections, and loss alone proves no guaranteed issue. Distinguish notice date, coverage end and any relevant claim-denial date only where the reviewed rule uses them; never copy one to another or infer a day from month-only storage. Preserve conflicting/multiple events and exact policy bindings. Free text is not automatically validated chronology. G01 precise anchors/G04 policy binding and event/date representation gaps remain explicit; do not re-ask an unchanged unknown. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L11 Medigap rights, with L13 timing. Exact state, official history/notices and reviewed policy are needed for personal rights conclusions. This describes required evidence, not independent acceptance. Exact dated state/federal rules, coverage terms and applicable notices/claims evidence; official Medicare guide checked October 27. A Part B enrollment period, MA/PDP election window and Medigap protection are distinct. Missing official policy/evidence is an external hold, not a reason to invent another customer answer. |
+| Readiness gate | Hold only the particular event-based purchase protection or application-timeline conclusion needing the missing fact. Do not declare no Medigap option, force Advantage, promise acceptance/price or assume no health-based review from an event report. Reuse separately established federal/state protections; general teaching and qualified comparisons can continue with explicit limits. Exact evidence, adequate dates/jurisdiction, reviewed L11/L13 policy and independent release gates remain required. |
+
+## `readiness.facts.RC16.value.choice`
+
+Existing prompt(s): [RC16](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:467). Role: `reported_fact`. Status: owner_approved_conditional_missing_details_only_child_review_separate_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific prior first-Advantage-entry/history report in chat`; `RC07 only for explicit current arrangement, not first-ever history`; `RC15 event details only when they explicitly include the same history`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether the identified Medicare Advantage enrollment was the person's first, only for the specific requested Medigap return/purchase protection that depends on it. |
+| Mandatory / conditional / optional | Conditional independently of start date/prior Medigap. Suppress the blanket three-part question and universal history collection; ask this fact only when the actual supported transition-rights branch needs it. |
+| Trigger | Known current/recent Advantage enrollment plus an actual Original Medicare/Medigap transition-rights request; the reviewed branch depends on first-entry history still missing after reuse. Check whether another applicable state/event protection already suffices. MA status, plan termination/move or RC15 completion alone does not trigger all RC16 facts. Defer collection if an external hold means it cannot advance useful requested work. |
+| Acceptable evidence / confirmation | Explicit report that the named episode was the first Advantage enrollment, or a prior Advantage episode existed, tied to beneficiary/episode/period and source/confirmation/revision with verified:false. Reuse an unambiguous earlier report without another selection. A plan/coverage-history summary can support the report; no complete lifetime plan list is needed solely for this distinction. |
+| Unknown / conflict handling | Unknown/defer is not first or not-first. A new insurer, annual plan renewal or first year in a particular product does not establish first-ever Advantage entry. Clarify only consequential ambiguity between application/coverage episode/carrier and preserve conflicting histories. Current age or first plan alone does not establish enrollment when first eligible for Part A at 65; G01 remains explicit. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L11 Medigap rights, with L13 timing. Exact state, official history/notices and reviewed policy are needed for personal rights conclusions. This describes required evidence, not independent acceptance. Exact official enrollment history and dated federal/state trial-right rules separately; official Medicare Medigap guide checked October 27 distinguishes first-eligibility and dropped-Medigap trial situations. General reading accepts no personal protection or L11 policy. |
+| Readiness gate | Missing necessary first-entry status holds only the specific first-entry-dependent protection, not all Medigap availability. No is not no rights and Yes is not guaranteed issue. Relevant enrollment anchor, start/history, jurisdiction, exact policy/evidence and independent release gates remain; continue unaffected work. |
+
+## `readiness.facts.RC16.value.start`
+
+Existing prompt(s): [RC16](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:467), [RC16.C1](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:719). Role: `reported_fact`. Status: owner_approved_conditional_missing_details_only_child_review_separate_not_domain_or_runtime_acceptance.
+
+Child-prompt review scope (separate from parent approval): RC16.C1: `owner_approved_within_RC16_missing_dates_only_not_domain_or_runtime_acceptance`.
+
+Potential known-fact reuse: `RC16.C1 identical field, not another fact`; `specific actual Advantage start report supplied in chat`; `RC08/RC15 event date only when explicitly the same actual episode start`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Actual start of the relevant Advantage episode. |
+| Mandatory / conditional / optional | Conditional independently: only when the requested protection/timeline depends on this episode's actual coverage start. RC16.C1 shares this field and never earns a second ask once known. |
+| Trigger | A supported requested return/purchase-rights branch needs a missing actual start after relevant history is identified. Reuse a sufficiently precise report. Ask month/year initially only if sufficient; request a finer missing boundary only if the rule needs it. Another sufficient state/event protection can remove this collection need; do not ask simply because first-entry status was answered. |
+| Acceptable evidence / confirmation | Explicit actual coverage-start date/month-year or enrollment-history/notice summary bound to the named beneficiary and relevant episode, with precision and source/confirmation/revision. One reply may supply this along with other RC16 facts. No full document/member number is needed for initial reporting. |
+| Unknown / conflict handling | Unknown/approximate stays unresolved at that precision. Application date, desired switch, current-year renewal, Part B start and a carrier change cannot silently substitute for the relevant Advantage start. Distinguish first entry from current product start; do not invent the first day of a month or a reference year. Preserve conflicts and multiple episodes; free text is not automatically a validated rights timeline. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L11 Medigap rights, with L13 timing. Exact state, official history/notices and reviewed policy are needed for personal rights conclusions. This describes required evidence, not independent acceptance. Exact dated enrollment evidence and reviewed federal/state trial/transition policy separately. Catalog year/product availability cannot establish personal enrollment history. |
+| Readiness gate | Missing necessary date/precision holds only the start-dependent protection/timeline. A recent start alone proves neither first entry, enrollment at first Part A eligibility, prior-policy return rights nor an election window. G01 anchors, exact history/state/evidence/policy and release gates remain separate. Unaffected comparisons continue. |
+
+## `readiness.facts.RC16.value.priorMedigap`
+
+Existing prompt(s): [RC16](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:467), [RC16.C2](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:737). Role: `reported_fact`. Status: owner_approved_conditional_missing_details_only_child_review_separate_not_domain_or_runtime_acceptance.
+
+Child-prompt review scope (separate from parent approval): RC16.C2: `owner_approved_within_RC16_missing_details_only_not_domain_or_runtime_acceptance`.
+
+Potential known-fact reuse: `RC16.C2 identical field, not another fact`; `specific prior Medigap dropped-to-join/history report in chat`; `RC15 event report only when explicitly the same Medigap-to-Advantage transition`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether/what actual Medigap preceded the relevant Advantage episode and, only when the requested rule needs it, whether it was left to join that episode; prior ownership and the transition link are distinct. |
+| Mandatory / conditional / optional | Conditional independently: only when the requested protection or former-policy return depends on this prior history. Never collect automatically for a first-eligibility-at-65 branch or when another protection already resolves the requested result. RC16.C2 shares this field. |
+| Trigger | Identify the actual prior-policy-dependent protection, then reuse prior T05/RC15/chat reports of the same transition. Ask only a missing fact: whether the person left an actual Medigap policy to join the named Advantage episode, or the minimal policy/chronology detail a return check needs. Merely having Advantage or considering Original Medicare does not trigger the entire prior-policy interview. |
+| Acceptable evidence / confirmation | Explicit actual Medigap ownership/no-prior report or specific transition-link report tied to beneficiary/episode/period and the exact question/meaning. A clear I left Medigap to join this plan supplies that reported link; a historical-policy report alone does not. Minimal former carrier/policy/period and ending detail only when needed for the supported requested return check, with original report/source/confirmation/revision and verified:false. No full policy/member numbers or clinical history is needed merely to report this. A single reply can supply related start/first-entry facts without duplicate asks. |
+| Unknown / conflict handling | Unknown is not no prior Medigap. No to Did you leave Medigap to join this plan? denies that transition only, not all previous Medigap ownership; preserve positive history and the scoped negative. A prior policy or generic supplement label is not automatically actual Medigap, and ever having Medigap does not establish dropping it to join this first Advantage episode. Employer retiree coverage and separate drug insurance remain distinct. Keep ownership, ending reason/date, policy identity and availability separate; a boolean/string alone may not represent them faithfully, so retain G04/G14/chronology gaps and raw meaning rather than force a value. No/unknown does not eliminate all purchase routes; Yes guarantees no same-policy reinstatement/price or coverage. Preserve conflicts and deduplicate parent/child; no unchanged-unknown retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L11 Medigap rights, with L13 timing. Exact state, official history/notices and reviewed policy are needed for personal rights conclusions. This describes required evidence, not independent acceptance. Exact former policy/termination and Advantage entry evidence; reviewed state/federal return rules and carrier confirmation of former-policy availability when the actual rule needs it. The guide's two federal trial situations do not share identical history requirements. |
+| Readiness gate | Missing necessary history holds only prior-policy-dependent protection/return findings. No prior policy does not eliminate every purchase route; prior ownership alone guarantees neither reinstatement, same policy/price nor health-review exemption. Exact first-entry/start/eligibility anchor where applicable, prior-policy availability, jurisdiction/evidence/policy and independent release gates remain separate. |
+
+## `readiness.facts.RC17.value.choice`
+
+Existing prompt(s): [RC17](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:485). Role: `reported_fact`. Status: owner_approved_goal_current_coverage_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `T01 specific reported goal and guide.fields.coverage.current for identified current coverage`; `specific current-policy exploration/keep/change report supplied in chat`; `RC15 event report only if it explicitly describes the same current policy and intention`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | The person's reported goal for an identified current Medigap policy: retain it, explore alternatives or a particular change, with actual commitment distinguished from exploration. Supports correct review scope and any later replacement-specific analysis. |
+| Mandatory / conditional / optional | Conditional internal intention/scope check consolidated with the existing goal/current-coverage conversation. Suppress a routine replacement yes/no ask. Exploring options or remaining undecided does not block useful comparison or require a replacement commitment. |
+| Trigger | An actual current Medigap policy and requested work make the target policy/intention consequential, but exact supported prior goal reports do not already establish it. Reuse T01/T05/RC15/chat before asking. Clarify only an ambiguity that would change the next useful review, cause unnecessary intake or affect an actual replacement-specific finding. A vague request with known supplement and drug policies may justify asking which coverage to review; do not force a keep/replace decision merely to fill the field. RC16 completion, a price preference or Medigap history alone is insufficient. |
+| Acceptable evidence / confirmation | Explicit goal for the named current policy, including a clear request to compare alternatives, an expressed intent to retain/change or an explicit undecided response; preserve person, policy, period, source/confirmation/revision. Reuse unambiguous free text without redundant confirmation. Comparing premiums is an exploration report, not commitment or permission to cancel. No policy documents, member numbers, health history or full finances are needed solely for intention. Actual existing-policy status/rights/evidence remain separate. |
+| Unknown / conflict handling | Unknown/undecided is never keep or replace by default. Preserve exploring, decided intent, retaining, considering leaving without another Medigap policy and explicit limits as distinct meanings. The two original options cannot faithfully encode them all; keep the raw report and explicit representation gap rather than forcing a closest legacy value. Current Medigap versus separate Part D or other insurance must be identified from known facts, not inferred from the word plan. A historical policy is not an existing one; an intention is not an executed cancellation. Reconcile material contradictions with the person rather than last-report overwrite. |
+| Source / data layer | Customer-reported goal/intention and T01/T05/RC15/chat provenance; no external proof is needed to report a preference. G04 exact current-policy binding and L11 state/federal replacement/purchase/return rights with L13 timing remain separate for any supported consequence. Medicare.gov Can I change my Medigap policy checked October 27 supports preserving replacement/return safeguards, not assuming individual acceptance or cancellation authority. |
+| Readiness gate | Missing target scope holds only the review or replacement-specific conclusion that needs that distinction; offer broad comparison if that meets the user's goal. Undecided does not block learning, supported comparisons or retaining the existing policy as an option. No intention report authorizes cancellation/enrollment, establishes replacement acceptance/effective dates, rights to return or continuity. Any actual replacement consequence requires exact existing/new coverage evidence, reviewed policy and separate explicit action authorization/release gates. More intake cannot resolve an external hold. |
+
+## `readiness.facts.RC18.value.choice`
+
+Existing prompt(s): [RC18](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:503). Role: `reported_fact`. Status: owner_approved_conditional_named_program_receipt_wording_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current only for explicit beneficiary/period-specific Medicaid report`; `specific prior assistance-program/award report in chat`; `accepted sufficiently bound program evidence plus separately attributed derivation, never assumed user confirmation`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported existing assistance programs relevant to the requested personal cost or program-dependent qualification check, distinct from potential eligibility, financial means or willingness to disclose. |
+| Mandatory / conditional / optional | Conditional at a supported assistance-dependent result/help task, not routine intake or a universal program checklist. Narrow to the still-unknown program fact actually needed. Accurate personal pricing can require this status even without a volunteered cost concern; a lower-cost preference alone is no income/eligibility finding. |
+| Trigger | Identify the beneficiary, relevant state/program where needed, target cost/eligibility period and exact result affected; reuse T05/RC18/chat reports and applicable sufficiently bound accepted evidence first. Ask only a missing assistance fact that can change the supported next result, such as current Extra Help for personal prescription pricing or state Part B help for that premium task. A program-related help request may open brief education before any assessment. No affordability label or broad Medicaid report automatically opens a full means test, SNP interview or repeated assistance menu. If external holds mean collection cannot advance useful work, defer and retain the specific limitation. |
+| Acceptable evidence / confirmation | Explicit relevant program name/state/period report, a sufficiently scoped benefits/award/plan summary, explicit none known or unknown/decline. Reuse every known positive; one reply may name several programs. Preserve person, program, period, source/confirmation/revision with verified:false for user reports. Initial existing-status collection needs no income/assets, account numbers, SSN or full documents. An accepted rule may derive a linked entitlement from sufficiently established exact program facts, but label that derivation/source separately and never fabricate a customer confirmation of another program. |
+| Unknown / conflict handling | None known, explicit no for one named program, unknown, partial knowledge and declined are distinct and do not prove ineligibility. An Extra Help No is not global None; a scoped decline/unknown never erases another known program. Preserve multiple positives and partial program states; the single choice's representation limitations remain explicit. Broad Medicaid is not automatically full-benefit/particular MSP, SSI is not general Social Security retirement/SSDI, and paying Part B through a deduction is not necessarily state help. Insurance/discount coupons are not silently classified as a named aid program. Reconcile material program/period conflicts; current-year evidence does not establish next-year status. G09 exact level/effective scope remains open. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L12 official assistance rules/program determination, with exact L06 personal pricing or L02/SNP restrictions and reviewed qualification policy where the requested task needs them. User reports remain separate from derived entitlement and official verification. Exact program/level/beneficiary/state/period and G09 applicability are required for adjusted conclusions. Medicare.gov Extra Help, Medicare Savings Programs and Medicaid guidance checked October 27 supports general program distinctions only; no published amount/threshold is imported or accepted. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary program/level/period holds only the assistance-adjusted personal cost or exact qualification conclusion that depends on it. Clearly labeled standard published costs or scoped scenarios and other comparisons can continue, without presenting unadjusted prices as the person's final payment or defaulting no help. Unknown/declined/none known is not program ineligibility or grounds to silently exclude SNPs; reported Medicaid/SSI/Extra Help alone establishes no exact D-SNP acceptance. Any new financial eligibility assessment is a separate supported requested task with explicit fact/evidence gaps, not automatic intake. Official applicability/evidence and release gates remain separate. |
+
+## `readiness.facts.RC19.value.choice`
+
+Existing prompt(s): [RC19](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:521). Role: `report_disposition`. Status: owner_approved_internal_check_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `RC18 exact program report only as a reported prerequisite, not final plan qualification`; `specific plan/type/year confirmation already reported in chat`; `explicit user choice to explore/not explore this type, distinct from evidence`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Internal status of reported confirmation for the identified Special Needs Plan/type, separate from the person's preference to explore or decline that type. |
+| Mandatory / conditional / optional | Conditional internal report/scope check, not a routine proof question or details/none/decline menu. Current inventory scope is flags/referral; detailed matching remains future/held. Keep evidence status distinct from whether the person wants to explore. |
+| Trigger | A named supported candidate/type and actual requested eligibility-dependent task require a check, with exact published requirements established and prior relevant T03/RC04/RC18/chat reports reused. A voluntarily reported relevant circumstance may support explaining a possible plan type, but does not trigger a generic health/financial screen. Presence of a report can populate internal status without another selection; missing external verification alone earns no repeated personal question. If useful only for unavailable detailed matching, defer collection. |
+| Acceptable evidence / confirmation | A sufficiently scoped explicit report of confirmation, an explicit not-checked/no-confirmation response, or a separately explicit preference not to explore. Preserve beneficiary, exact plan/type, year/period, confirming source/role and provenance; a reported plan statement remains a report, not independent enrollment approval. No generic proof inventory or full records is needed for this disposition. |
+| Unknown / conflict handling | Unasked, unknown and no confirmation are distinct; none means neither ineligible nor declined. Decline is a scope preference, never an eligibility finding or fabricated confirmation status. Preserve known program facts and partial reports. The legacy single choice conflates evidence and preference; keep meanings separate with an explicit representation gap rather than forcing a false value. Reconcile consequential plan/year/source conflicts only; no unchanged-unknown retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L02 exact candidate identity/type/service-area/year restrictions, L12 relevant program evidence and reviewed official SNP rules; L13 Medicare enrollment timing where needed. Medicare.gov SNP guidance checked October 27 requires Medicare A/B, service area and the specific type's eligibility conditions. Actual plan/program verification and detailed matching remain independent/held. This describes required evidence, not independent acceptance. |
+| Readiness gate | Disposition independently unlocks no SNP eligibility, ranking, personal fit or enrollment claim. No confirmation leaves a specific eligibility finding unresolved; show a potentially relevant option with its limitation rather than silently excluding it. Explicit scope preference can pause that exploration without classifying the person ineligible. Continue other supported work and offer an appropriate verification/referral step; detailed matching/release gates remain separate. |
+
+## `readiness.facts.RC19.value.qualification`
+
+Existing prompt(s): [RC19](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:521). Role: `reported_fact`. Status: owner_approved_internal_check_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC18.value.choice only for exact explicit program/person/period reports`; `RC02/T03 and RC04 only for sufficiently bound location and A/B reports, not verified eligibility`; `specific relevant plan/program/provider confirmation already volunteered in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Specific report/evidence needed for the requested SNP type. |
+| Mandatory / conditional / optional | Conditional minimum substantive fact only when a supported specific plan/type qualification or referral check can use it now. No routine diagnostic, institutional or financial history; unavailable detailed matching is not a reason to collect sensitive facts. |
+| Trigger | Identify candidate/type/year and establish the exact published requirement before asking for further sensitive eligibility facts. Reuse sufficiently bound program, A/B, location and volunteered circumstance/confirmation reports. Clarify a missing candidate/period binding only when a volunteered report needs it; then ask only a fact capable of advancing that specific task. A broad assistance selection or a medicine/provider list does not open all three SNP pathways; if no supported result can advance, defer to verification/referral. |
+| Acceptable evidence / confirmation | Minimal explicit report for the named relevant requirement or scoped plan/program/provider confirmation: beneficiary, candidate/type/year, applicable program/category/condition or care-status fact only where truly needed, period, issuer/source/confirmation/revision with verified:false for reports. A short relevant notice passage or exact wording may help; no full medical/financial record, member number or document chase solely to populate a field. |
+| Unknown / conflict handling | Unknown/no evidence remains unresolved, not ineligible. Broad Medicaid, Extra Help or SSI alone proves no particular D-SNP acceptance; exact accepted category/state/period remains G09. Never infer a diagnosis from drugs/providers, chronic eligibility from generic disability, or institutional qualification from an address/facility label. A current criterion report may not cover the target year or specific plan subset. Generic someone said I qualify needs plan/type/year/source binding only if consequential. Preserve mixed/partial/conflicting reports and G04/G09 representation gaps rather than forced specificity. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L02 exact plan/type/year/service-area restrictions, L12 official program/category evidence and reviewed Medicare/plan SNP qualification requirements, with L13 enrollment context where needed. Actual plan/program/qualified-provider verification for the relevant type is separate from customer reports. Federal SNP guidance checked October 27 is general education, not accepted personal matching or a clinical/financial finding. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing exact criterion/binding holds only the named plan/type eligibility/personal-fit conclusion that depends on it. Reported program enrollment or confirmation alone does not establish all requirements, continued qualification, enrollment opportunity or recommendation readiness. Keep unknown options visible with explicit limits and continue other work. Current MVP flags/referral may prepare the verification step, while detailed matching and independent policy/evidence/release acceptance remain held. |
+
+## `readiness.facts.RC20.value.choice`
+
+Existing prompt(s): [RC20](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:539). Role: `reported_fact`. Status: owner_approved_T08_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.travel with original T08 question/answer context`; `T06/chat only when explicitly an intended away-care provider/need`; `specific prior care-intention report for the same place/period`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Reported planned/routine versus other care needs away from home, where that distinction affects the requested provider/travel access result. |
+| Mandatory / conditional / optional | Conditional missing-meaning check consolidated with T08; suppress a repeated broad question/menu. Reuse clear T08 question/answer context and explicit chat reports without another turn. |
+| Trigger | A supported access result needs a still-unclear care intention for the relevant place after T08/T06/chat reuse. A clear routine-care T08 answer already supplies planned-care meaning. Travel, unknown, moving or source failure alone earns no full travel interview; general education may need no personal destination. |
+| Acceptable evidence / confirmation | Explicit T08 selection in its original context or free-text planned-appointment/routine-care/emergency concern report, bound to beneficiary, location/period and source/confirmation/revision. Reuse explicitly intended away-provider care. No diagnosis or complete treatment/travel calendar is needed solely for this distinction. |
+| Unknown / conflict handling | Travel alone is not planned care; unknown is not emergency-only. No planned visits does not establish every urgent/emergency need or actual coverage; unexpected illness is not automatically a medical emergency. Preserve separate geography/care-kind dimensions and combinations across places. Broader U.S. includes same-state away care. The original single choice mixes U.S./abroad/emergency-only; retain original reports and explicit G06 gaps, not a forced closest option. Seasonal care does not redefine home. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L08 exact provider/access and L03/L10 dated path-specific travel/out-of-area terms; official Original Medicare rules where applicable. A need report is distinct from verified network/coverage. Medicare.gov HMO/PPO/foreign-travel guidance checked October 27 supports general distinctions only; no accepted L03 revision changes. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary care meaning holds only the dependent travel/provider-fit finding. Continue other local/general work. Planned care alone proves no coverage, authorization, network status, hard priority or automatic path preference. Emergency benefits establish no routine access. Intended provider/location/year, actual terms and independent evidence/release gates remain separate. |
+
+## `readiness.facts.RC20.value.location`
+
+Existing prompt(s): [RC20](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:539). Role: `reported_fact`. Status: owner_approved_T08_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.travel and explicit T08/chat destinations`; `T06/RC21 city only with explicit intended-away-care binding`; `specific prior public care places/periods`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Specific away-care geography only at the precision needed by the requested access/travel check. |
+| Mandatory / conditional / optional | Conditional independently of care kind; consolidate with T08 and reuse intended-provider locations. Collect no city/itinerary when general guidance suffices. |
+| Trigger | A supported exact result changes with a still-missing destination after T08/T06/chat reuse. Ask only needed city/state, country or intended provider office. Duration/period is requested only if a specific reviewed source condition uses it. An unavailable source earns no itinerary or repeated city ask. |
+| Acceptable evidence / confirmation | Explicit relevant public city/state/country or intended care locations, with beneficiary/period and confirmation/provenance. Reuse a provider city only when the user actually intends care there; directory address alone is insufficient. Several destinations may come in one reply. No lodging address or full calendar is needed for ordinary access checks. |
+| Unknown / conflict handling | Unknown/not decided/partial stays at its actual precision. Never guess a city from a state, substitute seasonal location for home ZIP/residence or classify same-state away care as local by default. Apply the actual policy's U.S./territory definition rather than guessing foreign status. Bind multiple places to their own needs/periods and preserve G06 single-field representation gaps. Clarify material ambiguity only; no unchanged-unknown retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L08 exact intended-provider/access binding, L03/L10 dated specific travel/out-of-area terms and official Original Medicare geography rules. A place report verifies neither residency/service-area eligibility nor access. Exact source/year/provider/destination applicability and acceptance remain separate. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary place/precision/period holds only that destination-specific finding; other supported work continues with the limit explicit. A city or abroad selection proves no network status, routine/emergency payment or duration entitlement. Actual terms/provider evidence and release gates remain; more private travel details cannot cure a missing external source. |
+
+## `readiness.facts.RC21.value.choice`
+
+Existing prompt(s): [RC21](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:557). Role: `report_disposition`. Status: owner_approved_T06_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.providersStatus`; `guide.fields.needs.providers`; `T06 explicit item/office confirmation or correction`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Internal disposition of the particular provider item being checked, corrected or explicitly removed; no separate Add details selection. |
+| Mandatory / conditional / optional | Conditional internal report/scope metadata consolidated with T06 free text and grouped identity/office echo. Suppress a second provider-details questionnaire/menu. |
+| Trigger | An actual requested provider-access task needs clarification of this item's report/scope after prior facts are reused. Derive status from substantive details/confirmation or explicit item removal, without another control. Missing directory/network evidence is removed as a personal-question trigger; distinguish unknown customer identity detail from an external verification hold. |
+| Acceptable evidence / confirmation | Explicit T06/chat item report, meaningful provider-match confirmation/correction or intentional no-longer-needed instruction for that named item, with beneficiary/item/period and source/confirmation/revision. No Add practice/location gate or repeated are-you-still-seeing question merely to populate status. |
+| Unknown / conflict handling | Unknown/unmatched/source failure is never remove/no provider. No longer needed applies only to the identified item, not the entire list. Preserve other named/uncertain providers, supplied raw details and changed intent. The single global choice cannot encode mixed item dispositions faithfully; keep that representation gap explicit rather than erasing the list. A listed provider does not automatically become a hard priority. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L08 provider identity/access with exact plan/year context. Source record/office binding and user identity confirmation do not prove network/access or cost. This describes required evidence, not independent acceptance. Existing T06/chat scope and report provenance are reused; internal disposition is distinct from registry identity, plan network evidence and confirmed clinical access. |
+| Readiness gate | Status independently unlocks no identity, in-network, accepting-patients, coverage or recommendation claim. Explicit removal changes only the current review's named item; it does not prove provider absence or delete unrelated reports. Unaffected providers/work continue; unresolved item-specific facts and independent external gates remain. |
+
+## `readiness.facts.RC21.value.items[].entity`
+
+Existing prompt(s): [RC21](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:557). Role: `internal_link`. Status: owner_approved_T06_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.providers actual item reference and original report`; `existing stable item ID/confirmation lineage`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Stable binding between a reported provider item, confirmation and result. |
+| Mandatory / conditional / optional | Mandatory internal link once a provider item exists; system-generated, never a consumer question or request for an NPI. |
+| Trigger | Create/preserve a stable reference for each actual reported item so details, candidates, confirmations, corrections and results stay bound through list changes; a raw unmatched report can have an ID without a verified external identity. |
+| Acceptable evidence / confirmation | System-created stable reference linked to the original item/report, beneficiary/period and source/confirmation/revision as available; G05 separately holds any exact trusted provider/office/source-record binding. |
+| Unknown / conflict handling | Never use first-item/list-position defaults, collide namesakes or silently merge people/offices. Internal entity is not NPI, registry identity or proof of network participation. Keep unresolved candidates and external bindings separate; preserve correction provenance. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L08 provider identity/access with exact plan/year context. Source record/office binding and user identity confirmation do not prove network/access or cost. This describes required evidence, not independent acceptance. Internal profile linkage and G05 external source-record/version binding are different evidence requirements; no identifier needs to be supplied by the person. |
+| Readiness gate | Do not attribute a confirmation or access result without the correct item binding. A generated ID establishes no clinician identity/office/participation. Hold only unsafe attribution while preserving other items and exact external-evidence gaps. |
+
+## `readiness.facts.RC21.value.items[].practice`
+
+Existing prompt(s): [RC21](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:557). Role: `reported_fact`. Status: owner_approved_T06_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.providers raw report`; `T06 explicit current identity/office echo confirmation`; `specific already-confirmed named-provider report in chat`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact intended doctor/hospital and practice identity for each item. |
+| Mandatory / conditional / optional | Conditional only for the specific provider identity/access result needing this identity. Consolidate with T06; no blanket demand for every practice name if confirmed sourced records already suffice. |
+| Trigger | A named intended provider/hospital is still genuinely ambiguous after prior reports and actual available candidate records are used. Ask only distinguishing name/practice/city as needed. Use one compact grouped T06 echo for consequential new matches, not a separate turn for each known field/item. Source unavailability alone earns no new question or fabricated candidate. |
+| Acceptable evidence / confirmation | Sufficiently specific explicit provider/practice report, user confirmation of a real evidence-backed full-identity/office candidate, or reused current confirmed binding. Candidates must come from actually available sourced records, with freshness/scope limits; autocomplete remains optional. Accept free text/not listed/unknown and preserve original wording. |
+| Unknown / conflict handling | Never choose the closest/first match by default or equate no match with provider absence. Preserve namesakes, unmatched records and partial/conflicting reports; clarify only material distinctions. A generic practice or hospital affiliation does not identify every clinician/facility. Identity confirmation is separate from network or patient acceptance. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L08 provider identity/access with exact plan/year context. Source record/office binding and user identity confirmation do not prove network/access or cost. This describes required evidence, not independent acceptance. G05 trusted record/office/version and original report/confirmation bind the exact entity. Provider inventory/matching completeness and adapters remain explicit gaps, not assumptions. |
+| Readiness gate | Missing necessary identity holds this item's attributed identity/access finding and any claim that all listed providers were checked; other items can proceed. Confirmed identity alone proves no in-network participation, Original Medicare acceptance, appointment availability, price or authorization. Exact plan/year/access evidence and independent release gates remain. |
+
+## `readiness.facts.RC21.value.items[].city`
+
+Existing prompt(s): [RC21](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:557). Role: `reported_fact`. Status: owner_approved_T06_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.providers existing office report`; `T06 explicit exact-office confirmation`; `RC20.location only when explicitly the same intended provider office/location`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | The intended provider office city/state/location. |
+| Mandatory / conditional / optional | Conditional only when a missing office location distinguishes the intended provider or exact requested result. Reuse T06/RC20 intended-care reports and confirmed office records; no mandatory new city/address ask. |
+| Trigger | A supported identity/access task still needs the actual office after source/report reuse. Ask city/state first only if sufficient; show real sourced office options if several remain and that distinction matters. Request street/landmark only at necessary precision, not a full clinical/travel history. An unavailable network dataset is not missing patient location. |
+| Acceptable evidence / confirmation | Explicit relevant office location, reuse of a clearly intended-care location or confirmation of an actual sourced office candidate, bound to the provider item/person/period and provenance. One grouped echo may confirm several office matches. No need to retype practice/city/address after the exact office is confirmed. |
+| Unknown / conflict handling | No home ZIP, nearest office or another office's status as a default. Same-city campuses, several intended offices and changed locations remain distinct; do not force one. A city string alone may not encode the required exact office/address/source binding; retain G05 representation/evidence gaps. Unknown stays unknown with no unchanged retry. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L08 provider identity/access with exact plan/year context. Source record/office binding and user identity confirmation do not prove network/access or cost. This describes required evidence, not independent acceptance. Exact intended office/source-record and plan/network/year evidence separately; RC20 destination alone supplies no doctor identity or residence finding. |
+| Readiness gate | Missing necessary office/precision holds only that office-specific attributed access finding. A public address or user identity confirmation establishes no network participation, accepting-patients status or covered appointment. Keep source failure distinct from missing customer detail, continue other supported work and retain independent evidence/release gates. |
+
+## `readiness.facts.RC22.value.choice`
+
+Existing prompt(s): [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575). Role: `report_disposition`. Status: owner_approved_T07_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicinesStatus`; `guide.fields.needs.medications`; `T07 explicit item confirmation/correction and intended period`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Internal scope/disposition of the particular medicine being checked, corrected or explicitly reported as no longer taken; no separate Add details gate. |
+| Mandatory / conditional / optional | Conditional internal report metadata consolidated with T07 free text and consequential identity echo. No routine medication-currentness or four-detail questionnaire. |
+| Trigger | An actual requested drug task needs this item's missing scope or identity after prior reports are reused. Substantive details/confirmation supply status without a menu. Source failure or unmatched identity is not a personal-question trigger by itself. |
+| Acceptable evidence / confirmation | Explicit T07/chat medicine report, meaningful product confirmation/correction or intentional item-specific no-longer-taking report, bound to beneficiary/item/period and report/confirmation/revision. Distinguish currently taken, planned and historical review scope without silently discarding an intended future check. |
+| Unknown / conflict handling | Unknown, deferred, unmatched and source failure never mean stopped/no medicine. Removal changes only the named item's current review scope; preserve original reports and other medicines. A global choice cannot faithfully encode mixed item statuses; retain that representation gap. Medicine use does not establish diagnosis, clinical advice or a hard priority. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; trusted drug identity plus L05 formulary/restrictions. Match exact product, plan and benefit year; availability of an adapter is not established. This describes required evidence, not independent acceptance. T07/chat item scope and original-report provenance are reused; reported use and identity are distinct from externally verified coverage. |
+| Readiness gate | Disposition supplies no exact product, formulary/restriction or price result. Explicit removal narrows only the agreed current scope. Unresolved items hold their dependent result and an all-requested-medicines-checked claim; other supported work continues. |
+
+## `readiness.facts.RC22.value.items[].entity`
+
+Existing prompt(s): [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575). Role: `internal_link`. Status: owner_approved_T07_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medications original item reference`; `existing current stable item ID and confirmation lineage`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Stable link from a reported medicine to its identity/fills/results. |
+| Mandatory / conditional / optional | Mandatory internal link once a medicine item exists; system-generated, never a consumer request for a code. |
+| Trigger | Create/preserve an item reference across T07 and RC22/RC23/RC24 confirmations, fills, corrections and results. An unmatched reported item can have a stable reference before external product identity is resolved. |
+| Acceptable evidence / confirmation | System-created stable item reference linked to the original report/person/period and actual confirmation/revision; reuse an existing current binding. G05 separately requires exact trusted product/source-record/version binding. |
+| Unknown / conflict handling | No first-item/list-position defaults or silent merge of different products/strengths. Internal reference is not RxCUI, NDC or verified product. Preserve candidate versus confirmed product and correction lineage separately. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; trusted drug identity plus L05 formulary/restrictions. Match exact product, plan and benefit year; availability of an adapter is not established. This describes required evidence, not independent acceptance. Internal profile linkage is separate from G05 trusted external product and source/version binding. |
+| Readiness gate | Do not attribute identity, fill, setting or coverage/price evidence without the correct item binding. A generated ID establishes neither product identity nor coverage; hold unsafe attribution while preserving other items. |
+
+## `readiness.facts.RC22.value.items[].name`
+
+Existing prompt(s): [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575). Role: `reported_fact`. Status: owner_approved_T07_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medications original report`; `guide.fields.needs.medicationDetails`; `T07 current consequential product-identity confirmation`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | The intended actual medicine/ingredient or branded product for an exact requested coverage/price check, distinct from optional preference. |
+| Mandatory / conditional / optional | Conditional for a supported product-specific result requiring this identity; consolidate with T07. General education does not automatically require an exact product interview. |
+| Trigger | The relevant name/product is still missing or ambiguous after T07/chat and confirmed current identity reuse. Ask only the missing distinguishing fact. Group consequential new product interpretations in T07's echo; no separate replay for every item or known field. Missing formulary/adapter evidence earns no repeated name ask. Owner-directed structured follow-ups use searchable product options or dropdowns of actual sourced relevant attributes when available, with no preselection and typed/not-listed/unknown/defer alternatives; retain T07's initial free text and never invent a catalog. Exact control copy remains proposed. |
+| Acceptable evidence / confirmation | Sufficiently specific explicit label/name report or user confirmation of an actual trusted-source product candidate, with original wording, person/item/period and provenance. Reuse confirmed current bindings. Show only actually sourced candidates plus free text/not listed/unknown; no assumed complete catalog. |
+| Unknown / conflict handling | Never guess a common/closest drug or substitute brand/generic or another treatment. No match is unresolved, not uncovered or no medicine. Preserve supplied brand as actual identity, candidate status, partial/conflicting details and correction history. Optional preference cannot fill missing actual identity. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; trusted drug identity plus L05 formulary/restrictions. Match exact product, plan and benefit year; availability of an adapter is not established. This describes required evidence, not independent acceptance. G05 product/source/version binding and reported identity confirmation remain separate. NLM RxNorm Overview checked October 27 supports ingredient/strength/dose-form and branded-product identity distinctions; terminology is not formulary evidence. |
+| Readiness gate | Missing necessary product identity holds this medicine's exact coverage/restriction/price finding and any all-medicines-checked claim. Other products/general supported work continue. Confirmed identity still needs exact plan/year L05 evidence and L06 pricing evidence where relevant; no recommendation release. |
+
+## `readiness.facts.RC22.value.items[].strength`
+
+Existing prompt(s): [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575). Role: `reported_fact`. Status: owner_approved_T07_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails reported label strength`; `T07 confirmed current exact product/source attributes`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Product strength needed to identify the requested medicine. |
+| Mandatory / conditional / optional | Conditional only when the requested exact identity/coverage/price result needs strength; reuse T07 or a confirmed exact product, with no blanket strength ask. |
+| Trigger | Necessary strength/units/concentration are still missing or conflicting after prior report and current confirmed-product reuse. Ask only that label detail for the named item; collect related missing descriptors together only if doing so reduces actual burden. Owner-directed structured follow-ups use searchable product options or dropdowns of actual sourced relevant attributes when available, with no preselection and typed/not-listed/unknown/defer alternatives; retain T07's initial free text and never invent a catalog. Exact control copy remains proposed. |
+| Acceptable evidence / confirmation | Explicit label strength and units/concentration, or a confirmed trusted exact-product record carrying them, bound to this item/person/period and provenance. Confirm consequential parsing rather than repeat the person's clear literal answer. |
+| Unknown / conflict handling | Strength is not the amount taken per dose, frequency, fill quantity or days supply. Never derive it from dosing instructions or pick the common strength. Unknown/conflict retains actual precision; no unchanged retry or implicit 30-day/default fill. Package/device factors beyond this string remain explicit G05/G08 binding gaps where needed. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; trusted drug identity plus L05 formulary/restrictions. Match exact product, plan and benefit year; availability of an adapter is not established. This describes required evidence, not independent acceptance. Exact reported product attributes/source binding; RC23 fill facts and L06 prices remain separate. |
+| Readiness gate | Missing necessary strength holds only strength-dependent product/coverage/price conclusions. No clinical dosing/prescribing instruction is inferred. Even a complete reported identity requires independent exact plan/year/source evidence; other items and supported broad work continue. |
+
+## `readiness.facts.RC22.value.items[].form`
+
+Existing prompt(s): [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575). Role: `reported_fact`. Status: owner_approved_T07_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails original form/release wording`; `T07 current confirmed exact-product attributes`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact product form for formulation-level coverage/pricing. |
+| Mandatory / conditional / optional | Conditional only when the requested exact-product result needs a missing form/release/route descriptor; consolidate with T07. |
+| Trigger | Actual supported matching/check still needs a descriptor after supplied label wording and current exact-product confirmation are reused. Ask only the missing part in plain language, such as label wording or tablet/liquid when that resolves the real ambiguity; no generic four-field repeat. Owner-directed structured follow-ups use searchable product options or dropdowns of actual sourced relevant attributes when available, with no preselection and typed/not-listed/unknown/defer alternatives; retain T07's initial free text and never invent a catalog. Exact control copy remains proposed. |
+| Acceptable evidence / confirmation | Explicit relevant label wording/form/release descriptor or confirmation of an actually sourced exact-product candidate, with original wording and item/person/period/provenance. A single reply can supply strength/form/name; one grouped echo confirms a consequential interpretation. |
+| Unknown / conflict handling | No default tablet, release type, route, inhaler/device or concentration; no substitution. Absence of ER/XR wording in a partial report is not proof of immediate release. Preserve ambiguity, combination/pack/device distinctions and G05 representation limits instead of forcing the nearest product. Unknown stays unresolved. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; trusted drug identity plus L05 formulary/restrictions. Match exact product, plan and benefit year; availability of an adapter is not established. This describes required evidence, not independent acceptance. Trusted product attributes and G05 source/version binding, separate from RC24 administration setting and L06 fill pricing. |
+| Readiness gate | Missing necessary form holds only formulation-dependent exact identity/coverage/price results. Known form establishes no coverage or clinical interchangeability. Plan/year/formulary evidence and relevant pricing/setting facts remain separately gated. |
+
+## `readiness.facts.RC22.value.items[].brand`
+
+Existing prompt(s): [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575). Role: `reported_fact`. Status: owner_approved_T07_consolidation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails explicit preference report`; `T07/chat explicit item-specific comparison request`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Optional brand/generic preference, distinct from actual product identity. |
+| Mandatory / conditional / optional | Optional; suppress routine preference polling. Actual unresolved branded/generic product identity is handled in name/strength/form and G05, even if this optional field is blank. |
+| Trigger | The person explicitly raises a preference or requests a supported comparison where a still-unknown preference actually affects the requested scope. Reuse an explicit existing preference; do not ask everyone or delay checking the actual product. If this optional preference is actually asked, a short unselected dropdown may offer brand, generic, no preference or unknown, with room to explain; it is not an actual-product selector. |
+| Acceptable evidence / confirmation | Explicit brand/generic/no-preference or bounded comparison-scope report tied to the item/person/period and provenance. A reported branded product alone is not a preference or willingness/refusal to consider another product. |
+| Unknown / conflict handling | Unasked/unknown/declined/no preference remain distinct. Never assume generic acceptable, infer brand loyalty from a label, authorize a switch or erase known actual identity. Conflicting preferences need clarification only if consequential to the person's requested scope. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; trusted drug identity plus L05 formulary/restrictions. Match exact product, plan and benefit year; availability of an adapter is not established. This describes required evidence, not independent acceptance. Customer preference is separate from actual product identity, formulary alternatives, coverage and clinical decisions; L06 applies only to an explicitly requested supported price scenario. |
+| Readiness gate | No universal coverage/pricing/readiness gate from missing optional preference. Continue the actual known-product check. Product changes are not authorized by this preference; any additional product scenario needs explicit scope and its own exact evidence. |
+
+## `readiness.facts.RC23.value.choice`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `report_disposition`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails`; `guide.fields.needs.pharmacies`; `explicit item-specific T07/RC22 fill or comparison-scenario report`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Internal disposition/scope of the particular requested fill or explicitly requested mail-order scenario; no Add supply gate. |
+| Mandatory / conditional / optional | Conditional internal report metadata; consolidate with T07/RC22 and actual missing fill controls, with no separate consumer question. |
+| Trigger | A supported requested fill-price task needs unresolved fill facts after reuse. A narrowly requested quantity-limit or pharmacy-network finding can reuse only its relevant fields without a full pricing interview; the original pricing-only capability metadata remains a documented review gap, not a runtime expansion. |
+| Acceptable evidence / confirmation | Explicit item-specific fill report, meaningful confirmation/correction or explicit proposed scenario selection, with person/item/fill/period and report/confirmation/revision. A single reply can supply several facts. Mail order is a channel report only when its item/scenario scope is clear. |
+| Unknown / conflict handling | Add details supplies no quantity/days/pharmacy. Unknown/defer is not none, stopped or a 30-day retail fill. Preserve actual versus hypothetical scope and mixed per-medicine statuses; a global choice cannot encode every scenario. Source failure is an external hold, never a reason to repeat known fill facts. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L06 drug pricing and L07 pharmacy networks. Exact product/fill/pharmacy/channel/plan/year evidence and an accepted model are separate. This describes required evidence, not independent acceptance. T07/RC22 reports and explicit scenario scope are reused. L05 quantity restrictions or L07 pharmacy-network evidence apply only to a specifically requested dependent check. |
+| Readiness gate | Status alone satisfies no pricing/coverage gate. Only substantive required fill facts and independent accepted source/model evidence enable the affected result; pharmacy-independent formulary work needs no full fill interview. |
+
+## `readiness.facts.RC23.value.items[].entity`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `internal_link`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC22.value.items[].entity`; `explicit current fill/scenario association and correction history`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Stable binding of each fill to the correct reported medicine. |
+| Mandatory / conditional / optional | Mandatory internal link once a fill scenario exists; system-managed, never a dropdown or request for a product code. |
+| Trigger | Link the actual fill/alternative scenario to its RC22 item and relevant period so quantity, days, store, channel, corrections and results stay together. |
+| Acceptable evidence / confirmation | Existing stable medicine-item reference plus explicit report/scenario association, person/period and confirmation/revision. G05/G08 separately retain exact product/pharmacy/source/version and scenario binding. |
+| Unknown / conflict handling | Never attach all fills to the first drug, merge distinct products or apply one store/supply across medicines without explicit scope. Internal item reference is not RxCUI/NDC/pharmacy identity. Multiple fills/alternatives need their own scenario lineage; preserve representation gaps rather than overwrite actual data. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L06 drug pricing and L07 pharmacy networks. Exact product/fill/pharmacy/channel/plan/year evidence and an accepted model are separate. This describes required evidence, not independent acceptance. Internal item/scenario linkage is distinct from trusted drug/pharmacy/source identifiers and independent verification. |
+| Readiness gate | Hold results that cannot safely be attributed to the correct medicine/fill. An internal link establishes no exact identity, network status or price; other properly bound items continue. |
+
+## `readiness.facts.RC23.value.items[].quantity`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `reported_fact`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails explicit fill quantity/units`; `existing confirmed item/fill report or explicitly agreed scenario`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Dispensed fill quantity/units for a requested drug-price scenario. |
+| Mandatory / conditional / optional | Conditional only for a supported result needing this fill's quantity, normally exact pricing; also a specifically requested personal quantity-limit check. No universal medication-intake gate. |
+| Trigger | Required quantity/units remain missing after the same reply/label/report is reused. Use a labeled numeric entry with product-appropriate units or actually relevant quantity options, plus another amount/unknown; do not force an arbitrary long dropdown or tablets for every product. |
+| Acceptable evidence / confirmation | Explicit dispensed quantity with units/necessary package size, or an explicitly agreed and clearly labeled hypothetical fill. Reuse a current confirmed report; confirm consequential unit/pack interpretation, not a clear literal selection. |
+| Unknown / conflict handling | Never infer quantity from dose frequency, days supply, a common package or a 30-tablet convention. Unknown is not zero. Strength, dose and fill quantity are different. Device/pack/concentration ambiguities and source-rejected actual quantities stay explicit; an alternative amount never silently replaces actual use. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L06 drug pricing and L07 pharmacy networks. Exact product/fill/pharmacy/channel/plan/year evidence and an accepted model are separate. This describes required evidence, not independent acceptance. Reported fill/units and G05/G08 product/scenario binding; exact L05 quantity-limit evidence only for a requested amount-specific coverage conclusion. |
+| Readiness gate | Missing necessary quantity/units holds that fill's price or personal amount-limit conclusion. It does not block an independently supported formulary listing. Quantity plus days is not a verified annual refill schedule or personal total-cost model. |
+
+## `readiness.facts.RC23.value.items[].daysSupply`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `reported_fact`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails explicit fill days`; `readiness.facts.RC23.value.items[].supply only when explicitly sufficient`; `current confirmed same-fill report or explicitly agreed scenario`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Days supply for the same requested fill. |
+| Mandatory / conditional / optional | Conditional when the supported fill price or specifically requested quantity-over-time restriction needs it; not required for every formulary check. |
+| Trigger | Required days supply remains missing/conflicting after T07/RC22/fill-report reuse. Proposed unselected dropdown: 30 days, 60 days, 90 days, Another number of days, I don't know; another reveals numeric entry and defer remains available. |
+| Acceptable evidence / confirmation | Explicit reported/selected days tied to this fill, or a specifically agreed labeled scenario. One reply such as 60 tablets for 30 days can supply both fields. Clear source-backed report is reusable; no repeat confirmation merely because the field is structured. |
+| Unknown / conflict handling | No 30/90-day default, inference from quantity/dosing or conversion of a month/three months to an exact day count without consequential confirmation. Dropdown options are choices, not proof the plan/product offers that supply. Preserve actual/alternative distinction, unknown/deferred and conflicts. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L06 drug pricing and L07 pharmacy networks. Exact product/fill/pharmacy/channel/plan/year evidence and an accepted model are separate. This describes required evidence, not independent acceptance. Reported fill duration and G05/G08 scenario binding; exact L05 quantity-over-time terms only where independently relevant. |
+| Readiness gate | Missing necessary days holds the affected fill-price or time-dependent quantity finding only. It establishes neither refill frequency/adherence nor annual totals. Other medicines and narrower source-supported checks continue. |
+
+## `readiness.facts.RC23.value.items[].pharmacy`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `reported_fact`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.pharmacies current exact report/confirmation`; `explicit same-pharmacy scope for the actual medicine/fill`; `existing trusted branch/service binding and provenance`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact dispensing pharmacy/branch for a requested price/network check. |
+| Mandatory / conditional / optional | Conditional at the precision the requested pharmacy-specific price/access result needs. Reuse T07; no branch interview for a pharmacy-independent finding. |
+| Trigger | Necessary store/service identity is still ambiguous after prior confirmed pharmacy/fill reports. Use searchable actual-source options with branch address/city or exact mail-order service; permit typed name/location, not listed and unknown. Show only missing distinguishing detail, not a full address questionnaire. |
+| Acceptable evidence / confirmation | Explicit intended branch/service report or confirmation/selection of an actually sourced exact candidate, tied to the medicine/fill/person/period. Apply the same pharmacy to other medicines only on an explicit same-pharmacy report or clearly scoped confirmation; extract channel if the actual confirmed service establishes it. |
+| Unknown / conflict handling | A chain alone is not an exact branch when branch matters. No home-ZIP/nearest/first/cheapest default, invented dropdown entries or no-preference-as-selection. No preference, not decided, unknown, not listed and source outage differ. Identity confirmation is not network status, preferred status or price evidence. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L07 exact pharmacy identity/network/preferred status and L06 accepted fill pricing; L05 only where the requested coverage finding depends on the pharmacy. Keep G05 trusted store/service/source/version binding separate from reported intent; a candidate source or complete directory is not established here. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary store/service identity holds that pharmacy-specific price/network finding. Known identity still needs exact plan/year/network and accepted pricing evidence. A missing directory cannot be repaired by repeating known location; continue other independently supported work. |
+
+## `readiness.facts.RC23.value.items[].channel`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `reported_fact`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.pharmacies explicit same-fill service/channel report`; `readiness.facts.RC23.value.choice only for an explicit scoped channel report`; `confirmed exact service role with trusted provenance`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Retail/mail-order channel of the requested fill scenario. |
+| Mandatory / conditional / optional | Conditional when a supported requested price/access result depends on channel; skip if the same confirmed fill/service report already establishes it. |
+| Trigger | Channel is still materially unknown after explicit fill/pharmacy reuse. Proposed unselected dropdown: At a pharmacy, Mail-order service, Another way, I don't know. Preserve original Other detail rather than force retail/mail; no separate channel question after an unambiguous existing report. |
+| Acceptable evidence / confirmation | Explicit channel selection/report or a confirmed exact dispensing service whose actual role establishes that channel, bound to this item/fill/period and provenance. User-selected mail scenario does not establish which mail-order service or supply. |
+| Unknown / conflict handling | Home delivery does not automatically mean a plan's mail-order service; a retail pharmacy may deliver. No retail/mail default or cross-medicine inference. Another way, specialty/long-term-care context and mixed channels remain distinct; the legacy binary may be insufficient, so retain G05/G08 representation gaps. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L06 drug pricing and L07 pharmacy networks. Exact product/fill/pharmacy/channel/plan/year evidence and an accepted model are separate. This describes required evidence, not independent acceptance. L07 exact service/network and channel evidence; reported delivery preference is not verified dispensing/network status. |
+| Readiness gate | Missing necessary channel holds only channel-dependent price/access findings. It proves no three-month availability, network participation, zero delivery cost or supported exact price; source/model acceptance remains separate. |
+
+## `readiness.facts.RC23.value.items[].supply`
+
+Existing prompt(s): [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Role: `legacy_detail`. Status: owner_approved_conditional_dropdowns_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails original supply wording`; `same-fill free-text report or explicitly scoped scenario`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Retain legacy reported supply wording as a possible reuse source. |
+| Mandatory / conditional / optional | Optional legacy/raw detail; no extra dropdown, question or independent consumer requirement. |
+| Trigger | Existing free-text supply wording is already present in a reply/record. Retain and reuse only its explicit meaning rather than ask another supply question after structured quantity/days are known. |
+| Acceptable evidence / confirmation | Original reported wording and person/item/fill/period provenance. Explicit 60 tablets for 30 days can populate quantity/days from one reply; confirm only consequential ambiguity or interpretation. |
+| Unknown / conflict handling | A bottle, monthly or 90 tablets alone does not establish both quantity/units and days. Unknown wording is not a default. Keep original text alongside corrections; structured and legacy contradictions remain held until consequential meaning is resolved, never silently prefer one. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L06 drug pricing and L07 pharmacy networks. Exact product/fill/pharmacy/channel/plan/year evidence and an accepted model are separate. This describes required evidence, not independent acceptance. Raw-report reuse/provenance, not a new independent medication or fill input. |
+| Readiness gate | No independent readiness gate from blank supply. Only explicitly sufficient relevant quantity/days facts satisfy the dependent check; complete structured fields need no legacy-text answer. |
+
+## `readiness.facts.RC24.value.choice`
+
+Existing prompt(s): [RC24](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:611). Role: `reported_fact`. Status: owner_approved_internal_check_specific_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.needs.medicationDetails original administration/problem report`; `readiness.facts.RC22.value.items[].entity with actual item/period binding`; `RC23 exact dispensing report only to its explicitly reported scope`; `existing explicit per-medicine self/professional/location report and confirmation history`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which medical/drug benefit rules need investigation for the named medicine and intended situation; identify only a source-specific missing administration method, device/type, who or where fact that actually changes the requested conclusion. |
+| Mandatory / conditional / optional | Conditional internal rule-specific dependency check within T07/RC22/RC23 reuse; ask only a consequential missing fact. Suppress generic clinic/pharmacy and default who-administers questions. No universal injection, diagnosis, restriction or exception interview. |
+| Trigger | An actual reviewed source condition makes a still-unknown administration/method/device fact material after prior reports are reused. Determine the exact missing discriminator before selecting a question: self-administration alone cannot distinguish insulin used with a Part-B-covered DME pump from other insulin methods/pumps. PA/ST/quantity flags, a pharmacy, injectable form, general source uncertainty or an unspecified coverage problem alone earn no administration ask. The blanket RC23 dependency must not force fill-price intake. Use only the missing source-relevant detail, with unselected relevant options and typed/unknown/defer routes; do not default to the broad who question. A problem report earns only its actual narrow missing problem fact, not a setting enum masquerading as denial/exception history. |
+| Acceptable evidence / confirmation | Explicit item-linked method/device/model/type, self/professional administration or location report only as the actual rule requires, with person/medicine/period/situation and original report/confirmation/revision. Reuse confirmed product/device details from RC22 or existing notes. I inject it myself or nurse at home supplies only its stated facts, not every device or benefit condition. Confirm consequential device/source interpretation, not a clear literal answer. Pharmacy reports establish dispensing only unless administration is explicit; reports remain verified:false. |
+| Unknown / conflict handling | Separate self/professional, administration place, dispensing place, varies/both and unknown/deferred. A pharmacy may dispense a medicine later given elsewhere, or be an administration site; home does not imply self-administration. Neither clinic nor pharmacy automatically establishes Part B or Part D coverage. Do not infer diagnosis, medical necessity, authorization/exception status or approval from a product/provider/setting. Preserve item-specific conflicts and mixed situations; the single clinic/pharmacy/both legacy enum cannot represent these distinctions or denial details. Retain raw reports and explicit G11 gaps rather than coerce values or apply one answer to all medicines. No unchanged-unknown retry or source-outage re-ask. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; L05 exact drug/formulary/restriction evidence plus relevant reviewed medical/drug/device benefit rules, exact plan/year/product/equipment/context and source/version; L06 only for a separately supported cost scenario. Reported facts guide the actual rule check; they do not establish benefit classification or coverage. Medicare.gov outpatient-drug and insulin guidance checked October 27 supports source-specific distinctions, including Part-B-covered DME pumps versus other insulin methods/pumps. G11 retains item-linked method/device/who/where/problem and evidence-representation gaps. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing a necessary source-specific method/device/administration fact holds only that medicine's dependent benefit/coverage or subsequent supported cost finding, plus a comprehensive claim including it. Other medicines/narrower supported work continue. No generic self/clinic/pharmacy/pump selection proves B/D classification, clinical necessity, authorization, payment or recommendation readiness. Exact device/condition/rule applicability and independent evidence/release gates remain; source gaps earn no more personal intake. |
+
+## `readiness.facts.RC25.value.choice`
+
+Existing prompt(s): [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629). Role: `report_disposition`. Status: owner_approved_optional_within_cost_conversation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `explicit numerical limit or budget-comparison request in T09/T10/chat`; `current scoped voluntary no-fixed-limit/unknown/decline report`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether a numerical limit is voluntarily supplied, explicitly not fixed, unknown, deferred or declined for the person's requested cost comparison. |
+| Mandatory / conditional / optional | Optional personal preference/disposition; capture from substantive reports without a separate Add budget menu. Consolidate with T09/T10/chat rather than routine financial intake. |
+| Trigger | The person explicitly requests a comparison against a spending limit, or volunteers a limit that matters to supported requested work. Lower monthly payments, total-cost priority or a general affordability concern alone does not require a numeric-budget question. Known meaning is reused; if a missing source/model prevents the comparison, explain that limit rather than collect more private facts. |
+| Acceptable evidence / confirmation | Explicit amount/range, no-fixed-limit, unknown/defer or prefer-not-to-say report, with person/period/comparison scope and original report/confirmation/revision. Substantive amount/scope can establish disposition without another selection. A useful optional numeric entry may include no fixed limit/unknown/decline routes when actually requested. |
+| Unknown / conflict handling | Unasked, unknown, deferred, no fixed limit and decline are distinct; none means unlimited funds, zero budget or ineligibility. T09 preference is not a hidden ceiling. No diagnosis, income, assets, assistance eligibility or willingness to sacrifice coverage is inferred. Do not repeatedly ask after decline or unchanged unknown, or turn a sensitive preference into a universal progress gate. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; T09/T10/chat customer preference and report/confirmation provenance; actual cost-source layers only when a supported comparison applies it. Budget is not verified financial capacity or benefit evidence. No income/asset/subsidy screen follows from this optional report; commercial economics cannot affect the question or conclusions. This describes required evidence, not independent acceptance. |
+| Readiness gate | No eligibility, path education, ordinary comparison or general readiness gate from a missing optional budget. Without a clear numerical limit, make no claim to meet that limit. Budget preference alone unlocks no personal cost calculation, affordability guarantee, filtering/ranking or recommendation release. |
+
+## `readiness.facts.RC25.value.amount`
+
+Existing prompt(s): [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629). Role: `reported_fact`. Status: owner_approved_optional_within_cost_conversation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `specific volunteered amount/range in T09/T10/chat with actual scope/person/period`; `existing current confirmed budget statement and correction lineage`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Optional amount/range used in an explicitly requested budget-fit scenario. |
+| Mandatory / conditional / optional | Optional personal limit; conditionally necessary only for a claim that a defined supported cost meets the user's stated number. Never mandatory to learn, compare paths or continue other work. |
+| Trigger | A requested supported comparison against a limit lacks the actual amount/range, or a consequential numerical interpretation is unclear after reuse. Ask a scoped optional number/range, not arbitrary budget-band dropdowns or another Add budget gate. A previously volunteered clear amount needs no repeat ask; offer learning/unknown/defer before forcing a ceiling on someone unfamiliar with costs. |
+| Acceptable evidence / confirmation | Explicit amount/range with currency and period stated or clearly scoped by the question/report; retain under/up-to/about and hard/soft meaning. Reuse current beneficiary/period/scope reports and confirm only consequential parsing/range/period interpretations. No need for income, assets or proof of finances. |
+| Unknown / conflict handling | No zero/unlimited/default cap, guessed currency/period, automatic monthly/annual conversion or hard exclusion from a soft target. Preserve unknown, range, conflicting reports and changed intent; use G12/G14 for meaning/correction gaps. Budget/scope/period changes require affected comparisons to be reconsidered despite the original inventory's empty staleOnChange list. A number does not prove ability to pay, subsidy entitlement or willingness to trade away other priorities. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; user-stated budget report and exact supported L01/L03/L04/L06/L10/L12 cost components/applicability as relevant. The number is a preference, not verified funds. Exact product/year/components, accepted models and source evidence remain separate; no sealed source or personal applicability gate changes. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary number holds only a numeric limit-fit claim; unrelated work continues. Even a known amount needs clear includes/period and exact supported cost evidence. Full personal totals/savings/affordability and recommendations remain held where their own inputs/model/release are incomplete; scoped premium observations are not all-in affordability guarantees. |
+
+## `readiness.facts.RC25.value.includes`
+
+Existing prompt(s): [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629). Role: `reported_fact`. Status: owner_approved_optional_within_cost_conversation_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC25.value.amount original report and cost wording`; `explicit current components/period/Part-B inclusion in T09/T10/chat`; `already agreed supported cost scenario with provenance`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether the stated budget concerns premiums, total spending or another defined basis. |
+| Mandatory / conditional / optional | Conditional clarification only when an optional numerical limit will actually be applied and its meaning is still consequentially unclear; no routine cost-scope interview. |
+| Trigger | A relevant stated amount leaves the necessary components/period unknown after reuse. Proposed unselected scope dropdown: All monthly insurance payments including Part B; Additional plan payments apart from Part B; Insurance payments plus care and prescriptions; Something else; I'm not sure. Ask only remaining component/period distinctions, accepting typed wording. If scope is clear, skip; no automatic RC03-year or RC18-assistance interview to record a preference. |
+| Acceptable evidence / confirmation | Explicit statement/selection of cost components and period, including Part B inclusion/exclusion where material, bound to the person's actual limit and provenance. Reuse a clear statement such as plan premiums under $100 a month apart from Part B. Briefly explain insurance payments/premiums or Part B if help is requested; confirm only consequential interpretations. |
+| Unknown / conflict handling | No premium-as-total, additional-premium-as-all-premiums, omitted-Part-B-as-zero or fixed-total-monthly-bill default. All-in intent is not a known utilization scenario or maximum guarantee; retain G03/G08/G12 unresolved personal applicability, components/use/time and hard/soft meaning. Something else/unknown/decline does not select the closest category. A range or annual cap needs its actual period. Changed components invalidate only affected limit comparisons; do not silently prioritize the latest conflicting scope. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; user-stated cost meaning plus exact applicable cost components and accepted scenario/source model. Medicare.gov costs guidance checked October 27 distinguishes premiums from service/drug costs and separate Part B obligations. This supplies general explanation only; a low published plan premium establishes no complete personal total, benefit eligibility or affordability. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary basis/period holds the claim that the stated limit is met. Continue supported cost teaching/comparison with explicit scope. Premium-only evidence can support only a correspondingly scoped observation, never a comprehensive total or promise of fixed spending. All-in estimates still need actual accepted components/scenario/model evidence; more financial intake cannot cure absent source/model acceptance. |
+
+## `readiness.facts.RC26.value.choice`
+
+Existing prompt(s): [RC26](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:647). Role: `reported_fact`. Status: owner_approved_conditional_within_T05_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `guide.fields.coverage.current original named-program report for the actual beneficiary`; `specific current T05/chat program/subtype/period confirmation`; `existing program reports with preserved multi-program/unknown scope and correction lineage`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Which program-specific Medicare enrollment, existing-benefit coordination, drug-coverage or coverage-path rules need checking for the intended beneficiary and period. |
+| Mandatory / conditional / optional | Conditional missing-program detail consolidated with T05/current-coverage chat. Ask only at the precision a supported requested conclusion needs; no general veteran/service-history screen or routine second program menu. |
+| Trigger | A broad military/veterans category or ambiguous current-program report still leaves a consequential program distinction unresolved after reuse. General education or a known program/rule needing no subtype skips it. I served in the military alone is not a current coverage report; ask only actual current program if material. Narrow the unselected program dropdown to relevant unresolved options and support typed/another/unknown/defer/help. Original RC04/RC12 dependencies do not require A/B or creditability interviews before naming a program; those facts are independently conditional to the actual subsequent rule. Missing external policy/source evidence earns no repeated program ask. |
+| Acceptable evidence / confirmation | Explicit program name(s) in T05/chat, clear option selection(s), typed beneficiary program description or confirmation of a consequential interpretation, with beneficiary/current versus past/pending status, period and original report/confirmation/revision. A current sufficiently specific named VA health care or TRICARE For Life report needs no second question/echo. Preserve multiple reported programs and partial knowledge. No member number, service record, rank, disability rating, proof upload or account access is needed just to identify the reported program. Help is an action, not a program answer. |
+| Unknown / conflict handling | Do not equate VA health care, TRICARE For Life, other TRICARE or CHAMPVA. Do not infer TFL solely from age/A-B/military history, attribute a spouse's/helper's benefits to the beneficiary, or treat planned/eligible coverage as active. Broad TRICARE can remain known while subtype is unknown. Unknown/defer/decline is not no coverage; preserve known positives alongside another uncertain program and typed Other. More-than-one reports may be compatible or need a narrow same-person/period clarification under actual official rules; never erase or auto-approve. The single choice cannot faithfully encode every combination, subtype, currentness or mixed uncertainty; retain G04/G13/G14 gaps and raw reports. No diagnosis, entitlement, general payer order or permission to cancel/change coverage is inferred. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; reported T05/program identity and exact official VA/TRICARE/CHAMPVA/other-program evidence; L13 reviewed coordination/enrollment policy, L14 only if independently relevant. TRICARE TFL eligibility FAQ, VA health-care/other-insurance and CHAMPVA guidance checked October 27 illustrate distinct program rules. Exact beneficiary/status/period, A/B basis, exceptions and actual benefits require separate evidence; general source reading is not personal qualification or policy acceptance. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary program/subtype/status holds only the dependent personal enrollment/deferral, transition, drug-coverage/coordination or path finding and any comprehensive conclusion including it. Other supported education/results continue. A program selection does not verify eligibility, A/B compliance, creditable history, notice dates, covered services, payer order or that added coverage is unnecessary. Reuse applicable established facts and verify exact official rules/conditions before such conclusions; do not trigger the full RC04/RC12 or family/service interview automatically. Independent source/policy/recommendation gates remain. |
+
+## `readiness.facts.RC27.value.choice`
+
+Existing prompt(s): [RC27](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:665). Role: `report_disposition`. Status: owner_approved_internal_check_specific_missing_details_only_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `readiness.facts.RC08.value.choice and eventDate actual report/notice`; `readiness.facts.RC11.value.coverageEnd only for the same relevant job-based policy`; `T05 and T07/RC22/RC23/RC24 actual affected coverage/medicine report`; `explicit help/continuity request and original notice/date/context with provenance`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Whether a reported coverage/refill interruption or threatened loss changes the next supported action and needs attention before ordinary comparison; keep need status separate from a human-help preference. |
+| Mandatory / conditional / optional | Conditional internal continuity/priority check consolidated with existing event, coverage and medicine reports. Suppress a routine Is there an interruption yes/no screen. Ask only a specific missing fact necessary for actual supported help; not a universal rare-condition or clinical-urgency questionnaire. |
+| Trigger | An actual report/notice/request identifies a current or impending coverage/refill problem, or a source-specific exception creates a concrete unresolved task. Reuse the concern and ask only necessary missing affected coverage/medicine, event/impact or date. Mention of ESRD, an institutional stay, disaster, plan misconduct/termination or a restriction alone does not establish interruption, urgency or a personal election right. The original RC08 dependency must not force its broad menu or delay responding to a direct help request. General questions and source/model outages do not earn extra personal screening. |
+| Acceptable evidence / confirmation | Explicit interruption/threat/request, notice summary or narrowly scoped no-current-concern report bound to person/coverage/medicine/period, original report and confirmation/revision. Reuse RC08 event/date, RC11 same-job coverage end where genuinely applicable, T05 policy context and T07/RC22-24 affected-medicine facts. Ask a clearly named missing date/issue with appropriate date/text/limited relevant options and unknown/defer. I want human help records a support preference only; help may be offered without a separate intake gate. |
+| Unknown / conflict handling | Unknown/unasked is not no gap or no urgency, and No only describes its actual reported scope/period. Keep ended versus scheduled/threatened, actual versus requested replacement start, insurance loss versus a particular refill problem and verified versus reported status distinct. Do not infer symptoms, diagnoses, clinical urgency, safe medicine changes or lapse-free coverage from these reports. A global Yes/No/Human choice cannot represent both issue status and independent assistance preference or multiple episodes; preserve raw reports and explicit representation/provenance gaps. No auto-confirmed resolution, default dates, assumed legal exception, unchanged-unknown retry or service outage re-ask. Changed issue/date/resolution must reconsider dependent findings despite the original empty staleOnChange list. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; reported event/notice/continuity context and L13 reviewed enrollment/exception/transition rules; exact L05/L07 medication/pharmacy and plan evidence only where relevant. Official Medicare special-enrollment and drug-plan rules checked October 27 support event-specific timing/conditional transition options, not automatic rights or a guaranteed refill. Exact issue/notice/effective dates and actual available human-assistance channels remain separate. A human-help selection is not a completed referral, promise of a Daylight team callback, authority to contact others or consent to share records. This describes required evidence, not independent acceptance. |
+| Readiness gate | Missing necessary issue/date/context holds the dependent exact timing, continuity/reassurance, resolution or exception finding; it does not prevent acknowledging the concern or offering actually available general/official help. Do not claim a gap is avoided, care/refill covered, an exception approved or a referral completed without exact evidence/action confirmation. Continue unaffected supported work; preserve separate report, source, policy and release gates. No full profile, rare-case automation or medical intake is required before useful supported help. |
+
+## `readiness.facts.RC28.value.choice`
+
+Existing prompt(s): [RC28](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:683). Role: `correction_disposition`. Status: owner_approved_internal_correction_check_only_unresolved_details_not_domain_or_runtime_acceptance.
+
+Potential known-fact reuse: `the exact original field/report/item/beneficiary/period being corrected`; `explicit user correction and already-confirmed intended meaning`; `existing T04/T05/T06/T07/T08/RC25/RC27 or other specific affected report with source/revision lineage`; `the actual source/result binding and version when the apparent conflict comes from a generated result`. No automatic semantic equivalence is assumed.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Correct or resolve the exact reported fact/interpretation needed by a dependent result while preserving beneficiary, time, item, meaning and revision; no standalone coverage interview. |
+| Mandatory / conditional / optional | Conditional internal integrity/correction check across the conversation. A consumer clarification is necessary only when the actual consequential correction/meaning remains unresolved; no universal closing confirmation, repeated question or required screen. |
+| Trigger | First inspect original report, person/period/scope, prior confirmations and source/result binding. If two consequential reports genuinely disagree about the same fact or a consequential new interpretation remains unconfirmed, ask a named, contextual clarification. Different people, actual versus desired dates, past/future periods, or A/B enrollment versus Advantage benefit delivery are not automatically conflicts. A clear explicit correction already supplies the answer: update the actual reported fact and acknowledge without asking again. A wrong/stale plan/year/source or generated-result error is a system/evidence issue to investigate, not a reason to make the person repeat known facts. Use relevant unselected options/date/text plus another/unknown/defer only when needed. |
+| Acceptable evidence / confirmation | Explicit correction with unambiguous target/replacement or response confirming the named fact/interpretation, retaining original and replacement report, beneficiary/item/period, actor/source/confirmation/revision and relevant date precision. Reuse existing consequential confirmation instead of replaying RC28. Update the real T04/T05/provider/drug/budget/other supported field; choice is only correction disposition and cannot store the corrected value by itself. Do not invent target bindings when representation is insufficient; preserve G14. Corrected reports remain verified:false unless independently verified evidence separately supports the actual claim. |
+| Unknown / conflict handling | Unknown/defer/Neither does not select a preferred fact or mean no coverage. They apply at different times needs actual period binding before time-dependent findings; it is not permission to guess dates. Do not choose most recent/likely/nearest merely because it looks plausible. Distinguish an explicit correction that supersedes an old report from an unresolved new conflict; retain history rather than leave superseded reports as active contradictions. No global reset or unrelated re-asks. User confirmation cannot erase contrary external evidence or turn a disputed source result into verified coverage. Original Medicare/Advantage response choices cannot encode arbitrary dates/names/products or full current coverage; retain original reports and G04/G13/G14 gaps instead of forcing them. |
+| Source / data layer | Existing customer-profile report/confirmation provenance; original and corrected customer reports plus actual target-field/item/person/period and source/confirmation/revision provenance; exact domain/source evidence for any dependent external claim. Check source version/year/identity and interpretation errors before asking. Medicare.gov health-plan guidance checked October 27 supports distinguishing Part A/B entitlement from the way benefits are received; no automatic Original/Advantage conflict from A/B alone. Correction confirmation is not independent benefit verification, personal eligibility or acceptance of an external source. This describes required evidence, not independent acceptance. |
+| Readiness gate | Hold only results actually depending on the unresolved fact, or a comprehensive claim including it; unrelated supported work continues. A clear correction updates the target report and marks affected old findings stale/recomputes dependencies with provenance, including newly applicable conditional questions, without treating them as answered. The original empty staleOnChange list cannot preserve an outdated dependent finding. Repeat user confirmation only for a genuinely new consequential interpretation; independent verification remains required by the exact external claim and is never replaced by a corrected report. Neither choice nor complete reported correction releases recommendation, policy/source or personal coverage gates. |
+
+# Explicit semantic and representation gaps
+
+These are decision-critical facts/evidence bindings not fully represented by the 78 existing leaves. They are linked to existing prompts/known reports and receive the same seven-part map. They are not silently added to the runtime or counted as new primary questions. Their existence prevents a claim that the existing schema is semantically complete.
+
+## G01 · Precise eligibility/timing anchor beyond age band
+
+Existing question/known-report binding: [RC06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:287), [T04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:71), [RC04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:251), [RC12](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:395), [RC16](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:467). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact initial enrollment/effective-date or basis-specific timing, when requested. |
+| Mandatory / conditional / optional | Conditional on the specific reviewed timing rule; not universal birth/clinical intake. |
+| Trigger | A rule needs a precise age/entitlement or Part D history-period anchor not represented by ageBand/status. Desired coverage start or B start alone does not establish the relevant drug-eligibility anchor. An RC16 first-eligibility trial branch may need whether Advantage entry coincided with first Part A eligibility at 65; first-plan status/current age alone cannot establish that history. |
+| Acceptable evidence / confirmation | Minimum explicit month/year/first-day distinction or official entitlement anchor actually needed by that rule, with confirmation. |
+| Unknown / conflict handling | Do not infer an exact birthday or eligibility date from an age band; preserve the missing precision. |
+| Source / data layer | L13 reviewed official enrollment/entitlement policy and evidence, with L11 federal/state Medigap rights for RC16; current legacy date nodes are not automatically activated. |
+| Readiness gate | No exact date/deadline finding needing this anchor; education and other supported checks remain available. |
+
+## G02 · Actual Part A effective/application/retroactive chronology
+
+Existing question/known-report binding: [RC04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:251), [RC05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:269), [RC14](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:431). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Part-A-dependent timing or contribution consequences. |
+| Mandatory / conditional / optional | Conditional when the requested reviewed rule needs actual A chronology. |
+| Trigger | B-only date fields and active/pending parts do not supply required A dates. |
+| Acceptable evidence / confirmation | Explicit actual application/effective-date report or relevant official notice; distinguish requested and actual timing. |
+| Unknown / conflict handling | No copied B date, automatic-retroactivity or day default. Missing chronology remains explicit. |
+| Source / data layer | L13 and qualified official Medicare/HSA policy where relevant; source acceptance separate. |
+| Readiness gate | Hold A-date-dependent conclusions; RC05's B date cannot close this gap. |
+
+## G03 · Personal federal-premium/IRMAA applicability facts
+
+Existing question/known-report binding: [RC06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:287), [RC18](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:503), [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629), [T09](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:161). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Personal premium/applicability calculation, only if separately supported/requested. |
+| Mandatory / conditional / optional | Conditional future cross-layer calculation; not needed to read the published L01 reference. |
+| Trigger | A personal amount depends on unrepresented work-credit, official determination or relevant tax-period/filing facts. |
+| Acceptable evidence / confirmation | Minimal explicit/official determination facts required by the reviewed calculation; not a universal income/asset questionnaire. |
+| Unknown / conflict handling | Never assume standard premium, premium-free entitlement, tax status or surcharge applicability. |
+| Source / data layer | L01 published reference is scoped/accepted separately; personal applicability and relevant official evidence remain gated. |
+| Readiness gate | Hold personal applicability/amounts, while preserving accurately labeled published reference amounts. |
+
+## G04 · Exact current/former policy identity, period and return binding
+
+Existing question/known-report binding: [T05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:89), [RC07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:305), [RC17](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:485), [RC16](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:467), [RC16.C2](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:737). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Concrete current-policy keep/change comparison or a specifically requested former-Medigap-policy return finding. |
+| Mandatory / conditional / optional | Conditional only when the actual exact current/former policy and period matter to the requested supported result; no routine policy-history interview. |
+| Trigger | Category/carrier alone may lack plan/product/segment/year or relevant supplement identity. A prior-Medigap yes/no cannot encode exact former policy, ownership versus left-to-join meaning, end chronology or actual return availability. |
+| Acceptable evidence / confirmation | Minimal explicit exact policy/program/period report or authorized official record, with consequential identity confirmation. Preserve beneficiary, relevant prior/current episode, scoped answers and provenance; no full member number is needed just to identify a reported policy. |
+| Unknown / conflict handling | No sample/nearby/current-product substitution for an old policy, forced category or all-history-negative from a scoped No. Prior ownership is not dropped-to-join or continued availability; unknown stays unresolved. Existing current facts are not erased by uncertain former history. |
+| Source / data layer | Exact L02/L03/L04/L10 policy data and actual current/former policy/termination evidence as relevant; L11/L13 reviewed return/timing rules and insurer availability evidence where needed. Dedicated precise identity/history representation remains incomplete. |
+| Readiness gate | Hold only the dependent exact-policy comparison/return finding until identity/context/evidence are supported; category/path teaching and other supported checks continue. A named former policy or reported transition guarantees no reinstatement, same price or health-review exemption. |
+
+## G05 · Trusted per-provider/drug/pharmacy source-record bindings
+
+Existing question/known-report binding: [T06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:107), [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125), [RC21](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:557), [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575), [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Attribute identity/access/formulary/price results to the intended item and source version. |
+| Mandatory / conditional / optional | Conditional system/evidence metadata, not another routine customer ask. |
+| Trigger | Internal item references need exact external record/office/product/fill binding and confirmation provenance. Multiple fill/alternative scenarios, typed dropdown fallbacks and nonbinary dispensing services must retain exact scope; original RC23 pricing-only capability metadata does not by itself represent a narrowly requested quantity-limit/pharmacy-network check using the same facts. |
+| Acceptable evidence / confirmation | Trusted source record/version plus explicit user identity confirmation or a reusable confirmed binding. |
+| Unknown / conflict handling | No internal-ID-as-registry-ID assumption, namesake selection, silent candidate confirmation or forged verified status. |
+| Source / data layer | L05–L08 identity/network/pricing sources and supported evidence envelopes; adapters/complete catalog coverage remain unresolved. |
+| Readiness gate | Hold item-specific fit/coverage/prices without trusted attribution; no source failure becomes another intake question. |
+
+## G06 · Multiple care locations, routine/emergency needs and material time away
+
+Existing question/known-report binding: [T08](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:143), [RC20](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:539), [RC02](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:215). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Exact travel/provider fit and any source-supported time-away condition. |
+| Mandatory / conditional / optional | Conditional; collect only geography/need/duration actually material to the requested check. |
+| Trigger | Broader U.S. scope, several destinations or distinct needs cannot be represented safely by current single-choice/detail fields. |
+| Acceptable evidence / confirmation | Explicit relevant location/need/period report, with consequential interpretation confirmed; no complete itinerary. |
+| Unknown / conflict handling | No same-state-as-local default or seasonal-address-as-home substitution; retain partial/unknown destinations. |
+| Source / data layer | L03/L08/L10 and reviewed path-specific travel/access rules; current another_state enum compatibility remains open. |
+| Readiness gate | Hold only travel/location/time-dependent claims; do not invent routine coverage from emergency terms. |
+
+## G07 · Contribution chronology needed beyond HSA yes/no
+
+Existing question/known-report binding: [RC14](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:431), [RC04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:251), [RC05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:269). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Requested contribution/timing consequences that need dates or another specific fact. |
+| Mandatory / conditional / optional | Conditional to a reviewed personal HSA issue; not a general financial intake. |
+| Trigger | Contribution status alone cannot support the requested exact rule application. |
+| Acceptable evidence / confirmation | Minimum explicit relevant contribution/enrollment chronology, actual deposit versus attributed contribution tax-year/period and official confirmation required by qualified policy review; account owner and contributor bindings where consequential. |
+| Unknown / conflict handling | No inferred contribution-stop date, amount, tax eligibility or excess contribution from a boolean report. A current deposit date is not automatically the contribution's attributed tax year/eligibility period; current no does not establish no relevant historical contributions. Do not apply one person's Medicare status to a spouse's separate HSA. |
+| Source / data layer | Qualified Medicare/HSA official rule/evidence boundary alongside L13; no acceptance inherited from cost-reference publication. |
+| Readiness gate | Hold specific HSA/tax timing advice; a reported yes/no is only preparation. |
+
+## G08 · Defined personal total-cost scenario and omitted components
+
+Existing question/known-report binding: [T05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:89), [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125), [T09](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:161), [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593), [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Personal total/annual/affordability estimate beyond a published premium. |
+| Mandatory / conditional / optional | Conditional only for an explicitly requested supported scenario; optional preferences are not utilization facts. |
+| Trigger | The requested total needs period, service/use/fill assumptions or components absent from current leaves. |
+| Acceptable evidence / confirmation | Explicit agreed scenario and actual relevant inputs/evidence; separate an estimate from a quote and known from assumed components. |
+| Unknown / conflict handling | No healthy/average-use, zero omitted costs, 30-day fill or premium-as-total default. |
+| Source / data layer | Accepted relevant L01/L03/L04/L06/L10/L12 components and reviewed model; complete personal applicability is not established. |
+| Readiness gate | Hold comprehensive personal totals/savings/affordability claims; show only supported labeled components and omissions. |
+
+## G09 · Exact assistance level/effective scope and supported qualification facts
+
+Existing question/known-report binding: [RC18](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:503), [RC19](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:521), [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Subsidy-adjusted personal cost or requested program-specific qualification. |
+| Mandatory / conditional / optional | Conditional when exact assistance changes the requested conclusion. |
+| Trigger | A broad Medicaid/help label does not supply the relevant level, state/beneficiary/period or determination. A narrow question can leave other program statuses unasked; preserve per-program partial knowledge and distinguish linked-entitlement derivations from user reports. |
+| Acceptable evidence / confirmation | Minimal exact program/level/effective-period report or official determination; collect further financial facts only under a supported requested rule. |
+| Unknown / conflict handling | No inferred eligibility, amount or full benefit category; decline remains unresolved rather than ineligible. No for one program is not no assistance overall; known positives survive a scoped unknown/decline. Current-year evidence is not automatically next-year evidence, and program relationship rules require exact prerequisite scope. |
+| Source / data layer | L12 official program evidence and reviewed assistance policy, with exact pricing/qualification dependencies. |
+| Readiness gate | Hold adjusted-cost/qualification claims; standard published amounts and unrelated work remain scoped separately. |
+
+## G10 · Basis-appropriate payer-order threshold/context beyond the fixed size question
+
+Existing question/known-report binding: [RC06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:287), [RC09](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:341), [RC10](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:359). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Correct requested employment/payer-order branch. |
+| Mandatory / conditional / optional | Conditional when the requested reviewed rule needs another threshold, employee-count/time definition or multi-employer/exception context not faithfully represented by RC10. |
+| Trigger | The fixed 20-employee Yes/No cannot express the relevant basis/program, shared-plan qualification, counting period/definition or administrator-confirmed payer order. |
+| Acceptable evidence / confirmation | Minimum relevant employer/plan/administrator classification and period, exact official rule definition/threshold and supported evidence binding. A direct coordination statement remains its own fact, not an invented size answer. |
+| Unknown / conflict handling | No universal 20 question, reinterpretation of a 100-threshold answer, small-employer shortcut around shared-plan exceptions or unknown-as-below-threshold. Preserve the exact missing definition/context. |
+| Source / data layer | L13 reviewed basis-specific Medicare Secondary Payer policy and official employer/administrator evidence; Medicare.gov Who pays first checked October 27 supports general distinctions, not independent acceptance or an active new field. |
+| Readiness gate | Hold affected payer-order findings until required context/evidence is supported; never force the wrong branch or require a size ask already superseded by independently accepted direct evidence. |
+
+## G11 · Per-medicine method/device, administration versus dispensing, uncertainty and problem binding
+
+Existing question/known-report binding: [RC24](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:611), [RC22](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:575), [RC23](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:593). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | A requested administration/restriction/coverage-problem conclusion for the correct medicine, situation and period. |
+| Mandatory / conditional / optional | Conditional only when the actual supported requested rule needs that missing detail; not every restriction or injectable product warrants administration intake. |
+| Trigger | One global clinic/pharmacy/both choice cannot represent rule-specific method/equipment/model/type, who gives a medicine, where it is given/obtained, multiple situations, unknown versus both or separate denial/authorization/exception facts. Generic who/where can still miss the actual rule discriminator, as insulin pump type illustrates. A blanket RC23 dependency must not force pricing intake first. |
+| Acceptable evidence / confirmation | Minimal explicit item/person/period-linked administration or specific problem report with consequential confirmation only; retain original wording, provenance and exact reviewed rule/source evidence separately. Proposed dropdown meanings need representation before runtime use; no new active schema field is created here. |
+| Unknown / conflict handling | No all-medicines default, pharmacy-equals-self/Part D, clinic-equals-Part B, home-equals-self, uncertainty-as-both, inferred diagnoses or approval. Restriction flags are not denials; a setting selection supplies no authorization/exception history. Preserve supported independent facts and unresolved distinctions rather than force a legacy enum. |
+| Source / data layer | L05 and relevant reviewed medical/drug/device rules, exact plan/year/product/equipment/context; per-item method/device/who/where/problem representation remains unresolved. Official outpatient-drug and insulin guidance checked October 27 supports general rule distinctions only, not new policy/source acceptance. |
+| Readiness gate | Hold only the affected administration/problem-dependent finding and any comprehensive claim including it; other properly bound supported items continue. User confirmation alone releases no coverage, clinical or recommendation claim. |
+
+## G12 · Explicit constraints, priority nuance and any consequential ordering
+
+Existing question/known-report binding: [T09](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:161), [T10](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:179), [T06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:107), [RC25](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:629). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Claim that a requested result honors a declared must-have or specific tradeoff. |
+| Mandatory / conditional / optional | Conditional on an actual declared constraint/meaningful tradeoff; no universal ranking quiz. |
+| Trigger | Category choices cannot express the stated hard/soft, per-provider, numeric or conditional meaning. |
+| Acceptable evidence / confirmation | Explicit user statement or targeted clarification of the actual ambiguity, not inferred weights/click order. |
+| Unknown / conflict handling | Preserve unknown and more-than-three volunteered meaning. Listing a doctor alone is not a hard constraint. |
+| Source / data layer | Customer preference report with exact supporting evidence for any satisfaction claim; commercial economics excluded. |
+| Readiness gate | Hold only a claim to satisfy the unresolved constraint; optional unknown preference never gates all factual work. |
+
+## G13 · Coverage outside the category list / partial classification
+
+Existing question/known-report binding: [T05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:89), [RC26](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:647), [RC07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:305). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | A baseline that includes all actually reported coverage without forcing a false category. |
+| Mandatory / conditional / optional | Conditional when unlisted or partly understood coverage affects the requested check. |
+| Trigger | The user's reported program cannot be encoded faithfully by existing choices. RC26 single choice cannot capture several reported programs, known broad TRICARE with unknown subtype, mixed partial knowledge, exact unlisted program or current/past/pending scope safely. |
+| Acceptable evidence / confirmation | Original explicit coverage/program description and minimal confirmed meaning; preserve privacy/known facts. |
+| Unknown / conflict handling | Never convert unlisted/unknown coverage into None or erase known categories because another is uncertain. Do not force one program, equate VA/TRICARE/CHAMPVA, infer current eligibility from military history, or declare a reported combination valid/invalid without the exact beneficiary/period/rule context. |
+| Source / data layer | Exact program/policy sources and L13/L14 as relevant; active Other representation is not implemented. |
+| Readiness gate | Hold affected personal coordination/path conclusions until classified/evidenced; keep the option visible. |
+
+## G14 · Generic correction target and dependent-revision provenance
+
+Existing question/known-report binding: [RC28](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:683), [T04](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:71), [T05](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:89), [T06](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:107), [T07](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:125), [T08](/Users/cep4u/daylight/alternatives/chat-first/docs/product/CUSTOMER_PROFILE_QUESTION_MAP.md:143). Status: explicit gap; no active new field/default.
+
+| Mapping part | Record |
+| --- | --- |
+| Decision affected | Apply a user's correction to the actual fact/entity without changing unrelated reports. |
+| Mandatory / conditional / optional | Conditional integrity metadata/clarification when the target correction is consequentially ambiguous. |
+| Trigger | The fixed Original/Advantage correction choices cannot represent arbitrary provider/drug/date/location/budget changes, exact person/period scope or a source/result mismatch. A/B entitlement versus benefit delivery, current versus desired coverage, and different people/periods must not create false contradictions. |
+| Acceptable evidence / confirmation | Explicit target/replacement, original report reference, beneficiary/item/period, actor/source/confirmation and revision history; reuse a clear correction without a redundant confirmation turn. The actual original field must carry the replacement or an explicit representation gap remains. |
+| Unknown / conflict handling | No closest/most-recent-wins overwrite or coverage None from Neither; distinguish explicit superseding corrections from unresolved conflicts. Preserve external disputes and old reports under existing privacy rules. Clarify only actual consequential ambiguity, not system/source errors or already explicit meaning. |
+| Source / data layer | Existing supported report-edit/revision/evidence envelopes; exact target/dependency invalidation remains to be reviewed. RC28's empty staleOnChange cannot keep affected findings current after correction; source receipts and user reports remain distinct. |
+| Readiness gate | Hold/reconsider only affected findings and dependent comprehensive claims; continue unrelated work without a global reset or mandatory re-interview. Newly applicable missing facts remain unknown; confirmation of a correction alone releases no external coverage/recommendation gate. |

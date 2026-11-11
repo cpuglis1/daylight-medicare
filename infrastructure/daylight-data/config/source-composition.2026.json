@@ -1,0 +1,2031 @@
+{
+  "schema": "daylight-source-composition/1",
+  "reference_year": 2026,
+  "catalog_path": "docs/data/integration-review-2026-10-29/review-catalog.json",
+  "catalog_sha256": "1585b420d137456a3aa2c1dc83d76c4a6794a29fe2485aa1c8e74ac879b29ba9",
+  "consumer_release_enabled": false,
+  "personal_recommendations_enabled": false,
+  "layers": [
+    {
+      "layer_id": "L01",
+      "revision": "L01-PUBLISHED-US-2026-r1",
+      "acceptance_status": "accepted_current_for_exact_78_entry_published_reference_only",
+      "scope": "2026 national published federal costs and labeled IRMAA tables; no entitlement, personal amount selection, billing, personal total or recommendation.",
+      "allowed_outputs": [
+        "Review catalog and accepted published-reference values, with all conditions, notes, source/version and period retained.",
+        "General reference presentation after the specific UI integration is reviewed; national facts should be referenced rather than copied per county."
+      ],
+      "held_outputs": [
+        "Choosing the individual premium/IRMAA band from personal facts.",
+        "Adding reference components into a claimed personal total or using them as recommendation readiness.",
+        "Treating this reference as travel coverage, entitlement or general clinical/service-policy authority."
+      ],
+      "components": [
+        {
+          "component": "published-reference-r1",
+          "path": "docs/data/l01-national-2026/published-reference-r1",
+          "role": "selected_base",
+          "acceptance_boundary": "exact_existing_receipt_gate_required",
+          "control_path": "docs/data/l01-national-2026/published-reference-r1/manifest.json",
+          "control_sha256": "16578a342c13755e0cfd29417af4228bba691ee36fd55e81c3b346d6db9ddfc1"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "cms-slice/data-sources/demo-sources.json",
+          "role": "selected_component_control",
+          "sha256": "4583149390fdcb1655f8d0a8b59967db5adbebf974caec6b9b9c40db398e33ed",
+          "bytes": 29583
+        },
+        {
+          "path": "cms-slice/data-sources/l01-published-reference-review.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c1eb47010f1fea9e13df9b9c00becb251ac4dd66c3c28917ec6ea111c4133ee4",
+          "bytes": 5320,
+          "catalog_sha256": "c1eb47010f1fea9e13df9b9c00becb251ac4dd66c3c28917ec6ea111c4133ee4",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l01-national-2026/published-reference-r1/RELEASE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "365f55767f93d0a9b12f0ca3f2e72bede8024974d1c13403d104d36d3cdaf748",
+          "bytes": 1151,
+          "catalog_sha256": "365f55767f93d0a9b12f0ca3f2e72bede8024974d1c13403d104d36d3cdaf748",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l01-national-2026/published-reference-r1/bands.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "8c81e805eaf79bff4cd15885e7da6f0a1e045135b106e3369c00b27c46c20658",
+          "bytes": 46180,
+          "catalog_sha256": "8c81e805eaf79bff4cd15885e7da6f0a1e045135b106e3369c00b27c46c20658",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l01-national-2026/published-reference-r1/costs.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "42f52e5a4da07cad511d689a2f551db1caa722555a0064c5a4851204f5fb2828",
+          "bytes": 20717,
+          "catalog_sha256": "42f52e5a4da07cad511d689a2f551db1caa722555a0064c5a4851204f5fb2828",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l01-national-2026/published-reference-r1/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "16578a342c13755e0cfd29417af4228bba691ee36fd55e81c3b346d6db9ddfc1",
+          "bytes": 8061,
+          "catalog_sha256": "16578a342c13755e0cfd29417af4228bba691ee36fd55e81c3b346d6db9ddfc1",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l01-national-2026/published-reference-r1/notes.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c8d4af53fcf3bfd534c4f0b4f3a460499e88872ce9380fbd254a7a706a94d6ff",
+          "bytes": 5136,
+          "catalog_sha256": "c8d4af53fcf3bfd534c4f0b4f3a460499e88872ce9380fbd254a7a706a94d6ff",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l01-national-2026/published-reference-r1/sources.json",
+          "role": "selected_component_control",
+          "sha256": "dde6f74d881f1b60c5e3c74781e5f797bd53ebc57babe81874cdbf28f54c83eb",
+          "bytes": 17516
+        }
+      ]
+    },
+    {
+      "layer_id": "L02",
+      "revision": "build-r5_selected_by_research-selection.json",
+      "acceptance_status": "no_actual_consumer_acceptance_receipts",
+      "scope": "Pinned 2026 landscape observations for Collier, Lee and New York County; Collier is the downstream L03/L05 identity source. Research inventory does not establish complete market, exact address availability or current enrollment.",
+      "allowed_outputs": [
+        "Internal organized research catalog with source-snapshot labels and explicit unresolved dimensions.",
+        "Reference backbone for joining the exact downstream evidence sets without promoting availability or eligibility."
+      ],
+      "held_outputs": [
+        "Consumer published_inventory until a genuine exact-scope receipt is installed.",
+        "All-market claim, address availability, open-to-enroll, SNP qualification, personal eligibility, ranking or recommendations.",
+        "Treating L03 document acquisition or absence in monthly enrollment as resolving availability."
+      ],
+      "components": [
+        {
+          "component": "build-r5",
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l02-ma-availability-2026-10-25/build-r5/build-manifest.json",
+          "control_sha256": "73815d3f5358f74666f4f9e4673949735115dff82a62a52f6ed50f3686d3a0a9"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/acceptance-receipts.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9a6d2a1881c8719dcd5185b023593e1ce15034be16d3339ec6be23466daef76d",
+          "bytes": 508,
+          "catalog_sha256": "9a6d2a1881c8719dcd5185b023593e1ce15034be16d3339ec6be23466daef76d",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/12021/completeness-report.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "a259f8b4db44bedcdd0dc5da0e4714c5844ad535c05e7f2527e319a5f54825a5",
+          "bytes": 4685,
+          "catalog_sha256": "a259f8b4db44bedcdd0dc5da0e4714c5844ad535c05e7f2527e319a5f54825a5",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/12021/offerings.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "cab771cebb27a1c80f9077b4ba5e9f3005368c214bff5d16fa7cd8f7467987d7",
+          "bytes": 142353,
+          "catalog_sha256": "cab771cebb27a1c80f9077b4ba5e9f3005368c214bff5d16fa7cd8f7467987d7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/12021/query-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "ca3118207d346f500678aa133e22f89f493c6ea34f526ebe69db6833c12758c8",
+          "bytes": 2234
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/access-holds.json",
+          "role": "selected_component_control",
+          "sha256": "c544156013ef97c49b303e166f7bd3536bb9e684b9de8aca2d01933711b35e56",
+          "bytes": 650
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/build-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "73815d3f5358f74666f4f9e4673949735115dff82a62a52f6ed50f3686d3a0a9",
+          "bytes": 6084
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/geography-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "cfbef51bda9e337b0fb6f135acf88198773b5d143a3e3378c013567c919b46d9",
+          "bytes": 586
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "ccdda2a51ca8133ae7f9f133cc01774a23abf4a204c2b8d8b3cf753dddb8f8be",
+          "bytes": 307322880,
+          "catalog_sha256": "ccdda2a51ca8133ae7f9f133cc01774a23abf4a204c2b8d8b3cf753dddb8f8be",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/source-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "dbe3b71c39e17033274a9f7e3f29403d1353a76ae46ca701ce0004b1b5b9dea3",
+          "bytes": 1479794
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/supplemental-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "d229ed55dd2b97ad0e658e3863d391234a5d1bcada155ac04aca89479fb453e3",
+          "bytes": 18030
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/gap-register.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "b1f5b9f7dadeba84a6300c593f4ffc15cd885134d191a92ab7fa913e0cb514d1",
+          "bytes": 37383,
+          "catalog_sha256": "b1f5b9f7dadeba84a6300c593f4ffc15cd885134d191a92ab7fa913e0cb514d1",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "796574bd536afd35c21534240d10393b48b6576b6d6b9dcf6cbafa34676072d3",
+          "bytes": 2800
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/research-selection.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "37ff73c4ce70e463092fc0778d4a1794b1fd19e10322bd096dc6ce25f6084ed6",
+          "bytes": 249,
+          "catalog_sha256": "37ff73c4ce70e463092fc0778d4a1794b1fd19e10322bd096dc6ce25f6084ed6",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l02-ma-availability-2026-10-25/supplemental-sources.json",
+          "role": "selected_component_control",
+          "sha256": "88b69ee629a422b9d107d5bef08c164ca7f27f1545ad9b4241ef34952905d5b5",
+          "bytes": 6020
+        }
+      ]
+    },
+    {
+      "layer_id": "L03",
+      "revision": "accepted bounded-reference-r4 + acquired source-reconciliation-r7 + frozen semantic-inventory-r9 (different roles)",
+      "acceptance_status": "only_exact_535_entry_r4_reference_and_six_dispositions_accepted_no_r5_to_r9_acceptance_inheritance",
+      "scope": "Published 2026 Collier MA benefits for the exact 72 L02 build-r5 identities; finite source-scoped claims/conditions are comparison obligations rather than unique benefits or verified facts.",
+      "allowed_outputs": [
+        "Internal review/search of all acquired evidence and r9 work obligations, clearly labeled unaccepted.",
+        "Accepted r4 named reference values and qualified notes only through exact allowlist/receipt with all attached evidence/conditions.",
+        "Visible unknown states for 25 offerings with no approved benefit entries; source acquisition and acceptance displayed separately."
+      ],
+      "held_outputs": [
+        "Treating all PDFs, all r9 rows or token/amount matches as verified plan benefits.",
+        "Personalized hospital/annual costs, universal copays, medical/drug applicability, full plan comparison, ranking or recommendation.",
+        "Any inherited acceptance for r5-r9 evidence, silent denominator reduction or MVP exemption."
+      ],
+      "components": [
+        {
+          "component": "bounded-reference-r4",
+          "path": "docs/data/l03-ma-benefits-2026-10-25/bounded-reference-r4",
+          "role": "selected_base",
+          "acceptance_boundary": "accepted_exact_535_entries_only",
+          "control_path": "docs/data/l03-ma-benefits-2026-10-25/bounded-reference-r4/manifest.json",
+          "control_sha256": "fb163f824e35cbb52b5aa11bd520de64bd4fa5e51b574f7d3de4c3accbaab881"
+        },
+        {
+          "component": "source-reconciliation-r7",
+          "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "unaccepted_additive_evidence",
+          "control_path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/manifest.json",
+          "control_sha256": "8bd8b936bb31425e885424cc6aeb74d0f1589907bae51c2c1cdf6df6f1d65dc2"
+        },
+        {
+          "component": "semantic-inventory-r9",
+          "path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "unaccepted_required_obligations",
+          "control_path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9/freeze.json",
+          "control_sha256": "81e1a5f106f15db3a06a738fad0c315ec09ace99ae2908d80507904fb8df3e6d"
+        },
+        {
+          "component": "inventory-r8",
+          "path": "docs/data/l03-ma-benefits-2026-10-25/inventory-r8",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "sealed_parent_of_r9",
+          "control_path": "docs/data/l03-ma-benefits-2026-10-25/inventory-r8/freeze.json",
+          "control_sha256": "b25e613285e3fa6ed1560df0bd75cfa8480c34383b1b5e8aedfa5076e7533488"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "cms-slice/data-sources/demo-sources.json",
+          "role": "selected_component_control",
+          "sha256": "4583149390fdcb1655f8d0a8b59967db5adbebf974caec6b9b9c40db398e33ed",
+          "bytes": 29583
+        },
+        {
+          "path": "cms-slice/data-sources/l03-published-reference-review.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "275be9d2b0842fce326648c27786208430b29b66b894d42ead275ce37157d892",
+          "bytes": 30226,
+          "catalog_sha256": "275be9d2b0842fce326648c27786208430b29b66b894d42ead275ce37157d892",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/acceptance-r4/ACCEPTANCE.txt",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "284e9224f850e3b50b3ae84edc97372afd0d4e1c6c7fc0645fbbe2f63201ffa4",
+          "bytes": 4174,
+          "catalog_sha256": "284e9224f850e3b50b3ae84edc97372afd0d4e1c6c7fc0645fbbe2f63201ffa4",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/bounded-reference-r4/entries.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c093580eff40e142d641dc4bbcfccd2e589d433bc537725fc191bdc7c941209d",
+          "bytes": 1287768,
+          "catalog_sha256": "c093580eff40e142d641dc4bbcfccd2e589d433bc537725fc191bdc7c941209d",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/bounded-reference-r4/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "fb163f824e35cbb52b5aa11bd520de64bd4fa5e51b574f7d3de4c3accbaab881",
+          "bytes": 1546
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/inventory-r8/",
+          "role": "catalog_selected_artifact_or_directory"
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/inventory-r8/freeze.json",
+          "role": "selected_component_control",
+          "sha256": "b25e613285e3fa6ed1560df0bd75cfa8480c34383b1b5e8aedfa5076e7533488",
+          "bytes": 3862
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9/freeze.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "81e1a5f106f15db3a06a738fad0c315ec09ace99ae2908d80507904fb8df3e6d",
+          "bytes": 455970,
+          "catalog_sha256": "81e1a5f106f15db3a06a738fad0c315ec09ace99ae2908d80507904fb8df3e6d",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9/master-inventory.jsonl.gz",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "87149eeb69b6d8b589a17b6596ceb6c5829bc16414ee42aa921e606e6aacef07",
+          "bytes": 130443971,
+          "catalog_sha256": "87149eeb69b6d8b589a17b6596ceb6c5829bc16414ee42aa921e606e6aacef07",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9/pilot-contract.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "342c55ae1eb81cf1ebb3f4d966a6642e0e5f13145799842e981329851ed269a7",
+          "bytes": 18228,
+          "catalog_sha256": "342c55ae1eb81cf1ebb3f4d966a6642e0e5f13145799842e981329851ed269a7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "8bd8b936bb31425e885424cc6aeb74d0f1589907bae51c2c1cdf6df6f1d65dc2",
+          "bytes": 7421,
+          "catalog_sha256": "8bd8b936bb31425e885424cc6aeb74d0f1589907bae51c2c1cdf6df6f1d65dc2",
+          "catalog_sha256_matches": true
+        }
+      ]
+    },
+    {
+      "layer_id": "L04",
+      "revision": "L04-PUBLISHED-FL-2026-build-r4 + restriction-check-r3 supplement",
+      "acceptance_status": "actual_human_and_source_use_acceptance_pending",
+      "scope": "Dated 2026 individual Florida standalone PDP published reference, PDP region 11, September baseline with source-specific dates and restriction checks at Sep 2/Oct 25; not live enrollment or personal eligibility.",
+      "allowed_outputs": [
+        "Internal review catalog and structured research lookup for all ten dated published plans.",
+        "Preparation of exact-scope acceptance packet; current runtime intentionally reports reference_review=pending_or_held."
+      ],
+      "held_outputs": [
+        "Consumer accepted published reference before genuine exact receipt.",
+        "LIS personal price assignment, individual eligibility, formulary/pharmacy conclusions, annual cost ranking or recommendations.",
+        "Promoting national parse rows to a national consumer market release."
+      ],
+      "components": [
+        {
+          "component": "build-r4",
+          "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/manifest.json",
+          "control_sha256": "21a962f6c25491fac02abb42b89def4f0eefdd4a1aa343b591bd89872298bcae"
+        },
+        {
+          "component": "restriction-check-r3",
+          "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/manifest.json",
+          "control_sha256": "928a21745a4d04963793573fb4db7290ee3cd3461c22fdee989e6fb0640bb8d5"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/field-coverage.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "b92744fe16d2fef3d163b3195be606b752ca9d43530e079d2b13a99747524c80",
+          "bytes": 161512,
+          "catalog_sha256": "b92744fe16d2fef3d163b3195be606b752ca9d43530e079d2b13a99747524c80",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "bytes": 34996224,
+          "catalog_sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "21a962f6c25491fac02abb42b89def4f0eefdd4a1aa343b591bd89872298bcae",
+          "bytes": 11133
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/records.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "bb706ac4d32f4efe16689ae452e6c4bb519f7287f65f4182b25b03ce800fd547",
+          "bytes": 74094,
+          "catalog_sha256": "bb706ac4d32f4efe16689ae452e6c4bb519f7287f65f4182b25b03ce800fd547",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/source-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "a777137aa85363e6b928713a9711a8eb4a909201ce5d84d80f5782d8ab64b8ba",
+          "bytes": 21191
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "0fc6c3a171a99fd8af44112d867be12faf185ef8bfdc74868de8ab7610a7028d",
+          "bytes": 2938
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/release-status.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9147a53d1a732bd53c43c8102198264d56d266fd520fa11f0ccbc8c56a12e4bf",
+          "bytes": 2393,
+          "catalog_sha256": "9147a53d1a732bd53c43c8102198264d56d266fd520fa11f0ccbc8c56a12e4bf",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "4ff2df31e1b82c9b251fd0f7fa1b94af64d1a19f965652bbfd8a95a8cc6eea0a",
+          "bytes": 1713,
+          "catalog_sha256": "4ff2df31e1b82c9b251fd0f7fa1b94af64d1a19f965652bbfd8a95a8cc6eea0a",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "928a21745a4d04963793573fb4db7290ee3cd3461c22fdee989e6fb0640bb8d5",
+          "bytes": 60074
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/records.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "171f8da237d9ccdf94a345f268a0e3a83142743bf37005a991a25ecc191070bf",
+          "bytes": 13086,
+          "catalog_sha256": "171f8da237d9ccdf94a345f268a0e3a83142743bf37005a991a25ecc191070bf",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l04-pdp-availability-2026-10-25/review-template.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "91ec1cf8e2b72e387abd9284426c52017d879f5ffe64b765cccc1460d8b34b89",
+          "bytes": 1155,
+          "catalog_sha256": "91ec1cf8e2b72e387abd9284426c52017d879f5ffe64b765cccc1460d8b34b89",
+          "catalog_sha256_matches": true
+        }
+      ]
+    },
+    {
+      "layer_id": "L05",
+      "revision": "CMS base build-r3 + closeout-r1/build-r5 per CLOSEOUT_SELECTION.json",
+      "acceptance_status": "actual_human_acceptance_null_consumer_release_disabled",
+      "scope": "2026 September CMS lists for Collier 61 MA drug-bearing offerings and 10 Florida PDPs, 26 formularies; later dated condition/unit evidence retains its own applicability and dates.",
+      "allowed_outputs": [
+        "Internal exact-drug/plan research lookup and inspectable condition evidence with explicit dates, flags and unknown states.",
+        "Drug name/strength/form identity confirmation candidates from the retained CMS/NLM dictionary, subject to trusted matching/explicit confirmation rather than fuzzy auto-binding.",
+        "Review catalog of resolved and unresolved source rows without personal approval claims."
+      ],
+      "held_outputs": [
+        "Consumer accepted drug-coverage release (actual human acceptance remains null).",
+        "Automatic PA/ST clinical adjudication, personal clinical approval, normalized days supply from unsupported units or a coverage/price promise.",
+        "Backdating October criteria into September or converting current questionnaire presence into full criteria completeness.",
+        "Drug-based recommendation/annual cost ranking before L06/L07 and exact personal facts/models/acceptance."
+      ],
+      "components": [
+        {
+          "component": "build-r3",
+          "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/manifest.json",
+          "control_sha256": "0c69fd3f698893fe6a25ba3532b1db39a1b9f7fa1c6bc899222d0481aab04364"
+        },
+        {
+          "component": "condition-assessment-r1",
+          "path": "docs/data/l05-drug-coverage-2026-10-25/condition-assessment-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l05-drug-coverage-2026-10-25/condition-assessment-r1/manifest.json",
+          "control_sha256": "64a520ebfa05f794cd019dec7580c99ae2224214f85241a419ad5825c04743c3"
+        },
+        {
+          "component": "closeout-r1/build-r5",
+          "path": "docs/data/l05-drug-coverage-2026-10-25/closeout-r1/build-r5",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l05-drug-coverage-2026-10-25/closeout-r1/build-r5/manifest.json",
+          "control_sha256": "6b6e796ef5b98ef1f8b38d152ac836afbe279d2f348066071ec315b5aa12a87d"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/CLOSEOUT_SELECTION.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "e49ff9fe3cf8eaae4bba222d4d28ce3497a17d8a3d192604413a59f69b2b68eb",
+          "bytes": 2264,
+          "catalog_sha256": "e49ff9fe3cf8eaae4bba222d4d28ce3497a17d8a3d192604413a59f69b2b68eb",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/FIREFOX_ACQUISITION_SELECTION.json",
+          "role": "selected_component_control",
+          "sha256": "31b9b9338f28fb6592ff92387ecfb61da5000032cf18aecf5980be8979548ad8",
+          "bytes": 1565
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/SELECTION.json",
+          "role": "selected_component_control",
+          "sha256": "89975c629625fb619205a2835637b835114baa5e15d4bbe0f312f751548a69b1",
+          "bytes": 2540
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/identities.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "57d53df5b352c1528bc2568a5972becbe202f6027964c2ebf5ca8045faeffbd1",
+          "bytes": 4303603,
+          "catalog_sha256": "57d53df5b352c1528bc2568a5972becbe202f6027964c2ebf5ca8045faeffbd1",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+          "bytes": 140193792,
+          "catalog_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "0c69fd3f698893fe6a25ba3532b1db39a1b9f7fa1c6bc899222d0481aab04364",
+          "bytes": 21075
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/plans.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9ae9e66fde9905c517453a27cd5cc0769a897fe12fa020f5c3dea6eb77955f5e",
+          "bytes": 87362,
+          "catalog_sha256": "9ae9e66fde9905c517453a27cd5cc0769a897fe12fa020f5c3dea6eb77955f5e",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/closeout-r1/build-r5/condition-reference-links.jsonl.gz",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "3bcef92a7c750204b203c8853d91ec74941b409c7af79bd1940c36eeb1258576",
+          "bytes": 407177,
+          "catalog_sha256": "3bcef92a7c750204b203c8853d91ec74941b409c7af79bd1940c36eeb1258576",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/closeout-r1/build-r5/documents.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "410bd442a8ed3ef6be2d59138e53fe8db96c0a92a33fe8dd10d5f836fdddc6c8",
+          "bytes": 745217,
+          "catalog_sha256": "410bd442a8ed3ef6be2d59138e53fe8db96c0a92a33fe8dd10d5f836fdddc6c8",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/closeout-r1/build-r5/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "6b6e796ef5b98ef1f8b38d152ac836afbe279d2f348066071ec315b5aa12a87d",
+          "bytes": 284302
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/closeout-r1/build-r5/quantity-units.jsonl.gz",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "de19c983421ca4c7507e965c9e8dc23aa0292bb904ce880d19b0a2edad1b159b",
+          "bytes": 455648,
+          "catalog_sha256": "de19c983421ca4c7507e965c9e8dc23aa0292bb904ce880d19b0a2edad1b159b",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/condition-assessment-r1/",
+          "role": "catalog_selected_artifact_or_directory"
+        },
+        {
+          "path": "docs/data/l05-drug-coverage-2026-10-25/condition-assessment-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "64a520ebfa05f794cd019dec7580c99ae2224214f85241a419ad5825c04743c3",
+          "bytes": 7836
+        }
+      ]
+    },
+    {
+      "layer_id": "L06",
+      "revision": "Composite price build-r1 + schedule build-cost-r1, selected October 27, 2026",
+      "acceptance_status": "human_acceptance=null; consumer_release_enabled=false; no accepted personal calculator",
+      "scope": "Published 2026 no-subsidy plan-level average retail unit prices and beneficiary/insulin schedules for 61 Collier MA-PD and 10 Florida PDP offerings. Named-pharmacy pricing and personal/annual calculators explicitly deferred.",
+      "allowed_outputs": [
+        "Internal research evidence explorer of exact published averages and schedules with year, units, source, snapshot and research status visible",
+        "Synthetic demonstration of why a named plan/tier/channel schedule differs, without presenting a beneficiary payable amount",
+        "Show unavailable unsupported costs explicitly rather than fabricate a fill total"
+      ],
+      "held_outputs": [
+        "Named-store price quote",
+        "Personal fill/annual/total cost or savings",
+        "Applying no-subsidy schedule to a particular D-SNP/LIS member",
+        "Ranking or recommendations",
+        "Consumer release before exact source-use/review/acceptance gates"
+      ],
+      "components": [
+        {
+          "component": "build-r1",
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-r1",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l06-drug-costs-2026-10-27/build-r1/manifest.json",
+          "control_sha256": "cff044edf598201f6e20a042fa6b20fbf3627c163a43317e70786204852df327"
+        },
+        {
+          "component": "build-cost-r1",
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-cost-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l06-drug-costs-2026-10-27/build-cost-r1/manifest.json",
+          "control_sha256": "98a9c4310f368265c98b075783f297f38756230edfb561c8374979f4bbb40493"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/COST_COLLECTION.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "124edac7e2a4383c95a50a6424fdd7d59d9c0ad2a1836db3f9eefb443960b4cb",
+          "bytes": 7812,
+          "catalog_sha256": "124edac7e2a4383c95a50a6424fdd7d59d9c0ad2a1836db3f9eefb443960b4cb",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/COST_SELECTION.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "1f42a9d972ef17c052bb69f21c80c7d7664d2fae9542ca7c663896a3b8e64951",
+          "bytes": 488,
+          "catalog_sha256": "1f42a9d972ef17c052bb69f21c80c7d7664d2fae9542ca7c663896a3b8e64951",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "feb0737464471edbf8374924cf70e859f16005b0dc90f390d971fcaeb085c8d7",
+          "bytes": 812,
+          "catalog_sha256": "feb0737464471edbf8374924cf70e859f16005b0dc90f390d971fcaeb085c8d7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/SELECTION.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "938df92864ad1aa03a2e171f3be01423a24c9a7ede76cff2f66cc3bc69ea6944",
+          "bytes": 743,
+          "catalog_sha256": "938df92864ad1aa03a2e171f3be01423a24c9a7ede76cff2f66cc3bc69ea6944",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-cost-r1-validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "64a48791b4312ce173f99175021adb95bade87b9c15f1da785ab6babcb41a272",
+          "bytes": 2594,
+          "catalog_sha256": "64a48791b4312ce173f99175021adb95bade87b9c15f1da785ab6babcb41a272",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-cost-r1/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "7376e85a9e74bc75173812fd09326546fa4e2206f2a56714950780ca9d1db863",
+          "bytes": 11841536,
+          "catalog_sha256": "7376e85a9e74bc75173812fd09326546fa4e2206f2a56714950780ca9d1db863",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-cost-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "98a9c4310f368265c98b075783f297f38756230edfb561c8374979f4bbb40493",
+          "bytes": 2116
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-r1-validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "eea743527bd1354315b779e19d1f16656efd4b1e68ebea6d50807cbe89cb4149",
+          "bytes": 2035,
+          "catalog_sha256": "eea743527bd1354315b779e19d1f16656efd4b1e68ebea6d50807cbe89cb4149",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-r1/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9f9b110c025256d6cfa230cb9cd7c772e820aab99c1be14a1ba94e530faf0e1c",
+          "bytes": 146546688,
+          "catalog_sha256": "9f9b110c025256d6cfa230cb9cd7c772e820aab99c1be14a1ba94e530faf0e1c",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/build-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "cff044edf598201f6e20a042fa6b20fbf3627c163a43317e70786204852df327",
+          "bytes": 15456
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/cost-gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "509a44e053308fbaac0ef31b218958807797b42fd93012efa9b7bbe72733e2ab",
+          "bytes": 3104,
+          "catalog_sha256": "509a44e053308fbaac0ef31b218958807797b42fd93012efa9b7bbe72733e2ab",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/cost-handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "c4e24e43e546914c2f4f44e7d4ac3aac1dcefd79f94e2723a0c6517ba674ea66",
+          "bytes": 3042
+        },
+        {
+          "path": "docs/data/l06-drug-costs-2026-10-27/handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "f8abf6ea3784acf7fbad7251d6e009273bea5cddc401bfebb28b444e59fed451",
+          "bytes": 1783
+        }
+      ]
+    },
+    {
+      "layer_id": "L07",
+      "revision": "Network build-r1 + identity-build-r1 + location-build-r4 with additive closeout-r1",
+      "acceptance_status": "human_acceptance=null; consumer_release_enabled=false",
+      "scope": "September 16, 2026 CMS pharmacy network source for the same 71 drug-bearing offerings; later dated registry/GIS/September 21 carrier directory evidence annotates identity/location only.",
+      "allowed_outputs": [
+        "Internal exact plan/source NPI/ZIP/channel/preferred-status evidence lookup",
+        "Sourced pharmacy candidate selection with explicit unresolved alternatives and free text/not listed routes",
+        "Display exact dated published network relationships and separate unresolved branch identity for a synthetic research demo, pending consumer-use review"
+      ],
+      "held_outputs": [
+        "Guaranteeing present operation, fill availability or uninterrupted 2026 membership",
+        "Treating unresolved branch as out of network or excluding it",
+        "Named-pharmacy price or annual total",
+        "Copying another carrier directory's preferred status to one of the 71 plans",
+        "Recommendations or consumer release without exact accepted capability"
+      ],
+      "components": [
+        {
+          "component": "build-r1",
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/build-r1",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l07-pharmacy-networks-2026-10-27/build-r1/manifest.json",
+          "control_sha256": "1cb8ee7374ad08e98a4803cb1b6b07aae7a3accaccad2df80aa7c37dac40675c"
+        },
+        {
+          "component": "identity-build-r1",
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/identity-build-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l07-pharmacy-networks-2026-10-27/identity-build-r1/manifest.json",
+          "control_sha256": "359fffc6b859c3d451f471fd53e8d27c0cf9d678396f4796ba9fb50ac0d579fd"
+        },
+        {
+          "component": "location-build-r4",
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/location-build-r4",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l07-pharmacy-networks-2026-10-27/location-build-r4/manifest.json",
+          "control_sha256": "e86c3c5993532ddb295c7db3dfad25b4e947e4624e564c89c1c2fd28fee0b571"
+        },
+        {
+          "component": "closeout-r1",
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/manifest.json",
+          "control_sha256": "e901c3ed2a0d19bdaea59e7d24beb2de482a43d387e4ac5f9a37941fe784422a"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "1a6a40ec86f02f307836d80f4d4c098d0d0853f5ef84c9100c329ab199e05795",
+          "bytes": 1598,
+          "catalog_sha256": "1a6a40ec86f02f307836d80f4d4c098d0d0853f5ef84c9100c329ab199e05795",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/build-r1/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "fc1c13107d619d63952118faf826d15ef2141a6485d859ad135d441ead599018",
+          "bytes": 1480478720,
+          "catalog_sha256": "fc1c13107d619d63952118faf826d15ef2141a6485d859ad135d441ead599018",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/build-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "1cb8ee7374ad08e98a4803cb1b6b07aae7a3accaccad2df80aa7c37dac40675c",
+          "bytes": 2017
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/README.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "ca5912f9f11302b8e83b4c9ba3f5698e24b99fe44d7c6644bb8ef9beff527c5e",
+          "bytes": 11595,
+          "catalog_sha256": "ca5912f9f11302b8e83b4c9ba3f5698e24b99fe44d7c6644bb8ef9beff527c5e",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "e05ec9f0c33fbb6985f21268d550fd02ca6c556a4d92a6e0b41d513cc473529d",
+          "bytes": 5314,
+          "catalog_sha256": "e05ec9f0c33fbb6985f21268d550fd02ca6c556a4d92a6e0b41d513cc473529d",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "e901c3ed2a0d19bdaea59e7d24beb2de482a43d387e4ac5f9a37941fe784422a",
+          "bytes": 5395
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/previous-selection.json",
+          "role": "selected_component_control",
+          "sha256": "b6cae782b2d734b73d6b3d11e1735d66379a55a68065454b203b367cc81df14c",
+          "bytes": 1319
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/sources.json",
+          "role": "selected_component_control",
+          "sha256": "0a4849197fb063d1df4204f855acbff58b15f5cebd0284014fcae9c864925017",
+          "bytes": 8409
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/closeout-r1/validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "1d89582ae7313a874bd28f0cece999a58d010de8640fc05f410e42be8380cb0a",
+          "bytes": 1722,
+          "catalog_sha256": "1d89582ae7313a874bd28f0cece999a58d010de8640fc05f410e42be8380cb0a",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "c9f8b64bab2dd65edd09b8ffde182edf41bb8579e6e5e5fcb77ca23035866791",
+          "bytes": 4686
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/identity-build-r1/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "359fffc6b859c3d451f471fd53e8d27c0cf9d678396f4796ba9fb50ac0d579fd",
+          "bytes": 1285,
+          "catalog_sha256": "359fffc6b859c3d451f471fd53e8d27c0cf9d678396f4796ba9fb50ac0d579fd",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/location-build-r4/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "aa85a886f60e701b7d4c7ed59cf04fcd87709fbd7e3298c4e19b4e4fce6ffc4a",
+          "bytes": 100741120,
+          "catalog_sha256": "aa85a886f60e701b7d4c7ed59cf04fcd87709fbd7e3298c4e19b4e4fce6ffc4a",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l07-pharmacy-networks-2026-10-27/location-build-r4/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "e86c3c5993532ddb295c7db3dfad25b4e947e4624e564c89c1c2fd28fee0b571",
+          "bytes": 2372
+        }
+      ]
+    },
+    {
+      "layer_id": "L08",
+      "revision": "Research r7 composite: MA r5 + Original Medicare r6 + federal hospitals r7",
+      "acceptance_status": "human_accepted=false; consumer_release_enabled=false; incomplete_research_reference",
+      "scope": "72 exact Collier MA offerings; partial dated carrier/public medical directory observations; separate Florida clinician/enrollment/context selection and national optout/hospital sources. Published positive observations do not establish exhaustive county/provider access.",
+      "allowed_outputs": [
+        "Internal source-qualified provider/site candidate search with distinct exact-plan positive evidence, named-network evidence, family-only observation and unresolved state",
+        "Synthetic inspection of 381 positive hospital-plan cells and 843 unknowns with date/source context",
+        "Original Medicare source-qualified assignment/enrollment/optout observations, preserving both sides of conflicting records",
+        "Inspect missing checks and next official verification tasks; no mandatory full-profile intake to browse evidence"
+      ],
+      "held_outputs": [
+        "Network-absence or out-of-network inference from missing/partial listing",
+        "Guaranteeing person/site in-network from name, NPI, health-system affiliation or benefit existence",
+        "Positive current Medicare participation for enumerated source-conflict identities without clarification",
+        "All-provider/all-network completeness claim",
+        "Medicare SELECT network fit until exact L10 policy/form/network established",
+        "Personal recommendations or consumer activation without separately accepted evidence capability"
+      ],
+      "components": [
+        {
+          "component": "wellcare-r5",
+          "path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/manifest.json",
+          "control_sha256": "8385d8480244b3367830277fa1d7a5c6476542e490b78c592320fdb0b51092c3"
+        },
+        {
+          "component": "original-medicare-r6",
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/manifest.json",
+          "control_sha256": "0ec7f0abe7ba4f6a8e7e26d3e6528910079be10b5f5418301e6d748bb32fa9f3"
+        },
+        {
+          "component": "hospital-reference-r7",
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/manifest.json",
+          "control_sha256": "2cdeca83030ddc2ef50bbaf396b6c996fd4cf744d3b1b4aa97f45bbfb5579af1"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "4cba5e91587e2c7520bddb9922f616c873a68366abb2e6ad8e5bdfbc1dbb060f",
+          "bytes": 872,
+          "catalog_sha256": "4cba5e91587e2c7520bddb9922f616c873a68366abb2e6ad8e5bdfbc1dbb060f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/execution-manifest-r1.json",
+          "role": "selected_component_control",
+          "sha256": "45cd2b34f3d7b85c7f7c8f2de5c5b9d42d833def63b5196abbeb001d2c3522c0",
+          "bytes": 1073050
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/execution-manifest-validation-r1.json",
+          "role": "selected_component_control",
+          "sha256": "d1d9a5842e38bac03bc551a4be31e6aa2a57b0f3c937ba03ff88b7d7e3b1b96b",
+          "bytes": 113
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/REPORT.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "a8b12c64b5d1e56e3b9446c13d4c23ad5df091ca9c2241a02107507df478af2f",
+          "bytes": 2945,
+          "catalog_sha256": "a8b12c64b5d1e56e3b9446c13d4c23ad5df091ca9c2241a02107507df478af2f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/genuine-gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9f340f9f5d4735ef348a3a5bc86b3f5d763b55b93534586c16c07bb925eb3930",
+          "bytes": 17765,
+          "catalog_sha256": "9f340f9f5d4735ef348a3a5bc86b3f5d763b55b93534586c16c07bb925eb3930",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/hospitals.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c5366372d11fe623b4ca1798e998417447c4b3395378514f2f91615804e05f20",
+          "bytes": 11329536,
+          "catalog_sha256": "c5366372d11fe623b4ca1798e998417447c4b3395378514f2f91615804e05f20",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/manifest-validation.json",
+          "role": "selected_component_control",
+          "sha256": "2ddda832d359c2829305580dd43af9713afea785520dac9dee16e26acc63859f",
+          "bytes": 100
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "2cdeca83030ddc2ef50bbaf396b6c996fd4cf744d3b1b4aa97f45bbfb5579af1",
+          "bytes": 3169
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/hospital-reference-r7/validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9f506655271c90478582c3ef83ae093704952dc42ecc7934f6ac6184d7cdc278",
+          "bytes": 432,
+          "catalog_sha256": "9f506655271c90478582c3ef83ae093704952dc42ecc7934f6ac6184d7cdc278",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "56c84aacae8043a9b766fe5efcef4affa26d2f217dafa66ac5f9e9c475f426e1",
+          "bytes": 859
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/REPORT.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "80851c4903d6951a15d91bc43e05e3f34284ac705208c2cd12b569d15dfa8bae",
+          "bytes": 8404,
+          "catalog_sha256": "80851c4903d6951a15d91bc43e05e3f34284ac705208c2cd12b569d15dfa8bae",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/catalog-selection.json",
+          "role": "selected_component_control",
+          "sha256": "965f68d65c4b3f98ff104d6ba8b44955a7ac76dcc8db5dd1b9fe430391a59c5e",
+          "bytes": 252050
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/enrollment_resources.json",
+          "role": "selected_component_control",
+          "sha256": "e192c58c372d29e5054622d5602baea3fc73e580b6c788492112a060c97d0b0b",
+          "bytes": 3760
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/manifest-validation.json",
+          "role": "selected_component_control",
+          "sha256": "01043f6ded45bed4b5fd65a9073bb94c6214b0e192f24d51ba10d53ee83b3fd8",
+          "bytes": 150
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "0ec7f0abe7ba4f6a8e7e26d3e6528910079be10b5f5418301e6d748bb32fa9f3",
+          "bytes": 49397
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/optout_resources.json",
+          "role": "selected_component_control",
+          "sha256": "b8ba816cf2781b12137e634a0a9655e1bc7544dde0dd7050b6dcdc4782271235",
+          "bytes": 1657
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/original-medicare.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c85fedc37dbf44900ccb354ed605368b027928ae8fd0644548b3961474530bb4",
+          "bytes": 717864960,
+          "catalog_sha256": "c85fedc37dbf44900ccb354ed605368b027928ae8fd0644548b3961474530bb4",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/selection.json",
+          "role": "selected_component_control",
+          "sha256": "238f5a8a24ddc5886e1e18a6d2c01586f13762f6cd5a62a8e66a549987e1fa5a",
+          "bytes": 15717080
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/original-medicare-r6/sources.json",
+          "role": "selected_component_control",
+          "sha256": "883dadaf5d51184d08d746ac4af3649d13f68d0d4ba99df450e679cc1f4a5955",
+          "bytes": 13616
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/REPORT.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "75b1cf071609b62a06bdfade211ab94bb8900a84fc7361d365d1fc626745918b",
+          "bytes": 7956,
+          "catalog_sha256": "75b1cf071609b62a06bdfade211ab94bb8900a84fc7361d365d1fc626745918b",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/manifest-validation.json",
+          "role": "selected_component_control",
+          "sha256": "352c0de8facae61ee35c73824377b4615a365ba0935418bc76f5fe96a01f41b0",
+          "bytes": 115
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "8385d8480244b3367830277fa1d7a5c6476542e490b78c592320fdb0b51092c3",
+          "bytes": 9231038
+        },
+        {
+          "path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "bytes": 2499805184,
+          "catalog_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "catalog_sha256_matches": true
+        }
+      ]
+    },
+    {
+      "layer_id": "L09",
+      "revision": "build-r4, manifest 09964bc38cc2741162ac00b3cd8a21cb7a660d8507f135476d2d48b551a15705",
+      "acceptance_status": "human_acceptance=null; consumer_release_enabled=false; research=True required by reference reader",
+      "scope": "All 82 exact held offerings (72 Collier MA + 10 Florida PDP), 24 contracts, native summary/domain/45 measure positions and definitions. Contract quality context rather than county, doctor or personal fit.",
+      "allowed_outputs": [
+        "Integrity-checked internal research lookup with contract label, correct primary summary type, source year/revision/period and unavailable states",
+        "Compare published contract-quality context for synthetic research examples without fit ranking",
+        "Use as candidate input for future explicitly reviewed comparison dimensions, not a standalone recommendation score"
+      ],
+      "held_outputs": [
+        "Consumer caching/redisplay beyond accepted allowed-source-use scope",
+        "Interpreting contract rating as doctor/local-site quality or personal outcome probability",
+        "Turning unavailable ratings into zero or excluding offerings",
+        "Ranking/recommendations or 2027 substitution",
+        "Promoting context/PQA data to drug coverage rules"
+      ],
+      "components": [
+        {
+          "component": "build-r4",
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l09-star-ratings-2026-10-28/build-r4/manifest.json",
+          "control_sha256": "09964bc38cc2741162ac00b3cd8a21cb7a660d8507f135476d2d48b551a15705"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/COLLECTION.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "acdd03873adc01587779d3cedc96475a3c3275733c73a5d33b60af761fed8048",
+          "bytes": 9477,
+          "catalog_sha256": "acdd03873adc01587779d3cedc96475a3c3275733c73a5d33b60af761fed8048",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "66aa859db4a76d71c5cda5018139d3ab42f614c97fd88ee8a9ffee430aba9536",
+          "bytes": 721,
+          "catalog_sha256": "66aa859db4a76d71c5cda5018139d3ab42f614c97fd88ee8a9ffee430aba9536",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/REVIEW.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "b78721876d0a98860d4d1b1a9cab7b68ed8abc92a113086478eca7b8baac3763",
+          "bytes": 3949,
+          "catalog_sha256": "b78721876d0a98860d4d1b1a9cab7b68ed8abc92a113086478eca7b8baac3763",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4-validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c5555b278b9b9b87d9ed4ba0ee99d09f78ef0a539faafb91d99bd1f3dba75456",
+          "bytes": 671,
+          "catalog_sha256": "c5555b278b9b9b87d9ed4ba0ee99d09f78ef0a539faafb91d99bd1f3dba75456",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "bb1833fd2927234fe5c844d39ea0de171ce46eb64271096347dbdbd3777ef4b6",
+          "bytes": 1471,
+          "catalog_sha256": "bb1833fd2927234fe5c844d39ea0de171ce46eb64271096347dbdbd3777ef4b6",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "84aac1c53bb7f580946e983f33f44e312d02039dafc44822efd5cdd1c6ca560c",
+          "bytes": 3473408,
+          "catalog_sha256": "84aac1c53bb7f580946e983f33f44e312d02039dafc44822efd5cdd1c6ca560c",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "09964bc38cc2741162ac00b3cd8a21cb7a660d8507f135476d2d48b551a15705",
+          "bytes": 3785
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/measure-definitions.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "0ae6ec491f8edb5d9351cfb9484d7f37902f5760486db549800a4975909dabc5",
+          "bytes": 278223,
+          "catalog_sha256": "0ae6ec491f8edb5d9351cfb9484d7f37902f5760486db549800a4975909dabc5",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/observations.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "7bad454e209aaf1630c0f1f531e0a3e1ed9549eefc45a37c0c97ad60f69fbec6",
+          "bytes": 2640271,
+          "catalog_sha256": "7bad454e209aaf1630c0f1f531e0a3e1ed9549eefc45a37c0c97ad60f69fbec6",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/offerings.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "f7eafed591e316e906c4c3948d448a9d67e998fe6f65baec648a85ffbad337b1",
+          "bytes": 71652,
+          "catalog_sha256": "f7eafed591e316e906c4c3948d448a9d67e998fe6f65baec648a85ffbad337b1",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/build-r4/source-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "1ebb52b53a004e86b78faeab60b0d2aa6ad2d18138705925ca70b0891ee4dae1",
+          "bytes": 5424
+        },
+        {
+          "path": "docs/data/l09-star-ratings-2026-10-28/handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "5ff75682804ba4b76995f8f5bddc0b8d97a9bf7ad9052bd4b3e45cd27e3b6d99",
+          "bytes": 1484
+        }
+      ]
+    },
+    {
+      "layer_id": "L10",
+      "revision": "Composite r2 source-observed reference + r3 supplied filings + r4 gap discovery + r5 targeted filing archive; each retains separate selector",
+      "acceptance_status": "human_acceptance=null; consumer_release_enabled=false; full_l10_complete=false; research_only",
+      "scope": "Published standardized-benefit/source-observed discovery for Collier plus exact supplied OIR filing grids across years, regions and approved/replaced versions. Complete current all-market product/form/business-state/county denominator is not established.",
+      "allowed_outputs": [
+        "Internal bounded source-observed product/standardized-benefit/rate-grid evidence explorer with research status, historical/replaced/unknown periods visible",
+        "Synthetic comparison of exact approved annual grid observations for a sourced interval without claims of personal eligibility/current sale",
+        "Explain how a rate observation depends on exact form, region, issue cohort, payment/discount/period conditions"
+      ],
+      "held_outputs": [
+        "Complete all-market consumer product discovery claim",
+        "Binding rate/personal quote or turning annual/12 into actual bill",
+        "Guaranteeing availability, issue eligibility, guaranteed-issue right or discount qualification",
+        "Promoting source zeros as free coverage",
+        "Treating group or SELECT product as ordinary individual open-sale option",
+        "Automatic ranking/recommendations or consumer activation"
+      ],
+      "components": [
+        {
+          "component": "build-r2",
+          "path": "docs/data/l10-medigap-2026-10-28/build-r2",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l10-medigap-2026-10-28/build-r2/manifest.json",
+          "control_sha256": "e80d3d4e17505f65dad5dd391e08fbd406d058440281af3f8a2330bf18a3df53"
+        },
+        {
+          "component": "filing-reconciliation-r3/build-r1",
+          "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/manifest.json",
+          "control_sha256": "505071f4574cae4bb9b9a9ee6b6207d5d2b39ba15c4fdcfc7936a219b58bc76f"
+        },
+        {
+          "component": "gap-resolution-r4/build-r1",
+          "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/manifest.json",
+          "control_sha256": "5341a0a3cfa09e05d962ac7e21a58654bbcf794debf93aa374c22a977d79cd05"
+        },
+        {
+          "component": "targeted-filings-r5/build-r1",
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/manifest.json",
+          "control_sha256": "acb6f97b844f1cae551ef940e1b15b6053c7cb6a13ce13e71d5815ba879a95d4"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/CURRENT_CLOSEOUT.json",
+          "role": "selected_component_control",
+          "sha256": "e70490ddc866a0b066803347cf48579eab1067b727ae531eb738355d3efa9d7a",
+          "bytes": 479
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/CURRENT_FILINGS.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "bde6436eb31977523023d33618d483b3c7fc758d31a79b61da13162c01e546e4",
+          "bytes": 403,
+          "catalog_sha256": "bde6436eb31977523023d33618d483b3c7fc758d31a79b61da13162c01e546e4",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/CURRENT_GAP_RESEARCH.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "178e540b072f8de7c18404ce8d4284944fee62c5ea3ddb5aba8d44515e79ed98",
+          "bytes": 373,
+          "catalog_sha256": "178e540b072f8de7c18404ce8d4284944fee62c5ea3ddb5aba8d44515e79ed98",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "93b73080d07b1b04e1d35ff4d42cf9850c77f19e1fc98c14c2ebee429a61740c",
+          "bytes": 401,
+          "catalog_sha256": "93b73080d07b1b04e1d35ff4d42cf9850c77f19e1fc98c14c2ebee429a61740c",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/CURRENT_TARGETED_FILINGS.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "22f7e814fee4f72c1a778f805f72090ed3621434103d8aed5cf889044d7bcb41",
+          "bytes": 416,
+          "catalog_sha256": "22f7e814fee4f72c1a778f805f72090ed3621434103d8aed5cf889044d7bcb41",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/STATUS.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9588aba7146679ed7b777114c746fcc6686516633f9bca882dec6284ce244874",
+          "bytes": 1327,
+          "catalog_sha256": "9588aba7146679ed7b777114c746fcc6686516633f9bca882dec6284ce244874",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+          "bytes": 273506304,
+          "catalog_sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/build-r2/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "e80d3d4e17505f65dad5dd391e08fbd406d058440281af3f8a2330bf18a3df53",
+          "bytes": 188497
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/build-r2/sources.json",
+          "role": "selected_component_control",
+          "sha256": "eeb64be4aff71f090efca5277414c996fdf46d779a52f75afbb361a623665cb2",
+          "bytes": 1471073
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "505071f4574cae4bb9b9a9ee6b6207d5d2b39ba15c4fdcfc7936a219b58bc76f",
+          "bytes": 31454
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/rate-cells.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "ff33d8009eb3d24405e3dc54c5070845af2110805140e5a83db0163bf0bf3783",
+          "bytes": 12917118,
+          "catalog_sha256": "ff33d8009eb3d24405e3dc54c5070845af2110805140e5a83db0163bf0bf3783",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "5341a0a3cfa09e05d962ac7e21a58654bbcf794debf93aa374c22a977d79cd05",
+          "bytes": 385086,
+          "catalog_sha256": "5341a0a3cfa09e05d962ac7e21a58654bbcf794debf93aa374c22a977d79cd05",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/handoff-manifest.json",
+          "role": "selected_component_control",
+          "sha256": "be2032f7b5f5b3e2fee572616e166af004d5bf7c5f41dcc21916efc0c9eed6d6",
+          "bytes": 2050
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/README.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "97868abee9279830798a4bb3f3fb12165317b07d8ce08689f160855133cf5022",
+          "bytes": 7153,
+          "catalog_sha256": "97868abee9279830798a4bb3f3fb12165317b07d8ce08689f160855133cf5022",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/manifest.json",
+          "role": "selected_component_control",
+          "sha256": "acb6f97b844f1cae551ef940e1b15b6053c7cb6a13ce13e71d5815ba879a95d4",
+          "bytes": 677840
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/rate-cells.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "78939b99159e8a8ba76c4fc52650a0af2d7271923961b5761c12feae398f80d4",
+          "bytes": 24430577,
+          "catalog_sha256": "78939b99159e8a8ba76c4fc52650a0af2d7271923961b5761c12feae398f80d4",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/schedules.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "bb8afc81c3411f86ad47bd1174206000809723da2ba4fe354f5c81c7b1f9d0ce",
+          "bytes": 841241,
+          "catalog_sha256": "bb8afc81c3411f86ad47bd1174206000809723da2ba4fe354f5c81c7b1f9d0ce",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "0b7e8fd85d8ce73c1bba1480c63fdc1c221473044ec4d36e625baa22028ef72e",
+          "bytes": 6608,
+          "catalog_sha256": "0b7e8fd85d8ce73c1bba1480c63fdc1c221473044ec4d36e625baa22028ef72e",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "492227e337d46b073ed570e82a9bc2f8651a66fa7c88b6e8a892b5aa96bef957",
+          "bytes": 893,
+          "catalog_sha256": "492227e337d46b073ed570e82a9bc2f8651a66fa7c88b6e8a892b5aa96bef957",
+          "catalog_sha256_matches": true
+        }
+      ]
+    },
+    {
+      "layer_id": "L11",
+      "revision": "L11-PUBLISHED-FL-2026-research-r2",
+      "acceptance_status": {
+        "human_acceptance": null,
+        "qualified_review": null,
+        "consumer_release_enabled": false,
+        "personal_applicability_enabled": false,
+        "note": "Qualified exact-reference review and acceptance absent; implementation authorization is separate."
+      },
+      "scope": "Published 2026 federal and Florida Medigap buying-rights reference for Collier; source-clause comparisons and synthetic patterns, not an accepted personal legal model.",
+      "allowed_outputs": [
+        "Internal reviewer evidence browsing, source inspection, explicit research-only synthetic scenarios.",
+        "After exact source-use/release acceptance: qualified general education and a list of the specific remaining protection checks for a requested Medigap task."
+      ],
+      "held_outputs": [
+        "Personal guaranteed-issue/underwriting conclusion, deadline or carrier price/availability.",
+        "Inferring Medigap protection from a generic Medicare SEP, a user report or notice-table omission.",
+        "Dropping current coverage or preferring MA based on unresolved Medigap facts."
+      ],
+      "components": [
+        {
+          "component": "build-r2",
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/manifest.json",
+          "control_sha256": "30f3e52478b1e35003560eda8b58c65e14325fab8591a4fae38450c52ccdc1a0"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "97180291098b0e30d9730cc0ea3ec790099f7304827f1781d9caa3af4dddc6f1",
+          "bytes": 775,
+          "catalog_sha256": "97180291098b0e30d9730cc0ea3ec790099f7304827f1781d9caa3af4dddc6f1",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/clocks.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "87dfda6c84184a965f7247ba6067e2d49a6c43d8a22a7484b8ac9ececa5724b9",
+          "bytes": 3176,
+          "catalog_sha256": "87dfda6c84184a965f7247ba6067e2d49a6c43d8a22a7484b8ac9ececa5724b9",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/exhibit-24-crosswalk.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "0a60a07312b25c0cc1952987c0c98d9c7814417fd20e8a9fad8becb4aa67390d",
+          "bytes": 5898,
+          "catalog_sha256": "0a60a07312b25c0cc1952987c0c98d9c7814417fd20e8a9fad8becb4aa67390d",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/l11-reference.sqlite",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "19118beba187ecf5524d044770f1457978c35267c591753568e802fba007b971",
+          "bytes": 5382144,
+          "catalog_sha256": "19118beba187ecf5524d044770f1457978c35267c591753568e802fba007b971",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "30f3e52478b1e35003560eda8b58c65e14325fab8591a4fae38450c52ccdc1a0",
+          "bytes": 38879,
+          "catalog_sha256": "30f3e52478b1e35003560eda8b58c65e14325fab8591a4fae38450c52ccdc1a0",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/policy-choices.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "50f453f012ce344928ad1c39902ce7fedfb0020cd3753551348f7f6a1bba5a95",
+          "bytes": 955,
+          "catalog_sha256": "50f453f012ce344928ad1c39902ce7fedfb0020cd3753551348f7f6a1bba5a95",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/reconciliations-r2.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "11bba1c7d0e763b2ec0b13a554ba058fa7538eb0f19d25533cc0c38519335e52",
+          "bytes": 15877,
+          "catalog_sha256": "11bba1c7d0e763b2ec0b13a554ba058fa7538eb0f19d25533cc0c38519335e52",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/review-questions.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "7fb51f0b4c7312301541d1e34b26d325ae81e113513d53fa56188263c5fd17f7",
+          "bytes": 4303,
+          "catalog_sha256": "7fb51f0b4c7312301541d1e34b26d325ae81e113513d53fa56188263c5fd17f7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/rules.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c73ad7c28d3cb71ab85579cbba1fc1f11dd36d15ba0606321ba1de2b9a2fd163",
+          "bytes": 577836,
+          "catalog_sha256": "c73ad7c28d3cb71ab85579cbba1fc1f11dd36d15ba0606321ba1de2b9a2fd163",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/sep-crosswalk.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "34ae2454cf0135418aa136f17e7f15aea120e6808fb9d5dd9a5bc6c4751aac80",
+          "bytes": 35026,
+          "catalog_sha256": "34ae2454cf0135418aa136f17e7f15aea120e6808fb9d5dd9a5bc6c4751aac80",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/source-clause-ledger.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "31da1ea14e5fd884f94f2888c482b2200797e6dd6f7ad700a86c2c85dba7b610",
+          "bytes": 3762790,
+          "catalog_sha256": "31da1ea14e5fd884f94f2888c482b2200797e6dd6f7ad700a86c2c85dba7b610",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l11-medigap-rights-2026-10-28/build-r2/sources.json",
+          "role": "selected_component_control",
+          "sha256": "8aaa89f12c5bd2df56bcb30b50375c91094e0583b77d904c67395f61f33edbf9",
+          "bytes": 45118
+        }
+      ]
+    },
+    {
+      "layer_id": "L12",
+      "revision": "L12-PUBLISHED-FL-2026-research-r2",
+      "acceptance_status": {
+        "human_acceptance": null,
+        "qualified_review": null,
+        "consumer_release_enabled": false,
+        "personal_applicability_enabled": false,
+        "note": "Qualified exact-reference review and acceptance absent; implementation authorization is separate."
+      },
+      "scope": "Published 2026 federal/Florida Extra Help, MSP and relevant SSI-related Medicaid pathways for Collier. Typed standards and source-linked rules; no individual eligibility determination.",
+      "allowed_outputs": [
+        "Internal program/standard/source exploration and explicit synthetic comparisons.",
+        "After exact release acceptance: general help-program education, source-backed explanation of what an official agency must check, neutral application/counseling routes."
+      ],
+      "held_outputs": [
+        "Personal assistance eligibility/denial, award start, subsidy amount or total-cost reduction.",
+        "Comparing raw income to one threshold as an eligibility engine.",
+        "Treating RC18 report/pending application, D-SNP interest or a plan placeholder as a confirmed award."
+      ],
+      "components": [
+        {
+          "component": "build-r2",
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/manifest.json",
+          "control_sha256": "566aa6ec0d76a5d9a6291350eeb7c60dc7e35c1d1355a65bf2da429be93375a5"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "983ff11aab647034f1d60516fe288954006d1626d203541ddd538fcc288be5c9",
+          "bytes": 1003,
+          "catalog_sha256": "983ff11aab647034f1d60516fe288954006d1626d203541ddd538fcc288be5c9",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/LIS-resources-2026.json",
+          "role": "selected_component_control",
+          "sha256": "fe6a6706b383f7e6f35dc60ec8b69d1533bc48c7f560292fa28b5b48b9f1ad43",
+          "bytes": 1235
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/automatic-routes.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "cd93a48ff3e09cc9063417e288362aab078375b838f9be5b94fbce503f3c1d05",
+          "bytes": 1974,
+          "catalog_sha256": "cd93a48ff3e09cc9063417e288362aab078375b838f9be5b94fbce503f3c1d05",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/florida-medicaid-standards.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "e8a2ecd3cfffc037c16885665b415d2cd4330bc658a9168582c9fef97419e6a3",
+          "bytes": 23975,
+          "catalog_sha256": "e8a2ecd3cfffc037c16885665b415d2cd4330bc658a9168582c9fef97419e6a3",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/florida-msp-lis-tables.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "ba8f4acef9a2f93d6bbd2eeb3ade69710deeb49a74c65eb1641526e7af73efbe",
+          "bytes": 38476,
+          "catalog_sha256": "ba8f4acef9a2f93d6bbd2eeb3ade69710deeb49a74c65eb1641526e7af73efbe",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/l12-reference.sqlite",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "22da525edf518886075df4e938bbca9ca885b2c3dcc3ae5e1c3866e10e96ba02",
+          "bytes": 48697344,
+          "catalog_sha256": "22da525edf518886075df4e938bbca9ca885b2c3dcc3ae5e1c3866e10e96ba02",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "566aa6ec0d76a5d9a6291350eeb7c60dc7e35c1d1355a65bf2da429be93375a5",
+          "bytes": 85307,
+          "catalog_sha256": "566aa6ec0d76a5d9a6291350eeb7c60dc7e35c1d1355a65bf2da429be93375a5",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/programs.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "bb3b9e7260a5c035bb41a25cf801aabb642872a1f919b357694ca29294994b6f",
+          "bytes": 14554,
+          "catalog_sha256": "bb3b9e7260a5c035bb41a25cf801aabb642872a1f919b357694ca29294994b6f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/review-questions-r2.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "0103de396eb3cb5a72260bc26cc2049e5697e67f9dd0358c7a3005f55aefaadc",
+          "bytes": 2614,
+          "catalog_sha256": "0103de396eb3cb5a72260bc26cc2049e5697e67f9dd0358c7a3005f55aefaadc",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/rule-changes-r2.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "a6bb8c2d43b8a8873a47bf10bd7e9293129c1322ee6186c3d59d9900f78cf9ff",
+          "bytes": 782033,
+          "catalog_sha256": "a6bb8c2d43b8a8873a47bf10bd7e9293129c1322ee6186c3d59d9900f78cf9ff",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/rules.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "56d8ac1b171ddf26e927eabfd6cbdf561165d7d78dc313767c5e8af4d7f83e6c",
+          "bytes": 1621917,
+          "catalog_sha256": "56d8ac1b171ddf26e927eabfd6cbdf561165d7d78dc313767c5e8af4d7f83e6c",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/source-clause-ledger.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "2c024e8cfc701a26b55cdf8eb1b3139a33a7566c89fe7e4510a32c070bb1711a",
+          "bytes": 9788642,
+          "catalog_sha256": "2c024e8cfc701a26b55cdf8eb1b3139a33a7566c89fe7e4510a32c070bb1711a",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l12-help-with-costs-2026-10-28/build-r2/sources.json",
+          "role": "selected_component_control",
+          "sha256": "690dba0a4837c144730d6941b30990787b9700980d824014d5496befe9c68266",
+          "bytes": 84216
+        }
+      ]
+    },
+    {
+      "layer_id": "L13",
+      "revision": "L13-PUBLISHED-COLLIER-2026-research-r1",
+      "acceptance_status": {
+        "human_acceptance": null,
+        "qualified_review": null,
+        "consumer_release_enabled": false,
+        "personal_applicability_enabled": false,
+        "note": "Qualified exact-reference review and acceptance absent; implementation authorization is separate."
+      },
+      "scope": "Published 2026 federal enrollment, penalty and coordination reference for Collier, legal snapshot October 27, 2026. Synthetic arithmetic only; no full-year personal engine.",
+      "allowed_outputs": [
+        "Internal source/date/penalty fixture explorer with fictional assumed qualified facts.",
+        "After exact release acceptance: general enrollment education and task-specific explanation of missing official history/event evidence."
+      ],
+      "held_outputs": [
+        "Personal enrollment eligibility, exact deadline/start, penalty assessment or payer-order conclusion.",
+        "Automatic exemption/zero penalty from a missing fact, pending application or unsupported event.",
+        "Using 2026 coverage data for fall-2026/2027 plan recommendations or backdating the 2027 correction.",
+        "Enrollment, cancellation or guaranteed no-loss transition."
+      ],
+      "components": [
+        {
+          "component": "build-r1",
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l13-enrollment-2026-10-28/build-r1/manifest.json",
+          "control_sha256": "407d53ea070349b8dcba0fbbc10893932d96c32a71cbfa447d68ff470e08616c"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "d9a280b4030a57031a55231b994a8d1e289b5a99d2af44c163c91a4b8eb23130",
+          "bytes": 741,
+          "catalog_sha256": "d9a280b4030a57031a55231b994a8d1e289b5a99d2af44c163c91a4b8eb23130",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/CMS-SEP-comparisons.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "756d15092f98a637689bb57bdb496821eb38a542c6c90b9249c03ab7638ad532",
+          "bytes": 159333,
+          "catalog_sha256": "756d15092f98a637689bb57bdb496821eb38a542c6c90b9249c03ab7638ad532",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/annual-windows.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "7bc6ed7b5688c53d5cf5f30107b88922a94b6f8fbf25531053b68c32b0a72ec7",
+          "bytes": 1295,
+          "catalog_sha256": "7bc6ed7b5688c53d5cf5f30107b88922a94b6f8fbf25531053b68c32b0a72ec7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/clocks.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "ac8007b1903773f6173c7ee959f9bba23f8c3fc81261c27db7adaf12f638725f",
+          "bytes": 9685,
+          "catalog_sha256": "ac8007b1903773f6173c7ee959f9bba23f8c3fc81261c27db7adaf12f638725f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "e133f17f6392a9a528732f926cef3ea56cbd17b69a211ffa873f5f78364905cd",
+          "bytes": 3273,
+          "catalog_sha256": "e133f17f6392a9a528732f926cef3ea56cbd17b69a211ffa873f5f78364905cd",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/l13-reference.sqlite",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "e418d6b1d36934e597e072caf416422d50c794c932bde41946c2756bea55a50d",
+          "bytes": 17117184,
+          "catalog_sha256": "e418d6b1d36934e597e072caf416422d50c794c932bde41946c2756bea55a50d",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "407d53ea070349b8dcba0fbbc10893932d96c32a71cbfa447d68ff470e08616c",
+          "bytes": 51701,
+          "catalog_sha256": "407d53ea070349b8dcba0fbbc10893932d96c32a71cbfa447d68ff470e08616c",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/reconciliations.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "93cd22a09facc5d526c051c4c4c01604d3545dfaf42b496cf0e0e39a1c5968df",
+          "bytes": 419694,
+          "catalog_sha256": "93cd22a09facc5d526c051c4c4c01604d3545dfaf42b496cf0e0e39a1c5968df",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/regulatory-SEP-inventory.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "08c5ab828ca8ae23b340f36c4ef431014b80c2d9bfe9a0c671fa4b364a34c918",
+          "bytes": 109323,
+          "catalog_sha256": "08c5ab828ca8ae23b340f36c4ef431014b80c2d9bfe9a0c671fa4b364a34c918",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/rules.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "811a4464997c400db7ec2f6649d379ade377c60be433684fee0c9e4f525efb4e",
+          "bytes": 1958370,
+          "catalog_sha256": "811a4464997c400db7ec2f6649d379ade377c60be433684fee0c9e4f525efb4e",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/source-clause-ledger.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "ea6ee8aece35fbfd1c7e253e55915f6107935a54b4bfcbffa765d83560fcfbf3",
+          "bytes": 5408359,
+          "catalog_sha256": "ea6ee8aece35fbfd1c7e253e55915f6107935a54b4bfcbffa765d83560fcfbf3",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l13-enrollment-2026-10-28/build-r1/sources.json",
+          "role": "selected_component_control",
+          "sha256": "6fd3110439597dd9b5ceb84b08df6f4c342288453d2ae6d00f20cc090ab670d5",
+          "bytes": 49630
+        }
+      ]
+    },
+    {
+      "layer_id": "L14",
+      "revision": "L14-PUBLISHED-COLLIER-2026-research-r1 + L14-PUBLISHED-COLLIER-2026-gap-r2",
+      "acceptance_status": {
+        "human_acceptance": null,
+        "qualified_review": null,
+        "consumer_release_enabled": false,
+        "personal_applicability_enabled": false,
+        "note": "Qualified exact-reference review and acceptance absent; implementation authorization is separate."
+      },
+      "scope": "Dated published Collier inventory for PACE, restricted MSA/HCPP, Cost negative searches, temporary LI NET and relevant source-population boundaries; additive r2 narrows explicit gaps.",
+      "allowed_outputs": [
+        "Internal transparent coverage-path/source explorer retaining restricted/unknown/negative-search states.",
+        "After exact release acceptance: general conditional path descriptions and official research routes, including employer/union routes when actually relevant."
+      ],
+      "held_outputs": [
+        "Inserting all seven paths as unrestricted Collier plan candidates.",
+        "Unified Fenyx deductible/deposit/quote, PACE eligibility/opening, HCPP membership/provider access.",
+        "Treating funded slots minus people as vacancies or capitation as a personal price.",
+        "Copying UHS separate-PDP permission to Hotel, or interpreting individual-landscape absence as no possible restricted coverage."
+      ],
+      "components": [
+        {
+          "component": "build-r1",
+          "path": "docs/data/l14-other-coverage-2026-10-29/build-r1",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l14-other-coverage-2026-10-29/build-r1/manifest.json",
+          "control_sha256": "15d6e1d711cd590f280e7f92bd47c9d9b619481c6cd02570f3a83495c3fddedd"
+        },
+        {
+          "component": "gap-resolution-r2/build-r2",
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2",
+          "role": "selected_additive_component",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/manifest.json",
+          "control_sha256": "8b5fd02e308f727d240f13a6fc4f7f78faae8f4d22fc1e45e212e779b1e08c2c"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/CURRENT_GAP_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "2729b58c6f46560e207836e384173ecb1cadd741bc56524681d235d9389a14e7",
+          "bytes": 794,
+          "catalog_sha256": "2729b58c6f46560e207836e384173ecb1cadd741bc56524681d235d9389a14e7",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c6e6e2d858ce04495b119ec1a31d1c5c55b7a3ad0a9a716148c7627dd8ce8ace",
+          "bytes": 721,
+          "catalog_sha256": "c6e6e2d858ce04495b119ec1a31d1c5c55b7a3ad0a9a716148c7627dd8ce8ace",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/build-r1/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "15d6e1d711cd590f280e7f92bd47c9d9b619481c6cd02570f3a83495c3fddedd",
+          "bytes": 52475,
+          "catalog_sha256": "15d6e1d711cd590f280e7f92bd47c9d9b619481c6cd02570f3a83495c3fddedd",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/build-r1/negative-search.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "c52ee7efa349e99d9f0c03fbbe572bfe3764c69bdae90ae1546c4c8010f9ef8f",
+          "bytes": 1156,
+          "catalog_sha256": "c52ee7efa349e99d9f0c03fbbe572bfe3764c69bdae90ae1546c4c8010f9ef8f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/build-r1/paths.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "9e0d779a5973ce12474de200a3b60d2ce3380f2dea163ca11c7ed7d96c11c500",
+          "bytes": 9767,
+          "catalog_sha256": "9e0d779a5973ce12474de200a3b60d2ce3380f2dea163ca11c7ed7d96c11c500",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/build-r1/rules.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "45e485875a7f7cc45e861f604f8fce593babeb8c2bece8cd650453fae1576d43",
+          "bytes": 468839,
+          "catalog_sha256": "45e485875a7f7cc45e861f604f8fce593babeb8c2bece8cd650453fae1576d43",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/build-r1/source-anomalies.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "68590057ca8beba6bcc2fe444acf039e2e93db90e49d7a96ecb33d00ec59556a",
+          "bytes": 12936,
+          "catalog_sha256": "68590057ca8beba6bcc2fe444acf039e2e93db90e49d7a96ecb33d00ec59556a",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/Fenyx-comparisons.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "6436b8564d068e36875f02c8be69a85da5d08ec0643e94e62f0dd52ce3efd80e",
+          "bytes": 155131,
+          "catalog_sha256": "6436b8564d068e36875f02c8be69a85da5d08ec0643e94e62f0dd52ce3efd80e",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/HCPP-profiles.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "04ac0fc856f9afd2e6ae58358b65f0376a0aa6dd756debba9ae2dbce5c94c01f",
+          "bytes": 2247,
+          "catalog_sha256": "04ac0fc856f9afd2e6ae58358b65f0376a0aa6dd756debba9ae2dbce5c94c01f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/claims.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "d39111f5dac9b687175b85e4236104bc503c040a9c48e2c90f8ab088532b98fa",
+          "bytes": 1678443,
+          "catalog_sha256": "d39111f5dac9b687175b85e4236104bc503c040a9c48e2c90f8ab088532b98fa",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/gaps.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "73a3896125903e35de9f70d954c799fdcec52d6043786c0cadd1aac7eada6bb5",
+          "bytes": 4748,
+          "catalog_sha256": "73a3896125903e35de9f70d954c799fdcec52d6043786c0cadd1aac7eada6bb5",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "8b5fd02e308f727d240f13a6fc4f7f78faae8f4d22fc1e45e212e779b1e08c2c",
+          "bytes": 63436,
+          "catalog_sha256": "8b5fd02e308f727d240f13a6fc4f7f78faae8f4d22fc1e45e212e779b1e08c2c",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/reference.sqlite",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "0b7910b8f9a19ef16fd093dc1cead8e7fd8a4e5df6a75413e84c90b3ff5ee0d0",
+          "bytes": 7286784,
+          "catalog_sha256": "0b7910b8f9a19ef16fd093dc1cead8e7fd8a4e5df6a75413e84c90b3ff5ee0d0",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l14-other-coverage-2026-10-29/gap-resolution-r2/build-r2/state-observation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "0473d861ac764acc340ecee9cf4636bc206d63a4ae00e4665ad957aad5c5248b",
+          "bytes": 1364,
+          "catalog_sha256": "0473d861ac764acc340ecee9cf4636bc206d63a4ae00e4665ad957aad5c5248b",
+          "catalog_sha256_matches": true
+        }
+      ]
+    },
+    {
+      "layer_id": "L15",
+      "revision": "L15-PUBLISHED-COLLIER-2026-10-29-r1",
+      "acceptance_status": {
+        "human_acceptance": null,
+        "qualified_review": null,
+        "consumer_release_enabled": false,
+        "personal_applicability_enabled": false,
+        "note": "R20 mechanical comparison complete; human review is only needed for unresolved material contact semantics, none found. Exact source-use and release acceptance still pending."
+      },
+      "scope": "All site rows on official SHINE Collier page and statewide published contact/request routes as of October 29, 2026; dated operational directory only.",
+      "allowed_outputs": [
+        "Internal directory review and source inspection.",
+        "After exact source-use/release acceptance: optional published phone/TDD/TTY/request links with appointment/member restrictions and as-of date; no new universal intake."
+      ],
+      "held_outputs": [
+        "Appointment or delivery confirmation, response-time promise, personal membership conclusion.",
+        "Automatic transfer of profile/contact/health data, request submission or completed handoff without separate authorization.",
+        "Using liaison/administrative contacts as local appointment contacts."
+      ],
+      "components": [
+        {
+          "component": "build-r1",
+          "path": "docs/data/l15-local-counseling-2026-10-29/build-r1",
+          "role": "selected_base",
+          "acceptance_boundary": "research_only",
+          "control_path": "docs/data/l15-local-counseling-2026-10-29/manifest.json",
+          "control_sha256": "308b5fbde6897c4d84c974f78353caebd71c082277e8af299404083bc81b3d23"
+        }
+      ],
+      "seeds": [
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/CURRENT_REFERENCE.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "d014670974148cff5f47def024de2215113e44b6ee1395897178973932c092dd",
+          "bytes": 299,
+          "catalog_sha256": "d014670974148cff5f47def024de2215113e44b6ee1395897178973932c092dd",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/REVIEW.md",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "966fd616cbb0b7c049ca70bde69d691b057fedf7e19d412809a619fdc51c6f1f",
+          "bytes": 1877,
+          "catalog_sha256": "966fd616cbb0b7c049ca70bde69d691b057fedf7e19d412809a619fdc51c6f1f",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/build-r1/directory.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "a86a9e842b59e1ade61602964e9b2ca1e2ed746af4bfb480c1eff2a285ded3e2",
+          "bytes": 14538,
+          "catalog_sha256": "a86a9e842b59e1ade61602964e9b2ca1e2ed746af4bfb480c1eff2a285ded3e2",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/build-r1/replay.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "29931d894a7055d0914c6755a54f29fb29b1eb4b9d42eb054a86f267ba357467",
+          "bytes": 441,
+          "catalog_sha256": "29931d894a7055d0914c6755a54f29fb29b1eb4b9d42eb054a86f267ba357467",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/build-r1/reuse-audit.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "f1f4825061b9575bf7b97e56bd0dd674803c59063a506daf3fe7ccdf48ddcbd0",
+          "bytes": 6336,
+          "catalog_sha256": "f1f4825061b9575bf7b97e56bd0dd674803c59063a506daf3fe7ccdf48ddcbd0",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/build-r1/validation.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "7f7b779a65f7219b16ca198942865ab66b697f25577bd6064623f79ea8f267a6",
+          "bytes": 6592,
+          "catalog_sha256": "7f7b779a65f7219b16ca198942865ab66b697f25577bd6064623f79ea8f267a6",
+          "catalog_sha256_matches": true
+        },
+        {
+          "path": "docs/data/l15-local-counseling-2026-10-29/manifest.json",
+          "role": "catalog_selected_artifact_or_directory",
+          "sha256": "308b5fbde6897c4d84c974f78353caebd71c082277e8af299404083bc81b3d23",
+          "bytes": 2549,
+          "catalog_sha256": "308b5fbde6897c4d84c974f78353caebd71c082277e8af299404083bc81b3d23",
+          "catalog_sha256_matches": true
+        }
+      ]
+    }
+  ],
+  "composition_digest": "8f0a5f166a038ae834bb198eb8eda76151c43264de59819d0f7147a721a6cc32"
+}

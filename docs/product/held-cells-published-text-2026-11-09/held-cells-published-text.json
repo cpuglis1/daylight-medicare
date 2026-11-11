@@ -1,0 +1,3201 @@
+{
+ "schema": "held-cells-published-text/1",
+ "created": "2026-11-09",
+ "status": "candidate_not_loaded",
+ "decision_required": "Owner decision (DQ-31). D92 keeps all r13 material holds; this overlay changes nothing until a new catalog revision adopts it and the publication gate accepts it.",
+ "base_catalog": {
+  "path": "docs/product/recommendation-scope-2026-11-04-r13/display-candidate.json",
+  "sha256": "ba625a2968a53a46dc72dddf52a4e74064b56b0b14e55c9e8768d2b580fa3609"
+ },
+ "sources": {
+  "mpf_benefit_summary": {
+   "path": "docs/data/mpf-benefit-summary-2026-11-04-r1/source/MPF_BenefitSummary_CY2026_12232025.xlsx",
+   "sha256": "d961e55cb5088984d6bb657205be4de90957477718ee37aab22d70b38c72cd6d",
+   "file_date": "2025-12-23"
+  },
+  "landscape": {
+   "path": "docs/data/l02-ma-availability-2026-10-25/acquisition-r1/raw/75f2797b510449fc0d376bbbbeb3c129f6091a697555281559ca28e6e4b8d882",
+   "sha256": "75f2797b510449fc0d376bbbbeb3c129f6091a697555281559ca28e6e4b8d882",
+   "member": "CY2026_Landscape_202609/CY2026_Landscape_202609.csv",
+   "member_sha256": "0e530c2352f9481b25ed7ed995d4a1703bfe7547691aebc22dfaf6fcb757277a"
+  }
+ },
+ "rule": "Each r13 held cell shows the CMS published text verbatim (markup removed), labeled with its source and date. Cells on plans whose sources conflict stay held (DQ-32). Computed cost examples are untouched and stay held.",
+ "counts": {
+  "r13_held_cells": 141,
+  "published_text_candidate": 103,
+  "remains_held": 38
+ },
+ "cells": [
+  {
+   "offering_id": "2026:H0710:010:000",
+   "plan_name": "UHC Nursing Home Plan FL-F001 (PPO I-SNP)",
+   "field": "part_d_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DRUG_DEDUCTIBLE_TIERS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As published by CMS (CY2026 Landscape, September 2026)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$615.00",
+     "source_text": {
+      "Annual Part D Deductible Amount": "$615.00 ",
+      "Offers Drug Tier with No Part D Deductible": "Not Applicable"
+     },
+     "source_ref": "landscape/H0710-010-000/Annual Part D Deductible Amount"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H0710:010:000",
+   "plan_name": "UHC Nursing Home Plan FL-F001 (PPO I-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "EXACT_PCP_CHARGE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0-20% coinsurance per visit",
+     "source_text": "0-20% coinsurance per visit",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/31458"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H0710:010:000",
+   "plan_name": "UHC Nursing Home Plan FL-F001 (PPO I-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "SPECIALIST_CHARGE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0-20% coinsurance per visit",
+     "source_text": "0-20% coinsurance per visit",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/31460"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:202:000",
+   "plan_name": "Wellcare Dual Reserve (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42327"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:202:000",
+   "plan_name": "Wellcare Dual Reserve (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42328"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:202:000",
+   "plan_name": "Wellcare Dual Reserve (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGE_UNCORROBORATED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 per day for days 1 through 90",
+     "source_text": "$0 per day for days 1 through 90",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42339"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:202:000",
+   "plan_name": "Wellcare Dual Reserve (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $150 copay per visit (always covered)",
+     "source_text": "$0 or $150 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42329"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:202:000",
+   "plan_name": "Wellcare Dual Reserve (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42330"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:241:000",
+   "plan_name": "Wellcare Dual Access Sync (HMO D-SNP)",
+   "field": "plan_premium",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "PREMIUM_BASIS_CONFLICT"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "Part C $0.00; Part D $4.80; consolidated $4.80",
+     "source_ref": "landscape/H1032-241-000/premium columns"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:241:000",
+   "plan_name": "Wellcare Dual Access Sync (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42957"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:241:000",
+   "plan_name": "Wellcare Dual Access Sync (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42958"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:241:000",
+   "plan_name": "Wellcare Dual Access Sync (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42969"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:241:000",
+   "plan_name": "Wellcare Dual Access Sync (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42959"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:241:000",
+   "plan_name": "Wellcare Dual Access Sync (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/42960"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "plan_premium",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "PREMIUM_BASIS_CONFLICT"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "Part C $0.00; Part D $4.80; consolidated $4.80",
+     "source_ref": "landscape/H1032-243-000/premium columns"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "part_d_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DRUG_DEDUCTIBLE_TIERS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$615.00; some drug tiers have no deductible",
+     "source_text": {
+      "Annual Part D Deductible Amount": "$615.00 ",
+      "Offers Drug Tier with No Part D Deductible": "Yes"
+     },
+     "source_ref": "landscape/H1032-243-000/Annual Part D Deductible Amount"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/43083"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/43084"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/43095"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/43085"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1032:243:000",
+   "plan_name": "Wellcare Sunshine Health Dual Align (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/43086"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:285:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-285 (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/46904"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:285:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-285 (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/46905"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:285:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-285 (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay per stay",
+     "source_text": "$0 copay per stay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/46916"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:285:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-285 (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $115 copay per visit (always covered)",
+     "source_text": "$0 or $115 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/46906"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:285:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-285 (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/46907"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:290:000",
+   "plan_name": "Humana USAA Honor Giveback (HMO)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47030"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:290:000",
+   "plan_name": "Humana USAA Honor Giveback (HMO)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$25 copay per visit",
+     "source_text": "$25 copay per visit",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47031"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:290:000",
+   "plan_name": "Humana USAA Honor Giveback (HMO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$225 per day for days 1 through 5; $0 per day for days 6 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$225 per day for days 1 through 5<br />$0 per day for days 6 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47042"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:290:000",
+   "plan_name": "Humana USAA Honor Giveback (HMO)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$130 copay per visit (always covered)",
+     "source_text": "$130 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47032"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:290:000",
+   "plan_name": "Humana USAA Honor Giveback (HMO)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$15 copay per visit (always covered)",
+     "source_text": "$15 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47033"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:310:000",
+   "plan_name": "Humana Gold Plus Lung (HMO C-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47849"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:310:000",
+   "plan_name": "Humana Gold Plus Lung (HMO C-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$15 copay per visit",
+     "source_text": "$15 copay per visit",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47850"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:310:000",
+   "plan_name": "Humana Gold Plus Lung (HMO C-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$125 per day for days 1 through 6; $0 per day for days 7 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$125 per day for days 1 through 6<br />$0 per day for days 7 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47861"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:310:000",
+   "plan_name": "Humana Gold Plus Lung (HMO C-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$150 copay per visit (always covered)",
+     "source_text": "$150 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47851"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:310:000",
+   "plan_name": "Humana Gold Plus Lung (HMO C-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$15 copay per visit (always covered)",
+     "source_text": "$15 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47852"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:311:000",
+   "plan_name": "Humana Gold Plus - Diabetes and Heart (HMO C-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47912"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:311:000",
+   "plan_name": "Humana Gold Plus - Diabetes and Heart (HMO C-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$15 copay per visit",
+     "source_text": "$15 copay per visit",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47913"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:311:000",
+   "plan_name": "Humana Gold Plus - Diabetes and Heart (HMO C-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$125 per day for days 1 through 6; $0 per day for days 7 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$125 per day for days 1 through 6<br />$0 per day for days 7 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47924"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:311:000",
+   "plan_name": "Humana Gold Plus - Diabetes and Heart (HMO C-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$150 copay per visit (always covered)",
+     "source_text": "$150 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47914"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:311:000",
+   "plan_name": "Humana Gold Plus - Diabetes and Heart (HMO C-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$15 copay per visit (always covered)",
+     "source_text": "$15 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/47915"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:314:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-314 (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/48101"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:314:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-314 (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/48102"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:314:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-314 (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay per stay",
+     "source_text": "$0 copay per stay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/48113"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:314:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-314 (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/48103"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:314:000",
+   "plan_name": "Humana Gold Plus SNP-DE H1036-314 (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/48104"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:340:000",
+   "plan_name": "Humana Dual Integrated (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "CARRIER_CMS_COST_SHARE_CONFLICT",
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "PCP_OFFICE_BASIS_UNCORROBORATED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/49841"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:340:000",
+   "plan_name": "Humana Dual Integrated (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "CARRIER_CMS_COST_SHARE_CONFLICT",
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/49842"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:340:000",
+   "plan_name": "Humana Dual Integrated (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "CARRIER_CMS_COST_SHARE_CONFLICT",
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/49853"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:340:000",
+   "plan_name": "Humana Dual Integrated (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "RETAINED_SOURCE_CONFLICT",
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/49843"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1036:340:000",
+   "plan_name": "Humana Dual Integrated (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "RETAINED_SOURCE_CONFLICT",
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/49844"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1045:039:000",
+   "plan_name": "UHC Dual Complete FL-D002 (HMO-POS D-SNP)",
+   "field": "medical_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $283 per year for in-network services.",
+     "source_text": "$0 or $283 per year for in-network services.",
+     "prior_authorization": null,
+     "referral": null,
+     "limits_apply": null,
+     "source_ref": "mpf_rows/50961"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1045:039:000",
+   "plan_name": "UHC Dual Complete FL-D002 (HMO-POS D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED",
+    "EXACT_PCP_CHARGE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0% or 0-20% coinsurance per visit",
+     "source_text": "0% or 0-20% coinsurance per visit",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/50954"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1045:039:000",
+   "plan_name": "UHC Dual Complete FL-D002 (HMO-POS D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0% or 0-20% coinsurance per visit",
+     "source_text": "0% or 0-20% coinsurance per visit",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/50955"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1045:039:000",
+   "plan_name": "UHC Dual Complete FL-D002 (HMO-POS D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $1,965 per stay; $0 per day for days 91 and beyond",
+     "source_text": "$0 or $1,965 per stay<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/50966"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1045:039:000",
+   "plan_name": "UHC Dual Complete FL-D002 (HMO-POS D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $100 copay per visit (always covered)",
+     "source_text": "$0 or $100 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/50956"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1045:039:000",
+   "plan_name": "UHC Dual Complete FL-D002 (HMO-POS D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $0-40 copay per visit (always covered)",
+     "source_text": "$0 or $0-40 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/50957"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:056:000",
+   "plan_name": "Aetna Medicare Dual Select (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/75138"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:056:000",
+   "plan_name": "Aetna Medicare Dual Select (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $25 copay per visit",
+     "source_text": "$0 or $25 copay per visit",
+     "prior_authorization": "No",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/75139"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:056:000",
+   "plan_name": "Aetna Medicare Dual Select (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $175 per day for days 1 through 6; $0 per day for days 7 through 90",
+     "source_text": "$0 or $175 per day for days 1 through 6<br />$0 per day for days 7 through 90",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/75150"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:056:000",
+   "plan_name": "Aetna Medicare Dual Select (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $115 copay per visit (always covered)",
+     "source_text": "$0 or $115 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/75140"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:056:000",
+   "plan_name": "Aetna Medicare Dual Select (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $25 copay per visit (always covered)",
+     "source_text": "$0 or $25 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/75141"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:078:000",
+   "plan_name": "Aetna Medicare Full Dual Select (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "CARRIER_CMS_COST_SHARE_CONFLICT",
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "PCP_OFFICE_BASIS_UNCORROBORATED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/76068"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:078:000",
+   "plan_name": "Aetna Medicare Full Dual Select (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "CARRIER_CMS_COST_SHARE_CONFLICT",
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "No",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/76069"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:078:000",
+   "plan_name": "Aetna Medicare Full Dual Select (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "CARRIER_CMS_COST_SHARE_CONFLICT",
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/76080"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:078:000",
+   "plan_name": "Aetna Medicare Full Dual Select (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "RETAINED_SOURCE_CONFLICT",
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/76070"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1609:078:000",
+   "plan_name": "Aetna Medicare Full Dual Select (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "RETAINED_SOURCE_CONFLICT",
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/76071"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:002:002",
+   "plan_name": "UHC Dual Complete FL-D003 (PPO D-SNP)",
+   "field": "medical_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$0 or $283 per year for some in-network and out-of-network services.",
+     "source_text": "$0 or $283 per year for some in-network and out-of-network services.",
+     "prior_authorization": null,
+     "referral": null,
+     "limits_apply": null,
+     "source_ref": "mpf_rows/81906"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:002:002",
+   "plan_name": "UHC Dual Complete FL-D003 (PPO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED",
+    "EXACT_PCP_CHARGE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0% or 0-20% coinsurance per visit",
+     "source_text": "0% or 0-20% coinsurance per visit",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/81895"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:002:002",
+   "plan_name": "UHC Dual Complete FL-D003 (PPO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0% or 0-20% coinsurance per visit",
+     "source_text": "0% or 0-20% coinsurance per visit",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/81897"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:002:002",
+   "plan_name": "UHC Dual Complete FL-D003 (PPO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $1,795 per stay; $0 per day for days 91 and beyond",
+     "source_text": "$0 or $1,795 per stay<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/81914"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:002:002",
+   "plan_name": "UHC Dual Complete FL-D003 (PPO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $115 copay per visit (always covered)",
+     "source_text": "$0 or $115 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/81899"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:002:002",
+   "plan_name": "UHC Dual Complete FL-D003 (PPO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $0-40 copay per visit (always covered)",
+     "source_text": "$0 or $0-40 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/81900"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "plan_premium",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "PREMIUM_BASIS_CONFLICT"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "Part C $0.00; Part D $4.80; consolidated $4.80",
+     "source_ref": "landscape/H1889-026-000/premium columns"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "medical_maximums",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_MAXIMUM_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$13,900 In and Out-of-network; $9,250 In-network",
+     "source_text": "$13,900 In and Out-of-network<br />$9,250 In-network",
+     "prior_authorization": null,
+     "referral": null,
+     "limits_apply": null,
+     "source_ref": "mpf_rows/83848"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "part_d_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DRUG_DEDUCTIBLE_TIERS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$615.00; some drug tiers have no deductible",
+     "source_text": {
+      "Annual Part D Deductible Amount": "$615.00 ",
+      "Offers Drug Tier with No Part D Deductible": "Yes"
+     },
+     "source_ref": "landscape/H1889-026-000/Annual Part D Deductible Amount"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/83827"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/83829"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_MAXIMUM_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/83846"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/83831"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H1889:026:000",
+   "plan_name": "UHC Dual Complete FL-Y4 (PPO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/83832"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "medical_maximums",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_MAXIMUM_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$9,250 In-network",
+     "source_text": "$9,250 In-network",
+     "prior_authorization": null,
+     "referral": null,
+     "limits_apply": null,
+     "source_ref": "mpf_rows/125474"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "part_d_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DRUG_DEDUCTIBLE_TIERS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$615.00; some drug tiers have no deductible",
+     "source_text": {
+      "Annual Part D Deductible Amount": "$615.00 ",
+      "Offers Drug Tier with No Part D Deductible": "Yes"
+     },
+     "source_ref": "landscape/H2509-003-000/Annual Part D Deductible Amount"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/125460"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/125461"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_MAXIMUM_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/125472"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/125462"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H2509:003:000",
+   "plan_name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MPF_PBP_CHARGE_DIFFERENCE",
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "remains_held",
+   "proposed_reason": "SOURCES_DIFFER_LICENSED_CONFIRMATION_REQUIRED (DQ-32)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/125463"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:257:000",
+   "plan_name": "Humana USAA Honor Giveback (PPO)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/252226"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:257:000",
+   "plan_name": "Humana USAA Honor Giveback (PPO)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$50 copay per visit",
+     "source_text": "$50 copay per visit",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/252228"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:257:000",
+   "plan_name": "Humana USAA Honor Giveback (PPO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_COST_VARIANT_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$350 per day for days 1 through 6; $0 per day for days 7 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$350 per day for days 1 through 6<br />$0 per day for days 7 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/252246"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:257:000",
+   "plan_name": "Humana USAA Honor Giveback (PPO)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$130 copay per visit (always covered)",
+     "source_text": "$130 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/252230"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:257:000",
+   "plan_name": "Humana USAA Honor Giveback (PPO)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HEALTH_CONDITION_VARIANT_REQUIRES_CHECK"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$15 copay per visit (always covered)",
+     "source_text": "$15 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/252231"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:393:000",
+   "plan_name": "Humana Full Access Giveback H5216-393 (PPO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$400 per day for days 1 through 7; $0 per day for days 8 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$400 per day for days 1 through 7<br />$0 per day for days 8 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/263126"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:394:000",
+   "plan_name": "HumanaChoice Florida SNP-DE H5216-394 (PPO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/263214"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:394:000",
+   "plan_name": "HumanaChoice Florida SNP-DE H5216-394 (PPO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/263216"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:394:000",
+   "plan_name": "HumanaChoice Florida SNP-DE H5216-394 (PPO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $1,000 per stay",
+     "source_text": "$0 or $1,000 per stay",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/263234"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:394:000",
+   "plan_name": "HumanaChoice Florida SNP-DE H5216-394 (PPO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $130 copay per visit (always covered)",
+     "source_text": "$0 or $130 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/263218"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:394:000",
+   "plan_name": "HumanaChoice Florida SNP-DE H5216-394 (PPO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $40 copay per visit (always covered)",
+     "source_text": "$0 or $40 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/263219"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5216:452:000",
+   "plan_name": "Humana Direct Choice Giveback (PPO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$400 per day for days 1 through 7; $0 per day for days 8 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$400 per day for days 1 through 7<br />$0 per day for days 8 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/269555"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:047:000",
+   "plan_name": "HealthSpring TotalCare Plus (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289449"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:047:000",
+   "plan_name": "HealthSpring TotalCare Plus (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289450"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:047:000",
+   "plan_name": "HealthSpring TotalCare Plus (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289461"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:047:000",
+   "plan_name": "HealthSpring TotalCare Plus (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289451"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:047:000",
+   "plan_name": "HealthSpring TotalCare Plus (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289452"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:055:000",
+   "plan_name": "HealthSpring TotalCare (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289512"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:055:000",
+   "plan_name": "HealthSpring TotalCare (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289513"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:055:000",
+   "plan_name": "HealthSpring TotalCare (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $150 per day for days 1 through 5; $0 per day for days 6 through 90",
+     "source_text": "$0 or $150 per day for days 1 through 5<br />$0 per day for days 6 through 90",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289524"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:055:000",
+   "plan_name": "HealthSpring TotalCare (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $130 copay per visit (always covered)",
+     "source_text": "$0 or $130 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289514"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5410:055:000",
+   "plan_name": "HealthSpring TotalCare (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $20 copay per visit (always covered)",
+     "source_text": "$0 or $20 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/289515"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:078:000",
+   "plan_name": "Freedom Medi-Medi Partial (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294165"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:078:000",
+   "plan_name": "Freedom Medi-Medi Partial (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294166"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:078:000",
+   "plan_name": "Freedom Medi-Medi Partial (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay per stay",
+     "source_text": "$0 copay per stay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294177"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:078:000",
+   "plan_name": "Freedom Medi-Medi Partial (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294167"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:078:000",
+   "plan_name": "Freedom Medi-Medi Partial (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294168"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:087:000",
+   "plan_name": "Freedom Medi-Medi Full (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294354"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:087:000",
+   "plan_name": "Freedom Medi-Medi Full (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294355"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:087:000",
+   "plan_name": "Freedom Medi-Medi Full (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294366"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:087:000",
+   "plan_name": "Freedom Medi-Medi Full (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294356"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5427:087:000",
+   "plan_name": "Freedom Medi-Medi Full (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/294357"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:016:000",
+   "plan_name": "Optimum Emerald Partial (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335793"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:016:000",
+   "plan_name": "Optimum Emerald Partial (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335794"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:016:000",
+   "plan_name": "Optimum Emerald Partial (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay per stay",
+     "source_text": "$0 copay per stay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335805"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:016:000",
+   "plan_name": "Optimum Emerald Partial (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335795"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:016:000",
+   "plan_name": "Optimum Emerald Partial (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335796"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:017:000",
+   "plan_name": "Optimum Emerald Full (HMO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335856"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:017:000",
+   "plan_name": "Optimum Emerald Full (HMO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335857"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:017:000",
+   "plan_name": "Optimum Emerald Full (HMO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "Yes",
+     "referral": "Yes",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335868"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:017:000",
+   "plan_name": "Optimum Emerald Full (HMO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335858"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5594:017:000",
+   "plan_name": "Optimum Emerald Full (HMO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 copay",
+     "source_text": "$0 copay",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/335859"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H5652:002:000",
+   "plan_name": "Erickson Advantage Liberty no Rx (HMO-POS)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "INPATIENT_DEDUCTIBLE_STATUS_UNSPECIFIED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$375 per day for days 1 through 7; $0 per day for days 8 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$375 per day for days 1 through 7<br />$0 per day for days 8 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/343152"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H7617:111:000",
+   "plan_name": "Humana Full Access Giveback H7617-111 (PPO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$400 per day for days 1 through 7; $0 per day for days 8 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$400 per day for days 1 through 7<br />$0 per day for days 8 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/397138"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:H7617:112:000",
+   "plan_name": "Humana Direct Choice Giveback (PPO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$400 per day for days 1 through 7; $0 per day for days 8 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$400 per day for days 1 through 7<br />$0 per day for days 8 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/397246"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R0759:003:000",
+   "plan_name": "UHC Dual Complete FL-D005 (Regional PPO D-SNP)",
+   "field": "medical_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$0 or $283 per year for some in-network and out-of-network services.",
+     "source_text": "$0 or $283 per year for some in-network and out-of-network services.",
+     "prior_authorization": null,
+     "referral": null,
+     "limits_apply": null,
+     "source_ref": "mpf_rows/455965"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R0759:003:000",
+   "plan_name": "UHC Dual Complete FL-D005 (Regional PPO D-SNP)",
+   "field": "primary_care_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED",
+    "EXACT_PCP_CHARGE_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0% or 0-20% coinsurance per visit",
+     "source_text": "0% or 0-20% coinsurance per visit",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/455954"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R0759:003:000",
+   "plan_name": "UHC Dual Complete FL-D005 (Regional PPO D-SNP)",
+   "field": "specialist_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "0% or 0-20% coinsurance per visit",
+     "source_text": "0% or 0-20% coinsurance per visit",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/455956"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R0759:003:000",
+   "plan_name": "UHC Dual Complete FL-D005 (Regional PPO D-SNP)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DUAL_COST_SHARE_BASIS_UNRESOLVED",
+    "MEDICAL_DEDUCTIBLE_UNRESOLVED",
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $1,860 per stay; $0 per day for days 91 and beyond",
+     "source_text": "$0 or $1,860 per stay<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/455973"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R0759:003:000",
+   "plan_name": "UHC Dual Complete FL-D005 (Regional PPO D-SNP)",
+   "field": "emergency",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $115 copay per visit (always covered)",
+     "source_text": "$0 or $115 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/455958"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R0759:003:000",
+   "plan_name": "UHC Dual Complete FL-D005 (Regional PPO D-SNP)",
+   "field": "urgent",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "ASSISTANCE_COST_SHARE_BASIS_REQUIRED",
+    "EXACT_CHARGE_BASIS_REVIEW_REQUIRED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$0 or $0-40 copay per visit (always covered)",
+     "source_text": "$0 or $0-40 copay per visit (always covered)",
+     "prior_authorization": "N/A",
+     "referral": "N/A",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/455959"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R5826:074:000",
+   "plan_name": "HumanaChoice R5826-074 (Regional PPO)",
+   "field": "part_d_deductible",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "DRUG_DEDUCTIBLE_TIERS_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As published by CMS (CY2026 Landscape, September 2026)",
+   "published_text": [
+    {
+     "network": null,
+     "text": "$615.00",
+     "source_text": {
+      "Annual Part D Deductible Amount": "$615.00 ",
+      "Offers Drug Tier with No Part D Deductible": "Not Applicable"
+     },
+     "source_ref": "landscape/R5826-074-000/Annual Part D Deductible Amount"
+    }
+   ]
+  },
+  {
+   "offering_id": "2026:R5826:074:000",
+   "plan_name": "HumanaChoice R5826-074 (Regional PPO)",
+   "field": "hospital_in_network",
+   "r13_state": "held",
+   "r13_reason_codes": [
+    "HOSPITAL_CHARGING_UNIT_OR_BAND_UNRESOLVED"
+   ],
+   "proposed_state": "published_text_candidate",
+   "display_label": "As shown on Medicare.gov (CMS Plan Finder benefit summary, file dated Dec 23, 2025)",
+   "published_text": [
+    {
+     "network": "In-Network",
+     "text": "$625 per day for days 1 through 3; $0 per day for days 4 through 90; $0 per day for days 91 and beyond",
+     "source_text": "$625 per day for days 1 through 3<br />$0 per day for days 4 through 90<br />$0 per day for days 91 and beyond",
+     "prior_authorization": "Yes",
+     "referral": "No",
+     "limits_apply": null,
+     "source_ref": "mpf_rows/457517"
+    }
+   ]
+  }
+ ]
+}

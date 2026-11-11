@@ -2,9 +2,11 @@
 
 import re
 import subprocess
+import json
 
 import cms_slice as cms
 from evidence_store import PublicSources, html_text
+import local_programs
 
 CONFIG = cms.ROOT / "data-sources/demo-knowledge.json"
 
@@ -38,7 +40,13 @@ class Knowledge:
                 raise cms.SourceError("Duplicate knowledge fact")
             self.facts[fact["id"]] = {k: v for k, v in fact.items() if k not in {"support", "source_sha256"}} | {
                 "evidence": PublicSources.evidence(self.source_specs[source])}
-        self.version = cms.file_hash(config)
+        local = local_programs.load()
+        for fact in local["facts"]:
+            if fact["id"] in self.facts:
+                raise cms.SourceError("Duplicate local knowledge fact")
+            self.facts[fact["id"]] = fact
+        self.local_resources = {k: v for k, v in local.items() if k != "facts"}
+        self.version = cms.sha256(json.dumps({"base": cms.file_hash(config), "local": cms.file_hash(local_programs.REPORTS / "manifest.json")}, sort_keys=True).encode())
 
     def topic(self, topic):
         if topic not in {f["topic"] for f in self.facts.values()}:

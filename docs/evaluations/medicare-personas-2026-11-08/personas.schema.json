@@ -1,0 +1,486 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fictional Medicare evaluation personas",
+  "description": "Requested object schema and structural counts. validate.py also checks corpus-level writing constraints and this fixture's dates. This schema does not certify Medicare advice or clinical accuracy.",
+  "type": "array",
+  "minItems": 20,
+  "maxItems": 20,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "archetype",
+      "person",
+      "ground_truth",
+      "opening_message",
+      "response_script",
+      "stop_rule",
+      "answer_key",
+      "grading_notes"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "enum": [
+          "P01",
+          "P02",
+          "P03",
+          "P04",
+          "P05",
+          "P06",
+          "P07",
+          "P08",
+          "P09",
+          "P10",
+          "P11",
+          "P12",
+          "P13",
+          "P14",
+          "P15",
+          "P16",
+          "P17",
+          "P18",
+          "P19",
+          "P20"
+        ]
+      },
+      "archetype": {
+        "$ref": "#/$defs/nonempty_string"
+      },
+      "person": {
+        "type": "object",
+        "required": [
+          "name",
+          "age",
+          "zip",
+          "relationship_to_typist"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/nonempty_string"
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zip": {
+            "type": "string",
+            "enum": [
+              "34102",
+              "34103",
+              "34104",
+              "34105",
+              "34108",
+              "34109",
+              "34110",
+              "34112",
+              "34113",
+              "34114",
+              "34116",
+              "34117",
+              "34119",
+              "34120",
+              "34145",
+              "34142",
+              "34139"
+            ]
+          },
+          "relationship_to_typist": {
+            "$ref": "#/$defs/nonempty_string"
+          }
+        }
+      },
+      "ground_truth": {
+        "type": "object",
+        "minProperties": 1,
+        "description": "Hidden fictional facts; its internal field names were not fixed by the requested schema."
+      },
+      "opening_message": {
+        "$ref": "#/$defs/nonempty_string"
+      },
+      "response_script": {
+        "type": "array",
+        "minItems": 6,
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "required": [
+            "if_asked_about",
+            "reply"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "if_asked_about": {
+              "$ref": "#/$defs/nonempty_string"
+            },
+            "reply": {
+              "$ref": "#/$defs/nonempty_string"
+            }
+          }
+        },
+        "contains": {
+          "type": "object",
+          "required": [
+            "if_asked_about"
+          ],
+          "properties": {
+            "if_asked_about": {
+              "type": "string",
+              "pattern": "^Unprompted,"
+            }
+          }
+        },
+        "minContains": 2,
+        "maxContains": 3,
+        "description": "This fixture marks unconditional pushes with the Unprompted, prefix."
+      },
+      "stop_rule": {
+        "$ref": "#/$defs/nonempty_string"
+      },
+      "answer_key": {
+        "type": "object",
+        "required": [
+          "must_cover",
+          "must_not_claim",
+          "trap"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "must_cover": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "$ref": "#/$defs/nonempty_string"
+            },
+            "maxItems": 6
+          },
+          "must_not_claim": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "$ref": "#/$defs/nonempty_string"
+            },
+            "maxItems": 4
+          },
+          "trap": {
+            "$ref": "#/$defs/nonempty_string"
+          }
+        }
+      },
+      "grading_notes": {
+        "$ref": "#/$defs/nonempty_string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P01"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P02"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P03"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P04"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P05"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P06"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P07"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P08"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P09"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P10"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P11"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P12"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P13"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P14"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P15"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P16"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P17"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P18"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P19"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    {
+      "contains": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "const": "P20"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    }
+  ],
+  "$defs": {
+    "nonempty_string": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  }
+}

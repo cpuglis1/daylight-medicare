@@ -1,8 +1,26 @@
 # Documentation map
 
+**Current entrypoint · November 2, 2026:** [Project hub](project/README.md). It organizes the [company narrative](company/README.md), [fifteen company capabilities](project/CAPABILITIES.md), [2026 Collier pilot](project/COLLIER_MVP.md), [cloud/GitHub handoff](project/CLOUD_HANDOFF.md) and [contributor workflow](project/CONTRIBUTING.md), with a [dated evidence review](reviews/2026-11-02-project-readiness/README.md). :8893 is the current advisor development surface; :8890/:8891/:8896 remain protected. CAP-01–CAP-15 company components are distinct from L01–L15 data layers and the architecture guide's sixteen practices.
+
+The older “current” summaries below describe their stated dates and surfaces. They do not replace the November 2 project map or establish acceptance of newer evidence.
+
+**Current post-summary UI:** [D71 optional conversational readiness](product/READINESS_CONVERSATION.md), installed locally October 22, 2026. D69 design previews below are retained research history, not the current interaction.
+
 Current synthesis was checked against repository code and files on October 21, 2026. It does not renew source evidence or supply domain acceptance.
 
 ## Authority and current operating guides
+
+**Architecture assessment and implementation guide · November 2, 2026:** [Alignment with the proposed conversational brokerage architecture](planning/ARCHITECTURE_ALIGNMENT_AND_IMPLEMENTATION_2026-11-02.md). Maps sixteen practices to current code/plans, identifies the confirmed-input, evidence-authority, recommendation, explanation, audit and enrollment gaps, and gives sixteen implementation steps with dependencies, owners and exit evidence. Assessment/planning only; existing requirements, permissions and exact-release gates remain in force. The October 21 architecture overview is retained as a dated snapshot.
+
+**Canonical strategy · D73 · October 25, 2026:** [Strategic thesis and evidence roadmap](product/STRATEGIC_THESIS.md), including the UI/system review checklist, protected local variants and cohort measure definitions. It separates principles, hypotheses, current implementation and gated milestones; older scoped execution plans below remain supporting material, not competing strategic masters.
+
+**Scale and data-quality thesis · October 29, 2026:** [Scale folder](scale/README.md) and [15-layer scalability/competitive-advantage guide](scale/GUIDE.md). Covers Florida/national reuse, source pipelines, APIs and optional feeds, hard-layer verification and evidence needed to prove an advantage. Strategic analysis, not national coverage or release acceptance.
+
+**Central product ambition · D73 · October 30, 2026:** [Tell Daylight what is happening in your life](product/STRATEGIC_THESIS.md#central-product-ambition). Make education, self-discovery and supported research easier; depth must produce consumer value, including when the selected plan stays the same. First-transition independent researchers are the starting audience to test. Separate directed LLM conversation versus an excellent adaptive form on the same evidence from basic/richer evidence through the same interface. High-level ambition and open hypotheses, not a new flow specification or release claim.
+
+**Conversation research · October 30, 2026:** [Five studies, findings and limits](product/STRATEGIC_THESIS.md#evidence-for-conversation-and-its-limits), with the audience hypothesis focused on difficulty translating life circumstances into Medicare categories. The evidence supports testing, not an established advantage over an excellent adaptive Medicare form. [Dated strategy copy — October 30, 2026](product/STRATEGIC_THESIS_2026-10-30.md); the undated file remains canonical.
+
+**Hybrid study condition · October 30, 2026:** [Three interface conditions](product/STRATEGIC_THESIS.md#three-interface-conditions): excellent adaptive form, directed textual LLM conversation and conversation with inline mini-forms. Review follows form submission; explicit confirmation precedes the named action. Match evidence, tools and review/confirmation standards across conditions. The separate evidence-depth experiment remains; today's dated copy includes the addition.
 
 1. [Product](../PRODUCT.md), [owner requirements](../DAYLIGHT_REQUIREMENTS.md), and [AGENTS](../AGENTS.md): binding direction and precedence.
 2. [Current status and planning](CURRENT_STATUS.md): supported work, release limitations, and next decisions.
@@ -14,13 +32,19 @@ Current synthesis was checked against repository code and files on October 21, 2
 
 ## Active UI guidance and review history
 
-- [Learning flow](DAYLIGHT_LEARNING_FLOW.md): progressive teaching and contextual help.
+- [Master design and agent contract](product/MASTER_DESIGN.md): latest agent-first target, guest-profile architecture and precedence; includes [branching nodes](product/BRANCHING_NODES.md), [wireframes](product/WIREFRAMES.md), [JSON contract](product/flow-contract.json), and [acceptance/handoff](product/ACCEPTANCE_AND_HANDOFF.md). Documentation-only specification; it does not claim implementation.
+
+- [Prior learning flow](DAYLIGHT_LEARNING_FLOW.md): reusable progressive teaching; latest goal/knowledge/agent/persistence decisions are in the master.
 - [65+ finish plan](DAYLIGHT_65_PLUS_FINISH_PLAN.md): approved finishing scope; participant acceptance still needs actual sessions.
 - [UI flow](UI_FLOW.md): implementation-era map, subject to current requirements.
 - [Prior user walkthrough](../audit-evidence/USER_WALKTHROUGH_2026-10-20.md), [flow review](../audit-evidence/FLOW_REVIEW_2026-10-20.md), and [fix record](../audit-evidence/FLOW_FIXES_2026-10-20.md): dated engineering evidence.
 - [Archived UI proposals](archive/product-history/README.md): original teaching inventories and successive proposals, with precedence explained. All content is preserved.
 
 ## Specialized implementation and evidence
+
+**Separate noncommercial conversation research · November 3, 2026:** [CallCenterEN Medicare-labeled archive](research/callcenteren-medicare-2026-11-03/README.md), retained locally for owner-requested exploration of problems, questions, and explanations. Transcript files, indexes, excerpts, and derived reports are excluded from Git and product use. Initial inspection found off-domain calls; folder membership does not establish Medicare brokerage content or advice quality.
+
+**L14 · October 29, 2026:** [Other coverage paths reference and genuine gaps](data/l14-other-coverage-2026-10-29/REPORT.md), [field validation](data/l14-other-coverage-2026-10-29/VALIDATION.md) and [R19 review packet](data/l14-other-coverage-2026-10-29/REVIEW.md). Published dated PACE/Cost/MSA/HCPP/LI NET research; full L14 and consumer acceptance remain partial/held.
 
 | Topic | Sources retained in place |
 | --- | --- |
@@ -38,3 +62,9 @@ Current synthesis was checked against repository code and files on October 21, 2
 Use latest explicit owner direction first, then numbered requirements and product precedence. Use current code, source hashes, and exact-release records for implementation facts. A dated completion claim, old test count, original Data Layers workbook, or successful capture is not consumer acceptance. The newer data synthesis supersedes old statements that ratings are absent, only 31 networks are packaged, or only 38 records can be represented by the catalog. The original records remain unchanged for provenance.
 
 Evidence directories and original package internals stay in place because scripts, manifests, or historical receipts consume their paths. This index provides navigation without a risky wholesale migration.
+
+Approved visual implementation reference: [root DESIGN.md](../DESIGN.md), D58–D59; flow/state authority remains [the master package](product/MASTER_DESIGN.md).
+
+## Planned readiness check (D69, design only)
+
+[Main contract](product/READINESS_DESIGN.md) · [Trigger questions and edge cases](product/READINESS_TRIGGERS.md) · [Dated primary sources](product/READINESS_SOURCES.md) · [Acceptance scenarios](product/READINESS_ACCEPTANCE.md) · [Isolated wireframe](product/readiness-preview/index.html). This proposal follows the ten-question summary; the current app is unchanged and personalized matching remains held.

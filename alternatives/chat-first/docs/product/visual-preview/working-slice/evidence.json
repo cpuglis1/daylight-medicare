@@ -1,0 +1,161 @@
+{
+  "date": "2026-10-21",
+  "scope": "First bounded frontend slice; not the complete MVP",
+  "requirements": [
+    "D49(partial local fallback)",
+    "D50",
+    "D51",
+    "D52",
+    "D55",
+    "D57",
+    "D58",
+    "D59"
+  ],
+  "nodes": [
+    "A01",
+    "A02",
+    "A02B",
+    "A03",
+    "A04",
+    "A05(visit-only)",
+    "X01",
+    "L00",
+    "L01",
+    "L02",
+    "L03",
+    "L04",
+    "L05",
+    "F00",
+    "O00/C00 legacy bridges"
+  ],
+  "links": {
+    "working_app": "http://127.0.0.1:8880/",
+    "evidence": "http://127.0.0.1:8897/working-slice/"
+  },
+  "tests": {
+    "frontend": {
+      "passed": 92,
+      "failed": 0,
+      "command": "node --test cms-slice/tests/frontend/journey.test.cjs cms-slice/tests/frontend/flow-state.test.cjs"
+    },
+    "python": {
+      "passed": 201,
+      "failed": 0,
+      "log": "python-tests.log",
+      "note": "Approved rerun with loopback binding passed; initial restricted run could not bind HTTP fixtures."
+    },
+    "syntax": [
+      "app.js",
+      "flow-state.js",
+      "first-slice.js"
+    ]
+  },
+  "browser": {
+    "browser": "Chrome via CUA",
+    "sizes": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        820,
+        1180
+      ],
+      [
+        320,
+        720
+      ],
+      [
+        1501,
+        708
+      ]
+    ],
+    "horizontal_overflow": false,
+    "short_ask_rect": {
+      "x": 886.5,
+      "y": 16,
+      "width": 466,
+      "height": 676
+    },
+    "phone_ask_rect": {
+      "x": 12,
+      "y": 96,
+      "width": 366,
+      "height": 736
+    },
+    "checks": [
+      "Fresh choices have no default; choice does not advance",
+      "Goal, recipient, knowledge and visit notice explicit",
+      "Local three-fact proposal uncommitted before user confirmation",
+      "Proposal fields editable; confirmation does not auto-advance",
+      "Back after confirmed proposal retains original words and confirmed answers",
+      "Beginner Medicare-only picture; Part A and Part B introduced incrementally",
+      "Back hides later concept without deleting prior state",
+      "Experienced comparison keeps goal separate from familiarity; guide collapsed",
+      "Ask keeps task x/width; background inert; opening focuses reading, not composer",
+      "Tab wraps Send to Return; Escape restores Ask opener and exact scroll",
+      "Task draft and unsent Ask draft survive help return",
+      "Legacy comparison-category screen reachable with original options and no preselection",
+      "Reviewer queue recovery: repeated Back/Continue returns Part A then Part B and Original, reaching comparison without skipping"
+    ],
+    "console": "Only unrelated Zotero extension errors observed; no app-origin error during these walkthroughs"
+  },
+  "preservation": {
+    "all_before_images_match": {
+      "AGENTS.md": true,
+      "PRODUCT.md": true,
+      "DAYLIGHT_REQUIREMENTS.md": true,
+      "docs/README.md": true,
+      "cms-slice/apps/chat/index.html": true,
+      "cms-slice/apps/chat/app.js": true,
+      "cms-slice/apps/chat/styles.css": true
+    },
+    "legacy_styles_unchanged": true,
+    "approved_photo_byte_identical": true,
+    "existing_app_delta": "scoped-existing-files.patch",
+    "no_commit_push_deploy": true
+  },
+  "intentional_detector_warning": "approved.css Fraunces matches owner-approved incumbent visual reference; no ignore configuration changed",
+  "limits": [
+    "No live model call was made or validated; local allowlisted interpretation is visibly disclosed. Agent orchestration beyond this fallback remains future work.",
+    "Guest backend saving/resume is not connected. No server-save receipt is claimed; refresh/close clears guide state.",
+    "Existing data service reports validation pending and stays gated. This running URL serves guide-only frontend; real catalog comparisons and live replies are unavailable here.",
+    "Legacy downstream screens remain functional handoffs and are not yet fully migrated to the master design.",
+    "Changing the recipient on a populated guide is rejected with a separate-guide instruction; existing entries are preserved.",
+    "Browser resizing is not physical mobile-keyboard testing. Screen-reader speech, full WCAG audit and participant comprehension sessions remain unverified."
+  ],
+  "files": {
+    "DESIGN.md": "404d3a6b192a2554327efc4611a53f8b66cfdc6734e184ecd5651d5a74afec99",
+    "PRODUCT.md": "32c6774e3aa206519c1ede3c54dfe058543f7e15ae0abbbb6466cf32fe47c258",
+    "DAYLIGHT_REQUIREMENTS.md": "079ea419bb18c516eb27153e026b627e1e93406bc06c6c629fba0478f0411775",
+    "AGENTS.md": "a010872205579bb6514c90fc27fab507bc647bf4061a9b29665bdcca8e1ff8a5",
+    "docs/README.md": "c0d86c4bd0653a498ca408d3eff56f39f809684c78f93f283552792028ffa3f0",
+    "cms-slice/apps/chat/index.html": "f7ad271d1729b7ef0c4130cde70531db8d0e348a5426271dafb98570ea3e1623",
+    "cms-slice/apps/chat/app.js": "a4c9f81016ac9493ceca46ff7193b23266b71952567d11a920227759e22d4718",
+    "cms-slice/apps/chat/flow-state.js": "5520b9bf78241a8337c4c7d4d1784f6c350f1ff1fc623867bb05567d1c8427fb",
+    "cms-slice/apps/chat/first-slice.js": "4b53a581fb626ffa6539d2b123bfcf2a48efe8175e5c5efcf27e4a05357e4bf6",
+    "cms-slice/apps/chat/approved.css": "0e111d0831180b52b7339e6ddd625188aa8937b57a9edc61067b07a2bbfc392a",
+    "cms-slice/apps/chat/art/arrival-option-a.jpg": "69e031c500101e715bc324c16d51b4d9cdf6ade49f561933386479fa3633a099",
+    "cms-slice/apps/chat/art/arrival-option-a.jpg.origin.txt": "f1ad633e7034be4313056e4e9222ef6ee90d473df5880158228831cdaa544fc8",
+    "cms-slice/tests/frontend/flow-state.test.cjs": "436d61fd4be2dd6ec88d68a6573bc9f1c826caf38d6780842e467ac68d6b9bed",
+    ".impeccable/design.json": "b26ac86d0afac95511bf55c8ecf65831d75db03bffacfa9582be9f685091bc95"
+  },
+  "finish_review": {
+    "initial_disposition": "fix",
+    "material_findings": 1,
+    "verdict_disposition": "ship",
+    "named_fix": "deterministic queue resolution after Back",
+    "scope": "Verdict pass on the single named fix only",
+    "evidence": "FINISH_REVIEW.md"
+  },
+  "documentation": {
+    "canonical_design": true,
+    "sidecar_schema": 2,
+    "component_previews": 9,
+    "original_approved_reference_preserved": true
+  }
+}

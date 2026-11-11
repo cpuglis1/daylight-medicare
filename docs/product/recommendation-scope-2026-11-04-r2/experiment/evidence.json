@@ -1,0 +1,482 @@
+{
+  "schema": "daylight-d91-mpf-evidence/1",
+  "files": {
+    "mpf_workbook": {
+      "path": "docs/data/mpf-benefit-summary-2026-11-04-r1/source/MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "sha256": "d961e55cb5088984d6bb657205be4de90957477718ee37aab22d70b38c72cd6d"
+    },
+    "mpf_extract": {
+      "path": "docs/data/mpf-benefit-summary-2026-11-04-r1/collier-main.jsonl",
+      "sha256": "c2882af43007833858548dd7c7dc0cd3d8836004eac1fdbb57eb165d8516aeb4"
+    },
+    "l02_collier_catalog": {
+      "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/12021/offerings.json",
+      "sha256": "cab771cebb27a1c80f9077b4ba5e9f3005368c214bff5d16fa7cd8f7467987d7"
+    },
+    "landscape_archive": {
+      "path": "docs/data/l02-ma-availability-2026-10-25/acquisition-r1/raw/75f2797b510449fc0d376bbbbeb3c129f6091a697555281559ca28e6e4b8d882",
+      "sha256": "75f2797b510449fc0d376bbbbeb3c129f6091a697555281559ca28e6e4b8d882"
+    },
+    "landscape_readme": {
+      "path": "docs/data/l02-ma-availability-2026-10-25/build-r5/landscape-readme.txt",
+      "sha256": "f7027b23ecd73bdc68079ff14c7acd8538b6a559778ff38141aee04f36d0f888"
+    },
+    "carrier_page_packet": {
+      "path": "docs/data/l03-review-pipeline-2026-11-03-r1/build-r1/carrier-pages.jsonl.gz",
+      "sha256": "f0204617fef10c54187602b03f82390eb99d6c7bb415408ff90f455beb900697"
+    },
+    "carrier_normalization_candidates": {
+      "path": "docs/data/l03-benefit-normalization-2026-11-03-r1/build-r1/normalization-candidates.jsonl.gz",
+      "sha256": "4e0fcadb398a3ff1ff901c8ccaac2fbd62663d88ecddc42880ceffffe67c8339"
+    },
+    "erickson_premium_review": {
+      "path": "docs/data/l03-plan-completion-2026-11-03-r1/clinical/base-premium-independent-review-r1/exact-source-review/REVIEW_RECEIPT.json",
+      "sha256": "a4fb9e252bcd77b540845f2c9c2bb6e2933aad22d62244fb716d9105b8241c57"
+    },
+    "erickson_carrier_regions": {
+      "path": "docs/data/l03-hospital-office-reconciliation-2026-11-03-r1/EVIDENCE_REGIONS.json",
+      "sha256": "a41f810ff746d25c7a5956dc6957e905ecf2cba665db27a031a83c26c3882a5c"
+    },
+    "benefit_price_adapter": {
+      "path": "cms-slice/scripts/l03_benefit_normalization.py",
+      "sha256": "481c6f7cf9dc2c3f6d69f71db75a63fd819871644c857582dd3f56ac0dc9ddc5"
+    },
+    "profile_adapter": {
+      "path": "alternatives/advisor-first/comparison_profile.py",
+      "sha256": "133c41f6158f437d83436006defb2da40e84e15ce7bd3493d0e89bc4d6dc1180"
+    },
+    "profile_capture": {
+      "path": "alternatives/advisor-first/natural_state.py",
+      "sha256": "6b89b84b857ff02facd95b254461261379b64cc2020f4f046a5779cc44e2b411"
+    }
+  },
+  "mpf_rows": {
+    "45755": {
+      "offering_id": "2026:H1036:217:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 45755,
+      "source_range": "A45755:M45755",
+      "fields": {
+        "Org_Name": "Humana",
+        "Contract_ID": "H1036",
+        "Plan_ID": 217,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMO",
+        "Contract_Year": 2026,
+        "Category Name": "Doctor visits",
+        "Service_Desc": "Primary",
+        "Limit_Flag": null,
+        "Authorization_Flag": "N/A",
+        "Referral_Flag": "N/A",
+        "Network_Description": "In-Network",
+        "Cost_Share": "$0 copay"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "45762": {
+      "offering_id": "2026:H1036:217:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 45762,
+      "source_range": "A45762:M45762",
+      "fields": {
+        "Org_Name": "Humana",
+        "Contract_ID": "H1036",
+        "Plan_ID": 217,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMO",
+        "Contract_Year": 2026,
+        "Category Name": "Health plan deductible",
+        "Service_Desc": null,
+        "Limit_Flag": null,
+        "Authorization_Flag": null,
+        "Referral_Flag": null,
+        "Network_Description": null,
+        "Cost_Share": 0
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "45767": {
+      "offering_id": "2026:H1036:217:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 45767,
+      "source_range": "A45767:M45767",
+      "fields": {
+        "Org_Name": "Humana",
+        "Contract_ID": "H1036",
+        "Plan_ID": 217,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMO",
+        "Contract_Year": 2026,
+        "Category Name": "Inpatient hospital coverage",
+        "Service_Desc": null,
+        "Limit_Flag": null,
+        "Authorization_Flag": "Yes",
+        "Referral_Flag": "No",
+        "Network_Description": "In-Network",
+        "Cost_Share": "$180 per day for days 1 through 5<br />$0 per day for days 6 through 90<br />$0 per day for days 91 and beyond"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "343135": {
+      "offering_id": "2026:H5652:002:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 343135,
+      "source_range": "A343135:M343135",
+      "fields": {
+        "Org_Name": "UnitedHealthcare",
+        "Contract_ID": "H5652",
+        "Plan_ID": 2,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMOPOS",
+        "Contract_Year": 2026,
+        "Category Name": "Doctor visits",
+        "Service_Desc": "Primary",
+        "Limit_Flag": null,
+        "Authorization_Flag": "N/A",
+        "Referral_Flag": "N/A",
+        "Network_Description": "In-Network",
+        "Cost_Share": "$0 copay"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "343137": {
+      "offering_id": "2026:H5652:002:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 343137,
+      "source_range": "A343137:M343137",
+      "fields": {
+        "Org_Name": "UnitedHealthcare",
+        "Contract_ID": "H5652",
+        "Plan_ID": 2,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMOPOS",
+        "Contract_Year": 2026,
+        "Category Name": "Doctor visits",
+        "Service_Desc": "Specialist",
+        "Limit_Flag": null,
+        "Authorization_Flag": "Yes",
+        "Referral_Flag": "No",
+        "Network_Description": "In-Network",
+        "Cost_Share": "$0-65 copay per visit"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "343146": {
+      "offering_id": "2026:H5652:002:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 343146,
+      "source_range": "A343146:M343146",
+      "fields": {
+        "Org_Name": "UnitedHealthcare",
+        "Contract_ID": "H5652",
+        "Plan_ID": 2,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMOPOS",
+        "Contract_Year": 2026,
+        "Category Name": "Health plan deductible",
+        "Service_Desc": null,
+        "Limit_Flag": null,
+        "Authorization_Flag": null,
+        "Referral_Flag": null,
+        "Network_Description": "In-Network",
+        "Cost_Share": "$1,000 In-network"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "343152": {
+      "offering_id": "2026:H5652:002:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 343152,
+      "source_range": "A343152:M343152",
+      "fields": {
+        "Org_Name": "UnitedHealthcare",
+        "Contract_ID": "H5652",
+        "Plan_ID": 2,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMOPOS",
+        "Contract_Year": 2026,
+        "Category Name": "Inpatient hospital coverage",
+        "Service_Desc": null,
+        "Limit_Flag": null,
+        "Authorization_Flag": "Yes",
+        "Referral_Flag": "No",
+        "Network_Description": "In-Network",
+        "Cost_Share": "$375 per day for days 1 through 7<br />$0 per day for days 8 through 90<br />$0 per day for days 91 and beyond"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    },
+    "343153": {
+      "offering_id": "2026:H5652:002:000",
+      "source_member": "MPF_BenefitSummary_CY2026_12232025.xlsx",
+      "source_sheet": "MPF_BenefitSummary_CY2026",
+      "source_row": 343153,
+      "source_range": "A343153:M343153",
+      "fields": {
+        "Org_Name": "UnitedHealthcare",
+        "Contract_ID": "H5652",
+        "Plan_ID": 2,
+        "Segment_ID": 0,
+        "Plan_Type_Desc": "HMOPOS",
+        "Contract_Year": 2026,
+        "Category Name": "Inpatient hospital coverage",
+        "Service_Desc": null,
+        "Limit_Flag": null,
+        "Authorization_Flag": "Yes",
+        "Referral_Flag": "No",
+        "Network_Description": "Out-of-Network",
+        "Cost_Share": "40% per stay"
+      },
+      "accepted_for_reference": false,
+      "consumer_usable": false
+    }
+  },
+  "premium_source": {
+    "name": "CMS CY2026 Landscape, September 2026",
+    "member": "CY2026_Landscape_202609/CY2026_Landscape_202609.csv",
+    "member_sha256": "0e530c2352f9481b25ed7ed995d4a1703bfe7547691aebc22dfaf6fcb757277a",
+    "locator_basis": "1-based CSV data record ordinal, excluding header",
+    "readme_notes": [
+      16,
+      17
+    ],
+    "records": {
+      "2026:H1036:217:000": {
+        "record_ordinal": 12549,
+        "fields": {
+          "Contract ID": "H1036",
+          "Plan ID": "217",
+          "Segment ID": "0",
+          "State Territory Abbreviation": "FL",
+          "County Name": "Collier",
+          "Plan Name": "Humana Gold Plus H1036-217 (HMO)",
+          "Part C Premium": "$0.00 ",
+          "Part D Total Premium": "$0.00 ",
+          "Monthly Consolidated Premium (Part C + D)": "$0.00 "
+        },
+        "amount_field": "Monthly Consolidated Premium (Part C + D)"
+      },
+      "2026:H5652:002:000": {
+        "record_ordinal": 12598,
+        "fields": {
+          "Contract ID": "H5652",
+          "Plan ID": "002",
+          "Segment ID": "0",
+          "State Territory Abbreviation": "FL",
+          "County Name": "Collier",
+          "Plan Name": "Erickson Advantage Liberty no Rx (HMO-POS)",
+          "Part C Premium": "$0.00 ",
+          "Part D Total Premium": "Not Applicable",
+          "Monthly Consolidated Premium (Part C + D)": "Not Applicable"
+        },
+        "amount_field": "Part C Premium",
+        "monthly_unit_review": "erickson_premium_review"
+      }
+    }
+  },
+  "carrier_regions": {
+    "humana_cost_rules": {
+      "offering_id": "2026:H1036:217:000",
+      "section": "Out-of-pocket costs for covered services",
+      "chapter": 4,
+      "document_sha256": "b6ba20abed0c5394a2afcc86c3db8523d0130e5c2448b9d4fd33a0d458bf4035",
+      "pages": [
+        {
+          "physical_pdf_page": 43,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/build-r1/carrier-pages.jsonl.gz",
+          "source_row_zero_based": 549,
+          "source_record_sha256": "558470922929dcc581550371851aedda5545c0a608167829422f5db82927cb93"
+        }
+      ]
+    },
+    "humana_inpatient": {
+      "offering_id": "2026:H1036:217:000",
+      "section": "Inpatient hospital care",
+      "chapter": 4,
+      "document_sha256": "b6ba20abed0c5394a2afcc86c3db8523d0130e5c2448b9d4fd33a0d458bf4035",
+      "pages": [
+        {
+          "physical_pdf_page": 56,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/build-r1/carrier-pages.jsonl.gz",
+          "source_row_zero_based": 562,
+          "source_record_sha256": "48048b5efb28d52da10e4f26412f30bc863649c861e5c825bd90c829a1c03ffe"
+        },
+        {
+          "physical_pdf_page": 57,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/build-r1/carrier-pages.jsonl.gz",
+          "source_row_zero_based": 563,
+          "source_record_sha256": "36f928d4b73ba67624b38f5c10ba92ff71f8b431fdc225635aa53b8083f44331"
+        }
+      ]
+    },
+    "erickson_cost_rules": {
+      "offering_id": "2026:H5652:002:000",
+      "section": "Out-of-pocket costs for covered services",
+      "chapter": 4,
+      "document_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+      "pages": [
+        {
+          "physical_pdf_page": 39,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/new-source-pages.jsonl.gz",
+          "source_row_zero_based": 5496,
+          "source_record_sha256": "27af1d612b7a4cc5a92c2d2c5bf993572bb0865957e28e453c0d773b98d2f262"
+        },
+        {
+          "physical_pdf_page": 40,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/new-source-pages.jsonl.gz",
+          "source_row_zero_based": 5497,
+          "source_record_sha256": "4c698d8bd8be2f1e6c9c05a07bd401c4963ced60b61301455cbe2745df7e5bfb"
+        }
+      ]
+    },
+    "erickson_inpatient": {
+      "offering_id": "2026:H5652:002:000",
+      "section": "Inpatient hospital care",
+      "chapter": 4,
+      "document_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+      "pages": [
+        {
+          "physical_pdf_page": 68,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/new-source-pages.jsonl.gz",
+          "source_row_zero_based": 5525,
+          "source_record_sha256": "56306d2a76b77d27d467ef6a5d28e22d880f11377127cc9b4be9ba9a6dbf06c1"
+        },
+        {
+          "physical_pdf_page": 69,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/new-source-pages.jsonl.gz",
+          "source_row_zero_based": 5526,
+          "source_record_sha256": "8ca98f084c6dcf79a7978af4a6cd639dcc5ff893b06170e03555a2d136893895"
+        },
+        {
+          "physical_pdf_page": 70,
+          "source_export": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/new-source-pages.jsonl.gz",
+          "source_row_zero_based": 5527,
+          "source_record_sha256": "c922197c4eaf3dc567b6d923f5d468641936c933924de7c8a8db70b091db7f34"
+        }
+      ]
+    }
+  },
+  "prior_carrier_evidence": {
+    "humana_pcp": {
+      "candidate_id": "NORM-4c0b19539d8b93b98bb7b72398e4",
+      "offering_id": "2026:H1036:217:000",
+      "family": "primary_care",
+      "source": {
+        "column_end": null,
+        "column_start": 76,
+        "complete_carrier_context_packet": {
+          "path": "docs/data/l03-review-pipeline-2026-11-03-r1/build-r1/carrier-pages.jsonl.gz",
+          "scope": "Complete retained SB/EOC context, not an adopted condition interpretation",
+          "sha256": "f0204617fef10c54187602b03f82390eb99d6c7bb415408ff90f455beb900697"
+        },
+        "document_sha256": "5cf98ba4b31cd7f8810bbe2de32f176a3d5b550df37b9875b9888b7dc2da5095",
+        "full_row_quote": " Primary Care Provider (PCP)                                • PCP's office: $0 copay",
+        "layout_profile_id": "HUMANA-SB-LABELED-ROWS-R1",
+        "line_end": 31,
+        "line_start": 31,
+        "page_record_sha256": "b3294d5931c7eb13822dfe412f78f7e0d6a55021ccc032eb282b8fe29309384a",
+        "pdf_page": 4,
+        "price_cell_quote": "$0 copay",
+        "price_cell_sha256": "14ccff5a5286fcf7ac40bd9fb75c4e7da4bce32e6a01516da07e73fda149e050",
+        "setting_cell_quote": "• PCP's office: $0 copay",
+        "text_field": "text",
+        "text_field_sha256": "d281cf6ea41ca625c3844bb1b53a4c67f52494c68f527c3c2e25c5e99a767048"
+      },
+      "candidate_only": true
+    },
+    "erickson_pcp": {
+      "region_id": "PCP-IN",
+      "offering_id": "2026:H5652:002:000",
+      "fragments": [
+        {
+          "pdf_page": 91,
+          "document_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+          "source_page_record_sha256": "f6afba376a546e67d67bf2974ae208250c41c81577c80e771612a87c86161cf8",
+          "quote_sha256": "eb3de324e293bb2d243e6e319546884068deecd3c5968104f55d313300ce0332",
+          "quote": "  $0 copayment     for           \n  services  from  a primary      \n  care  physician  or under      \n  certain circumstances,         "
+        },
+        {
+          "pdf_page": 92,
+          "document_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+          "source_page_record_sha256": "65b6c7b23dbd56567c872a80049bf814b012d63b10ec89b7431e41860776e177",
+          "quote_sha256": "3a8fe8f5ae73ba32d98fb1d450d68045d05354dc834b43db7491179474cf09b9",
+          "quote": " treatment    by a nurse         \n  practitioner, physician’s      \n  assistant  or other  non-      \n  physician  health  care        \n  professional   in a primary    \n  care  physician’s  office      \n  (as allowed   by               \n  Medicare).                     \n                                 \n                                 \n                                 "
+        }
+      ]
+    },
+    "erickson_membership": {
+      "region_id": "MEMBERSHIP-SCOPE",
+      "offering_id": "2026:H5652:002:000",
+      "fragments": [
+        {
+          "pdf_page": 7,
+          "document_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+          "source_page_record_sha256": "fdad57ab6cfdcbc7b48106b5b83d3ddfb678958fcc55bb2bd86172950322434f",
+          "quote_sha256": "6d472d9ea97822b8c2eeebe1f22d66286ed451544696ccaed4d0c1b258373a32"
+        }
+      ]
+    }
+  },
+  "plans": [
+    {
+      "offering_id": "2026:H1036:217:000",
+      "name": "Humana Gold Plus H1036-217 (HMO)",
+      "mpf_pcp_row": 45755,
+      "mpf_deductible_row": 45762,
+      "mpf_hospital_row": 45767,
+      "pcp_source": "humana_pcp",
+      "cost_rules_source": "humana_cost_rules",
+      "hospital_source": "humana_inpatient",
+      "pcp_deductible": {
+        "applies": false,
+        "reason": "The medical plan deductible is $0."
+      },
+      "hospital_deductible": {
+        "applies": false,
+        "reason": "The medical plan deductible is $0."
+      },
+      "in_network_medical_maximum_usd": "3800.00",
+      "last_confirmed_charged_day": 5,
+      "paid_daily_band_usd": "180.00"
+    },
+    {
+      "offering_id": "2026:H5652:002:000",
+      "name": "Erickson Advantage Liberty no Rx (HMO-POS)",
+      "mpf_pcp_row": 343135,
+      "mpf_deductible_row": 343146,
+      "mpf_hospital_row": 343152,
+      "pcp_source": "erickson_pcp",
+      "cost_rules_source": "erickson_cost_rules",
+      "hospital_source": "erickson_inpatient",
+      "pcp_deductible": {
+        "applies": false,
+        "reason": "The EOC list of services subject to the selective deductible excludes ordinary PCP office visits."
+      },
+      "hospital_deductible": {
+        "applies": true,
+        "annual_usd": "1000.00",
+        "reason": "The EOC applies the annual medical deductible to inpatient care before copayments."
+      },
+      "in_network_medical_maximum_usd": "6750.00",
+      "last_confirmed_charged_day": 7,
+      "paid_daily_band_usd": "375.00"
+    }
+  ],
+  "negative_check_rows": {
+    "specialist_range": 343137,
+    "out_of_network_hospital_percent": 343153
+  }
+}

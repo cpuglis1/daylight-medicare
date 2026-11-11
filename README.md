@@ -1,13 +1,31 @@
 # Daylight
 
+**Current advisor development · November 2, 2026:** The shared advisor source is `alternatives/advisor-first/`. Start with the [credential-free fixture quick start](docs/project/DEVELOPMENT.md); it includes the exact shared-engine dependencies, fictional tests and explicit private-research test limits. The [project hub](docs/project/README.md) maps current work and protected variants. Public source publication does not activate hosting, accepted personal findings or recommendations.
+
+**Start here · November 2, 2026:** [Current project hub](docs/project/README.md) — [company narrative](docs/company/README.md), [all fifteen company capabilities](docs/project/CAPABILITIES.md), [2026 Collier controlled pilot](docs/project/COLLIER_MVP.md), and [GitHub/cloud handoff](docs/project/CLOUD_HANDOFF.md). The current advisor development surface is **:8893 in `alternatives/advisor-first/`**; the earlier variants and stores remain protected. The owner confirmed the existing public `cpuglis1/daylight-medicare` repository and a 2026 controlled pilot first. The review adds organization and preparation, not a push, cloud deployment or consumer recommendation release.
+
+**Reading the history below:** the October 21–26 status, test counts, 2027 catalog and :8890/:8891 descriptions are dated snapshots. Use the current hub for the newer advisor, full local database, r12 evidence work and exact remaining gaps. The original material remains preserved rather than silently rewritten as today's state.
+
+**2026 L03 source update · October 26:** [Owner-supplied reconciliation r7](docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/) matches all 72 observed offerings to SB/EOC pairs, including the ten new Erickson PDFs. It adds 177 named Erickson checks and 75 optional-dental amount comparisons. Full cost/condition corroboration and exact new-evidence review remain open; the accepted r4 reference is unchanged. See the explicit gap register before making a completeness claim.
+
+**D66 current local route:** the owner authorized a single ten-question sequence through local activation. Read [the ten-question contract](docs/product/TEN_QUESTION_CONTRACT.md) before navigation work. The default UI is `cms-slice/apps/ten-question/`, served by `python3 cms-slice/scripts/ten_server.py --port 8890`; `cms-slice/apps/chat/` is the preserved previous guide on port 8896 (`--legacy`). Existing guest data stays in its original storage; do not silently migrate or overwrite it. The two surfaces share the persistent $1/UTC-day budget cap. Latest D66 overrides conflicting variable-routing/shortcut instructions below; brand, source teaching, privacy, independence and plan gates remain.
+
+
+**Read first: [Daylight principles](PRINCIPLES.md)** — user control, comprehensive evidence and strict separation of recommendations/AI from commercial economics. Current core runtime: [service guide](docs/product/CORE_SERVICE.md) and [local AI activation](docs/product/AI_ACTIVATION.md). The dated cleanup findings below remain historical evidence; they do not override these current contracts.
+
+**Strategy · October 25, 2026 · D73:** [Canonical thesis and evidence roadmap](docs/product/STRATEGIC_THESIS.md). The intended free consumer platform combines independent decision support, licensed brokerage fulfillment, trusted-partner distribution and continuing reviews. Its next proof is informed decisions with less staff effort and viable economics across neutral outcomes. These are goals to test, not shipped capabilities or measured results; use the linked review checklist for future UI/system work. Customer completeness and external verification remain separate gates, and samples are not recommendations.
+
 Daylight is a Medicare learning and research prototype: a step-by-step visual guide, supporting Ask Daylight help, and a published-plan comparison implementation. Its operating model is **self-directed research, licensed transaction**. This repository does not provide insurance enrollment, a binding quote, or a validated personal recommendation.
 
-The active application is **`cms-slice/apps/chat/` with the Python service in `cms-slice/scripts/`**. The Node app inside the original v1.2 bundle is archived history.
+The original default application is **`cms-slice/apps/ten-question/` with the Python service in `cms-slice/scripts/`**; `apps/chat` preserves the previous guide. The separate **:8891 alternative remains supported alongside :8890**; see [source/runtime locations and boundaries](docs/product/STRATEGIC_THESIS.md#current-implementation-and-protected-variants). The Node app inside the original v1.2 bundle is archived history.
+
+**Alternative source · D75:** The :8891 chat-first product is now editable in [alternatives/chat-first/](alternatives/chat-first/README.md). Its existing runtime and guest records remain separate; :8890 stays in the root `cms-slice/`.
 
 ## Start here
 
 | Need | Read |
 | --- | --- |
+| Strategic thesis, staged roadmap and change review | [D73 canonical strategy](docs/product/STRATEGIC_THESIS.md) |
 | Binding product direction | [PRODUCT.md](PRODUCT.md), [owner requirements](DAYLIGHT_REQUIREMENTS.md), [agent instructions](AGENTS.md) |
 | Current implementation, blockers, next work | [Current status and plan](docs/CURRENT_STATUS.md) |
 | Run and verify the project | [Developer setup and commands](docs/DEVELOPMENT.md) |
@@ -60,7 +78,8 @@ The current selected release fails the first command. Rebuilding is deliberate e
 
 ```text
 PRODUCT.md / DAYLIGHT_REQUIREMENTS.md / AGENTS.md   Product authority
-cms-slice/                                       Active app, service, data registries, tests, evidence
+cms-slice/                                       Original app, service, data registries, tests, evidence
+alternatives/chat-first/                        Canonical editable :8891 alternative; separate live runtime
 docs/                                           Current guides and indexed historical findings
   planning/                                     One-page objectives plan
   archive/product-history/                      Older UI proposals and visual-content specifications

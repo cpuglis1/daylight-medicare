@@ -1,5 +1,8 @@
 # Medicare public-evidence slice
 
+**D66 current local route:** the owner authorized a single ten-question sequence through local activation. Read [the ten-question contract](../docs/product/TEN_QUESTION_CONTRACT.md) before navigation work. The default UI is `cms-slice/apps/ten-question/`, served by `python3 cms-slice/scripts/ten_server.py --port 8890`; `cms-slice/apps/chat/` is the preserved previous guide on port 8896 (`--legacy`). Existing guest data stays in its original storage; do not silently migrate or overwrite it. The two surfaces share the persistent $1/UTC-day budget cap. Latest D66 overrides conflicting variable-routing/shortcut instructions below; brand, source teaching, privacy, independence and plan gates remain.
+
+
 > **Current status — October 21, 2026:** This page retains detailed historical source commands. Start with the [current workspace README](../README.md), [development guide](../docs/DEVELOPMENT.md), and [data inventory](../docs/DATA_INVENTORY.md). The active UI is the progressive guide in `apps/chat/`; it is no longer a chat-led entry. Consumer acceptance is pending, and the selected release fails verification against newer frontend code. A static guide preview does not provide catalog/live APIs. Earlier “current demo” language below is historical; do not bypass verification/review gates.
 
 This independent Python implementation proves one bounded public-data path. It does not use the archived Node prototype.
@@ -18,6 +21,31 @@ Open `http://127.0.0.1:8766/`. The offline release includes saved medicine/pharm
 Workspace mode, `python3 scripts/demo.py serve --online`, permits bounded public NLM/NPPES identity requests. The immutable offline release cannot fetch new examples. `OPENAI_API_KEY` and `OPENAI_MODEL` configure the optional server-side Responses adapter; `.env` files are not automatically loaded. The live adapter still needs actual-account evaluation. See [execution](../docs/DEMO_EXECUTION.md), [re-audit](../docs/NAPLES_DEMO_REAUDIT.md) and [handoff](../docs/DEMO_HANDOFF.md).
 
 To rebuild, run `python3 scripts/drug_validation.py`, review the checkpoint in `data-sources/demo-review.json`, then `python3 scripts/demo_release.py build` and `python3 scripts/demo_release.py bundle current`. A changed data basis requires an explicit new engineering review receipt; rebuilding old bytes does not renew their review date. Use `python3 scripts/source_refresh.py --refresh` for public CMS catalog discovery only; it does not automatically import a new release.
+
+## Collier gap work: C02–C05
+
+The [execution plan](../COLLIER_DATA_GAP_PLAN_current.md) and [preserved baseline](reports/collier-gap-20261019/c02/coverage.md) track this work. C01 is deferred by the owner for testing. The original audit workbook and 70/61/59/31 baseline are preserved.
+
+The expanded release packages all 61 drug-plan pharmacy networks. Drug tools accept every captured plan ID, including SNP and Regional PPO records, independently of the historical core-benefit review scope. The nine MA-only records remain not applicable. Drug queries return at most 20 plans per page; `pagination.next_offset` continues the same query, and `full_option_ids` identifies the complete requested set. Medicine-list pages support at most 15 exact RxCUIs. Source-only chat collects all pages; both model adapters reject incomplete paginated comparisons.
+
+CMS 2027 stars are joined at contract level for all 24 contracts and exposed for all 70 records. The importer checks all 72 summary/overall cells against the CMS workbook as a second extraction of the same publication. PDP cards show the Part D summary; MA-only cards show the Part C summary; MA-PD/SNP cards show Overall. CMS nonnumeric reasons remain text with a null numeric value. Original landscape star columns remain unchanged.
+
+```sh
+python3 scripts/star_ratings.py fetch
+python3 scripts/star_ratings.py build
+python3 scripts/star_ratings.py verify
+python3 scripts/source_refresh.py --refresh --candidate-dir reports/catalog-candidate-UNIQUE
+python3 scripts/demo_release.py build --candidate
+python3 scripts/demo_release.py bundle /absolute/path/to/candidate
+```
+
+Candidate discovery retains the previous receipt and bytes and records the new deadline and distribution comparison. Choose a new directory for each retrieval. Review the resulting evidence and update the engineering checkpoint before building; the current checkpoint also binds the C03 assessment and C04 star manifest. `build --candidate` leaves the active pointer unchanged. A selected engineering candidate is for testing; qualified domain sign-off and the remaining R1 gates are still pending.
+
+From an extracted bundle, this verifies all 61 drug plans and all nine MA-only states with network access disabled, comparing the compact tool results against captured-row queries and recording startup, memory and lookup measurements:
+
+```sh
+python3 scripts/verify_collier_bundle.py --release snapshot --require-isolated --out /tmp/collier-bundle-replay.json
+```
 
 ## Commands
 
@@ -94,3 +122,7 @@ Exact NDC11/RxCUI and NPI queries preserve source conditions, blanks, zero and t
 `reference_evidence.py` replays actual NLM vocabulary and NPPES identity snapshots plus carrier/OIR supplier diligence. Public endpoints can change: fetch refuses bytes that differ from the pinned snapshot. Recover exact captures or inspect/register a new version. The NPPES visible documentation text was captured through Chrome; a missing copy needs explicit recovery/recapture, not substitution of a JavaScript HTML shell.
 
 When the prescription and public-reference manifests are present and valid, `research.py serve` also enables the labeled public drug example. It leaves the confirmed product unset, performs no outside request from the browser and computes no personal price, ranking or purchase result. See [WP3](../docs/WORK_PACKAGE_3.md), the [action reference](../ACTION_REFERENCE.md), and the [remaining dependency ledger](../docs/EXECUTION_STATUS.md).
+
+### Validated data requirement (October 20, 2026)
+
+The local app and consumer APIs now remain closed while required field and exact-release acceptance is pending. Passing source/software checks does not enable consumer facts. See [validated data operations](../docs/VALIDATED_DATA_OPERATIONS.md) and the [review packet](reports/collier-gap-20261020/validation/REVIEW_PACKET.md). Offline evidence tools use an explicit Python research mode; the HTTP server cannot inherit that bypass. C01 logging remains deferred for owner testing.

@@ -5,9 +5,12 @@ import copy
 from datetime import datetime, timezone
 import os
 import re
+import local_programs
+from usage_metrics import CURRENT
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from consumer_acceptance import research_or_accepted
 import cms_slice as cms
 
 CHAT_CODE_SHA256 = cms.file_hash(__file__)
@@ -35,6 +38,9 @@ def explicit_rx_codes(message):
 
 STRING = {"type": "string"}
 NULLABLE = {"type": ["string", "null"]}
+PLAN_IDS = {"type": ["array", "null"], "items": STRING, "minItems": 1, "maxItems": 70}
+OFFSET = {"type": ["integer", "null"], "minimum": 0, "maximum": 69}
+PAGE_LIMIT = {"type": ["integer", "null"], "minimum": 1, "maximum": 20}
 TOOLS = [
     {"type": "function", "name": "market_options", "description": "Published 2027 Collier options in source order, with scope exclusions. Never a suitability ranking.", "strict": True,
      "parameters": schema({"year": STRING, "county_fips": STRING, "category": {"type": ["string", "null"], "enum": [None, "MA", "MA-PD", "PDP"]}})},
@@ -43,12 +49,12 @@ TOOLS = [
     {"type": "function", "name": "medicine_candidates", "description": "Find vocabulary candidates for a medicine name. Never silently select strength, form or a prescription.", "strict": True, "parameters": schema({"name": STRING})},
     {"type": "function", "name": "pharmacy_candidates", "description": "Find reported pharmacy identity/location candidates in a named southwest Florida city; no participation conclusion.", "strict": True, "parameters": schema({"name": STRING, "city": STRING})},
     {"type": "function", "name": "drug_evidence", "description": "Exact source-code formulary evidence. RxCUI and optional pharmacy NPI must be explicitly supplied by user or in confirmed selections. No price or personal coverage confirmation.", "strict": True,
-     "parameters": schema({"rxcui": STRING, "plan_ids": {"type": ["array", "null"], "items": STRING}, "pharmacy_npi": NULLABLE})},
+     "parameters": schema({"rxcui": STRING, "plan_ids": PLAN_IDS, "pharmacy_npi": NULLABLE, "offset": OFFSET, "limit": PAGE_LIMIT})},
     {"type": "function", "name": "drug_list_evidence", "description": "Check one to 15 distinct user-supplied/confirmed exact RxCUI products against the complete requested plan set. Preserve each product's unresolved/absent/MA-only state. No annual prices or substitutions.", "strict": True,
-     "parameters": schema({"rxcuis": {"type": "array", "items": STRING}, "plan_ids": {"type": ["array", "null"], "items": STRING}, "pharmacy_npi": NULLABLE})},
+     "parameters": schema({"rxcuis": {"type": "array", "items": STRING, "minItems": 1, "maxItems": 15}, "plan_ids": PLAN_IDS, "pharmacy_npi": NULLABLE, "offset": OFFSET, "limit": PAGE_LIMIT})},
     {"type": "function", "name": "provider_evidence", "description": "Dated NCH/Physicians Regional notices and unresolved exact provider checks. Carrier acceptance is not exact plan/clinician participation.", "strict": True,
      "parameters": schema({"name": STRING, "plan_id": NULLABLE})},
-    {"type": "function", "name": "education", "description": "Reviewed-source education topics: basics, advantage, medigap, prior_authorization, step_therapy, quantity_limit. Domain sign-off remains pending.", "strict": True, "parameters": schema({"topic": STRING})},
+    {"type": "function", "name": "education", "description": "Reviewed-source topics: basics, advantage, medigap, prior_authorization, step_therapy, quantity_limit, pace, shine, coordination_employer_union, coordination_va, coordination_tricare, coordination_existing_medigap. Domain sign-off remains pending.", "strict": True, "parameters": schema({"topic": STRING})},
 ]
 ANSWER_SCHEMA = schema({"fact_ids": {"type": "array", "items": STRING}, "clarification": {"type": "string", "enum": list(CLARIFICATIONS)}})
 INSTRUCTIONS = """You help people research published Medicare evidence for a facilitated Collier County demo.
@@ -61,6 +67,7 @@ Never answer best-plan, cheapest-personal-cost, annual-savings or buy/switch/enr
 Ask for medicine/store confirmation using the clarification enums; do not silently choose the first candidate.
 Drug_evidence can use only the explicit allowed RxCUIs and NPIs in the request context. Plan IDs must be user-named; a null plan_ids requests the complete supported source set.
 Use price_unavailable or scope for unsupported requests. At most four tool rounds are allowed.
+Drug tools return at most 20 plans per page. Start at offset 0, limit 20, and follow pagination.next_offset with the same inputs until null before answering a complete-set request. SNP eligibility is separate from evidence access.
 """
 
 
@@ -69,31 +76,52 @@ class ModelUnavailable(cms.SourceError):
 
 
 class ResponsesClient:
-    def __init__(self, key=None, model=None, transport=None):
+    def __init__(self, key=None, model=None, transport=None, reasoning_effort="none"):
         self.key = key if key is not None else os.environ.get("OPENAI_API_KEY")
         self.model = model if model is not None else os.environ.get("OPENAI_MODEL")
         self.transport = transport
+        self.reasoning_effort = reasoning_effort
 
     @property
     def available(self):
         return bool(self.key and self.model)
 
-    def create(self, items):
+    def create(self, items, *, instructions=INSTRUCTIONS, output_schema=ANSWER_SCHEMA,
+               schema_name="evidence_selection", tools=None, settings=None):
         if not self.available:
             raise ModelUnavailable("Live model is not configured; use the source-only chat mode")
-        payload = {"model": self.model, "instructions": INSTRUCTIONS, "input": items,
-                   "store": False, "max_output_tokens": 1800, "parallel_tool_calls": False, "tools": TOOLS,
-                   "text": {"format": {"type": "json_schema", "name": "evidence_selection", "strict": True, "schema": ANSWER_SCHEMA}}}
+        payload = {"model": self.model, "instructions": instructions, "input": items,
+                   "store": False, "max_output_tokens": 1800, "parallel_tool_calls": False,
+                   "tools": TOOLS if tools is None else tools,
+                   "text": {"format": {"type": "json_schema", "name": schema_name, "strict": True, "schema": output_schema}}}
+        if settings:
+            # Stable prefix first, all request-specific state/messages last.
+            payload = {"model":self.model, "instructions":instructions,
+                       "tools":TOOLS if tools is None else tools, "text":payload["text"],
+                       "store":False, "max_output_tokens":settings.get("max_output_tokens", 600),
+                       "parallel_tool_calls":True, "reasoning":{"effort":self.reasoning_effort},
+                       "prompt_cache_key":"milkman-conversation-v2", "input":items}
+            payload["text"]["verbosity"]="low"
         if self.transport:
-            return self.transport(payload)
+            if CURRENT.get():
+                CURRENT.get().value["model_calls"] += 1
+            result = self.transport(payload)
+            if CURRENT.get():
+                CURRENT.get().capture(result)
+            return result
         request = Request("https://api.openai.com/v1/responses", data=json.dumps(payload).encode(),
                           headers={"Authorization": "Bearer " + self.key, "Content-Type": "application/json"}, method="POST")
         try:
+            if CURRENT.get():
+                CURRENT.get().value["model_calls"] += 1
             with urlopen(request, timeout=35) as response:
                 raw = response.read(1_000_001)
                 if len(raw) > 1_000_000:
                     raise ModelUnavailable("Model response exceeded the supported bound")
-                return json.loads(raw)
+                result = json.loads(raw)
+                if CURRENT.get():
+                    CURRENT.get().capture(result)
+                return result
         except (HTTPError, URLError, TimeoutError, ValueError) as error:
             # Do not echo vendor bodies, API keys or beneficiary text into logs/errors.
             raise ModelUnavailable("Live model request failed; no coverage conclusion was produced") from error
@@ -135,7 +163,15 @@ class Chat:
                 "live_model_evaluation": "not_performed", "answer_code_sha256": CHAT_CODE_SHA256,
                 "answered_at_utc": datetime.now(timezone.utc).isoformat(), "domain_signoff": "pending"}
 
+    @research_or_accepted
     def answer(self, message, *, selections=None, use_model=False):
+        result = self._answer(message, selections=selections, use_model=use_model)
+        result.update(self.tools.coordination([message]))
+        if re.search(r"unresolved|unavailable|eligibility", result["text"], re.I):
+            result["referral_facts"] = self.tools.education("shine")["facts"][:1]
+        return result
+
+    def _answer(self, message, *, selections=None, use_model=False):
         if not isinstance(message, str) or not 1 <= len(message.strip()) <= 1200:
             raise cms.SourceError("Ask a question of 1–1200 characters")
         selections = selections or {}
@@ -145,8 +181,15 @@ class Chat:
             pattern = r"[1-9]\d{0,7}" if key == "rxcui" else r"[HRS]\d{4}-\d{3}-\d{3}-2027" if key == "plan_id" else r"\d{10}"
             if not isinstance(value, str) or not re.fullmatch(pattern, value):
                 raise cms.SourceError("Invalid explicit product/store selection")
+        topics = local_programs.topics(message)
+        # Historical policy years are coverage context, not a request for an old catalog.
+        if topics and not re.search(r"[HRS]\d{4}-\d{3}-\d{3}-\d{4}|\brxcui", message, re.I) and not re.search(r"lee county|miami|new york", message, re.I):
+            facts = [f for topic in topics for f in self.tools.education(topic)["facts"]]
+            if any(t.startswith("coordination_") for t in topics):
+                facts += self.tools.education("shine")["facts"][:1]
+            return self._render(facts, calls=["education"])
         # These limits hold even if a connected model tries to route around them.
-        if re.search(r"cheapest|best plan|annual cost|annual savings|enroll me|buy (a|this|the) plan|should i (buy|switch)", message, re.I):
+        if re.search(r"cheapest|best plan|annual (?:drug )?cost|annual savings|enroll me|buy (a|this|the) plan|should i (buy|switch)", message, re.I):
             return self._local(message, selections)
         other_years = set(re.findall(r"\b(?:19|20)\d{2}\b(?!\s*(?:mg|mcg|ml|units?)\b)", message, re.I)) - {"2027"}
         historical_nch_notice = bool(re.search(r"\bnch\b|naples (community|comprehensive)", message, re.I)) and other_years <= {"2026"}
@@ -173,12 +216,16 @@ class Chat:
             return self._render(result["facts"], "exact_provider")
         if re.search(r"\b(doctor|provider|hospital|physician|dr[. ]|clinic)\b", lower) and re.search(r"network|accept|take|participat|can i (keep|see)|covered", lower):
             return self._render([], "exact_provider")
-        if re.search(r"cheapest|best plan|annual cost|annual savings|enroll me|buy (a|this|the) plan|should i (buy|switch)", lower):
+        if re.search(r"cheapest|best plan|annual (?:drug )?cost|annual savings|enroll me|buy (a|this|the) plan|should i (buy|switch)", lower):
             return self._render([], "price_unavailable" if re.search(r"cheapest|cost|savings", lower) else "scope")
         if drug:
             name = "drug_list_evidence" if len(codes) > 1 else "drug_evidence"
-            result = self.tools.drug_list_evidence(codes, plans or None, npi) if len(codes) > 1 else self.tools.drug_evidence(drug, plans or None, npi)
-            return self._render(result["facts"], calls=[name])
+            facts, offset = [], 0
+            while offset is not None:
+                result = self.tools.drug_list_evidence(codes, plans or None, npi, offset=offset) if len(codes) > 1 else self.tools.drug_evidence(drug, plans or None, npi, offset=offset)
+                facts.extend(result["facts"])
+                offset = result["pagination"]["next_offset"]
+            return self._render(facts, calls=[name])
         if plans:
             facts = [f for p in dict.fromkeys(plans) for f in self.tools.plan_details(p)["facts"]]
             return self._render(facts, calls=["plan_details"])
@@ -220,6 +267,7 @@ class Chat:
             named_plans.add(selections["plan_id"])
         items = [{"role": "user", "content": json.dumps({"question": message, "explicit_rxcuis": sorted(allowed_rx), "explicit_npis": sorted(allowed_npi), "explicit_plan_ids": sorted(named_plans), "scope": "2027 Collier factual research"})}]
         facts, mandatory, choices, calls = {}, set(), {"medicines": [], "pharmacies": [], "plans": []}, []
+        drug_pages = {}
         for _ in range(5):
             response = self.client.create(items)
             if not isinstance(response, dict):
@@ -253,6 +301,10 @@ class Chat:
                     if not isinstance(requested_plans, list) or any(not isinstance(p,str) or p not in named_plans for p in requested_plans):
                         raise ModelUnavailable("Model tried to select a plan the user did not name")
                     result = self.tools.call(name, args)
+                    if name in {"drug_evidence", "drug_list_evidence"}:
+                        key = json.dumps({k: v for k, v in args.items() if k not in {"offset", "limit"}}, sort_keys=True)
+                        seen, expected = drug_pages.setdefault(key, (set(), set(result["full_option_ids"])))
+                        seen.update(r["plan_id"] for r in result["results"])
                     calls.append(name)
                     for fact in result.get("facts", []):
                         facts[fact["id"]] = fact
@@ -264,9 +316,11 @@ class Chat:
                         facts["provider-unresolved"] = {"id": "provider-unresolved", "text": CLARIFICATIONS["exact_provider"], "evidence": []}
                     if name in {"medicine_candidates", "pharmacy_candidates", "plan_candidates"}:
                         choices[{"medicine_candidates": "medicines", "pharmacy_candidates": "pharmacies", "plan_candidates": "plans"}[name]].extend(result.get("candidates", []))
-                    compact = {k: v for k, v in result.items() if k in {"facts", "candidates", "status", "limits", "order", "full_option_ids", "candidate_count", "pricing", "preserve_all_facts"}}
+                    compact = {k: v for k, v in result.items() if k in {"facts", "candidates", "status", "limits", "order", "full_option_ids", "pagination", "candidate_count", "pricing", "preserve_all_facts"}}
                     items.append({"type": "function_call_output", "call_id": call["call_id"], "output": json.dumps(compact, separators=(",", ":"))})
                 continue
+            if any(seen != expected for seen, expected in drug_pages.values()):
+                raise ModelUnavailable("Drug evidence pagination is incomplete; no partial comparison released")
             texts = [p.get("text", "") for i in output if i.get("type") == "message" for p in i.get("content", []) if p.get("type") == "output_text"]
             try:
                 selection = json.loads("".join(texts))

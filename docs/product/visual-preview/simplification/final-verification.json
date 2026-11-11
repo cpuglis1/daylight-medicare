@@ -1,0 +1,76 @@
+{
+  "pid": 42680,
+  "checks": [
+    {
+      "url": "http://127.0.0.1:8890/",
+      "status": 200,
+      "bytes": 6693
+    },
+    {
+      "url": "http://127.0.0.1:8890/art/daylight-agent.svg",
+      "status": 200,
+      "bytes": 481
+    },
+    {
+      "url": "http://127.0.0.1:8897/simplification/",
+      "status": 200,
+      "bytes": 3532
+    },
+    {
+      "url": "http://127.0.0.1:8897/simplification/route-measurements.json",
+      "status": 200,
+      "bytes": 1289
+    },
+    {
+      "url": "http://127.0.0.1:8897/simplification/desktop-goal.jpg",
+      "status": 200,
+      "bytes": 65303
+    },
+    {
+      "url": "http://127.0.0.1:8897/simplification/phone-ask.jpg",
+      "status": 200,
+      "bytes": 21400
+    }
+  ],
+  "status": {
+    "consumer_ready": false,
+    "plan_validation_status": "pending",
+    "catalog_count": 0,
+    "agent_available": true,
+    "live_conversation_available": true,
+    "model_configured": true,
+    "model_id": "gpt-5.4",
+    "provider": "OpenAI",
+    "conversation_logging": false,
+    "guest_profiles": true,
+    "sample_count": 5,
+    "live_requests_remaining": null,
+    "ai_budget": {
+      "day": "2026-10-21",
+      "timezone": "UTC",
+      "resetAt": "2026-10-22T00:00:00+00:00",
+      "dailyLimitUsd": 1,
+      "estimatedUsd": 0.0310825,
+      "reservedOrUncertainUsd": 0.0,
+      "accountedUsd": 0.0310825,
+      "remainingUsd": 0.9689175,
+      "requestCount": 4,
+      "canRequest": true,
+      "reason": "",
+      "pricingVerifiedAt": "2026-10-21T19:50:00Z",
+      "pricingValidUntil": "2026-10-28T00:00:00Z",
+      "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+    },
+    "automatic_retries": false
+  },
+  "safeguards_byte_identical": [
+    "cms-slice/scripts/ai_budget.py",
+    "cms-slice/config/ai-pricing.json",
+    "cms-slice/scripts/guide_server.py",
+    "cms-slice/apps/chat/art/arrival-option-a.jpg"
+  ],
+  "installed_hashes_match": true,
+  "missing_documentation_links": [],
+  "paid_calls_this_revision": 0,
+  "final_frontend_tests": "140 passed"
+}

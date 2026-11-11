@@ -1,0 +1,76 @@
+{
+  "schema": "daylight-publication-policy/v1",
+  "destination": "https://github.com/cpuglis1/daylight-medicare.git",
+  "destination_visibility": "public",
+  "max_candidate_bytes": 52428800,
+  "archive_roots": [
+    "docs/data",
+    "audit-evidence",
+    "outputs",
+    "plans",
+    "archive",
+    "medicare-project-2026-10-17-v1.2",
+    "cms-slice/data-sources/raw",
+    "cms-slice/reports"
+  ],
+  "code_roots": [
+    "cms-slice",
+    "alternatives",
+    "infrastructure",
+    "tools",
+    ".github",
+    ".githooks"
+  ],
+  "documentation_roots": [
+    "docs"
+  ],
+  "code_extensions": [
+    ".py",
+    ".js",
+    ".mjs",
+    ".cjs",
+    ".ts",
+    ".tsx",
+    ".jsx",
+    ".css",
+    ".html",
+    ".json",
+    ".yaml",
+    ".yml",
+    ".toml",
+    ".sql",
+    ".sh",
+    ".lock",
+    ".svg",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".ico",
+    ".woff",
+    ".woff2"
+  ],
+  "code_names": [
+    "Dockerfile",
+    "Makefile",
+    "requirements.txt",
+    "requirements.lock",
+    ".gitignore",
+    ".env.example",
+    "CODEOWNERS",
+    "pre-commit"
+  ],
+  "root_names": [
+    ".gitignore",
+    ".env.example"
+  ],
+  "required_separate_reviews": [
+    "file contents and credentials",
+    "personal information",
+    "source-use and publication rights",
+    "asset licenses",
+    "Git history and export manifest",
+    "documented publication scope and destination"
+  ],
+  "meaning": "Candidates pass metadata classification only. No result from this policy grants source acceptance or establishes safe publication. Archive material requires a separately reviewed publication decision."
+}

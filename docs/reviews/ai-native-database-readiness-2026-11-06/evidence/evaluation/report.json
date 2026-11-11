@@ -1,0 +1,148 @@
+{
+  "schema": "daylight-evaluation-report/1",
+  "run_at": "2026-11-06T14:17:28+00:00",
+  "python": "3.14.7",
+  "paid_model_calls": 0,
+  "suites": [
+    {
+      "suite_id": "persona_journeys",
+      "status": "failed",
+      "measures": "Fourteen synthetic personas through the current :8893 extraction, resolution and composition contract, with injected model responses; expected profiles authored separately.",
+      "gaps": [
+        "Injected responses: says nothing about real-model conversation quality."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "persona_runner.py",
+            "--output",
+            "docs/reviews/ai-native-database-readiness-2026-11-06/evidence/evaluation/persona_journeys.json"
+          ],
+          "status": "failed",
+          "exit_code": 1,
+          "seconds": 15.4,
+          "output_tail": "Daylight composition unavailable code=missing_followup question_available=False\nTraceback (most recent call last):\n  File \"/Users/cep4u/daylight/alternatives/advisor-first/tests/persona_runner.py\", line 441, in <module>\n    args.output.write_text(json.dumps(payload, indent=2) + '\\n')\n    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py\", line 809, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'docs/reviews/ai-native-database-readiness-2026-11-06/evidence/evaluation/persona_journeys.json'"
+        }
+      ]
+    },
+    {
+      "suite_id": "checklist_coverage",
+      "status": "passed",
+      "measures": "Scoring of the twelve CMS pre-enrollment checklist items in a decision record's receipt.",
+      "gaps": [
+        "The advisor does not emit checklist receipts yet, so no real decision is scored. This suite tests the scorer and receipt format only."
+      ],
+      "commands": [
+        {
+          "cwd": "infrastructure/daylight-operations",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "tests/test_checklist.py"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.2,
+          "output_tail": ".....                                                                    [100%]\n5 passed in 0.01s"
+        }
+      ]
+    },
+    {
+      "suite_id": "factual_grounding",
+      "status": "passed",
+      "measures": "Pinned educational statements and published references re-verify against their retained sources; generic teaching stays within supported claims.",
+      "gaps": [
+        "Checks the statements and verifiers, not each sentence a live model writes."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "test_understanding",
+            "test_reference_view",
+            "test_generic_coverage_teaching"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.6,
+          "output_tail": ".....................\n----------------------------------------------------------------------\nRan 21 tests in 0.431s\n\nOK"
+        }
+      ]
+    },
+    {
+      "suite_id": "commission_counterfactual",
+      "status": "passed",
+      "measures": "I01: zeroed, multiplied, swapped, adversarial and removed payouts leave rankings, ties and reason codes identical. I02: no commercial value in outputs; commercial keys refused by decision records.",
+      "gaps": [
+        "Covers the ranking functions and decision records. Model-request serialization (rest of I02) is not yet checked with canaries."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "test_independence_counterfactual",
+            "test_plans_workspace.RankingTests"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.2,
+          "output_tail": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.009s\n\nOK"
+        },
+        {
+          "cwd": "infrastructure/daylight-operations",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "tests/test_records.py"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.2,
+          "output_tail": "..............                                                           [100%]\n14 passed in 0.01s"
+        }
+      ]
+    },
+    {
+      "suite_id": "abstention",
+      "status": "failed",
+      "measures": "Missing or failed evidence holds the affected conclusion instead of guessing: explicit stops, failed responses, comparison-engine holds.",
+      "gaps": [
+        "Offline fault injection; does not observe a live model choosing to abstain."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "test_explicit_stop",
+            "test_response_failures",
+            "test_comparison_engine"
+          ],
+          "status": "failed",
+          "exit_code": 1,
+          "seconds": 3.0,
+          "output_tail": "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py\", line 148, in server_bind\n    socketserver.TCPServer.server_bind(self)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py\", line 478, in server_bind\n    self.socket.bind(self.server_address)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted\n\n----------------------------------------------------------------------\nRan 36 tests in 2.870s\n\nFAILED (errors=2)"
+        }
+      ]
+    }
+  ],
+  "passed": false
+}

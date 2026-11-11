@@ -1,0 +1,170 @@
+{
+  "scope": "Adversarial full-validator unit probes; not model or UI observations",
+  "network": "forbidden",
+  "paid_model_calls": 0,
+  "database": null,
+  "production_contract_paths": [
+    "/Users/cep4u/daylight/alternatives/advisor-first/web/guide-contract.json",
+    "/Users/cep4u/daylight/alternatives/advisor-first/web/teaching-facts.json",
+    "/Users/cep4u/daylight/alternatives/advisor-first/web/readiness-content.json",
+    "/Users/cep4u/daylight/alternatives/advisor-first/advisor-evidence.json"
+  ],
+  "fictional_coverage_report": {
+    "id": "guide.coverage.current",
+    "status": "reported",
+    "value": [
+      "none"
+    ],
+    "provenance": {
+      "method": "direct_report",
+      "status": "user_reported",
+      "subject": "beneficiary",
+      "scope": "current",
+      "revision": 2,
+      "supersedesRevision": null
+    }
+  },
+  "production_evidence": [
+    {
+      "id": "basics",
+      "title": "What Medicare is",
+      "text": "Medicare is health insurance from the federal government. It helps pay for health care. It is mainly for people 65 or older who meet the program\u2019s eligibility rules. Some younger people qualify because of a disability, End-Stage Renal Disease, or ALS. You can learn the coverage pieces one at a time.",
+      "summary": "Medicare is federal health insurance. We\u2019ll build the rest of the picture one piece at a time.",
+      "question": "What is Medicare?",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare"
+    }
+  ],
+  "eligible_question_ids": [
+    "T04",
+    "T03",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T02"
+  ],
+  "production_questions": {
+    "T05": {
+      "id": "T05",
+      "inventoryIds": [
+        "T05"
+      ],
+      "question": "What health insurance do you have now?",
+      "why": "We\u2019ll use this to understand what you have before looking at other options.",
+      "choices": [
+        [
+          "original",
+          "Original Medicare (Parts A and B)"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage (Part C)"
+        ],
+        [
+          "medigap",
+          "Medicare Supplement / Medigap"
+        ],
+        [
+          "drug",
+          "Separate prescription drug plan"
+        ],
+        [
+          "employer",
+          "Current-job coverage"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ],
+        [
+          "military",
+          "VA, TRICARE or military coverage"
+        ],
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "none",
+          "None"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T05.profile.choice",
+      "atomicRequests": 1
+    },
+    "T07": {
+      "id": "T07",
+      "inventoryIds": [
+        "T07"
+      ],
+      "question": "Which prescriptions should we include?",
+      "why": "You can list the medicines you want included, or leave this for later.",
+      "choices": [
+        [
+          "no",
+          "No prescriptions to include"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T07.profile.text",
+      "atomicRequests": 1
+    }
+  },
+  "results": [
+    {
+      "case": "Contradiction of actual resolved current-coverage report",
+      "outcome": "ACCEPTED",
+      "reply": "You currently have insurance through your employer.",
+      "question": ""
+    },
+    {
+      "case": "Insurance assertion not entailed by actual basics evidence",
+      "outcome": "ACCEPTED",
+      "reply": "Medicare Advantage covers every doctor.",
+      "question": ""
+    },
+    {
+      "case": "Harmless application-process bridge",
+      "outcome": "REJECTED",
+      "error": "An application statement needs a resolved progress report."
+    },
+    {
+      "case": "Harmless modal may plus verb outside enumerated list",
+      "outcome": "REJECTED",
+      "error": "The response introduced a date or amount outside its sources."
+    },
+    {
+      "case": "Wrong meaning under eligible production T07 question target",
+      "outcome": "ACCEPTED",
+      "reply": "",
+      "question": "What kind of coverage do you have?"
+    },
+    {
+      "case": "Two questions under eligible production T05 target",
+      "outcome": "ACCEPTED",
+      "reply": "",
+      "question": "What coverage do you have now? Which prescriptions do you take?"
+    }
+  ]
+}

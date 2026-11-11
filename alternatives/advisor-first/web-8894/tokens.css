@@ -1,0 +1,56 @@
+/* Daylight :8894 tokens — the only :root block in this front end.
+   Values are DESIGN.md's frontmatter. Changes for 65+ legibility (owner
+   decision, November 5, 2026): one control edge (#7a8676, 3.8:1 on raised
+   paper) replaces choice/composer/phase borders (2.2–2.9:1); the retained
+   catalog olive family points at olive; quiet text stays ≥4.5:1.
+   Legacy variable names are kept as aliases so earlier stylesheets read
+   the same values instead of redefining their own. */
+:root{
+  --font-ui:'Atkinson Hyperlegible',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-display:'Fraunces',Georgia,"Times New Roman",serif;
+  font-family:var(--font-ui); font-size:18px; line-height:1.5; color:var(--ink);
+  font-synthesis:none; -webkit-text-size-adjust:100%; font-variant-numeric:tabular-nums;
+
+  /* DESIGN.md colors */
+  --paper:#fbf9f4; --paper-raised:#fffefa; --raised:#fffefa;
+  --ink:#283b30; --muted:#596653;
+  --olive:#40513d; --olive-hover:#2d422f;
+  --sage:#e8eddf; --selected-support:#d5dfc9;
+  --line:#ccd3c1;                 /* dividers only, never the sole edge of a control */
+  --control-edge:#7a8676;         /* every clickable edge: 3.78:1 on raised paper */
+  --choice-border:var(--control-edge); --composer-border:var(--control-edge); --phase-border:var(--control-edge);
+  --focus:#91600c;
+  --illustrative-data:#f2e9ce;
+
+  /* Legacy names, resolved to the canonical values above */
+  --ink-2:var(--muted); --ink-3:#667062; --ink-line:#4a4b3f;
+  --surface-2:var(--paper-raised); --line-soft:#e4e8db;
+  --accent:var(--olive); --accent-strong:var(--olive-hover);
+  --sage-border:var(--control-edge); --sage-wash:var(--sage);
+  --gold:#b48a3d; --gold-ink:#876323;
+  --sunlight:#edce80; --sunlight-hover:#e3bd60; --sunlight-border:#d3b25c; --sun-body:#ead08a;
+  --ok:#3d7a4e; --ok-bg:#e9f1e6; --now:#9a6a16; --now-bg:#faf0d7;
+  --info:#8a6a2e; --info-bg:#f5ecdb; --wait:#596653; --wait-bg:#eeece3;
+  --stamp-checked:#3d7a4e; --stamp-notyet:#596653;
+
+  /* Shape: DESIGN.md radii only */
+  --radius-control:7px; --radius-composer:8px; --radius-card:12px; --radius-pill:22px;
+  --r:var(--radius-card); --r-card:var(--radius-card); --r-lg:var(--radius-card);
+
+  /* Depth: plan cards keep the incumbent low shadow; overlays the structural one */
+  --elev-1:0 1px 2px rgba(60,55,40,.05), 0 2px 8px rgba(60,55,40,.05);
+  --elev-2:0 1px 2px rgba(60,55,40,.05), 0 2px 8px rgba(60,55,40,.05);
+  --elev-3:0 16px 48px rgba(32,48,32,.19);
+  --dur:0ms; --ease:cubic-bezier(.2,0,0,1);
+
+  /* Type scale (px): 15 fine print · 16 helper · 17 label/action · 18 body ·
+     23 question · 24 item · 28 section · 40 page · 48/54/68 display */
+  --text-fine:15px; --text-help:16px; --text-label:17px; --text-body:18px;
+  --text-question:23px; --text-item:24px; --text-section:28px; --text-page:40px;
+
+  /* Space scale */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --reading:880px;
+  accent-color:var(--olive);
+}
+::selection{background:var(--selected-support);color:var(--ink)}

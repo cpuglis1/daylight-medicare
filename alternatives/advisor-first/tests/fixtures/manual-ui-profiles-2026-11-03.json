@@ -1,0 +1,201 @@
+{
+  "schema": "daylight-manual-ui-profiles-v1",
+  "created_date": "2026-11-03",
+  "synthetic_only": true,
+  "purpose": "Five remixed profiles for owner-led conversation and UI review on :8893.",
+  "execution_status": "Not run; manual review inputs only, not automated expected results.",
+  "sources": [
+    "alternatives/advisor-first/tests/fixtures/persona_journeys.json",
+    "alternatives/advisor-first/tests/fixtures/field_scenarios.json"
+  ],
+  "instructions": [
+    "Use one fresh visit per profile; do not resume a different profile's saved information.",
+    "Send only the opening first. Use the answer bank as the chat asks; do not paste the whole profile.",
+    "There is no required question order. Rephrase naturally or use matching buttons.",
+    "Try the optional turn once at its stated moment. A correction supersedes the earlier answer.",
+    "For anything unspecified, say I don't know or leave it for later; do not invent facts.",
+    "All people, clinics, pharmacy names and Example medicines are fictional. These runs assess the UI and conversation, not real provider/drug matches.",
+    "All five retain ZIP 34102 from the original corpus so geography does not dominate the comparison between runs."
+  ],
+  "profiles": [
+    {
+      "id": "M1",
+      "name": "Maya — retired beginner with COBRA",
+      "remixed_from": ["P2", "P4-unknown", "P7", "P8"],
+      "opening": "I'm 64 and retired last month. I want to get Medicare when I can, but I don't understand when that is.",
+      "answer_bank": [
+        {"topic": "Who this is for", "answer": "This is for me."},
+        {"topic": "Birthday", "answer": "I turn 65 in March 2027."},
+        {"topic": "Current coverage", "answer": "I'm on COBRA. I don't have insurance from a current job."},
+        {"topic": "Former job and work coverage", "answer": "My job and its active employee insurance ended October 31, 2026. COBRA started after that."},
+        {"topic": "COBRA end", "answer": "The COBRA paperwork says April 30, 2027."},
+        {"topic": "Medicare enrollment", "answer": "I haven't applied for Medicare and don't have Parts A or B."},
+        {"topic": "Preferred start", "answer": "As soon as I'm eligible. I need help understanding the timing."},
+        {"topic": "ZIP", "answer": "34102"},
+        {"topic": "Doctor", "answer": "Dr. Rivera at Example Clinic in Naples. That's the only doctor I want to keep."},
+        {"topic": "Prescriptions", "answer": "Example Three. It's a tablet, but I don't know the strength."},
+        {"topic": "Fill and pharmacy details", "answer": "I use Example Pharmacy in Naples, in person. I don't know the quantity or days supply right now."},
+        {"topic": "Travel", "answer": "I only need routine care locally."},
+        {"topic": "Priorities", "answer": "Lower monthly payments and keeping my doctor both matter. I haven't ranked them."},
+        {"topic": "Learning preference", "answer": "I'm new to all of this. One small explanation at a time would help."}
+      ],
+      "optional_turn": {
+        "when": "After the first explanation of the coverage paths",
+        "message": "Wait, is Medicare Advantage something I buy in addition to Original Medicare?",
+        "observe": "Does it resolve the confusion in plain language, then return naturally to the practical discussion?"
+      },
+      "ui_focus": [
+        "Eligibility explanation arrives before a demand for a preferred date; COBRA stays distinct from current-job coverage.",
+        "Unknown medicine strength stays open without trapping the chat or inventing a value.",
+        "Doctor and medicine acknowledgments feel timely without recurring in every reply."
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Jordan — helping a mother with existing coverage",
+      "remixed_from": ["P3-replacement", "P5", "P9", "P10"],
+      "opening": "I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense.",
+      "answer_bank": [
+        {"topic": "Who this is for", "answer": "My mother, Evelyn. She's 72. I'm helping her; this isn't about my coverage."},
+        {"topic": "Current coverage", "answer": "She has Original Medicare, a Medigap policy and a separate Part D drug plan. She wants to keep them while she looks."},
+        {"topic": "Actual enrollment", "answer": "She already has Parts A and B. Her Part B started in October 2020."},
+        {"topic": "Desired timing", "answer": "No immediate change. We're reviewing what she already has."},
+        {"topic": "ZIP", "answer": "Her ZIP is 34102."},
+        {"topic": "Doctors", "answer": "Dr. Rivera at Example Clinic in Naples, and Dr. Lee at Example Hospital in Tampa."},
+        {"topic": "Prescriptions", "answer": "She takes Example Med 5 mg tablets and Example Med 10 mg tablets. Please keep those as two separate entries."},
+        {"topic": "5 mg fill", "answer": "For the 5 mg tablets: 30 tablets for 30 days, at Example Pharmacy in Naples, retail pickup."},
+        {"topic": "10 mg fill", "answer": "For the 10 mg tablets: 60 tablets for 30 days, at Example Pharmacy in Naples, retail pickup."},
+        {"topic": "Travel", "answer": "She needs routine care in Tampa and also spends summers in Ohio."},
+        {"topic": "Priorities", "answer": "Keeping both doctors and more predictable costs matter most. She hasn't chosen one over the other."},
+        {"topic": "Budget", "answer": "She'd like to keep premiums and what she spends on care to around $200 a month."},
+        {"topic": "Helper's own coverage, only if relevant", "answer": "I have insurance through my current job. My mother doesn't have that insurance."},
+        {"topic": "Learning preference", "answer": "Mom knows the basics, but I need a short explanation when unfamiliar terms come up."}
+      ],
+      "optional_turn": {
+        "when": "After both medicine fills have been entered",
+        "message": "Correction: the 5 mg Example Med is filled as 90 tablets for 90 days. Keep the 10 mg prescription exactly as it was.",
+        "observe": "Does the correction affect only the named strength, without changing the other prescription or assigning the daughter's insurance to her mother?"
+      },
+      "ui_focus": [
+        "The mother's reports stay separate from the helper's circumstances.",
+        "Two strengths remain visually distinguishable and editable.",
+        "Review and checklist content are readable without a large repeated profile recap in the conversation."
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "Denise — spouse's job coverage and a corrected end date",
+      "remixed_from": ["P1", "P1-payer", "P6", "P8"],
+      "opening": "I turn 65 in December and my spouse is retiring soon. I'm trying to figure out what happens to my health insurance.",
+      "answer_bank": [
+        {"topic": "Who this is for", "answer": "This is for me."},
+        {"topic": "Birthday", "answer": "My 65th birthday is December 18, 2026."},
+        {"topic": "Current coverage", "answer": "I'm insured through my spouse's current job. I'm not on COBRA."},
+        {"topic": "Whose job ends", "answer": "My spouse's job ends December 15, 2026. It's not my job."},
+        {"topic": "Initial insurance-end answer", "answer": "I think the insurance ends December 31, 2026."},
+        {"topic": "Preferred start", "answer": "I'd prefer February 2027, but I want to understand how the timing works before deciding."},
+        {"topic": "Actual Medicare enrollment", "answer": "I don't have Parts A or B and haven't applied yet."},
+        {"topic": "Employer size", "answer": "My spouse's employer has about 60 employees."},
+        {"topic": "HSA", "answer": "Yes, contributions are still going into my HSA."},
+        {"topic": "ZIP", "answer": "34102"},
+        {"topic": "Doctors", "answer": "No particular doctors to include."},
+        {"topic": "Prescription", "answer": "Example One, 10 mg tablet."},
+        {"topic": "Fill", "answer": "30 tablets for 30 days, Example Pharmacy in Naples, retail pickup."},
+        {"topic": "Travel", "answer": "I need routine care locally and in Tampa."},
+        {"topic": "Priorities", "answer": "More predictable costs and flexibility when I'm in Tampa."},
+        {"topic": "Learning preference", "answer": "I know a little about Medicare. Please keep the explanations brief unless I ask for more."}
+      ],
+      "optional_turn": {
+        "when": "After the initial insurance end has been discussed",
+        "message": "I found the letter. Correction: my spouse retires December 15, 2026, but my insurance lasts through January 31, 2027. The job end date hasn't changed.",
+        "observe": "Does the chat update only the insurance end, preserve the job end and keep the February preference separate from a confirmed Medicare start?"
+      },
+      "ui_focus": [
+        "Job end, insurance end and preferred Medicare start are easy to distinguish.",
+        "The corrected date is reflected in any date summary and review.",
+        "HSA and coverage questions have an understandable purpose without turning into a dense lecture."
+      ]
+    },
+    {
+      "id": "M4",
+      "name": "Sam — VA care, no prescriptions and a short explanation preference",
+      "remixed_from": ["P5", "P7", "P8", "P4"],
+      "opening": "I use the VA and turn 65 next year. Do I still need to look into Medicare?",
+      "answer_bank": [
+        {"topic": "Who this is for", "answer": "This is for me."},
+        {"topic": "Birthday", "answer": "I turn 65 in June 2027."},
+        {"topic": "Military program", "answer": "VA care only. I don't have TRICARE or TRICARE for Life."},
+        {"topic": "Coverage end", "answer": "I don't know of an end date for my VA care."},
+        {"topic": "Actual Medicare enrollment", "answer": "I haven't applied and don't have Parts A or B."},
+        {"topic": "Preferred start", "answer": "I don't know yet. I'd like to understand this first."},
+        {"topic": "ZIP", "answer": "34102"},
+        {"topic": "Doctor, deliberately enter without an honorific", "answer": "Lee at Example Hospital in Tampa"},
+        {"topic": "Doctor clarification if asked", "answer": "That's Dr. Lee at Example Hospital in Tampa. I want to keep seeing that doctor."},
+        {"topic": "Prescriptions", "answer": "I don't take any prescription medicines."},
+        {"topic": "Travel", "answer": "I spend two months a year in Tampa and want routine care there too."},
+        {"topic": "Priorities", "answer": "Keeping my doctor and understanding what I might pay each month."},
+        {"topic": "Learning preference", "answer": "I'm a beginner, but shorter explanations work better for me."}
+      ],
+      "optional_turn": {
+        "when": "After a longer explanation or when it asks for a preferred start again",
+        "message": "Can you make that simpler? I haven't picked a start month. Let's leave that open for now.",
+        "observe": "Does it shorten the explanation and leave the date open without inferring TRICARE coverage or repeating a no-medicines question?"
+      },
+      "ui_focus": [
+        "VA is treated as the reported program, without silently becoming TRICARE.",
+        "A bare doctor name can be acknowledged and clarified without an error or a repeated whole question.",
+        "None and not-yet-decided answers move the conversation forward naturally."
+      ]
+    },
+    {
+      "id": "M5",
+      "name": "Avery — an existing Advantage member exploring a supplement",
+      "remixed_from": ["P3", "P3-replacement", "P4", "P7"],
+      "opening": "I'm already on Medicare Advantage, but I'd like to understand whether Original Medicare with a supplement would be different for me.",
+      "answer_bank": [
+        {"topic": "Who this is for", "answer": "This is for me. I'm 68."},
+        {"topic": "Current coverage", "answer": "My current coverage is Medicare Advantage. I'm keeping it while I learn about the alternatives."},
+        {"topic": "Parts A and B", "answer": "I already have both Parts A and B. Part B started in October 2023."},
+        {"topic": "Current Advantage episode", "answer": "This Medicare Advantage plan began January 2025."},
+        {"topic": "Prior supplement", "answer": "I've never had a Medigap policy."},
+        {"topic": "Desired timing", "answer": "I haven't chosen a change date. I want to understand the differences first."},
+        {"topic": "ZIP", "answer": "34102"},
+        {"topic": "Doctors", "answer": "Dr. Rivera at Example Clinic in Naples."},
+        {"topic": "Initial medicine list", "answer": "Example One 5 mg tablets and Example Two 10 mg capsules."},
+        {"topic": "Example One fill", "answer": "30 tablets for 30 days, Example Pharmacy in Naples, retail pickup."},
+        {"topic": "Example Two fill", "answer": "60 capsules for 30 days, Example Pharmacy in Naples, retail pickup."},
+        {"topic": "Travel", "answer": "I'd like to be able to get routine care locally and during summers in Ohio."},
+        {"topic": "Priorities", "answer": "More predictable bills and flexibility in where I get care. I don't want to rank those yet."},
+        {"topic": "Income and assistance details", "answer": "I don't know whether I qualify for help with costs. I'd rather leave the financial details for later."},
+        {"topic": "Learning preference", "answer": "I know some basics, but I don't understand what a supplement changes."}
+      ],
+      "optional_turn": {
+        "when": "After the medicine list or fill details have been discussed",
+        "message": "Correction: Example One is a 10 mg tablet, not 5 mg. Example Two hasn't changed. Can we go back to the supplement question after that?",
+        "observe": "Does it update the right medicine, retain Example Two and return to the learning question without forcing a restart or implying a switch is approved?"
+      },
+      "ui_focus": [
+        "A coverage-path explanation fits the question without promising that a switch or supplement is available.",
+        "Medicine corrections remain understandable; old fill details are not presented as newly verified for the changed medicine.",
+        "Unknown financial details do not dominate the conversation or block requested learning."
+      ]
+    }
+  ],
+  "report_back_template": {
+    "profile_id": "",
+    "device_and_browser": "",
+    "last_message_sent": "",
+    "reply_or_error_received": "",
+    "what_looked_or_felt_odd": "",
+    "what_worked_well": "",
+    "screenshot_or_transcript_if_available": ""
+  },
+  "shared_ui_observations": [
+    "Was the opening easy to answer?",
+    "Did explanations help before another question arrived?",
+    "Were questions, buttons and Send readable and reachable without covering the conversation?",
+    "Did names, dates, corrections and the current question remain clear?",
+    "Were callbacks, sources, progress summaries and visuals useful rather than repetitive?",
+    "If an error appeared, what exact message did you send immediately before it?"
+  ]
+}

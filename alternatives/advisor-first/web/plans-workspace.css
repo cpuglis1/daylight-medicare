@@ -1,0 +1,41 @@
+/* D92 thin integration shell; the separate UI workstream owns further polish. */
+.site-header #plans-tab { margin-left:auto; }
+#workspace.plans-open { max-width:1600px; display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); gap:24px; padding:24px; }
+#workspace.plans-open .chat-workspace { position:sticky; top:16px; height:calc(100dvh - 110px); min-height:480px; min-width:0; width:100%; margin:0; }
+#workspace.plans-open.chat-closed { grid-template-columns:1fr; }
+#workspace.chat-closed .chat-workspace { display:none; }
+#plans-panel { min-width:0; }
+#plans-panel h1 { font-size:36px; margin:0 0 16px; }
+#plans-panel h2 { font-size:24px; margin:12px 0; }
+#plans-panel p { max-width:70ch; }
+.plans-actions { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; align-items:center; }
+.plans-actions button,.plans-actions select,#plans-panel input { min-height:44px; }
+#plans-panel input { width:100%; padding:10px; }
+.plans-card { border:1px solid #c8cec4; border-radius:7px; padding:24px; margin:20px 0; background:#fffefa; }
+.plans-card[data-selected="true"] { outline:3px solid #526b4f; outline-offset:3px; }
+.plans-card dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.plans-card dd { margin:8px 0; font-weight:600; }
+.plans-hold { color:#69532c; }
+.plans-small { font-size:16px; line-height:1.5; }
+.plans-context-notice { margin:8px 0; font-size:16px; }
+.plans-close-chat { display:none; }
+.plans-open .plans-close-chat { display:block; }
+.plans-chat-context { display:none; font-size:16px; line-height:1.4; padding:8px 0; }
+.plans-open .plans-chat-context { display:block; }
+#plans-panel details { margin:12px 0; }
+#plans-panel summary { cursor:pointer; min-height:44px; padding:8px 0; }
+#plans-panel button { white-space:normal; }
+.plans-detail { border-top:1px solid #c8cec4; padding:12px 0; }
+.plans-compare { overflow-x:auto; }
+.plans-compare table { width:100%; border-collapse:collapse; }
+.plans-compare th,.plans-compare td { text-align:left; padding:12px; border-bottom:1px solid #c8cec4; vertical-align:top; }
+@media(max-width:1179px) {
+  #workspace.plans-open { grid-template-columns:1fr; }
+  #workspace.plans-open:not(.chat-closed) .chat-workspace { position:fixed; z-index:20; right:0; top:0; width:min(440px,100vw); height:100dvh; background:#fbf9f4; border-left:1px solid #c8cec4; padding:16px; }
+}
+@media(max-width:600px) {
+  #workspace.plans-open { padding:16px; }
+  .plans-card { padding:16px; }
+  .plans-card dl { grid-template-columns:1fr; }
+  #plans-panel h1 { font-size:30px; }
+}

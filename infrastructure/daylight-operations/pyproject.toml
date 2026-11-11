@@ -1,0 +1,13 @@
+[project]
+name = "daylight-operations"
+version = "0.1.0"
+description = "Daylight customer-plane operations: decisions, licensed review, model-call traces, cases and enrollment status"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+postgres = ["psycopg>=3.2"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

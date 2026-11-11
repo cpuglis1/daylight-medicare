@@ -1,0 +1,2758 @@
+{
+  "schema": "daylight-offline-persona-journeys-v1",
+  "synthetic_only": true,
+  "paid_model_calls": 0,
+  "scenarios": [
+    {
+      "id": "P1",
+      "name": "Current-job transition",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Help me prepare my Medicare transition. I want coverage in December 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "month",
+                  "month": "2026-12"
+                },
+                "scope": "intended"
+              }
+            ],
+            "goal_quote": "Help me prepare my Medicare transition."
+          },
+          "expected": {
+            "guide": {
+              "subject.role": "self",
+              "coverage.requestedStartMonth": "2026-12"
+            },
+            "pending": false
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "employer"
+            }
+          },
+          "expected": {
+            "question": "RC09"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC09",
+            "fields": {
+              "choice": "spouse_job"
+            }
+          },
+          "expected": {
+            "question": "RC11",
+            "question_fields": [
+              "jobEnd",
+              "coverageEnd"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "The job ends November 2026. I do not know when that insurance ends."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC11",
+                "fields": {
+                  "jobEnd": "2026-11",
+                  "coverageEnd": "unknown"
+                }
+              }
+            ]
+          },
+          "expected": {
+            "reports": {
+              "RC11": {
+                "jobEnd": "2026-11"
+              }
+            },
+            "pending": false
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "month",
+          "coverage.requestedStartMonth": "2026-12",
+          "coverage.current": [
+            "employer"
+          ]
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC09": {
+            "choice": "spouse_job"
+          },
+          "RC11": {
+            "jobEnd": "2026-11",
+            "choice": "dates"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.requestedStartMonth",
+          "coverage.current"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC09",
+          "RC11"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {
+          "RC11.profile.coverageEnd": "unknown"
+        },
+        "exact_detail_keys": [],
+        "skipped_details": {
+          "RC11.profile.coverageEnd": "unknown"
+        },
+        "absent": [
+          "reports.RC04",
+          "guide.situation.age65"
+        ],
+        "provenance": {
+          "guide.coverage.requestedStartMonth": {
+            "method": "direct_report",
+            "status": "user_reported",
+            "scope": "intended",
+            "subject": "beneficiary"
+          }
+        }
+      }
+    },
+    {
+      "id": "P1-payer",
+      "name": "Current-job payer-order and HSA variant",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Help me check payer order. My health insurance is through my current job. My job and insurance are ongoing. I already have Medicare Parts A and B."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "already"
+                }
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "employer"
+                }
+              },
+              {
+                "id": "RC09",
+                "fields": {
+                  "choice": "my_job"
+                }
+              },
+              {
+                "id": "RC11",
+                "fields": {
+                  "jobEnd": "ongoing",
+                  "coverageEnd": "ongoing"
+                }
+              }
+            ],
+            "requests": [
+              "payer_order"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC04",
+            "fields": {
+              "choice": "both"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC06",
+            "fields": {
+              "choice": "age65"
+            }
+          },
+          "expected": {
+            "question": "RC10"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC10",
+            "fields": {
+              "choice": "yes"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Correction: I first qualified through disability before 65."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC06",
+                "fields": {
+                  "choice": "disability"
+                },
+                "correction": true
+              }
+            ]
+          },
+          "expected": {
+            "question": "RC10",
+            "pending": false
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC10",
+            "fields": {
+              "choice": "no"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I also want to check HSA timing; contributions are still being made."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC14",
+                "fields": {
+                  "choice": "yes"
+                }
+              }
+            ],
+            "requests": [
+              "hsa"
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "already",
+          "coverage.current": [
+            "employer"
+          ]
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC09": {
+            "choice": "my_job"
+          },
+          "RC11": {
+            "jobEnd": "ongoing",
+            "coverageEnd": "ongoing",
+            "choice": "dates"
+          },
+          "RC04": {
+            "choice": "both"
+          },
+          "RC06": {
+            "choice": "disability"
+          },
+          "RC10": {
+            "choice": "no"
+          },
+          "RC14": {
+            "choice": "yes"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.current"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC09",
+          "RC11",
+          "RC04",
+          "RC06",
+          "RC10",
+          "RC14"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "absent": [
+          "guide.situation.age65",
+          "guide.coverage.requestedStartMonth"
+        ]
+      }
+    },
+    {
+      "id": "P2",
+      "name": "COBRA transition with dependents and move",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I have COBRA and want Medicare coverage in January 2027."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "month",
+                  "month": "2027-01"
+                },
+                "scope": "intended"
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "cobra"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "That COBRA insurance ends in December 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC11",
+                "fields": {
+                  "coverageEnd": "2026-12"
+                }
+              }
+            ]
+          },
+          "expected": {
+            "reports": {
+              "RC11": {
+                "coverageEnd": "2026-12"
+              }
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Please check my drug gap and how switching could affect my spouse."
+          },
+          "interpretation": {
+            "updates": [],
+            "requests": [
+              "drug_gap",
+              "coverage_change"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC12",
+            "fields": {
+              "choice": "yes"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC13",
+            "fields": {
+              "choice": "unknown"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I am moving in December 2026; that is the event I want checked."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC08",
+                "fields": {
+                  "choice": "move",
+                  "eventDate": "2026-12"
+                }
+              }
+            ],
+            "requests": [
+              "event",
+              "residence_change"
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "month",
+          "coverage.requestedStartMonth": "2027-01",
+          "coverage.current": [
+            "cobra"
+          ]
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC09": {
+            "choice": "cobra"
+          },
+          "RC11": {
+            "coverageEnd": "2026-12",
+            "choice": "dates"
+          },
+          "RC12": {
+            "choice": "yes"
+          },
+          "RC08": {
+            "choice": "move",
+            "eventDate": "2026-12"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.requestedStartMonth",
+          "coverage.current"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC09",
+          "RC11",
+          "RC12",
+          "RC08"
+        ],
+        "exact_dispositions": {
+          "RC13": "explicit_unknown"
+        },
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {
+          "RC13.profile.choice": "unknown"
+        },
+        "exact_detail_keys": [],
+        "dispositions": {
+          "RC13": "explicit_unknown"
+        },
+        "skipped_details": {
+          "RC13.profile.choice": "unknown"
+        },
+        "absent": [
+          "reports.RC04",
+          "reports.RC11.jobEnd"
+        ]
+      }
+    },
+    {
+      "id": "P2-browse",
+      "name": "Published information research-only variant",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "browse",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I only want to browse published plan information, not report a personal situation."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "research"
+                }
+              }
+            ],
+            "goal_quote": "I only want to browse published plan information"
+          },
+          "composition": {
+            "question_target": null,
+            "reply": "You can look through published information without providing a personal profile."
+          },
+          "expected": {
+            "question": null
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T03",
+            "fields": {
+              "zip": "34102"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC03",
+            "fields": {
+              "year": "2026"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC01": {
+            "choice": "research"
+          },
+          "RC03": {
+            "year": "2026",
+            "choice": "2026"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "comparison.scope.zip",
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC03"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "absent": [
+          "guide.subject.role",
+          "guide.coverage.current",
+          "reports.RC04",
+          "guide.situation.age65"
+        ]
+      }
+    },
+    {
+      "id": "P3",
+      "name": "Advantage member exploring Medigap",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "medigap",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I want to explore Medigap after leaving my Medicare Advantage plan."
+          },
+          "interpretation": {
+            "updates": [],
+            "requests": [
+              "medigap",
+              "leaving_advantage"
+            ],
+            "goal_quote": "I want to explore Medigap"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T03",
+            "fields": {
+              "zip": "34102"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T04",
+            "fields": {
+              "choice": "already"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "advantage"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC04",
+            "fields": {
+              "choice": "both"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC05",
+            "fields": {
+              "month": "October 2020"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "That Medicare Advantage episode began January 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC16",
+                "fields": {
+                  "start": "2026-01"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC16",
+            "fields": {
+              "priorMedigap": "no"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "The plan-ending notice is the Medigap event I want checked."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC15",
+                "fields": {
+                  "event": "plan-ending notice"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "already",
+          "coverage.current": [
+            "advantage"
+          ],
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC04": {
+            "choice": "both"
+          },
+          "RC05": {
+            "month": "2020-10",
+            "choice": "details"
+          },
+          "RC16": {
+            "start": "2026-01",
+            "priorMedigap": "no",
+            "choice": "partial"
+          },
+          "RC15": {
+            "event": "plan-ending notice",
+            "choice": "details"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.current",
+          "comparison.scope.zip",
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC04",
+          "RC05",
+          "RC16",
+          "RC15"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "absent": [
+          "guide.coverage.requestedStartMonth"
+        ]
+      }
+    },
+    {
+      "id": "P3-replacement",
+      "name": "Current Medigap replacement and uncertainty variant",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "medigap",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I want a Medigap review. I have Original Medicare and Medigap, live in 34102, already have Medicare Parts A and B, and Part B began October 2020."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "T03",
+                "fields": {
+                  "zip": "34102"
+                }
+              },
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "already"
+                }
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "original,medigap"
+                }
+              },
+              {
+                "id": "RC04",
+                "fields": {
+                  "choice": "both"
+                }
+              },
+              {
+                "id": "RC05",
+                "fields": {
+                  "month": "2020-10"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I am keeping my existing Medigap policy while comparing options."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC17",
+                "fields": {
+                  "choice": "keep"
+                }
+              }
+            ],
+            "requests": [
+              "replacing_medigap"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "That current arrangement might be Original Medicare."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC07",
+                "fields": {
+                  "choice": "original"
+                },
+                "uncertain": true
+              }
+            ]
+          },
+          "expected": {
+            "pending": true,
+            "pending_id": "RC07",
+            "absent": [
+              "reports.RC07"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Yes, my current arrangement is Original Medicare."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC07",
+                "fields": {
+                  "choice": "original"
+                }
+              }
+            ]
+          },
+          "expected": {
+            "pending": false,
+            "reports": {
+              "RC07": {
+                "choice": "original"
+              }
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I want more predictable costs, and doctors and total cost matter most."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T09",
+                "fields": {
+                  "choice": "predictable"
+                }
+              },
+              {
+                "id": "T10",
+                "fields": {
+                  "choice": "doctors,total_cost"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "already",
+          "coverage.current": [
+            "original",
+            "medigap"
+          ],
+          "needs.costPreference": "predictable",
+          "needs.priorities": [
+            "doctors",
+            "total_cost"
+          ],
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC04": {
+            "choice": "both"
+          },
+          "RC05": {
+            "month": "2020-10",
+            "choice": "details"
+          },
+          "RC17": {
+            "choice": "keep"
+          },
+          "RC07": {
+            "choice": "original"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.current",
+          "needs.costPreference",
+          "needs.priorities",
+          "comparison.scope.zip",
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC04",
+          "RC05",
+          "RC17",
+          "RC07"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "pending": false
+      }
+    },
+    {
+      "id": "P4",
+      "name": "Two providers and several prescriptions",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "providers",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC21",
+                "fields": {
+                  "practice": "Dr. Rivera at Example Clinic"
+                },
+                "entity": "new"
+              },
+              {
+                "id": "RC21",
+                "fields": {
+                  "practice": "Dr. Lee at Example Hospital"
+                },
+                "entity": "new"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Dr. Rivera at Example Clinic is in Naples, FL. Dr. Lee at Example Hospital is in Tampa, FL."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC21",
+                "fields": {
+                  "city": "Naples, FL"
+                },
+                "entity": "doctor-1"
+              },
+              {
+                "id": "RC21",
+                "fields": {
+                  "city": "Tampa, FL"
+                },
+                "entity": "doctor-2"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I take Example One 5 mg tablet and Example Two 10 mg capsule."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example One",
+                  "strength": "5 mg",
+                  "form": "tablet"
+                },
+                "entity": "new"
+              },
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Two",
+                  "strength": "10 mg",
+                  "form": "capsule"
+                },
+                "entity": "new"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Please prepare prescription costs, including adjusted costs."
+          },
+          "interpretation": {
+            "updates": [],
+            "requests": [
+              "personal_pricing",
+              "adjusted_costs"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Example One: 30 tablets, 30 days, Example Pharmacy in Naples, retail."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "quantity": "30 tablets",
+                  "daysSupply": "30",
+                  "pharmacy": "Example Pharmacy in Naples",
+                  "channel": "retail"
+                },
+                "entity": "medicine-1"
+              }
+            ]
+          },
+          "expected": {
+            "reports": {
+              "RC23": {
+                "items": [
+                  {
+                    "entity": "medicine-1",
+                    "quantity": "30 tablets",
+                    "daysSupply": "30",
+                    "pharmacy": "Example Pharmacy in Naples",
+                    "channel": "retail"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Example Two: 60 capsules, 30 days, Example Pharmacy in Naples, retail."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "quantity": "60 capsules",
+                  "daysSupply": "30",
+                  "pharmacy": "Example Pharmacy in Naples",
+                  "channel": "retail"
+                },
+                "entity": "medicine-2"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC18",
+            "fields": {
+              "choice": "medicaid,extra_help"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Correction: Example One is a 10 mg tablet."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example One",
+                  "strength": "10 mg",
+                  "form": "tablet"
+                },
+                "entity": "medicine-1",
+                "correction": true
+              }
+            ]
+          },
+          "expected": {
+            "reports": {
+              "RC22": {
+                "items": [
+                  {
+                    "entity": "medicine-1",
+                    "name": "Example One",
+                    "strength": "10 mg",
+                    "form": "tablet"
+                  },
+                  {
+                    "entity": "medicine-2",
+                    "name": "Example Two",
+                    "strength": "10 mg",
+                    "form": "capsule"
+                  }
+                ]
+              }
+            },
+            "item_stale": [
+              "RC23.medicine-1"
+            ],
+            "item_current": [
+              "RC23.medicine-2"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "defer",
+            "id": "RC23"
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Example Two is filled at a pharmacy, not a clinic."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC24",
+                "fields": {
+                  "choice": "pharmacy"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "needs.providersStatus": "list",
+          "needs.providers": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital",
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example One; Example Two"
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC21": {
+            "items": [
+              {
+                "entity": "doctor-1",
+                "practice": "Dr. Rivera at Example Clinic",
+                "city": "Naples, FL"
+              },
+              {
+                "entity": "doctor-2",
+                "practice": "Dr. Lee at Example Hospital",
+                "city": "Tampa, FL"
+              }
+            ]
+          },
+          "RC22": {
+            "items": [
+              {
+                "entity": "medicine-1",
+                "name": "Example One",
+                "strength": "10 mg",
+                "form": "tablet"
+              },
+              {
+                "entity": "medicine-2",
+                "name": "Example Two",
+                "strength": "10 mg",
+                "form": "capsule"
+              }
+            ]
+          },
+          "RC18": {
+            "choice": "extra_help",
+            "programs": [
+              "extra_help",
+              "medicaid"
+            ]
+          },
+          "RC23": {
+            "items": [
+              {
+                "entity": "medicine-1"
+              },
+              {
+                "entity": "medicine-2",
+                "quantity": "60 capsules",
+                "daysSupply": "30",
+                "pharmacy": "Example Pharmacy in Naples",
+                "channel": "retail"
+              }
+            ]
+          },
+          "RC24": {
+            "choice": "pharmacy"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "needs.providersStatus",
+          "needs.providers",
+          "needs.medicinesStatus",
+          "needs.medications"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC21",
+          "RC22",
+          "RC18",
+          "RC23",
+          "RC24"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {
+          "RC23.medicine-1.quantity": "deferred",
+          "RC23.medicine-1.daysSupply": "deferred",
+          "RC23.medicine-1.pharmacy": "deferred",
+          "RC23.medicine-1.channel": "deferred"
+        },
+        "exact_detail_keys": [],
+        "skipped_details": {
+          "RC23.medicine-1.quantity": "deferred",
+          "RC23.medicine-1.daysSupply": "deferred",
+          "RC23.medicine-1.pharmacy": "deferred",
+          "RC23.medicine-1.channel": "deferred"
+        },
+        "item_stale": [
+          "RC23.medicine-1"
+        ],
+        "item_current": [
+          "RC23.medicine-2"
+        ],
+        "absent": [
+          "guide.coverage.current",
+          "reports.RC04"
+        ]
+      }
+    },
+    {
+      "id": "P4-unknown",
+      "name": "Partial medicine identity without fabricated pricing inputs",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I take Example Three, a tablet. I do not know the strength."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Three",
+                  "form": "tablet",
+                  "strength": "unknown"
+                },
+                "entity": "new"
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example Three"
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC22": {
+            "items": [
+              {
+                "entity": "medicine-1",
+                "name": "Example Three",
+                "form": "tablet"
+              }
+            ]
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "needs.medicinesStatus",
+          "needs.medications"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC22"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {
+          "RC22.medicine-1.strength": "unknown"
+        },
+        "exact_detail_keys": [],
+        "skipped_details": {
+          "RC22.medicine-1.strength": "unknown"
+        },
+        "absent": [
+          "reports.RC23",
+          "reports.RC22.items[].strength"
+        ]
+      }
+    },
+    {
+      "id": "P5",
+      "name": "Caregiver, military coverage, travel and budget",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "compare",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "someone"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T04",
+            "fields": {
+              "choice": "already"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "military"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T03",
+            "fields": {
+              "zip": "34102"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T06",
+            "fields": {
+              "choice": "none"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T07",
+            "fields": {
+              "choice": "no"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T08",
+            "fields": {
+              "choice": "elsewhere_us"
+            }
+          },
+          "expected": {
+            "question": "RC20"
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Routine care is needed in Tampa, Florida."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC20",
+                "fields": {
+                  "location": "Tampa, Florida"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "We want payer-order questions for that military coverage."
+          },
+          "interpretation": {
+            "updates": [],
+            "requests": [
+              "payer_order"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC04",
+            "fields": {
+              "choice": "both"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC06",
+            "fields": {
+              "choice": "age65"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC26",
+            "fields": {
+              "choice": "tfl"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "task",
+            "task": "costs",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "The person wants a monthly budget of $200."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC25",
+                "fields": {
+                  "amount": "$200"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC25",
+            "fields": {
+              "includes": "premiums_and_care"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "The person receives Medicaid and Extra Help benefits."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC18",
+                "fields": {
+                  "choice": "medicaid"
+                }
+              },
+              {
+                "id": "RC18",
+                "fields": {
+                  "choice": "extra_help"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "task",
+            "task": "snp",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "We want to understand Special Needs Plans. A plan letter says program confirmation is pending."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC19",
+                "fields": {
+                  "choice": "details",
+                  "qualification": "program confirmation is pending"
+                }
+              }
+            ],
+            "requests": [
+              "snp"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "The person has a refill interruption and wants human help."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC27",
+                "fields": {
+                  "choice": "human"
+                }
+              }
+            ],
+            "requests": [
+              "continuity"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I am new to Medicare and want more explanation."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T02",
+                "fields": {
+                  "choice": "new"
+                },
+                "subject": "learner"
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "someone",
+          "coverage.requestedStart": "already",
+          "coverage.current": [
+            "military"
+          ],
+          "needs.providersStatus": "none",
+          "needs.medicinesStatus": "no",
+          "needs.travel": [
+            "elsewhere_us"
+          ],
+          "knowledge.general": "new",
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC01": {
+            "choice": "someone"
+          },
+          "RC20": {
+            "location": "Tampa, Florida",
+            "choice": "partial"
+          },
+          "RC04": {
+            "choice": "both"
+          },
+          "RC06": {
+            "choice": "age65"
+          },
+          "RC26": {
+            "choice": "tfl"
+          },
+          "RC25": {
+            "amount": "$200",
+            "includes": "premiums_and_care",
+            "choice": "amount"
+          },
+          "RC18": {
+            "choice": "extra_help",
+            "programs": [
+              "extra_help",
+              "medicaid"
+            ]
+          },
+          "RC19": {
+            "choice": "details",
+            "qualification": "program confirmation is pending"
+          },
+          "RC27": {
+            "choice": "human"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.current",
+          "needs.providersStatus",
+          "needs.medicinesStatus",
+          "needs.travel",
+          "knowledge.general",
+          "comparison.scope.zip",
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC20",
+          "RC04",
+          "RC06",
+          "RC26",
+          "RC25",
+          "RC18",
+          "RC19",
+          "RC27"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [
+          "G13"
+        ],
+        "details": {
+          "G13": [
+            {
+              "value": "tfl"
+            }
+          ]
+        },
+        "absent": [
+          "reports.RC22",
+          "guide.situation.age65"
+        ]
+      }
+    },
+    {
+      "id": "P6",
+      "name": "Conflicting dates and explicit correction",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I have COBRA, want Medicare coverage in January 2027, and that insurance ends December 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "month",
+                  "month": "2027-01"
+                },
+                "scope": "intended"
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "cobra"
+                }
+              },
+              {
+                "id": "RC11",
+                "fields": {
+                  "coverageEnd": "2026-12"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I think that insurance ends January 2027, but I am not certain."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC11",
+                "fields": {
+                  "coverageEnd": "2027-01"
+                },
+                "uncertain": true
+              }
+            ]
+          },
+          "expected": {
+            "pending": true,
+            "pending_id": "RC11",
+            "stale_reports": [
+              "RC11"
+            ],
+            "absent": [
+              "reports.RC11"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Correction: that insurance ends February 2027."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC11",
+                "fields": {
+                  "coverageEnd": "2027-02"
+                },
+                "correction": true
+              }
+            ]
+          },
+          "expected": {
+            "pending": false,
+            "reports": {
+              "RC11": {
+                "coverageEnd": "2027-02"
+              }
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "month",
+          "coverage.requestedStartMonth": "2027-01",
+          "coverage.current": [
+            "cobra"
+          ]
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC09": {
+            "choice": "cobra"
+          },
+          "RC11": {
+            "coverageEnd": "2027-02",
+            "choice": "dates"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.requestedStartMonth",
+          "coverage.current"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC09",
+          "RC11"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "pending": false,
+        "provenance": {
+          "readiness.RC11.profile.coverageEnd": {
+            "method": "direct_report",
+            "status": "user_reported",
+            "subject": "beneficiary",
+            "scope": "current"
+          }
+        },
+        "absent": [
+          "reports.RC04",
+          "reports.RC11.jobEnd"
+        ]
+      }
+    },
+    {
+      "id": "P7",
+      "name": "Mostly unknown answers retain missingness",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "choice",
+            "id": "T01",
+            "fields": {
+              "choice": "compare"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "RC01"
+          },
+          "expected": {}
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "T04"
+          },
+          "expected": {}
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "T05"
+          },
+          "expected": {}
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "T03"
+          },
+          "expected": {}
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "T06"
+          },
+          "expected": {}
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "T07"
+          },
+          "expected": {}
+        },
+        {
+          "action": {
+            "type": "unknown",
+            "id": "T08"
+          },
+          "expected": {
+            "question": null
+          }
+        },
+        {
+          "action": {
+            "type": "next",
+            "step": "samples"
+          }
+        },
+        {
+          "action": {
+            "type": "next",
+            "step": "resume"
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare"
+        },
+        "reports": {},
+        "exact_guide_paths": [
+          "intent.goal"
+        ],
+        "exact_report_ids": [],
+        "exact_dispositions": {
+          "RC01": "explicit_unknown"
+        },
+        "exact_baseline_dispositions": {
+          "T04": "unknown",
+          "T05": "unknown",
+          "T03": "unknown",
+          "T06": "unknown",
+          "T07": "unknown",
+          "T08": "unknown"
+        },
+        "exact_skipped_details": {
+          "RC01.profile.choice": "unknown"
+        },
+        "exact_detail_keys": [],
+        "baseline_dispositions": {
+          "T04": "unknown",
+          "T05": "unknown",
+          "T03": "unknown",
+          "T06": "unknown",
+          "T07": "unknown",
+          "T08": "unknown"
+        },
+        "dispositions": {
+          "RC01": "explicit_unknown"
+        },
+        "skipped_details": {
+          "RC01.profile.choice": "unknown"
+        },
+        "absent": [
+          "guide.subject.role",
+          "guide.coverage.current",
+          "reports.RC04",
+          "reports.RC22"
+        ],
+        "question": null
+      }
+    },
+    {
+      "id": "P8",
+      "name": "Educational detour and deliberate goal changes",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "compare",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T04",
+            "fields": {
+              "choice": "month",
+              "month": "December 2026"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "cobra"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T03",
+            "fields": {
+              "zip": "34102"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "What is Medicare Advantage?"
+          },
+          "interpretation": {
+            "updates": [],
+            "fact_ids": [
+              "advantage"
+            ]
+          },
+          "composition": {
+            "question_target": null,
+            "reply": "We can stay with your question before returning to the coverage details.",
+            "question": "What would you like to understand about that option?",
+            "evidence_refs": [
+              "advantage"
+            ]
+          },
+          "expected": {
+            "question": null,
+            "task": "compare",
+            "intakePaused": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I want to just learn for now."
+          },
+          "interpretation": {
+            "updates": [],
+            "goal_quote": "I want to just learn for now."
+          },
+          "composition": {
+            "question_target": null,
+            "reply": "We can pause the coverage questions while you explore what matters to you.",
+            "question": "What would be most helpful to understand next?",
+            "agenda_update": {
+              "current_concern": "Understanding Medicare",
+              "pause": false
+            }
+          },
+          "expected": {
+            "question": null,
+            "intakePaused": true
+          }
+        },
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I do not take any prescription medicines."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T07",
+                "fields": {
+                  "choice": "no"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "task",
+            "task": "compare",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T06",
+            "fields": {
+              "choice": "none"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T08",
+            "fields": {
+              "choice": "local"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "coverage.requestedStart": "month",
+          "coverage.requestedStartMonth": "2026-12",
+          "coverage.current": [
+            "cobra"
+          ],
+          "needs.medicinesStatus": "no",
+          "needs.providersStatus": "none",
+          "needs.travel": [
+            "local"
+          ],
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC09": {
+            "choice": "cobra"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.requestedStartMonth",
+          "coverage.current",
+          "needs.medicinesStatus",
+          "needs.providersStatus",
+          "needs.travel",
+          "comparison.scope.zip",
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC09"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "absent": [
+          "reports.RC22",
+          "reports.RC23",
+          "reports.RC04"
+        ]
+      }
+    },
+    {
+      "id": "P9",
+      "name": "Beneficiary and helper coverage stay separate",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I am helping my mother prepare a Medicare transition. She has COBRA, wants Medicare coverage in January 2027, and her insurance ends December 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "someone"
+                }
+              },
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "month",
+                  "month": "2027-01"
+                },
+                "scope": "intended"
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "cobra"
+                }
+              },
+              {
+                "id": "RC11",
+                "fields": {
+                  "coverageEnd": "2026-12"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I have current-job insurance, but that is my coverage; my mother still has COBRA."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "employer"
+                },
+                "subject": "learner"
+              }
+            ]
+          },
+          "expected": {
+            "guide": {
+              "subject.role": "someone",
+              "coverage.current": [
+                "cobra"
+              ]
+            },
+            "pending": false
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Switch to my coverage instead of my mother; I have current-job insurance."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "employer"
+                },
+                "subject": "learner"
+              }
+            ]
+          },
+          "expected": {
+            "pending": true,
+            "pending_id": "RC01",
+            "absent": [
+              "guide.subject.role"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Keep this conversation about my mother. This is for someone else."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "someone"
+                },
+                "correction": true
+              }
+            ]
+          },
+          "expected": {
+            "pending": false,
+            "guide": {
+              "subject.role": "someone",
+              "coverage.current": [
+                "cobra"
+              ]
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "someone",
+          "coverage.requestedStart": "month",
+          "coverage.requestedStartMonth": "2027-01",
+          "coverage.current": [
+            "cobra"
+          ]
+        },
+        "reports": {
+          "RC01": {
+            "choice": "someone"
+          },
+          "RC09": {
+            "choice": "cobra"
+          },
+          "RC11": {
+            "coverageEnd": "2026-12",
+            "choice": "dates"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "coverage.requestedStart",
+          "coverage.requestedStartMonth",
+          "coverage.current"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC09",
+          "RC11"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "pending": false,
+        "absent": [
+          "reports.RC04",
+          "guide.situation.retirement"
+        ],
+        "provenance": {
+          "guide.coverage.current": {
+            "method": "direct_report",
+            "subject": "beneficiary",
+            "status": "user_reported"
+          }
+        }
+      }
+    },
+    {
+      "id": "P10",
+      "name": "Same medicine name, distinct strengths and ambiguous fill",
+      "origin": "retained synthetic personas P1\u2013P10 and four branch variants; ported to natural-context-v3",
+      "goal": "Reported inputs and their limits remain correct while a contextual conversation progresses.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I take Example Med 5 mg tablets and Example Med 10 mg tablets."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC01",
+                "fields": {
+                  "choice": "self"
+                }
+              },
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Med",
+                  "strength": "5 mg",
+                  "form": "tablets"
+                },
+                "entity": "new"
+              },
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Med",
+                  "strength": "10 mg",
+                  "form": "tablets"
+                },
+                "entity": "new"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Example Med 5 mg fill: 30 tablets, 30 days, Example Pharmacy in Naples, retail."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "quantity": "30 tablets",
+                  "daysSupply": "30",
+                  "pharmacy": "Example Pharmacy in Naples",
+                  "channel": "retail"
+                },
+                "entity": "medicine-1"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Example Med 10 mg fill: 60 tablets, 30 days, Example Pharmacy in Naples, retail."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "quantity": "60 tablets",
+                  "daysSupply": "30",
+                  "pharmacy": "Example Pharmacy in Naples",
+                  "channel": "retail"
+                },
+                "entity": "medicine-2"
+              }
+            ]
+          },
+          "expected": {
+            "reports": {
+              "RC23": {
+                "items": [
+                  {
+                    "entity": "medicine-1",
+                    "quantity": "30 tablets",
+                    "daysSupply": "30",
+                    "pharmacy": "Example Pharmacy in Naples",
+                    "channel": "retail"
+                  },
+                  {
+                    "entity": "medicine-2",
+                    "quantity": "60 tablets",
+                    "daysSupply": "30",
+                    "pharmacy": "Example Pharmacy in Naples",
+                    "channel": "retail"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Change it to 90 days."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "daysSupply": "90"
+                }
+              }
+            ]
+          },
+          "expected": {
+            "pending": true,
+            "pending_id": "RC23",
+            "stale_reports": [
+              "RC23"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "For the 5 mg Example Med, change the fill to 90 days."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "daysSupply": "90"
+                },
+                "entity": "medicine-1",
+                "correction": true
+              }
+            ]
+          },
+          "expected": {
+            "pending": false
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example Med; Example Med"
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC22": {
+            "items": [
+              {
+                "entity": "medicine-1",
+                "name": "Example Med",
+                "strength": "5 mg",
+                "form": "tablets"
+              },
+              {
+                "entity": "medicine-2",
+                "name": "Example Med",
+                "strength": "10 mg",
+                "form": "tablets"
+              }
+            ]
+          },
+          "RC23": {
+            "items": [
+              {
+                "entity": "medicine-1",
+                "quantity": "30 tablets",
+                "daysSupply": "90",
+                "pharmacy": "Example Pharmacy in Naples",
+                "channel": "retail"
+              },
+              {
+                "entity": "medicine-2",
+                "quantity": "60 tablets",
+                "daysSupply": "30",
+                "pharmacy": "Example Pharmacy in Naples",
+                "channel": "retail"
+              }
+            ]
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "subject.role",
+          "needs.medicinesStatus",
+          "needs.medications"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC22",
+          "RC23"
+        ],
+        "exact_dispositions": {},
+        "exact_baseline_dispositions": {},
+        "exact_skipped_details": {},
+        "exact_detail_keys": [],
+        "pending": false,
+        "absent": [
+          "reports.RC04",
+          "guide.coverage.current"
+        ]
+      }
+    }
+  ]
+}

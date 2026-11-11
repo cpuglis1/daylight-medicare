@@ -1,0 +1,53 @@
+{
+  "schema": "daylight-dependency-reconciliation-result/1",
+  "passed": true,
+  "verification_report": "infrastructure/daylight-data/.state/maintenance/20261106-lock-r2/full-verification.json",
+  "verification_report_sha256": "3a372d14c8acd5fd21445a30f8d26c970b533dcc0b5108daf05a140e94a0e9eb",
+  "reconciliation_manifest": "preparation-r2/reconciliation.json",
+  "reconciliation_sha256": "305ca9b27f5edcf4760ff82efdda7065a9e02256997f82604a34c1f5fba08e59",
+  "historical_manifest_unchanged": true,
+  "original_verifier_unchanged": true,
+  "current_requirements_lock_unchanged": true,
+  "all_original_input_files_unchanged": true,
+  "historical_lock_exact": true,
+  "historical_packages": 33,
+  "current_packages": 38,
+  "added_packages": {
+    "attrs": "26.1.0",
+    "jsonschema": "4.25.1",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "original_versions_changed_or_removed": 0,
+  "current_environment_matches_current_lock": true,
+  "pip_check_passed": true,
+  "focused_tests_passed": 85,
+  "subtests_passed": 84,
+  "database_queries_passed": 759,
+  "database_proofs_passed": 756,
+  "layers": 15,
+  "execution_units": 363,
+  "source_rows": 17767179,
+  "projection_rows": 17823148,
+  "database_query_execution": "one consistent REPEATABLE READ READ ONLY snapshot; fixed SELECTs; research/released read roles",
+  "first_attempt": {
+    "passed": false,
+    "queries_succeeded": 759,
+    "failure": "isolated snapshot omitted current build execution receipts",
+    "failed_proofs": 363,
+    "preserved": true
+  },
+  "database_source_or_customer_store_mutated": false,
+  "packages_installed_or_removed": false,
+  "frozen_hash_checks_waived": false,
+  "new_acceptance": false,
+  "consumer_release_enabled": false,
+  "historical_environment_recreated": false,
+  "remaining_review": [
+    "clean target installation/artifact hashes",
+    "off-machine restoration",
+    "cold-cluster recovery/PITR",
+    "exact source/method/purpose and consumer-release acceptance"
+  ]
+}

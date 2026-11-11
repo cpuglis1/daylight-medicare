@@ -1,0 +1,874 @@
+{
+  "status": "synthetic_design_segments_not_runtime_or_consumer_evidence",
+  "no_timing_claim": "No elapsed time, savings or human comprehension was measured.",
+  "limits": "Required facts describe each narrow trace segment only, not a complete adjudicated eligibility/intake policy.",
+  "checks": [
+    "field/gap references exist",
+    "no internal-link/legacy-detail questions",
+    "no repeat known/unknown asks",
+    "no pricing-only ask in coverage-only trace",
+    "explicit unresolved facts and external holds",
+    "declared questions/details/turns counted"
+  ],
+  "trace_definitions": [
+    {
+      "id": "S01",
+      "task": "Direct general-learning question",
+      "required": [],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "A specific Medicare concept question already establishes the task.",
+          "facts": [
+            {
+              "fact": "guide.fields.intent.goal",
+              "state": "confirmed",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Answer within supported general-source scope; no ZIP, medicines or preference interview.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "No real answer/source execution is asserted by this trace."
+      ],
+      "expected": [
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "S02",
+      "task": "Published local/year browsing with scope already supplied",
+      "required": [
+        {
+          "fact": "guide.fields.comparison.scope.zip",
+          "state": "confirmed",
+          "entity": ""
+        },
+        {
+          "fact": "guide.fields.comparison.scope.county",
+          "state": "confirmed",
+          "entity": ""
+        },
+        {
+          "fact": "readiness.facts.RC03.value.choice",
+          "state": "confirmed",
+          "entity": ""
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Research-only request explicitly supplies beneficiary-home reference geography and year.",
+          "facts": [
+            {
+              "fact": "guide.fields.comparison.scope.zip",
+              "state": "confirmed",
+              "entity": ""
+            },
+            {
+              "fact": "guide.fields.comparison.scope.county",
+              "state": "confirmed",
+              "entity": ""
+            },
+            {
+              "fact": "readiness.facts.RC03.value.choice",
+              "state": "confirmed",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Do not ask current coverage, doctors or drugs; state exact source/sample boundary.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "Exact published scope/source acceptance; no personal recommendation."
+      ],
+      "expected": [
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "S03",
+      "task": "Prepare two provider identities with one grouped echo",
+      "required": [
+        {
+          "fact": "G05",
+          "state": "confirmed",
+          "entity": "provider-a"
+        },
+        {
+          "fact": "G05",
+          "state": "confirmed",
+          "entity": "provider-b"
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Two names/offices explicitly supplied; new external identity bindings remain candidates.",
+          "facts": [
+            {
+              "fact": "guide.fields.needs.providers",
+              "state": "confirmed",
+              "entity": ""
+            },
+            {
+              "fact": "G05",
+              "state": "tentative",
+              "entity": "provider-a"
+            },
+            {
+              "fact": "G05",
+              "state": "tentative",
+              "entity": "provider-b"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Echo two synthetic candidate records together for explicit identity confirmation.",
+          "question_prompts": 1,
+          "information_requests": [
+            {
+              "fact": "G05",
+              "entity": "provider-a",
+              "kind": "identity_confirmation"
+            },
+            {
+              "fact": "G05",
+              "entity": "provider-b",
+              "kind": "identity_confirmation"
+            }
+          ]
+        },
+        {
+          "speaker": "user",
+          "summary": "Both intended office identities confirmed.",
+          "facts": [
+            {
+              "fact": "G05",
+              "state": "confirmed",
+              "entity": "provider-a"
+            },
+            {
+              "fact": "G05",
+              "state": "confirmed",
+              "entity": "provider-b"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Identity preparation only; no repeated practice/city questionnaire or access guarantee.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "Trusted real source bindings and exact plan/year access verification are not executed."
+      ],
+      "expected": [
+        1,
+        2,
+        4
+      ]
+    },
+    {
+      "id": "S04",
+      "task": "Prepare exact medicine identity for coverage; no price request",
+      "required": [
+        {
+          "fact": "G05",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Reported medicine name/strength/form already supplied.",
+          "facts": [
+            {
+              "fact": "guide.fields.needs.medications",
+              "state": "confirmed",
+              "entity": ""
+            },
+            {
+              "fact": "readiness.facts.RC22.value.items[].name",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC22.value.items[].strength",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC22.value.items[].form",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "G05",
+              "state": "tentative",
+              "entity": "medicine-a"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Confirm the intended synthetic exact-product interpretation.",
+          "question_prompts": 1,
+          "information_requests": [
+            {
+              "fact": "G05",
+              "entity": "medicine-a",
+              "kind": "identity_confirmation"
+            }
+          ]
+        },
+        {
+          "speaker": "user",
+          "summary": "Intended product interpretation confirmed.",
+          "facts": [
+            {
+              "fact": "G05",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Do not ask quantity/days supply/store/channel for this narrower task.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "forbidden_asks": [
+        "readiness.facts.RC23.value.items[].quantity",
+        "readiness.facts.RC23.value.items[].daysSupply",
+        "readiness.facts.RC23.value.items[].pharmacy",
+        "readiness.facts.RC23.value.items[].channel"
+      ],
+      "holds": [
+        "Exact accepted plan/year formulary and restrictions remain separate."
+      ],
+      "expected": [
+        1,
+        1,
+        4
+      ]
+    },
+    {
+      "id": "S05",
+      "task": "Prepare one price scenario with only missing fill facts",
+      "required": [
+        {
+          "fact": "readiness.facts.RC23.value.items[].quantity",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        },
+        {
+          "fact": "readiness.facts.RC23.value.items[].daysSupply",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        },
+        {
+          "fact": "readiness.facts.RC23.value.items[].pharmacy",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        },
+        {
+          "fact": "readiness.facts.RC23.value.items[].channel",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Price request; exact product already confirmed in prior context.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC22.value.items[].name",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC22.value.items[].strength",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC22.value.items[].form",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "One coherent fill request seeks quantity, days supply, exact store and channel.",
+          "question_prompts": 1,
+          "information_requests": [
+            {
+              "fact": "readiness.facts.RC23.value.items[].quantity",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].daysSupply",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].pharmacy",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].channel",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            }
+          ]
+        },
+        {
+          "speaker": "user",
+          "summary": "All four requested fill facts explicitly supplied.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC23.value.items[].quantity",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].daysSupply",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].pharmacy",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].channel",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Scenario input segment prepared; no guessed price or repeat medicine-identity ask.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "Trusted pharmacy/network/pricing adapter and accepted exact cost evidence."
+      ],
+      "expected": [
+        1,
+        4,
+        4
+      ]
+    },
+    {
+      "id": "S06",
+      "task": "Unknown days supply stops the price conclusion without a loop",
+      "required": [
+        {
+          "fact": "readiness.facts.RC23.value.items[].quantity",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        },
+        {
+          "fact": "readiness.facts.RC23.value.items[].daysSupply",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        },
+        {
+          "fact": "readiness.facts.RC23.value.items[].pharmacy",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        },
+        {
+          "fact": "readiness.facts.RC23.value.items[].channel",
+          "state": "confirmed",
+          "entity": "medicine-a"
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Same pricing-only input segment requested.",
+          "facts": []
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Seek the missing fill facts once.",
+          "question_prompts": 1,
+          "information_requests": [
+            {
+              "fact": "readiness.facts.RC23.value.items[].quantity",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].daysSupply",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].pharmacy",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].channel",
+              "entity": "medicine-a",
+              "kind": "missing_detail"
+            }
+          ]
+        },
+        {
+          "speaker": "user",
+          "summary": "Quantity/store/channel supplied; days supply explicitly unknown.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC23.value.items[].quantity",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].daysSupply",
+              "state": "unknown",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].pharmacy",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            },
+            {
+              "fact": "readiness.facts.RC23.value.items[].channel",
+              "state": "confirmed",
+              "entity": "medicine-a"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Explain that exact fill price is unresolved; preserve other facts and do not re-ask unchanged unknown.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "expected_missing": [
+        "readiness.facts.RC23.value.items[].daysSupply|medicine-a"
+      ],
+      "holds": [
+        "Missing days supply plus independent pricing evidence; no estimate fabricated."
+      ],
+      "expected": [
+        1,
+        4,
+        4
+      ]
+    },
+    {
+      "id": "S07",
+      "task": "One specific current-versus-future arrangement conflict",
+      "required": [
+        {
+          "fact": "readiness.facts.RC07.value.choice",
+          "state": "confirmed",
+          "entity": ""
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Current/future Original/Advantage reports conflict for the intended comparison.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC07.value.choice",
+              "state": "conflicted",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Clarify only the current arrangement/period.",
+          "question_prompts": 1,
+          "information_requests": [
+            {
+              "fact": "readiness.facts.RC07.value.choice",
+              "entity": "",
+              "kind": "conflict_correction"
+            }
+          ]
+        },
+        {
+          "speaker": "user",
+          "summary": "Current arrangement and prospective change distinguished.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC07.value.choice",
+              "state": "confirmed",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Retain revisions and reassess affected conclusions; no profile reset.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "Corrected report is not verified enrollment or accepted plan evidence."
+      ],
+      "expected": [
+        1,
+        1,
+        4
+      ]
+    },
+    {
+      "id": "S08",
+      "task": "Known identity; unavailable external access source",
+      "required": [
+        {
+          "fact": "readiness.facts.RC21.value.items[].practice",
+          "state": "confirmed",
+          "entity": "provider-a"
+        },
+        {
+          "fact": "readiness.facts.RC21.value.items[].city",
+          "state": "confirmed",
+          "entity": "provider-a"
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Exact intended provider office already confirmed.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC21.value.items[].practice",
+              "state": "confirmed",
+              "entity": "provider-a"
+            },
+            {
+              "fact": "readiness.facts.RC21.value.items[].city",
+              "state": "confirmed",
+              "entity": "provider-a"
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Report the source/access hold; do not open RC21 again merely because verification failed.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "Unavailable exact access/network evidence; no source-stop bypass."
+      ],
+      "expected": [
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "S09",
+      "task": "Reuse explicit priorities; no routine T09/T10 closing asks",
+      "required": [
+        {
+          "fact": "guide.fields.needs.costPreference",
+          "state": "confirmed",
+          "entity": ""
+        },
+        {
+          "fact": "guide.fields.needs.priorities",
+          "state": "confirmed",
+          "entity": ""
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "An explicit predictable-cost preference and doctor priority already supplied.",
+          "facts": [
+            {
+              "fact": "guide.fields.needs.costPreference",
+              "state": "confirmed",
+              "entity": ""
+            },
+            {
+              "fact": "guide.fields.needs.priorities",
+              "state": "confirmed",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Use those reports for emphasis; no new seven-option menu or implied numeric weights.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "No priority satisfaction/personal recommendation is asserted without exact evidence."
+      ],
+      "expected": [
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "S10",
+      "task": "Prepare distinct employment and health-coverage end chronology",
+      "required": [
+        {
+          "fact": "readiness.facts.RC11.value.jobEnd",
+          "state": "confirmed",
+          "entity": ""
+        },
+        {
+          "fact": "readiness.facts.RC11.value.coverageEnd",
+          "state": "confirmed",
+          "entity": ""
+        }
+      ],
+      "messages": [
+        {
+          "speaker": "user",
+          "summary": "Own-current-job transition context already stated; only the chronology segment is tested.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC09.value.choice",
+              "state": "confirmed",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "Ask for the job end and health-coverage end together, keeping them distinct.",
+          "question_prompts": 1,
+          "information_requests": [
+            {
+              "fact": "readiness.facts.RC11.value.jobEnd",
+              "entity": "",
+              "kind": "missing_detail"
+            },
+            {
+              "fact": "readiness.facts.RC11.value.coverageEnd",
+              "entity": "",
+              "kind": "missing_detail"
+            }
+          ]
+        },
+        {
+          "speaker": "user",
+          "summary": "Two distinct end dates explicitly supplied.",
+          "facts": [
+            {
+              "fact": "readiness.facts.RC11.value.jobEnd",
+              "state": "confirmed",
+              "entity": ""
+            },
+            {
+              "fact": "readiness.facts.RC11.value.coverageEnd",
+              "state": "confirmed",
+              "entity": ""
+            }
+          ]
+        },
+        {
+          "speaker": "assistant",
+          "summary": "No extra RC11.C1 question. Other needed timing/HSA/basis evidence is not presumed complete.",
+          "question_prompts": 0,
+          "information_requests": []
+        }
+      ],
+      "holds": [
+        "Other consequential timing facts, official evidence and reviewed policy remain separate."
+      ],
+      "expected": [
+        1,
+        2,
+        4
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "S01",
+      "task": "Direct general-learning question",
+      "questions_asked_prompts": 0,
+      "atomic_information_requests": 0,
+      "conversation_turns": 2,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "No real answer/source execution is asserted by this trace."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S02",
+      "task": "Published local/year browsing with scope already supplied",
+      "questions_asked_prompts": 0,
+      "atomic_information_requests": 0,
+      "conversation_turns": 2,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Exact published scope/source acceptance; no personal recommendation."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S03",
+      "task": "Prepare two provider identities with one grouped echo",
+      "questions_asked_prompts": 1,
+      "atomic_information_requests": 2,
+      "conversation_turns": 4,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Trusted real source bindings and exact plan/year access verification are not executed."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S04",
+      "task": "Prepare exact medicine identity for coverage; no price request",
+      "questions_asked_prompts": 1,
+      "atomic_information_requests": 1,
+      "conversation_turns": 4,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Exact accepted plan/year formulary and restrictions remain separate."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S05",
+      "task": "Prepare one price scenario with only missing fill facts",
+      "questions_asked_prompts": 1,
+      "atomic_information_requests": 4,
+      "conversation_turns": 4,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Trusted pharmacy/network/pricing adapter and accepted exact cost evidence."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S06",
+      "task": "Unknown days supply stops the price conclusion without a loop",
+      "questions_asked_prompts": 1,
+      "atomic_information_requests": 4,
+      "conversation_turns": 4,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [
+        "readiness.facts.RC23.value.items[].daysSupply|medicine-a"
+      ],
+      "independent_holds": [
+        "Missing days supply plus independent pricing evidence; no estimate fabricated."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S07",
+      "task": "One specific current-versus-future arrangement conflict",
+      "questions_asked_prompts": 1,
+      "atomic_information_requests": 1,
+      "conversation_turns": 4,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Corrected report is not verified enrollment or accepted plan evidence."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S08",
+      "task": "Known identity; unavailable external access source",
+      "questions_asked_prompts": 0,
+      "atomic_information_requests": 0,
+      "conversation_turns": 2,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Unavailable exact access/network evidence; no source-stop bypass."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S09",
+      "task": "Reuse explicit priorities; no routine T09/T10 closing asks",
+      "questions_asked_prompts": 0,
+      "atomic_information_requests": 0,
+      "conversation_turns": 2,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "No priority satisfaction/personal recommendation is asserted without exact evidence."
+      ],
+      "personalized_recommendation_allowed": false
+    },
+    {
+      "id": "S10",
+      "task": "Prepare distinct employment and health-coverage end chronology",
+      "questions_asked_prompts": 1,
+      "atomic_information_requests": 2,
+      "conversation_turns": 4,
+      "elapsed_time_ms": null,
+      "elapsed_time_status": "human_not_measured",
+      "trace_segment_missing_facts": [],
+      "independent_holds": [
+        "Other consequential timing facts, official evidence and reviewed policy remain separate."
+      ],
+      "personalized_recommendation_allowed": false
+    }
+  ]
+}

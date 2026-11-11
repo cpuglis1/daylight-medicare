@@ -1,0 +1,1451 @@
+{
+  "authority": {
+    "enrollment": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "personal_comparison": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "published_display": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "quote": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "ranking": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "recommendation": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    }
+  },
+  "automatic_profile_binding": false,
+  "binding": {
+    "accepted_release_id": null,
+    "adapter_sha256": "ee7e2aded8ba58a1333624344e145e9ce87002716efeaa375d85e4af11337eff",
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "manifest_sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+    "selected_derivations": {
+      "drug_identity": {
+        "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+        "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+        "layer_id": "L05",
+        "source_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+        "source_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+        "source_table": "drug_identities"
+      }
+    },
+    "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+  },
+  "binding_control_hashes": {
+    "BUILD_MANIFEST.json": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+    "LOAD_COMPLETE.json": "8fe943aa4510fe626adede59049b580f5d19294aef89097bf92989569aa76efb",
+    "TARGET.json": "5cfcb3ef33da4e83a28ea2dc2fb56cafe7ff2f5c7e792ad581a2e60701214160",
+    "units/29274ffdafe0c4f944990843e3c5de6ba36e45c05b007f62e18b2c940dd65696.json": "9cb8952b9ea6a4faf411f96c0d4096cde64eab376831f469e6cd9e9da7fefb3f"
+  },
+  "cases": [
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:ab62242f477fd4bbbe08e915fb5c7d1a7ad5bfca670133064bbb7e8555574fe5",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "SCD",
+            "dose_form": "EXTENDED RELEASE ORAL TABLET",
+            "drug_name": "24 HR METFORMIN HYDROCHLORIDE 500 MG / SAXAGLIPTIN 5 MG EXTENDED RELEASE ORAL TABLET",
+            "ingredient_strength_description": "METFORMIN HYDROCHLORIDE 500 MG / SAXAGLIPTIN 5 MG",
+            "related_brand": "",
+            "rxcui": "1043578"
+          },
+          "identity_detail_state": "source_details_present",
+          "identity_grain": "drug_product_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "literal_substring_observed",
+            "name": "literal_substring_observed",
+            "strength": "literal_substring_observed"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "9ccf1180b577e81e4b3da08f706304b752b32986bcf0919216d6741644ae32ef",
+            "record_id": "ab62242f477fd4bbbe08e915fb5c7d1a7ad5bfca670133064bbb7e8555574fe5",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1043578\"]",
+            "source_row_ordinal": 72,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": null,
+          "source_locator": {
+            "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "kind": "CMS_2026_FRF",
+            "member": "CY26 FRF_20260924.csv",
+            "record_ordinal": 4237
+          },
+          "source_native_fields_sha256": "877ef6498f1072fa08037892d3260f8f34227045c4726f3a13bb12b576316c56",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        },
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:12ea7dc14dc2ac99fcb66eaac6489879d65fdf7044b7ce7e65793b9d347aa2b3",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "SBD",
+            "dose_form": "ORAL TABLET",
+            "drug_name": "LINAGLIPTIN 2.5 MG / METFORMIN HYDROCHLORIDE 500 MG ORAL TABLET [JENTADUETO]",
+            "ingredient_strength_description": "LINAGLIPTIN 2.5 MG / METFORMIN HYDROCHLORIDE 500 MG",
+            "related_brand": "JENTADUETO",
+            "rxcui": "1243033"
+          },
+          "identity_detail_state": "source_details_present",
+          "identity_grain": "drug_product_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "literal_substring_observed",
+            "name": "literal_substring_observed",
+            "strength": "literal_substring_observed"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "7f1ca629679d5fe9d2f10b96a686eff82388b7441f0b4e3fa5bd3c01cee85856",
+            "record_id": "12ea7dc14dc2ac99fcb66eaac6489879d65fdf7044b7ce7e65793b9d347aa2b3",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1243033\"]",
+            "source_row_ordinal": 264,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": null,
+          "source_locator": {
+            "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "kind": "CMS_2026_FRF",
+            "member": "CY26 FRF_20260924.csv",
+            "record_ordinal": 3941
+          },
+          "source_native_fields_sha256": "3f45224a8d49a28a4191c9ad945f5697c7b9eb72d52c329d0a796195f17391b0",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        }
+      ],
+      "candidate_count": 2,
+      "case_id": "literal_name_strength_form_first_page",
+      "consumer_release": false,
+      "discovery_state": "literal_candidates_require_confirmation",
+      "operator_only": true,
+      "page": {
+        "has_more": true,
+        "next_after_ordinal": 264,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": true,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [
+          "MORE_LITERAL_CANDIDATES_REMAIN"
+        ],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "c64390a9e3d95e8da1b405a14b41f8e7ba0c74ea9a41d0c157c0330fb959e2c5",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": "TABLET",
+        "limit": 2,
+        "name_text": "metformin",
+        "strength_text": "500 MG",
+        "year": 2026
+      },
+      "result_sha256": "379c207bd5053710cf7fb9fd98c7f5c19aa54c589adfdf82254becd3451b5d17"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:4ab3ba1cbd5c331dc6a9e6fb1f0c37637ce817616ca83152d29e397e2b0a8b70",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "SBD",
+            "dose_form": "EXTENDED RELEASE ORAL TABLET",
+            "drug_name": "24 HR METFORMIN HYDROCHLORIDE 500 MG / SITAGLIPTIN 50 MG EXTENDED RELEASE ORAL TABLET [JANUMET]",
+            "ingredient_strength_description": "METFORMIN HYDROCHLORIDE 500 MG / SITAGLIPTIN 50 MG",
+            "related_brand": "JANUMET",
+            "rxcui": "1243848"
+          },
+          "identity_detail_state": "source_details_present",
+          "identity_grain": "drug_product_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "literal_substring_observed",
+            "name": "literal_substring_observed",
+            "strength": "literal_substring_observed"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "2c99e44e8bff4f42f29a1a72c8058afc9adba201e632f4f387d5e5d3f9a0c8f4",
+            "record_id": "4ab3ba1cbd5c331dc6a9e6fb1f0c37637ce817616ca83152d29e397e2b0a8b70",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1243848\"]",
+            "source_row_ordinal": 273,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": null,
+          "source_locator": {
+            "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "kind": "CMS_2026_FRF",
+            "member": "CY26 FRF_20260924.csv",
+            "record_ordinal": 4243
+          },
+          "source_native_fields_sha256": "fcff17357f431d1146293d4fbef5cc42eaf94964644f32d3f09f88cdd335d497",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        },
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:f4b695c92de28a9c639d7fd736e660ae2c83a1e4dc91cf66a41762fd4fe0138f",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "SBD",
+            "dose_form": "ORAL TABLET",
+            "drug_name": "CANAGLIFLOZIN 150 MG / METFORMIN HYDROCHLORIDE 500 MG ORAL TABLET [INVOKAMET]",
+            "ingredient_strength_description": "CANAGLIFLOZIN 150 MG / METFORMIN HYDROCHLORIDE 500 MG",
+            "related_brand": "INVOKAMET",
+            "rxcui": "1545159"
+          },
+          "identity_detail_state": "source_details_present",
+          "identity_grain": "drug_product_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "literal_substring_observed",
+            "name": "literal_substring_observed",
+            "strength": "literal_substring_observed"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "647c9f3fb455e1520ef3748bdbcfce9f64475397f9a8a21643b6aacff4e953aa",
+            "record_id": "f4b695c92de28a9c639d7fd736e660ae2c83a1e4dc91cf66a41762fd4fe0138f",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1545159\"]",
+            "source_row_ordinal": 599,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": null,
+          "source_locator": {
+            "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "kind": "CMS_2026_FRF",
+            "member": "CY26 FRF_20260924.csv",
+            "record_ordinal": 1052
+          },
+          "source_native_fields_sha256": "2a6f6f45e010b0b85f6cbb1e128c38e6d8de187fc49d41105a75adf1934008d7",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        }
+      ],
+      "candidate_count": 2,
+      "case_id": "same_query_nonoverlapping_continuation",
+      "consumer_release": false,
+      "discovery_state": "literal_candidates_require_confirmation",
+      "operator_only": true,
+      "page": {
+        "has_more": true,
+        "next_after_ordinal": 599,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": true,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [
+          "MORE_LITERAL_CANDIDATES_REMAIN"
+        ],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "af872847b2cd7165b96c8ec09ffed92fa81f9c9fa72e76c38d9c55b7d7950736",
+      "requested": {
+        "after_ordinal": 264,
+        "form_text": "TABLET",
+        "limit": 2,
+        "name_text": "metformin",
+        "strength_text": "500 MG",
+        "year": 2026
+      },
+      "result_sha256": "98989dd8414bbfb79e3ee3fa93e49a39d46e011da92f7fd7ca58329a4aa18e14"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:c1e5af8c280314afd670eb1b28665e8353923f03358ce02fd27917ff9aacaedb",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "SCD",
+            "dose_form": null,
+            "drug_name": "ergocalciferol 1.25 MG Oral Capsule",
+            "ingredient_strength_description": null,
+            "related_brand": null,
+            "rxcui": "1367410"
+          },
+          "identity_detail_state": "partial",
+          "identity_grain": "drug_product_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "source_detail_unknown",
+            "name": "literal_substring_observed",
+            "strength": "source_detail_unknown"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "c41a9ee20798aaf57a9cabe8c5cb0431faf96f61005fdb9c846fd4a3c86491fa",
+            "record_id": "c1e5af8c280314afd670eb1b28665e8353923f03358ce02fd27917ff9aacaedb",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1367410\"]",
+            "source_row_ordinal": 425,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [
+            "dose_form",
+            "ingredient_strength_description"
+          ],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [
+            "SOURCE_IDENTITY_DETAILS_PARTIAL"
+          ],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": {
+            "activeEndDate": "",
+            "activeStartDate": "022013",
+            "isCurrent": "YES",
+            "releaseEndDate": "",
+            "releaseStartDate": "022013",
+            "remappedDate": "",
+            "source": "RXNORM",
+            "status": "Active"
+          },
+          "source_locator": {
+            "kind": "NLM_RxNorm_history",
+            "path": "docs/data/l05-drug-coverage-2026-10-25/supplemental-r1/raw/fbe183d4a343d7e3b882fff4455f19923f92bf8c65e4706c366ddb4e11bb3f0f",
+            "retrieved_at_utc": "2026-10-25T23:16:17.567495+00:00",
+            "sha256": "fbe183d4a343d7e3b882fff4455f19923f92bf8c65e4706c366ddb4e11bb3f0f",
+            "url": "https://rxnav.nlm.nih.gov/REST/rxcui/1367410/historystatus.json"
+          },
+          "source_native_fields_sha256": "02ff0d1f1e06ffd4724615c1752302064c72b15e1493fcd732a9c2ae226a1d57",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        }
+      ],
+      "candidate_count": 1,
+      "case_id": "missing_source_strength_form_preserved",
+      "consumer_release": false,
+      "discovery_state": "literal_candidates_require_confirmation",
+      "operator_only": true,
+      "page": {
+        "has_more": false,
+        "next_after_ordinal": null,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": true,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [
+          "RETURNED_SOURCE_IDENTITY_DETAILS_PARTIAL"
+        ],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "55b16c4d31bacd59c25dda52ab7858ea169016db99a8031c77f8dc8ffc84f7a9",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": "capsule",
+        "limit": 20,
+        "name_text": "ergocalciferol",
+        "strength_text": "1.25 MG",
+        "year": 2026
+      },
+      "result_sha256": "f07dbf07690f2c341cbd4fede18f008e91a81977eacdedb584657e451f4d6e76"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:fa732add224ddd9a1df45e7666996fefc6424054e14921f25dd2fafecb0b649c",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "BPCK",
+            "dose_form": "PACK",
+            "drug_name": "{14 (ESTROGENS, CONJUGATED (USP) 0.625 MG / MEDROXYPROGESTERONE ACETATE 5 MG ORAL TABLET) / 14 (ESTROGENS, CONJUGATED (USP) 0.625 MG ORAL TABLET) } PACK [PREMPHASE 28 DAY]",
+            "ingredient_strength_description": "ESTROGENS, CONJUGATED (USP) 0.625 MG / MEDROXYPROGESTERONE ACETATE 5 MG",
+            "related_brand": "PREMPHASE 28 DAY",
+            "rxcui": "1000487"
+          },
+          "identity_detail_state": "source_details_present",
+          "identity_grain": "pack_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "literal_substring_observed",
+            "name": "literal_substring_observed",
+            "strength": "not_requested"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "1102f26d9f64fc7e8e85b06cbf37780a0e5f2c88d8103b548db8f4e3705961c7",
+            "record_id": "fa732add224ddd9a1df45e7666996fefc6424054e14921f25dd2fafecb0b649c",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1000487\"]",
+            "source_row_ordinal": 17,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [
+            "PACK_CONCEPT_NOT_SINGLE_PRODUCT"
+          ],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": null,
+          "source_locator": {
+            "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "kind": "CMS_2026_FRF",
+            "member": "CY26 FRF_20260924.csv",
+            "record_ordinal": 2493
+          },
+          "source_native_fields_sha256": "d31f6869066310da3c6f58c41289fb4e1d8370ecc0b30dd787874d0ee2d88d9c",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        }
+      ],
+      "candidate_count": 1,
+      "case_id": "pack_not_single_product",
+      "consumer_release": false,
+      "discovery_state": "literal_candidates_require_confirmation",
+      "operator_only": true,
+      "page": {
+        "has_more": false,
+        "next_after_ordinal": null,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": false,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "06e13c82c873f6d56f471d0ce360480462e6b3b298b6b685ad9c7db8466ad4b8",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": "PACK",
+        "limit": 20,
+        "name_text": "PREMPHASE",
+        "strength_text": null,
+        "year": 2026
+      },
+      "result_sha256": "869d19ddb237d1c4bb8a16b75dfa4c9fe6fbae7773eb1249cf05d495a20f5dc7"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [
+        {
+          "automatic_profile_binding": false,
+          "candidate_id": "L05:ddae48bfd5868ef8df96774750771e7fc26b8c7467d7d7d18eb8717b44ad2fd4",
+          "conditions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "current_terminology_status_verified": false,
+          "discovery_basis": "case_insensitive_literal_substrings",
+          "discovery_state": "requires_explicit_identity_confirmation",
+          "identity": {
+            "concept_type": "SBD",
+            "dose_form": "INJECTABLE SOLUTION",
+            "drug_name": "ALANINE 5.4 MG/ML / ARGININE 12 MG/ML / ASPARTATE 3.2 MG/ML / CYSTEINE 0.24 MG/ML / GLUTAMATE 5 MG/ML / GLYCINE 3.6 MG/ML / HISTIDINE 4.8 MG/ML / ISOLEUCINE 8.2 MG/ML / LEUCINE 1.4 MG/ML / LYSINE 1.2 MG/ML / METHIONINE 3.4 MG/ML / PHENYLALANINE 4.8 MG/ML / PROLINE 6.8 MG/ML / SERINE 3.8 MG/ML / SODIUM ACETATE 0.097 MEQ/ML / SODIUM CHLORIDE 0.003 MEQ/ML / SODIUM METABISULFITE 0.5 MG/ML / TAURINE 0.25 MG/ML / THREONINE 4.2 MG/ML / TRYPTOPHAN 2 MG/ML / TYROSINE 2.84 MG/ML / VALINE 7.8 MG/ML INJECTABLE SOLUTION [TROPHAMINE 10 %]",
+            "ingredient_strength_description": "ALANINE 5.4 MG/ML / ARGININE 12 MG/ML / ASPARTATE 3.2 MG/ML / CYSTEINE 0.24 MG/ML / GLUTAMATE 5 MG/ML",
+            "related_brand": "TROPHAMINE 10 %",
+            "rxcui": "1189640"
+          },
+          "identity_detail_state": "source_details_present",
+          "identity_grain": "drug_product_concept",
+          "lexical_occurrence_is_not_identity_or_dose_equivalence": true,
+          "lexical_states": {
+            "form": "not_requested",
+            "name": "literal_substring_observed",
+            "strength": "not_requested"
+          },
+          "lineage": {
+            "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec",
+            "artifact_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+            "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+            "ordinal_basis": "sqlite_primary_key_order:rxcui",
+            "original_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+            "raw_sha256": "47808ac4d609424e1ebce0e4d45381ad7772df732930dd12e2867555fc1d38b4",
+            "record_id": "ddae48bfd5868ef8df96774750771e7fc26b8c7467d7d7d18eb8717b44ad2fd4",
+            "snapshot_id": "ae32bf554ad6fd5912c88c1b62e4e9fded3b0d797ea454860cc4a1f568729580",
+            "source_row_key": "[\"1189640\"]",
+            "source_row_ordinal": 225,
+            "source_table": "drug_identities"
+          },
+          "lookup_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+          "missing_identity_details": [],
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "reason_codes": [],
+          "requires_identity_confirmation": true,
+          "snapshot_source_use_state": "not_newly_reviewed",
+          "source_history": null,
+          "source_locator": {
+            "archive_path": "docs/data/l05-drug-coverage-2026-10-25/acquisition-r1/raw/790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "archive_sha256": "790a696124edb30e15f72bf4171b49d002cdd16fdcc2ee73eb107b4e54d29314",
+            "kind": "CMS_2026_FRF",
+            "member": "CY26 FRF_20260924.csv",
+            "record_ordinal": 203
+          },
+          "source_native_fields_sha256": "88b10793d06d097477d4d02382214f42f641b0e49fb70336781353e4a6652fd2",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          }
+        }
+      ],
+      "candidate_count": 1,
+      "case_id": "literal_percent_not_wildcard",
+      "consumer_release": false,
+      "discovery_state": "literal_candidates_require_confirmation",
+      "operator_only": true,
+      "page": {
+        "has_more": false,
+        "next_after_ordinal": null,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": false,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "ab76048896c3e5a51b8982ae70f8b5f8078614f344fb88827fd928ed3202a3c7",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": null,
+        "limit": 20,
+        "name_text": "%",
+        "strength_text": null,
+        "year": 2026
+      },
+      "result_sha256": "b5adaf654e428db240436d1c0ee8b76dc82d4706ae982e4b2c86ae1963edc0be"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [],
+      "candidate_count": 0,
+      "case_id": "literal_underscore_not_wildcard",
+      "consumer_release": false,
+      "discovery_state": "not_observed_in_selected_literal_query",
+      "operator_only": true,
+      "page": {
+        "has_more": false,
+        "next_after_ordinal": null,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": false,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "62ca78d7c4cdee12674efc6ce2767078ef84bf460f72aea0a92113a01744403f",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": null,
+        "limit": 20,
+        "name_text": "_",
+        "strength_text": null,
+        "year": 2026
+      },
+      "result_sha256": "cda3b5c0fbfd3245ce1153745b36d9e62c5d5befadaa16b19dc0a32418bcedc0"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [],
+      "candidate_count": 0,
+      "case_id": "literal_exclamation_escape",
+      "consumer_release": false,
+      "discovery_state": "not_observed_in_selected_literal_query",
+      "operator_only": true,
+      "page": {
+        "has_more": false,
+        "next_after_ordinal": null,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": false,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "17bcfe3490e827ec66e8e404255d00759ed47e9e5c301a7a0989a1b69bfc251f",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": null,
+        "limit": 20,
+        "name_text": "!",
+        "strength_text": null,
+        "year": 2026
+      },
+      "result_sha256": "d20f31863156a01dc42c8dd9a1d8c593e429f610b97ac504a068df92043b2c85"
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac",
+      "candidate_checks": [],
+      "candidate_count": 0,
+      "case_id": "no_literal_result_is_selection_unknown",
+      "consumer_release": false,
+      "discovery_state": "not_observed_in_selected_literal_query",
+      "operator_only": true,
+      "page": {
+        "has_more": false,
+        "next_after_ordinal": null,
+        "ordering": "source_row_ordinal",
+        "snapshot_id": "4efbaa8f279dabefda62ca3b5a216bf403dab21810afd7dd0f4a5ab8b03697ac"
+      },
+      "partial": {
+        "is_partial": false,
+        "optional_filters_retain_name_candidates_with_missing_source_details": true,
+        "reason_codes": [],
+        "source_dictionary_is_complete_terminology": false,
+        "source_dictionary_missing_details": {
+          "form": 28,
+          "name": 0,
+          "strength": 28
+        }
+      },
+      "query_id": "04eb838f5ad50b04a01f93d3eab0f4f8f9c6f690f40d20cc600957e45ec7337d",
+      "requested": {
+        "after_ordinal": 0,
+        "form_text": null,
+        "limit": 20,
+        "name_text": "rx-unobserved-fixture-20261101",
+        "strength_text": null,
+        "year": 2026
+      },
+      "result_sha256": "a1067de629b512bc4b748e91efc96ff6feccf7ae0f4a214ae7e7fb6ce9fafd8d"
+    }
+  ],
+  "checks": {
+    "accepted_release_null": true,
+    "all_candidates_require_confirmation": true,
+    "all_case_snapshots_equal": true,
+    "all_consumer_purposes_held": true,
+    "all_eight_cases_completed": true,
+    "all_source_raw_hashes_checked": true,
+    "continuation_candidate_ids_nonoverlap": true,
+    "continuation_preserves_source_order": true,
+    "exclamation_escape_retains_no_result": true,
+    "existing_indexes_observed": true,
+    "frozen_files_unchanged_after_replay": true,
+    "frozen_new_module_test_and_existing_verifier_hashes_verified": true,
+    "name_strength_form_are_lexical_only": true,
+    "no_consumer_release_or_clinical_equivalence": true,
+    "no_global_observation_sequential_scan": true,
+    "no_offering_or_formulary_grain": true,
+    "no_result_is_selected_query_unknown": true,
+    "operator_only_no_customer_binding": true,
+    "pack1000487_not_decomposed": true,
+    "partial1367410_optional_filters_remain_unknown": true,
+    "partial1367410_source_attributes_not_parsed": true,
+    "percent_matches_only_literal_percent_name": true,
+    "physical_database_oid_marker_cluster_port_socket_verified": true,
+    "physical_source_bytes_match_selected_derivation": true,
+    "population_and_missing_detail_controls_passed": true,
+    "reader_role_observed": true,
+    "serving_code_unchanged_after_replay": true,
+    "source_access_absence_explicit_unregistered": true,
+    "source_file_stat_unchanged_after_read": true,
+    "source_policy_explicitly_allows_internal_identity_candidates": true,
+    "transaction_read_only": true,
+    "transaction_repeatable_read": true,
+    "underscore_does_not_match_all_names": true
+  },
+  "code_hashes": {
+    "infrastructure/daylight-data/src/daylight_data/serving/drug_candidates.py": "9b0618b84cb735e939523634510b140ebdb64d5cbb36620db2e08528490d7f14",
+    "infrastructure/daylight-data/src/daylight_data/serving/identity.py": "97a1e3a43a3248d6caa1988ee984ec8503d0aea2541bc7605cac6bc7149671cc",
+    "infrastructure/daylight-data/tests/test_research_drug_candidates.py": "6ce29b3d587d73b91e5e50c066dbd28b8c137c5044cc713c982895a0462992e9"
+  },
+  "consumer_release": false,
+  "contract_id": "l05-literal-drug-candidates-research-r1",
+  "dictionary_scope": {
+    "benefit_year": 2026,
+    "formulary_grain": null,
+    "offering_grain": null,
+    "pack_rows": 285,
+    "selected_rows": 4547,
+    "source_table": "drug_identities",
+    "terminology_currentness": "dated_retained_source_not_reverified"
+  },
+  "final_replay_measurements": {
+    "basis": "One bounded eight-case observed replay bound to the final new module/test bytes; local wall timings are not p95/concurrency or consumer latency acceptance.",
+    "cases": [
+      {
+        "case_id": "literal_name_strength_form_first_page",
+        "lookup_wall_ms": 27.326
+      },
+      {
+        "case_id": "same_query_nonoverlapping_continuation",
+        "lookup_wall_ms": 9.878
+      },
+      {
+        "case_id": "missing_source_strength_form_preserved",
+        "lookup_wall_ms": 11.189
+      },
+      {
+        "case_id": "pack_not_single_product",
+        "lookup_wall_ms": 10.531
+      },
+      {
+        "case_id": "literal_percent_not_wildcard",
+        "lookup_wall_ms": 10.446
+      },
+      {
+        "case_id": "literal_underscore_not_wildcard",
+        "lookup_wall_ms": 10.11
+      },
+      {
+        "case_id": "literal_exclamation_escape",
+        "lookup_wall_ms": 10.792
+      },
+      {
+        "case_id": "no_literal_result_is_selection_unknown",
+        "lookup_wall_ms": 11.413
+      }
+    ],
+    "sql_explain_analyze_execution_ms": 0.291,
+    "sql_planning_ms": 1.204
+  },
+  "gaps_preserved": [
+    "G05",
+    "G08",
+    "G09",
+    "G11",
+    "G14"
+  ],
+  "new_acceptance": false,
+  "new_source_permission": false,
+  "observed_at": "2026-11-02T13:26:05.869164+00:00",
+  "operator_only": true,
+  "passed": true,
+  "physical_guard_code_binding": {
+    "functions": [
+      "validate_local_dsn",
+      "validate_local_connection",
+      "ResearchPlanRepository._read",
+      "repository_from_env"
+    ],
+    "path": "infrastructure/daylight-data/src/daylight_data/serving/repository.py",
+    "sha256": "850c8322957841463d9a69d1486eb42a233c2be2c6858fff9a86cf9c4674ae5d"
+  },
+  "physical_guard_observation": {
+    "cluster_system_identifier": "7702175360224817979",
+    "database": "daylight_research_2026_r2",
+    "database_oid": 2448635,
+    "marker": "daylight-local-full/1:3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "port": "55485",
+    "unix_socket": true
+  },
+  "physical_guard_observation_sha256": "6fe55f74aeab3b4e6af5e30f29d90860c755e20c2e45bd0ce81263ff74d1f751",
+  "physical_target_binding": {
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "cluster_system_identifier": "7702175360224817979",
+    "created_at": "2026-10-30T19:03:46.633784+00:00",
+    "creation_build_id": "3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "database": "daylight_research_2026_r2",
+    "database_oid": 2448635,
+    "execution_started_at": "2026-10-30T20:32:05.549632+00:00",
+    "marker": "daylight-local-full/1:3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "predecessor_target_sha256": "de802be73bf954bd77ec3c6c71c41860a6a2a80fd5027b6b8939e2f73bb78e73"
+  },
+  "physical_target_control_sha256": "5cfcb3ef33da4e83a28ea2dc2fb56cafe7ff2f5c7e792ad581a2e60701214160",
+  "prior_measurements": {
+    "basis": "No earlier actual drug-discovery timing is claimed. Provider and exact-RxCUI timings belong to their separate historical receipts."
+  },
+  "profile_or_guest_data_read": false,
+  "query_plan": {
+    "explain_json": {
+      "Execution Time": 0.291,
+      "Plan": {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Actual Startup Time": 0.091,
+        "Actual Total Time": 0.241,
+        "Async Capable": false,
+        "Disabled": false,
+        "Inner Unique": true,
+        "Join Type": "Inner",
+        "Local Dirtied Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Written Blocks": 0,
+        "Node Type": "Nested Loop",
+        "Parallel Aware": false,
+        "Plan Rows": 1,
+        "Plan Width": 1734,
+        "Plans": [
+          {
+            "Actual Loops": 1,
+            "Actual Rows": 3.0,
+            "Actual Startup Time": 0.064,
+            "Actual Total Time": 0.197,
+            "Async Capable": false,
+            "Disabled": false,
+            "Local Dirtied Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Written Blocks": 0,
+            "Node Type": "Limit",
+            "Parallel Aware": false,
+            "Parent Relationship": "InitPlan",
+            "Plan Rows": 1,
+            "Plan Width": 1177,
+            "Plans": [
+              {
+                "Actual Loops": 1,
+                "Actual Rows": 3.0,
+                "Actual Startup Time": 0.064,
+                "Actual Total Time": 0.197,
+                "Alias": "observation",
+                "Async Capable": false,
+                "Disabled": false,
+                "Filter": "((entity_type = 'drug_product'::text) AND ((fields ->> 'drug_name'::text) ~~* '%metformin%'::text) AND ((NULLIF(btrim((fields ->> 'ingredient_strength_description'::text)), ''::text) IS NULL) OR ((fields ->> 'ingredient_strength_description'::text) ~~* '%500 MG%'::text)) AND ((NULLIF(btrim((fields ->> 'dose_form'::text)), ''::text) IS NULL) OR ((fields ->> 'dose_form'::text) ~~* '%TABLET%'::text)))",
+                "Index Cond": "((derivation_id = 'c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e'::text) AND (source_table = 'drug_identities'::text) AND (source_row_ordinal > '0'::smallint))",
+                "Index Name": "observation_source_lineage",
+                "Index Searches": 1,
+                "Local Dirtied Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Written Blocks": 0,
+                "Node Type": "Index Scan",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 1,
+                "Plan Width": 1177,
+                "Relation Name": "observation",
+                "Rows Removed by Filter": 270,
+                "Rows Removed by Index Recheck": 0,
+                "Scan Direction": "Forward",
+                "Shared Dirtied Blocks": 0,
+                "Shared Hit Blocks": 39,
+                "Shared Read Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Startup Cost": 0.69,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Total Cost": 20.9
+              }
+            ],
+            "Shared Dirtied Blocks": 0,
+            "Shared Hit Blocks": 39,
+            "Shared Read Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Startup Cost": 0.69,
+            "Subplan Name": "CTE matched",
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Total Cost": 20.9
+          },
+          {
+            "Actual Loops": 1,
+            "Actual Rows": 3.0,
+            "Actual Startup Time": 0.085,
+            "Actual Total Time": 0.23,
+            "Async Capable": false,
+            "Disabled": false,
+            "Inner Unique": true,
+            "Join Filter": "(d.derivation_id = o.derivation_id)",
+            "Join Type": "Inner",
+            "Local Dirtied Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Written Blocks": 0,
+            "Node Type": "Nested Loop",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 1,
+            "Plan Width": 1568,
+            "Plans": [
+              {
+                "Actual Loops": 1,
+                "Actual Rows": 3.0,
+                "Actual Startup Time": 0.081,
+                "Actual Total Time": 0.223,
+                "Async Capable": false,
+                "Disabled": false,
+                "Inner Unique": true,
+                "Join Type": "Inner",
+                "Local Dirtied Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Written Blocks": 0,
+                "Node Type": "Nested Loop",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 1,
+                "Plan Width": 1503,
+                "Plans": [
+                  {
+                    "Actual Loops": 1,
+                    "Actual Rows": 3.0,
+                    "Actual Startup Time": 0.065,
+                    "Actual Total Time": 0.198,
+                    "Alias": "o",
+                    "Async Capable": false,
+                    "CTE Name": "matched",
+                    "Disabled": false,
+                    "Local Dirtied Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Maximum Storage": 19,
+                    "Node Type": "CTE Scan",
+                    "Parallel Aware": false,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 1,
+                    "Plan Width": 620,
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Hit Blocks": 39,
+                    "Shared Read Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Startup Cost": 0.0,
+                    "Storage": "Memory",
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Total Cost": 0.02
+                  },
+                  {
+                    "Actual Loops": 3,
+                    "Actual Rows": 1.0,
+                    "Actual Startup Time": 0.008,
+                    "Actual Total Time": 0.008,
+                    "Alias": "r",
+                    "Async Capable": false,
+                    "Disabled": false,
+                    "Index Cond": "((derivation_id = o.derivation_id) AND (source_table = o.source_table) AND (source_row_ordinal = o.source_row_ordinal))",
+                    "Index Name": "source_record_pkey",
+                    "Index Searches": 3,
+                    "Local Dirtied Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Node Type": "Index Scan",
+                    "Parallel Aware": false,
+                    "Parent Relationship": "Inner",
+                    "Plan Rows": 1,
+                    "Plan Width": 902,
+                    "Relation Name": "source_record",
+                    "Rows Removed by Index Recheck": 0,
+                    "Scan Direction": "Forward",
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Hit Blocks": 18,
+                    "Shared Read Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Startup Cost": 0.69,
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Total Cost": 8.71
+                  }
+                ],
+                "Shared Dirtied Blocks": 0,
+                "Shared Hit Blocks": 57,
+                "Shared Read Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Startup Cost": 0.69,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Total Cost": 8.73
+              },
+              {
+                "Actual Loops": 3,
+                "Actual Rows": 1.0,
+                "Actual Startup Time": 0.002,
+                "Actual Total Time": 0.002,
+                "Alias": "d",
+                "Async Capable": false,
+                "Disabled": false,
+                "Index Cond": "(derivation_id = r.derivation_id)",
+                "Index Name": "derivation_pkey",
+                "Index Searches": 3,
+                "Local Dirtied Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Written Blocks": 0,
+                "Node Type": "Index Scan",
+                "Parallel Aware": false,
+                "Parent Relationship": "Inner",
+                "Plan Rows": 1,
+                "Plan Width": 195,
+                "Relation Name": "derivation",
+                "Rows Removed by Index Recheck": 0,
+                "Scan Direction": "Forward",
+                "Shared Dirtied Blocks": 0,
+                "Shared Hit Blocks": 9,
+                "Shared Read Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Startup Cost": 0.27,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Total Cost": 5.92
+              }
+            ],
+            "Rows Removed by Join Filter": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Hit Blocks": 66,
+            "Shared Read Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Startup Cost": 0.96,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Total Cost": 14.66
+          },
+          {
+            "Actual Loops": 3,
+            "Actual Rows": 1.0,
+            "Actual Startup Time": 0.001,
+            "Actual Total Time": 0.001,
+            "Alias": "s",
+            "Async Capable": false,
+            "Disabled": false,
+            "Index Cond": "(snapshot_id = d.snapshot_id)",
+            "Index Name": "source_snapshot_pkey",
+            "Index Searches": 3,
+            "Local Dirtied Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Written Blocks": 0,
+            "Node Type": "Index Scan",
+            "Parallel Aware": false,
+            "Parent Relationship": "Inner",
+            "Plan Rows": 1,
+            "Plan Width": 228,
+            "Relation Name": "source_snapshot",
+            "Rows Removed by Index Recheck": 0,
+            "Scan Direction": "Forward",
+            "Shared Dirtied Blocks": 0,
+            "Shared Hit Blocks": 9,
+            "Shared Read Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Startup Cost": 0.27,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Total Cost": 5.57
+          }
+        ],
+        "Shared Dirtied Blocks": 0,
+        "Shared Hit Blocks": 75,
+        "Shared Read Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Startup Cost": 22.13,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0,
+        "Total Cost": 41.22
+      },
+      "Planning": {
+        "Local Dirtied Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Written Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Hit Blocks": 282,
+        "Shared Read Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0
+      },
+      "Planning Time": 1.204,
+      "Triggers": []
+    },
+    "interpretation": "Existing indexes bound the read to the exact selected 4,547-row source derivation; literal predicates filter that slice. No dedicated drug-name/strength/form index or global name scan was added.",
+    "nodes": [
+      {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Index Name": null,
+        "Node Type": "Nested Loop",
+        "Relation Name": null,
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Index Name": null,
+        "Node Type": "Limit",
+        "Relation Name": null,
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Index Name": "observation_source_lineage",
+        "Node Type": "Index Scan",
+        "Relation Name": "observation",
+        "Rows Removed by Filter": 270
+      },
+      {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Index Name": null,
+        "Node Type": "Nested Loop",
+        "Relation Name": null,
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Index Name": null,
+        "Node Type": "Nested Loop",
+        "Relation Name": null,
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 1,
+        "Actual Rows": 3.0,
+        "Index Name": null,
+        "Node Type": "CTE Scan",
+        "Relation Name": null,
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 3,
+        "Actual Rows": 1.0,
+        "Index Name": "source_record_pkey",
+        "Node Type": "Index Scan",
+        "Relation Name": "source_record",
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 3,
+        "Actual Rows": 1.0,
+        "Index Name": "derivation_pkey",
+        "Node Type": "Index Scan",
+        "Relation Name": "derivation",
+        "Rows Removed by Filter": null
+      },
+      {
+        "Actual Loops": 3,
+        "Actual Rows": 1.0,
+        "Index Name": "source_snapshot_pkey",
+        "Node Type": "Index Scan",
+        "Relation Name": "source_snapshot",
+        "Rows Removed by Filter": null
+      }
+    ],
+    "parameters": [
+      "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+      0,
+      "%metformin%",
+      "%500 MG%",
+      "%500 MG%",
+      "%TABLET%",
+      "%TABLET%",
+      3,
+      "%metformin%",
+      "%500 MG%",
+      "%TABLET%"
+    ],
+    "sql": "WITH matched AS MATERIALIZED (\n SELECT * FROM dl_evidence.observation WHERE derivation_id=%s\n AND entity_type='drug_product' AND source_table='drug_identities'\n AND source_row_ordinal>%s AND fields->>'drug_name' ILIKE %s ESCAPE '!'\n AND (%s::text IS NULL OR NULLIF(btrim(fields->>'ingredient_strength_description'),'') IS NULL\n      OR fields->>'ingredient_strength_description' ILIKE %s ESCAPE '!')\n AND (%s::text IS NULL OR NULLIF(btrim(fields->>'dose_form'),'') IS NULL\n      OR fields->>'dose_form' ILIKE %s ESCAPE '!')\n ORDER BY source_row_ordinal LIMIT %s)\n SELECT o.*,r.raw_payload,r.raw_sha256,r.record_id,r.source_row_key,r.ordinal_basis,\n d.snapshot_id,d.adapter_code_sha256,s.original_path,s.artifact_sha256,\n s.source_use_state AS snapshot_source_use_state,\n o.fields->>'drug_name' ILIKE %s ESCAPE '!' AS name_literal_observed,\n CASE WHEN NULLIF(btrim(o.fields->>'ingredient_strength_description'),'') IS NULL THEN NULL\n      ELSE o.fields->>'ingredient_strength_description' ILIKE %s ESCAPE '!' END AS strength_literal_observed,\n CASE WHEN NULLIF(btrim(o.fields->>'dose_form'),'') IS NULL THEN NULL\n      ELSE o.fields->>'dose_form' ILIKE %s ESCAPE '!' END AS form_literal_observed\n FROM matched o JOIN dl_evidence.source_record r USING(derivation_id,source_table,source_row_ordinal)\n JOIN dl_control.derivation d USING(derivation_id)\n JOIN dl_control.source_snapshot s USING(snapshot_id) ORDER BY o.source_row_ordinal",
+    "sql_sha256": "54418d3e08f099fa48d05ed4ff7a242d3355dd7027523678e8e92d55e205e183"
+  },
+  "remaining_limits": [
+    "Operator-only discovery over the retained 4,547-row dictionary, not a complete or current terminology service.",
+    "Case-insensitive literal substrings retrieve candidates; one result or a strength-text occurrence is not identity or dose equivalence.",
+    "Only outer query whitespace is removed; no typo correction, synonym/brand expansion, ingredient inference or unit conversion.",
+    "Source strength/form omissions remain unknown even when the name contains apparent details; packs are not decomposed.",
+    "Optional strength/form filters retain name candidates whose corresponding source attribute is missing, explicitly unresolved.",
+    "A missing literal result is unknown within this selection; it is not absence of coverage, a clinical finding or a suggested substitute.",
+    "Exact RxCUI selection and item/report-specific confirmation are separate actions; no customer item is bound here.",
+    "The dictionary has no offering/formulary membership, quantity, pharmacy, price or personal approval grain.",
+    "Source access, evidence/method acceptance and consumer-purpose release remain held independently of discovery.",
+    "Eight selected query pages and their returned raw parents were checked, not whole-dictionary semantic correctness or current RxNorm status.",
+    "Wildcard, continuation, source omission, pack and unknown-result cases are public source/fixture queries, not customer profile matches.",
+    "Literal strength text can occur within a different numeric expression, such as 5 MG inside 2.5 MG; this seam never treats the occurrence as dose equivalence.",
+    "No source acquisition, fuzzy resolver, synonym service, dose conversion, plan/formulary check, pharmacy/price check, HTTP/UI or actual profile integration is supplied.",
+    "The separate exact-RxCUI lookup and owner/item/report-specific confirmation composition require their own integration checks; discovery grants neither identity binding nor output authority."
+  ],
+  "runtime_guard_observation": {
+    "database": "daylight_research_2026_r2",
+    "effective_role": "daylight_research_reader",
+    "transaction_isolation": "repeatable read",
+    "transaction_read_only": "on"
+  },
+  "schema": "local-research-drug-candidate-audit/1",
+  "scope": {
+    "category": "retained_drug_identity_dictionary",
+    "geography": "no_personal_geography_or_offering_scope",
+    "year": 2026
+  },
+  "serving_code_hashes": {
+    "__init__.py": "48528101cdeaea9cf3583c267c67427dcc2baf353a0d6fab4bae99294c7bb46a",
+    "binding.py": "fc4618811408d57499959ac9295413386e310f57ac146a7fd03bf3f006d23c4a",
+    "drug_candidates.py": "9b0618b84cb735e939523634510b140ebdb64d5cbb36620db2e08528490d7f14",
+    "identity.py": "97a1e3a43a3248d6caa1988ee984ec8503d0aea2541bc7605cac6bc7149671cc",
+    "native_lineage.py": "588ac35588b539622b3f09f592696b49f33e50ee450c4465caab9a5cea782c8b",
+    "provider_identity.py": "69665183bd02494b05b312c1dbcb6e0faa4dbe84fcea6e35bd42693ea945d42d",
+    "repository.py": "850c8322957841463d9a69d1486eb42a233c2be2c6858fff9a86cf9c4674ae5d"
+  },
+  "source_access_registration": {
+    "absence_is_permission": false,
+    "output_authority": "held",
+    "registered_source_ids": [],
+    "requested_source_ids": [
+      "sealed-local:L05",
+      "L05"
+    ],
+    "state": "unregistered"
+  },
+  "source_access_states": [],
+  "source_artifact": {
+    "bytes": 140193792,
+    "observed_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+    "path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+    "population_controls": {
+      "max_year": 2026,
+      "min_year": 2026,
+      "missing_form": 28,
+      "missing_name": 0,
+      "missing_strength": 28,
+      "offering_rows": 0,
+      "pack_rows": 285,
+      "rows": 4547
+    },
+    "selected_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7"
+  },
+  "source_or_database_mutated": false,
+  "source_policy_binding": {
+    "L05_allowed_outputs": [
+      "Internal exact-drug/plan research lookup and inspectable condition evidence with explicit dates, flags and unknown states.",
+      "Drug name/strength/form identity confirmation candidates from the retained CMS/NLM dictionary, subject to trusted matching/explicit confirmation rather than fuzzy auto-binding.",
+      "Review catalog of resolved and unresolved source rows without personal approval claims."
+    ],
+    "L05_held_outputs": [
+      "Consumer accepted drug-coverage release (actual human acceptance remains null).",
+      "Automatic PA/ST clinical adjudication, personal clinical approval, normalized days supply from unsupported units or a coverage/price promise.",
+      "Backdating October criteria into September or converting current questionnaire presence into full criteria completeness.",
+      "Drug-based recommendation/annual cost ranking before L06/L07 and exact personal facts/models/acceptance."
+    ],
+    "meaning": "Existing internal research permission; no new source permission, acceptance or consumer release.",
+    "path": "infrastructure/daylight-data/config/source-composition.2026.json",
+    "sha256": "eccf8200870dd68333caa65a1cafe72a8d0441057ce51ea65d4eacdef177ddc3"
+  },
+  "tests": {
+    "command": "PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_research_drug_candidates.py tests/test_research_provider_identity.py tests/test_research_identity.py tests/test_research_serving.py",
+    "elapsed_seconds": 0.3,
+    "new_drug_candidate_tests": 48,
+    "observation": "Earlier focused synthetic run bound to the same final module/test bytes, not rerun by receipt generation.",
+    "passed": 129
+  }
+}

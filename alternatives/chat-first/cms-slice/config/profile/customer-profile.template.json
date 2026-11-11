@@ -1,0 +1,850 @@
+{
+  "templateVersion": "customer-profile-input-map-20261023-v1",
+  "storage": "Existing cookie-owned GuestProfiles guide + ReadinessProfiles companion, not a separate profile database. Missing entries mean unanswered.",
+  "guide": {
+    "schemaVersion": 2,
+    "stateVersion": 0,
+    "fields": {},
+    "flow": {
+      "node": "T01",
+      "history": [],
+      "queue": [],
+      "lessonReturn": null,
+      "personalReview": false,
+      "guideOpen": true,
+      "origin": "T01",
+      "invalidations": [],
+      "scroll": 0
+    },
+    "topics": {},
+    "preferences": {
+      "saveGuide": false,
+      "saveSensitive": false,
+      "noticeVersion": "guest-notice-2026-10-21-v1"
+    }
+  },
+  "readiness": {
+    "schemaVersion": 1,
+    "ruleVersion": "readiness-inputs-20261022-v1",
+    "stateVersion": 0,
+    "guideFingerprint": "",
+    "facts": {},
+    "entityDispositions": {},
+    "requests": [],
+    "detailsRequested": false,
+    "completeness": {},
+    "dispositions": {},
+    "queue": [],
+    "index": 0,
+    "shown": [],
+    "pass": 0,
+    "history": [],
+    "mode": "summary",
+    "editNotice": false,
+    "reviewOnly": false
+  },
+  "questionMapRef": "question-map.json",
+  "states": [
+    "unanswered",
+    "reported",
+    "tentative",
+    "unknown",
+    "deferred",
+    "not_applicable",
+    "needs_review"
+  ],
+  "verification": "No user report is independently verified. Evidence from trusted external adapters is required separately.",
+  "forbidden": [
+    "SSN",
+    "Medicare number",
+    "credentials",
+    "unnecessary clinical or financial details"
+  ],
+  "fieldDefinitions": {
+    "guide.fields.intent.goal": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.intent.goalDetail": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.knowledge.general": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.comparison.scope.zip": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.comparison.scope.county": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.comparison.scope.locationEvidence": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.coverage.requestedStart": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.coverage.requestedStartMonth": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.coverage.current": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.providersStatus": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.providers": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.medicinesStatus": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.medications": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.medicationDetails": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.pharmacies": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.travel": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.costPreference": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.priorities": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "guide.fields.needs.priorityOther": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC01.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC02.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC02.value.zip": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC02.value.county": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC02.value.homeStatus": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC03.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC03.value.year": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC04.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC05.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC05.value.month": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC06.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC06.value.ageBand": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC07.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC08.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC08.value.eventDate": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC09.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC10.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC11.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC11.value.jobEnd": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC11.value.coverageEnd": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC12.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC12.value.gap": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC13.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC14.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC15.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC15.value.event": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC16.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC16.value.start": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC16.value.priorMedigap": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC17.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC18.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC19.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC19.value.qualification": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC20.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC20.value.location": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC21.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC21.value.items[].entity": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC21.value.items[].practice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC21.value.items[].city": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC22.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC22.value.items[].entity": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC22.value.items[].name": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC22.value.items[].strength": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC22.value.items[].form": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC22.value.items[].brand": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.items[].entity": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.items[].quantity": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.items[].daysSupply": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.items[].pharmacy": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.items[].channel": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC23.value.items[].supply": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC24.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC25.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC25.value.amount": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC25.value.includes": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC26.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC27.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    },
+    "readiness.facts.RC28.value.choice": {
+      "value": null,
+      "state": "unanswered",
+      "confirmation": null,
+      "source": null,
+      "revision": null,
+      "confirmedAt": null,
+      "evidenceRefs": [],
+      "verified": false
+    }
+  },
+  "historicalBindings": {
+    "active": false,
+    "source": "question-map.json#/historicalQuestionNodes",
+    "collection": "Not collected by this template/gate. Existing old reports stay in their original storage; no migration."
+  }
+}

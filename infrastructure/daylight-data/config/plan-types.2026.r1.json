@@ -1,0 +1,412 @@
+{
+  "schema": "collier-plan-types-selection/1",
+  "scope": {
+    "reference_year": 2026,
+    "county_fips": "12021",
+    "pdp_region": "11"
+  },
+  "consumer_release": "held",
+  "parents": [
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/manifest.json",
+      "sha256": "21a962f6c25491fac02abb42b89def4f0eefdd4a1aa343b591bd89872298bcae"
+    },
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/manifest.json",
+      "sha256": "928a21745a4d04963793573fb4db7290ee3cd3461c22fdee989e6fb0640bb8d5"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/manifest.json",
+      "sha256": "e80d3d4e17505f65dad5dd391e08fbd406d058440281af3f8a2330bf18a3df53"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/manifest.json",
+      "sha256": "505071f4574cae4bb9b9a9ee6b6207d5d2b39ba15c4fdcfc7936a219b58bc76f"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/manifest.json",
+      "sha256": "5341a0a3cfa09e05d962ac7e21a58654bbcf794debf93aa374c22a977d79cd05"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/manifest.json",
+      "sha256": "acb6f97b844f1cae551ef940e1b15b6053c7cb6a13ce13e71d5815ba879a95d4"
+    },
+    {
+      "path": "docs/data/infrastructure-execution-2026-10-30-local-full-db/build-r3/BUILD_MANIFEST.json",
+      "sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d"
+    },
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4-validation.json",
+      "sha256": "507ccbe4d6bf0bc2d73cd4595d45795af09a0020373a3a4b27bcd1548f35b46e"
+    },
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3-validation.json",
+      "sha256": "c46a16da99dca41a98617ecb4b3bf82f05a2a16c3064707fcd62628ef80edd93"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2-validation.json",
+      "sha256": "95b11a361cd5ee81545e21dd8f9b962df92e8eddff58b0b2c95257f9ba13a66a"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1-validation.json",
+      "sha256": "feda618c35086844c39b417863ce34fe0eee1772c914990e3c2fd35e053055e3"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/validation.json",
+      "sha256": "14ef556c60ada5e8a5bcf1941fa0d740c2396164f353f88de53ff3126e467042"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/validation.json",
+      "sha256": "492227e337d46b073ed570e82a9bc2f8651a66fa7c88b6e8a892b5aa96bef957"
+    }
+  ],
+  "sources": [
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/records.json",
+      "sha256": "bb706ac4d32f4efe16689ae452e6c4bb519f7287f65f4182b25b03ce800fd547",
+      "format": "array",
+      "role": "pdp"
+    },
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+      "sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+      "format": "sqlite",
+      "tables": {
+        "counties": "pdp_county"
+      }
+    },
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/records.json",
+      "sha256": "171f8da237d9ccdf94a345f268a0e3a83142743bf37005a991a25ecc191070bf",
+      "format": "array",
+      "role": "pdp_restriction"
+    },
+    {
+      "path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/gaps.json",
+      "sha256": "4ff2df31e1b82c9b251fd0f7fa1b94af64d1a19f965652bbfd8a95a8cc6eea0a",
+      "format": "object"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+      "sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+      "format": "sqlite",
+      "tables": {
+        "illustrations": "medigap_illustration",
+        "listings": "medigap_listing",
+        "insurers": "medigap_insurer",
+        "filing_metadata": "research_item"
+      }
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/standardized-benefits.json",
+      "sha256": "e28c5a7cb60b01b6e86bd4687e68899d7fab293053f3a7cd976f92c23cc3da82",
+      "format": "object",
+      "children": {
+        "plans": "medigap_variant",
+        "cells": "medigap_benefit",
+        "conditions": "medigap_condition"
+      }
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/product-discovery-map.json",
+      "sha256": "6984ad1434eb02c45af88ff86eed7b01618146649d7d4a5e8b91c660a8699811",
+      "format": "object",
+      "children": {
+        "products": "medigap_product_lead"
+      }
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/carrier-table-observations.json",
+      "sha256": "5f5ff99dddb679604b0bdad6166c3d1467949bcb1aa051006b81f543b277b421",
+      "format": "array",
+      "role": "medigap_monthly_rate"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/product-form-leads.json",
+      "sha256": "3ad4fa04f24ea73e39a578bc2361c8a60332c38354b4b791615666d37e6eb15d",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/filing-details.json",
+      "sha256": "e767a1324e7568450adbe72155d20956d4a6b07dfc0c86e2dd60de78bb8821d1",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/required-coverage-ledger.json",
+      "sha256": "c02acdcd5e2178445a058a7c27ad4866f6a8609c41e470e58e53870143655c34",
+      "format": "object"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/build-r2/source-anomalies.json",
+      "sha256": "20fc2ef6ab0e5a52132e03550e7ae53e54424c6ee5999a6972374b9224d61c80",
+      "format": "object"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/approval-letters.json",
+      "sha256": "a43d9c3878531068b799bef07862ff079dc25617646ccb5160ece3b1deae0616",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/before-after.json",
+      "sha256": "6deb128389eded76a547610071270d0d97146ec0f0b6080716297ffddee049ed",
+      "format": "object",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/company-source-queue.json",
+      "sha256": "5d0df9e5bd5d2010559ac1786dc0e64e8daaab5d82e58ded17545b9448e2310f",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/comparison-summary.json",
+      "sha256": "191b6b6d8b90eaa0887b420361048802d457e7d6c9fcaddfc2ebeca0db062588",
+      "format": "object",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/conditions.json",
+      "sha256": "d38b7122df03fb05b1f3713903934db94a8b8192f9eac1e401fd8a82be7b63dc",
+      "format": "array",
+      "role": "medigap_condition"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/coverage.json",
+      "sha256": "2f189d7fb672aa40dbfbf024cb6757083dd12e6a2e71b5aa37c530c9854e71df",
+      "format": "object",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/exceptions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/filed-product-census.json",
+      "sha256": "b08c2bf30d86d2b295128e4fdcc3f424dcdead078ac04549d38fba645902de51",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/gaps.json",
+      "sha256": "79ef4a819aeb39650a98ab04a66e832251195ebf75d785f5f49eda681ee6afea",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/page-inventory.json",
+      "sha256": "cc4416fa99e8c90657e9a2f685e03e9291d2459d55b6a206793b831a1139e1fc",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/rate-cells.json",
+      "sha256": "ff33d8009eb3d24405e3dc54c5070845af2110805140e5a83db0163bf0bf3783",
+      "format": "array",
+      "role": "medigap_filed_rate"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/schedules.json",
+      "sha256": "9add19576a8829717722c64ff65308719c3068326da676154dc61f501e626f45",
+      "format": "array",
+      "role": "medigap_schedule"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/broader-census-classification-queue.json",
+      "sha256": "913ad198790604e5d727d822e51049daed7815959dff3f44ba5f0c0018bbf26e",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/carrier-form-crosswalk.json",
+      "sha256": "34a4db5fa59093cd20f9a0e6dfc34a30ca6ca625bc30461935ec449be4957f12",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/carrier-published-claims.json",
+      "sha256": "ba8d8059a940fdce597ef8dc8576b7de8c5e0559ca584f9bd83c95dd971e4744",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/company-evidence-matrix.json",
+      "sha256": "2f45e347c055a0137a0bbf7428d4aa2585b78e8a160f23c90daf05682e4339f0",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/coverage.json",
+      "sha256": "0effd749b6ded0d5ae597aca60619c262645e872901b224168c6ca28459c2a04",
+      "format": "object",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/document-registry.json",
+      "sha256": "eee09e94758941568e8357be28252a4c766a79eafa72bd9d6a382ef0c2c755bc",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/download-items.json",
+      "sha256": "9af112dd5a4250b8e440e9dad5b4503ee628d9b82096022b64009884f558b8f7",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/earlier-carryforward-reserve.json",
+      "sha256": "e83457d964bb7fb74f70e9140f706cda2141ff95e8c8ca5cdc8641dd8582203c",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/exact-form-leads.json",
+      "sha256": "9c1efa7d0d876e6f9a7815dcc535fde7e775eb7047598ead33d37b000ae8f959",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/filing-records.json",
+      "sha256": "5ef14ac0e34eff9a58fa711b30e8f9394a018187e85a94d63bc518532b8aacfe",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/future-cycle-holds.json",
+      "sha256": "b244c0b6701c9974c6abafa1225a2f042d93c3c5c2c8e80bd8f3d052ded83c1d",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/group-comparisons.json",
+      "sha256": "ea83b3e38f7d2ccf1686cee1278437c0ac2dd1d78e2d80e36302b1082244f612",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/group-conditions.json",
+      "sha256": "4170ad701839c0a7cdeba8c9c34d08908b344e04a2ef6e8e53635057c6533555",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/group-rate-observations.json",
+      "sha256": "aa240b3ba9df47b0095390c35ec569da0fcb10a0c97e3048281bdffa8907e74f",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/published-discount-questionnaire.json",
+      "sha256": "8ce9c16eff0c631f03d7c0b8517574b3b5107cb4b0004451b3e839e33967ea8e",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/schedule-block-leads.json",
+      "sha256": "72bc6c965c2bf374686d5ee180f5293f344f23abc9a1b34ec27b1ce0b910e7f2",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/approval-letters.json",
+      "sha256": "958baadb925ad22dfc98571dccefbcd3ba3792226d7321add8328d6121cf5941",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/blue-carrier-comparisons.json",
+      "sha256": "8efd882b33fcb7be2bc9eef2536d99852c6785a120409ee6126f34b54973eecd",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/conditions.json",
+      "sha256": "0d2744f92424b63c35a2860c6c5cdf7d5e973f6a5c3639407f56bb589699f3ec",
+      "format": "array",
+      "role": "medigap_condition"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/coverage.json",
+      "sha256": "a82df51b4489b71767a91dac40739469940de3c93cd47c112654067e602623b2",
+      "format": "object",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/interval-continuity.json",
+      "sha256": "878d9cc9e8c4d5a8dfcb5309a8290be3c362df441859b8341e488e7a8b0fd5ef",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/nonworksheet-candidates.json",
+      "sha256": "19a9e85501a4bafd87948cc70709ad527f62a74d30312dd5b0f9a1e68ea3e777",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/original-form-bindings.json",
+      "sha256": "f6831d5987c1809453a784e9f755f91e4d145f341f1a9867dab3a7fef24edb04",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/page-inventory.json",
+      "sha256": "06a4666eb5190b3a229ab35c053b1df39db7e75c25a285b279550a09f26c9b53",
+      "format": "array",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/rate-cells.json",
+      "sha256": "78939b99159e8a8ba76c4fc52650a0af2d7271923961b5761c12feae398f80d4",
+      "format": "array",
+      "role": "medigap_filed_rate"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/reconciliation-summary.json",
+      "sha256": "63af062caad6791d3834bdd1279906f0f22b685cc23c660821c16e2362bf8681",
+      "format": "object",
+      "role": "research_item"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/schedules.json",
+      "sha256": "bb8afc81c3411f86ad47bd1174206000809723da2ba4fe354f5c81c7b1f9d0ce",
+      "format": "array",
+      "role": "medigap_schedule"
+    },
+    {
+      "path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/worksheet-holds.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "format": "array",
+      "role": "research_item"
+    }
+  ],
+  "source_policy": {
+    "source_use": "existing_source_policy_applies_not_newly_reviewed",
+    "acquisition": "offline_only",
+    "inherited_STOPs_preserved": true,
+    "network_connectors_enabled": false,
+    "personal_inputs_allowed": false,
+    "inherited_source_access_states": []
+  },
+  "review_due": {
+    "L04": "2026-11-24T00:00:00+00:00",
+    "L10": "2026-11-28T00:00:00+00:00"
+  },
+  "expected_counts": {
+    "pdp_offering": 10,
+    "pdp_field": 310,
+    "pdp_county": 67,
+    "pdp_restriction": 10,
+    "medigap_variant": 12,
+    "medigap_benefit": 108,
+    "medigap_product_lead": 213,
+    "medigap_monthly_rate": 680,
+    "medigap_illustration": 115500,
+    "medigap_schedule": 628,
+    "medigap_filed_rate": 63196
+  }
+}
