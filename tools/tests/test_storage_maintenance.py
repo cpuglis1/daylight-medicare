@@ -2,6 +2,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -37,6 +38,7 @@ class PreservationTests(unittest.TestCase):
             m.coalesce(self.root, self.run)
         self.assertEqual(inode, self.b.stat().st_ino)
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'APFS clonefile is macOS-only')
     def test_real_restore_and_independent_cow_preserve_original_paths_and_metadata(self):
         self.inventory()
         m.recover(self.root, self.run)

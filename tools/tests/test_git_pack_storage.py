@@ -24,6 +24,7 @@ class GitPrefixTests(unittest.TestCase):
                'mtime_ns':p.stat().st_mtime_ns} for p in (self.a,self.b)]
         (self.run/'git-garbage-census.json').write_text(json.dumps({'files':rows}))
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'APFS clonefile is macOS-only')
     def test_prefix_recovery_and_cow_keep_every_original_byte_and_path(self):
         self.a.chmod(0o400); self.b.chmod(0o400)
         g.plan(self.root,self.run); g.recover(self.root,self.run)
