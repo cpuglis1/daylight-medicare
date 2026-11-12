@@ -177,5 +177,18 @@ class D138Tests(unittest.TestCase):
         self.assertEqual([item['id'] for item in step['items'] if not item['complete']], ['how_to_file_complaints'])
 
 
+    def test_a_reply_that_names_the_ready_tab_is_grounded(self):
+        """Found in the November 11 live rerun: the reply named the tab as told and was rejected."""
+        self.ready()
+        self.turn({'type': 'task', 'task': 'medigap', 'preparing': True}, aiConsent=False, contextPolicy=None)
+        reply = ('The Medicare Supplement (Medigap) tab on the Plans page now lists premiums for your details. '
+                 'The pilot list covers ages 65–74 in ZIPs 34101–34108, and the Part D drug plans tab has the 2026 plans for Collier County.')
+        self.compositions.append({'reply': reply})
+        result = self.message('Can you show me what the supplement plans cost?',
+                              extraction=self.extraction(mode='answer', fact_ids=[]))
+        self.assertEqual(result['generated']['status'], 'complete', result['generated'])
+        self.assertIn('Medicare Supplement (Medigap) tab', result['reply'])
+
+
 if __name__ == '__main__':
     unittest.main()

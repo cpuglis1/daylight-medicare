@@ -177,6 +177,14 @@ Precedence: latest explicit owner decision → stable numbered requirements → 
 
 ### Confirmed owner decisions, not open questions
 
+**D145 · November 12, 2026:** Provide a unified local demo at :8895 before AWS,
+serving the current :8894 UI and advisor API directly with D144's separate
+verified database. Keep independent guest storage/cookies and the existing
+shared development budget. This changes local wiring, not the consumer flow or
+acceptance gates. :8893/:8894 remain available. Hosted invitation, privacy and
+cumulative-budget controls still require their own exact deployment checks.
+[Implementation and checks](../../audit-evidence/unified-demo-8895-20261112/README.md).
+
 **D137 · November 11, 2026:** Restore **Daylight** and **Medicare, plain as day.** on :8894, with the earlier support sentence **Understand your coverage options and prepare to enroll, at your pace.** Restore the backend advisor identity and authored public messages too. This supersedes the MidMorning branding in D121/D122/D125 and subsequent plan-tab labels, preserving newer functionality, internal names, data and release gates. [Restoration evidence](../../audit-evidence/daylight-restore-20261111/README.md).
 
 **D125 · November 10, 2026:** Perform a final :8894 sweep for leftover Daylight branding, including errors, preserving internal names and saved data. The inspected screens, labels and isolated failure checks passed without further app edits or a restart. [Final audit evidence](../../audit-evidence/midmorning-final-pass-8894-20261110/README.md).

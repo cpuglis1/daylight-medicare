@@ -1,6 +1,6 @@
 # Daylight: current state
 
-Living document · last updated November 11, 2026 (America/New_York), through D141. Edit this
+Living document · last updated November 12, 2026 (America/New_York), through D145. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 
@@ -75,6 +75,7 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
 
 | Port | Source | Status |
 | --- | --- | --- |
+| :8895 | `alternatives/advisor-first/demo_server.py`, current `web-8894/` assets | D145 unified local demo: one loopback process serves the UI and API directly, using the D144 195 MB database. Independent guest store/cookies; shared existing development model budget. No :8893/:8894 proxy. Start with `Start Daylight Demo.command`. [Runbook and checks](../../audit-evidence/unified-demo-8895-20261112/README.md). |
 | :8893 | `alternatives/advisor-first/` | Daylight advisor backend (D137 restores the name). The reference `web/` frontend retains Daylight branding. Scoped rules in its [AGENTS.md](../../alternatives/advisor-first/AGENTS.md). |
 | :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | Daylight consumer interface (D137), with “Medicare, plain as day.” and “Understand your coverage options and prepare to enroll, at your pace.” Retains D93/D109 layout and behavior. Forwards API requests to :8893; D137 restores Daylight model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile and refreshes prices automatically. D131 replaces duplicate Medigap-page intake with “Talk to Daylight”; missing questions and corrections use the existing chat buttons/free text, preserving known reports and drafts. [Conversation entry](../../audit-evidence/medigap-conversation-entry-20261110/README.md). [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). D134 connects the Part D tab to the ten dated 2026 Collier PDP offerings, using the shared chat profile and the same conversation-first entry, cards/details/comparison. Published premiums/deductibles are available; personal drug costs and enrollment checks remain held. [Part D verification](../../audit-evidence/part-d-ui-8894-20261110/README.md). Internal identifiers, saved data and MA logic remain unchanged. |
 | :8890 | `cms-slice/apps/ten-question/` | Protected original ten-question journey. |
@@ -93,6 +94,22 @@ error checks retain Daylight. No further app edit or restart was needed.
 
 ## Current milestone and data
 
+- **Lean local demo database (D144):** `daylight_pilot_collier_2026_r1` is a
+  separate 195 MB PostgreSQL display subset; the original research database is
+  preserved (now measured at 31.01 GB after later imports). It retains the
+  complete 320-profile/55,040-rate/3,840-benefit CSG cache and a separately bound
+  copy of the 21 source-linked records behind the ten-plan Part D display.
+  The 72 MA offerings keep their existing catalog files (10.46 MB of catalog
+  and authority dependencies copied). All-column CSG parity, all 320 Medigap
+  panel outputs and the full PDP output pass. The app has an explicit
+  `--pilot-data` mode. D145 now runs the current UI and API together on :8895
+  against this subset; the running :8893/:8894 services have not been switched.
+  Original source controls must be reconciled before use/transfer; future
+  STOPs do not propagate automatically between databases. Part D's retained
+  earliest review deadline is November 24, 2026 at 00:00 UTC. The 12.18 MB
+  compressed export passed full decompression/hash verification. AWS deployment,
+  target-host recovery, source acceptance and budget changes remain separate.
+  [Evidence and local connection](../../audit-evidence/collier-pilot-subset-20261112/README.md).
 - **Demo continuity and AWS launch workstream (D140–D141):** Keep the consumer
   tool login-free. :8894 source now recovers accepted reports, the latest reply
   and the current plan tab after an ordinary reload, using a cookie-bound
@@ -240,20 +257,21 @@ error checks retain Daylight. No further app edit or restart was needed.
 
 | Decision | State |
 | --- | --- |
-| Launch human-involvement level (brokerage plan §3) | Owner has indicated Option B (async licensed review). Record it as a numbered decision to make it binding. |
+| Launch human-involvement level (brokerage plan §3) | D143: owner chooses Option A. The owner, as licensed agent in charge, approves deterministic methods in advance; recommendation and enrollment are self-guided with no per-case review. Counsel's written answer remains required before real recommendations or enrollment. |
 | Pilot AWS hosting budget | Owner reports setting $20/month in AWS Budgets (D102). Verify budget scope, workload account access and host estimate before provisioning. |
 | Legal and operating route (counsel questions, brokerage plan §7) | Pending counsel. Add: whether HIPAA formally applies to the agency. |
-| Legal entity name and consumer brand (D137) | Local :8894 branding and the shared advisor identity are restored to **Daylight**, with **Medicare, plain as day.** The earlier naming screens remain historical evidence. Chris Paluzzi Insurance Agency, LLC remains the recommended legal name. Clearance and public rollout remain open. [Restoration](../../audit-evidence/daylight-restore-20261111/README.md) · [Name-screen history](../reviews/brand-screen-2026-11-10/README.md). |
-| Enrollment route and FMO | Not started. HealthSherpa Medicare is the first candidate to evaluate. |
+| Legal entity name and consumer brand (D137) | Local :8894 branding and the shared advisor identity are restored to **Daylight**, with **Medicare, plain as day.** The earlier naming screens remain historical evidence. D143: the legal entity is CSquared, a Delaware C-corp (filing planned January 1, 2027); Daylight remains the public brand. Trademark clearance remains open. [Restoration](../../audit-evidence/daylight-restore-20261111/README.md) · [Name-screen history](../reviews/brand-screen-2026-11-10/README.md). |
+| Enrollment route and FMO | D143: Spark Advisors is the FMO in talks (demo pending). Enrollment route not yet chosen. |
 
 ## How work runs
 
-- **Shared knowledge (D113):** the private `daylight_obsidian/` vault indexes local
-  sources, connected Drive material and relevant owner ChatGPT history for use
-  on this Mac by Codex and Claude Code. Originals retain their authority;
-  generated snapshots and historical conversations are not acceptance. Use the
-  [Obsidian runbook](OBSIDIAN.md) for refresh, conflicts, shared skills and backup.
-  Refreshes are on demand; the vault is not connected to the consumer advisor.
+- **Business context (D142):** direction, status, business decisions and open
+  questions live in the Daylight Brain, a small Obsidian vault in the owner's
+  Google Drive, synced to this Mac at
+  `~/Library/CloudStorage/GoogleDrive-chris@daylightmedicare.com/My Drive/Daylight/Daylight Brain/`.
+  Read its `AGENTS.md` for company context. The D113 `daylight_obsidian/` vault is
+  retired and kept only as reference; do not run `tools/obsidian/sync.py` or the
+  `daylight-knowledge` skill. Neither vault is connected to the consumer advisor.
 - The main folder holds substantial uncommitted work. Use targeted changes;
   never reset, stash or discard unrelated changes.
 - Paperclip agents work in separate snapshot worktrees, never in this folder.

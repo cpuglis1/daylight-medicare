@@ -160,3 +160,54 @@ tool remains login-free. Apply the established guest, saving, privacy, source
 and pilot admission boundaries. Record implemented checks and unresolved
 deployment work in the [launch checklist](../../infrastructure/daylight-pilot/README.md)
 and [evidence packet](../../audit-evidence/guest-resume-security-20261111/README.md).
+
+## D142 · November 11, 2026 · Retire the repo vault; use the Daylight Brain
+
+The owner retires the `daylight_obsidian/` vault and its D113 refresh tooling.
+Do not run `tools/obsidian/sync.py` or the `daylight-knowledge` skill. Business
+context now lives in the Daylight Brain in the owner's Google Drive (Daylight /
+Daylight Brain), synced to this Mac at
+`~/Library/CloudStorage/GoogleDrive-chris@daylightmedicare.com/My Drive/Daylight/Daylight Brain/`.
+Its `AGENTS.md` is the entry point. The old vault remains on disk as reference
+only. This repository's authority order, numbered decisions and engineering
+rules are unchanged.
+
+## D143 · November 11, 2026 · Option A; CSquared; Spark
+
+The owner chooses Option A over the earlier Option B indication. As the licensed
+agent in charge, the owner approves the deterministic decision methods in
+advance; recommendation and enrollment are fully self-guided with no per-case
+licensed review. Counsel's written answer on required licensed involvement
+remains an open dependency before any real recommendation or enrollment. The
+legal entity is CSquared, a Delaware C-corp (Clerky; filing planned January 1,
+2027); Daylight remains the public brand. Spark Advisors is the FMO in talks.
+
+## D144 · November 12, 2026 · Separate lean Collier demo database
+
+The owner references Claude's proposal to retain the research database locally,
+defer RDS and copy only pilot-serving data, and says: “I generally agree. what is
+the leanest verified version or subset of the database that can be used for the
+local collier county pilot? Don't delete anything. the end result is a 29gb db
+and another smaller db that the app can use for the demo.” The owner also directs
+consulting the second brain. Build an additive, verified local display subset;
+retain the original database, evidence, source STOPs and existing consumer gates.
+No cloud spend, budget-alert change or hosted release is implied. See the
+[implementation and verification](../../audit-evidence/collier-pilot-subset-20261112/README.md).
+
+
+## D145 · November 12, 2026 · Unified local demo before AWS
+
+“Would it be possible to wire a local host port that has a tidy front end back
+end using the demo db. different from 93+94, just all in one? Would that make
+the most sense before we port things into aws. And, please track these
+differences in the second brain if so”
+
+Implement the separate local integration baseline at :8895: the current :8894
+frontend plus direct advisor API in one process, the D144 verified demo database,
+independent guest store/cookies, and the existing shared local model allowance.
+Record current local and future AWS differences in the Daylight Brain. Preserve
+:8893/:8894, the full research database, protected variants/stores, source STOPs,
+sealed history, consent, independent inclusion and all acceptance gates. This
+local service does not implement the hosted invitation gate or cumulative pilot
+budget and does not authorize participant admission or cloud provisioning.
+[Verification and operating instructions](../../audit-evidence/unified-demo-8895-20261112/README.md).
