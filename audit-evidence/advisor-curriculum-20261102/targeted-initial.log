@@ -1,0 +1,33 @@
+..Daylight composition unavailable code=transport_or_format question_available=True
+.............Daylight extraction unavailable code=transport_or_format
+........F................Daylight composition unavailable code=unavailable question_available=True
+.................F...................
+======================================================================
+FAIL: test_mixed_educational_question_keeps_clear_report_and_reviewed_evidence (test_natural_flow.NaturalFlowTests.test_mixed_educational_question_keeps_clear_report_and_reviewed_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 257, in test_mixed_educational_question_keeps_clear_report_and_reviewed_evidence
+    self.assertIn('basics', out['advisor']['teachingFactIds'])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'basics' not found in []
+
+======================================================================
+FAIL: test_timing_answer_and_current_insurance_question_share_a_grounded_turn (test_ongoing_advisor.OngoingAdvisorTests.test_timing_answer_and_current_insurance_question_share_a_grounded_turn)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_ongoing_advisor.py", line 99, in test_timing_answer_and_current_insurance_question_share_a_grounded_turn
+    self.assertEqual(out['advisor']['teachingFactIds'], ['enrollment_intro'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['enrollment_intro']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'enrollment_intro'
+
+- []
++ ['enrollment_intro']
+
+----------------------------------------------------------------------
+Ran 77 tests in 36.836s
+
+FAILED (failures=2)

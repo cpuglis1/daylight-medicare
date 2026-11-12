@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 51552,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9973,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 327,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 10300
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Here’s a short checklist.\\n\\nAsk the plan:\\n• What is my exact plan name and year?\\n• Is this cardiologist’s Bonita Springs office in network for my exact plan?\\n• Do I need a referral or prior authorization for cardiology visits or tests?\\n• What would I pay for a specialist office visit?\\n• What would I pay for common cardiology tests, and where can they be done in network?\\n\\nAsk the office:\\n• Do you participate in my exact Medicare Advantage plan, not just the carrier?\\n• For the Bonita Springs location, are you accepting that plan for routine cardiology care?\\n• Do you require a referral or plan approval before scheduling?\\n• Which labs or testing sites do you use, and are they usually in network?\\n\\nWhat this establishes: exact plan match, office participation, plan rules, and likely visit/test costs. What it does not establish by itself: your total yearly spending.\",\"question\":\"\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\",\"readiness.RC21.doctor-1.city\"],\"evidence_refs\":[\"checks\",\"advantage\",\"costs\"],\"agenda_update\":{\"current_concern\":\"short list of questions for the plan and office about seeing that doctor\",\"pause\":true},\"education\":{\"purpose\":\"answer\",\"updates\":[],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[],\"next_step\":\"pause\"}}"
+  },
+  "elapsed_seconds": 6.397336
+}

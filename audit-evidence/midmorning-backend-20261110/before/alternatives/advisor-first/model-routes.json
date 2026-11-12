@@ -1,0 +1,48 @@
+{
+  "schema": "daylight-model-routes/v1",
+  "note": "AI-04 static allowlist. Every live model request must match exactly one route for the active environment (DAYLIGHT_MODEL_ENVIRONMENT; development when unset). There is no fallback. Change this file only through founder-reviewed pull requests. Never put a key here.",
+  "routes": [
+    {
+      "id": "development-openai",
+      "environment": "development",
+      "provider": "openai",
+      "data": "fictional",
+      "models": ["gpt-6.1-sol", "gpt-5.4"],
+      "endpoints": {
+        "responses": "https://api.openai.com/v1/responses",
+        "input_tokens": "https://api.openai.com/v1/responses/input_tokens"
+      },
+      "project": null,
+      "region": "provider-default",
+      "note": "Fictional people only. gpt-6.1-sol is the model that ships to the pilot. Set project to the separate test project's id (proj_…) once it exists, so test traffic cannot use the production project."
+    },
+    {
+      "id": "development-anthropic",
+      "environment": "development",
+      "provider": "anthropic",
+      "data": "fictional",
+      "models": ["claude-opus-5-5"],
+      "endpoints": {
+        "messages": "https://api.anthropic.com/v1/messages",
+        "count_tokens": "https://api.anthropic.com/v1/messages/count_tokens"
+      },
+      "project": null,
+      "region": "provider-default",
+      "note": "Existing development option under D90. Not allowed in the pilot (D101)."
+    },
+    {
+      "id": "pilot-openai",
+      "environment": "pilot",
+      "provider": "openai",
+      "data": "health",
+      "models": ["gpt-6.1-sol"],
+      "endpoints": {
+        "responses": null,
+        "input_tokens": null
+      },
+      "project": null,
+      "region": "us",
+      "note": "Blocked until filled in from AI-02/AI-05: the production project id under the BAA with Modified Retention, and the exact endpoints confirmed for US processing. store is forced false and OpenAI-hosted tools are refused in code."
+    }
+  ]
+}

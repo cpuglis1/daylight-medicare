@@ -1,0 +1,1227 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Provider Directory API",
+    "x-ibm-name": "provider-directory-api",
+    "version": "1.1.0",
+    "description": "<p>The Florida Blue Provider Directory API is conformant to the Centers for  Medicare & Medicaid Services (CMS) Interoperability and Patient Access  Final Rule (CMS-9115-F). Third-party applications may retrieve current  Florida Blue network provider and pharmacy directory information conformant with CMS requirements. The Provider Directory API is an open access service that does not require  registration. Florida Blue's Provider Directory API conforms to the FHIR R4  standard and the Da Vinci Payer Data Exchange (PDex) Plan Net  Implementation Guide.</p>\nPlease use the below Endpoint URL details to make a call to the service. See the <b> Support </b> section for any additional questions.\n<h5>Technical Standards</h5> <p style=\"margin-left: 25px\">&bull; USCDI,  at 45 CFR 170.213</p>  <p style=\"margin-left: 25px\">&bull; FHIR Release 4.0.1  <a style=\"color: #16b\" href='https://www.hl7.org/fhir/R4/'  target=\"_blank\">https://www.hl7.org/fhir/R4/</a></p>  <p style=\"margin-left: 25px\">&bull; HL7 FHIR U.S. Core IG STU 3.1.1 <a style=\"color: #16b\" href='https://www.hl7.org/fhir/us/core/'  target=\"_blank\">https://www.hl7.org/fhir/us/core/  </a></p>  <p style=\"margin-left: 25px\">&bull; HL7 SMART APP Launch Framework IG 1.0.0  <a style=\"color: #16b\" href='https://hl7.org/fhir/smart-app-launch/'  target=\"_blank\">https://hl7.org/fhir/smart-app-launch/</a></p>  <p style=\"margin-left: 25px\">&bull; OpenID Connect Core 1.0  <a style=\"color: #16b\" href='https://openid.net/specs/openid-connect-core-1_0.html'  target=\"_blank\">https://openid.net/specs/openid-connect-core-1_0.html</a></p> <p style=\"margin-left: 25px\">&bull; PDEX Payer Network Implementation Guide 1.2.0 <a style=\"color: #16b\" href='https://build.fhir.org/ig/HL7/davinci-pdex-plan-net/'  target=\"_blank\">https://build.fhir.org/ig/HL7/davinci-pdex-plan-net/</a></p>",
+    "contact": {
+      "email": "InteroperabilityAPIs@bcbsfl.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://floridablue.com"
+    },
+    "x-ibm-summary": ""
+  },
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/interop/interop-developer-portal/emr/api/v1/fhir",
+  "security": [],
+  "x-ibm-configuration": {
+    "type": "rest",
+    "phase": "realized",
+    "enforced": true,
+    "testable": true,
+    "cors": {
+      "enabled": true
+    },
+    "application-authentication": {
+      "certificate": false
+    },
+    "servers": [
+      {
+        "url": "https://apigw.bcbsfl.com/interop/interop-developer-portal/emr/api/v1/fhir",
+        "description": "",
+        "type": [
+          "production",
+          "development"
+        ]
+      }
+    ]
+  },
+  "tags": [
+    {
+      "name": "Provider"
+    }
+  ],
+  "definitions": {
+    "Endpoint": {
+      "description": "http://hl7.org/fhir/R4/endpoint.html"
+    },
+    "HealthcareService": {
+      "description": "http://hl7.org/fhir/R4/healthcareservice.html"
+    },
+    "InsurancePlan": {
+      "description": "http://hl7.org/fhir/R4/insuranceplan.html"
+    },
+    "Location": {
+      "description": "http://hl7.org/fhir/us/core/STU3.1/StructureDefinition-us-core-location.html"
+    },
+    "Organization": {
+      "description": "http://hl7.org/fhir/us/core/STU3.1/StructureDefinition-us-core-organization.html"
+    },
+    "OrganizationAffiliation": {
+      "description": "http://hl7.org/fhir/R4/organizationaffiliation.html"
+    },
+    "Practitioner": {
+      "description": "http://hl7.org/fhir/us/core/STU3.1/StructureDefinition-us-core-practitioner.html"
+    },
+    "PractitionerRole": {
+      "description": "http://hl7.org/fhir/R4/practitionerrole.html"
+    }
+  },
+  "paths": {
+    "/PractitionerRole/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "PractitionerRole covers the recording of the location and types of services that Practitioners are able to provide for an organization",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported."
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/PractitionerRole": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "PractitionerRole covers the recording of the location and types of services that Practitioners are able to provide for an organization",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "description": "Select PractitionerRoles with the specified role",
+            "type": "string"
+          },
+          {
+            "name": "specialty",
+            "in": "query",
+            "required": false,
+            "description": "Select PractitionerRoles associated with the specified specialty",
+            "type": "string"
+          },
+          {
+            "name": "practitioner",
+            "in": "query",
+            "required": false,
+            "description": "Select roles filled by the specified practitioner",
+            "type": "string"
+          },
+          {
+            "name": "organization",
+            "in": "query",
+            "required": false,
+            "description": "Select PractitionerRoles available at the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "description": "Select PractitionerRoles available at the specified location",
+            "type": "string"
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "required": false,
+            "description": "Select PractitionerRoles providing the specified service",
+            "type": "string"
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "required": false,
+            "description": "Select roles where the practitioner is a member of the specified health insurance provider network",
+            "type": "string"
+          },
+          {
+            "name": "endpoint",
+            "in": "query",
+            "required": false,
+            "description": "Select PractitionerRoles with the specified endpoint",
+            "type": "string"
+          },
+          {
+            "name": "LastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported."
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/Location/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "A Location includes both incidental locations (a place which is used for healthcare without prior designation or authorization) and dedicated, formally appointed locations",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported."
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/Location": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "A Location includes both incidental locations (a place which is used for healthcare without prior designation or authorization) and dedicated, formally appointed locations",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations with the specified address",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations of the specified type",
+            "type": "string"
+          },
+          {
+            "name": "partof",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations that are part of the specified location",
+            "type": "string"
+          },
+          {
+            "name": "organization",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations managed by the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "endpoint",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations with the specified endpoint",
+            "type": "string"
+          },
+          {
+            "name": "address-city",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations with the specified address.city",
+            "type": "string"
+          },
+          {
+            "name": "address-state",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations with the specified address.state",
+            "type": "string"
+          },
+          {
+            "name": "address-postalcode",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations with the specified address",
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported."
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/Practitioner/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "Practitioner covers all individuals who are engaged in the healthcare process and healthcare-related services",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/Practitioner": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "Practitioner covers all individuals who are engaged in the healthcare process and healthcare-related services",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "Select Practitioners with the specified name (matches against any of the elements in the HumanName data type)",
+            "type": "string"
+          },
+          {
+            "name": "family",
+            "in": "query",
+            "required": false,
+            "description": "Select Practitioners with the specified family name.",
+            "type": "string"
+          },
+          {
+            "name": "given",
+            "in": "query",
+            "required": false,
+            "description": "Select Practitioners with the specified given name.",
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/OrganizationAffiliation/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The OrganizationAffiliation enables defining non-hierarchical relationships between organizations",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/OrganizationAffiliation": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The OrganizationAffiliation enables defining non-hierarchical relationships between organizations",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "required": false,
+            "description": "Select roles where the organization is a member of the specified health insurance provider network",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "description": "Select OrganizationAffiliations with the specified role",
+            "type": "string"
+          },
+          {
+            "name": "specialty",
+            "in": "query",
+            "required": false,
+            "description": "Select OrganizationAffiliations associated with the specified specialty",
+            "type": "string"
+          },
+          {
+            "name": "primary-organization",
+            "in": "query",
+            "required": false,
+            "description": "Select roles offered by the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "participating-organization",
+            "in": "query",
+            "required": false,
+            "description": "Select roles filled by the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "description": "Select OrganizationAffiliations available at the specified location",
+            "type": "string"
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "required": false,
+            "description": "Select OrganizationAffiliations providing the specified service",
+            "type": "string"
+          },
+          {
+            "name": "endpoint",
+            "in": "query",
+            "required": false,
+            "description": "Select OrganizationAffiliations with the specified endpoint",
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/Organization/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The Organization resource is used for collections of people that have come together to achieve an objective",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported."
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/Organization": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The Organization resource is used for collections of people that have come together to achieve an objective",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "description": "Select organizations with the specified address (matches any of the string elements of an address)",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "Select Organizations with the specified name",
+            "type": "string"
+          },
+          {
+            "name": "partof",
+            "in": "query",
+            "required": false,
+            "description": "Select Organizations that are part of the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "endpoint",
+            "in": "query",
+            "required": false,
+            "description": "Select Organizations with the specified endpoint",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Select Organizations of the specified type",
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported."
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/InsurancePlan/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "A plan pairs the health insurance coverage benefits under a product with the particular cost sharing structure offered to a consumer",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/InsurancePlan": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "A plan pairs the health insurance coverage benefits under a product with the particular cost sharing structure offered to a consumer",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "required": false,
+            "description": "Select products associated with the specified health insurance provider network",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "Select products with the specified name",
+            "type": "string"
+          },
+          {
+            "name": "plan-type",
+            "in": "query",
+            "required": false,
+            "description": "Select plans of the specified type",
+            "type": "string"
+          },
+          {
+            "name": "administered-by",
+            "in": "query",
+            "required": false,
+            "description": "Select products that are administered by the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "owned-by",
+            "in": "query",
+            "required": false,
+            "description": "Select products that are owned by the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "coverage-area",
+            "in": "query",
+            "required": false,
+            "description": "Select products that are offered in the specified location",
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "required": false,
+            "description": "Select products with the specified identifier.",
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/HealthcareService/{id}": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The HealthcareService resource is used to describe a single healthcare service or category of services that are provided by an organization at a location",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/HealthcareService": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The HealthcareService resource is used to describe a single healthcare service or category of services that are provided by an organization at a location",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "required": false,
+            "description": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "Select HealthcareServices with the specified name",
+            "type": "string"
+          },
+          {
+            "name": "service-category",
+            "in": "query",
+            "required": false,
+            "description": "Select HealthcareServices providing the specified category of services",
+            "type": "string"
+          },
+          {
+            "name": "specialty",
+            "in": "query",
+            "required": false,
+            "description": "Select services associated with the specified specialty",
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "description": "Select HealthcareServices available at the specified location",
+            "type": "string"
+          },
+          {
+            "name": "coverage-area",
+            "in": "query",
+            "required": false,
+            "description": "Select services available in a region described by the specified location",
+            "type": "string"
+          },
+          {
+            "name": "organization",
+            "in": "query",
+            "required": false,
+            "description": "Select HealthcareServices provided by the specified organization",
+            "type": "string"
+          },
+          {
+            "name": "endpoint",
+            "in": "query",
+            "required": false,
+            "description": "Select HealthcareServices with the specified endpoint",
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "required": false,
+            "description": "Select products with the specified identifier",
+            "type": "string"
+          },
+          {
+            "name": "location.address",
+            "in": "query",
+            "required": false,
+            "description": "Select Locations with the specified address.",
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "required": false,
+            "description": "When the resource last changed.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Provider"
+        ],
+        "summary": "The HealthcareService resource is used to describe a single healthcare service or category of services that are provided by an organization at a location",
+        "operationId": "",
+        "consumes": [
+          "application/fhir+json"
+        ],
+        "produces": [
+          "application/fhir+json"
+        ],
+        "parameters": [
+          {
+            "name": "_getpages",
+            "in": "query",
+            "required": false,
+            "description": "FHIR Bundle ID",
+            "type": "string"
+          },
+          {
+            "name": "_getpagesoffset",
+            "in": "query",
+            "required": false,
+            "description": "number of pages",
+            "type": "integer"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "required": false,
+            "description": "FHIR Resource count",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success \u2013 Will return response bundle of containing the resources, and possibly, an operation outcome if there are any warnings.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized - Service account and/or password is incorrect."
+          },
+          "403": {
+            "description": "Forbidden - Service account and password is correct."
+          },
+          "404": {
+            "description": "Not Found - URL is not formatted correctly."
+          },
+          "405": {
+            "description": "Method Not Allowed - The user has attempted a method that is not supported.Too Many Requests - The user has hit the throttle limit"
+          },
+          "500": {
+            "description": "Internal Server Error - The server encountered an unexpected condition and an Operation Outcome will be returned."
+          }
+        }
+      }
+    }
+  },
+  "host": "apigw.bcbsfl.com"
+}

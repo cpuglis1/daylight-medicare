@@ -1,0 +1,10 @@
+# Prior ordering expectations corrected
+
+The initial full Python run exposed six assertions and one context lookup tied to the earlier timing-first comparison order. The prior conversation-progress change deliberately ranks comparison preparation first, while retaining timing questions as selectable candidates. This follow-up changes tests only; backend behavior is unchanged.
+
+- `test_natural_flow.py`: the retirement-capture fixture now explicitly selects T05 when supplying its current-insurance question, rather than assigning that wording to whichever candidate ranks first. All capture, provenance, absence-of-inference and stage-count assertions remain. The separate multi-turn date scenario explicitly begins with the timing task, so its assertions about birthday, spouse employment and distinct job/coverage end dates exercise the intended context lens instead of demanding old timing information in the minimized ZIP comparison lens.
+- `test_comparison_chat.py`: the two default-question expectations now name T03. Exact comparison rebinding, captured retirement, source holds, absence from saved records and comparison-failure isolation checks remain intact.
+- `test_conversation_continuity.py`: failure recovery expects the current ZIP return point. The spouse-job scenario explicitly chooses the still-eligible RC11 question, preserving the test that malformed advisory metadata cannot discard direct reports or block a valid consequential continuation. It still checks the comparison task, completed generation and exact spouse-job facts.
+- `test_ongoing_advisor.py`: the comparison lens expects `plan_preparation`; exact spouse-job/current-insurance reports, fresh-report minimization, generated ZIP question and grounded response assertions remain intact.
+
+[Captured focused output](ordering-regression-tests.log): natural flow 43, comparison chat 10, continuity 23 and ongoing advisor 18, totaling **84 passing tests**. No localhost binding, elevated permissions or provider calls were needed for these four suites. These results do not replace the separately blocked HTTP checks or establish live-model quality.

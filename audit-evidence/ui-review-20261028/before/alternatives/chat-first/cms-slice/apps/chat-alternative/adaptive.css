@@ -1,0 +1,21 @@
+/* D79 uses the accepted conversation surface, tokens and responsive column. */
+.adaptive-phases{display:flex;flex-wrap:wrap;gap:6px 20px;list-style:none;padding:0;margin:0 0 6px;color:#596653;font-size:15px;line-height:1.4}
+.adaptive-phases li[aria-current]{color:#283b30;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.adaptive-suggestions{padding-top:6px;margin-top:8px}
+.adaptive-suggestions h2{font:400 24px/1.35 'Atkinson Hyperlegible',Arial,sans-serif;letter-spacing:0;margin:0 0 8px;max-width:32ch}
+.adaptive-suggestions .chat-why{font-size:16px;line-height:1.45;color:#596653;margin:0 0 12px;max-width:68ch}
+.adaptive-question-actions,.adaptive-help-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.adaptive-help-actions button{background:none;border:0;text-decoration:underline;text-underline-offset:4px;color:#40513d;min-height:44px;font-size:16px}
+.adaptive-topics{margin-top:18px}
+.adaptive-suggestions .chat-field textarea{width:100%;min-height:74px;max-height:200px;resize:vertical;font:18px/1.4 'Atkinson Hyperlegible',Arial,sans-serif;color:#283b30;background:#fffefa;border:1px solid #a8b19e;border-radius:7px;padding:8px 10px;box-sizing:border-box}
+.adaptive-dialog{max-width:680px;width:calc(100% - 32px);max-height:85dvh;overflow:auto;background:#fbf9f4;color:#283b30;border:0;border-radius:12px;padding:28px;box-shadow:0 16px 48px rgba(32,48,32,.19)}
+.adaptive-dialog::backdrop{background:rgba(31,49,32,.2)}
+.adaptive-dialog h2{font:400 30px/1.3 'Fraunces',Georgia,serif;margin:0 0 16px}
+.adaptive-dialog p{font-size:18px;line-height:1.5;overflow-wrap:anywhere}
+.adaptive-dialog button{margin:8px 8px 0 0;min-height:44px}
+.adaptive-dialog label{display:block;font-size:18px;line-height:1.5;margin:18px 0}
+.adaptive-dialog a{display:inline-block;min-height:44px;padding:8px 0}
+.adaptive-dialog input[type=checkbox]{width:20px;height:20px;margin-right:10px;accent-color:#40513d}
+.adaptive-dialog select{width:100%;max-width:100%;min-height:44px;padding:8px 10px;font:18px/1.4 'Atkinson Hyperlegible',Arial,sans-serif;color:#283b30;background:#fffefa;border:1px solid #a8b19e;border-radius:7px;box-sizing:border-box}
+.adaptive-dialog :focus-visible{outline:3px solid #91600c;outline-offset:3px}
+@media(max-width:520px){.adaptive-phases{gap:5px 12px;font-size:14px}.adaptive-suggestions h2{font-size:22px}.adaptive-question-actions .primary-button{flex-basis:100%}.adaptive-dialog{padding:20px}.chat-workspace{min-height:380px}.chat-input-row textarea{min-height:48px}}

@@ -1,0 +1,7 @@
+Daylight composition unavailable code=ungrounded_literal question_available=True
+{"turn": 6, "message": "Actually, I turn 65 in December, not November.", "reply": "", "question": "What ZIP code do you live in?", "target": "T03", "generated": {"status": "unavailable", "retryable": false, "reason": "The response introduced a date or amount outside its sources.", "code": "ungrounded_literal"}, "seconds": 5.646}
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/audit-evidence/ongoing-advisor-20261101/verify_live.py", line 112, in <module>
+    assert state.get('generated',{}).get('status')=='complete',state.get('generated')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'status': 'unavailable', 'retryable': False, 'reason': 'The response introduced a date or amount outside its sources.', 'code': 'ungrounded_literal'}

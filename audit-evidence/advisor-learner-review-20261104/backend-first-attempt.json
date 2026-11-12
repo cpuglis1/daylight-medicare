@@ -1,0 +1,72 @@
+{
+  "arm": "backend",
+  "model": "gpt-6.1-sol",
+  "fictional": true,
+  "send_limit": 8,
+  "turns": [
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense."
+      },
+      "reply": "We can start with the coverage the person you’re helping has now, rather than assume a change is needed. A useful review checks the exact coverage against doctors, prescriptions, and costs—not just the monthly premium. Keeping the current coverage can remain an option while those details are checked.\n\nIf you’re unsure what coverage they have, look for the coverage name on their insurance cards or plan documents; that gives us a starting point.",
+      "notice": null,
+      "question": "What health insurance does the person you’re helping have now?",
+      "target": "T05",
+      "learner_signal": "none",
+      "source_ids": [
+        "checks",
+        "costs"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "elapsed_seconds": 11.08
+    },
+    {
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "original,medigap"
+        }
+      },
+      "reply": "That gives us a starting point for reviewing the current coverage.\n\nWhat’s your understanding of what the supplement does? It’s fine if you’re starting from scratch.",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 4.43
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm new to this. I don't know what the supplement does."
+      },
+      "reply": "For reviewing her coverage, the key is that the supplement helps with bills left over after Original Medicare pays its share.\n\nA Medicare supplement—also called Medigap—is private insurance that helps pay certain costs the person would otherwise owe under Original Medicare. It adds to Original Medicare rather than replacing it. The exact policy determines which costs it helps pay; it does not mean every bill is covered.\n\nMedigap works with Original Medicare, not Medicare Advantage. Prescription drug coverage is separate.\n\nA useful next step is to look on her supplement card or policy documents for the exact policy name. That gives us a starting point for understanding what it pays. Before changing existing coverage, her enrollment rights would need checking.",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "unfamiliar",
+      "source_ids": [
+        "medigap",
+        "original"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 10.24
+    }
+  ],
+  "stop": "no applicable scripted answer to the delivered question",
+  "elapsed_seconds": 25.85,
+  "accounted_usd": 0.1020825,
+  "measured_usd": 0.1020825
+}

@@ -1987,6 +1987,10 @@ No weights, inferred motives or commercial considerations.'''
                                 'retained_plan_identities': [{k: p[k] for k in ('id', 'name')}
                                     for p in context.get('plans_context', {}).get('plans', [])],
                                 'date_display_aliases': sorted(_month_aliases(_reports(context))),
+                                # D138: the Plans-page status the model is told to relay (tab
+                                # names, pilot scope, messages) is service-supplied wording.
+                                'plans_pages': context.get('plans_pages') or {},
+                                'medigap_pricing_scope': context.get('medigap_pricing_scope') or {},
                                 **({'pilot_scope': PILOT_SCOPE_NOTICE} if getattr(self, 'pilot_scope', False) else {})},
                                ensure_ascii=False).casefold()
         if context.get('plans_context') and re.search(

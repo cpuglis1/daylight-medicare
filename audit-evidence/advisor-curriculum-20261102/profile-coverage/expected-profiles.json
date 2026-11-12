@@ -1,0 +1,1678 @@
+[
+  {
+    "scenario_id": "P1",
+    "name": "Current-job transition",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "month",
+        "coverage.requestedStartMonth": "2026-12",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "spouse_job"
+        },
+        "RC11": {
+          "jobEnd": "2026-11",
+          "choice": "dates"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth",
+        "coverage.current"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC09",
+        "RC11"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {
+        "RC11.profile.coverageEnd": "unknown"
+      },
+      "exact_detail_keys": [],
+      "skipped_details": {
+        "RC11.profile.coverageEnd": "unknown"
+      },
+      "absent": [
+        "reports.RC04",
+        "guide.situation.age65"
+      ],
+      "provenance": {
+        "guide.coverage.requestedStartMonth": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "scope": "intended",
+          "subject": "beneficiary"
+        }
+      }
+    }
+  },
+  {
+    "scenario_id": "P1-payer",
+    "name": "Current-job payer-order and HSA variant",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "my_job"
+        },
+        "RC11": {
+          "jobEnd": "ongoing",
+          "coverageEnd": "ongoing",
+          "choice": "dates"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC06": {
+          "choice": "disability"
+        },
+        "RC10": {
+          "choice": "no"
+        },
+        "RC14": {
+          "choice": "yes"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.current"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC09",
+        "RC11",
+        "RC04",
+        "RC06",
+        "RC10",
+        "RC14"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "absent": [
+        "guide.situation.age65",
+        "guide.coverage.requestedStartMonth"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P2",
+    "name": "COBRA transition with dependents and move",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "month",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2026-12",
+          "choice": "dates"
+        },
+        "RC12": {
+          "choice": "yes"
+        },
+        "RC08": {
+          "choice": "move",
+          "eventDate": "2026-12"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth",
+        "coverage.current"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC09",
+        "RC11",
+        "RC12",
+        "RC08"
+      ],
+      "exact_dispositions": {
+        "RC13": "explicit_unknown"
+      },
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {
+        "RC13.profile.choice": "unknown"
+      },
+      "exact_detail_keys": [],
+      "dispositions": {
+        "RC13": "explicit_unknown"
+      },
+      "skipped_details": {
+        "RC13.profile.choice": "unknown"
+      },
+      "absent": [
+        "reports.RC04",
+        "reports.RC11.jobEnd"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P2-browse",
+    "name": "Published information research-only variant",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "research"
+        },
+        "RC03": {
+          "year": "2026",
+          "choice": "2026"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC03"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "absent": [
+        "guide.subject.role",
+        "guide.coverage.current",
+        "reports.RC04",
+        "guide.situation.age65"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P3",
+    "name": "Advantage member exploring Medigap",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "advantage"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC05": {
+          "month": "2020-10",
+          "choice": "details"
+        },
+        "RC16": {
+          "start": "2026-01",
+          "priorMedigap": "no",
+          "choice": "partial"
+        },
+        "RC15": {
+          "event": "plan-ending notice",
+          "choice": "details"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.current",
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC04",
+        "RC05",
+        "RC16",
+        "RC15"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "absent": [
+        "guide.coverage.requestedStartMonth"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P3-replacement",
+    "name": "Current Medigap replacement and uncertainty variant",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "original",
+          "medigap"
+        ],
+        "needs.costPreference": "predictable",
+        "needs.priorities": [
+          "doctors",
+          "total_cost"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC05": {
+          "month": "2020-10",
+          "choice": "details"
+        },
+        "RC17": {
+          "choice": "keep"
+        },
+        "RC07": {
+          "choice": "original"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.current",
+        "needs.costPreference",
+        "needs.priorities",
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC04",
+        "RC05",
+        "RC17",
+        "RC07"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "pending": false
+    }
+  },
+  {
+    "scenario_id": "P4",
+    "name": "Two providers and several prescriptions",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "list",
+        "needs.providers": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example One; Example Two"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC21": {
+          "items": [
+            {
+              "entity": "doctor-1",
+              "practice": "Dr. Rivera at Example Clinic",
+              "city": "Naples, FL"
+            },
+            {
+              "entity": "doctor-2",
+              "practice": "Dr. Lee at Example Hospital",
+              "city": "Tampa, FL"
+            }
+          ]
+        },
+        "RC22": {
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example One",
+              "strength": "10 mg",
+              "form": "tablet"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Two",
+              "strength": "10 mg",
+              "form": "capsule"
+            }
+          ]
+        },
+        "RC18": {
+          "choice": "extra_help",
+          "programs": [
+            "extra_help",
+            "medicaid"
+          ]
+        },
+        "RC23": {
+          "items": [
+            {
+              "entity": "medicine-1"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "60 capsules",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail"
+            }
+          ]
+        },
+        "RC24": {
+          "choice": "pharmacy"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "needs.providersStatus",
+        "needs.providers",
+        "needs.medicinesStatus",
+        "needs.medications"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC21",
+        "RC22",
+        "RC18",
+        "RC23",
+        "RC24"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {
+        "RC23.medicine-1.quantity": "deferred",
+        "RC23.medicine-1.daysSupply": "deferred",
+        "RC23.medicine-1.pharmacy": "deferred",
+        "RC23.medicine-1.channel": "deferred"
+      },
+      "exact_detail_keys": [],
+      "skipped_details": {
+        "RC23.medicine-1.quantity": "deferred",
+        "RC23.medicine-1.daysSupply": "deferred",
+        "RC23.medicine-1.pharmacy": "deferred",
+        "RC23.medicine-1.channel": "deferred"
+      },
+      "item_stale": [
+        "RC23.medicine-1"
+      ],
+      "item_current": [
+        "RC23.medicine-2"
+      ],
+      "absent": [
+        "guide.coverage.current",
+        "reports.RC04"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P4-unknown",
+    "name": "Partial medicine identity without fabricated pricing inputs",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Three"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Three",
+              "form": "tablet"
+            }
+          ]
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "needs.medicinesStatus",
+        "needs.medications"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC22"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {
+        "RC22.medicine-1.strength": "unknown"
+      },
+      "exact_detail_keys": [],
+      "skipped_details": {
+        "RC22.medicine-1.strength": "unknown"
+      },
+      "absent": [
+        "reports.RC23",
+        "reports.RC22.items[].strength"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P5",
+    "name": "Caregiver, military coverage, travel and budget",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "military"
+        ],
+        "needs.providersStatus": "none",
+        "needs.medicinesStatus": "no",
+        "needs.travel": [
+          "elsewhere_us"
+        ],
+        "knowledge.general": "new",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "someone"
+        },
+        "RC20": {
+          "location": "Tampa, Florida",
+          "choice": "partial"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC06": {
+          "choice": "age65"
+        },
+        "RC26": {
+          "choice": "tfl"
+        },
+        "RC25": {
+          "amount": "$200",
+          "includes": "premiums_and_care",
+          "choice": "amount"
+        },
+        "RC18": {
+          "choice": "extra_help",
+          "programs": [
+            "extra_help",
+            "medicaid"
+          ]
+        },
+        "RC19": {
+          "choice": "details",
+          "qualification": "program confirmation is pending"
+        },
+        "RC27": {
+          "choice": "human"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.current",
+        "needs.providersStatus",
+        "needs.medicinesStatus",
+        "needs.travel",
+        "knowledge.general",
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC20",
+        "RC04",
+        "RC06",
+        "RC26",
+        "RC25",
+        "RC18",
+        "RC19",
+        "RC27"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [
+        "G13"
+      ],
+      "details": {
+        "G13": [
+          {
+            "value": "tfl"
+          }
+        ]
+      },
+      "absent": [
+        "reports.RC22",
+        "guide.situation.age65"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P6",
+    "name": "Conflicting dates and explicit correction",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "month",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2027-02",
+          "choice": "dates"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth",
+        "coverage.current"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC09",
+        "RC11"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "pending": false,
+      "provenance": {
+        "readiness.RC11.profile.coverageEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current"
+        }
+      },
+      "absent": [
+        "reports.RC04",
+        "reports.RC11.jobEnd"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P7",
+    "name": "Mostly unknown answers retain missingness",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare"
+      },
+      "reports": {},
+      "exact_guide_paths": [
+        "intent.goal"
+      ],
+      "exact_report_ids": [],
+      "exact_dispositions": {
+        "RC01": "explicit_unknown"
+      },
+      "exact_baseline_dispositions": {
+        "T04": "unknown",
+        "T05": "unknown",
+        "T03": "unknown",
+        "T06": "unknown",
+        "T07": "unknown",
+        "T08": "unknown"
+      },
+      "exact_skipped_details": {
+        "RC01.profile.choice": "unknown"
+      },
+      "exact_detail_keys": [],
+      "baseline_dispositions": {
+        "T04": "unknown",
+        "T05": "unknown",
+        "T03": "unknown",
+        "T06": "unknown",
+        "T07": "unknown",
+        "T08": "unknown"
+      },
+      "dispositions": {
+        "RC01": "explicit_unknown"
+      },
+      "skipped_details": {
+        "RC01.profile.choice": "unknown"
+      },
+      "absent": [
+        "guide.subject.role",
+        "guide.coverage.current",
+        "reports.RC04",
+        "reports.RC22"
+      ],
+      "question": null
+    }
+  },
+  {
+    "scenario_id": "P8",
+    "name": "Educational detour and deliberate goal changes",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "month",
+        "coverage.requestedStartMonth": "2026-12",
+        "coverage.current": [
+          "cobra"
+        ],
+        "needs.medicinesStatus": "no",
+        "needs.providersStatus": "none",
+        "needs.travel": [
+          "local"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth",
+        "coverage.current",
+        "needs.medicinesStatus",
+        "needs.providersStatus",
+        "needs.travel",
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC09"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "absent": [
+        "reports.RC22",
+        "reports.RC23",
+        "reports.RC04"
+      ]
+    }
+  },
+  {
+    "scenario_id": "P9",
+    "name": "Beneficiary and helper coverage stay separate",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "coverage.requestedStart": "month",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "someone"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2026-12",
+          "choice": "dates"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth",
+        "coverage.current"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC09",
+        "RC11"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "pending": false,
+      "absent": [
+        "reports.RC04",
+        "guide.situation.retirement"
+      ],
+      "provenance": {
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "subject": "beneficiary",
+          "status": "user_reported"
+        }
+      }
+    }
+  },
+  {
+    "scenario_id": "P10",
+    "name": "Same medicine name, distinct strengths and ambiguous fill",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Med; Example Med"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Med",
+              "strength": "5 mg",
+              "form": "tablets"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Med",
+              "strength": "10 mg",
+              "form": "tablets"
+            }
+          ]
+        },
+        "RC23": {
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "60 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail"
+            }
+          ]
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "subject.role",
+        "needs.medicinesStatus",
+        "needs.medications"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC22",
+        "RC23"
+      ],
+      "exact_dispositions": {},
+      "exact_baseline_dispositions": {},
+      "exact_skipped_details": {},
+      "exact_detail_keys": [],
+      "pending": false,
+      "absent": [
+        "reports.RC04",
+        "guide.coverage.current"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F01",
+    "name": "Permanent home and optional priorities",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "intent.goalDetail": "Keep living independently",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "needs.priorities": [
+          "other"
+        ],
+        "needs.priorityOther": "Help at home matters to me",
+        "subject.role": "self",
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC02": {
+          "choice": "details",
+          "zip": "34102",
+          "county": "Collier, FL",
+          "homeStatus": "my permanent home, not a seasonal address"
+        }
+      },
+      "absent": [
+        "guide.coverage.requestedStartMonth",
+        "reports.RC08"
+      ],
+      "exact_guide_paths": [
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence",
+        "comparison.scope.zip",
+        "intent.goal",
+        "intent.goalDetail",
+        "needs.priorities",
+        "needs.priorityOther",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC02"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F02",
+    "name": "Eligibility age range and reported drug gap",
+    "expected": {
+      "reports": {
+        "RC06": {
+          "choice": "disability",
+          "ageBand": "under65"
+        },
+        "RC12": {
+          "choice": "yes",
+          "gap": "no drug coverage from June 2026 through July 2026"
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "absent": [
+        "guide.situation.age65",
+        "guide.coverage.requestedStartMonth",
+        "reports.RC05"
+      ],
+      "guide": {
+        "subject.role": "self"
+      },
+      "exact_guide_paths": [
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC06",
+        "RC12"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F03",
+    "name": "Brand preference and fill supply",
+    "expected": {
+      "guide": {
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Alpha",
+        "subject.role": "self",
+        "intent.goal": "compare"
+      },
+      "reports": {
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details",
+              "name": "Example Alpha",
+              "strength": "5 mg",
+              "form": "tablet",
+              "brand": "brand only"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details",
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy, 1 Test Street, Naples",
+              "channel": "retail",
+              "supply": "30-day supply"
+            }
+          ]
+        },
+        "RC24": {
+          "choice": "pharmacy"
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "absent": [
+        "guide.needs.medicationDetails",
+        "guide.needs.pharmacies"
+      ],
+      "exact_guide_paths": [
+        "intent.goal",
+        "needs.medications",
+        "needs.medicinesStatus",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC22",
+        "RC23",
+        "RC24"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F04",
+    "name": "Field-specific unknown and deferred",
+    "expected": {
+      "guide": {
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Beta",
+        "subject.role": "self",
+        "intent.goal": "compare"
+      },
+      "reports": {
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details",
+              "name": "Example Beta",
+              "form": "tablet"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details",
+              "quantity": "30 tablets"
+            }
+          ]
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "skipped_details": {
+        "RC22.medicine-1.strength": "unknown",
+        "RC22.medicine-1.brand": "deferred",
+        "RC23.medicine-1.daysSupply": "unknown",
+        "RC23.medicine-1.pharmacy": "deferred",
+        "RC23.medicine-1.channel": "deferred"
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "needs.medications",
+        "needs.medicinesStatus",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC22",
+        "RC23"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F05",
+    "name": "Conflicting start and explicit correction",
+    "expected": {
+      "guide": {
+        "coverage.requestedStart": "month",
+        "coverage.requestedStartMonth": "2027-01",
+        "subject.role": "self",
+        "intent.goal": "compare"
+      },
+      "pending": false,
+      "absent": [
+        "guide.situation.age65",
+        "reports.RC05"
+      ],
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "exact_guide_paths": [
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth",
+        "intent.goal",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F06",
+    "name": "Qualification correction invalidates payer threshold",
+    "expected": {
+      "reports": {
+        "RC06": {
+          "choice": "disability"
+        },
+        "RC09": {
+          "choice": "my_job"
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "stale_reports": [
+        "RC10"
+      ],
+      "absent": [
+        "reports.RC10",
+        "guide.situation.age65"
+      ],
+      "guide": {
+        "subject.role": "self",
+        "intent.goal": "compare",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "exact_guide_paths": [
+        "coverage.current",
+        "intent.goal",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC06",
+        "RC09"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F07",
+    "name": "Helper familiarity and wrong-person insurance",
+    "expected": {
+      "guide": {
+        "subject.role": "someone",
+        "knowledge.general": "new",
+        "intent.goal": "compare"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "someone"
+        }
+      },
+      "absent": [
+        "guide.coverage.current",
+        "reports.RC09"
+      ],
+      "exact_guide_paths": [
+        "intent.goal",
+        "knowledge.general",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F08",
+    "name": "Same-name medicines and one-item correction",
+    "expected": {
+      "reports": {
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details",
+              "name": "Example Gamma",
+              "strength": "20 mg",
+              "form": "tablet"
+            },
+            {
+              "entity": "medicine-2",
+              "choice": "details",
+              "name": "Example Gamma",
+              "strength": "10 mg",
+              "form": "tablet"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details",
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example North Pharmacy",
+              "channel": "retail"
+            },
+            {
+              "entity": "medicine-2",
+              "choice": "details",
+              "quantity": "90 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example South Pharmacy",
+              "channel": "mail"
+            }
+          ]
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "item_stale": [
+        "RC23.medicine-1"
+      ],
+      "item_current": [
+        "RC23.medicine-2"
+      ],
+      "guide": {
+        "subject.role": "self",
+        "intent.goal": "compare",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Gamma; Example Gamma"
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "needs.medications",
+        "needs.medicinesStatus",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC22",
+        "RC23"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F09",
+    "name": "Explicit None retires provider reports",
+    "expected": {
+      "guide": {
+        "needs.providersStatus": "none",
+        "subject.role": "self",
+        "intent.goal": "compare"
+      },
+      "stale_guide": [
+        "needs.providers"
+      ],
+      "stale_reports": [
+        "RC21"
+      ],
+      "absent": [
+        "guide.needs.providers",
+        "reports.RC21"
+      ],
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "needs.providersStatus",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F10",
+    "name": "Military report and legacy optional detail boundary",
+    "expected": {
+      "guide": {
+        "coverage.current": [
+          "military"
+        ],
+        "subject.role": "self",
+        "intent.goal": "compare"
+      },
+      "reports": {
+        "RC26": {
+          "choice": "tfl"
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "details": {
+        "G13": [
+          {
+            "value": "tfl"
+          }
+        ]
+      },
+      "absent": [
+        "details.G01",
+        "details.G02",
+        "details.G03",
+        "details.G04",
+        "details.G05",
+        "details.G06",
+        "details.G07",
+        "details.G08",
+        "details.G09",
+        "details.G10",
+        "details.G11",
+        "details.G12",
+        "details.G14",
+        "guide.coverage.birth",
+        "guide.coverage.birth.firstDay"
+      ],
+      "exact_guide_paths": [
+        "coverage.current",
+        "intent.goal",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC26"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F11",
+    "name": "Unrecognized legacy medicine payloads rejected",
+    "expected": {
+      "guide": {
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Delta 5 mg tablet",
+        "subject.role": "self"
+      },
+      "absent": [
+        "guide.needs.medicationDetails",
+        "guide.needs.pharmacies"
+      ],
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "exact_guide_paths": [
+        "needs.medications",
+        "needs.medicinesStatus",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F12",
+    "name": "Original versus Advantage clarification",
+    "expected": {
+      "guide": {
+        "coverage.current": [
+          "original"
+        ],
+        "subject.role": "self"
+      },
+      "reports": {
+        "RC28": {
+          "choice": "different"
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "absent": [
+        "reports.RC04",
+        "reports.RC07"
+      ],
+      "exact_guide_paths": [
+        "coverage.current",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC28"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F13",
+    "name": "Unknown baseline versus explicit no coverage",
+    "expected": {
+      "guide": {
+        "coverage.current": [
+          "none"
+        ],
+        "needs.costPreference": "lower_monthly",
+        "needs.priorities": [
+          "total_cost"
+        ],
+        "subject.role": "self",
+        "intent.goal": "compare",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "baseline_dispositions": {
+        "T04": "unknown",
+        "T06": "deferred"
+      },
+      "absent": [
+        "guide.coverage.requestedStartMonth",
+        "guide.needs.providersStatus",
+        "guide.needs.providers"
+      ],
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "exact_guide_paths": [
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence",
+        "comparison.scope.zip",
+        "coverage.current",
+        "intent.goal",
+        "needs.costPreference",
+        "needs.priorities",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F14",
+    "name": "Explicit residence unknowns preserve independent known home",
+    "expected": {
+      "guide": {
+        "comparison.scope.zip": "34102",
+        "subject.role": "self",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC02": {
+          "choice": "details",
+          "zip": "34102"
+        },
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "skipped_details": {
+        "RC02.profile.county": "unknown",
+        "RC02.profile.homeStatus": "deferred"
+      },
+      "exact_guide_paths": [
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence",
+        "comparison.scope.zip",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC02"
+      ]
+    }
+  },
+  {
+    "scenario_id": "F15",
+    "name": "Reported retirement and birthday without an inferred year",
+    "expected": {
+      "guide": {
+        "situation.retirement": {
+          "status": "retired",
+          "when": "for a few years"
+        },
+        "situation.age65": {
+          "month": 11,
+          "year": null
+        },
+        "subject.role": "self"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "exact_guide_paths": [
+        "situation.age65",
+        "situation.retirement",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01"
+      ],
+      "absent": [
+        "guide.coverage.current",
+        "guide.coverage.requestedStart",
+        "guide.coverage.requestedStartMonth",
+        "reports.RC04",
+        "reports.RC05",
+        "reports.RC09",
+        "reports.RC11"
+      ],
+      "provenance": {
+        "guide.situation.retirement": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current"
+        },
+        "guide.situation.age65": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current"
+        }
+      }
+    }
+  },
+  {
+    "scenario_id": "F16",
+    "name": "Administrator-reported family effect and current provider item",
+    "expected": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "list",
+        "needs.providers": "Example Elm Clinic"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC13": {
+          "choice": "yes"
+        },
+        "RC21": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "doctor-1",
+              "choice": "details",
+              "practice": "Example Elm Clinic",
+              "city": "Naples, FL"
+            }
+          ]
+        }
+      },
+      "exact_guide_paths": [
+        "intent.goal",
+        "needs.providers",
+        "needs.providersStatus",
+        "subject.role"
+      ],
+      "exact_report_ids": [
+        "RC01",
+        "RC13",
+        "RC21"
+      ],
+      "absent": [
+        "guide.coverage.current",
+        "reports.RC04",
+        "reports.RC07"
+      ]
+    }
+  }
+]

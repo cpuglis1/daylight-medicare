@@ -1,0 +1,54 @@
+{
+  "cases": [
+    {
+      "id": "provider_and_costs",
+      "title": "Keeping a cardiologist and understanding visit costs",
+      "fictional": true,
+      "messages": [
+        "I'm checking Medicare coverage for myself in Collier County. I'd like to keep my cardiologist and understand what visits could cost. Where should I start?",
+        "I currently have Aetna Medicare Advantage. My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples. I don't know the exact plan name.",
+        "Before we go further, what does Medicare Advantage mean? Does the office accepting Aetna prove it takes my particular plan?",
+        "Actually, the office is in Bonita Springs, not Naples. My home ZIP is 34102. I still don't have the exact plan name.",
+        "My main concern is being able to see that doctor. I don't have a firm budget. What can we establish now, and what would still need checking?",
+        "Please give me a short list of what to ask the plan and the office. Don't contact anyone. No more questions."
+      ]
+    },
+    {
+      "id": "caregiver_and_coverage",
+      "title": "Helping a parent understand coverage and practical help",
+      "fictional": true,
+      "messages": [
+        "I'm helping my mother understand Medicare. She lives in Naples. We need to work out coverage and practical help, and I'm not sure where to start.",
+        "This is for my mother. She has Original Medicare. I help her with rides and paperwork, but I don't make health decisions for her. I want to understand coverage before we choose anything.",
+        "I'm confused about Medigap and Medicare Advantage. Are they the same thing, and which one goes with Original Medicare?",
+        "She wants to keep her own doctor. Please don't assume she wants to change coverage. Transport to appointments matters too. Do those needs tell us whether Medicare will pay for rides?",
+        "I don't know her exact coverage dates or whether she qualifies for financial help. Can we keep those open and focus on what to ask next?",
+        "Summarize what we know, what remains unverified, and who we should ask. No calls or referrals. No more questions."
+      ]
+    }
+  ],
+  "maximum_generation_stages": 24,
+  "automatic_retries": false,
+  "source_changes_during_run": false,
+  "rubric": [
+    "task_recognition",
+    "verification_distinctions",
+    "teaching_in_context",
+    "continuity_and_corrections",
+    "useful_next_step",
+    "burden_and_control"
+  ],
+  "score_anchors": {
+    "0": "material failure",
+    "1": "partly successful with a material gap",
+    "2": "successful in the observed conversation"
+  },
+  "performance": [
+    "backend_wall_seconds",
+    "extraction_and_composition_seconds",
+    "input_and_output_tokens",
+    "measured_estimated_cost"
+  ],
+  "consumer_comprehension": "unobserved",
+  "personas": "fictional, prewritten, no adaptive rescue"
+}

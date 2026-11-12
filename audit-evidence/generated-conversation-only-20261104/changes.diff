@@ -1,0 +1,540 @@
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ DAYLIGHT_REQUIREMENTS.md
+@@ -1,4 +1,6 @@
+ # Daylight owner requirements
++
++**D86/D88 generated conversation only · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](audit-evidence/generated-conversation-only-20261104/README.md).
+ 
+ **November 4, 2026 · D86/D90 input allowance removed for owner testing.** Owner explicitly requested removing the reviewed input allowance while trying Opus 5.5. Remove :8893's fixed 16,000-input-token ceiling for all selectable models and retain the supplied conversation context when counting. Fund each stage's actual counted input plus its configured output allowance before submission, within the existing shared $5/UTC-day cap. Preserve usage verification, uncertain receipts, pricing review, transport/output limits, privacy and protected variants. UI and conversation prompts remain unchanged; use offline accounting checks only, with no agent-run conversations or paid probes. This supersedes the earlier local input-token ceiling, not other safety or evidence requirements. [Implementation and activation](audit-evidence/advisor-input-ceiling-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/natural_agent.py
++++ alternatives/advisor-first/natural_agent.py
+@@ -48,8 +48,7 @@
+ EDUCATION_PURPOSES = ('advance', 'answer', 'teach', 'clarify', 'recap')
+ EDUCATION_DEPTHS = ('introduced', 'explored', 'needs_clarification')
+ EDUCATION_REASONS = ('new', 'deepen', 'requested_revisit', 'clarify')
+-EDUCATION_VISUALS = ('none', 'routes', 'original', 'advantage', 'parts', 'parta', 'partb',
+-                     'transition', 'costs')
++EDUCATION_VISUALS = ('none',)
+ EDUCATION_REQUEST_KINDS = ('none', 'explain', 'clarify', 'revisit')
+ LOGGER = logging.getLogger(__name__)
+ EXTRACTION_ERROR_CODES = {
+@@ -269,8 +268,8 @@
+   Reported information and prepared work never establish outside verification or execution.
+   comparison_status is capability metadata, not plan evidence. task_work describes available
+   work; all source/method/purpose holds apply.
+-- Use understanding_guides only for the explanation actually given now, preserving exact table
+-  records. Let a displayed guide carry its explanation rather than duplicating it in prose.
++- Write the explanation in reply, tailored to the person and this turn. Sources provide
++  factual support; no prepared lesson or guide will be appended to your response.
+ 
+ Output contract:
+ - Ask at most one useful question. For personal intake choose its question_target from approved
+@@ -282,7 +281,7 @@
+   never to hide personal intake. Put the follow-up only in question, not also in reply.
+ - Respect a pause or request for no more questions: target null, question empty, pause true.
+ - education describes what the reply actually explains, separately from learner understanding:
+-  purpose advance/answer/teach/clarify/recap; updates [] and visual none for ordinary intake.
++  purpose advance/answer/teach/clarify/recap; updates [] for ordinary intake; visual is always none.
+   Each update has a supplied concept, exact supporting evidence_refs/aspect_ids, and depth
+   introduced/explored/needs_clarification. Reason new is a first explanation; deepen is a useful
+   new layer; requested_revisit needs a request; clarify needs confusion. Repetition is not depth.
+--- before/alternatives/advisor-first/DESIGN.md
++++ alternatives/advisor-first/DESIGN.md
+@@ -1,4 +1,6 @@
+ # Advisor-first surface design
++
++**D86/D88 conversation presentation revision · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](../../audit-evidence/generated-conversation-only-20261104/README.md).
+ 
+ **D88 first-transition extension · November 3, 2026:** Extend the existing :8893 Operate/Read surface with contextual, progressively populated timing, coverage-path and cost guides. Retain the paper/olive palette, Atkinson typography, ruled inline treatment, semantic DOM text, local Explain actions, **Review or correct dates**, and merged expandable Sources. Paths and cost concepts remain parallel on desktop/tablet and stack on phone. Show only currently supported pieces: parts-backed Original Medicare displays its supported base/access content; unsupported registry-owned guides stay suppressed. Optional fictional cost scenarios use native disclosure/selection controls and local display state, with declared quantities, a labeled subtotal and unknown costs visible. The registry indexes thirteen retained educational statements and supplies the same supported blocks to composition; existing conversational validation remains in force. It adds no external source acceptance. Preserve the existing editable end summary before a requested personal comparison. Personal timing, path/rights and complete-cost authority still require their separate reviews, and viewed guides or technical checks do not establish comprehension. [Contract and remaining limits](../../docs/product/FIRST_TRANSITION_CAPABILITIES_2026-11-03.md); [rendered examples and execution evidence](../../audit-evidence/understanding-20261103/README.md).
+ 
+--- before/alternatives/advisor-first/natural_flow.py
++++ alternatives/advisor-first/natural_flow.py
+@@ -30,6 +30,7 @@
+                        attach_result as attach_task_work)
+ from natural_agent import NaturalAgent
+ from comparison_service import ComparisonService
++from conversation_output import generated_conversation
+ from controller_diagnostics import unexpected_failure
+ from narrative_agent import provider_failure_message
+ from natural_state import (ensure_state, legacy_projection, restore_state,
+@@ -854,12 +855,6 @@
+             if identifier in self.facts:
+                 evidence[identifier] = self.facts[identifier]
+         context['evidence'] = copy.deepcopy(list(evidence.values()))
+-        try:
+-            # Public guide definitions only; reports already use their existing
+-            # scoped allowlist. This adds no source rows or personal values.
+-            context['understanding_guides'] = self.understanding.composition_guides(list(evidence))
+-        except UnderstandingError:
+-            context['understanding_guides'] = []
+         pending = self.pending_for(owner)
+         context['uncertainties'] = [{'id': pending['update']['id'], 'status': 'needs_clarification'}] if pending else []
+         if pending:
+@@ -899,6 +894,7 @@
+             if target and not selected:
+                 raise ModelUnavailable('The next question could not be checked.')
+             education_output = copy.deepcopy(composed['education'])
++            education_output['visual'] = 'none'
+             if not composed['reply'].strip():
+                 # A question, citation or proposed diagram alone is not a
+                 # delivered explanation. Open clarification may still survive.
+@@ -1004,15 +1000,6 @@
+                     out['notice'] = 'The AI connection ended before the reply arrived. Your reported details are kept.'
+             elif diagnostic and diagnostic.get('incomplete_reason') == 'max_output_tokens':
+                 out['notice'] = 'The AI reply reached its length limit. Your reported details are kept.'
+-            if checked_request:
+-                # A direct question can still receive one applicable reviewed
+-                # lesson when the model reply fails. Keep it separate from the
+-                # notice and from the pending profile question.
+-                lesson = next((fact for fact in evidence.values()
+-                    if set(concepts_for_lesson(fact['id'])) & set(revisit_concepts)
+-                    and fact.get('text')), None)
+-                if lesson:
+-                    out['facts'] = [copy.deepcopy(lesson)]
+             out['generated'] = {'status': 'unavailable', 'retryable': False, 'reason': str(error)[:220], 'code': code}
+             transport = getattr(self.agent.local, 'last_transport_failure', None)
+             if code == 'transport_or_format' and transport:
+@@ -1295,7 +1282,7 @@
+             out['assessment']['conversationOpen'] = True
+             out['assessment']['intakePaused'] = False
+             out['assessment']['narrative']['opener'] = False
+-            out['reply'] = 'Your details are here. We can continue from this point.'
++            out['reply'] = ''
+             set_target(out['record'], out['assessment'].get('nextQuestion'),
+                        orientation='familiarity' if (out['assessment']['nextQuestion'] or {}).get('id')=='T02' else None)
+             out['continuation'] = self.bind(owner, out['guide'], out['record'], self.current_chain[owner])
+@@ -1430,9 +1417,8 @@
+         historical = bool(continuation and (
+             self.current_chain.get(owner) != chain or
+             self.state_heads.get((owner, chain)) != continuation))
+-        cached = attach_understanding(
+-            self.comparisons.attach(cached, historical=historical, replay=True),
+-            registry=self.understanding, historical=historical)
++        cached = generated_conversation(
++            self.comparisons.attach(cached, historical=historical, replay=True))
+         return attach_task_work(cached, historical=historical)
+ 
+     def recover(self, owner, payload):
+@@ -1562,6 +1548,13 @@
+                 raise ProfileError('This authorization belongs to an earlier conversation. Review the current action again.',409)
+             if action.get('type') == 'message':
+                 out = self.direct_disposition(owner,payload,g,r) or self.message(owner, payload, g, r)
++            elif action.get('type') == 'read_concept':
++                # Older clients can still open sources without receiving a
++                # prepared lesson or recording undelivered teaching.
++                if set(action) != {'type', 'id'} or action.get('id') not in self.facts:
++                    raise ProfileError('Choose a reviewed explanation.')
++                out = self.response(g, r, facts=[copy.deepcopy(self.facts[action['id']])])
++                self.retain_presentation(out, presentation)
+             elif action.get('type') == 'explanation_preference':
+                 if (set(action) != {'type', 'value'} or not isinstance(action.get('value'), str)
+                         or action.get('value') not in {'new', 'some', 'comfortable'}):
+@@ -1644,12 +1637,7 @@
+             self.comparisons.attach(out)
+             out['continuation'] = self.bind(owner, out['guide'], out['record'], chain)
+             with self.lock:
+-                if action.get('type') == 'read_concept':
+-                    self.record_reviewed_lesson(owner, chain, out, action['id'], payload['requestId'])
+-                elif (action.get('type') in {'message', 'choice', 'stage', 'unknown', 'defer'}
+-                        and out.get('generated', {}).get('status') == 'unavailable' and out.get('facts')):
+-                    self.record_reviewed_lesson(owner, chain, out, out['facts'][0]['id'], payload['requestId'])
+-                attach_understanding(out, registry=self.understanding)
++                generated_conversation(out)
+                 preparation = out.get('preparation') or {}
+                 preparation_valid = (preparation.get('kind') == 'preparation'
+                     and preparation.get('status') == 'prepared'
+--- before/alternatives/advisor-first/AGENTS.md
++++ alternatives/advisor-first/AGENTS.md
+@@ -1,4 +1,6 @@
+ # Working on the advisor-first variant
++
++**D86/D88 generated conversation only · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](../../audit-evidence/generated-conversation-only-20261104/README.md).
+ 
+ **D86/D90 input allowance removal · November 4:** Owner explicitly removed the reviewed input allowance for testing Opus 5.5. There is now no fixed local input-token ceiling in :8893. Reserve stage outputs together and fund the actual counted input before each submission; preserve the shared $5/UTC-day cap, usage checks, pricing review, uncertain receipts, output/transport limits and protected variants. Keep supplied exchanges during token counting. UI and conversation prompts are unchanged. No agent-run conversation tests or paid probes; owner review remains the quality assessment. This supersedes the earlier 16,000-token ceiling below. [Implementation and activation](../../audit-evidence/advisor-input-ceiling-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/web/advisor.js
++++ alternatives/advisor-first/web/advisor.js
+@@ -274,27 +274,11 @@
+       question.append(paragraph(item.askedQuestion,false)); block.append(question);
+     }
+     if (item.user) { const user = el('article',undefined,'chat-message chat-user'); user.setAttribute('aria-label','You'); user.append(el('p',item.user)); block.append(user); }
+-    if (item.reply || item.facts?.length || item.sources?.length || item.reportedDates?.length || item.comparisonMilestone) {
++    if (item.reply || item.sources?.length) {
+       const answer = el('article',undefined,'chat-message chat-daylight'); answer.setAttribute('aria-label','Daylight');
+       if (item.reply) answer.append(paragraph(item.reply,reveal));
+-      if (item.facts?.length) answer.append(factBlock(item.facts,reveal,false));
+-      if (item.reportedDates?.length && item.visual?.guide?.capability !== 'transition') {
+-        const dates = inlineGuide({kind:'timeline',title:'Dates you’ve shared',
+-          items:item.reportedDates.map(row => [row.label,row.value])},false);
+-        dates.append(button('Review or correct dates',reviewDateInformation));
+-        answer.append(dates);
+-      }
+-      if (item.comparisonMilestone) {
+-        const progress = el('section',undefined,'inline-guide');
+-        progress.setAttribute('aria-label','Your comparison starting point');
+-        const actions = el('div',undefined,'task-actions');
+-        actions.append(button('Review these details',reviewInformation),
+-          button('Make a checklist',() => turn({type:'review_preparation'})));
+-        progress.append(el('p','You can review what you’ve shared and see which details are still open.'),actions);
+-        answer.append(progress);
+-      }
+-      const visual = item.reportedDates?.length && item.visual?.kind === 'timeline' ? null : item.visual;
+-      const guide = inlineGuide(visual,reveal,item.reply ? textDuration(item.reply)+100 : 0,!item.facts?.length); if (guide) answer.append(guide);
++      // Conversation prose comes from the model. Prepared lessons, timelines
++      // and milestone narration stay out of the chat, including old receipts.
+       const followups = educationFollowups(item.educationFollowups);if (followups) answer.append(followups);
+       const links = [...(item.sources || []),...(item.visual?.guide?.sources || []),...(item.facts || []).flatMap(fact => [...(fact.source ? [{url:fact.source,label:'Medicare.gov source'}] : []),...(fact.sources || [])])];
+       const sources = citationBlock(links);if (sources) answer.append(sources);
+@@ -607,7 +591,7 @@
+       const unresolved = state.assessment.unresolvedReportedInputs;
+       if (unresolved.length) { const details = el('details'); details.append(presentControl(el('summary','Details still open'),presentation)); for (const item of unresolved) details.append(el('p',item.label+' — '+readable(item.state))); host.append(details); }
+       const topics = el('div',undefined,'topic-actions');
+-      for (const [id,label] of [['basics','What Medicare is'],['parts','Parts A and B'],['routesintro','The two coverage paths'],['drugbasics','Prescription coverage'],['costs','How costs work']]) topics.append(presentControl(button(label,() => concept(id)),presentation));
++      for (const [id,label] of [['basics','What Medicare is'],['parts','Parts A and B'],['routesintro','The two coverage paths'],['drugbasics','Prescription coverage'],['costs','How costs work']]) topics.append(presentControl(button(label,() => concept(id,label)),presentation));
+       host.append(topics,presentControl(button('Review your profile',reviewInformation),presentation),presentControl(button('Prepare my next steps',() => turn({type:'review_preparation'}),'primary'),presentation),presentControl(button('Browse sample plans',() => turn({type:'next',step:'samples'})),presentation));
+       if (state.comparison) host.append(presentControl(button('Review comparison preparation',reviewComparison),presentation));
+     }
+@@ -855,7 +839,11 @@
+     }
+     finally {endPending();setBusy(false);resizeComposer();}
+   }
+-  async function concept(id) { await turn({type:'read_concept',id}); }
++  function concept(id, label = id) {
++    if (busy) return;
++    if ($('message').value.trim()) {note('Your draft is still here. Send or clear it before choosing a question.');$('message').focus();return;}
++    $('message').value = 'Can you explain '+label+'?';messageInput();$('message').focus();
++  }
+   async function save() {
+     if (pendingSave) throw Error('An earlier save needs checking. Open privacy to check the saved copy.');
+     pendingSave = clone({guide:state.guide,record:state.record,expectedVersion:savedVersion,expectedReadinessVersion:readinessVersion,operationId:crypto.randomUUID()});
+@@ -961,7 +949,7 @@
+     const details = el('details');details.append(el('summary','Scope and service details'),el('p','Plan cards are five unvalidated 2027 Collier County samples. Recommendations, eligibility, prices, exact doctor/drug fit and enrollment remain independently held. This advisor variant has a $5/UTC-day AI cap within the shared usage ledger. No automatic retries. Production vendor/retention review remains separate.'),el('p',metrics.turns+' turns · '+metrics.llmCalls+' AI calls in this visit. These are diagnostics, not a consumer study.'));d.append(details,button('Close',() => d.close(),'secondary'));d.showModal();
+   }
+   async function resume() {
+-    const d = dialog('Resume saved information?');d.append(el('p','Only open this if it is appropriate to show the saved reports on this device. Conversation and drafts were not saved.'),button('Keep this visit',() => d.close(),'secondary'),button('Resume saved reports',async () => {try {const g = await api('/api/guest/profile'),r = await api('/api/guest/readiness');if (!g.guide) throw Error('No saved reports were found.');const result = await api('/api/conversation/turn',{guide:g.guide,record:r.record || state.record,action:{type:'refresh'},requestId:crypto.randomUUID()});state = result;savedVersion = g.version;readinessVersion = r.version;pendingSave = failedRequest = lastRequest = null;selectedGoal = '';history = [{reply:typeof DaylightVisitArtifacts !== 'undefined' ? DaylightVisitArtifacts.resumeRecap(result) : 'Your saved details are open. You can review or update them as we go.',facts:[],sources:[]}];review = prepared = null;drafts.clear();showGuide = state.guide.flow.guideOpen !== false;active = true;$('landing').hidden = true;$('workspace').hidden = false;d.close();saveText = 'Resumed · omitted sensitive details remain open';render();}catch(error){d.append(el('p',error.message+' Your current visit is preserved.'));}},'primary'));d.showModal();
++    const d = dialog('Resume saved information?');d.append(el('p','Only open this if it is appropriate to show the saved reports on this device. Conversation and drafts were not saved.'),button('Keep this visit',() => d.close(),'secondary'),button('Resume saved reports',async () => {try {const g = await api('/api/guest/profile'),r = await api('/api/guest/readiness');if (!g.guide) throw Error('No saved reports were found.');const result = await api('/api/conversation/turn',{guide:g.guide,record:r.record || state.record,action:{type:'refresh'},requestId:crypto.randomUUID()});state = result;savedVersion = g.version;readinessVersion = r.version;pendingSave = failedRequest = lastRequest = null;selectedGoal = '';history = [];review = prepared = null;drafts.clear();showGuide = state.guide.flow.guideOpen !== false;active = true;$('landing').hidden = true;$('workspace').hidden = false;d.close();saveText = 'Resumed · omitted sensitive details remain open';render();}catch(error){d.append(el('p',error.message+' Your current visit is preserved.'));}},'primary'));d.showModal();
+   }
+   $('composer').onsubmit = e => {e.preventDefault();void submitCurrent();};
+   $('chat-down').onclick = jumpDown;
+@@ -972,7 +960,7 @@
+   $('restore-draft').onclick = () => {if($('message').value.trim()){note('Send or clear the current message before restoring your earlier draft.');return;}$('message').value = parkedMessages.pop() || '';renderCurrent();messageInput();$('message').focus();note('Draft restored. It has not been sent.');};
+   $('message').addEventListener('compositionstart',() => { composing = true; });$('message').addEventListener('compositionend',() => { composing = false; });
+   $('message').addEventListener('keydown',e => {if(e.key === 'Enter' && !e.shiftKey && !e.isComposing && !composing){e.preventDefault();$('composer').requestSubmit();}});
+-  $('start').onclick = () => {active = true;$('landing').hidden = true;$('workspace').hidden = false;if(!history.length) history.push({reply:'Hi, I’m Daylight, your AI Medicare guide. I’ll help you understand your options, one step at a time.'});render();resizeComposer();window.scrollTo({top:0,behavior:'instant'});$('workspace').focus({preventScroll:true});};
++  $('start').onclick = () => {active = true;$('landing').hidden = true;$('workspace').hidden = false;render();resizeComposer();window.scrollTo({top:0,behavior:'instant'});$('workspace').focus({preventScroll:true});};
+   $('back').onclick = async () => {if(review){await turn({type:'discard_review',token:review.token});return;}if(frames.length){await turn({type:'edit',id:frames.pop()});return;}$('workspace').hidden = true;$('landing').hidden = false;active = false;document.body.classList.remove('chat-mode');};
+   $('review').onclick = reviewInformation;$('privacy').onclick = $('landing-privacy').onclick = privacy;$('resume').onclick = $('landing-resume').onclick = resume;
+   $('prepare').onclick = () => turn({type:'review_preparation'});$('samples').onclick = () => turn({type:'next',step:'samples'});
+--- before/alternatives/advisor-first/tests/test_assistant_reveal.js
++++ alternatives/advisor-first/tests/test_assistant_reveal.js
+@@ -86,6 +86,23 @@
+   node._text + node.children.map(accessibleText).join('');
+ const visualText = node => node.className.split(/\s+/).includes('sr-only') ? '' :
+   node._text + node.children.map(visualText).join('');
++
++test('generated conversation omits prepared blocks while keeping reply, question and sources', () => {
++  const h = harness(true);
++  h.paint([{askedQuestion:'A prior question?',user:'A reported answer.',reply:'Generated reply.',
++    facts:[{title:'Prepared fact heading',text:'Prepared fact text'}],
++    sources:[{url:'https://www.medicare.gov/basics',label:'Medicare source'}],
++    visual:{kind:'routes',title:'Prepared guide heading',concepts:['original','advantage']},
++    reportedDates:[{label:'Prepared date label',value:'March 2027'}],comparisonMilestone:true}]);
++  const text = accessibleText(h.host);
++  assert.ok(text.includes('Generated reply.'));
++  assert.ok(text.includes('A prior question?'));
++  assert.ok(text.includes('Medicare source'));
++  assert.ok(!text.includes('Prepared'));
++  assert.ok(!text.includes('review what you’ve shared'));
++  assert.equal(byClass(h.host,'inline-guide').length,0);
++  assert.equal(byTag(h.host,'a').length,1);
++});
+ 
+ function harness(reduced = false) {
+   const host = new FakeNode('div');
+@@ -215,23 +232,19 @@
+   assert.equal(byClass(user, 'sr-only').length, 0);
+ });
+ 
+-test('reviewed fact bodies reveal but their headings, Sources control and source links are immediate', () => {
++test('prepared fact bodies stay hidden while their source links remain inspectable', () => {
+   const h = harness();
+   const facts = [{title: 'Part B', text: 'Part B helps cover medical care.',
+     source: 'https://www.medicare.gov/coverage',
+     sources: [{url: 'https://www.medicare.gov/basics', label: 'Medicare basics'}]}];
+   h.paint([{reply: 'Here’s how that part works.', facts}]);
+-  const factHost = byClass(h.host, 'facts')[0];
+-  assert.equal(byClass(factHost, 'assistant-reveal').length, 1);
+-  assert.equal(visualText(byTag(factHost, 'p')[0]), facts[0].text);
+-  assert.equal(byTag(factHost, 'h2')[0].textContent, 'Part B');
++  assert.equal(byClass(h.host, 'facts').length, 0);
++  assert.ok(!accessibleText(h.host).includes(facts[0].text));
+   const answer = byClass(h.host,'chat-daylight')[0];
+   const sources = byClass(answer, 'sources')[0];
+-  assert.equal(byClass(factHost,'sources').length,0,'Exchange citations belong after the complete answer.');
+   assert.equal(byTag(sources, 'summary')[0].textContent, 'Sources');
+   assert.equal(byTag(sources, 'a').length, 2);
+   assert.equal(byClass(sources, 'reveal-word').length, 0);
+-  assert.equal(byClass(byTag(factHost, 'h2')[0], 'reveal-word').length, 0);
+ });
+ 
+ test('visual and accessible text each preserve every character, including spaces and HTML-like user content', () => {
+@@ -322,7 +335,7 @@
+   assert.match(css, /@media\(prefers-reduced-motion:reduce\)\{body\.chat-mode \.reveal-word\{animation:none!important\}\}/);
+ });
+ 
+-test('reduced motion renders complete plain text for greetings, replies and facts', () => {
++test('reduced motion renders reply text while keeping prepared facts hidden', () => {
+   const h = harness(true);
+   const greeting = {reply: 'Welcome to Daylight.'};
+   const response = {user: 'Tell me about Part B.', reply: 'We can start there.',
+@@ -332,7 +345,8 @@
+   assert.equal(byClass(h.host, 'sr-only').length, 0);
+   assert.equal(byClass(h.host, 'assistant-reveal').length, 0);
+   assert.equal(byClass(h.host, 'chat-daylight')[0].textContent, greeting.reply);
+-  assert.ok(h.host.textContent.includes(response.facts[0].text));
++  assert.ok(h.host.textContent.includes(response.reply));
++  assert.ok(!h.host.textContent.includes(response.facts[0].text));
+   assert.ok(h.queries.every(query => query === '(prefers-reduced-motion: reduce)'));
+ });
+ 
+@@ -676,31 +690,26 @@
+   assert.equal(accessibleText(articles[2]),item.reply);
+ });
+ 
+-test('a reported date picture survives an empty reply and its review remains deliberate', () => {
++test('an empty model reply does not receive an automatic date picture', () => {
+   const h = harness(true);
+   const previous = {reportedRows: [{id:'S_AGE65',label:'65th birthday',value:'November',status:'reported'}]};
+   const result = {reply:'',reportedRows:[...previous.reportedRows,
+     {id:'RC11',label:'End dates',value:{coverageEnd:'december'},status:'reported'}]};
+   h.append('dates-1','When does coverage end?','December',result,previous);
+   h.paint();
+-  assert.match(accessibleText(h.host), /Dates you’ve shared/);
+-  assert.match(accessibleText(h.host), /November/);
+-  assert.match(accessibleText(h.host), /december/);
++  assert.match(accessibleText(h.host), /December/);
++  assert.doesNotMatch(accessibleText(h.host), /Dates you’ve shared|November/);
+   assert.deepEqual(h.artifactActions, [], 'Rendering never opens a review or submits an action.');
+-  const review = byTag(h.host,'button').find(node => node.textContent === 'Review or correct dates');
+-  assert.ok(review);
+-  review.dispatchEvent({type:'click'});
+-  assert.deepEqual(h.artifactActions, ['dates']);
+-  h.paint();
+-  assert.equal(byTag(h.host,'button').filter(node => node.textContent === 'Review or correct dates').length,1);
++  h.paint();
++  assert.equal(byTag(h.host,'button').filter(node => node.textContent === 'Review or correct dates').length,0);
+   h.paint([{reply:'',reportedDates:require('../web/visit-artifacts.js').reportedDates(result),
+     visual:{kind:'timeline',title:'Existing timing guide',items:[['Birthday','November'],['Insurance end','december']]}}]);
+-  assert.equal(byClass(h.host,'inline-guide').length,1,'A matching generated timeline cannot duplicate the reported-date picture.');
+-  assert.match(accessibleText(h.host), /Dates you’ve shared/);
++  assert.equal(byClass(h.host,'inline-guide').length,0);
++  assert.doesNotMatch(accessibleText(h.host), /Dates you’ve shared/);
+   assert.doesNotMatch(accessibleText(h.host), /Existing timing guide/);
+ });
+ 
+-test('comparison starting point offers optional review and checklist only at its transition', () => {
++test('comparison progress does not insert prepared narration into the conversation', () => {
+   const h = harness(true);
+   const previous = {reportedRows:[{id:'T03',value:'12345',status:'reported'},
+     {id:'T06',value:'None to check',status:'reported'}]};
+@@ -708,15 +717,12 @@
+     {id:'T07',value:'unknown',status:'unknown'}]};
+   h.append('comparison-1','Which prescriptions?','I don’t know yet',result,previous);
+   h.paint();
+-  assert.match(accessibleText(h.host), /review what you’ve shared and see which details are still open/);
++  assert.match(accessibleText(h.host), /We can leave that open/);
++  assert.doesNotMatch(accessibleText(h.host), /review what you’ve shared and see which details are still open/);
+   assert.deepEqual(h.artifactActions, []);
+-  byTag(h.host,'button').find(node => node.textContent === 'Review these details').dispatchEvent({type:'click'});
+-  byTag(h.host,'button').find(node => node.textContent === 'Make a checklist').dispatchEvent({type:'click'});
+-  assert.deepEqual(h.artifactActions, ['details','review_preparation']);
+   h.append('comparison-2','','Thanks',{...result,reply:'You’re welcome.'},result);
+   h.paint();
+-  assert.equal(byTag(h.host,'button').filter(node => node.textContent === 'Make a checklist').length,1,
+-    'Unchanged details do not repeat the milestone.');
++  assert.equal(byTag(h.host,'button').filter(node => node.textContent === 'Make a checklist').length,0);
+ });
+ 
+ test('a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel', () => {
+@@ -967,7 +973,7 @@
+   assert.equal(byClass(h.host,'sources').length,1);
+ });
+ 
+-test('current-turn route teaching appears inline once while Sources remains a separate disclosure', () => {
++test('route guide intent does not insert prepared writing and Sources remains available', () => {
+   const h = harness();
+   const visual=h.turnVisual({advisor:{teachingFactIds:['routesintro']}});
+   const item={reply:'These are the two main coverage paths.',visual,
+@@ -975,15 +981,11 @@
+   h.paint([item]);
+   const answer=byClass(h.host,'chat-daylight')[0];
+   const guides=byClass(answer,'inline-guide');
+-  assert.equal(guides.length,1);
+-  assert.ok(visualText(guides[0]).includes('Original Medicare'));
+-  assert.ok(visualText(guides[0]).includes('Medicare Advantage'));
+-  assert.equal(byTag(guides[0],'details').length,0);
++  assert.equal(guides.length,0);
+   assert.equal(byTag(answer,'details').length,1,'Only Sources remains expandable.');
+   assert.equal(byTag(answer,'summary')[0].textContent,'Sources');
+-  const firstGuide=guides[0];
+-  h.paint();
+-  assert.equal(byClass(h.host,'inline-guide')[0],firstGuide,'Repaint must not recreate or replay teaching.');
++  h.paint();
++  assert.equal(byClass(h.host,'inline-guide').length,0);
+ });
+ 
+ test('current visual intent selects the existing guide independently of citations', () => {
+@@ -1017,20 +1019,18 @@
+     'Only older responses that lack the visual field retain the previous rendering contract.');
+ });
+ 
+-test('two successful turns retain the first guide without making a second guide from citations', () => {
++test('successive replies keep their sources and questions without prepared guides', () => {
+   const h=harness(),url='https://www.medicare.gov/basics';
+   const first={generated:{status:'complete'},reply:'These are the two main coverage paths.',facts:[],
+     advisor:{visual:'routes',teachingFactIds:['routesintro'],sources:[{url,label:'Medicare basics'}]}};
+   h.append('turn-one','What has you thinking about Medicare today?',
+     'Turning 65 in November and looking to understand my Medicare options.',first);
+   h.paint();
+-  const firstGuide=byClass(h.host,'inline-guide')[0];
+   const second={generated:{status:'complete'},reply:'Your current insurance helps determine what comes next.',facts:[],
+     advisor:{visual:'none',teachingFactIds:['routesintro'],sources:[{url,label:'Medicare basics'},{url,label:'Duplicate'}]}};
+   h.append('turn-two','Is this for you, someone you help, or just general research?','Me',second);
+   h.paint();
+-  assert.equal(byClass(h.host,'inline-guide').length,1);
+-  assert.equal(byClass(h.host,'inline-guide')[0],firstGuide,'A later citation cannot replace or replay the original guide.');
++  assert.equal(byClass(h.host,'inline-guide').length,0);
+   const secondExchange=h.host.children[1],sources=byClass(secondExchange,'sources');
+   assert.equal(sources.length,1,'The citation remains inspectable even without another guide.');
+   assert.equal(byTag(sources[0],'summary')[0].textContent,'Sources');
+@@ -1047,32 +1047,30 @@
+   assert.equal(h.host.children.length,2,'Request replay must not append a repeated exchange or graphic.');
+ });
+ 
+-test('a deliberate revisit may show the same guide again while failed generation never does', () => {
++test('revisit replies also omit prepared guides', () => {
+   const h=harness(),advisor={visual:'routes',teachingFactIds:['routesintro'],sources:[]};
+   h.append('introduction','','My Medicare options',{generated:{status:'complete'},reply:'Here are the coverage paths.',advisor});
+   h.paint();
+-  const original=byClass(h.host,'inline-guide')[0];
+   h.append('requested-revisit','','Please explain the two paths again.',
+     {generated:{status:'complete'},reply:'Let’s look at the two paths again.',advisor});
+   h.paint();
+-  assert.equal(byClass(h.host,'inline-guide').length,2,'Frontend honors the validated revisit decision.');
+-  assert.equal(byClass(h.host,'inline-guide')[0],original);
++  assert.equal(byClass(h.host,'inline-guide').length,0);
+   assert.equal(h.turnVisual({generated:{status:'unavailable'},advisor}),null);
+ });
+ 
+-test('fact and generated citations merge into one deduplicated Sources footer after the inline guide', () => {
++test('fact and generated citations merge while prepared text and guides stay hidden', () => {
+   const h=harness(), first='https://www.medicare.gov/basics', second='https://www.medicare.gov/coverage', third='https://www.medicare.gov/plan-compare';
+   const visual=h.turnVisual({advisor:{teachingFactIds:['routesintro']}});
+   h.paint([{reply:'Here are the two coverage paths.',visual,
+     facts:[{id:'routesintro',title:'Two coverage paths',text:'The paths arrange coverage differently.',source:first,
+       sources:[{url:second,label:'Coverage details'},{url:first,label:'Repeated basics'}]}],
+     sources:[{url:first,label:'Medicare basics'},{url:third,label:'Plan comparison'}]}]);
+-  const answer=byClass(h.host,'chat-daylight')[0], guide=byClass(answer,'inline-guide')[0];
++  const answer=byClass(h.host,'chat-daylight')[0];
+   const sources=byClass(answer,'sources');
+   assert.equal(sources.length,1);
+-  assert.equal(answer.children.at(-1),sources[0],'Sources follows both the explanation and graphic.');
+-  assert.ok(answer.children.indexOf(guide)<answer.children.indexOf(sources[0]));
+-  assert.equal(byClass(byClass(answer,'facts')[0],'sources').length,0);
++  assert.equal(answer.children.at(-1),sources[0]);
++  assert.equal(byClass(answer,'inline-guide').length,0);
++  assert.equal(byClass(answer,'facts').length,0);
+   assert.equal(byTag(sources[0],'summary')[0].textContent,'Sources');
+   assert.equal(byClass(sources[0],'reveal-word').length,0);
+   assert.deepEqual(byTag(sources[0],'a').map(link=>link.href),[first,third,second]);
+--- before/docs/product/MASTER_DESIGN.md
++++ docs/product/MASTER_DESIGN.md
+@@ -1,4 +1,6 @@
+ # Daylight master design and agent contract
++
++**D86/D88 generated conversation only · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](../../audit-evidence/generated-conversation-only-20261104/README.md).
+ 
+ **D86/D90 owner testing · November 4, 2026: remove the reviewed input allowance.** The owner requested removing the input block encountered while selecting Opus 5.5. The :8893 advisor now has no fixed local input-token ceiling for its selectable models. Count the packed request, retain supplied exchanges, and fund that input plus the configured model output before generation. Stage outputs are reserved together; a later stage can still be stopped by the shared $5/UTC-day cap after earlier work succeeds. Preserve accepted earlier work and all existing receipts, exact usage checks, source/privacy boundaries and protected variants. Keep transport and output bounds. No UI or prompt change and no agent-run conversation tests or paid probes. This supersedes the prior 16,000-token input policy only. [Implementation and activation](../../audit-evidence/advisor-input-ceiling-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/conversation_output.py
++++ alternatives/advisor-first/conversation_output.py
+@@ -0,0 +1,20 @@
++"""Keep generated dialogue and citations; omit prepared explanation blocks."""
++
++
++def generated_conversation(out):
++    advisor = out.setdefault('advisor', {})
++    sources = list(advisor.get('sources', []))
++    for fact in out.get('facts', []):
++        links = ([{'url': fact['source'], 'label': fact.get('title', 'Source')}]
++                 if fact.get('source') else []) + fact.get('sources', [])
++        for link in links:
++            if link.get('url') and all(item.get('url') != link['url'] for item in sources):
++                sources.append(link)
++    advisor.update(visual='none', sources=sources)
++    out['facts'] = []
++    out.pop('understanding', None)
++    if out.get('generated', {}).get('status') != 'complete':
++        out['reply'] = ''
++        advisor['teachingFactIds'] = []
++        advisor['educationFollowups'] = []
++    return out
+--- before/alternatives/advisor-first/tests/test_conversation_output.py
++++ alternatives/advisor-first/tests/test_conversation_output.py
+@@ -0,0 +1,55 @@
++"""Offline delivery checks; no model, conversation or network calls."""
++import copy
++from pathlib import Path
++import sys
++import unittest
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++from conversation_output import generated_conversation
++
++
++class ConversationOutputTests(unittest.TestCase):
++    def output(self):
++        return {'reply': 'Model-authored explanation.', 'generated': {'status': 'complete'},
++                'facts': [{'title': 'Prepared lesson', 'text': 'Prepared text',
++                           'source': 'https://www.medicare.gov/basics'}],
++                'advisor': {'visual': 'transition', 'teachingFactIds': ['enrollment_intro'],
++                            'sources': [{'url': 'https://www.medicare.gov/basics', 'label': 'Source'}]},
++                'understanding': {'title': 'Your coverage transition', 'blocks': ['Prepared text']},
++                'record': {'reported': 'unchanged'}, 'assessment': {'nextQuestion': {'id': 'T05'}}}
++
++    def test_generated_reply_sources_and_report_state_survive_without_templates(self):
++        out = self.output()
++        before = copy.deepcopy(out)
++        generated_conversation(out)
++        self.assertEqual(out['reply'], before['reply'])
++        self.assertEqual(out['advisor']['sources'], before['advisor']['sources'])
++        self.assertEqual(out['advisor']['teachingFactIds'], before['advisor']['teachingFactIds'])
++        self.assertEqual(out['record'], before['record'])
++        self.assertEqual(out['assessment'], before['assessment'])
++        self.assertEqual(out['facts'], [])
++        self.assertNotIn('understanding', out)
++        self.assertEqual(out['advisor']['visual'], 'none')
++
++    def test_failed_or_manual_response_does_not_substitute_prepared_prose(self):
++        for generation in ({}, {'status': 'unavailable'}):
++            out = self.output()
++            out['generated'] = generation
++            out['reply'] = 'Prepared fallback.'
++            generated_conversation(out)
++            self.assertEqual(out['reply'], '')
++            self.assertEqual(out['facts'], [])
++            self.assertEqual(out['advisor']['teachingFactIds'], [])
++            self.assertEqual(len(out['advisor']['sources']), 1)
++
++    def test_legacy_source_links_and_repeated_filtering_are_preserved(self):
++        out = self.output()
++        out.pop('advisor')
++        generated_conversation(out)
++        before = copy.deepcopy(out)
++        self.assertEqual(out['advisor']['sources'][0]['url'], 'https://www.medicare.gov/basics')
++        self.assertEqual(generated_conversation(out), before)
++
++
++if __name__ == '__main__':
++    unittest.main()

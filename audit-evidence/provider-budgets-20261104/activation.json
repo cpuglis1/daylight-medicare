@@ -1,0 +1,130 @@
+{
+  "checked_at": "2026-11-04T23:07:15.961287+00:00",
+  "checks": {
+    "/": {
+      "status": 200
+    },
+    "/advisor.js": {
+      "status": 200,
+      "ui_matches": true
+    },
+    "/api/ai/usage": {
+      "status": 200,
+      "providerBudgets": {
+        "OpenAI": {
+          "day": "2026-11-04",
+          "timezone": "UTC",
+          "provider": "OpenAI",
+          "limitScope": "provider",
+          "resetAt": "2026-11-05T00:00:00+00:00",
+          "dailyLimitUsd": 5,
+          "estimatedUsd": 2.7079722,
+          "maxInputTokens": null,
+          "maxOutputTokens": 2400,
+          "reservedOrUncertainUsd": 0.7755,
+          "accountedUsd": 3.4834722,
+          "remainingUsd": 1.5165278,
+          "requestCount": 149,
+          "canRequest": true,
+          "reason": "",
+          "unattributedUsd": 0.0,
+          "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+          "pricingValidUntil": "2026-11-11T00:00:00Z",
+          "label": "Local provider allowance, not provider account credits. USD estimates plus unresolved holds; not an invoice."
+        },
+        "Anthropic": {
+          "day": "2026-11-04",
+          "timezone": "UTC",
+          "provider": "Anthropic",
+          "limitScope": "provider",
+          "resetAt": "2026-11-05T00:00:00+00:00",
+          "dailyLimitUsd": 5,
+          "estimatedUsd": 1.151588,
+          "maxInputTokens": null,
+          "maxOutputTokens": 2400,
+          "reservedOrUncertainUsd": 0.448084,
+          "accountedUsd": 1.599672,
+          "remainingUsd": 3.400328,
+          "requestCount": 26,
+          "canRequest": true,
+          "reason": "",
+          "unattributedUsd": 0.0,
+          "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+          "pricingValidUntil": "2026-11-11T00:00:00Z",
+          "label": "Local provider allowance, not provider account credits. USD estimates plus unresolved holds; not an invoice."
+        }
+      }
+    },
+    "/api/status": {
+      "status": 200,
+      "providerBudgets": {
+        "OpenAI": {
+          "day": "2026-11-04",
+          "timezone": "UTC",
+          "provider": "OpenAI",
+          "limitScope": "provider",
+          "resetAt": "2026-11-05T00:00:00+00:00",
+          "dailyLimitUsd": 5,
+          "estimatedUsd": 2.7079722,
+          "maxInputTokens": null,
+          "maxOutputTokens": 2400,
+          "reservedOrUncertainUsd": 0.7755,
+          "accountedUsd": 3.4834722,
+          "remainingUsd": 1.5165278,
+          "requestCount": 149,
+          "canRequest": true,
+          "reason": "",
+          "unattributedUsd": 0.0,
+          "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+          "pricingValidUntil": "2026-11-11T00:00:00Z",
+          "label": "Local provider allowance, not provider account credits. USD estimates plus unresolved holds; not an invoice."
+        },
+        "Anthropic": {
+          "day": "2026-11-04",
+          "timezone": "UTC",
+          "provider": "Anthropic",
+          "limitScope": "provider",
+          "resetAt": "2026-11-05T00:00:00+00:00",
+          "dailyLimitUsd": 5,
+          "estimatedUsd": 1.151588,
+          "maxInputTokens": null,
+          "maxOutputTokens": 2400,
+          "reservedOrUncertainUsd": 0.448084,
+          "accountedUsd": 1.599672,
+          "remainingUsd": 3.400328,
+          "requestCount": 26,
+          "canRequest": true,
+          "reason": "",
+          "unattributedUsd": 0.0,
+          "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+          "pricingValidUntil": "2026-11-11T00:00:00Z",
+          "label": "Local provider allowance, not provider account credits. USD estimates plus unresolved holds; not an invoice."
+        }
+      }
+    }
+  },
+  "original_charge_rows_unchanged": true,
+  "charge_rows": 675,
+  "attribution": [
+    [
+      "Anthropic",
+      "claude-opus-5-5",
+      "legacy_unique_rate_match",
+      26
+    ],
+    [
+      "OpenAI",
+      "gpt-5.4",
+      "legacy_unique_rate_match",
+      534
+    ],
+    [
+      "OpenAI",
+      "gpt-6.1-sol",
+      "legacy_unique_rate_match",
+      115
+    ]
+  ],
+  "paid_model_calls": 0,
+  "listener": "COMMAND   PID  USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nPython  89927 cep4u    3u  IPv4 0x926bb694e47ba31f      0t0  TCP 127.0.0.1:8893 (LISTEN)"
+}

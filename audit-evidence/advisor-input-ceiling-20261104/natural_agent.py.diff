@@ -1,0 +1,177 @@
+--- before/alternatives/advisor-first/natural_agent.py
++++ alternatives/advisor-first/natural_agent.py
+@@ -26,7 +26,7 @@
+ from natural_state import AGENDA_TOPICS, PRIORITY_TOPICS
+ from education import catalog_context
+ import learner_state
+-from request_limits import INPUT_TOKENS, OUTPUT_TOKENS
++from request_limits import OUTPUT_TOKENS
+ from request_packing import compact_context, request_sizes
+ from transport_diagnostics import failure_details, recoverable_connection
+ from timing_language import end_date_supported
+@@ -39,7 +39,6 @@
+     personal_insurance_assertion, personal_intake_question,
+     provider_access_supported, question_scope_valid)
+ 
+-INPUT_BOUND = INPUT_TOKENS
+ OUTPUT_BOUND = OUTPUT_TOKENS
+ COMPOSER_VERSION = 'natural-context-v2'
+ COMPOSITION_TEXT_BOUND = 1800
+@@ -69,14 +68,47 @@
+         self.budget, self.key, self.model = budget, key, model
+         self.status = 'unissued'
+         self.attempts = 0
++        self.input_count = None
+ 
+     def check_input(self, count):
+-        if not 1 <= token_int(count) <= INPUT_BOUND:
+-            raise BudgetError('This request exceeds the reviewed input allowance. Your information is preserved.')
++        self.input_count = None
++        count = token_int(count)
++        if count < 1:
++            raise BudgetError('The request token count could not be verified. No paid request was started.')
++        if self.status != 'unissued':
++            raise BudgetError('This reserved request was already issued. No automatic retry was started.')
++        if self.budget:
++            # The provider has now counted the exact packed request. Fund that
++            # input plus the model's output allowance atomically before sending.
++            # A larger context is allowed whenever the shared daily cap covers it.
++            self.budget.check_rates(self.model)
++            spec = MODELS[self.model]
++            cap = getattr(self.budget, 'daily_cap_nano_usd', CAP)
++            day = self.budget.day()
++            try:
++                with self.budget.db() as db:
++                    self.budget._clock(db, day)
++                    if db.execute("SELECT value FROM ai_meta WHERE key='blocked'").fetchone():
++                        raise BudgetError('AI usage needs reconciliation. Manual guidance remains available.')
++                    row = db.execute('SELECT charged,output_bound,status FROM ai_charges WHERE id=?',
++                                     (self.key,)).fetchone()
++                    if not row or row[2] != 'reserved':
++                        raise BudgetError('AI reservation could not be found or is already closed.')
++                    amount = count * max(spec.input_rate, spec.cache_write_rate) + row[1] * spec.output_rate
++                    total, *_ = self.budget._amounts(db, day)
++                    if total - row[0] + amount > cap:
++                        raise BudgetError(f'This request could exceed the shared ${cap / 1_000_000_000:g} daily AI limit. Try after 00:00 UTC or use manual guidance.')
++                    db.execute('UPDATE ai_charges SET reserved=?,charged=?,input_bound=? WHERE id=?',
++                               (amount, amount, count, self.key))
++            except sqlite3.Error as error:
++                raise BudgetError('The persistent AI budget is unavailable. No paid request was started.') from error
++        self.input_count = count
+ 
+     def issued(self):
+         if self.status != 'unissued':
+             raise BudgetError('This reserved request was already issued. No automatic retry was started.')
++        if self.budget and self.input_count is None:
++            raise BudgetError('The request must be counted and funded before submission.')
+         self.status = 'issued'
+         self.attempts += 1
+ 
+@@ -90,6 +122,7 @@
+         except BudgetError:
+             return False
+         self.key, self.status = replacement.key, replacement.status
++        self.input_count = None
+         return True
+ 
+     def settle(self, response):
+@@ -119,18 +152,23 @@
+ 
+ 
+ class TurnReservation:
+-    """Two bounded stage receipts; close releases only stages never submitted."""
++    """Reserve outputs together, then fund each counted input before submission.
++
++    Inputs are known only when each stage's context is ready. A later stage can
++    hit the daily cap after an earlier stage succeeds; its accepted work remains.
++    Close releases only stages never submitted.
++    """
+     def __init__(self, budget, model, stages=('extract', 'compose')):
+         if not stages or len(stages) != len(set(stages)) or set(stages) - {'extract', 'compose'}:
+             raise BudgetError('Use the defined extraction and composition stages.')
+         self.budget = budget
+         self.stages = {}
+         if not budget:
+-            self.stages = {name: ReservedStage(None) for name in stages}
++            self.stages = {name: ReservedStage(None, model=model) for name in stages}
+             return
+         budget.check_rates(model)
+         spec = MODELS[model]
+-        amount = INPUT_BOUND * max(spec.input_rate, spec.cache_write_rate) + spec.output_tokens * spec.output_rate
++        amount = spec.output_tokens * spec.output_rate
+         cap = getattr(budget, 'daily_cap_nano_usd', CAP)
+         day = budget.day()
+         try:
+@@ -144,7 +182,7 @@
+                 for name in stages:
+                     key = secrets.token_hex(24)
+                     db.execute('INSERT INTO ai_charges VALUES(?,?,NULL,?,?,NULL,?,?,?,NULL,NULL,NULL)',
+-                               (key, day, amount, amount, 'reserved', INPUT_BOUND, spec.output_tokens))
++                               (key, day, amount, amount, 'reserved', 0, spec.output_tokens))
+                     self.stages[name] = ReservedStage(budget, key, model)
+         except sqlite3.Error as error:
+             raise BudgetError('The persistent AI budget is unavailable. No paid request was started.') from error
+@@ -606,12 +644,10 @@
+         return TurnReservation(self.budget, self.client.model, stages)
+ 
+     def count_request_tokens(self, client, payload):
+-        """Pack only oldest whole exchanges against the existing input ceiling.
+-
+-        The token endpoint counts requests; it does not generate or settle a paid
+-        stage. Keep the current message, reports, evidence, question contract and
+-        education record intact. The underlying runner sends the resulting JSON,
+-        and still refuses an oversized context after at most six removals.
++        """Compact duplicate presentation data and count the request as sent.
++
++        Retain the supplied exchanges. There is no local input-token ceiling;
++        the stage funds this count against the shared daily cap before generation.
+         """
+         before = request_sizes(payload)
+         packed = copy.deepcopy(payload)
+@@ -639,33 +675,11 @@
+         except (KeyError, IndexError, TypeError, ValueError):
+             content = None
+         count = self.count_tokens(client, packed)
+-        counts = 1
+-        def finish():
+-            self.local.request_sizes = {'before': before, 'after': request_sizes(packed),
+-                'counted_input_tokens': token_int(count), 'count_calls': counts}
+-            LOGGER.info('Daylight request sizes %s', json.dumps(self.local.request_sizes, sort_keys=True))
+-            payload['input'] = packed['input']
+-            return count
+-        if token_int(count) <= INPUT_BOUND:
+-            return finish()
+-        try:
+-            key = 'confirmed_context' if 'confirmed_context' in content else 'resolved_context'
+-            context = content[key]
+-            history = context.get('recent_exchanges')
+-        except (KeyError, IndexError, TypeError, ValueError):
+-            return finish()
+-        if not isinstance(history, list):
+-            return finish()
+-        for _ in range(min(len(history), 6)):
+-            history.pop(0)
+-            item['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
+-            count = self.count_tokens(client, packed)
+-            counts += 1
+-            if token_int(count) <= INPUT_BOUND:
+-                break
+-        # This is a request-local serialized copy. Visit memory and the
+-        # resolved/profile objects used by the controller remain untouched.
+-        return finish()
++        self.local.request_sizes = {'before': before, 'after': request_sizes(packed),
++            'counted_input_tokens': token_int(count), 'count_calls': 1}
++        LOGGER.info('Daylight request sizes %s', json.dumps(self.local.request_sizes, sort_keys=True))
++        payload['input'] = packed['input']
++        return count
+ 
+     def context(self, guide):
+         context = super().context(guide)
+@@ -1176,7 +1190,6 @@
+         except ModelUnavailable as error:
+             codes = {
+                 'The provider reply did not match the response format.': 'invalid_structure',
+-                'This request exceeds the reviewed input allowance. Your information is preserved.': 'input_bound',
+                 'The response introduced a date or amount outside its sources.': 'ungrounded_literal',
+                 'The response introduced a named entity outside its sources.': 'ungrounded_entity',
+                 'The response referred to unavailable information.': 'invalid_reference',

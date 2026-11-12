@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 46871,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8951,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 324,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9275
+    },
+    "text": "{\"question_target\":\"T05\",\"reply\":\"A good place to start is the big fork in the road: Medicare can be set up in two main ways. Original Medicare is Parts A and B through the federal program; you can add a separate drug plan, and Medigap may help with your share of costs. Medicare Advantage is a private plan that provides Parts A and B, and most plans include drug coverage. Medigap goes with Original Medicare, not Medicare Advantage, and the Part B premium still applies either way. Once that distinction is clear, we can focus on practical help like doctors, medicines, and costs.\",\"question\":\"What health insurance does your mother have now? That will help us decide whether we’re comparing a first Medicare setup or reviewing coverage she already has.\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"where to start understanding Medicare coverage options for mother\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"route_relationship\",\"separate_drugs\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 4.958691
+}

@@ -1,0 +1,177 @@
+{
+  "fictional_inputs": true,
+  "profile_saved": false,
+  "maximum_generation_stages": 6,
+  "automatic_retries": false,
+  "source_before": {
+    "natural_agent.py": "55f1379ae0a9a13795066130d19c0eda45e365f25911c71214841ce3ddd5dd0f",
+    "decision_guidance.py": "2e7f62b220346507bd13760ada0a59385e3fc0dbbfb849dd3463c29c81a4a64e"
+  },
+  "turns": [
+    {
+      "message": "I turn 65 in July and want to compare my plan options. Please move on from the introductory explanations.",
+      "reply": "Absolutely \u2014 we can skip the intro and move straight into comparison prep. Since plans vary by area, the next thing I need is your ZIP code.",
+      "question": {
+        "id": "T03",
+        "inventoryIds": [
+          "T03"
+        ],
+        "question": "What ZIP code do you live in?",
+        "why": "",
+        "choices": [],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "zip",
+            "label": "Home ZIP code",
+            "type": "text",
+            "options": []
+          }
+        ],
+        "signature": "T03.profile.zip",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      },
+      "expected_next": "T03",
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3558,
+          "composition": 2710
+        }
+      },
+      "pass": true
+    },
+    {
+      "message": "60614",
+      "reply": "Perfect \u2014 that gives us the right area. Since you have retiree coverage now, the next most useful detail for comparing options is whether there are specific doctors or hospitals you want to keep.",
+      "question": {
+        "id": "T06",
+        "inventoryIds": [
+          "T06"
+        ],
+        "question": "Are there doctors or hospitals you want to keep?",
+        "why": "",
+        "choices": [
+          [
+            "none",
+            "No doctors to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T06.profile.text",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T06"
+      },
+      "expected_next": "T06",
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 2410,
+          "composition": 3611
+        }
+      },
+      "pass": true
+    },
+    {
+      "message": "No doctors to include.",
+      "reply": "That helps narrow the comparison. If there are no doctors to check, prescriptions are the next detail that most affects which plans fit well.",
+      "question": {
+        "id": "T07",
+        "inventoryIds": [
+          "T07"
+        ],
+        "question": "Which prescriptions should we include?",
+        "why": "",
+        "choices": [
+          [
+            "no",
+            "No prescriptions to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T07.profile.text",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T07"
+      },
+      "expected_next": "T07",
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 2495,
+          "composition": 2338
+        }
+      },
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "receipts": [
+    {
+      "status": "settled",
+      "charged_nano_usd": 20355000,
+      "measured_nano_usd": 20355000
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 19500000,
+      "measured_nano_usd": 19500000
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 19807500,
+      "measured_nano_usd": 19807500
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 19770000,
+      "measured_nano_usd": 19770000
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 20302500,
+      "measured_nano_usd": 20302500
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 19312500,
+      "measured_nano_usd": 19312500
+    }
+  ],
+  "accounted_usd": 0.1190475,
+  "source_after": {
+    "natural_agent.py": "55f1379ae0a9a13795066130d19c0eda45e365f25911c71214841ce3ddd5dd0f",
+    "decision_guidance.py": "2e7f62b220346507bd13760ada0a59385e3fc0dbbfb849dd3463c29c81a4a64e"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47204,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9026,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 7936
+      },
+      "output_tokens": 378,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9404
+    },
+    "text": "{\"question_target\":\"T05\",\"reply\":\"Start with two things: the coverage route and the doctor/cost checks. Medicare can be received through Original Medicare, which is Parts A and B through the federal program, or through a Medicare Advantage plan, which provides Parts A and B through a private plan. Both are Medicare, but their rules and costs work differently. For costs, don’t look at the monthly premium alone—what matters is also what you pay when you use care, like deductibles, copays, or coinsurance. Since keeping your cardiologist and watching total cost matter to you, we’ll want to compare those pieces carefully once we know your current setup.\",\"question\":\"What health insurance do you have now? That helps me focus the comparison and the timing questions in the right direction.\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.intent.goal\",\"guide.needs.providersStatus\",\"guide.needs.providers\",\"guide.needs.priorities\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"routesintro\",\"options\",\"costs\"],\"agenda_update\":{\"current_concern\":\"where to start comparing coverage while keeping a cardiologist and understanding visit costs\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"premiums\",\"deductible\",\"cost_sharing\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"personal_cost\"],\"blocking_concepts\":[\"coverage_paths\",\"cost_components\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 6.898252
+}

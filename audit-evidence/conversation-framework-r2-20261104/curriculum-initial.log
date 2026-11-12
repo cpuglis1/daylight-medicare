@@ -1,0 +1,29 @@
+...Daylight composition unavailable code=unavailable question_available=True
+...FDaylight composition unavailable code=composition_unavailable question_available=True
+..F.
+======================================================================
+FAIL: test_ordinary_typed_coverage_answer_and_citation_do_not_authorize_revisit (test_curriculum_flow.CurriculumFlowTests.test_ordinary_typed_coverage_answer_and_citation_do_not_authorize_revisit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_curriculum_flow.py", line 227, in test_ordinary_typed_coverage_answer_and_citation_do_not_authorize_revisit
+    self.assertEqual(out['reply'], '')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: 'Medicare generally has two coverage paths[71 chars]sts.' != ''
+- Medicare generally has two coverage paths, Original Medicare and Medicare Advantage, with different rules and costs.
+
+
+======================================================================
+FAIL: test_routine_me_answer_cannot_reintroduce_the_same_overview (test_curriculum_flow.CurriculumFlowTests.test_routine_me_answer_cannot_reintroduce_the_same_overview)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_curriculum_flow.py", line 138, in test_routine_me_answer_cannot_reintroduce_the_same_overview
+    self.assertEqual(out['reply'], '', 'Rejected redundant teaching must not remain as repeated prose.')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Medicare generally has two coverage paths[71 chars]sts.' != ''
+- Medicare generally has two coverage paths, Original Medicare and Medicare Advantage, with different rules and costs.
+ : Rejected redundant teaching must not remain as repeated prose.
+
+----------------------------------------------------------------------
+Ran 11 tests in 1.871s
+
+FAILED (failures=2)

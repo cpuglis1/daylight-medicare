@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: explicit answers, bounded POST, exact cents, null annual and all classes
+ok 1 - explicit answers, bounded POST, exact cents, null annual and all classes
+  ---
+  duration_ms: 34.1675
+  ...
+# Subtest: an edited profile discards delayed old prices and comparison
+ok 2 - an edited profile discards delayed old prices and comparison
+  ---
+  duration_ms: 1.504625
+  ...
+# Subtest: 75+ immediately removes prices without another request; correcting restores lookup
+ok 3 - 75+ immediately removes prices without another request; correcting restores lookup
+  ---
+  duration_ms: 1.562417
+  ...
+# Subtest: failed lookup retains inputs and retry works; profile replacement clears local answers
+ok 4 - failed lookup retains inputs and retry works; profile replacement clears local answers
+  ---
+  duration_ms: 5.221166
+  ...
+# Subtest: compare three source rates, remove and return to the full list
+ok 5 - compare three source rates, remove and return to the full list
+  ---
+  duration_ms: 4.334875
+  ...
+# Subtest: reviewed profile reaches registered workspace with no URL or storage
+ok 6 - reviewed profile reaches registered workspace with no URL or storage
+  ---
+  duration_ms: 2.63625
+  ...
+# Subtest: expired or unreviewed handoff cannot open a workspace
+ok 7 - expired or unreviewed handoff cannot open a workspace
+  ---
+  duration_ms: 0.396917
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102.8585

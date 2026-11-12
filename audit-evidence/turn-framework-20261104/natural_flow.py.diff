@@ -1,0 +1,276 @@
+--- alternatives/advisor-first/natural_flow.py (before)
++++ alternatives/advisor-first/natural_flow.py
+@@ -31,10 +31,12 @@
+ from natural_agent import NaturalAgent
+ from comparison_service import ComparisonService
+ from conversation_output import generated_conversation
++from turn_contract import question_binding, working_assessment, outcome
++from contextual_capture import classify_situation
+ from controller_diagnostics import unexpected_failure
+ from narrative_agent import provider_failure_message
+ from natural_state import (ensure_state, legacy_projection, restore_state,
+-                           record_capture, classify_update, classify_situation,
++                           record_capture, classify_update,
+                            build_context, set_target, prune_for_storage, sync_agenda,
+                            apply_agenda_reports, agenda_context, record_advisor_move)
+ 
+@@ -133,7 +135,7 @@
+             agenda_update=working.get('agenda_update'), goal=working.get('goal'),
+             education_record=working.get('education_record'),
+             task_work_record=working.get('task_work_record'),
+-            learner_record=working.get('learner_record'))
++            learner_record=working.get('learner_record'), continuation=working.get('continuation'))
+ 
+     def pending_for(self, owner):
+         return self.clarifications.get((owner,self.current_chain.get(owner)))
+@@ -680,6 +682,12 @@
+                              question.get('entity','profile'))
+ 
+     @staticmethod
++    def capture_values(g, r):
++        """Compare committed meaning/status, excluding revision bookkeeping."""
++        return ({key: (copy.deepcopy(item.get('value')), item.get('status')) for key, item in g['fields'].items()},
++                {key: (copy.deepcopy(item.get('value')), item.get('stale', False)) for key, item in r['facts'].items()})
++
++    @staticmethod
+     def report_delta(before_g, before_r, g, r, updates=()):
+         """New/reaffirmed validated reports must survive the next-question lens.
+ 
+@@ -707,6 +715,8 @@
+                 fresh.update(ref for ref in after if ref.startswith('readiness.RC22.' + entity + '.'))
+             if identifier in FIELD:
+                 fresh.add('guide.' + FIELD[identifier])
++            elif identifier in {'S_AGE65', 'S_RETIREMENT'}:
++                fresh.add('guide.' + SITUATION_FIELDS[identifier[2:].lower()])
+             elif identifier.startswith('RC') and update.get('entity', 'profile') != 'new':
+                 entity = update.get('entity') or 'profile'
+                 fresh.update(ref for ref in after if ref.startswith('readiness.' + identifier + '.' + entity + '.'))
+@@ -767,7 +777,7 @@
+ 
+     def compose_response(self, owner, out, message, moves, policy, request_id, reservation, previous_dialogue=None,
+                          submitted_answer=None, goal=None, priority_changed=False, accepted_reports=(), resolved_changes=(),
+-                         education_request=None, learner_observations=()):
++                         education_request=None, learner_observations=(), capture_outcomes=(), answer_context=None):
+         learning = self.memory.education(owner, self.current_chain.get(owner), policy)
+         # Only current explicit explanation requests can authorize a revisit.
+         # Generic evidence made available below and an ordinary button answer
+@@ -881,6 +891,8 @@
+         context['comparison_status'] = self.comparisons.context_status(out['comparison'])
+         work_before = self.memory.task_work(owner, self.current_chain.get(owner), policy)
+         context['task_work'] = task_work_context(context, work_before)
++        if policy == CONTEXT_POLICY:
++            context['working_assessment'] = working_assessment(context, capture_outcomes, answer_context)
+         out['assessment']['conversationOpen'] = True
+         out['assessment']['intakePaused'] = False
+         try:
+@@ -889,6 +901,8 @@
+                 composed = copy.deepcopy(composed)
+                 composed.update(question_target=None, question='', education_followups=[])
+                 composed.setdefault('agenda_update', {})['pause'] = True
++                composed['continuation'] = {'assessment': {'goal_progress': 'paused', 'next_move': 'finish'},
++                    'delivered': 'answer_only', 'validation_changed_continuation': False}
+             target = composed.get('question_target')
+             selected = next((item for item in moves if item['question']['id'] == target), None) if target else None
+             if target and not selected:
+@@ -927,6 +941,7 @@
+                 or self.report(out['record'], 'RC01').get('choice') == 'research'
+                 or metadata(out['record'])['task'] == 'learn'))
+             out['generated'] = {'status': 'complete', 'move': target or 'answer'}
++            out['metrics']['continuation'] = copy.deepcopy(composed.get('continuation'))
+             if composed.get('validation_recovery'):
+                 out['generated']['validation_recovery'] = copy.deepcopy(composed['validation_recovery'])
+             used = [identifier for identifier in composed['evidence_refs'] if identifier in evidence]
+@@ -962,6 +977,7 @@
+                        'task_work_record': work_record}
+             if policy == CONTEXT_POLICY:
+                 working['learner_record'] = learner
++            working['continuation'] = copy.deepcopy(composed.get('continuation'))
+             if goal and len(goal) <= 200: working['goal'] = goal
+             out['_advisor_memory'] = working
+             out['education'] = learning_context(planned['record'])
+@@ -1012,6 +1028,9 @@
+                 self.composition_diagnostics.append({'code': code, 'questionAvailable': bool(recovery_question), 'intakePaused': False})
+                 self.composition_diagnostics = self.composition_diagnostics[-50:]
+             LOGGER.warning('Daylight composition unavailable code=%s question_available=%s', code, bool(recovery_question))
++            out['metrics']['continuation'] = {'assessment': None, 'delivered': 'withheld',
++                                              'validation_changed_continuation': True}
++            out.setdefault('_advisor_memory', {})['continuation'] = copy.deepcopy(out['metrics']['continuation'])
+         # Exact counting may fail before submission. Count paid stages actually
+         # issued, including an uncertain stream, rather than attempted methods.
+         stage = reservation.stage('compose') if reservation else None
+@@ -1036,8 +1055,8 @@
+         policy = payload.get('contextPolicy')
+         current = self.assess(g, r)['nextQuestion']
+         presentation = self.current_presentation(owner, payload.get('continuation'))
+-        if presentation is not None and presentation.get('nextQuestion') is None:
+-            current = None
++        if presentation is not None:
++            current = copy.deepcopy(presentation.get('nextQuestion'))
+         ns = ensure_state(r)
+         if ns.get('agenda',{}).get('lastMove') and ns['dialogue']['lastTarget'] is None:
+             current=None
+@@ -1052,7 +1071,11 @@
+         pending = self.pending_for(owner)
+         if pending and pending['revision'] == [g['stateVersion'], r['stateVersion']]:
+             u = pending['update']
+-            current = self.question(u['id'], [k for k in u['fields'] if k != 'choice'] or None, u.get('entity', 'profile'))
++            if not current or (current['id'], current.get('entity', 'profile')) != (u['id'], u.get('entity', 'profile')):
++                current = self.question(u['id'], [k for k in u['fields'] if k != 'choice'] or None, u.get('entity', 'profile'))
++        answer_context = question_binding(self.permitted_question(current, policy), self.value(g, 'subject.role'),
++            {'S_AGE65': ['month', 'year', 'first_day'], 'S_RETIREMENT': ['status', 'when']}.get((current or {}).get('id'), ()),
++            subject='learner' if (current or {}).get('id') in {'T01', 'T02'} else 'beneficiary')
+         short_birthday = (re.fullmatch(r'(' + '|'.join(MONTHS)
+             + r')(?:\s+\d{1,2}(?:st|nd|rd|th)?,?)?(?:\s+((?:19|20)\d{2}))?'
+             + r'(?:[,;]?\s+(?:and\s+)?(?:not )?(?:on )?the (?:first|1st)(?: day)?(?: of the month)?)?[.!]?',
+@@ -1083,6 +1106,7 @@
+                                definitions=self.agent.definitions, safeReports=safe_reports, pending=False)
+                 context['teachingCandidates']=self.teaching_candidates(g,r,current)
+                 if policy == CONTEXT_POLICY:
++                    context['answer_context'] = answer_context
+                     context['advisor_brief'] = self.advisor_brief(owner, g, r, policy, self.eligible(owner, g, r))
+                 if policy == CONTEXT_POLICY:
+                     context['recent_exchanges'] = recent
+@@ -1094,6 +1118,9 @@
+                 extraction_guide, _ = legacy_projection(g, r)
+                 result = self.agent.extract(owner, message, extraction_guide, context, payload['requestId'], reservation)
+             m = metadata(r)
++            capture_outcomes = [outcome(item['id'], 'unsupported', item['reason'])
++                for item in [*result.get('rejected_updates', []), *result.get('rejected_situation_proposals', [])]
++                if item.get('id') in Q or item.get('id') in {'S_AGE65', 'S_RETIREMENT'}]
+             # Interpretation proposes reports; it does not choose a hidden
+             # conversation mode. The retained task is only a dependency lens.
+             goal_quote = result.get('goal_quote', '')
+@@ -1145,6 +1172,7 @@
+                     # a conflicting ZIP nor a failed clarification answer. Its
+                     # words remain in the permitted visit; ask the normal ZIP
+                     # candidate rather than creating an unresolvable hold.
++                    capture_outcomes.append(outcome(update['id'], 'needs_clarification', 'missing_dependency'))
+                     continue
+                 pending = self.pending_for(owner)
+                 resolution_update = self.pending_resolution_update(pending, update, r)
+@@ -1159,14 +1187,21 @@
+                     secondary={'T04':('month','coverage.requestedStartMonth'),'T06':('text','needs.providers'),'T07':('text','needs.medications')}[update['id']]
+                     old['value']={'choice':old['value'],secondary[0]:self.value(g,secondary[1])}
+                 classification = classify_update(update, message, existing=old)
+-                if classification['decision'] == 'reject':continue
++                if classification['decision'] == 'reject':
++                    capture_outcomes.append(outcome(update['id'], 'unsupported', classification['reason'], update.get('entity', 'profile')))
++                    continue
+                 if classification['decision'] == 'clarify':
+                     if update['id'] == 'T01' and goal_quote:
+                         continue
+                     ambiguous.append(update)
++                    capture_outcomes.append(outcome(update['id'], 'conflicting' if classification['reason'] == 'conflicting_report'
++                        else 'needs_clarification', classification['reason'], update.get('entity', 'profile')))
+                     continue
+                 try:
++                    before_capture = self.capture_values(g, r)
+                     self.capture(g, r, update, resolve_aggregate=resolves_pending and not self.aggregate_still_pending(pending, update, (resolution_update,)))
++                    capture_outcomes.append(outcome(update['id'], 'already_known' if before_capture == self.capture_values(g, r)
++                        else 'accepted', classification['reason'], update.get('entity', 'profile')))
+                     accepted_updates.append(update)
+                     self.retire_item_targets(owner,g,r,update)
+                     if resolves_pending:
+@@ -1176,6 +1211,7 @@
+                         pending = self.pending_for(owner)
+                 except ProfileError:
+                     ambiguous.append(update)
++                    capture_outcomes.append(outcome(update['id'], 'needs_clarification', 'capture_not_committed', update.get('entity', 'profile')))
+             # The live model supplies semantic observations; the phrase
+             # recognizer remains only for explicitly synthetic fixture mode.
+             proposed_situation = observations(message, self.value(g, 'subject.role')) if self.fixture else {}
+@@ -1183,12 +1219,15 @@
+             conflicting_kinds = set()
+             for proposal in result.get('situation_proposals', []):
+                 if proposal.get('subject') != 'beneficiary' or proposal.get('scope') == 'unknown':
++                    capture_outcomes.append(outcome('S_' + proposal['kind'].upper(), 'unsupported', 'unresolved_subject_or_scope'))
+                     continue
+                 kind = proposal['kind']
+                 value = ({'month': proposal['month'], 'year': proposal['year']} if kind == 'age65'
+                          else {'status': proposal['status'], 'when': proposal['when']})
+                 if kind == 'age65':
+-                    first_day = birthday_first_day(proposal['quote'], value['month'])
++                    first_day = proposal.get('first_day')
++                    if first_day is None:
++                        first_day = birthday_first_day(proposal['quote'], value['month'])
+                     if first_day is not None:
+                         value['first_day'] = first_day
+                 if kind in proposed_situation and proposed_situation[kind] != value:
+@@ -1203,10 +1242,8 @@
+                 if first_day is not None:
+                     value['first_day'] = first_day
+                 proposed_situation['age65'] = value
+-                support = 'I turn 65 in ' + short_birthday[1]
+             elif current and current['id'] == 'S_RETIREMENT' and re.fullmatch(r'(?i)(?:retired|retiring|planning to retire|(?:still )?working)[.!]?', message):
+                 proposed_situation['retirement'] = {'status': 'working' if 'working' in message.lower() else 'retiring' if 'retiring' in message.lower() or 'planning' in message.lower() else 'retired', 'when': ''}
+-                support = 'I am ' + message
+             uncertain_kinds = {kind for kind, item in situation_meta.items() if item.get('uncertain')}
+             situation={}
+             for kind, value in proposed_situation.items():
+@@ -1215,18 +1252,22 @@
+                 proposal = situation_meta.get(kind, {})
+                 scoped_support = proposal.get('quote') or support
+                 first_day = value.pop('first_day', None) if kind == 'age65' else None
+-                resolution=classify_situation(scoped_support,kind,value,existing=old)
++                resolution=classify_situation(scoped_support,kind,value,existing=old, answer_context=answer_context)
+                 if resolution['reason'] == 'conflicting_report' and proposal.get('correction'):
+-                    resolution = classify_situation(scoped_support, kind, value)
++                    resolution = classify_situation(scoped_support, kind, value, answer_context=answer_context)
+                 if kind in conflicting_kinds:
+                     resolution = {'decision':'clarify','reason':'multiple_situation_reports','value':value}
+                 if kind in uncertain_kinds:
+                     resolution = {'decision':'clarify','reason':'tentative','value':value}
+                 if resolution['decision']=='clarify' and resolution['reason']=='conflicting_report' and pending and pending['update']['id']==situation_id:
+-                    resolution=classify_situation(support,kind,value)
+-                if resolution['decision']=='reject':continue
++                    resolution=classify_situation(support,kind,value, answer_context=answer_context)
++                if resolution['decision']=='reject':
++                    capture_outcomes.append(outcome(situation_id, 'unsupported', resolution['reason']))
++                    continue
+                 if resolution['decision']=='clarify':
+                     ambiguous.append({'id':situation_id,'fields':{},'entity':'profile'})
++                    capture_outcomes.append(outcome(situation_id, 'conflicting' if resolution['reason'] == 'conflicting_report'
++                        else 'needs_clarification', resolution['reason']))
+                     continue
+                 value = resolution['value']
+                 if kind == 'age65':
+@@ -1237,6 +1278,7 @@
+                             and (old or {}).get('status') == 'reported'
+                             and not proposal.get('correction') and not (pending and pending['update']['id'] == situation_id)):
+                         ambiguous.append({'id':situation_id,'fields':{},'entity':'profile'})
++                        capture_outcomes.append(outcome(situation_id, 'conflicting', 'conflicting_report'))
+                         continue
+                     flag = previous_flag if first_day is None else first_day
+                     if flag is not None:
+@@ -1244,6 +1286,9 @@
+                 situation[kind]=value
+                 before_g, before_r = copy.deepcopy(g), copy.deepcopy(r)
+                 self.put(g, SITUATION_FIELDS[kind], value, 'user_text')
++                accepted_updates.append({'id': situation_id})
++                capture_outcomes.append(outcome(situation_id,
++                    'already_known' if old and old.get('status') == 'reported' and old.get('value') == value else 'accepted', resolution['reason']))
+                 record_capture(g, r, before_g, before_r, {'id':situation_id, 'fields':{}, 'entity':'profile'}, method='direct_report')
+                 if pending and pending['update']['id']==situation_id:
+                     self.resolve_pending(owner, pending['update'], g, r)
+@@ -1301,7 +1346,8 @@
+                 out = self.compose_response(owner, out, message, moves, policy, payload['requestId'], reservation, previous_dialogue, goal=goal_quote or None, priority_changed=priority_changed,
+                     accepted_reports=delta, resolved_changes=self.resolved_changes(*report_snapshot, delta),
+                     education_request=result.get('education_request'),
+-                    learner_observations=result.get('learner_observations', ()))
++                    learner_observations=result.get('learner_observations', ()),
++                    capture_outcomes=capture_outcomes, answer_context=answer_context)
+             shown = [fact['id'] for fact in out.get('facts', []) if fact['id'] in self.progress_fact_ids]
+             if shown:
+                 m=metadata(out['record']);m['lastFactIds']=shown
+@@ -1393,7 +1439,10 @@
+             delta = self.report_delta(before_g, before_r, out['guide'], out['record'], [action])
+             out=self.compose_response(owner,out,message,moves,CONTEXT_POLICY,payload['requestId'],reservation,
+                 submitted_answer=submitted_answer, priority_changed=changed, accepted_reports=delta,
+-                resolved_changes=self.resolved_changes(before_g, before_r, delta))
++                resolved_changes=self.resolved_changes(before_g, before_r, delta),
++                capture_outcomes=[outcome(identifier, 'already_known' if self.capture_values(before_g, before_r) == self.capture_values(out['guide'], out['record'])
++                    else 'accepted', 'explicit_' + action['type'])],
++                answer_context=question_binding(question, self.value(before_g, 'subject.role')))
+         except (ModelUnavailable,ProfileError,ValueError) as error:
+             out['reply']='';out['notice']=str(error)[:220]
+             out['advisor']={'visual':'none','teachingFactIds':[],'sources':[]}

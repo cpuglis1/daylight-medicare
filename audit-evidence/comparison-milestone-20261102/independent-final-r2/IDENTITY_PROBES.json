@@ -1,0 +1,123 @@
+{
+  "schema": "daylight.final-independent-identity-probes.v2",
+  "observed_at": "2026-11-02T15:30:43.732056+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "cross_chain_initial_offer_200",
+      "passed": true
+    },
+    {
+      "name": "new_signed_chain_established",
+      "passed": true
+    },
+    {
+      "name": "old_offer_erased_immediately",
+      "passed": true
+    },
+    {
+      "name": "original_cross_chain_confirmation_now_rejects_422",
+      "passed": true
+    },
+    {
+      "name": "cross_chain_rejection_has_no_source_candidates",
+      "passed": true
+    },
+    {
+      "name": "same_new_chain_fresh_offer_works",
+      "passed": true
+    },
+    {
+      "name": "fresh_same_chain_confirmation_works",
+      "passed": true
+    },
+    {
+      "name": "delete_initial_offer_200",
+      "passed": true
+    },
+    {
+      "name": "delete_initial_selection_200",
+      "passed": true
+    },
+    {
+      "name": "delete_pending_offer_200",
+      "passed": true
+    },
+    {
+      "name": "bad_csrf_delete_rejects_403",
+      "passed": true
+    },
+    {
+      "name": "bad_csrf_preserves_pending_and_selected",
+      "passed": true
+    },
+    {
+      "name": "authenticated_delete_version_conflict_is_409",
+      "passed": true
+    },
+    {
+      "name": "authenticated_delete_409_clears_pending_and_selected",
+      "passed": true
+    },
+    {
+      "name": "changed_head_after_source_read_rejects_409",
+      "passed": true
+    },
+    {
+      "name": "changed_head_response_suppresses_identity_and_comparison",
+      "passed": true
+    },
+    {
+      "name": "stale_head_replay_stops_before_source_query",
+      "passed": true
+    },
+    {
+      "name": "consumer_held_is_200",
+      "passed": true
+    },
+    {
+      "name": "consumer_held_has_no_source_candidates_or_bindings",
+      "passed": true
+    },
+    {
+      "name": "discovery_candidate_STOP_rejects_before_labels",
+      "passed": true
+    },
+    {
+      "name": "exact_source_record_STOP_rejects_before_labels",
+      "passed": true
+    },
+    {
+      "name": "exact_actor_snapshot_STOP_rejects_before_labels",
+      "passed": true
+    },
+    {
+      "name": "explicit_source_period_is_preserved",
+      "passed": true
+    },
+    {
+      "name": "literal_status_and_qualification_are_inspectable",
+      "passed": true
+    },
+    {
+      "name": "provider_result_discloses_unrouted_exact_windows",
+      "passed": true
+    }
+  ],
+  "prior_attempt": "probe_final_identity.py and probe-final.log remain unchanged; additional comparison-template HTTP seed was not a valid controller fixture. No product defect or actual-source journey is claimed.",
+  "operator_sha256": "7b7a8095fd5c89a51fe91a35341781ff5df48fc729935f15787f0b9b1395086c",
+  "code_sha256": {
+    "alternatives/advisor-first/identity_journey.py": "3a190575c66c496a5a79e3d9717ae4889b35f64e7727f7ec2c1854f735078a0b",
+    "alternatives/advisor-first/identity_http.py": "36e782195e7f51f2a0bafd873ca8e7f38187a837f7decaf7d8d45eb58eb26ba6"
+  },
+  "fixtures": [
+    "isolated real HTTP cookie/CSRF/HMAC/head/journal with scripted source dependencies",
+    "original cross-chain logical sequence with fixed fictional comparison adapter",
+    "core STOP/context probes use the actual comparison profile adapter over fictional reports; actual-source HTTP is root-owned"
+  ],
+  "real_customer_access": false,
+  "actual_postgresql_queries": 0,
+  "paid_model_calls": 0,
+  "runtime_or_service_actions": 0,
+  "new_source_or_consumer_acceptance": false
+}

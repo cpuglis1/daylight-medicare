@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fbf9f4">
+  <title>Daylight</title>
+  <link rel="icon" href="/daylight.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/approved.css">
+  <link rel="stylesheet" href="/ten.css">
+  <link rel="stylesheet" href="/chat.css">
+  <link rel="stylesheet" href="/adaptive.css">
+  <link rel="stylesheet" href="/advisor.css">
+  <link rel="stylesheet" href="/identity-view.css">
+  <link rel="stylesheet" href="/understanding.css">
+  <script src="/ten-state.js" defer></script>
+  <script src="/comparison-view.js" defer></script>
+  <script src="/identity-view.js" defer></script>
+  <script src="/visit-artifacts.js" defer></script>
+  <script src="/understanding-view.js" defer></script>
+  <script src="/advisor.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Daylight home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">Daylight</span></a>
+  </header>
+  <main id="main">
+    <section id="landing" class="landing" aria-labelledby="landing-title">
+      <div class="approved-hero">
+        <div class="landing-inner"><h1 id="landing-title" class="landing-title">Medicare,<br>plain as day.</h1><p class="landing-sub">Understand your coverage options and prepare to enroll, at your pace.</p><div class="approved-entry-actions"><button id="start" class="primary-button landing-cta" disabled>Get started</button></div></div>
+        <figure class="approved-arrival-photo"><img src="/art/arrival-option-a.jpg" width="1400" height="933" fetchpriority="high" alt="A woman with short silver hair and an ochre cardigan facing the camera outdoors against green foliage."></figure>
+      </div>
+    </section>
+    <section id="workspace" class="stage" tabindex="-1" hidden>
+      <div class="chat-workspace">
+        <nav id="phases" class="chat-progress" aria-label="Your progress"></nav>
+        <div id="reading" class="chat-reading">
+          <div id="history" role="log" aria-label="Conversation" aria-live="polite"></div>
+          <section id="current" class="adaptive-suggestions" aria-label="Current question"></section>
+          <div id="shortcuts" class="shortcuts"></div>
+          <aside id="reference" class="reference" aria-label="Your Medicare guide" hidden></aside>
+          <div id="pending-turn" hidden></div>
+        </div>
+        <button id="chat-down" type="button" class="chat-down" aria-label="Go to latest message" title="More below" aria-controls="reading" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></button>
+        <form id="composer" class="chat-composer">
+          <label id="message-label" class="chat-entry-label" for="message">Type an answer or ask a question</label>
+          <div id="composer-input" class="chat-input-row"><textarea id="message" rows="2" maxlength="1200" placeholder="Start wherever you like…"></textarea><button id="send" form="composer" type="submit" class="primary-button" disabled>Send</button></div>
+          <div class="chat-composer-tools"><button id="restore-draft" type="button" class="text-button" hidden>Restore draft</button><button id="resume" type="button" class="text-button" hidden>Resume saved information</button><span id="save-status" class="chat-small" hidden>Visit only</span></div>
+          <p id="status" class="chat-status" role="status"></p>
+          <p id="fixture" class="chat-small" hidden>Synthetic preview · AI replies are mocked.</p>
+        </form>
+        <nav class="chat-tools" aria-label="Conversation controls"><button id="back" class="text-button" hidden>Back</button><button id="review" class="text-button" hidden>Review information</button><button id="prepare" class="text-button" hidden>Prepare next steps</button><button id="samples" class="text-button" hidden>Browse sample plans</button><label id="model-control" class="chat-model" hidden>AI model<select id="ai-model" aria-describedby="model-transfer"></select><span id="model-transfer" class="chat-small"></span></label><button id="privacy" class="text-button" disabled>Privacy &amp; saving</button></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div id="guide-utilities"><button id="landing-privacy" class="text-button" disabled>Your guide &amp; privacy</button><button id="landing-resume" class="text-button" hidden>Resume saved information</button></div><p class="photo-credit">Photo: <a href="https://www.pexels.com/photo/woman-smiling-at-the-camera-6787568/" target="_blank" rel="noopener noreferrer">Marcus Aurelius / Pexels</a> · <a href="https://www.pexels.com/license/" target="_blank" rel="noopener noreferrer">License</a>. Illustrative, not a customer endorsement.</p></footer>
+  <noscript><p>Please enable JavaScript to use Daylight.</p></noscript>
+</body>
+</html>

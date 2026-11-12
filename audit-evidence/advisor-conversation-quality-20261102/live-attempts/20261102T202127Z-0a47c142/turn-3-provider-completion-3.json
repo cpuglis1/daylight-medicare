@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34963,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6813,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 214,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7027
+    },
+    "text": "{\"question_target\":\"T08\",\"reply\":\"It can matter a lot. With Original Medicare, any U.S. doctor who takes Medicare can see you, which is often simpler for travel and for keeping a doctor if they accept Medicare. With Medicare Advantage, doctor access depends on the specific private plan, so whether you can keep your doctor or get routine care while traveling can vary by plan and needs to be checked.\",\"question\":\"Will you need routine care away from home?\",\"education_followups\":[],\"report_refs\":[\"guide.needs.priorities\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"],\"agenda_update\":{\"current_concern\":\"travel and keeping doctor across Medicare paths\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"original_provider_access\",\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 4.12937,
+  "turn": 3,
+  "event": "relevant_tradeoff",
+  "fictional_inputs": true
+}

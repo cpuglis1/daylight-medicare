@@ -1,0 +1,25 @@
+....EE.....
+======================================================================
+ERROR: test_composition_preflight_retains_reports_counts_only_actual_stage_and_never_retries (test_response_failures.PreflightHttpTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/sessions/rcw-01mb2vj6jcjmhwitlnviwuym/mnt/daylight/alternatives/advisor-first/tests/test_response_failures.py", line 72, in setUp
+    self.http.setUp()
+  File "/sessions/rcw-01mb2vj6jcjmhwitlnviwuym/mnt/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 43, in setUp
+    verified_at = datetime.fromisoformat(budget.rates['verified_at']).timestamp()
+ValueError: Invalid isoformat string: '2026-11-04T15:26:46Z'
+
+======================================================================
+ERROR: test_extraction_preflight_does_not_issue_or_charge_generation (test_response_failures.PreflightHttpTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/sessions/rcw-01mb2vj6jcjmhwitlnviwuym/mnt/daylight/alternatives/advisor-first/tests/test_response_failures.py", line 72, in setUp
+    self.http.setUp()
+  File "/sessions/rcw-01mb2vj6jcjmhwitlnviwuym/mnt/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 43, in setUp
+    verified_at = datetime.fromisoformat(budget.rates['verified_at']).timestamp()
+ValueError: Invalid isoformat string: '2026-11-04T15:26:46Z'
+
+----------------------------------------------------------------------
+Ran 11 tests in 2.939s
+
+FAILED (errors=2)

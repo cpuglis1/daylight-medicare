@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 50536,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9801,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 336,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 10137
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"Medicare Advantage means you get your Part A and Part B coverage through a Medicare-approved private plan instead of through Original Medicare. Most Advantage plans also include drug coverage. The key difference for your concern is that doctors, costs, and rules can vary by the exact plan, even within the same company. So no—an office saying it “takes Aetna” does not prove it takes your particular Medicare Advantage plan. It also doesn’t prove what a cardiology visit would cost under that plan. Those checks depend on the exact plan, and sometimes on the specific service too.\",\"question\":\"What ZIP code do you live in? That helps narrow the local Medicare options we’d be comparing around your doctor and likely visit costs.\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"advantage\",\"checks\",\"routesintro\"],\"agenda_update\":{\"current_concern\":\"what Medicare Advantage means and whether accepting Aetna proves plan acceptance\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\",\"plan_specific_rules\"],\"evidence_refs\":[\"advantage\",\"routesintro\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\",\"advantage\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_participation\"],\"blocking_concepts\":[],\"next_step\":\"answer\"}}"
+  },
+  "elapsed_seconds": 6.965767
+}

@@ -1,0 +1,78 @@
+test_P1 (test_ui2_personas.PersonaHTTPTests.test_P1) ... FAIL
+test_P1_payer (test_ui2_personas.PersonaHTTPTests.test_P1_payer) ... FAIL
+test_P2 (test_ui2_personas.PersonaHTTPTests.test_P2) ... ok
+test_P2_browse (test_ui2_personas.PersonaHTTPTests.test_P2_browse) ... ok
+test_P3 (test_ui2_personas.PersonaHTTPTests.test_P3) ... ok
+test_P3_replacement (test_ui2_personas.PersonaHTTPTests.test_P3_replacement) ... FAIL
+test_P4 (test_ui2_personas.PersonaHTTPTests.test_P4) ... FAIL
+test_P4_unknown (test_ui2_personas.PersonaHTTPTests.test_P4_unknown) ... ok
+test_P5 (test_ui2_personas.PersonaHTTPTests.test_P5) ... ok
+test_internal_and_optional_questions_not_forced_by_all_unknowns (test_ui2_personas.RegressionTests.test_internal_and_optional_questions_not_forced_by_all_unknowns) ... ok
+test_named_programs_multi_select_and_decline_conflict (test_ui2_personas.RegressionTests.test_named_programs_multi_select_and_decline_conflict) ... ok
+test_provider_name_is_reported_once_without_ai_and_question_is_not_name (test_ui2_personas.RegressionTests.test_provider_name_is_reported_once_without_ai_and_question_is_not_name) ... ok
+
+======================================================================
+FAIL: test_P1 (test_ui2_personas.PersonaHTTPTests.test_P1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 79, in test
+    def test(self,case=case):self.run_case(case)
+                             ~~~~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 67, in run_case
+    self.assertEqual(q['id'] if q else None,step['expectedNext'],(case['id'],step['action'],q))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T04' != 'RC01'
+- T04
++ RC01
+ : ('P1', {'type': 'message', 'message': 'Help me prepare my Medicare transition.'}, {'id': 'T04', 'inventoryIds': ['T04'], 'question': 'When do you need Medicare coverage to start?', 'why': 'This is when you want the new coverage to begin. It may be different from when your current insurance ends.', 'choices': [['already', 'I already have Medicare']], 'multi': False, 'entity': 'profile', 'fields': [{'key': 'month', 'label': 'Month and year', 'type': 'text', 'options': [], 'hint': 'For example, December 2026 or 12/26. You can also type your answer below.'}], 'signature': 'T04.profile.month', 'atomicRequests': 1})
+
+======================================================================
+FAIL: test_P1_payer (test_ui2_personas.PersonaHTTPTests.test_P1_payer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 79, in test
+    def test(self,case=case):self.run_case(case)
+                             ~~~~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 66, in run_case
+    steps.append(step);result=self.turn(step['action']);q=result['assessment']['nextQuestion']
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 47, in turn
+    result=self.http('POST','/api/conversation/turn',{'guide':self.g,'record':self.r,'action':action,'requestId':str(uuid.uuid4()),'aiConsent':True,'pendingId':self.pending})
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 43, in http
+    data=json.loads(response.read());self.assertEqual(response.status,expected,data);c.close();return data
+                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 503 != 200 : {'error': 'An actual date could not be traced to the stated month and year. Your reports are unchanged.'}
+
+======================================================================
+FAIL: test_P3_replacement (test_ui2_personas.PersonaHTTPTests.test_P3_replacement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 79, in test
+    def test(self,case=case):self.run_case(case)
+                             ~~~~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 69, in run_case
+    self.assertIsNone(self.assessment['nextQuestion']);self.assertIsNone(self.pending)
+                                                       ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 'kOsmcefjIiQ02NaFcyRgNbQLaN1KwAPs' is not None
+
+======================================================================
+FAIL: test_P4 (test_ui2_personas.PersonaHTTPTests.test_P4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 79, in test
+    def test(self,case=case):self.run_case(case)
+                             ~~~~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 66, in run_case
+    steps.append(step);result=self.turn(step['action']);q=result['assessment']['nextQuestion']
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 47, in turn
+    result=self.http('POST','/api/conversation/turn',{'guide':self.g,'record':self.r,'action':action,'requestId':str(uuid.uuid4()),'aiConsent':True,'pendingId':self.pending})
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_ui2_personas.py", line 43, in http
+    data=json.loads(response.read());self.assertEqual(response.status,expected,data);c.close();return data
+                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 429 != 200 : {'error': 'Please wait a moment before sending again.'}
+
+----------------------------------------------------------------------
+Ran 12 tests in 3.140s
+
+FAILED (failures=4)

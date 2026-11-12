@@ -1,0 +1,73 @@
+{
+  "status": "implemented_and_locally_activated",
+  "directive": "D130",
+  "protected_source_hashes_unchanged": 392,
+  "existing_saved_profile_and_ai_ledger_tables_unchanged": true,
+  "paid_calls": 0,
+  "ui_proxy_unchanged": true,
+  "protected_services_unchanged": true,
+  "final_service": {
+    "pids": [
+      "28312"
+    ],
+    "process": "Tue Nov 10 20:34:03 2026     /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/cep4u/daylight/alternatives/advisor-first/server.py --port 8893 --local-research --identity-research",
+    "config": {
+      "advisorName": "MidMorning",
+      "variant": "D86",
+      "mockAI": false,
+      "modelPolicy": {
+        "version": "D86-ongoing-v3",
+        "reasoning_effort": "none",
+        "output_tokens": 900,
+        "composition_reasoning_effort": "none"
+      },
+      "responseReliabilityContract": "response-reliability-r1",
+      "defaultModel": "gpt-6.1-sol"
+    },
+    "provider_usage": {
+      "OpenAI": {
+        "requestCount": 32,
+        "accountedUsd": 1.5647,
+        "dailyLimitUsd": 15
+      },
+      "Anthropic": {
+        "requestCount": 5,
+        "accountedUsd": 0.55508,
+        "dailyLimitUsd": 15
+      }
+    }
+  },
+  "checks": {
+    "medigap_passed": 18,
+    "frontend_passed": 9,
+    "natural_regression_passed": 214,
+    "natural_regression_preexisting_failure": "test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions (test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions)",
+    "plans_filter_passed": 4,
+    "memory_passed": 12,
+    "http_passed": 12
+  },
+  "browser": {
+    "viewports": [
+      [
+        1280,
+        900
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "document_overflow": false,
+    "console_errors_observed": false,
+    "fictional_data_only": true
+  },
+  "limitations": [
+    "No live model conversation evaluation",
+    "Existing unrelated visit-history test failure reproduced on baseline",
+    "No hosted deployment or source/method/eligibility acceptance"
+  ]
+}

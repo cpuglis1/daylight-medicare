@@ -1,0 +1,5 @@
+/* D134: same cards, controls and conversation invitation as the existing tabs. */
+#part-d-results .plans-filters { grid-template-columns:repeat(2,minmax(0,1fr)); margin:20px 0; }
+#part-d-results .plans-compare th { min-width:190px; }
+#part-d-results .plans-compare caption { text-align:left; padding:12px 0; font-weight:700; }
+@container plans (max-width:560px) { #part-d-results .plans-filters { grid-template-columns:1fr; } }

@@ -1,0 +1,65 @@
+# Adaptive conversation delivery · D79
+
+Implemented October 27, 2026 in the canonical :8891 alternative. Chris authorized the full hybrid flow, browser testing, and actual live AI verification. This implements D79 with the D49–D57 conversation/continuity requirements, D64 independence, D73 change review, D75 isolation and ALT73/ALT74 compatibility. The root :8890 application and the retained Documents fallback were not deployment targets.
+
+## Result
+
+The server now selects missing information for the person's current task. The ten baseline questions are no longer a universal queue. Learning needs no personal intake; published-plan lookup asks for relevant scope; transition, doctor, prescription and Medigap preparation ask only consequential missing details. A source hold stops unsupported conclusions and unnecessary collection. There is no global “ready” state unlocked by answering questions.
+
+Buttons, explicit structured answers, exact short replies and unknown/defer use deterministic code. A natural message makes at most one AI request after consent. It can provide several facts, answer part of a grouped question, ask an educational side question or explicitly correct earlier reports. The controller reuses those reports, preserves the active task during side questions and identifies each remaining unknown separately. Clear submitted text advances directly; consequential ambiguity has an explicit interpretation check. Structured controls have one Continue action; chat uses Send.
+
+The optional explanation preference changes teaching depth. The current task, Back, report review, explicit sample browsing and privacy controls remain accessible. Nothing is preselected. Date controls accept an actual known date or month/year without inventing a day. Prescription pricing preparation keeps quantity units, days supply, exact pharmacy wording and fill channel separate. A typed pharmacy or doctor is a report, not a directory match.
+
+## Contract and accounting
+
+[adaptive-flow.json](../../cms-slice/config/profile/adaptive-flow.json) snapshots the reviewed question/field maps, dependencies, unknown/stale treatment and named gaps. The historical [question map](CUSTOMER_PROFILE_QUESTION_MAP.md) and [readiness record](CUSTOMER_PROFILE_READINESS.md) remain available.
+
+| Obligation | Before | After |
+| --- | ---: | ---: |
+| Reviewed question IDs | 41 (38 primary, 3 child) | 41 |
+| Existing field paths | 78 | 78 |
+| Optional report paths for G01–G14 | 0 | 14 additive paths |
+| Named representation/evidence gaps | 14 | 14 retained |
+| External gaps closed by this work | 0 | 0 |
+
+The additive paths retain partial volunteered reports; they do not make all 14 gaps complete or accepted. The reviewed broader U.S. travel choice is additive. RC06/08/12/16/20 have an internal partial-report choice so supplying one detail cannot silently assert a missing yes/no or basis. Existing historical values remain readable. Shared child fields are reused within their actual parent; RC14 is suppressed from routine intake, RC19 does not collect a diagnosis without supported plan-specific requirements, and internal checks do not become consumer questions merely because they have inventory IDs.
+
+## Implementation boundaries
+
+- [adaptive_flow.py](../../cms-slice/scripts/adaptive_flow.py) owns task dependencies, report normalization, per-item identity, revision invalidation, scoped unknowns, pending confirmation and request deduplication. The browser renders its assessment rather than authorizing a capability.
+- [adaptive_agent.py](../../cms-slice/scripts/adaptive_agent.py) uses the existing Responses transport with a strict schema, no tools and `store:false`. Report proposals need quotations from the latest message plus person/time scope. The model selects reviewed teaching blocks; arbitrary model prose cannot become an insurance finding. The existing 8,000-input/900-output token limits, shared $1/UTC-day ledger and no automatic retries remain in force.
+- [adaptive-app.js](../../cms-slice/apps/chat-alternative/adaptive-app.js) renders the single conversation, explicit choices, optional detail controls, review and privacy. An unsent draft survives sample browsing and request failure. A structured Continue cannot silently ignore a nonempty chat draft.
+- New `/api/conversation/initial`, `/turn` and `/save` routes retain cookie ownership, CSRF/Origin checks, input/concurrency limits and existing storage. Old endpoints and saved shapes remain supported. Loading old reports is in-memory compatibility, not a migration.
+
+Saving remains opt-in and separate from AI transfer. One SQLite transaction saves the guide and readiness reports with both expected versions checked. Sensitive dates, optional wording and item details are omitted unless separately enabled. Chat messages, original quotations, audio and unsent drafts are not persisted as a transcript. Previous provider/prescription/pharmacy/date values and raw history are not automatically appended to the model context. Resume warns about shared devices and does not overwrite the current visit on failure. A conflict preserves the visit and saved copy for explicit resolution.
+
+## Verification
+
+[The evidence packet](../../../../audit-evidence/adaptive-conversation-20261027/README.md) contains tests, source/database fingerprints, live usage and desktop/tablet/phone captures.
+
+- 122 targeted Python checks passed, including 39 new adaptive tests for contract accounting, routing, multi-fact reuse, scoped unknowns/corrections, entity-specific changes, privacy omissions, atomic saves, idempotency and HTTP boundaries. Synthetic transport tests use temporary databases and make no paid calls.
+- Four retained JavaScript compatibility scripts passed. These check retained compatibility code; the new renderer was exercised in the browser and syntax-checked separately.
+- One historical source-identity test is explicitly excluded because the pinned source/read-model package is absent from the relocated alternative (`data-sources/release.json`). Its initial failure is a known source-package limitation, not a passing or skipped domain acceptance check.
+- Actual GPT-5.4 responses were verified in the running :8891 service after explicit AI consent. A final fresh-visit multi-fact message retained current-job coverage, no current Medicare, intended January 2027 coverage and a December 2026 job end, while leaving only the insurance end unknown. It did not ask the supplied facts again. A separate live Medicare Advantage explanation preserved the active transition task. Deterministic Check later and sample/review actions added no AI request.
+- Desktop 1280×800, tablet 768×1024 and phone 390×844 had no horizontal overflow. Controls, dialogs, source links, draft retention, partial unknowns and isolated save/resume were inspected. The static design detector reported no findings in the new interface files.
+- Read-only fingerprints confirm every pre-existing row in both guest databases is unchanged and both database inodes are retained. Original UI/service fingerprints are unchanged. Four concurrent L08 research-script changes were observed and left alone. Both local services respond; the deployable alternative source matches its runtime.
+
+These are technical verification results, not owner acceptance, an independent insurance review or a consumer study. Conversation measurements are per-visit counts/time including pauses; no claim of faster consumer completion is established. Physical mobile keyboard, screen reader, sustained long-conversation performance and older-adult usability testing remain unperformed. The existing pricing review expires at 2026-10-28 00:00 UTC; the AI guard will stop new paid requests after expiry until pricing is properly reviewed. This work does not extend that guard.
+
+## D73 review and remaining holds
+
+| Review concern | Evidence / remaining boundary |
+| --- | --- |
+| Useful self-service and comprehension | Reviewed teaching, optional depth, explicit reports and missing details; consumer comprehension study remains open. |
+| Consequential minimal intake | Task dependencies, reuse and per-field unknown suppression; education does not require intake. |
+| Coverage path before policies | Goal and coverage context precede relevant preparation. Samples remain explicitly unvalidated. |
+| Inspectable independent decisions | Server assessment, report review, source links and external holds; no commercial economics in agent/routing/capability logic. |
+| Permissioned continuity | Separate AI/save choices, privacy omissions, atomic versioned persistence and resume warning. |
+
+Personal recommendations, eligibility determinations, exact enrollment deadlines, payer order, provider participation, personal drug costs, Medigap rights, ranking and enrollment remain held where their independent source/rule/acceptance gates are unmet. This implementation does not activate the research datasets or infer acceptance from an owner request to implement the conversation.
+
+## Operations and rollback
+
+Continue using [the source-only sync workflow](../../README.md#run-and-update-the-existing-service). The runtime remains `/Users/cep4u/daylight-chat-alternative-runtime`; no launch configuration, credentials, guest database or shared ledger is copied. The final UI-label sync has before-image `runtime/backups/20261027T214144077786Z`; earlier incremental before-images and the scoped pre-change source checkpoint are listed in the evidence packet.
+
+A rollback is a reviewed source change followed by an identity-checked restart of only :8891. Do not restore guest databases or the shared ledger. Preserve additive readiness validation/persistence support for any reports saved after this release when reverting the renderer or routing; restoring an older strict validator wholesale is not a safe data-compatible rollback. Compare later edits before restoring any source before-image.

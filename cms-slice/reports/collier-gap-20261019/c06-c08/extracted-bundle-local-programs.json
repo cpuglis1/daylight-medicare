@@ -1,0 +1,114 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-20T02:27:15.337427+00:00",
+  "release_id": "naples-69c6cdaa28761a4d80c7",
+  "isolated": true,
+  "network": "blocked",
+  "model": "disabled",
+  "pdf_tools": "unavailable (empty PATH)",
+  "local_facts_checked": 11,
+  "source_pins_checked": {
+    "cms-ma-directory-october-2026": "811c30da2c2f3ecadb152076183e72de800860e255c3e0778bcf74bae622ee53",
+    "ahca-pace-august-2026": "a7921ddbc68ae5b446601e023d32564aecbe1f1d496418df7a1d7bfdbf06b4b6",
+    "medicare-pace-rules": "70fcb3ce7c31265adb416f46c7da1ca0330af02fa304a6ce95b8548f958b2721",
+    "hope-pace-eligibility": "440608ef7549d66e7cc2040a552d14610de26b45fd143bff3d590cdd1dbf5d11",
+    "hope-pace-contact": "d088b5a0de6560b25ef37dec27fa231a9717b6ecffb1433d8e28ba89a64faad3",
+    "hope-pace-locations": "57eb08ac290fa5bdde3db7b1563247f28ad463bd92f53e180a49752be024dd6a",
+    "shine-contact": "310a1c326d1789ab863d197f891eab1fd753bbdcba42c430289a37baf4cce4c7",
+    "shine-collier-directory": "4f4353a451c672bc62636f0e95ce435ab1ebb38950cdf65eafb0ee59374bd18d",
+    "medicare-retiree-coordination": "60e0f7f07ba52fc4ce7491a31445e3f39a5be5296ae47617794ea1ef8acf1524",
+    "va-medicare-coordination": "0168019b70410c583224ebccda17ca84484827482b42fdb778bdc101d3e513a3",
+    "tricare-medicare-eligibility": "d05b1209e035041ab2e0608294f4042746523ec6db8a599e9a04a125f737f166",
+    "medicare-older-medigap-guide": "55819f08bcdb3bb0c01f05908e5362e5fbb389f61d36bcb5b44606d0416643ee"
+  },
+  "answers": [
+    {
+      "question": "I am 54 and live in 34102. Do I qualify for Hope PACE?",
+      "fact_ids": [
+        "pace-local-identity",
+        "pace-eligibility",
+        "pace-costs",
+        "pace-drug-coordination",
+        "pace-contact"
+      ],
+      "flags": []
+    },
+    {
+      "question": "SHINE appointments",
+      "fact_ids": [
+        "shine-referral",
+        "shine-collier-sites"
+      ],
+      "flags": []
+    },
+    {
+      "question": "I have union retiree coverage",
+      "fact_ids": [
+        "coordination-employer",
+        "shine-referral"
+      ],
+      "flags": [
+        {
+          "key": "employer_union",
+          "label": "Employer or union coverage",
+          "status": "reported_needs_review",
+          "fact_id": "coordination-employer",
+          "eligibility_determined": false
+        }
+      ]
+    },
+    {
+      "question": "I have VA healthcare",
+      "fact_ids": [
+        "coordination-va",
+        "shine-referral"
+      ],
+      "flags": [
+        {
+          "key": "va",
+          "label": "VA health benefits",
+          "status": "reported_needs_review",
+          "fact_id": "coordination-va",
+          "eligibility_determined": false
+        }
+      ]
+    },
+    {
+      "question": "I have TRICARE For Life",
+      "fact_ids": [
+        "coordination-tricare",
+        "shine-referral"
+      ],
+      "flags": [
+        {
+          "key": "tricare",
+          "label": "TRICARE / TRICARE For Life",
+          "status": "reported_needs_review",
+          "fact_id": "coordination-tricare",
+          "eligibility_determined": false
+        }
+      ]
+    },
+    {
+      "question": "My Medigap policy is from 2001",
+      "fact_ids": [
+        "coordination-medigap",
+        "shine-referral"
+      ],
+      "flags": [
+        {
+          "key": "existing_medigap",
+          "label": "Existing Medigap policy",
+          "status": "reported_needs_review",
+          "fact_id": "coordination-medigap",
+          "eligibility_determined": false
+        }
+      ]
+    }
+  ],
+  "latest_negative_clears_flag": true,
+  "catalog_records": 70,
+  "packaged_pharmacy_networks": 61,
+  "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+  "qualified_domain_signoff": "pending"
+}

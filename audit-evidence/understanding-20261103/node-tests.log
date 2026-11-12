@@ -1,0 +1,740 @@
+TAP version 13
+# Subtest: Send carries current AI permission, relevant-context policy and the same visit state
+ok 1 - Send carries current AI permission, relevant-context policy and the same visit state
+  ---
+  duration_ms: 4.627625
+  ...
+# Subtest: non-message navigation does not acquire expanded AI permission
+ok 2 - non-message navigation does not acquire expanded AI permission
+  ---
+  duration_ms: 0.927875
+  ...
+# Subtest: one deliberate Send makes one request and clears only its submitted draft
+ok 3 - one deliberate Send makes one request and clears only its submitted draft
+  ---
+  duration_ms: 1.521291
+  ...
+# Subtest: an unexpected 428 preserves the draft without a modal or an automatic retry
+ok 4 - an unexpected 428 preserves the draft without a modal or an automatic retry
+  ---
+  duration_ms: 0.931791
+  ...
+# Subtest: a successful answer retains the exact question before its user answer and leaves the next question current
+ok 5 - a successful answer retains the exact question before its user answer and leaves the next question current
+  ---
+  duration_ms: 0.618333
+  ...
+# Subtest: the opening invitation is preserved from the same copy used on screen, after the greeting
+ok 6 - the opening invitation is preserved from the same copy used on screen, after the greeting
+  ---
+  duration_ms: 2.183791
+  ...
+# Subtest: a lost response keeps the unanswered question current, and exact replay archives it only once
+ok 7 - a lost response keeps the unanswered question current, and exact replay archives it only once
+  ---
+  duration_ms: 0.598416
+  ...
+# Subtest: an accepted turn with an unavailable provider response still preserves the question exactly once
+ok 8 - an accepted turn with an unavailable provider response still preserves the question exactly once
+  ---
+  duration_ms: 0.4535
+  ...
+# Subtest: an exact replay after a local presentation error cannot duplicate question, answer or reply
+ok 9 - an exact replay after a local presentation error cannot duplicate question, answer or reply
+  ---
+  duration_ms: 0.711916
+  ...
+# Subtest: an explanation that keeps the same unanswered question current does not add a historical duplicate
+ok 10 - an explanation that keeps the same unanswered question current does not add a historical duplicate
+  ---
+  duration_ms: 0.493166
+  ...
+# Subtest: repeated unavailable generations replace one notice without repeating it as conversational replies
+ok 11 - repeated unavailable generations replace one notice without repeating it as conversational replies
+  ---
+  duration_ms: 0.570667
+  ...
+# Subtest: a missing server question never resurrects the already answered previous question after a generation failure
+ok 12 - a missing server question never resurrects the already answered previous question after a generation failure
+  ---
+  duration_ms: 0.389458
+  ...
+# Subtest: an unavailable-generation notice cannot be preserved as though it were an actual question
+ok 13 - an unavailable-generation notice cannot be preserved as though it were an actual question
+  ---
+  duration_ms: 0.385125
+  ...
+# Subtest: only a deliberate answer Send grants the same scoped permission for contextual composition
+ok 14 - only a deliberate answer Send grants the same scoped permission for contextual composition
+  ---
+  duration_ms: 1.069416
+  ...
+# Subtest: the actual answer submitter sends precise coverage only after refinement and deliberate Send
+ok 15 - the actual answer submitter sends precise coverage only after refinement and deliberate Send
+  ---
+  duration_ms: 0.628459
+  ...
+# Subtest: the actual goal Send grants composition permission without auto-sending a goal selection
+ok 16 - the actual goal Send grants composition permission without auto-sending a goal selection
+  ---
+  duration_ms: 0.46525
+  ...
+# Subtest: selected teaching citations are retained without adding a duplicate lesson body
+ok 17 - selected teaching citations are retained without adding a duplicate lesson body
+  ---
+  duration_ms: 0.5425
+  ...
+# Subtest: optional educational follow-ups stay with their accepted exchange and never survive failed generation
+ok 18 - optional educational follow-ups stay with their accepted exchange and never survive failed generation
+  ---
+  duration_ms: 0.497167
+  ...
+# Subtest: pending presentation is temporary while a Send is unresolved and preserves a newer typed draft
+ok 19 - pending presentation is temporary while a Send is unresolved and preserves a newer typed draft
+  ---
+  duration_ms: 0.982292
+  ...
+# Subtest: the composer clears before transport settles and restores the exact raw draft after a failed Send
+ok 20 - the composer clears before transport settles and restores the exact raw draft after a failed Send
+  ---
+  duration_ms: 0.518166
+  ...
+# Subtest: a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately
+ok 21 - a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately
+  ---
+  duration_ms: 0.689333
+  ...
+# Subtest: reading a concept leaves an unrelated typed draft in the composer during the request
+ok 22 - reading a concept leaves an unrelated typed draft in the composer during the request
+  ---
+  duration_ms: 0.91275
+  ...
+# Subtest: a successful response cannot clear a newly typed identical message
+ok 23 - a successful response cannot clear a newly typed identical message
+  ---
+  duration_ms: 0.505584
+  ...
+# Subtest: a failed Send removes pending presentation once without committing history or retrying
+ok 24 - a failed Send removes pending presentation once without committing history or retrying
+  ---
+  duration_ms: 0.443
+  ...
+# Subtest: a guide stays with its teaching exchange and cannot migrate onto a later timing question
+ok 25 - a guide stays with its teaching exchange and cannot migrate onto a later timing question
+  ---
+  duration_ms: 0.692083
+  ...
+# Subtest: the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+ok 26 - the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+  ---
+  duration_ms: 3.095125
+  ...
+# Subtest: reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+ok 27 - reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+  ---
+  duration_ms: 6.05
+  ...
+# Subtest: visual and accessible text each preserve every character, including spaces and HTML-like user content
+ok 28 - visual and accessible text each preserve every character, including spaces and HTML-like user content
+  ---
+  duration_ms: 0.68975
+  ...
+# Subtest: the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+ok 29 - the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+  ---
+  duration_ms: 1.828833
+  ...
+# Subtest: the reveal preserves the requested heading tag, class and sequential offset
+ok 30 - the reveal preserves the requested heading tag, class and sequential offset
+  ---
+  duration_ms: 0.586208
+  ...
+# Subtest: the complete opening question, example and reassurance reveal in sequence after the greeting
+ok 31 - the complete opening question, example and reassurance reveal in sequence after the greeting
+  ---
+  duration_ms: 1.05475
+  ...
+# Subtest: repainting the opening never replays its question, examples or reassurance
+ok 32 - repainting the opening never replays its question, examples or reassurance
+  ---
+  duration_ms: 0.916625
+  ...
+# Subtest: reduced motion leaves the complete opening readable immediately and does not replay later
+ok 33 - reduced motion leaves the complete opening readable immediately and does not replay later
+  ---
+  duration_ms: 0.521708
+  ...
+# Subtest: the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+ok 34 - the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+  ---
+  duration_ms: 0.867125
+  ...
+# Subtest: reduced motion renders complete plain text for greetings, replies and facts
+ok 35 - reduced motion renders complete plain text for greetings, replies and facts
+  ---
+  duration_ms: 0.822208
+  ...
+# Subtest: ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+ok 36 - ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+  ---
+  duration_ms: 1.008875
+  ...
+# Subtest: completed words retire the animation class so leaving and returning to chat cannot replay them
+ok 37 - completed words retire the animation class so leaving and returning to chat cannot replay them
+  ---
+  duration_ms: 0.457875
+  ...
+# Subtest: cancelled words also retire their animation class and remain readable on return
+ok 38 - cancelled words also retire their animation class and remain readable on return
+  ---
+  duration_ms: 0.406417
+  ...
+# Subtest: appending a reply preserves previous node identity and reveals only the new answer
+ok 39 - appending a reply preserves previous node identity and reveals only the new answer
+  ---
+  duration_ms: 0.438167
+  ...
+# Subtest: a history rebuild shows previously revealed objects immediately and reveals new objects once
+ok 40 - a history rebuild shows previously revealed objects immediately and reveals new objects once
+  ---
+  duration_ms: 0.869084
+  ...
+# Subtest: a reply first displayed with reduced motion never animates when the preference later changes
+ok 41 - a reply first displayed with reduced motion never animates when the preference later changes
+  ---
+  duration_ms: 0.419209
+  ...
+# Subtest: a user-only exchange stays immediate and an empty reply does not create an assistant message
+ok 42 - a user-only exchange stays immediate and an empty reply does not create an assistant message
+  ---
+  duration_ms: 0.356417
+  ...
+# Subtest: static explanations remain immediate and reveal does not weaken source URL filtering
+ok 43 - static explanations remain immediate and reveal does not weaken source URL filtering
+  ---
+  duration_ms: 0.911208
+  ...
+# Subtest: a new current question and its answer buttons follow the reply, while choosing does not replay them
+ok 44 - a new current question and its answer buttons follow the reply, while choosing does not replay them
+  ---
+  duration_ms: 1.806375
+  ...
+# Subtest: question text and finite answer buttons are immediately available with reduced motion
+ok 45 - question text and finite answer buttons are immediately available with reduced motion
+  ---
+  duration_ms: 0.55475
+  ...
+# Subtest: control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation
+ok 46 - control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation
+  ---
+  duration_ms: 0.458458
+  ...
+# Subtest: opening shortcut buttons continue the opening sequence and do not animate on rerender
+ok 47 - opening shortcut buttons continue the opening sequence and do not animate on rerender
+  ---
+  duration_ms: 0.723625
+  ...
+# Subtest: coverage timing uses one chat composer and genuine choices rather than another month input
+ok 48 - coverage timing uses one chat composer and genuine choices rather than another month input
+  ---
+  duration_ms: 0.78975
+  ...
+# Subtest: finite field options remain explicit buttons and preserve each field independently
+ok 49 - finite field options remain explicit buttons and preserve each field independently
+  ---
+  duration_ms: 2.344542
+  ...
+# Subtest: historical diagrams stay absent beneath intake while current teaching has an inline guide
+ok 50 - historical diagrams stay absent beneath intake while current teaching has an inline guide
+  ---
+  duration_ms: 1.297041
+  ...
+# Subtest: a final current-turn timing picture includes only known reports and keeps unknown fields out
+ok 51 - a final current-turn timing picture includes only known reports and keeps unknown fields out
+  ---
+  duration_ms: 0.471791
+  ...
+# Subtest: intake footer controls stay hidden and profile review is offered with the final conversation summary
+ok 52 - intake footer controls stay hidden and profile review is offered with the final conversation summary
+  ---
+  duration_ms: 0.674125
+  ...
+# Subtest: an educational intake pause leaves the generated answer and chat composer without a false final review
+ok 53 - an educational intake pause leaves the generated answer and chat composer without a false final review
+  ---
+  duration_ms: 1.641917
+  ...
+# Subtest: generated questions own their explanation, while a non-AI question retains its useful why
+ok 54 - generated questions own their explanation, while a non-AI question retains its useful why
+  ---
+  duration_ms: 1.0085
+  ...
+# Subtest: the real final summary reveals its text and optional actions once, including profile review
+ok 55 - the real final summary reveals its text and optional actions once, including profile review
+  ---
+  duration_ms: 0.423667
+  ...
+# Subtest: old free-text reports and stale records cannot activate Send as an invisible selected answer
+ok 56 - old free-text reports and stale records cannot activate Send as an invisible selected answer
+  ---
+  duration_ms: 0.46475
+  ...
+# Subtest: an answered question remains plain assistant history before the user answer without replaying its text
+ok 57 - an answered question remains plain assistant history before the user answer without replaying its text
+  ---
+  duration_ms: 0.412167
+  ...
+# Subtest: history rebuilds preserve answered questions exactly once as complete accessible plain text
+ok 58 - history rebuilds preserve answered questions exactly once as complete accessible plain text
+  ---
+  duration_ms: 0.436708
+  ...
+# Subtest: a reported date picture survives an empty reply and its review remains deliberate
+ok 59 - a reported date picture survives an empty reply and its review remains deliberate
+  ---
+  duration_ms: 1.670625
+  ...
+# Subtest: comparison starting point offers optional review and checklist only at its transition
+ok 60 - comparison starting point offers optional review and checklist only at its transition
+  ---
+  duration_ms: 0.528542
+  ...
+# Subtest: a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel
+ok 61 - a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel
+  ---
+  duration_ms: 0.382375
+  ...
+# Subtest: unavailable generation with no valid question cannot render a false completion or turn the notice into a heading
+ok 62 - unavailable generation with no valid question cannot render a false completion or turn the notice into a heading
+  ---
+  duration_ms: 0.407
+  ...
+# Subtest: an open learning conversation cannot imply a final timing summary but can show current teaching
+ok 63 - an open learning conversation cannot imply a final timing summary but can show current teaching
+  ---
+  duration_ms: 0.322875
+  ...
+# Subtest: service notices update one live status instead of being announced by competing regions
+ok 64 - service notices update one live status instead of being announced by competing regions
+  ---
+  duration_ms: 0.44425
+  ...
+# Subtest: a novice sees six ordinary-language insurance families without new preselected reports
+ok 65 - a novice sees six ordinary-language insurance families without new preselected reports
+  ---
+  duration_ms: 0.819625
+  ...
+# Subtest: local insurance refinement preserves every approved distinction and sends no aggregate fact
+ok 66 - local insurance refinement preserves every approved distinction and sends no aggregate fact
+  ---
+  duration_ms: 1.199708
+  ...
+# Subtest: multiple precise insurance selections stay visible and correctable across local group changes
+ok 67 - multiple precise insurance selections stay visible and correctable across local group changes
+  ---
+  duration_ms: 1.175334
+  ...
+# Subtest: selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare
+ok 68 - selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare
+  ---
+  duration_ms: 0.69075
+  ...
+# Subtest: collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid
+ok 69 - collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid
+  ---
+  duration_ms: 0.700792
+  ...
+# Subtest: unknown and defer close the open insurance refinement and clear finite draft data
+ok 70 - unknown and defer close the open insurance refinement and clear finite draft data
+  ---
+  duration_ms: 1.75075
+  ...
+# Subtest: ambiguous current Medicare paths ask for clarification without changing a prior selection
+ok 71 - ambiguous current Medicare paths ask for clarification without changing a prior selection
+  ---
+  duration_ms: 2.444
+  ...
+# Subtest: a longer spoken priority report can be reduced one button at a time without discarding the report
+ok 72 - a longer spoken priority report can be reduced one button at a time without discarding the report
+  ---
+  duration_ms: 0.471291
+  ...
+# Subtest: comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view
+ok 73 - comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view
+  ---
+  duration_ms: 0.622542
+  ...
+# Subtest: typed draft blocks conflicting insurance selections until it is sent or cleared
+ok 74 - typed draft blocks conflicting insurance selections until it is sent or cleared
+  ---
+  duration_ms: 1.505709
+  ...
+# Subtest: new service-owned insurance distinctions cannot disappear from the grouped view
+ok 75 - new service-owned insurance distinctions cannot disappear from the grouped view
+  ---
+  duration_ms: 0.528875
+  ...
+# Subtest: the compact topic track follows actual questions and teaching rather than accumulated intake completion
+ok 76 - the compact topic track follows actual questions and teaching rather than accumulated intake completion
+  ---
+  duration_ms: 0.566959
+  ...
+# Subtest: generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson
+ok 77 - generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson
+  ---
+  duration_ms: 0.392209
+  ...
+# Subtest: current-turn route teaching appears inline once while Sources remains a separate disclosure
+ok 78 - current-turn route teaching appears inline once while Sources remains a separate disclosure
+  ---
+  duration_ms: 0.994875
+  ...
+# Subtest: current visual intent selects the existing guide independently of citations
+ok 79 - current visual intent selects the existing guide independently of citations
+  ---
+  duration_ms: 0.538958
+  ...
+# Subtest: explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline
+ok 80 - explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline
+  ---
+  duration_ms: 0.330792
+  ...
+# Subtest: two successful turns retain the first guide without making a second guide from citations
+ok 81 - two successful turns retain the first guide without making a second guide from citations
+  ---
+  duration_ms: 0.730875
+  ...
+# Subtest: a deliberate revisit may show the same guide again while failed generation never does
+ok 82 - a deliberate revisit may show the same guide again while failed generation never does
+  ---
+  duration_ms: 0.542667
+  ...
+# Subtest: fact and generated citations merge into one deduplicated Sources footer after the inline guide
+ok 83 - fact and generated citations merge into one deduplicated Sources footer after the inline guide
+  ---
+  duration_ms: 0.502459
+  ...
+# Subtest: failed or unrelated turns cannot select a route graphic from historical learning
+ok 84 - failed or unrelated turns cannot select a route graphic from historical learning
+  ---
+  duration_ms: 0.282041
+  ...
+# Subtest: typed text blocks finite answers, field choices and unknown without changing the draft
+ok 85 - typed text blocks finite answers, field choices and unknown without changing the draft
+  ---
+  duration_ms: 0.380041
+  ...
+# Subtest: the real pending view shows the submitted message and three decorative dots without transcript writes
+ok 86 - the real pending view shows the submitted message and three decorative dots without transcript writes
+  ---
+  duration_ms: 0.426
+  ...
+# Subtest: manual navigation has no AI typing indicator and reduced motion disables its animation
+ok 87 - manual navigation has no AI typing indicator and reduced motion disables its animation
+  ---
+  duration_ms: 0.57525
+  ...
+# Subtest: the typing wave overrides the loaded universal animation reset, while reduced motion still wins
+ok 88 - the typing wave overrides the loaded universal animation reset, while reduced motion still wins
+  ---
+  duration_ms: 4.101709
+  ...
+# Subtest: a down arrow appears only when more conversation is below and labels the current question when it is offscreen
+ok 89 - a down arrow appears only when more conversation is below and labels the current question when it is offscreen
+  ---
+  duration_ms: 0.563208
+  ...
+# Subtest: the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message
+ok 90 - the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message
+  ---
+  duration_ms: 0.315917
+  ...
+# Subtest: typing motion pauses in a hidden document or outside the visible reading pane
+ok 91 - typing motion pauses in a hidden document or outside the visible reading pane
+  ---
+  duration_ms: 0.264625
+  ...
+# Subtest: educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions
+ok 92 - educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions
+  ---
+  duration_ms: 0.330542
+  ...
+# Subtest: selecting an educational follow-up fills an editable draft without sending or overwriting another draft
+ok 93 - selecting an educational follow-up fills an editable draft without sending or overwriting another draft
+  ---
+  duration_ms: 0.292792
+  ...
+# Subtest: optional educational questions remain with their explanation before the unchanged Sources footer
+ok 94 - optional educational questions remain with their explanation before the unchanged Sources footer
+  ---
+  duration_ms: 0.312458
+  ...
+# Subtest: typing ASAP clears only unsent answer selections and typed submission wins
+ok 95 - typing ASAP clears only unsent answer selections and typed submission wins
+  ---
+  duration_ms: 0.584333
+  ...
+# Subtest: an empty draft preserves an intentional selection and typed submission still wins without an input event
+ok 96 - an empty draft preserves an intentional selection and typed submission still wins without an input event
+  ---
+  duration_ms: 0.297375
+  ...
+# Subtest: the composer grows, caps and shrinks while preserving a reader’s scroll position
+ok 97 - the composer grows, caps and shrinks while preserving a reader’s scroll position
+  ---
+  duration_ms: 0.271875
+  ...
+# Subtest: the composer respects the mobile visual viewport, its minimum and the viewport fallback
+ok 98 - the composer respects the mobile visual viewport, its minimum and the viewport fallback
+  ---
+  duration_ms: 0.268625
+  ...
+# Subtest: held plan values, research units and trace never enter the preparation model
+ok 99 - held plan values, research units and trace never enter the preparation model
+  ---
+  duration_ms: 5.947209
+  ...
+# Subtest: stale view suppresses baseline, priorities and connected markers
+ok 100 - stale view suppresses baseline, priorities and connected markers
+  ---
+  duration_ms: 0.392833
+  ...
+# Subtest: reported absence differs from missing or unaccepted source evidence
+ok 101 - reported absence differs from missing or unaccepted source evidence
+  ---
+  duration_ms: 0.450084
+  ...
+# Subtest: rendering source-like markup creates literal text and a working Return control
+ok 102 - rendering source-like markup creates literal text and a working Return control
+  ---
+  duration_ms: 0.691042
+  ...
+# Subtest: review replaces only derived data, preserving current privacy, presentation and pause
+ok 103 - review replaces only derived data, preserving current privacy, presentation and pause
+  ---
+  duration_ms: 0.193667
+  ...
+# Subtest: consumer and malformed authority never reveal source candidates or source selection counts
+ok 104 - consumer and malformed authority never reveal source candidates or source selection counts
+  ---
+  duration_ms: 1.300292
+  ...
+# Subtest: current reported facts remain separate from source labels and scope
+ok 105 - current reported facts remain separate from source labels and scope
+  ---
+  duration_ms: 0.204
+  ...
+# Subtest: provider sites preserve structured name and distinct addresses without an automatic choice
+ok 106 - provider sites preserve structured name and distinct addresses without an automatic choice
+  ---
+  duration_ms: 0.4815
+  ...
+# Subtest: pack and unresolved source details cannot acquire an automatic selection action
+ok 107 - pack and unresolved source details cannot acquire an automatic selection action
+  ---
+  duration_ms: 0.117458
+  ...
+# Subtest: entity discovery and site identity selection have distinct explicit actions
+ok 108 - entity discovery and site identity selection have distinct explicit actions
+  ---
+  duration_ms: 0.427375
+  ...
+# Subtest: literal markup stays text and source selection occurs only after its named button
+ok 109 - literal markup stays text and source selection occurs only after its named button
+  ---
+  duration_ms: 1.263125
+  ...
+# Subtest: continuation and live recheck are explicit and source limits remain visible
+ok 110 - continuation and live recheck are explicit and source limits remain visible
+  ---
+  duration_ms: 0.48225
+  ...
+# Subtest: top-level source gaps and entity/role continuation never lose the partial warning
+ok 111 - top-level source gaps and entity/role continuation never lose the partial warning
+  ---
+  duration_ms: 0.427834
+  ...
+# Subtest: retained periods and source qualifications remain inspectable without currentness inference
+ok 112 - retained periods and source qualifications remain inspectable without currentness inference
+  ---
+  duration_ms: 0.864459
+  ...
+# Subtest: derived response preserves current reports, privacy, pause and drafts
+ok 113 - derived response preserves current reports, privacy, pause and drafts
+  ---
+  duration_ms: 0.671584
+  ...
+# Subtest: an explicit selection is never described as a search with no matches
+ok 114 - an explicit selection is never described as a search with no matches
+  ---
+  duration_ms: 0.149333
+  ...
+# Subtest: all entry fields, exact units, conditions, qualifications and evidence remain inspectable
+ok 115 - all entry fields, exact units, conditions, qualifications and evidence remain inspectable
+  ---
+  duration_ms: 5.128333
+  ...
+# Subtest: single amount keeps related endpoints and native schedule ordering
+ok 116 - single amount keeps related endpoints and native schedule ordering
+  ---
+  duration_ms: 1.480542
+  ...
+# Subtest: restricted zero-entry offering retains historical status without implying noncoverage
+ok 117 - restricted zero-entry offering retains historical status without implying noncoverage
+  ---
+  duration_ms: 0.155
+  ...
+# Subtest: masked holds, exact receipt and dispositions survive without disputed scalar values
+ok 118 - masked holds, exact receipt and dispositions survive without disputed scalar values
+  ---
+  duration_ms: 0.239917
+  ...
+# Subtest: mismatched scope or broader permission cannot replace a prior exact view
+ok 119 - mismatched scope or broader permission cannot replace a prior exact view
+  ---
+  duration_ms: 0.303334
+  ...
+# Subtest: unmasked disputed values fail closed before replacing an exact view
+ok 120 - unmasked disputed values fail closed before replacing an exact view
+  ---
+  duration_ms: 0.084
+  ...
+# Subtest: source-like markup is literal text in summaries, qualifications and raw evidence
+ok 121 - source-like markup is literal text in summaries, qualifications and raw evidence
+  ---
+  duration_ms: 0.151
+  ...
+# Subtest: coverage map preserves route relationships and explicit explain actions
+ok 122 - coverage map preserves route relationships and explicit explain actions
+  ---
+  duration_ms: 2.028375
+  ...
+# Subtest: timeline keeps reported precision and uses an explicit correction control
+ok 123 - timeline keeps reported precision and uses an explicit correction control
+  ---
+  duration_ms: 0.178166
+  ...
+# Subtest: invented cost scenarios change locally and never become a total or quote
+ok 124 - invented cost scenarios change locally and never become a total or quote
+  ---
+  duration_ms: 0.272458
+  ...
+# Subtest: unaccepted, inconsistent and malformed guide envelopes fail closed
+ok 125 - unaccepted, inconsistent and malformed guide envelopes fail closed
+  ---
+  duration_ms: 0.143084
+  ...
+# Subtest: source and reported strings are literal text with no executable markup
+ok 126 - source and reported strings are literal text with no executable markup
+  ---
+  duration_ms: 1.983333
+  ...
+# Subtest: the production visual router honors registry suppression before legacy enrichment
+ok 127 - the production visual router honors registry suppression before legacy enrichment
+  ---
+  duration_ms: 1.828958
+  ...
+# Subtest: pending-save reconciliation reads versions without resending the earlier snapshot
+ok 128 - pending-save reconciliation reads versions without resending the earlier snapshot
+  ---
+  duration_ms: 4.578459
+  ...
+# Subtest: read-only reconciliation failure retains uncertainty and does not claim a save
+ok 129 - read-only reconciliation failure retains uncertainty and does not claim a save
+  ---
+  duration_ms: 1.425
+  ...
+# Subtest: completeSave cannot resend an old payload after sensitive permission withdrawal
+ok 130 - completeSave cannot resend an old payload after sensitive permission withdrawal
+  ---
+  duration_ms: 0.529459
+  ...
+# Subtest: completeSave cannot write when saving is now paused
+ok 131 - completeSave cannot write when saving is now paused
+  ---
+  duration_ms: 0.471833
+  ...
+# Subtest: Apply privacy choices reconciles uncertainty then saves current reduced permission
+ok 132 - Apply privacy choices reconciles uncertainty then saves current reduced permission
+  ---
+  duration_ms: 1.148583
+  ...
+# Subtest: pausing saving with a pending operation performs no new write
+ok 133 - pausing saving with a pending operation performs no new write
+  ---
+  duration_ms: 0.599625
+  ...
+# Subtest: Check the pending save is read-only even with newly unchecked privacy controls
+ok 134 - Check the pending save is read-only even with newly unchecked privacy controls
+  ---
+  duration_ms: 1.067333
+  ...
+# Subtest: deletion binds retained reports to the new owner without reusing any prior token
+ok 135 - deletion binds retained reports to the new owner without reusing any prior token
+  ---
+  duration_ms: 0.727542
+  ...
+# Subtest: failed reconnect after deletion keeps draft and a retry marker, never old authority
+ok 136 - failed reconnect after deletion keeps draft and a retry marker, never old authority
+  ---
+  duration_ms: 3.260667
+  ...
+# Subtest: a rejected delete preserves active reports, permissions, authorization and pending save
+ok 137 - a rejected delete preserves active reports, permissions, authorization and pending save
+  ---
+  duration_ms: 0.578375
+  ...
+# Subtest: a lost deletion response remains uncertain and only reads/rebinds on recovery
+ok 138 - a lost deletion response remains uncertain and only reads/rebinds on recovery
+  ---
+  duration_ms: 0.688208
+  ...
+# Subtest: deletion retains a paused screen locally without copying pause into backend reports or authority
+ok 139 - deletion retains a paused screen locally without copying pause into backend reports or authority
+  ---
+  duration_ms: 0.521792
+  ...
+# Subtest: resuming a stored profile drops earlier failed-save and action bindings while preserving unsent text
+ok 140 - resuming a stored profile drops earlier failed-save and action bindings while preserving unsent text
+  ---
+  duration_ms: 1.130125
+  ...
+# Subtest: reported date picture preserves month-only precision and distinct end dates
+ok 141 - reported date picture preserves month-only precision and distinct end dates
+  ---
+  duration_ms: 3.286583
+  ...
+# Subtest: dates exclude unknown, stale, deferred, derived and non-calendar preferences
+ok 142 - dates exclude unknown, stale, deferred, derived and non-calendar preferences
+  ---
+  duration_ms: 0.10975
+  ...
+# Subtest: explicit start month wins duplicate preference and remains preferred
+ok 143 - explicit start month wins duplicate preference and remains preferred
+  ---
+  duration_ms: 0.142
+  ...
+# Subtest: timeline appears for a changed report, not unchanged or failed turns
+ok 144 - timeline appears for a changed report, not unchanged or failed turns
+  ---
+  duration_ms: 0.279292
+  ...
+# Subtest: saved recap names actual categories without echoing sensitive values or old conversation
+ok 145 - saved recap names actual categories without echoing sensitive values or old conversation
+  ---
+  duration_ms: 0.21425
+  ...
+# Subtest: comparison milestone includes explicit unknown and none but never stale or missing
+ok 146 - comparison milestone includes explicit unknown and none but never stale or missing
+  ---
+  duration_ms: 0.154792
+  ...
+1..146
+# tests 146
+# suites 0
+# pass 146
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 170.39425

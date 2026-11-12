@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 38858,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7595,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 323,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7918
+    },
+    "text": "{\"question_target\":\"T08\",\"reply\":\"Yes—your two main options are still: Original Medicare, where Parts A and B stay with the federal program and you can add separate drug coverage and possibly Medigap, or Medicare Advantage, where a private plan provides your Part A and Part B and most plans include drug coverage. For your priorities, the practical difference is that Original Medicare is often simpler for travel and for seeing any U.S. doctor who takes Medicare, while Medicare Advantage depends on the specific plan’s network and rules, so doctor access cannot be assumed.\",\"question\":\"Will you need routine care away from home?\",\"education_followups\":[],\"report_refs\":[\"guide.situation.age65\",\"guide.needs.priorities\"],\"evidence_refs\":[\"routesintro\",\"options\",\"checks\"],\"agenda_update\":{\"current_concern\":\"two Medicare options\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"original_medicare\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"provider_access\",\"optional_additions\"],\"evidence_refs\":[\"options\"]},{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\",\"plan_specific_rules\"],\"evidence_refs\":[\"options\",\"routesintro\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 5.959629,
+  "turn": 6,
+  "event": "correction_and_synthesis",
+  "fictional_inputs": true
+}

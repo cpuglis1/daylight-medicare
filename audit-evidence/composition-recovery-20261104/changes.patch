@@ -1,0 +1,675 @@
+--- before/alternatives/advisor-first/natural_agent.py
++++ alternatives/advisor-first/natural_agent.py
+@@ -34,6 +34,8 @@
+ from provider_tokens import TokenCountUnavailable
+ from advisor_models import MODELS
+ from response_question_recovery import validate_with_question_recovery
++from composition_recovery import (CompositionRejected, REPAIR_INSTRUCTIONS,
++                                  VALIDATION_CODES, independent_component)
+ from conversation_claims import (application_status, normalize_named_start_deferral,
+     coverage_matches_reports, explicit_defer_request, named_defer_targets,
+     personal_insurance_assertion, personal_intake_question,
+@@ -114,8 +116,17 @@
+     def recover(self):
+         """Retain the uncertain attempt and fund one replacement separately."""
+         self.finish()
+-        if self.status != 'uncertain':
++        if self.status != 'uncertain' or self.attempts >= 2:
+             return False
++        return self._replace()
++
++    def repair(self):
++        """A settled invalid response may fund the same single recovery slot."""
++        if self.status != 'settled' or self.attempts >= 2:
++            return False
++        return self._replace()
++
++    def _replace(self):
+         try:
+             replacement = TurnReservation(self.budget, self.model, stages=('compose',)).stage('compose')
+         except BudgetError:
+@@ -1084,19 +1095,71 @@
+                 raise ModelUnavailable('A detail was not explicitly supplied.')
+ 
+     def compose(self, owner, resolved_context, moves, request_id, reservation):
+-        for attempt in range(1 + min(1, getattr(self, 'connection_retries', 0))):
++        started = time.perf_counter()
++        try:
++            return self._compose_with_recovery(owner, resolved_context, moves, request_id, reservation)
++        finally:
++            timings = getattr(self.local, 'stage_timings', {})
++            timings['composition'] = round((time.perf_counter() - started) * 1000)
++            self.local.stage_timings = timings
++
++    def _compose_with_recovery(self, owner, resolved_context, moves, request_id, reservation):
++        feedback = partial = recovery_reason = None
++        recovery_enabled = getattr(self, 'composition_recovery', False)
++        for attempt in range(2):
+             try:
+-                return self._compose_once(owner, resolved_context, moves, request_id, reservation)
++                answer = self._compose_once(owner, resolved_context, moves, request_id, reservation,
++                                            repair_feedback=feedback)
++                if feedback:
++                    answer['validation_recovery'] = {'component': 'composition',
++                        'replacement': 'validated_model_repair', 'reason': recovery_reason}
++                    self._cache_composition(owner, resolved_context, moves, request_id, answer)
++                return answer
++            except CompositionRejected as error:
++                if not recovery_enabled:
++                    raise
++                partial = error.partial or partial
++                recovery_reason = error.code
++                LOGGER.warning('Daylight composition validation code=%s retained=%s', error.code,
++                               partial[1] if partial else 'none')
++                if partial and partial[1] == 'reply':
++                    return self._retain_component(owner, resolved_context, moves, request_id,
++                                                  partial, recovery_reason)
++                if not attempt and reservation.stage('compose').repair():
++                    feedback = error.feedback
++                    LOGGER.warning('Daylight composition recovery stage=compose')
++                    continue
++                if partial:
++                    return self._retain_component(owner, resolved_context, moves, request_id,
++                                                  partial, recovery_reason)
++                raise
+             except ModelUnavailable:
+                 diagnostic = getattr(self.local, 'last_transport_failure', None)
+                 if (attempt or not getattr(self, 'connection_retries', 0)
+                         or not recoverable_connection(diagnostic)
+                         or not reservation.stage('compose').recover()):
++                    if partial:
++                        return self._retain_component(owner, resolved_context, moves, request_id,
++                                                      partial, recovery_reason)
+                     raise
+                 LOGGER.warning('Daylight connection recovery stage=compose')
+                 time.sleep(0.5)
+ 
+-    def _compose_once(self, owner, resolved_context, moves, request_id, reservation):
++    def _cache_composition(self, owner, context, moves, request_id, answer):
++        signature = hashlib.sha256(json.dumps([context, _question_candidates(moves)], sort_keys=True).encode()).hexdigest()
++        with self.lock:
++            self.cache[(owner, 'compose:' + request_id)] = {'signature': signature,
++                'result': copy.deepcopy(answer), 'expires': time.time() + 600}
++
++    def _retain_component(self, owner, context, moves, request_id, partial, reason):
++        # Revalidate against exactly the same current context before publishing.
++        answer = self.validate_composition(partial[0], context, _question_candidates(moves))
++        answer['validation_recovery'] = {'component': partial[1],
++            'replacement': 'independently_validated_component', 'reason': reason}
++        self._cache_composition(owner, context, moves, request_id, answer)
++        return answer
++
++    def _compose_once(self, owner, resolved_context, moves, request_id, reservation, *, repair_feedback=None):
+         started = time.perf_counter()
+         # A bounded diagnostic code only; never retain generated text or context
+         # here. Fictional harnesses can capture their own scripted transport.
+@@ -1139,6 +1202,11 @@
+             'store': False, 'max_output_tokens': output_limit, 'reasoning': {'effort': self.composition_reasoning_effort}, 'tools': [],
+             'text': {'format': {'type': 'json_schema', 'name': 'daylight_resolved_conversation', 'strict': True, 'schema': spec}},
+             'stream': True, 'service_tier': 'default'}
++        if repair_feedback:
++            payload['instructions'] += REPAIR_INSTRUCTIONS
++            content = json.loads(payload['input'][0]['content'])
++            content['validation_feedback'] = copy.deepcopy(repair_feedback)
++            payload['input'][0]['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
+         raw = json.dumps(payload).encode()
+         if len(raw) > self.max_input_bytes:
+             raise ProfileError('This response context exceeds the reviewed request bounds.')
+@@ -1178,32 +1246,26 @@
+             self.usage.append(response.get('usage', {}))
+             stage.settle(response)
+             phase = 'decode'
+-            if response.get('structured_output_error'):
+-                raise ModelUnavailable('The provider reply did not match the response format.')
+-            parsed = json.loads(text)
+-            phase = 'validate'
+-            answer = self.validate_composition(parsed, context, moves)
++            parsed = None
++            try:
++                parsed = json.loads(text)
++                phase = 'validate'
++                # Both providers use the same application contract. Optional
++                # metadata may fail provider schema checks without invalidating
++                # the independently checked answer and question.
++                answer = self.validate_composition(parsed, context, moves)
++            except (ModelUnavailable, ValueError, KeyError, TypeError) as error:
++                if not isinstance(error, ModelUnavailable):
++                    error = ModelUnavailable('The conversational response could not be checked.')
++                partial = independent_component(self._validate_composition_core, parsed, context, moves) \
++                    if getattr(self, 'composition_recovery', False) else None
++                raise CompositionRejected(error, parsed, partial) from None
+             with self.lock:
+                 self.cache[key] = {'signature': signature, 'result': copy.deepcopy(answer), 'expires': time.time() + 600}
+             return answer
+         except ModelUnavailable as error:
+-            codes = {
+-                'The provider reply did not match the response format.': 'invalid_structure',
+-                'The response introduced a date or amount outside its sources.': 'ungrounded_literal',
+-                'The response introduced a named entity outside its sources.': 'ungrounded_entity',
+-                'The response referred to unavailable information.': 'invalid_reference',
+-                'The response included an unsupported personal finding or action.': 'unsupported_finding',
+-                'The insurance explanation needs reviewed evidence.': 'missing_evidence',
+-                'A personal statement needs a resolved report reference.': 'missing_report_reference',
+-                'A personal insurance statement needs its resolved coverage report.': 'missing_coverage_reference',
+-                'A spouse-job statement needs its resolved worker relationship.': 'missing_worker_reference',
+-                'An application statement needs a resolved progress report.': 'missing_progress_reference',
+-                'A coverage statement conflicts with its resolved report.': 'missing_coverage_reference',
+-                'The provider-access explanation is outside its referenced evidence.': 'missing_evidence',
+-                'The response exceeded the conversational text allowance.': 'text_bound',
+-            }
+             self.local.last_composition_error = ('input_token_verification'
+-                if isinstance(error,TokenCountUnavailable) else codes.get(str(error), 'unavailable'))
++                if isinstance(error,TokenCountUnavailable) else VALIDATION_CODES.get(str(error), 'unavailable'))
+             if isinstance(error,TokenCountUnavailable):
+                 self.local.last_token_failure = copy.deepcopy(error.diagnostic)
+             raise
+@@ -1278,13 +1340,13 @@
+     def validate_composition(self, value, context, moves):
+         # Validate the actual response first. Optional engagement drafts must
+         # never turn an otherwise useful, grounded response into a failed turn.
+-        if not isinstance(value, dict) or 'education' not in value:
++        if not isinstance(value, dict):
+             raise ModelUnavailable('The conversational response could not be checked.')
+         core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work'}}
+         checked, recovery = validate_with_question_recovery(self._validate_composition_core, core, context, moves)
+-        education = self._validate_education(value['education'], checked)
++        education = self._validate_education(value.get('education'), checked)
+         result = {**checked, 'education': education,
+-                  'education_metadata_dropped': education != value['education'],
++                  'education_metadata_dropped': education != value.get('education'),
+                   'education_followups': []}
+         if recovery:
+             result['validation_recovery'] = recovery
+@@ -1411,7 +1473,7 @@
+             if not isinstance(value[key], list) or len(value[key]) > maximum or any(not isinstance(ref, str) or ref not in allowed for ref in value[key]) or len(set(value[key])) != len(value[key]):
+                 raise ModelUnavailable('The response referred to unavailable information.')
+         reply, question = value['reply'].strip(), value['question'].strip()
+-        if len(reply) > COMPOSITION_TEXT_BOUND or len(question) > 350 or len(reply+' '+question)>COMPOSITION_TEXT_BOUND:
++        if len(reply) > COMPOSITION_REPLY_BOUND or len(question) > 350 or len(reply+' '+question)>COMPOSITION_TEXT_BOUND:
+             raise ModelUnavailable('The response exceeded the conversational text allowance.')
+         # Resolve the approved question before evaluating its claims. An
+         # off-target generated question is never rendered, so its discarded
+--- /dev/null
++++ alternatives/advisor-first/composition_recovery.py
+@@ -0,0 +1,90 @@
++"""Request-local composition recovery; no profile writes or stored drafts."""
++import copy
++
++from chat import ModelUnavailable
++
++
++VALIDATION_CODES = {
++    'The conversational response could not be checked.': 'invalid_structure',
++    'The provider reply did not match the response format.': 'invalid_structure',
++    'The response chose an unavailable question target.': 'invalid_question',
++    'The response skipped a required clarification.': 'required_clarification',
++    'The conversational agenda could not be checked.': 'invalid_agenda',
++    'The response introduced a date or amount outside its sources.': 'ungrounded_literal',
++    'The response introduced a named entity outside its sources.': 'ungrounded_entity',
++    'The response referred to unavailable information.': 'invalid_reference',
++    'The response included an unsupported personal finding or action.': 'unsupported_finding',
++    'The insurance explanation needs reviewed evidence.': 'missing_evidence',
++    'A personal statement needs a resolved report reference.': 'missing_report_reference',
++    'A personal insurance statement needs its resolved coverage report.': 'missing_coverage_reference',
++    'A spouse-job statement needs its resolved worker relationship.': 'missing_worker_reference',
++    'An application statement needs a resolved progress report.': 'missing_progress_reference',
++    'A coverage statement conflicts with its resolved report.': 'missing_coverage_reference',
++    'The provider-access explanation is outside its referenced evidence.': 'missing_evidence',
++    'The response exceeded the conversational text allowance.': 'text_bound',
++    'The conversational response was empty.': 'empty_response',
++}
++OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work'}
++
++
++class CompositionRejected(ModelUnavailable):
++    """Only raised after a completed response has settled its usage."""
++    def __init__(self, error, draft=None, partial=None):
++        super().__init__(str(error))
++        self.code = VALIDATION_CODES.get(str(error), 'invalid_structure')
++        self.partial = partial
++        # Feedback returns only to the same selected model, during this request.
++        # Failed prose is never logged, cached, persisted or made factual evidence.
++        self.feedback = {'failure': self.code, 'rejected_draft': {}}
++        if isinstance(draft, dict):
++            for key, limit in (('reply', 1800), ('question', 350), ('question_target', 100)):
++                if isinstance(draft.get(key), str):
++                    self.feedback['rejected_draft'][key] = draft[key][:limit]
++
++
++REPAIR_INSTRUCTIONS = '''
++The previous draft failed application validation. validation_feedback identifies the
++failure and includes untrusted draft text, not evidence. Write a fresh, self-contained
++response using the same resolved reports, sources, learner context and current goal.
++Correct the unsupported claim or structure; keep qualifications material to the advice.
++If a detail cannot be supported, help with what is supported or ask one consequential
++question. Do not mention the internal validation process. Return the same JSON contract.
++'''
++
++
++def independent_component(validate, draft, context, moves):
++    """Retain whole validated components, never sentence fragments or new wording.
++
++    A question can survive only if the model selected an approved current meaning,
++    its original wording passes, and its premises pass the answer's factual guards.
++    Free-form orphaned follow-ups are not useful fallback questions.
++    """
++    if not isinstance(draft, dict):
++        return None
++    core = {key: value for key, value in draft.items() if key not in OPTIONAL_FIELDS}
++    if isinstance(core.get('reply'), str) and core['reply'].strip():
++        candidate = {**core, 'question_target': None, 'question': ''}
++        try:
++            checked = validate(candidate, context, moves)
++        except (ModelUnavailable, TypeError, ValueError, KeyError):
++            pass
++        else:
++            return {**checked, **{key: copy.deepcopy(draft[key]) for key in OPTIONAL_FIELDS if key in draft},
++                    'education_followups': []}, 'reply'
++    target, question = core.get('question_target'), core.get('question')
++    if (not isinstance(target, str) or not any(move['id'] == target for move in moves)
++            or not isinstance(question, str) or not question.strip()
++            or not isinstance(core.get('agenda_update'), dict) or core['agenda_update'].get('pause') is not False):
++        return None
++    try:
++        checked = validate({**core, 'reply': ''}, context, moves)
++        if checked['question'] != question.strip():
++            return None
++        # The core also has assertion checks specific to reply. Apply them to
++        # the standalone question, so removing the answer grants no exemption.
++        validate({**core, 'reply': question, 'question_target': None, 'question': ''}, context, moves)
++    except (ModelUnavailable, TypeError, ValueError, KeyError):
++        return None
++    return {**checked, 'education': {'purpose': 'advance', 'updates': [], 'visual': 'none'},
++            'education_followups': [],
++            'task_work': {'check_ids': [], 'blocking_concepts': [], 'next_step': 'answer'}}, 'question'
+--- before/alternatives/advisor-first/server.py
++++ alternatives/advisor-first/server.py
+@@ -94,6 +94,7 @@
+             for identifier, provider_client in clients.items()}
+         for agent in service.adaptive.model_agents.values():
+             agent.connection_retries = 1
++            agent.composition_recovery = True
+         config['connectionRecovery'] = {'maxRetriesPerStage': 1, 'countsTowardDailyCap': True}
+         config['models'] = [{'id': identifier, 'label': MODELS[identifier].label,
+                             'provider': MODELS[identifier].provider,
+--- /dev/null
++++ alternatives/advisor-first/tests/test_composition_recovery.py
+@@ -0,0 +1,287 @@
++"""Fault-injection checks of validation/receipts; no live models or tone scoring."""
++import copy
++import json
++from pathlib import Path
++import sys
++import unittest
++from unittest.mock import patch
++import uuid
++
++sys.path.insert(0, str(Path(__file__).resolve().parent))
++import test_natural_agent as fixtures
++import test_natural_flow as flow_fixtures
++from advisor_budget import AdvisorDailyBudget
++from advisor_models import MODELS
++from chat import ModelUnavailable
++from composition_recovery import CompositionRejected
++from natural_agent import _question_candidates
++
++
++class CompositionRecoveryTests(unittest.TestCase):
++    def setUp(self):
++        self.fixture = fixtures.NaturalAgentTests()
++        self.fixture.setUp()
++        self.addCleanup(self.fixture.doCleanups)
++        self.agent = self.fixture.agent
++        self.agent.budget = AdvisorDailyBudget.adopt(self.fixture.ledger())
++        self.agent.composition_recovery = True
++        self.agent.connection_retries = 1
++        self.context = {'reports': [], 'evidence': [], 'revision': [1, 1],
++                        'current_message': 'Please invent an amount of $777777.'}
++        self.moves = [{'id': 'T05', 'question': {'id': 'T05',
++                       'question': 'What health insurance do you have now?'}}]
++        self.request_id = str(uuid.uuid4())
++        self.calls, self.responses = [], []
++        self.counts = []
++        self.agent.count_tokens = self.count
++        self.agent.client.transport = self.transport
++        self.addCleanup(patch.stopall)
++        patch('urllib.request.urlopen', side_effect=AssertionError('No network calls in fault injection')).start()
++        patch('natural_agent.time.sleep').start()
++
++    def count(self, _, payload):
++        self.counts.append(copy.deepcopy(payload))
++        return 300
++
++    def draft(self, **changes):
++        return {'reply': 'We can work through the next step.', 'question_target': 'T05',
++                'question': 'What health insurance do you have now?', 'report_refs': [], 'evidence_refs': [],
++                'agenda_update': {'current_concern': '', 'pause': False},
++                'education': {'purpose': 'advance', 'updates': [], 'visual': 'none'}, **changes}
++
++    def transport(self, payload):
++        self.calls.append(copy.deepcopy(payload))
++        self.assertTrue(self.responses, 'Unexpected additional generation')
++        item = self.responses.pop(0)
++        if isinstance(item, Exception):
++            raise item
++        if isinstance(item, tuple):
++            item, overrides = item
++        else:
++            overrides = {}
++        text = item if isinstance(item, str) else json.dumps(item)
++        model = self.agent.client.model
++        return {'status': 'completed', 'model': model,
++                'service_tier': 'standard' if MODELS[model].provider == 'Anthropic' else 'default',
++                'usage': {'input_tokens': 300, 'output_tokens': 70, 'total_tokens': 370,
++                          'input_tokens_details': {'cached_tokens': 0}},
++                'output': [{'content': [{'type': 'output_text', 'text': text}]}], **overrides}
++
++    def compose(self):
++        with self.agent.reserve_turn(stages=('compose',)) as reservation:
++            self.reservation = reservation
++            return self.agent.compose('fictional-owner', self.context, self.moves, self.request_id, reservation)
++
++    def rows(self):
++        with self.agent.budget.db() as db:
++            return db.execute('SELECT status,charged,measured,input_bound FROM ai_charges').fetchall()
++
++    def test_same_repair_path_for_every_selectable_model_and_guard_category(self):
++        invalid = ['An example amount is $777777.', 'The review happens in February.',
++                   'Ask Invented Provider for details.', 'We have verified your coverage.']
++        for model in MODELS:
++            for reply in invalid:
++                with self.subTest(model=model, reply=reply):
++                    self.agent.client.model = model
++                    self.agent.max_output_tokens = MODELS[model].output_tokens
++                    self.request_id = str(uuid.uuid4())
++                    self.responses = [self.draft(reply=reply), self.draft()]
++                    before = copy.deepcopy(self.context)
++                    start = len(self.calls)
++                    answer = self.compose()
++                    self.assertEqual(answer['reply'], self.draft()['reply'])
++                    self.assertEqual(answer['validation_recovery']['replacement'], 'validated_model_repair')
++                    self.assertEqual(len(self.calls) - start, 2)
++                    self.assertEqual(self.reservation.stage('compose').attempts, 2)
++                    inputs = [json.loads(call['input'][0]['content']) for call in self.calls[start:]]
++                    self.assertEqual(inputs[0]['resolved_context'], inputs[1]['resolved_context'])
++                    self.assertEqual(inputs[0]['question_candidates'], inputs[1]['question_candidates'])
++                    self.assertNotIn('validation_feedback', inputs[0])
++                    self.assertIn('validation_feedback', inputs[1])
++                    self.assertEqual(self.context, before)
++        self.assertTrue(all(row[0] == 'settled' and row[1] == row[2] for row in self.rows()))
++
++    def test_valid_whole_reply_survives_invalid_question_without_paid_repair(self):
++        self.responses = [self.draft(question_target='unavailable', question='Which invented option?')]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], self.draft()['reply'])
++        self.assertEqual(answer['question'], '')
++        self.assertEqual(answer['validation_recovery']['component'], 'reply')
++        self.assertEqual(len(self.calls), 1)
++
++    def test_failed_repair_preserves_only_the_independently_checked_question(self):
++        bad = self.draft(reply='An example amount is $777777.',
++                         education={'purpose': 'teach', 'updates': [{'unearned': 'credit'}], 'visual': 'none'})
++        self.responses = [bad, copy.deepcopy(bad)]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], '')
++        self.assertEqual(answer['question'], self.draft()['question'])
++        self.assertEqual(answer['education']['updates'], [])
++        self.assertEqual(answer['task_work']['check_ids'], [])
++        self.assertEqual(answer['validation_recovery']['component'], 'question')
++        self.assertEqual(len(self.calls), 2)
++        replay = self.compose()
++        self.assertEqual(replay, answer)
++        self.assertEqual(len(self.calls), 2, 'Replay must not charge for recovery again')
++        self.assertNotIn('777777', json.dumps(list(self.agent.cache.values())))
++
++    def test_both_invalid_components_stay_held_after_one_repair(self):
++        bad = self.draft(reply='An example amount is $777777.',
++                         question='With your $888888 premium, what insurance do you have now?')
++        self.responses = [bad, copy.deepcopy(bad)]
++        with self.assertRaises(CompositionRejected):
++            self.compose()
++        self.assertEqual(len(self.calls), 2)
++        self.assertFalse(self.agent.cache)
++        self.assertTrue(all(row[0] == 'settled' for row in self.rows()))
++
++    def test_freeform_orphan_question_cannot_survive_an_invalid_answer(self):
++        bad = self.draft(reply='An example amount is $777777.', question_target=None,
++                         question='Would that work for you?')
++        self.responses = [bad, copy.deepcopy(bad)]
++        with self.assertRaises(CompositionRejected):
++            self.compose()
++        self.assertFalse(self.agent.cache)
++
++    def test_question_premises_receive_the_answer_factual_checks(self):
++        bad = self.draft(reply='An example amount is $777777.',
++            question='Your insurance is employer coverage. What insurance do you have now?')
++        self.responses = [bad, copy.deepcopy(bad)]
++        with self.assertRaises(CompositionRejected):
++            self.compose()
++        self.assertFalse(self.agent.cache)
++
++    def test_malformed_completed_json_is_settled_then_repaired(self):
++        self.responses = ['{broken', self.draft()]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], self.draft()['reply'])
++        self.assertEqual(answer['validation_recovery']['reason'], 'invalid_structure')
++        self.assertTrue(all(row[0] == 'settled' for row in self.rows()))
++
++    def test_optional_metadata_failure_does_not_discard_core_or_add_a_call(self):
++        draft = self.draft(education={'wrong': 'shape'}, task_work={'wrong': True}, education_followups=9)
++        self.responses = [(draft, {'structured_output_error': 'schema_constraints'})]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], draft['reply'])
++        self.assertEqual(answer['education']['updates'], [])
++        self.assertEqual(answer['education_followups'], [])
++        self.assertEqual(len(self.calls), 1)
++
++    def test_missing_education_is_neutral_metadata(self):
++        draft = self.draft()
++        draft.pop('education')
++        self.responses = [draft]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], draft['reply'])
++        self.assertEqual(answer['education']['updates'], [])
++
++    def test_repair_budget_failure_keeps_safe_question_and_cancels_unissued_hold(self):
++        self.responses = [self.draft(reply='An example amount is $777777.')]
++        def count(_, payload):
++            self.counts.append(copy.deepcopy(payload))
++            return 2_000_000 if 'validation_feedback' in json.loads(payload['input'][0]['content']) else 300
++        self.agent.count_tokens = count
++        answer = self.compose()
++        self.assertEqual(answer['question'], self.draft()['question'])
++        self.assertEqual(answer['reply'], '')
++        self.assertEqual(len(self.calls), 1)
++        self.assertEqual(sorted(row[0] for row in self.rows()), ['cancelled', 'settled'])
++        self.assertEqual(self.agent.budget.summary()['reservedOrUncertainUsd'], 0)
++
++    def test_repair_output_reservation_can_be_denied_without_losing_safe_question(self):
++        self.responses = [self.draft(reply='An example amount is $777777.')]
++        transport = self.agent.client.transport
++        def exhaust_after_submission(payload):
++            response = transport(payload)
++            patch('advisor_budget.APPROVED_CAP', 1).start()
++            return response
++        self.agent.client.transport = exhaust_after_submission
++        answer = self.compose()
++        self.assertEqual(answer['reply'], '')
++        self.assertEqual(answer['question'], self.draft()['question'])
++        self.assertEqual(len(self.calls), 1)
++        self.assertEqual([row[0] for row in self.rows()], ['settled'])
++
++    def test_repair_and_connection_recovery_share_one_attempt_slot(self):
++        self.responses = [ConnectionResetError(54, 'fictional disconnect'),
++                          self.draft(reply='An example amount is $777777.')]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], '')
++        self.assertEqual(answer['question'], self.draft()['question'])
++        self.assertEqual(len(self.calls), 2)
++        self.assertEqual(sorted(row[0] for row in self.rows()), ['settled', 'uncertain'])
++
++    def test_disconnect_during_repair_retains_original_safe_component(self):
++        self.responses = [self.draft(reply='An example amount is $777777.'),
++                          ConnectionResetError(54, 'fictional disconnect')]
++        answer = self.compose()
++        self.assertEqual(answer['reply'], '')
++        self.assertEqual(answer['question'], self.draft()['question'])
++        self.assertEqual(len(self.calls), 2)
++        self.assertEqual(sorted(row[0] for row in self.rows()), ['settled', 'uncertain'])
++
++    def test_provider_billing_failure_does_not_trigger_repair(self):
++        self.responses = [({}, {'status': 'failed', 'error': {'code': 'credit_balance_exhausted'}})]
++        with self.assertRaises(ModelUnavailable):
++            self.compose()
++        self.assertEqual(len(self.calls), 1)
++
++    def test_logs_contain_categories_and_never_rejected_text(self):
++        self.responses = [self.draft(reply='An example amount is $777777.'), self.draft()]
++        with self.assertLogs('natural_agent', level='WARNING') as logs:
++            self.compose()
++        output = '\n'.join(logs.output)
++        self.assertIn('ungrounded_literal', output)
++        self.assertNotIn('777777', output)
++        self.assertNotIn('fictional-owner', output)
++
++    def test_standalone_guards_still_reject_unresolved_reports_and_unsupported_findings(self):
++        for reply in ('Your premium is $777777.', 'We have verified your coverage.',
++                      'Your coverage starts in February.', 'Your insurance is employer coverage.'):
++            with self.subTest(reply=reply), self.assertRaises(ModelUnavailable):
++                self.agent._validate_composition_core({key: value for key, value in self.draft(reply=reply).items()
++                    if key != 'education'}, self.context, _question_candidates(self.moves))
++
++
++class RecoveryControllerTests(unittest.TestCase):
++    """One injected transaction checks state writes, not dialogue quality."""
++    def test_profile_evidence_and_delivery_accounting_survive_repair_or_question_only(self):
++        for repaired in (True, False):
++            with self.subTest(repaired=repaired), patch('urllib.request.urlopen',
++                    side_effect=AssertionError('No network calls in fault injection')):
++                fixture = flow_fixtures.NaturalFlowTests()
++                fixture.setUp()
++                self.addCleanup(fixture.doCleanups)
++                fixture.flow.agent.composition_recovery = True
++                bad = {'reply': 'An example amount is $777777.', 'question_target': 'T05',
++                       'question': 'What health insurance do you have now?',
++                       'evidence_refs': ['routesintro'],
++                       'education': {'purpose': 'teach', 'visual': 'none', 'updates': [{
++                           'concept_id': 'coverage_paths', 'depth': 'introduced',
++                           'reason': 'new', 'evidence_refs': ['routesintro']}]}}
++                good = {**bad, 'reply': 'Original Medicare is the federal program for Parts A and B.'}
++                fixture.compositions = [bad, good if repaired else copy.deepcopy(bad)]
++                out = fixture.message('This is for me.',
++                    [fixture.update('RC01', {'choice': 'self'}, 'This is for me.')])
++                self.assertEqual(out['generated']['status'], 'complete')
++                self.assertEqual(fixture.flow.value(out['guide'], 'subject.role'), 'self')
++                self.assertEqual(out['guide']['fields']['subject.role']['confirmation'], 'reported_by_user')
++                self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
++                self.assertEqual([call['text']['format']['name'] for call in fixture.calls],
++                    ['daylight_guide_commands', 'daylight_resolved_conversation', 'daylight_resolved_conversation'])
++                self.assertEqual(out['metrics']['llmCalls'], 3)
++                contexts = fixture.stage_payloads('daylight_resolved_conversation')
++                self.assertEqual(contexts[0]['resolved_context'], contexts[1]['resolved_context'])
++                for key in ('reports', 'evidence', 'education_context', 'learner_context'):
++                    self.assertIn(key, contexts[1]['resolved_context'])
++                self.assertEqual(out['advisor']['visual'], 'none')
++                self.assertEqual(out['facts'], [])
++                self.assertNotIn('understanding', out)
++                self.assertNotIn('777777', json.dumps(out))
++                self.assertEqual(bool(out['education']['covered']), repaired)
++                self.assertEqual(bool(out['advisor']['teachingFactIds']), repaired)
++                self.assertEqual(bool(out['reply']), repaired)
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- before/alternatives/advisor-first/tests/test_connection_recovery.py
++++ alternatives/advisor-first/tests/test_connection_recovery.py
+@@ -71,8 +71,12 @@
+ 
+     def test_cap_can_deny_recovery_without_another_request(self):
+         calls = self.flaky(always=True)
++        transport = self.agent.client.transport
++        def exhaust_after_submission(payload):
++            self.agent.budget.daily_cap_nano_usd = 1
++            return transport(payload)
++        self.agent.client.transport = exhaust_after_submission
+         with patch('natural_agent.time.sleep'), self.agent.reserve_turn() as reservation:
+-            self.agent.budget.daily_cap_nano_usd = 1
+             with self.assertRaises(ModelUnavailable):
+                 self.agent.extract('owner', 'A fictional report.', self.case.g, {}, str(uuid.uuid4()), reservation)
+         self.assertEqual(len(calls), 1)
+@@ -87,7 +91,9 @@
+         self.assertEqual(self.statuses(), ['settled'])
+ 
+     def test_selected_premium_models_keep_separate_recovery_receipts(self):
+-        for model, hold in [('gpt-6.1-sol', 64_000_000), ('claude-opus-5-5', 112_000_000)]:
++        # Exact 300-token preflight plus each model's output allowance; input
++        # is no longer reserved at the removed fixed 16,000-token ceiling.
++        for model, hold in [('gpt-6.1-sol', 24_750_000), ('claude-opus-5-5', 49_200_000)]:
+             with self.subTest(model=model), tempfile.TemporaryDirectory() as directory:
+                 self.agent.client.model = model
+                 self.agent.budget = AdvisorDailyBudget.adopt(DailyBudget(Path(directory) / 'usage.db'),
+--- before/alternatives/advisor-first/tests/test_education_contract.py
++++ alternatives/advisor-first/tests/test_education_contract.py
+@@ -41,7 +41,7 @@
+         self.prepare()
+         self.answer.update(reply='Original Medicare is the federal program for Parts A and B.',
+             evidence_refs=['routesintro'], education={'purpose': 'teach',
+-                'updates': [self.event()], 'visual': 'routes'}, **extra)
++                'updates': [self.event()], 'visual': 'none'}, **extra)
+ 
+     def test_live_schema_requires_explicit_small_education_contract(self):
+         self.prepare()
+@@ -98,11 +98,13 @@
+                 self.assertEqual(out['education']['visual'], 'none')
+                 self.assertIs(out['education_metadata_dropped'], True)
+ 
+-    def test_missing_wire_metadata_is_not_silently_invented_in_production(self):
++    def test_missing_wire_metadata_grants_no_teaching_credit_but_keeps_checked_question(self):
+         self.prepare()
+         self.answer.pop('education')
+-        with self.assertRaisesRegex(ModelUnavailable, 'could not be checked'):
+-            self.compose()
++        out = self.compose()
++        self.assertEqual(out['question'], self.answer['question'])
++        self.assertEqual(out['education'], {'purpose': 'advance', 'updates': [], 'visual': 'none'})
++        self.assertIs(out['education_metadata_dropped'], True)
+         self.assertEqual(len(self.calls), 1)
+ 
+     def test_bad_event_does_not_discard_independent_valid_delivery(self):
+@@ -144,6 +146,8 @@
+         for group, key in [('metadata', key) for key in ('purpose','updates','visual')] + [
+                 ('update', key) for key in ('concept_id','depth','reason','evidence_refs')]:
+             for bad in bad_values:
++                if group == 'metadata' and key == 'updates' and bad == []:
++                    continue  # An empty update list is valid neutral metadata.
+                 with self.subTest(group=group, key=key, value=bad):
+                     self.teach()
+                     if group == 'metadata':
+--- before/alternatives/advisor-first/AGENTS.md
++++ alternatives/advisor-first/AGENTS.md
+@@ -1,4 +1,6 @@
+ # Working on the advisor-first variant
++
++**D86/D90 validation and recovery · November 4, 2026.** Owner authorized fixing validation/recovery while preserving curriculum, profile, evidence and factual safeguards, with no canned prose or case-specific dialogue rules. In :8893, keep a valid whole answer or approved model-written question independently; never salvage sentence fragments that could lose qualifications. Quarantine missing or malformed optional learning/task metadata without discarding validated text or granting teaching credit. After a completed invalid composition, permit one separately counted and funded same-model repair using unchanged resolved context; it shares the existing recovery slot with connection recovery, so composition has at most two submitted attempts. Preserve settled and uncertain receipts, the shared $5/UTC-day cap, exact-request replay, source/report/purpose checks, permissions and protected variants. Never repeat accepted extraction or store rejected drafts in profiles/history/logs. This supersedes the earlier network-only retry restriction for this bounded repair. If no component validates, keep it withheld. UI remains unchanged; technical fault injection is permitted, with no agent-run live conversations, paid probes or quality claims. [Implementation and activation](../../audit-evidence/composition-recovery-20261104/README.md).
+ 
+ **D86/D88 generated conversation only · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](../../audit-evidence/generated-conversation-only-20261104/README.md).
+ 
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ DAYLIGHT_REQUIREMENTS.md
+@@ -1,4 +1,6 @@
+ # Daylight owner requirements
++
++**D86/D90 validation and recovery · November 4, 2026.** Owner authorized fixing validation/recovery while preserving curriculum, profile, evidence and factual safeguards, with no canned prose or case-specific dialogue rules. In :8893, keep a valid whole answer or approved model-written question independently; never salvage sentence fragments that could lose qualifications. Quarantine missing or malformed optional learning/task metadata without discarding validated text or granting teaching credit. After a completed invalid composition, permit one separately counted and funded same-model repair using unchanged resolved context; it shares the existing recovery slot with connection recovery, so composition has at most two submitted attempts. Preserve settled and uncertain receipts, the shared $5/UTC-day cap, exact-request replay, source/report/purpose checks, permissions and protected variants. Never repeat accepted extraction or store rejected drafts in profiles/history/logs. This supersedes the earlier network-only retry restriction for this bounded repair. If no component validates, keep it withheld. UI remains unchanged; technical fault injection is permitted, with no agent-run live conversations, paid probes or quality claims. [Implementation and activation](audit-evidence/composition-recovery-20261104/README.md).
+ 
+ **D86/D88 generated conversation only · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](audit-evidence/generated-conversation-only-20261104/README.md).
+ 
+--- before/docs/product/MASTER_DESIGN.md
++++ docs/product/MASTER_DESIGN.md
+@@ -1,4 +1,6 @@
+ # Daylight master design and agent contract
++
++**D86/D90 validation and recovery · November 4, 2026.** Owner authorized fixing validation/recovery while preserving curriculum, profile, evidence and factual safeguards, with no canned prose or case-specific dialogue rules. In :8893, keep a valid whole answer or approved model-written question independently; never salvage sentence fragments that could lose qualifications. Quarantine missing or malformed optional learning/task metadata without discarding validated text or granting teaching credit. After a completed invalid composition, permit one separately counted and funded same-model repair using unchanged resolved context; it shares the existing recovery slot with connection recovery, so composition has at most two submitted attempts. Preserve settled and uncertain receipts, the shared $5/UTC-day cap, exact-request replay, source/report/purpose checks, permissions and protected variants. Never repeat accepted extraction or store rejected drafts in profiles/history/logs. This supersedes the earlier network-only retry restriction for this bounded repair. If no component validates, keep it withheld. UI remains unchanged; technical fault injection is permitted, with no agent-run live conversations, paid probes or quality claims. [Implementation and activation](../../audit-evidence/composition-recovery-20261104/README.md).
+ 
+ **D86/D88 generated conversation only · November 4, 2026:** Owner: “skip over all prewritten blocks of writing.” In :8893, conversational explanations come from the selected model. Stop inserting prepared lessons, guide blocks, failure fallback lessons, automatic date/milestone narration, greetings and saved-resume prose. Keep source links, opening/intake questions, forms, essential status/privacy copy and explicit review/preparation tools. Topic controls stage an editable question for deliberate Send instead of opening a prepared lesson. Keep the learning curriculum, reports, factual evidence and validation available internally; omitted blocks receive no new teaching credit. Remove guide-display instructions and guide definitions from composition context. This supersedes earlier requirements to insert those blocks in this conversation only; preserve their source/archive files and protected variants. Preserve the visual shell, permission/budget boundaries and owner-led conversational review. No agent-run model conversations or paid probes. [Implementation and activation](../../audit-evidence/generated-conversation-only-20261104/README.md).
+ 

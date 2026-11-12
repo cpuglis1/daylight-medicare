@@ -1,0 +1,2512 @@
+{
+  "schema_version": 1,
+  "purpose": "Offline current :8893 persona and field coverage accounting; no model, network or customer data.",
+  "sources": {
+    "profile_contract": {
+      "path": "infrastructure/daylight-data/config/profile-contract.2026.json",
+      "sha256": "4594aafa66aa5d50df5982225fda3c73c4ce61ca1cd352298dfd2238a0d65d27",
+      "content_sha256": "fc91d3f6df8e338b79fdbd6df909d76196c9ac59bca1d792666bb1f7b7387cbb"
+    },
+    "original_adaptive": {
+      "path": "alternatives/chat-first/cms-slice/config/profile/adaptive-flow.json",
+      "sha256": "1b7f5315fc956c7de80f5468478faf4377c9be28c9cf65f00eb7d74b5732a94e"
+    }
+  },
+  "denominators": {
+    "original_fields": 78,
+    "additive_optional_report_paths": 14,
+    "current_report_extensions": 4,
+    "total_report_paths": 96,
+    "reviewed_question_meanings": 41,
+    "documented_child_aliases": 3
+  },
+  "question_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "RC01",
+    "RC02",
+    "RC03",
+    "RC04",
+    "RC05",
+    "RC06",
+    "RC07",
+    "RC08",
+    "RC09",
+    "RC10",
+    "RC11",
+    "RC12",
+    "RC13",
+    "RC14",
+    "RC15",
+    "RC16",
+    "RC17",
+    "RC18",
+    "RC19",
+    "RC20",
+    "RC21",
+    "RC22",
+    "RC23",
+    "RC24",
+    "RC25",
+    "RC26",
+    "RC27",
+    "RC28",
+    "RC11.C1",
+    "RC16.C1",
+    "RC16.C2"
+  ],
+  "coverage_modes": [
+    "questioned",
+    "volunteered",
+    "reused",
+    "derived",
+    "explicit_absence",
+    "rejected"
+  ],
+  "coverage_states": [
+    "known",
+    "unknown",
+    "deferred",
+    "unanswered",
+    "explicit_none",
+    "conflicting",
+    "stale",
+    "superseded",
+    "declined",
+    "not_applicable"
+  ],
+  "fields": [
+    {
+      "path": "guide.fields.intent.goal",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T01"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.intent.goalDetail",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T01"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.knowledge.general",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_preference",
+      "question_ids": [
+        "T02"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.comparison.scope.zip",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T03"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.comparison.scope.county",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T03"
+      ],
+      "note": "County may be derived from a unique ZIP reference or explicitly selected for an ambiguous ZIP; neither proves residence.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.comparison.scope.locationEvidence",
+      "inventory": "original_78",
+      "status": "derived",
+      "field_role": "reference_provenance",
+      "question_ids": [
+        "T03"
+      ],
+      "note": "Software records lookup source, period and method; this is provenance, not an independently volunteered fact.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.coverage.requestedStart",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T04"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.coverage.requestedStartMonth",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T04"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.coverage.current",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T05"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.providersStatus",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T06"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.providers",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T06"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.medicinesStatus",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T07"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.medications",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T07"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.medicationDetails",
+      "inventory": "original_78",
+      "status": "legacy",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T07"
+      ],
+      "note": "Retained guide-level field has no current T07 writer; product-level details belong to RC22. Preserve it in the denominator without manufacturing capture.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.pharmacies",
+      "inventory": "original_78",
+      "status": "legacy",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T07"
+      ],
+      "note": "Retained guide-level pharmacy field has no current T07 writer; per-medicine pharmacy detail belongs to RC23. Preserve its unsatisfied capture gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.travel",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "T08"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.costPreference",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_preference",
+      "question_ids": [
+        "T09"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.priorities",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_preference",
+      "question_ids": [
+        "T10"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.needs.priorityOther",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_preference",
+      "question_ids": [
+        "T10"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC01.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC01"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC02.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC02"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC02.value.zip",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC02"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC02.value.county",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC02"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC02.value.homeStatus",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC02"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC03.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC03"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC03.value.year",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC03"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC04.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC04"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC05.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC05"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC05.value.month",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC05"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC06.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC06"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC06.value.ageBand",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC06"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC07.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC07"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC08.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC08"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC08.value.eventDate",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC08"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC09.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC09"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC10.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC10"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC11.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC11"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC11.value.jobEnd",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC11"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC11.value.coverageEnd",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC11",
+        "RC11.C1"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC12.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC12"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC12.value.gap",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC12"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC13.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC13"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC14.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC14"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC15.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC15"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC15.value.event",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC15"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC16.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC16"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC16.value.start",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC16",
+        "RC16.C1"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC16.value.priorMedigap",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC16",
+        "RC16.C2"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC17.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC17"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC18.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC18"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC19.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC19"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC19.value.qualification",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC19"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC20.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC20"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC20.value.location",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC20"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC21.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC21"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC21.value.items[].entity",
+      "inventory": "original_78",
+      "status": "derived",
+      "field_role": "internal_link",
+      "question_ids": [
+        "RC21"
+      ],
+      "note": "Software assigns a stable entity link. Reported identity remains unverified.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC21.value.items[].practice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC21"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC21.value.items[].city",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC21"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC22.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC22"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC22.value.items[].entity",
+      "inventory": "original_78",
+      "status": "derived",
+      "field_role": "internal_link",
+      "question_ids": [
+        "RC22"
+      ],
+      "note": "Software assigns a stable entity link. Reported identity remains unverified.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC22.value.items[].name",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC22"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC22.value.items[].strength",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC22"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC22.value.items[].form",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC22"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC22.value.items[].brand",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC22"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.items[].entity",
+      "inventory": "original_78",
+      "status": "derived",
+      "field_role": "internal_link",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Software assigns a stable entity link. Reported identity remains unverified.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.items[].quantity",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.items[].daysSupply",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.items[].pharmacy",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.items[].channel",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC23.value.items[].supply",
+      "inventory": "original_78",
+      "status": "legacy",
+      "field_role": "legacy_detail",
+      "question_ids": [
+        "RC23"
+      ],
+      "note": "Retained legacy combined supply field accepts an explicit voluntary typed report through the current C1 validator; the current fill question requests quantity and daysSupply separately. The tested typed value does not imply the field is routinely asked or substitute for those separate leaves.",
+      "state_expectations": {
+        "known": "Assert an explicit voluntarily typed supply value through the current controller; keep its legacy no-routine-question status distinct from quantity and daysSupply.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC24.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC24"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC25.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC25"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC25.value.amount",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC25"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC25.value.includes",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC25"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC26.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "reported_fact",
+      "question_ids": [
+        "RC26"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC27.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "report_disposition",
+      "question_ids": [
+        "RC27"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC28.value.choice",
+      "inventory": "original_78",
+      "status": "capture",
+      "field_role": "correction_disposition",
+      "question_ids": [
+        "RC28"
+      ],
+      "note": "Current conditional controller input, mirror or report disposition; not universally required.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G01.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC06",
+        "T04",
+        "RC04",
+        "RC12",
+        "RC16"
+      ],
+      "gap_id": "G01",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G02.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC04",
+        "RC05",
+        "RC14"
+      ],
+      "gap_id": "G02",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G03.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC06",
+        "RC18",
+        "RC25",
+        "T09"
+      ],
+      "gap_id": "G03",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G04.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "T05",
+        "RC07",
+        "RC17",
+        "RC16",
+        "RC16.C2"
+      ],
+      "gap_id": "G04",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G05.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "T06",
+        "T07",
+        "RC21",
+        "RC22",
+        "RC23"
+      ],
+      "gap_id": "G05",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G06.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "T08",
+        "RC20",
+        "RC02"
+      ],
+      "gap_id": "G06",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G07.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC14",
+        "RC04",
+        "RC05"
+      ],
+      "gap_id": "G07",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G08.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "T05",
+        "T07",
+        "T09",
+        "RC23",
+        "RC25"
+      ],
+      "gap_id": "G08",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G09.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC18",
+        "RC19",
+        "RC25"
+      ],
+      "gap_id": "G09",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G10.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC06",
+        "RC09",
+        "RC10"
+      ],
+      "gap_id": "G10",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G11.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC24",
+        "RC22",
+        "RC23"
+      ],
+      "gap_id": "G11",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G12.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "T09",
+        "T10",
+        "T06",
+        "RC25"
+      ],
+      "gap_id": "G12",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G13.value",
+      "inventory": "additive_14",
+      "status": "derived",
+      "field_role": "reported_program_compatibility_mirror",
+      "question_ids": [
+        "T05",
+        "RC26",
+        "RC07"
+      ],
+      "gap_id": "G13",
+      "note": "RC26 mirrors its explicit named military program into this optional gap report; this is reuse of the same user report, not a second independently captured fact. The semantic/source gap remains open.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.conversation.details.G14.value",
+      "inventory": "additive_14",
+      "status": "held",
+      "field_role": "optional_gap_report",
+      "question_ids": [
+        "RC28",
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T08"
+      ],
+      "gap_id": "G14",
+      "note": "Optional stored representation is retained, but the current controller exposes no writer. Explicit absence is not successful capture and does not close this gap.",
+      "state_expectations": {
+        "known": "No current conversational writer; do not count a manually injected value as captured.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.situation.retirement",
+      "inventory": "current_extension",
+      "status": "capture",
+      "field_role": "reported_circumstance",
+      "question_ids": [],
+      "note": "Explicit scoped retirement/work status only. Does not establish retiree insurance or a work transition.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.situation.age65",
+      "inventory": "current_extension",
+      "status": "capture",
+      "field_role": "reported_circumstance",
+      "question_ids": [],
+      "note": "Explicit milestone with month and optional stated year; does not establish enrollment, eligibility or desired start.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "guide.fields.subject.role",
+      "inventory": "current_extension",
+      "status": "derived",
+      "field_role": "compatibility_mirror",
+      "question_ids": [
+        "RC01"
+      ],
+      "note": "Mirror of the explicit RC01 beneficiary/helper role; not a second independent report.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    },
+    {
+      "path": "readiness.facts.RC18.value.programs[]",
+      "inventory": "current_extension",
+      "status": "capture",
+      "field_role": "named_program_reports",
+      "question_ids": [
+        "RC18"
+      ],
+      "note": "Explicit named program set, kept separate from the last-choice compatibility field; no eligibility inference.",
+      "state_expectations": {
+        "known": "Assert an exact independently authored value, source subject/scope and report status after the current controller executes.",
+        "unanswered": "No invented default or value; absence must be asserted independently. Does not satisfy known-value coverage.",
+        "unknown": "An explicit unknown must remain distinguishable from an unanswered field and known data; only count an executed state assertion.",
+        "deferred": "Check later must remain deferred, not converted to no/unknown/known; only count an executed state assertion.",
+        "explicit_absence": "Assert a supported none/no report or a precise absent value; distinguish explicit none from merely absent data.",
+        "correction": "Assert replacement/supersession and dependent invalidation; unspecified sibling values and other entities must remain intact.",
+        "rejected": "Assert unsupported input fails or remains unresolved without changing the field; never count rejected input as successful capture."
+      },
+      "required_review": "Capture witnesses, state witnesses and remaining missing state/combination checks are reported separately. No model extraction or conversational quality claim."
+    }
+  ],
+  "metadata": [
+    {
+      "path": "readiness.natural.provenance",
+      "classification": "derived_audit_metadata",
+      "note": "Capture method, report status, subject, temporal scope and revisions; not extra consumer answers.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.natural.dialogue",
+      "classification": "derived_visit_metadata",
+      "note": "Approved return targets, deferred/clarification targets and explained topics; exposure does not establish comprehension.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.natural.agenda.concerns",
+      "classification": "explicit_visit_context",
+      "note": "Explicit scoped open/addressed/deferred concerns; not facts, eligibility or priority weights.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.natural.agenda.priorityReasons",
+      "classification": "explicit_visit_context",
+      "note": "Explicit quoted reason tied to the accepted current T10 priority revision; not an inferred weight.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.natural.agenda.lastMove",
+      "classification": "derived_visit_metadata",
+      "note": "Validated advisor move kind/topic/reason; not a personal report.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.conversation.task",
+      "classification": "derived_visit_metadata",
+      "note": "Current authorized workflow goal; not insurance or an enrollment finding.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.conversation.baselineDispositions",
+      "classification": "derived_visit_metadata",
+      "note": "Unknown/deferred baseline states; not known answers.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.conversation.skippedDetails",
+      "classification": "derived_visit_metadata",
+      "note": "Per-field and per-entity unknown/deferred states; not known answers.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.conversation.itemRevisions",
+      "classification": "derived_audit_metadata",
+      "note": "Per-item revision bookkeeping; not customer answers.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "readiness.conversation.itemInvalidations",
+      "classification": "derived_audit_metadata",
+      "note": "Dependent stale-item revision bookkeeping; not customer answers.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "advisor_memory.exchanges",
+      "classification": "ram_only_visit_context",
+      "note": "Permissioned bounded dialogue in server RAM; never saved profile fields.",
+      "included_in_report_path_denominator": false
+    },
+    {
+      "path": "advisor_memory.brief",
+      "classification": "ram_only_visit_context",
+      "note": "Goal/current concern/pause/return point; tentative explanation calibration derives from dialogue, not a comprehension score.",
+      "included_in_report_path_denominator": false
+    }
+  ],
+  "limits": [
+    "Field presence is not external verification or personal applicability.",
+    "Unknown, deferred, unanswered, explicit absence, derived links and rejection do not count as independently reported known values.",
+    "The 14 optional gap report paths do not resolve the 14 semantic/evidence gaps.",
+    "A fake interpreter/composer fixture verifies the software boundary, not real model extraction, reasoning or human conversational quality."
+  ],
+  "questions": [
+    {
+      "id": "T01",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.intent.goal",
+        "guide.fields.intent.goalDetail"
+      ]
+    },
+    {
+      "id": "T02",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.knowledge.general"
+      ]
+    },
+    {
+      "id": "T03",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.comparison.scope.zip",
+        "guide.fields.comparison.scope.county",
+        "guide.fields.comparison.scope.locationEvidence"
+      ]
+    },
+    {
+      "id": "T04",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.coverage.requestedStart",
+        "guide.fields.coverage.requestedStartMonth"
+      ]
+    },
+    {
+      "id": "T05",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.coverage.current"
+      ]
+    },
+    {
+      "id": "T06",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.needs.providersStatus",
+        "guide.fields.needs.providers"
+      ]
+    },
+    {
+      "id": "T07",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.needs.medicinesStatus",
+        "guide.fields.needs.medications",
+        "guide.fields.needs.medicationDetails",
+        "guide.fields.needs.pharmacies"
+      ]
+    },
+    {
+      "id": "T08",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.needs.travel"
+      ]
+    },
+    {
+      "id": "T09",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.needs.costPreference"
+      ]
+    },
+    {
+      "id": "T10",
+      "kind": "baseline",
+      "parent": null,
+      "fields": [
+        "guide.fields.needs.priorities",
+        "guide.fields.needs.priorityOther"
+      ]
+    },
+    {
+      "id": "RC01",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC01.value.choice"
+      ]
+    },
+    {
+      "id": "RC02",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC02.value.choice",
+        "readiness.facts.RC02.value.zip",
+        "readiness.facts.RC02.value.county",
+        "readiness.facts.RC02.value.homeStatus"
+      ]
+    },
+    {
+      "id": "RC03",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC03.value.choice",
+        "readiness.facts.RC03.value.year"
+      ]
+    },
+    {
+      "id": "RC04",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC04.value.choice"
+      ]
+    },
+    {
+      "id": "RC05",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC05.value.choice",
+        "readiness.facts.RC05.value.month"
+      ]
+    },
+    {
+      "id": "RC06",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC06.value.choice",
+        "readiness.facts.RC06.value.ageBand"
+      ]
+    },
+    {
+      "id": "RC07",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC07.value.choice"
+      ]
+    },
+    {
+      "id": "RC08",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC08.value.choice",
+        "readiness.facts.RC08.value.eventDate"
+      ]
+    },
+    {
+      "id": "RC09",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC09.value.choice"
+      ]
+    },
+    {
+      "id": "RC10",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC10.value.choice"
+      ]
+    },
+    {
+      "id": "RC11",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC11.value.choice",
+        "readiness.facts.RC11.value.jobEnd",
+        "readiness.facts.RC11.value.coverageEnd"
+      ]
+    },
+    {
+      "id": "RC12",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC12.value.choice",
+        "readiness.facts.RC12.value.gap"
+      ]
+    },
+    {
+      "id": "RC13",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC13.value.choice"
+      ]
+    },
+    {
+      "id": "RC14",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC14.value.choice"
+      ]
+    },
+    {
+      "id": "RC15",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC15.value.choice",
+        "readiness.facts.RC15.value.event"
+      ]
+    },
+    {
+      "id": "RC16",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC16.value.choice",
+        "readiness.facts.RC16.value.start",
+        "readiness.facts.RC16.value.priorMedigap"
+      ]
+    },
+    {
+      "id": "RC17",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC17.value.choice"
+      ]
+    },
+    {
+      "id": "RC18",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC18.value.choice"
+      ]
+    },
+    {
+      "id": "RC19",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC19.value.choice",
+        "readiness.facts.RC19.value.qualification"
+      ]
+    },
+    {
+      "id": "RC20",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC20.value.choice",
+        "readiness.facts.RC20.value.location"
+      ]
+    },
+    {
+      "id": "RC21",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC21.value.choice",
+        "readiness.facts.RC21.value.items[].entity",
+        "readiness.facts.RC21.value.items[].practice",
+        "readiness.facts.RC21.value.items[].city"
+      ]
+    },
+    {
+      "id": "RC22",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC22.value.choice",
+        "readiness.facts.RC22.value.items[].entity",
+        "readiness.facts.RC22.value.items[].name",
+        "readiness.facts.RC22.value.items[].strength",
+        "readiness.facts.RC22.value.items[].form",
+        "readiness.facts.RC22.value.items[].brand"
+      ]
+    },
+    {
+      "id": "RC23",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC23.value.choice",
+        "readiness.facts.RC23.value.items[].entity",
+        "readiness.facts.RC23.value.items[].quantity",
+        "readiness.facts.RC23.value.items[].daysSupply",
+        "readiness.facts.RC23.value.items[].pharmacy",
+        "readiness.facts.RC23.value.items[].channel",
+        "readiness.facts.RC23.value.items[].supply"
+      ]
+    },
+    {
+      "id": "RC24",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC24.value.choice"
+      ]
+    },
+    {
+      "id": "RC25",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC25.value.choice",
+        "readiness.facts.RC25.value.amount",
+        "readiness.facts.RC25.value.includes"
+      ]
+    },
+    {
+      "id": "RC26",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC26.value.choice"
+      ]
+    },
+    {
+      "id": "RC27",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC27.value.choice"
+      ]
+    },
+    {
+      "id": "RC28",
+      "kind": "conditional",
+      "parent": null,
+      "fields": [
+        "readiness.facts.RC28.value.choice"
+      ]
+    },
+    {
+      "id": "RC11.C1",
+      "kind": "documented_child",
+      "parent": "RC11",
+      "fields": [
+        "readiness.facts.RC11.value.coverageEnd"
+      ]
+    },
+    {
+      "id": "RC16.C1",
+      "kind": "documented_child",
+      "parent": "RC16",
+      "fields": [
+        "readiness.facts.RC16.value.start"
+      ]
+    },
+    {
+      "id": "RC16.C2",
+      "kind": "documented_child",
+      "parent": "RC16",
+      "fields": [
+        "readiness.facts.RC16.value.priorMedigap"
+      ]
+    }
+  ]
+}

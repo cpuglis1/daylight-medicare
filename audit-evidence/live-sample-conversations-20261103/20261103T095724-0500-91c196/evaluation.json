@@ -1,0 +1,67 @@
+{
+  "result": "failed_live_diagnostic",
+  "completed_conversations": 0,
+  "requested_conversations": 2,
+  "planned_user_turns": 12,
+  "attempted_user_turns": 2,
+  "paid_generation_stages": 2,
+  "cancelled_generation_reservations": 2,
+  "measured_estimated_usd": 0.049605,
+  "accounted_usd": 0.049605,
+  "own_uncertain_held_usd": 0.0,
+  "source_unchanged": true,
+  "production_changes": false,
+  "human_comprehension": "unobserved",
+  "case_reviews": [
+    {
+      "case": "provider_and_costs",
+      "status": "failed_on_opening",
+      "backend_seconds": 20.782,
+      "extraction_seconds": 9.657,
+      "composition_seconds": 11.013,
+      "findings": [
+        {
+          "severity": "blocking",
+          "kind": "grounding_false_positive",
+          "evidence": "provider_and_costs-turn-1-composition.json",
+          "detail": "The follow-up repeats Collier County from current_message. County text has no resolved report/evidence binding, so the name guard rejects the whole answer."
+        },
+        {
+          "kind": "task_recognition_observed_in_rejected_output",
+          "detail": "The model selected coverage_paths, provider_participation and personal_cost. These did not become a delivered task-work result because validation failed."
+        },
+        {
+          "kind": "unassessed",
+          "detail": "Correction, repeated intake, later teaching, no-contact/no-more-questions closure and final useful checklist were never reached."
+        }
+      ],
+      "user_visible_result": "Unavailable-reply notice and canonical ZIP question; no proposed explanation or guide delivered."
+    },
+    {
+      "case": "caregiver_and_coverage",
+      "status": "blocked_before_generation",
+      "backend_seconds": 0.144,
+      "findings": [
+        {
+          "severity": "blocking",
+          "kind": "token_verification_failure",
+          "detail": "BudgetError: input token count could not be verified; no paid generation started. The shared daily allowance was not exhausted."
+        },
+        {
+          "kind": "cause_unresolved",
+          "detail": "The production counter replaces several transport/provider/format causes with one fixed BudgetError, so this capture cannot identify the underlying cause."
+        },
+        {
+          "kind": "unassessed",
+          "detail": "No caregiver reply or task/teaching decision was generated."
+        }
+      ]
+    }
+  ],
+  "next_fixes": [
+    "Recover a canonical grounded follow-up when only the proposed question contains an unsupported name, preserving an independently grounded reply.",
+    "Improve safe token-counter failure diagnostics and reliability while retaining exact-count/budget enforcement.",
+    "Run both unchanged fictional stories again after those fixes; retain this failed attempt separately."
+  ],
+  "limits": "Diagnostic of two attempts on one frozen build. No aggregate latency/reliability score or consumer-comprehension claim is supported."
+}

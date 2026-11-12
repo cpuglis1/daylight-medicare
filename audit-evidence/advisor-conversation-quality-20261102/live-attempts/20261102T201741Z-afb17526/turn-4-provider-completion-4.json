@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 36843,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7190,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 265,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7455
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Prescription drug coverage is called Part D. With Original Medicare, drug coverage is separate—you would usually join a standalone Part D drug plan; with Medicare Advantage, most plans include drug coverage as part of the plan.\\n\\nThe important catch is that drug coverage is never just yes-or-no by route: each drug plan has its own list of covered medicines, pharmacy rules, restrictions, and costs. So when prescriptions matter, Original Medicare gives you one medical route plus a separate drug-plan choice, while Medicare Advantage often bundles them together in one plan.\",\"question\":\"\",\"education_followups\":[\"If I choose Original Medicare, how is a separate drug plan picked?\",\"What exactly should I check to know whether my medicines are covered?\"],\"report_refs\":[],\"evidence_refs\":[\"drugbasics\",\"drugs\",\"options\"],\"agenda_update\":{\"current_concern\":\"how prescription medicines fit into the two Medicare paths\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"prescription_coverage\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"part_d_role\",\"route_relationship\",\"exact_medicine_conditions\"],\"evidence_refs\":[\"drugbasics\",\"drugs\",\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 5.513343,
+  "turn": 4,
+  "event": "explicit_defer_and_detour",
+  "fictional_inputs": true
+}

@@ -1,0 +1,171 @@
+{
+  "raw_proposal": {
+    "updates": [
+      {
+        "id": "T05",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "advantage"
+          }
+        ],
+        "quote": "I currently have Aetna Medicare Advantage.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T06",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "list"
+          },
+          {
+            "key": "text",
+            "value": "cardiologist"
+          }
+        ],
+        "quote": "My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples.",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "RC21",
+        "entity": "new",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "details"
+          },
+          {
+            "key": "name",
+            "value": "Dr. Maya Reed"
+          },
+          {
+            "key": "practice",
+            "value": "Cypress Heart Clinic"
+          },
+          {
+            "key": "city",
+            "value": "Naples"
+          }
+        ],
+        "quote": "My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples.",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "checks"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "doctors",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "addressed",
+          "quote": "My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "situation_proposals": [],
+    "goal_quote": "",
+    "education_request": {
+      "kind": "none",
+      "concept_ids": [],
+      "quote": ""
+    }
+  },
+  "validated": {
+    "updates": [
+      {
+        "id": "T05",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "advantage"
+          }
+        ],
+        "quote": "I currently have Aetna Medicare Advantage.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T06",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "list"
+          },
+          {
+            "key": "text",
+            "value": "cardiologist"
+          }
+        ],
+        "quote": "My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples.",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "checks"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "doctors",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "addressed",
+          "quote": "My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "goal_quote": "",
+    "education_request": {
+      "kind": "none",
+      "concept_ids": [],
+      "quote": ""
+    },
+    "situation_proposals": [],
+    "rejected_updates": [
+      {
+        "id": "RC21",
+        "reason": "unsupported_report"
+      }
+    ],
+    "rejected_situation_proposals": [],
+    "rejected_commands": []
+  }
+}

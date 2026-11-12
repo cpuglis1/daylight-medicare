@@ -1,0 +1,68 @@
+{"case": "caregiver", "turn": 1, "generated": {"status": "complete", "move": "T04"}, "reply": "She has two main Medicare paths to compare: Original Medicare, which is Part A and Part B through the federal program, or a Medicare Advantage plan, which is offered by a private company and provides Part A and Part B. With Original Medicare, she can usually add a separate drug plan and may be able to buy Medigap; with Medicare Advantage, drug coverage is often included.", "question": "When would she like Medicare coverage to start?", "visual": "none", "seconds": 9.936}
+{"case": "caregiver", "turn": 2, "generated": {"status": "complete", "move": "T04"}, "reply": "Part B is the medical part of Medicare. It generally covers doctor visits, outpatient care, tests, medical equipment, and many preventive services; Part A is more for hospital-type care.", "question": "When would she like Medicare coverage to start?", "visual": "none", "seconds": 6.263}
+{"case": "caregiver", "turn": 3, "generated": {"status": "complete", "move": "T04"}, "reply": "Thanks for the correction. Since she turns 65 in December, the key next detail is when she wants her Medicare coverage to begin, because the birthday month and the desired start month are not always the same.", "question": "When would she like Medicare coverage to start?", "visual": "none", "seconds": 7.305}
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "selected_case": "caregiver",
+  "checks_passed": true,
+  "quality_checks": {
+    "caregiver_scope_preserved": true,
+    "caregiver_role_not_reasked": true,
+    "caregiver_return_point_preserved": true,
+    "caregiver_correction_preserved": true
+  },
+  "maximum_generation_stages": 6,
+  "maximum_reservation_usd": 0.201,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "token_checks": [
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6781,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5572,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_guide_commands",
+      "tokens": 7476,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5399,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "tokens": 7563,
+      "history_exchanges": 2
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5579,
+      "history_exchanges": 2
+    }
+  ],
+  "all_turns_complete": true,
+  "generation_stages_reserved": 6,
+  "measured_usd": 0.112785,
+  "accounted_usd": 0.112785
+}

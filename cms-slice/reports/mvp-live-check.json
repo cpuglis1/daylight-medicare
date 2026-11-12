@@ -1,0 +1,145 @@
+{
+  "run_at_utc": "2026-10-18T17:49:24.368229+00:00",
+  "case_type": "synthetic/public research cases; no resident data",
+  "model_id": "gpt-5.4",
+  "code_sha256": {
+    "scripts/live_conversation.py": "8bda4a9c6052ad1ae8fd7e0a08f8a85a056ec183f3ccd573d9498294e40d19bd",
+    "scripts/naples_catalog.py": "df9fc399db71b87b50dc59ba01de3b35e1cb47233169f88509bb2bfbafdb4b88"
+  },
+  "cases": [
+    {
+      "prompt": "(opening)",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I can help you browse the 2027 captured plans for Collier County and focus on what matters most to you, like drug coverage, dental, vision, premium, or medical spending limits. We can also compare specific plans you name and check medicine or provider evidence once you pick exact items.",
+      "question": "What would you like to look at first?",
+      "tool_calls": [],
+      "catalog_counts": [],
+      "unscored_priorities": [],
+      "fact_ids": [],
+      "medicine_choices": 0,
+      "seconds": 2.67
+    },
+    {
+      "prompt": "Show all captured Collier County plans sorted by monthly premium.",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I pulled the full 2027 Collier County captured catalog sorted by monthly premium. The list includes all 70 captured records, and SNP entries remain shown with unresolved eligibility/validation notes where applicable.",
+      "question": "",
+      "tool_calls": [
+        "catalog"
+      ],
+      "catalog_counts": [
+        70
+      ],
+      "unscored_priorities": [
+        []
+      ],
+      "fact_ids": [
+        "catalog-view-a172c3027dae2584"
+      ],
+      "medicine_choices": 0,
+      "seconds": 3.43
+    },
+    {
+      "prompt": "My priorities are keeping my doctors and lower monthly premiums. I do not know my medicine strengths yet.",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I pulled the 2027 Collier captured catalog in the exact order you asked for: doctors first, then lower monthly premium. Right now the doctor priority is shown as unscored, so the list is effectively ordered by published monthly premium while keeping your doctor priority visible. Since you do not know your medicine strengths yet, I have not tried to check drug coverage.",
+      "question": "If you want, tell me your doctor or clinic name and I can pull the available provider evidence next.",
+      "tool_calls": [
+        "catalog"
+      ],
+      "catalog_counts": [
+        70
+      ],
+      "unscored_priorities": [
+        [
+          "doctors"
+        ]
+      ],
+      "fact_ids": [
+        "catalog-view-b52d165810cf441c"
+      ],
+      "medicine_choices": 0,
+      "seconds": 4.67
+    },
+    {
+      "prompt": "Can you tell me my exact annual prescription cost?",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I can’t give an exact annual prescription cost from the captured plan data alone. To estimate drug costs, I need your exact medications as confirmed products, and usually your preferred pharmacy too. The tool can then show formulary evidence across the captured plans, but not a personalized exact yearly total by itself.",
+      "question": "What medications do you take?",
+      "tool_calls": [],
+      "catalog_counts": [],
+      "unscored_priorities": [],
+      "fact_ids": [],
+      "medicine_choices": 0,
+      "seconds": 2.89
+    },
+    {
+      "prompt": "Find Trulicity",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I found the Trulicity product choices, but the exact strength/form still needs to be confirmed before I can check any captured plan evidence for it.",
+      "question": "Which Trulicity product do you want to use?",
+      "tool_calls": [
+        "medicine_candidates"
+      ],
+      "catalog_counts": [],
+      "unscored_priorities": [],
+      "fact_ids": [
+        "drug-candidates-d551970cc53a"
+      ],
+      "medicine_choices": 4,
+      "seconds": 3.68
+    },
+    {
+      "prompt": "Show plan details H0710-010-000-2027",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I pulled the captured details for that exact plan. It is an Institutional SNP record, so personal eligibility is restricted and has not been determined here. The app will show the published premium, medical spending limit, and drug deductible facts for this plan, along with the unresolved validation note.",
+      "question": "If you want, I can also compare this exact plan with one or two others you name.",
+      "tool_calls": [
+        "catalog_plan"
+      ],
+      "catalog_counts": [],
+      "unscored_priorities": [],
+      "fact_ids": [
+        "catalog-H0710-010-000-2027-monthly_premium",
+        "catalog-H0710-010-000-2027-medical_limit",
+        "catalog-H0710-010-000-2027-drug_deductible"
+      ],
+      "medicine_choices": 0,
+      "seconds": 3.75
+    },
+    {
+      "prompt": "Compare S4802-146-000-2027 and S4802-083-000-2027",
+      "mode": "live",
+      "model_id": "gpt-5.4",
+      "completed": true,
+      "text": "I pulled up those two captured plans side by side. The comparison cards will show the published differences, but this does not establish personal annual drug cost or exact pharmacy/provider participation.",
+      "question": "If you want, I can also sort the full captured PDP catalog for Collier County by the factor that matters most to you, such as monthly premium or drug deductible.",
+      "tool_calls": [
+        "compare_plans"
+      ],
+      "catalog_counts": [
+        2
+      ],
+      "unscored_priorities": [
+        []
+      ],
+      "fact_ids": [
+        "catalog-view-75acaec5bcbca8e6"
+      ],
+      "medicine_choices": 0,
+      "seconds": 3.83
+    }
+  ]
+}

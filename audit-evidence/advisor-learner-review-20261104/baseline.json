@@ -1,0 +1,119 @@
+{
+  "arm": "baseline",
+  "model": "gpt-6.1-sol",
+  "fictional": true,
+  "send_limit": 8,
+  "turns": [
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense."
+      },
+      "reply": "A coverage review can start with what is in place now, rather than assuming a change is needed. The useful comparison is whether the coverage fits the care needed: the exact plan’s doctor participation, prescription coverage, and costs—not just its monthly premium. Those details need checking before deciding whether keeping coverage or changing it makes more sense.",
+      "notice": null,
+      "question": "What Medicare coverage does the person you’re helping have now? If you’re unsure of the type, the plan name from a coverage card is a useful starting point; please leave out member numbers.",
+      "target": "T05",
+      "learner_signal": "none",
+      "source_ids": [
+        "checks"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "elapsed_seconds": 11.6
+    },
+    {
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "original,medigap"
+        }
+      },
+      "reply": "For this review, we can use Original Medicare plus Medigap as the starting point—not assume a change is needed. The aim is to see whether keeping that coverage still makes sense before considering alternatives. We’ll start with location to make the comparison relevant.",
+      "notice": null,
+      "question": "What is the home ZIP code of the person you’re helping?",
+      "target": "T03",
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      },
+      "elapsed_seconds": 6.51
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "Her home ZIP is 34102."
+      },
+      "reply": "We can keep the review focused on whether her current coverage still fits, without assuming she needs to switch. Naming the doctors and hospitals to include will help make the review concrete; their participation would still need checking before any coverage change.",
+      "notice": null,
+      "question": "Which doctors or hospitals would she like to keep? You can share their names and office locations, or leave this for later.",
+      "target": "T06",
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T06"
+      },
+      "elapsed_seconds": 9.53
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "She wants to keep Dr. Rivera at Example Clinic in Naples and Dr. Lee at Example Hospital in Tampa."
+      },
+      "reply": "We’ll include both Dr. Rivera at Example Clinic in Naples and Dr. Lee at Example Hospital in Tampa in your mom’s review. That gives us specific doctors and offices to check—not confirmation yet of their participation under any coverage option.\n\nNext, adding her prescriptions will help make the review reflect both her doctor visits and medicines, without assuming she needs to change her current coverage.",
+      "notice": null,
+      "question": "Which prescriptions should we include for your mom? You can list their names, or leave this for later.",
+      "target": "T07",
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T07"
+      },
+      "elapsed_seconds": 10.44
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "She takes Example Med 5 mg tablets and Example Med 10 mg tablets, as separate entries."
+      },
+      "reply": "For your mom’s review, I’ll keep Example Med 5 mg tablets and Example Med 10 mg tablets as two separate entries, rather than combining them. These are reported medicine details, not confirmation that either strength is covered.\n\nThe next useful step is to identify what she wants to improve—or preserve—so the review doesn’t assume that changing coverage is better than keeping what she has.",
+      "notice": null,
+      "question": "Alongside keeping her intended doctors, what else, if anything, matters most to your mom in this review?",
+      "target": "T10",
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T10"
+      },
+      "elapsed_seconds": 13.79
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "Keeping both doctors and having predictable costs matter equally. She hasn't chosen one over the other."
+      },
+      "reply": "Keeping both doctors and making costs predictable can stay equally important in your mom’s review—there’s no need to choose one over the other.\n\nFor the cost side, separate what she pays every month from what she pays when she gets care. Premiums are monthly payments for coverage. A deductible is an amount she pays before coverage pays its share under the benefit’s rules; copays and coinsurance are costs when she uses care. A lower premium alone doesn’t establish a lower total cost.\n\nThe useful next step is to review her exact current coverage documents for those amounts, alongside checking both intended doctors. Her personal costs and doctor participation haven’t been verified, so there isn’t yet a basis to say that keeping or changing coverage would better meet both priorities.",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 13.77
+    }
+  ],
+  "stop": "no applicable scripted answer to the delivered question",
+  "elapsed_seconds": 65.74,
+  "accounted_usd": 0.23394,
+  "measured_usd": 0.23394
+}

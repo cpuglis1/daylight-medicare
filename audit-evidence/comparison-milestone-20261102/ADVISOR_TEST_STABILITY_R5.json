@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-11-02T19:19:34.355107+00:00",
+  "manifest": "audit-evidence/comparison-milestone-20261102/ADVISOR_TEST_INPUTS_R4.json",
+  "manifest_sha256": "305dd1dee4b240f1fc0834c65b3e699138104cf9c97388fb9e1d252ea3ea5392",
+  "inputs": 117,
+  "all_inputs_unchanged_after_suite": true,
+  "changed_paths": [],
+  "suite": {
+    "log": "audit-evidence/comparison-milestone-20261102/advisor-full-suite-r5.log",
+    "sha256": "9701475707ffa29690db65760001992d37f50bc1ba5d71253105745817bdcf6d",
+    "passed": true,
+    "tests": 712,
+    "seconds": 150.156
+  },
+  "actual_HTTP": {
+    "receipt": "actual-identity-http-journey-r7.json",
+    "checks": 29,
+    "requests": 33,
+    "passed": true,
+    "source_inputs_guarded_before_and_after": true
+  },
+  "limitations": [
+    "Scripted fictional users and Responses transport, not live model quality.",
+    "Read-only retained PostgreSQL sources do not establish coverage acceptance.",
+    "No current rendered inspection inferred from the regression count."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 46409,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8863,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 7936
+      },
+      "output_tokens": 364,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9227
+    },
+    "text": "{\"question_target\":\"T05\",\"reply\":\"A simple place to start is the two main ways Medicare can be set up. Original Medicare is Parts A and B through the federal program. The other route is Medicare Advantage, where a private plan provides Parts A and B. With Original Medicare, drug coverage is separate and Medigap may help with out-of-pocket costs. With Medicare Advantage, drug coverage is included in most plans. In either route, the Part B premium still applies.\\n\\nSince you’re helping your mother figure out practical options, the most useful next detail is what coverage she has now. That changes what comparisons make sense first.\",\"question\":\"What health insurance does she have now?\",\"education_followups\":[\"Do you want a quick plain-English comparison of Original Medicare vs Medicare Advantage?\",\"Once we know her current coverage, do you want to focus first on doctors, prescriptions, or overall costs?\"],\"report_refs\":[\"guide.subject.role\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"basics\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"where to start understanding Medicare coverage options for mother\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"medicare_basics\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"federal_health_insurance\"],\"evidence_refs\":[\"basics\"]},{\"concept_id\":\"coverage_paths\",\"depth\":\"needs_clarification\",\"reason\":\"clarify\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 6.199145
+}

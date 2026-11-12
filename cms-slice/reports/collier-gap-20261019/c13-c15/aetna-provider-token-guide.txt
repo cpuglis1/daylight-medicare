@@ -1,0 +1,45 @@
+     Token Generation Process for Provider
+         Directory APIs in Production
+Steps to generate the token using Postman Tool:
+
+   In Developer Portal
+   1. Log into Developer Portal (https://developerportal.aetna.com/) using your registered username
+       and password.
+   2. Click “API Library” on the menu bar.
+   3. Click “View” for Provider Directory API.
+   4. Click on desired API. For instance, InsurancePlan API.
+   5. Download the swagger file.
+
+
+
+
+   In Postman Tool
+   1. Import and open the downloaded swagger file to Postman.
+   2. Click on Collections.
+   3. Expand the API and click on the “GET” endpoint.
+
+
+
+
+   4. On Params tab, deselect all params.
+   5. On Authorization tab, select “OAuth 2.0” for Auth Type.
+
+
+
+                                                                                                      1
+6. Select “Client Credentials” as the Grant Type.
+7. Enter the below Access Token URL.
+        a. https://apif1.aetna.com/fhir/v1/fhirserver_auth/oauth2/token
+8. Provide your app’s Client ID.
+9. Provide your app’s Client Secret.
+10. Enter “Public NonPII” as the Scope.
+        a. Note: Remove space between Public NonPII and then add back. This removes any special
+            characters that we might not be able to see.
+11. Select “Send as Basic Auth header” as the Client Authentication.
+12. Click “Get New Access Token” button to generate the token.
+
+
+
+
+                                                                                             2
+

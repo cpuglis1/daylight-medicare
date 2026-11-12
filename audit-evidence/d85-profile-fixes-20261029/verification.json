@@ -1,0 +1,194 @@
+{
+  "capturedAt": "2026-10-29T19:35:32.861949+00:00",
+  "syntheticOnly": true,
+  "paidModelCalls": 0,
+  "persistentCustomerOrBudgetWrites": false,
+  "sourceOnly": true,
+  "protectedSourceChanges": [],
+  "stores": {
+    "original": {
+      "inodeUnchanged": true,
+      "tables": {
+        "guests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "readiness": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "readiness_requests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "requests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        }
+      }
+    },
+    "alternative": {
+      "inodeUnchanged": true,
+      "tables": {
+        "guests": {
+          "beforeCount": 5,
+          "afterCount": 5,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "readiness": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "readiness_requests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "requests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        }
+      }
+    },
+    "budget": {
+      "inodeUnchanged": true,
+      "tables": {
+        "ai_charges": {
+          "beforeCount": 29,
+          "afterCount": 29,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        },
+        "ai_meta": {
+          "beforeCount": 1,
+          "afterCount": 1,
+          "preexistingRowsUnchanged": true,
+          "missingOrChangedPreexistingRows": 0
+        }
+      }
+    }
+  },
+  "sourceAfter": {
+    "alternatives/chat-first/cms-slice/scripts/adaptive_flow.py": "fb96439e125f13b676077f43a5bdb018e864cf2cb4ff3a69f6f7e67edac1de22",
+    "alternatives/chat-first/cms-slice/tests/test_adaptive_flow.py": "e48abb54bfe24afcc6f707bff9615799a41e4306962b18201617fd093481bfa9"
+  },
+  "liveRuntimeAdaptiveUnchanged": true,
+  "exactDefectRecheck": {
+    "medicineIdentity": {
+      "expectedDistinctItems": 2,
+      "observedDistinctItems": 2,
+      "strengths": [
+        "5 mg",
+        "10 mg"
+      ],
+      "passed": true
+    },
+    "unknownSummary": {
+      "recordedState": "explicit_unknown",
+      "unresolvedIds": [
+        "RC01"
+      ],
+      "recommendationsAllowed": false
+    }
+  },
+  "metadataExport": {
+    "counts": {
+      "question_definitions": 41,
+      "primary_questions": 38,
+      "documented_child_aliases": 3,
+      "field_definitions": 78,
+      "representation_gaps": 14,
+      "clarification_variants": 11,
+      "additive_optional_report_paths": 14,
+      "runtime_capabilities": 8,
+      "proposed_capability_bridges": 14
+    },
+    "contentSha256": "fc91d3f6df8e338b79fdbd6df909d76196c9ac59bca1d792666bb1f7b7387cbb",
+    "fileSha256": "4594aafa66aa5d50df5982225fda3c73c4ce61ca1cd352298dfd2238a0d65d27"
+  },
+  "testReceipts": [
+    {
+      "command": "python3 -m unittest discover -s alternatives/chat-first/cms-slice/tests -p test_adaptive_flow.py",
+      "exitCode": 0,
+      "passed": 49
+    },
+    {
+      "command": "python3 -m unittest discover -s alternatives/chat-first/cms-slice/tests -p test_profile_readiness.py",
+      "exitCode": 0,
+      "passed": 10
+    },
+    {
+      "command": "python3 -m unittest discover -s alternatives/chat-first/cms-slice/tests -p test_readiness.py",
+      "exitCode": 0,
+      "passed": 13
+    },
+    {
+      "command": "python3 -m unittest discover -s alternatives/chat-first/cms-slice/tests -p test_chat_alternative.py",
+      "exitCode": 0,
+      "passed": 6
+    },
+    {
+      "command": "python3 -m unittest discover -s infrastructure/daylight-data/tests -p test_profile_contract_export.py",
+      "exitCode": 0,
+      "passed": 3
+    },
+    {
+      "command": "Four existing JS alternative core/DOM/conditionals/profile-gate compatibility scripts",
+      "exitCode": 0,
+      "passed": 4
+    },
+    {
+      "command": "python3 infrastructure/daylight-data/tools/export_profile_contract.py --check",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 alternatives/chat-first/runtime/sync_runtime.py --check",
+      "exitCode": 1,
+      "expectedPending": [
+        "cms-slice/scripts/adaptive_flow.py"
+      ]
+    }
+  ],
+  "limits": [
+    "Original :8890 active ten-question store preservation is independently owned by T03/QA; this task baseline includes its legacy guest store only.",
+    "Metadata export is prepared; PostgreSQL migration/import remains a separate T16 dependency.",
+    "No source, insurance domain or recommendation acceptance is conferred.",
+    "Responsive browser viewport inspection passed; physical hardware, screen reader and consumer studies remain unperformed.",
+    "Canonical source is fixed/rendered; live runtime activation remains pending because the required launchd service identity is unavailable (exit 113)."
+  ],
+  "independentTechnicalReview": {
+    "reviewerRole": "technical_qa_agent",
+    "result": "No blocking issue found in targeted repair; independently reran 48 tests before the final additional all-open-task summary regression.",
+    "scope": "Technical fixture verification only; no domain/source acceptance or rendered inspection."
+  },
+  "renderedVerification": "render-verification.json",
+  "runtimeActivationAttempt": {
+    "actor": "primary_agent",
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 runtime/sync_runtime.py --apply --restart",
+    "cwd": "/Users/cep4u/daylight/alternatives/chat-first",
+    "escalationReview": "approved",
+    "result": "failed_safely_before_write",
+    "failure": "launchctl could not find gui/501/com.daylight.chat-alternative.8891",
+    "launchctlExitCode": 113,
+    "sourceCopied": false,
+    "backupCreated": false,
+    "restarted": false,
+    "pendingFile": "cms-slice/scripts/adaptive_flow.py",
+    "nextRequiredStep": "Restore or identify the exact existing authorized launchd service identity; rerun the guarded source-only update without bypassing the guard.",
+    "evidenceOrigin": "Primary agent execution result reported to profile task."
+  }
+}

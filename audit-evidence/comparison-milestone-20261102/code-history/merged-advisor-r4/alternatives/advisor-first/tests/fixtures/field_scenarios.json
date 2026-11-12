@@ -1,0 +1,2095 @@
+{
+  "version": 1,
+  "description": "Hand-authored :8893 field and state closure cases. Model outputs are scripted, not evaluated. No provider calls.",
+  "scenarios": [
+    {
+      "id": "F01",
+      "name": "Permanent home and optional priorities",
+      "purpose": "Close rarely volunteered residence fields and optional goal/priority detail without inventing a move date.",
+      "steps": [
+        {
+          "action": {
+            "type": "choice",
+            "id": "T01",
+            "fields": {
+              "choice": "compare",
+              "text": "Keep living independently"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "My permanent home is ZIP 34102, Collier, FL. This is my permanent home, not a seasonal address."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC02",
+                "fields": {
+                  "zip": "34102",
+                  "county": "Collier, FL",
+                  "homeStatus": "my permanent home, not a seasonal address"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T10",
+            "fields": {
+              "choice": "other",
+              "text": "Help at home matters to me"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "intent.goalDetail": "Keep living independently",
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "needs.priorities": [
+            "other"
+          ],
+          "needs.priorityOther": "Help at home matters to me",
+          "subject.role": "self",
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC02": {
+            "choice": "details",
+            "zip": "34102",
+            "county": "Collier, FL",
+            "homeStatus": "my permanent home, not a seasonal address"
+          }
+        },
+        "absent": [
+          "guide.coverage.requestedStartMonth",
+          "reports.RC08"
+        ],
+        "exact_guide_paths": [
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence",
+          "comparison.scope.zip",
+          "intent.goal",
+          "intent.goalDetail",
+          "needs.priorities",
+          "needs.priorityOther",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC02"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.intent.goalDetail",
+          "state": "known",
+          "mode": "questioned"
+        },
+        {
+          "path": "guide.fields.needs.priorityOther",
+          "state": "known",
+          "mode": "questioned"
+        },
+        {
+          "path": "readiness.facts.RC02.value.choice",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC02.value.zip",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC02.value.county",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC02.value.homeStatus",
+          "state": "known",
+          "mode": "volunteered"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "name": "Eligibility age range and reported drug gap",
+      "purpose": "A broad age range and a drug-gap report remain distinct from an exact birthday or verified penalty.",
+      "steps": [
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I first qualified through disability before 65. My current age range is under 65."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC06",
+                "fields": {
+                  "choice": "disability",
+                  "ageBand": "under65"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "My notice says the drug coverage is creditable. I had no drug coverage from June 2026 through July 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC12",
+                "fields": {
+                  "choice": "yes",
+                  "gap": "no drug coverage from June 2026 through July 2026"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "reports": {
+          "RC06": {
+            "choice": "disability",
+            "ageBand": "under65"
+          },
+          "RC12": {
+            "choice": "yes",
+            "gap": "no drug coverage from June 2026 through July 2026"
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "absent": [
+          "guide.situation.age65",
+          "guide.coverage.requestedStartMonth",
+          "reports.RC05"
+        ],
+        "guide": {
+          "subject.role": "self"
+        },
+        "exact_guide_paths": [
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC06",
+          "RC12"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC06.value.ageBand",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC12.value.gap",
+          "state": "known",
+          "mode": "volunteered"
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "name": "Brand preference and fill supply",
+      "purpose": "Capture volunteered brand and supply labels only for the named unverified medicine; do not synthesize legacy guide medicine/pharmacy structures.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "For my first medicine, Example Alpha 5 mg tablet, I prefer brand only."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Alpha",
+                  "strength": "5 mg",
+                  "form": "tablet",
+                  "brand": "brand only"
+                },
+                "entity": "new"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I fill Example Alpha as 30 tablets for 30 days, a 30-day supply, from Example Pharmacy, 1 Test Street, Naples, by retail."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "quantity": "30 tablets",
+                  "daysSupply": "30",
+                  "pharmacy": "Example Pharmacy, 1 Test Street, Naples",
+                  "channel": "retail",
+                  "supply": "30-day supply"
+                },
+                "entity": "medicine-1"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC24",
+            "fields": {
+              "choice": "pharmacy"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example Alpha",
+          "subject.role": "self",
+          "intent.goal": "compare"
+        },
+        "reports": {
+          "RC22": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "medicine-1",
+                "choice": "details",
+                "name": "Example Alpha",
+                "strength": "5 mg",
+                "form": "tablet",
+                "brand": "brand only"
+              }
+            ]
+          },
+          "RC23": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "medicine-1",
+                "choice": "details",
+                "quantity": "30 tablets",
+                "daysSupply": "30",
+                "pharmacy": "Example Pharmacy, 1 Test Street, Naples",
+                "channel": "retail",
+                "supply": "30-day supply"
+              }
+            ]
+          },
+          "RC24": {
+            "choice": "pharmacy"
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "absent": [
+          "guide.needs.medicationDetails",
+          "guide.needs.pharmacies"
+        ],
+        "exact_guide_paths": [
+          "intent.goal",
+          "needs.medications",
+          "needs.medicinesStatus",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC22",
+          "RC23",
+          "RC24"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC22.value.items[].brand",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC23.value.items[].supply",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "guide.fields.needs.medicationDetails",
+          "state": "explicit_absence",
+          "mode": "absence"
+        },
+        {
+          "path": "guide.fields.needs.pharmacies",
+          "state": "explicit_absence",
+          "mode": "absence"
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "name": "Field-specific unknown and deferred",
+      "purpose": "Explicit missing medicine label and fill fields do not erase known sibling values or become No.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "My medicine is Example Beta tablet. I do not know its strength; check later for the brand."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Beta",
+                  "form": "tablet",
+                  "strength": "unknown",
+                  "brand": "deferred"
+                },
+                "entity": "new"
+              }
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I use Example Beta as 30 tablets. I do not know the days supply. Check later for the pharmacy and channel."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC23",
+                "fields": {
+                  "quantity": "30 tablets",
+                  "daysSupply": "unknown",
+                  "pharmacy": "deferred",
+                  "channel": "deferred"
+                },
+                "entity": "medicine-1"
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example Beta",
+          "subject.role": "self",
+          "intent.goal": "compare"
+        },
+        "reports": {
+          "RC22": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "medicine-1",
+                "choice": "details",
+                "name": "Example Beta",
+                "form": "tablet"
+              }
+            ]
+          },
+          "RC23": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "medicine-1",
+                "choice": "details",
+                "quantity": "30 tablets"
+              }
+            ]
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "skipped_details": {
+          "RC22.medicine-1.strength": "unknown",
+          "RC22.medicine-1.brand": "deferred",
+          "RC23.medicine-1.daysSupply": "unknown",
+          "RC23.medicine-1.pharmacy": "deferred",
+          "RC23.medicine-1.channel": "deferred"
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "needs.medications",
+          "needs.medicinesStatus",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC22",
+          "RC23"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC22.value.items[].strength",
+          "state": "unknown",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC22.value.items[].brand",
+          "state": "deferred",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC23.value.items[].daysSupply",
+          "state": "unknown",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC23.value.items[].pharmacy",
+          "state": "deferred",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC23.value.items[].channel",
+          "state": "deferred",
+          "mode": "volunteered"
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "name": "Conflicting start and explicit correction",
+      "purpose": "An exact desired month conflict needs clarification; a clear correction replaces the stale month, never birthday or actual Part B.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T04",
+            "fields": {
+              "choice": "month",
+              "month": "November 2026"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I want my Medicare coverage to start in December 2026."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "month",
+                  "month": "December 2026"
+                },
+                "scope": "intended"
+              }
+            ]
+          },
+          "expected": {
+            "pending": true,
+            "stale_guide": [
+              "coverage.requestedStart",
+              "coverage.requestedStartMonth"
+            ]
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Actually, I want my Medicare coverage to start in January 2027."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T04",
+                "fields": {
+                  "choice": "month",
+                  "month": "January 2027"
+                },
+                "scope": "intended",
+                "correction": true
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "coverage.requestedStart": "month",
+          "coverage.requestedStartMonth": "2027-01",
+          "subject.role": "self",
+          "intent.goal": "compare"
+        },
+        "pending": false,
+        "absent": [
+          "guide.situation.age65",
+          "reports.RC05"
+        ],
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "exact_guide_paths": [
+          "coverage.requestedStart",
+          "coverage.requestedStartMonth",
+          "intent.goal",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.coverage.requestedStartMonth",
+          "state": "conflicting",
+          "mode": "volunteered",
+          "step": 4
+        },
+        {
+          "path": "guide.fields.coverage.requestedStartMonth",
+          "state": "corrected",
+          "mode": "volunteered",
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "name": "Qualification correction invalidates payer threshold",
+      "purpose": "A reported response to an age-65 payer threshold is not reused for a disability threshold.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "employer"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC09",
+            "fields": {
+              "choice": "my_job"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC06",
+            "fields": {
+              "choice": "age65"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC10",
+            "fields": {
+              "choice": "yes"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Correction: I first qualified through disability before 65."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC06",
+                "fields": {
+                  "choice": "disability"
+                },
+                "correction": true
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "reports": {
+          "RC06": {
+            "choice": "disability"
+          },
+          "RC09": {
+            "choice": "my_job"
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "stale_reports": [
+          "RC10"
+        ],
+        "absent": [
+          "reports.RC10",
+          "guide.situation.age65"
+        ],
+        "guide": {
+          "subject.role": "self",
+          "intent.goal": "compare",
+          "coverage.current": [
+            "employer"
+          ]
+        },
+        "exact_guide_paths": [
+          "coverage.current",
+          "intent.goal",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC06",
+          "RC09"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC06.value.choice",
+          "state": "corrected",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC10.value.choice",
+          "state": "stale",
+          "mode": "volunteered"
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "name": "Helper familiarity and wrong-person insurance",
+      "purpose": "The learner can report needing explanation; their own insurance must not become the beneficiary's.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "compare",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "someone"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "I am new to Medicare. My mother is the person we are helping; I have insurance through my own job."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "T02",
+                "fields": {
+                  "choice": "new"
+                },
+                "subject": "learner"
+              },
+              {
+                "id": "T05",
+                "fields": {
+                  "choice": "employer"
+                },
+                "subject": "learner"
+              },
+              {
+                "id": "RC09",
+                "fields": {
+                  "choice": "my_job"
+                },
+                "subject": "learner"
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "subject.role": "someone",
+          "knowledge.general": "new",
+          "intent.goal": "compare"
+        },
+        "reports": {
+          "RC01": {
+            "choice": "someone"
+          }
+        },
+        "absent": [
+          "guide.coverage.current",
+          "reports.RC09"
+        ],
+        "exact_guide_paths": [
+          "intent.goal",
+          "knowledge.general",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.knowledge.general",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "guide.fields.coverage.current",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.facts.RC09.value.choice",
+          "state": "rejected",
+          "mode": "rejected"
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "name": "Same-name medicines and one-item correction",
+      "purpose": "Distinct reported strengths remain distinct entities; correcting one item invalidates only its fill scenario.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "drug_pricing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC22",
+            "fields": {
+              "name": "Example Gamma",
+              "strength": "5 mg",
+              "form": "tablet"
+            },
+            "entity": "medicine-1"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC22",
+            "fields": {
+              "name": "Example Gamma",
+              "strength": "10 mg",
+              "form": "tablet"
+            },
+            "entity": "medicine-2"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC23",
+            "fields": {
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example North Pharmacy",
+              "channel": "retail"
+            },
+            "entity": "medicine-1"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC23",
+            "fields": {
+              "quantity": "90 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example South Pharmacy",
+              "channel": "mail"
+            },
+            "entity": "medicine-2"
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "Correction: the first Example Gamma, medicine-1, is a 20 mg tablet."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC22",
+                "fields": {
+                  "name": "Example Gamma",
+                  "strength": "20 mg",
+                  "form": "tablet"
+                },
+                "entity": "medicine-1",
+                "correction": true
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "reports": {
+          "RC22": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "medicine-1",
+                "choice": "details",
+                "name": "Example Gamma",
+                "strength": "20 mg",
+                "form": "tablet"
+              },
+              {
+                "entity": "medicine-2",
+                "choice": "details",
+                "name": "Example Gamma",
+                "strength": "10 mg",
+                "form": "tablet"
+              }
+            ]
+          },
+          "RC23": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "medicine-1",
+                "choice": "details",
+                "quantity": "30 tablets",
+                "daysSupply": "30",
+                "pharmacy": "Example North Pharmacy",
+                "channel": "retail"
+              },
+              {
+                "entity": "medicine-2",
+                "choice": "details",
+                "quantity": "90 tablets",
+                "daysSupply": "90",
+                "pharmacy": "Example South Pharmacy",
+                "channel": "mail"
+              }
+            ]
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "item_stale": [
+          "RC23.medicine-1"
+        ],
+        "item_current": [
+          "RC23.medicine-2"
+        ],
+        "guide": {
+          "subject.role": "self",
+          "intent.goal": "compare",
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example Gamma; Example Gamma"
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "needs.medications",
+          "needs.medicinesStatus",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC22",
+          "RC23"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC22.value.items[].strength",
+          "state": "corrected",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC23.value.items[].quantity",
+          "state": "stale",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC23.value.items[].pharmacy",
+          "state": "known",
+          "mode": "reused"
+        }
+      ]
+    },
+    {
+      "id": "F09",
+      "name": "Explicit None retires provider reports",
+      "purpose": "A direct No is not an unknown; retired doctor details must not return as current reports.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "providers",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC21",
+            "fields": {
+              "practice": "Example Clinic",
+              "city": "Naples, FL"
+            },
+            "entity": "doctor-1"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T06",
+            "fields": {
+              "choice": "none"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "needs.providersStatus": "none",
+          "subject.role": "self",
+          "intent.goal": "compare"
+        },
+        "stale_guide": [
+          "needs.providers"
+        ],
+        "stale_reports": [
+          "RC21"
+        ],
+        "absent": [
+          "guide.needs.providers",
+          "reports.RC21"
+        ],
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "needs.providersStatus",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.needs.providersStatus",
+          "state": "known",
+          "mode": "questioned"
+        },
+        {
+          "path": "guide.fields.needs.providers",
+          "state": "stale",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC21.value.items[].practice",
+          "state": "stale",
+          "mode": "volunteered"
+        }
+      ]
+    },
+    {
+      "id": "F10",
+      "name": "Military report and legacy optional detail boundary",
+      "purpose": "The supported military report mirrors G13. Unsupported direct choice IDs G01-G12/G14 are each rejected and their held optional report paths remain absent.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "timing",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "military"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC26",
+            "fields": {
+              "choice": "tfl"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G01",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G02",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G03",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G04",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G05",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G06",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G07",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G08",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G09",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G10",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G11",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G12",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "G14",
+            "fields": {
+              "value": "explicit test report"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "coverage.current": [
+            "military"
+          ],
+          "subject.role": "self",
+          "intent.goal": "compare"
+        },
+        "reports": {
+          "RC26": {
+            "choice": "tfl"
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "details": {
+          "G13": [
+            {
+              "value": "tfl"
+            }
+          ]
+        },
+        "absent": [
+          "details.G01",
+          "details.G02",
+          "details.G03",
+          "details.G04",
+          "details.G05",
+          "details.G06",
+          "details.G07",
+          "details.G08",
+          "details.G09",
+          "details.G10",
+          "details.G11",
+          "details.G12",
+          "details.G14",
+          "guide.coverage.birth",
+          "guide.coverage.birth.firstDay"
+        ],
+        "exact_guide_paths": [
+          "coverage.current",
+          "intent.goal",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC26"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.conversation.details.G13.value",
+          "state": "known",
+          "mode": "derived"
+        },
+        {
+          "path": "readiness.conversation.details.G01.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G02.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G03.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G04.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G05.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G06.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G07.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G08.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G09.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G10.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G11.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G12.value",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "readiness.conversation.details.G14.value",
+          "state": "rejected",
+          "mode": "rejected"
+        }
+      ]
+    },
+    {
+      "id": "F11",
+      "name": "Unrecognized legacy medicine payloads rejected",
+      "purpose": "Current T07 accepts medicine names, not hidden medicationDetails/pharmacies payloads. No fake field coverage is created.",
+      "steps": [
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T07",
+            "fields": {
+              "text": "Example Delta 5 mg tablet"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T07",
+            "fields": {
+              "medicationDetails": "invented structured product"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T07",
+            "fields": {
+              "pharmacies": "invented directory match"
+            }
+          },
+          "expected_error": {
+            "type": "ProfileError",
+            "status": 422
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "needs.medicinesStatus": "yes",
+          "needs.medications": "Example Delta 5 mg tablet",
+          "subject.role": "self"
+        },
+        "absent": [
+          "guide.needs.medicationDetails",
+          "guide.needs.pharmacies"
+        ],
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "exact_guide_paths": [
+          "needs.medications",
+          "needs.medicinesStatus",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.needs.medicationDetails",
+          "state": "rejected",
+          "mode": "rejected"
+        },
+        {
+          "path": "guide.fields.needs.pharmacies",
+          "state": "rejected",
+          "mode": "rejected"
+        }
+      ]
+    },
+    {
+      "id": "F12",
+      "name": "Original versus Advantage clarification",
+      "purpose": "The dedicated current-versus-different-period clarification field remains its own report, never a new verified coverage conclusion.",
+      "steps": [
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "original"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "edit",
+            "id": "RC28"
+          },
+          "expected": {
+            "question": "RC28"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC28",
+            "fields": {
+              "choice": "different"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "coverage.current": [
+            "original"
+          ],
+          "subject.role": "self"
+        },
+        "reports": {
+          "RC28": {
+            "choice": "different"
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "absent": [
+          "reports.RC04",
+          "reports.RC07"
+        ],
+        "exact_guide_paths": [
+          "coverage.current",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC28"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC28.value.choice",
+          "state": "known",
+          "mode": "questioned"
+        }
+      ]
+    },
+    {
+      "id": "F13",
+      "name": "Unknown baseline versus explicit no coverage",
+      "purpose": "Unknown and deferred baseline dispositions remain different from none, while other independent preferences remain usable.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "compare",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T04",
+            "fields": {
+              "choice": "unknown"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T05",
+            "fields": {
+              "choice": "none"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T03",
+            "fields": {
+              "zip": "34102"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T06",
+            "fields": {
+              "choice": "deferred"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T09",
+            "fields": {
+              "choice": "lower_monthly"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T10",
+            "fields": {
+              "choice": "total_cost"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "coverage.current": [
+            "none"
+          ],
+          "needs.costPreference": "lower_monthly",
+          "needs.priorities": [
+            "total_cost"
+          ],
+          "subject.role": "self",
+          "intent.goal": "compare",
+          "comparison.scope.zip": "34102",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "baseline_dispositions": {
+          "T04": "unknown",
+          "T06": "deferred"
+        },
+        "absent": [
+          "guide.coverage.requestedStartMonth",
+          "guide.needs.providersStatus",
+          "guide.needs.providers"
+        ],
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "exact_guide_paths": [
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence",
+          "comparison.scope.zip",
+          "coverage.current",
+          "intent.goal",
+          "needs.costPreference",
+          "needs.priorities",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.coverage.requestedStart",
+          "state": "unknown",
+          "mode": "questioned"
+        },
+        {
+          "path": "guide.fields.needs.providersStatus",
+          "state": "deferred",
+          "mode": "questioned"
+        },
+        {
+          "path": "guide.fields.coverage.current",
+          "state": "known",
+          "mode": "questioned"
+        }
+      ]
+    },
+    {
+      "id": "F14",
+      "name": "Explicit residence unknowns preserve independent known home",
+      "purpose": "A deferred home clarification does not manufacture a moving/seasonal status or erase a known home ZIP.",
+      "steps": [
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "T03",
+            "fields": {
+              "zip": "34102"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "message",
+            "message": "My permanent-home ZIP is 34102. I do not know my home county; check the seasonal-home status later."
+          },
+          "interpretation": {
+            "updates": [
+              {
+                "id": "RC02",
+                "fields": {
+                  "zip": "34102",
+                  "county": "unknown",
+                  "homeStatus": "deferred"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "comparison.scope.zip": "34102",
+          "subject.role": "self",
+          "comparison.scope.county": {
+            "fips": "12021",
+            "name": "Collier County",
+            "state": "FL"
+          },
+          "comparison.scope.locationEvidence": {
+            "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+            "period": "September 2025",
+            "method": "unique_zip_reference"
+          }
+        },
+        "reports": {
+          "RC02": {
+            "choice": "details",
+            "zip": "34102"
+          },
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "skipped_details": {
+          "RC02.profile.county": "unknown",
+          "RC02.profile.homeStatus": "deferred"
+        },
+        "exact_guide_paths": [
+          "comparison.scope.county",
+          "comparison.scope.locationEvidence",
+          "comparison.scope.zip",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC02"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC02.value.zip",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC02.value.county",
+          "state": "unknown",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC02.value.homeStatus",
+          "state": "deferred",
+          "mode": "volunteered"
+        }
+      ]
+    },
+    {
+      "id": "F15",
+      "name": "Reported retirement and birthday without an inferred year",
+      "purpose": "Capture current explicit life circumstances through v3 semantic proposals, separately from retirement insurance, desired start, actual enrollment and an unstated birthday year.",
+      "steps": [
+        {
+          "action": {
+            "type": "message",
+            "message": "I've been retired for a few years, and am turning 65 in November."
+          },
+          "interpretation": {
+            "situation_proposals": [
+              {
+                "kind": "retirement",
+                "status": "retired",
+                "when": "for a few years",
+                "subject": "beneficiary",
+                "scope": "current"
+              },
+              {
+                "kind": "age65",
+                "month": 11,
+                "year": null,
+                "subject": "beneficiary",
+                "scope": "current"
+              }
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "situation.retirement": {
+            "status": "retired",
+            "when": "for a few years"
+          },
+          "situation.age65": {
+            "month": 11,
+            "year": null
+          },
+          "subject.role": "self"
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          }
+        },
+        "exact_guide_paths": [
+          "situation.age65",
+          "situation.retirement",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01"
+        ],
+        "absent": [
+          "guide.coverage.current",
+          "guide.coverage.requestedStart",
+          "guide.coverage.requestedStartMonth",
+          "reports.RC04",
+          "reports.RC05",
+          "reports.RC09",
+          "reports.RC11"
+        ],
+        "provenance": {
+          "guide.situation.retirement": {
+            "method": "direct_report",
+            "status": "user_reported",
+            "subject": "beneficiary",
+            "scope": "current"
+          },
+          "guide.situation.age65": {
+            "method": "direct_report",
+            "status": "user_reported",
+            "subject": "beneficiary",
+            "scope": "current"
+          }
+        }
+      },
+      "coverage_witnesses": [
+        {
+          "path": "guide.fields.situation.retirement",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "guide.fields.situation.age65",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "guide.fields.coverage.current",
+          "state": "explicit_absence",
+          "mode": "absence"
+        },
+        {
+          "path": "guide.fields.coverage.requestedStartMonth",
+          "state": "explicit_absence",
+          "mode": "absence"
+        }
+      ]
+    },
+    {
+      "id": "F16",
+      "name": "Administrator-reported family effect and current provider item",
+      "purpose": "Exercise a positive administrator-reported family impact plus the supported current doctor aggregate bookkeeping, without declaring verified effects or network participation.",
+      "steps": [
+        {
+          "action": {
+            "type": "task",
+            "task": "providers",
+            "preparing": true
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC01",
+            "fields": {
+              "choice": "self"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC21",
+            "entity": "doctor-1",
+            "fields": {
+              "practice": "Example Elm Clinic",
+              "city": "Naples, FL"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "edit",
+            "id": "RC13"
+          },
+          "expected": {
+            "question": "RC13"
+          }
+        },
+        {
+          "action": {
+            "type": "choice",
+            "id": "RC13",
+            "fields": {
+              "choice": "yes"
+            }
+          }
+        }
+      ],
+      "expected": {
+        "guide": {
+          "intent.goal": "compare",
+          "subject.role": "self",
+          "needs.providersStatus": "list",
+          "needs.providers": "Example Elm Clinic"
+        },
+        "reports": {
+          "RC01": {
+            "choice": "self"
+          },
+          "RC13": {
+            "choice": "yes"
+          },
+          "RC21": {
+            "choice": "details",
+            "items": [
+              {
+                "entity": "doctor-1",
+                "choice": "details",
+                "practice": "Example Elm Clinic",
+                "city": "Naples, FL"
+              }
+            ]
+          }
+        },
+        "exact_guide_paths": [
+          "intent.goal",
+          "needs.providers",
+          "needs.providersStatus",
+          "subject.role"
+        ],
+        "exact_report_ids": [
+          "RC01",
+          "RC13",
+          "RC21"
+        ],
+        "absent": [
+          "guide.coverage.current",
+          "reports.RC04",
+          "reports.RC07"
+        ]
+      },
+      "coverage_witnesses": [
+        {
+          "path": "readiness.facts.RC13.value.choice",
+          "state": "known",
+          "mode": "questioned"
+        },
+        {
+          "path": "readiness.facts.RC21.value.choice",
+          "state": "known",
+          "mode": "volunteered"
+        },
+        {
+          "path": "readiness.facts.RC21.value.items[].practice",
+          "state": "known",
+          "mode": "volunteered"
+        }
+      ]
+    }
+  ]
+}

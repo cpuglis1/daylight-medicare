@@ -1,0 +1,51 @@
+--- before/alternatives/advisor-first/web/index.html
++++ after/alternatives/advisor-first/web/index.html
+@@ -23,3 +23,3 @@
+   <header class="site-header">
+-    <a class="wordmark" href="/" aria-label="Daylight Medicare home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">Daylight<span class="brand-category">Medicare</span></span></a>
++    <a class="wordmark" href="/" aria-label="Daylight home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">Daylight</span></a>
+   </header>
+@@ -28,3 +28,3 @@
+       <div class="approved-hero">
+-        <div class="landing-inner"><h1 id="landing-title" class="landing-title">Your coverage,<br>plain as day</h1><p class="landing-sub">Understand Medicare and explore your options, at your pace.</p><div class="approved-entry-actions"><button id="start" class="primary-button landing-cta" disabled>Get started</button></div></div>
++        <div class="landing-inner"><h1 id="landing-title" class="landing-title">Medicare,<br>plain as day.</h1><p class="landing-sub">Understand your coverage options and prepare to enroll, at your pace.</p><div class="approved-entry-actions"><button id="start" class="primary-button landing-cta" disabled>Get started</button></div></div>
+         <figure class="approved-arrival-photo"><img src="/art/arrival-option-a.jpg" width="1400" height="933" fetchpriority="high" alt="A woman with short silver hair and an ochre cardigan facing the camera outdoors against green foliage."></figure>
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ after/DAYLIGHT_REQUIREMENTS.md
+@@ -160,3 +160,3 @@
+ |---|---|---|
+-| D58 | Candidate02 layout and exact Option A (Marcus Aurelius/Pexels6787568) are approved. Follow root DESIGN.md; retain the sole exact tagline Your coverage, plain as day. Do not reopen the layout or add slogans. | Match approved desktop/phone captures; keep asset source/license/crop records. |
++| D58 | Candidate02 layout and exact Option A (Marcus Aurelius/Pexels6787568) are approved. Follow root DESIGN.md. The November 2 D58/D86 owner decision changes only :8893's landing headline to `Medicare, plain as day.` and its support text to `Understand your coverage options and prepare to enroll, at your pace.`, with the sun/Daylight wordmark and no Medicare subtitle. Retain `Your coverage, plain as day` in protected variants. Do not reopen the layout or add slogans. | Match approved desktop/phone captures; keep asset source/license/crop records. Verify the new :8893 copy and unchanged Get started action at desktop, tablet and phone widths. |
+ | D59 | Implement the first bounded working slice in the active app: goal→recipient as needed→voluntary knowledge/text confirmation→first concepts/growing picture→Ask overlay/exact return. Continue staged implementation without redundant approval; no commit/push/deploy or privacy/data-gate bypass. | Meaningful state/branch tests and actual browser checks; preserve legacy content/routes and uncommitted work. Backend guest saving remains explicitly unconnected until its secure policy/service slice. |
+@@ -187,2 +187,4 @@
+ 
++- **2026-11-02, D58/D86 landing copy:** Owner requested Medicare in the large hero text and explicitly approved implementing `Medicare, plain as day.` on two lines, with `Understand your coverage options and prepare to enroll, at your pace.` beneath it. Keep the sun and Daylight alone in the header and the existing Get started action. This supersedes the earlier exact-tagline/Medicare-subtitle presentation only for :8893. Preserve layout, typography, palette, photography, guided behavior, protected :8890/:8891 surfaces, stores and all source/recommendation/enrollment gates. [Scoped change and responsive verification](audit-evidence/landing-medicare-20261102/README.md).
++
+ - **2026-11-02, D86 conversational-quality implementation authorized:** The owner requested implementing the [conversation/gates review](docs/reviews/2026-11-02-conversation-flow/README.md). Improve supported claim and question-meaning validation, immediate clarification and further useful teaching depth, and decision-focused question relevance. Preserve dynamic answer/teach/ask behavior, unknown/defer, optional return points, all 41 conditional meanings, accepted UI, two typed stages/one finite composition, v3 privacy/saving, existing budget and independent research/source/recommendation holds. Add reproducible complete-journey evaluation with explicit limits; no automatic paid retries or new personal research release. The [execution record](audit-evidence/advisor-conversation-quality-20261102/README.md) records actual implementation, checks, costs and activation separately.
+--- before/docs/product/MASTER_DESIGN.md
++++ after/docs/product/MASTER_DESIGN.md
+@@ -95,2 +95,3 @@
+ |---|---|---|
++| D58/D86 | November 2: owner approved `Medicare, plain as day.` as the large :8893 landing headline | Break after `Medicare,`; support with `Understand your coverage options and prepare to enroll, at your pace.`. Keep the sun/Daylight wordmark without the Medicare subtitle and retain Get started. This scoped copy decision supersedes the earlier exact tagline only on :8893; preserve its layout/photo/type, conversation, protected variants/stores and source/recommendation/enrollment gates. [Change and responsive evidence](../../audit-evidence/landing-medicare-20261102/README.md). |
+ | D86 | Implement the ongoing advisor correction with education serving understandable coverage decisions; apply the owner's November 2 focused chat refinements | [Ongoing execution contract](ONGOING_ADVISOR_FLOW_2026-11-01.md) remains. November 2 adds typed-date/ASAP consistency, privacy-only OpenAI notice placement, assistant-side pending dots, a growing composer and a contextual inline guide while Sources stays expandable. [Earlier refinement implementation and checks](../../audit-evidence/advisor-chat-refinements-20261102/README.md) are recorded. The latest increment adds spatial dot motion, immediate draft clearing with safe recovery, a conditional downward jump and optional contextual educational questions while preserving the practical return point; [scoped implementation and free verification](../../audit-evidence/advisor-engagement-20261102/README.md) are recorded separately from actual activation and real-model/consumer evaluation. Preserve privacy, independence, protected variants and source/release gates; consumer approval is separate. |
+--- before/PRODUCT.md
++++ after/PRODUCT.md
+@@ -1,2 +1,4 @@
+ # Daylight
++
++**D58/D86 landing copy · November 2:** The owner approved implementing **Medicare, plain as day.** as :8893's large two-line landing headline, with **Understand your coverage options and prepare to enroll, at your pace.** beneath it. The header keeps the sun and Daylight alone; Get started, layout, typography, photography and the advisor journey remain. This overrides the earlier exact-tagline/Medicare-subtitle presentation only for this surface, preserving :8890/:8891, stores and source/recommendation/enrollment gates. [Scoped implementation and responsive evidence](audit-evidence/landing-medicare-20261102/README.md).
+ 
+--- before/DESIGN.md
++++ after/DESIGN.md
+@@ -123,2 +123,4 @@
+ 
++**D58/D86 scoped landing override · November 2, 2026:** The owner approved **Medicare, plain as day.** as the large :8893 hero headline, breaking after `Medicare,`, with **Understand your coverage options and prepare to enroll, at your pace.** beneath it. Use the existing sun/Daylight wordmark without its Medicare subtitle and retain Get started. This supersedes the earlier exact-tagline rule only for :8893's landing presentation; preserve all layout, font, palette, photo and interaction decisions. Protected variants retain their earlier copy. [Scoped change and responsive evidence](audit-evidence/landing-medicare-20261102/README.md).
++
+ ## Overview
+--- before/alternatives/advisor-first/AGENTS.md
++++ after/alternatives/advisor-first/AGENTS.md
+@@ -1,2 +1,4 @@
+ # Working on the advisor-first variant
++
++**D58/D86 landing copy · November 2:** Owner explicitly approved **Medicare, plain as day.** in the large two-line hero and **Understand your coverage options and prepare to enroll, at your pace.** beneath it. Keep the sun/Daylight header without its Medicare subtitle and the existing Get started action. This scoped copy change overrides the older exact-tagline presentation only here; preserve all CSS, photography, advisor interactions, protected variants/stores and evidence/recommendation/enrollment gates. [Scoped verification](../../audit-evidence/landing-medicare-20261102/README.md).
+ 

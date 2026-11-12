@@ -1,0 +1,35 @@
+Appendix F – CY 2027 Pricing File Layout
+
+
+   PRICING FILE
+   Unique record identifiers: CONTRACT_ID, PRICE_ID, NDC, DAYS_SUPPLY, and IS_MAIL
+                Field Name                 Type(Size)        NULL                             Field Description
+   CONTRACT_ID                       Char(5)            NOT NULL      References Organization’s Contract Number assigned by CMS
+   PRICE_ID                          Number(3)          NOT NULL      Price File Grouping Number
+   NDC                               Char(11)           NOT NULL      The appropriate 11 Digit NDC from the approved formulary and
+                                                                      supplemental excluded drug file, if applicable, representing the
+                                                                      drug/dose form combination
+   DAYS_SUPPLY                       Number(2)          NOT NULL      The days supply applicable for this unit cost.
+
+                                                                      Acceptable values 30, 60, or 90
+   IS_MAIL                           Number(1)          DEFAULT 0,    Yes/No defines whether cost applies for dispensing at a network
+                                                        NOT NULL      contracted mail order pharmacy.
+
+                                                                      Acceptable values 0 or 1 (0=Cost applies at Retail; 1=Cost
+                                                                      applies at Mail Order)
+   UNIT_COST                         Currency(12)       NOT NULL      Unit cost for a given NDC less dispensing fee.
+                                     (Format:
+                                     $$$$$$$$cccc)                    Where a Part D sponsor applies rebates at the point-of-sale,
+                                                                      apply the rebate to the drug’s unit cost, up to the full value of the
+                                                                      unit cost, and not the dispensing fee.
+   HAS_CEILING_COST                  Number(1)          DEFAULT 0,    Yes/No defines whether there is a ceiling cost provided in the
+                                                        NOT NULL      CP file.
+
+                                                                      Acceptable values 0 or 1 (0=No ceiling price; 1=Ceiling price
+                                                                      applies)
+
+
+
+
+June 11, 2026                                                                                                                           Page 1
+

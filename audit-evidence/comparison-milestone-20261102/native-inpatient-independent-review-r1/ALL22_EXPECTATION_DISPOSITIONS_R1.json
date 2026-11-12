@@ -1,0 +1,241 @@
+{
+  "cases": [
+    {
+      "candidate_refs": [
+        "all 208 original leaf paths"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Retain all 204 controls and four descriptors with exact types, whole-object hashes, category 1a/type 1 and 1a1/type 2 separately.",
+      "id": "NI-EXPECTED-01",
+      "meaning": "All 204 controls and four descriptors match original pointer, type and complete source objects. No extra leaf is invented.",
+      "name": "exact_scope"
+    },
+    {
+      "candidate_refs": [
+        "all 170 blank paths"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "All 170 blank control values remain individually retained; no blank means No, zero or inapplicable without an exact consuming rule.",
+      "id": "NI-EXPECTED-02",
+      "meaning": "All 170 blanks remain individually retained with explicit limits; no negative or zero is inferred.",
+      "name": "blank_controls"
+    },
+    {
+      "candidate_refs": [
+        "18 scoped controls"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "The 18 scoped projections are specific model/source-path evidence with original guards, MAX, defaults and import normalization; they are not universal labels.",
+      "id": "NI-EXPECTED-03",
+      "meaning": "All 18 prior scoped format decisions remain within exact local path/category/type and named flat question. Actual source guard/MAX/join lines replay.",
+      "name": "scoped_authority"
+    },
+    {
+      "candidate_refs": [
+        "six literal controls"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "The six numeric operands without projection authority remain literals with enclosing mode/period/network controls unresolved.",
+      "id": "NI-EXPECTED-04",
+      "meaning": "The six literal/count controls retain explicit format, unit and activation questions; structural cardinality is separated from a transform.",
+      "name": "literal_scope"
+    },
+    {
+      "candidate_refs": [
+        "ten selector controls"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "The ten selector meanings stay held, with a concrete exact-path next action; same names and digits do not establish authority.",
+      "id": "NI-EXPECTED-05",
+      "meaning": "Ten selectors remain held with exact pointer/raw and a named next action; flat labels are separate.",
+      "name": "unresolved_selectors"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-033"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Raw 3 in the exact 1a/type 1 period path projects to flat PBP_B1A_HOSP_BEN_PERIOD 3, whose exact dictionary label is Per Admission or Per Stay.",
+      "id": "NI-EXPECTED-06",
+      "meaning": "The original guarded period branch and original dictionary row 390 support this exact Per Admission or Per Stay projection.",
+      "name": "period"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-128"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "TierCopayment.bdCopaymentTier1YesNo raw 2 maps to the Medicare-defined cost-share question, not a claim that tier 1 is inactive.",
+      "id": "NI-EXPECTED-07",
+      "meaning": "The original exact question asks whether Medicare-defined tier-1 cost share is charged. Raw 2 is No to that question, without tier deactivation.",
+      "name": "medicare_defined_cost_share"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-013",
+        "NATIVE-INPATIENT-117",
+        "NATIVE-INPATIENT-127",
+        "NATIVE-INPATIENT-183",
+        "NATIVE-INPATIENT-204"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Native populated interval counts 2/1/0 and flat enum codes 3/2/1 are distinct representations; compare exact question and content, not digit identity.",
+      "id": "NI-EXPECTED-08",
+      "meaning": "Native 2/1/0 and flat 3/2/1 preserve Two/One/Zero cardinalities without identity or universal +1 decoding. Single-tier/default questions remain held.",
+      "name": "interval_counts"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-107"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "The raw 0.00 stay operand does not erase the positive 375.00/day band or establish a zero total admission bill.",
+      "id": "NI-EXPECTED-09",
+      "meaning": "The zero stay operand and positive/zero day bands remain separate, with an explicit remaining schedule relationship.",
+      "name": "zero_stay"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-118",
+        "NATIVE-INPATIENT-119",
+        "NATIVE-INPATIENT-120",
+        "NATIVE-INPATIENT-121",
+        "NATIVE-INPATIENT-122",
+        "NATIVE-INPATIENT-123"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Base native raw day bands 1–7/375.00 and 8–90/0.00 remain attached to their own activation and period controls.",
+      "id": "NI-EXPECTED-10",
+      "meaning": "Raw 1–7 at 375.00 and 8–90 at 0.00 stay in the exact base component; no personal day cap or complete cost is inferred.",
+      "name": "base_bands"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-174",
+        "NATIVE-INPATIENT-175",
+        "NATIVE-INPATIENT-176"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Additional 1a1 raw day band 91–999/0.00 remains separate and finite as stored; 999 is not an authorized infinity sentinel.",
+      "id": "NI-EXPECTED-11",
+      "meaning": "Raw 91–999 at 0.00 remains in its separate object. The endpoint stays finite as stored.",
+      "name": "additional_band"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-205"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "1a1/type 2 raw unlimited control 1 has its exact scoped Yes projection; that is not a reviewed merge with base 1a or carrier Medicare-covered unlimited stays.",
+      "id": "NI-EXPECTED-12",
+      "meaning": "The original 1a1/type-2 guarded projection has the exact Additional Days unlimited Yes label. No merge with carrier/base coverage follows.",
+      "name": "additional_unlimited"
+    },
+    {
+      "candidate_refs": [
+        "whole native objects, categories 1a/type 1 and 1a1/type 2"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Do not erase additional benefit 1a1/type 2 scope when comparing its raw operands or unlimited selector with base 1a/type 1.",
+      "id": "NI-EXPECTED-13",
+      "meaning": "Type 2 remains local supplemental-component scope, without inventing an optional rider or package ID.",
+      "name": "category_type"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-043",
+        "NATIVE-INPATIENT-044"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Native authorization 1/referral 2 lack exact scoped projection authority in the retained decisions; flat Yes/No questions are a separate format.",
+      "id": "NI-EXPECTED-14",
+      "meaning": "Native authorization 1 and referral 2 remain selector holds. Flat Yes/No, provider orders and carrier modality remain separate evidence.",
+      "name": "auth_referral"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-001",
+        "NATIVE-INPATIENT-002",
+        "NATIVE-INPATIENT-003",
+        "NATIVE-INPATIENT-013"
+      ],
+      "disposition": "reviewer_expectation_narrowed_candidate_conservative",
+      "expected_before_candidate": "POS raw 40 is a percentage operand, not a copayment; payment-rate base and selector meanings cannot be borrowed from carrier prose.",
+      "id": "NI-EXPECTED-15",
+      "meaning": "Reviewer expectation narrowed: only literal 40 under the exact POS component is established here. The presealed phrase percentage operand was too specific without an exact consuming rule. Candidate correctly withholds scale/base/activation/denominator; no producer defect is assigned.",
+      "name": "pos"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-027"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "POS deductible 2 and empty amount require exact selector authority; no zero or No is inferred solely from code 2 or blank amount.",
+      "id": "NI-EXPECTED-16",
+      "meaning": "The POS-specific deductible selector and blank operand stay held; the plan deductible is not erased.",
+      "name": "pos_deductible"
+    },
+    {
+      "candidate_refs": [
+        "NATIVE-INPATIENT-036"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Native MoopAmount yes/no raw 2 and blank amount do not inherit a flat code label or waive the separate plan accumulator review.",
+      "id": "NI-EXPECTED-17",
+      "meaning": "Service-specific MOOP selector/blank fields remain distinct from plan accumulators, with no cross-format No transfer.",
+      "name": "moop"
+    },
+    {
+      "candidate_refs": [
+        "WORKBOOK_SCOPE_REVIEW.json"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "The later 34 conditional workbook uses require exact pointer/category binding. A name suffix or broad component match is insufficient.",
+      "id": "NI-EXPECTED-18",
+      "meaning": "The conditional workbook selections are exact, primary XML/VBA are replayed, and none of the later 34 follow-up uses selects these leaves.",
+      "name": "later_workbook"
+    },
+    {
+      "candidate_refs": [
+        "every original_ID_bindings array"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "All source-control decisions bind original source IDs, raw observation IDs and exact payload hashes without treating a broad dependency as whole-original equivalence.",
+      "id": "NI-EXPECTED-19",
+      "meaning": "Every candidate original binding matches exact original payload hash, kind and states. Broad dependencies do not become whole-original approvals.",
+      "name": "full_lineage"
+    },
+    {
+      "candidate_refs": [
+        "137 original guarded SAS branches and workbook/VBA scope"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Static official SAS interpretation remains distinct from executed SAS/workbook behavior and from authoritative benefit truth.",
+      "id": "NI-EXPECTED-20",
+      "meaning": "No downloaded SAS, workbook macro or formula was executed. Static model projection and source benefit truth remain separate.",
+      "name": "source_vs_model"
+    },
+    {
+      "candidate_refs": [
+        "all 17 HOLD_REGISTER entries and all 170 blank actions"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Every unresolved control names useful internal work; no unperformed route is relabeled an external source-access blocker.",
+      "id": "NI-EXPECTED-21",
+      "meaning": "All 17 material holds name specific questions/actions; missing authority is not asserted to be an exhausted external blocker.",
+      "name": "open_internal_work"
+    },
+    {
+      "candidate_refs": [
+        "candidate input hashes, original payload/kind/state replay and held output flags"
+      ],
+      "disposition": "supported_within_bounded_scope",
+      "expected_before_candidate": "Prior evidence/code, 4675 original payloads/states, 16 missing and the accepted reference remain unchanged; no app/database or consumer release.",
+      "id": "NI-EXPECTED-22",
+      "meaning": "All pinned inputs and candidate members match. No original obligation, acceptance or app/database write is introduced.",
+      "name": "preservation"
+    }
+  ],
+  "confirmed_candidate_findings": [],
+  "source_acceptance": false
+}

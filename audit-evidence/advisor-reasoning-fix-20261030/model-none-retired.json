@@ -1,0 +1,64 @@
+{
+  "case": "retired",
+  "effort": "none",
+  "model": "gpt-5.4",
+  "outputLimit": 900,
+  "saved": false,
+  "passed": true,
+  "checks": {
+    "noIrrelevantTeaching": true,
+    "noInventedInsuranceEnd": true,
+    "noRecommendation": true,
+    "noRetireeCoverage": true,
+    "noDesiredStart": true,
+    "unknownYearPreserved": true,
+    "nextIsCurrentInsurance": true
+  },
+  "reply": "You\u2019re retired for a few years and turning 65 in November.",
+  "reviewRows": [
+    {
+      "id": "T01",
+      "label": "Your goal",
+      "value": "Plan my Medicare timing",
+      "status": "reported"
+    },
+    {
+      "id": "S_RETIREMENT",
+      "label": "Work status",
+      "value": "Retired for a few years",
+      "status": "reported"
+    },
+    {
+      "id": "S_AGE65",
+      "label": "Medicare birthday",
+      "value": "Turning 65 in November (year not stated)",
+      "status": "reported"
+    },
+    {
+      "id": "RC01",
+      "label": "Who this is for",
+      "value": "Me",
+      "status": "reported"
+    },
+    {
+      "id": "RC06",
+      "label": "How did you first qualify, or expect to qualify, for Medicare?",
+      "value": "Age 65 or older",
+      "status": "reported"
+    }
+  ],
+  "usage": {
+    "input_tokens": 6879,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 176,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 7055
+  },
+  "semanticRejections": [],
+  "seconds": 4.35
+}

@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34594,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6751,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 267,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7018
+    },
+    "text": "{\"question_target\":\"T08\",\"reply\":\"It can make a real difference. For keeping a doctor, Original Medicare is accepted by any U.S. doctor who takes Medicare, while Medicare Advantage depends on that specific plan’s doctor network and rules. For travel, Original Medicare usually gives broader access around the U.S.; with Medicare Advantage, routine care away from home can be more limited and depends on the plan, so your doctor and travel priorities often push people to look closely at Original Medicare or be very careful about the exact Advantage plan.\",\"question\":\"Will you need routine care away from home?\",\"education_followups\":[\"How do I find out whether my doctor takes Medicare?\",\"What would I add to Original Medicare if I choose that path?\"],\"report_refs\":[\"guide.needs.priorities\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"],\"agenda_update\":{\"current_concern\":\"how travel and keeping a doctor affect the two Medicare paths\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"original_provider_access\",\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 8.979084,
+  "turn": 3,
+  "event": "relevant_tradeoff",
+  "fictional_inputs": true
+}

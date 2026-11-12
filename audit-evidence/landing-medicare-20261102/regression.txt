@@ -1,0 +1,517 @@
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f112890>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f1127a0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f1126b0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f112980>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f112a70>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/cep4u/daylight/alternatives/advisor-first/advisor_memory.py:177: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f113010>
+  while sum(len(text) for item in exchanges for text in item.values()) > HISTORY_LIMIT:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/cep4u/daylight/alternatives/advisor-first/advisor_memory.py:177: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f112a70>
+  while sum(len(text) for item in exchanges for text in item.values()) > HISTORY_LIMIT:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/cep4u/daylight/alternatives/advisor-first/advisor_memory.py:177: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x11f1131f0>
+  while sum(len(text) for item in exchanges for text in item.values()) > HISTORY_LIMIT:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Daylight comparison unavailable code=COMPARISON_UNAVAILABLE
+Daylight comparison unavailable code=COMPARISON_UNAVAILABLE
+Daylight comparison unavailable code=COMPARISON_UNAVAILABLE
+Daylight comparison unavailable code=COMPARISON_UNAVAILABLE
+Daylight comparison unavailable code=COMPARISON_UNAVAILABLE
+Daylight composition unavailable code=unsupported_finding question_available=True
+Daylight composition unavailable code=unsupported_finding question_available=True
+Daylight composition unavailable code=unavailable question_available=True
+Daylight composition unavailable code=composition_unavailable question_available=True
+Daylight composition unavailable code=unavailable question_available=True
+Daylight extraction unavailable code=invalid_structure
+Daylight composition unavailable code=unsupported_finding question_available=True
+Daylight composition unavailable code=unsupported_finding question_available=True
+Daylight composition unavailable code=unsupported_finding question_available=True
+Daylight composition unavailable code=unsupported_finding question_available=True
+Daylight extraction unavailable code=transport_or_format
+Daylight extraction unavailable code=extraction_unavailable
+Daylight extraction unavailable code=provider_failure
+Daylight extraction unavailable code=transport_or_format
+Daylight extraction unavailable code=extraction_unavailable
+Daylight composition unavailable code=transport_or_format question_available=True
+Daylight extraction unavailable code=transport_or_format
+Daylight composition unavailable code=unavailable question_available=True
+======================================================================
+ERROR: setUpClass (test_comparison_http.ComparisonHttpTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_comparison_http.py", line 21, in setUpClass
+    cls.server = build(0, fixture=True, database=Path(cls.temporary.name)/'comparison.sqlite3')
+                 ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/server.py", line 45, in build
+    service=make_server(port, database=db, web=HERE/'web', client=client,
+        enable_live=not fixture, live_limit=None, count_tokens=count_tokens,
+    ...<3 lines>...
+        conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
+        adaptive_class=NaturalConversation)
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: setUpClass (test_education_lifecycle.EducationLifecycleTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_http.py", line 19, in setUpClass
+    cls.server=build(0,fixture=True,database=Path(cls.tmp.name)/'private/test.sqlite3')
+               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/server.py", line 45, in build
+    service=make_server(port, database=db, web=HERE/'web', client=client,
+        enable_live=not fixture, live_limit=None, count_tokens=count_tokens,
+    ...<3 lines>...
+        conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
+        adaptive_class=NaturalConversation)
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: setUpClass (test_http.HttpTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_http.py", line 19, in setUpClass
+    cls.server=build(0,fixture=True,database=Path(cls.tmp.name)/'private/test.sqlite3')
+               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/server.py", line 45, in build
+    service=make_server(port, database=db, web=HERE/'web', client=client,
+        enable_live=not fixture, live_limit=None, count_tokens=count_tokens,
+    ...<3 lines>...
+        conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
+        adaptive_class=NaturalConversation)
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: setUpClass (test_identity_http.IdentityHttpTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_identity_http.py", line 31, in setUpClass
+    cls.server=build(0,fixture=True,database=Path(cls.temporary.name)/'fictional-guests.sqlite3')
+               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/server.py", line 45, in build
+    service=make_server(port, database=db, web=HERE/'web', client=client,
+        enable_live=not fixture, live_limit=None, count_tokens=count_tokens,
+    ...<3 lines>...
+        conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
+        adaptive_class=NaturalConversation)
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_multiturn_context_preserves_orientation_and_separate_dates (test_natural_flow.NaturalFlowTests.test_multiturn_context_preserves_orientation_and_separate_dates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 216, in test_multiturn_context_preserves_orientation_and_separate_dates
+    self.assertEqual(final['guide.situation.age65'], {'month': 11, 'year': None})
+                     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'guide.situation.age65'
+
+======================================================================
+ERROR: test_pcp_capture_after_cobra_timing_and_naples_returns_complete_json (test_provider_http.ProviderHttpTests.test_pcp_capture_after_cobra_timing_and_naples_returns_complete_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_controlled_unexpected_failure_is_value_free_and_exact_replay_recovers_capture (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_controlled_unexpected_failure_is_value_free_and_exact_replay_recovers_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_current_lowercase_mixed_provider_proposals_are_json_safe (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_current_lowercase_mixed_provider_proposals_are_json_safe)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_exact_http_replay_does_not_repeat_ai_or_provider_capture (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_exact_http_replay_does_not_repeat_ai_or_provider_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_known_composition_unavailability_keeps_captured_provider_and_next_question (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_known_composition_unavailability_keeps_captured_provider_and_next_question)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_original_fictional_model_shape_t06_only_is_json_safe (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_original_fictional_model_shape_t06_only_is_json_safe)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_pcp_capture_after_cobra_timing_and_naples_returns_complete_json (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_pcp_capture_after_cobra_timing_and_naples_returns_complete_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_reversed_provider_proposals_preserve_one_item (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_reversed_provider_proposals_preserve_one_item)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_sensitive_provider_save_omission_and_explicit_roundtrip_are_separate (test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_sensitive_provider_save_omission_and_explicit_roundtrip_are_separate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_provider_http.py", line 30, in setUp
+    self.service = advisor_server.make_server(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        0, database=temporary/'profiles.sqlite3', budget_database=temporary/'budget.sqlite3',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        profile_gate_class=advisor_server.ProfileReadiness,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        adaptive_class=advisor_server.NaturalConversation)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: setUpClass (test_research_http.ResearchHttpTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_research_http.py", line 90, in setUpClass
+    cls.server = build(0,fixture=True,database=Path(cls.temporary.name)/'fixture.sqlite3',
+                 ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                       research_repository=cls.repository,reference_adapter=cls.reference)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/server.py", line 45, in build
+    service=make_server(port, database=db, web=HERE/'web', client=client,
+        enable_live=not fixture, live_limit=None, count_tokens=count_tokens,
+    ...<3 lines>...
+        conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
+        adaptive_class=NaturalConversation)
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/guide_server.py", line 212, in make_server
+    server=Server(('127.0.0.1',port),Handler);server.profiles=profiles;server.agent=agent;server.budget=budget;server.readiness=readiness;server.readiness_agent=readiness_agent;server.readiness_conversation=conversation;server.profile_gate=profile_gate;server.adaptive=adaptive
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+FAIL: test_optional_comparison_failure_preserves_accepted_capture (test_comparison_chat.ComparisonChatTests.test_optional_comparison_failure_preserves_accepted_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_comparison_chat.py", line 158, in test_optional_comparison_failure_preserves_accepted_capture
+    self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T03' != 'T05'
+- T03
+?   ^
++ T05
+?   ^
+
+
+======================================================================
+FAIL: test_resolved_capture_and_final_bookkeeping_are_bound_to_response (test_comparison_chat.ComparisonChatTests.test_resolved_capture_and_final_bookkeeping_are_bound_to_response)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_comparison_chat.py", line 119, in test_resolved_capture_and_final_bookkeeping_are_bound_to_response
+    self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T03' != 'T05'
+- T03
+?   ^
++ T05
+?   ^
+
+
+======================================================================
+FAIL: test_followup_insurance_reports_advance_even_if_advisory_task_quote_is_bad (test_conversation_continuity.ConversationContinuityTests.test_followup_insurance_reports_advance_even_if_advisory_task_quote_is_bad)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_conversation_continuity.py", line 272, in test_followup_insurance_reports_advance_even_if_advisory_task_quote_is_bad
+    self.assertEqual(self.flow.assess(self.g, self.r)['nextQuestion']['id'], 'T05')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T03' != 'T05'
+- T03
+?   ^
++ T05
+?   ^
+
+
+======================================================================
+FAIL: test_invalid_prose_keeps_the_post_capture_question_without_repeated_failure_reply (test_conversation_continuity.ConversationContinuityTests.test_invalid_prose_keeps_the_post_capture_question_without_repeated_failure_reply)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_conversation_continuity.py", line 233, in test_invalid_prose_keeps_the_post_capture_question_without_repeated_failure_reply
+    self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T03' != 'T05'
+- T03
+?   ^
++ T05
+?   ^
+
+
+======================================================================
+FAIL: test_exact_retirement_example_commits_without_review_and_generates_followup (test_natural_flow.NaturalFlowTests.test_exact_retirement_example_commits_without_review_and_generates_followup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 161, in test_exact_retirement_example_commits_without_review_and_generates_followup
+    self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T03' != 'T05'
+- T03
+?   ^
++ T05
+?   ^
+
+
+======================================================================
+FAIL: test_new_spouse_job_report_survives_the_next_compare_question_lens (test_ongoing_advisor.OngoingAdvisorTests.test_new_spouse_job_report_survives_the_next_compare_question_lens)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_ongoing_advisor.py", line 340, in test_new_spouse_job_report_survives_the_next_compare_question_lens
+    self.assertEqual(sent['resolved_context']['advisor_brief']['decision']['focus'], 'timing')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'plan_preparation' != 'timing'
+- plan_preparation
++ timing
+
+
+----------------------------------------------------------------------
+Ran 743 tests in 125.904s
+
+FAILED (failures=6, errors=15)

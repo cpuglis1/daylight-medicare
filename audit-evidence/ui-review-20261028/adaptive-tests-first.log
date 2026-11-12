@@ -1,0 +1,19 @@
+...............F.......................
+======================================================================
+FAIL: test_known_fields_reused_after_task_change (test_adaptive_flow.AdaptiveTests.test_known_fields_reused_after_task_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_adaptive_flow.py", line 55, in test_known_fields_reused_after_task_change
+    self.known();self.task('timing');self.assertEqual(self.q()['id'],'RC04');self.assertNotIn('T02',[self.q()['id']]);self.choice('RC04',choice='both');self.choice('RC09',choice='my_job');self.choice('RC11',jobEnd='December 2026',coverageEnd='January 2027');self.assertIsNone(self.q())
+                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'RC09' != 'RC04'
+- RC09
+?    ^
++ RC04
+?    ^
+
+
+----------------------------------------------------------------------
+Ran 39 tests in 5.749s
+
+FAILED (failures=1)

@@ -1,0 +1,172 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "turns": [
+    {
+      "case": "self",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "Turning 65 in november and looking to understand my medicare options"
+      },
+      "elapsed_seconds": 7.698,
+      "reply": "",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "We’ll use this to understand what you have before looking at other options.",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "unavailable",
+        "retryable": false,
+        "reason": "A personal insurance statement needs its resolved coverage report.",
+        "code": "missing_coverage_reference"
+      },
+      "advisor": {
+        "visual": "none",
+        "teachingFactIds": [],
+        "sources": []
+      },
+      "education": null,
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3465,
+          "composition": 4146
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    }
+  ],
+  "token_checks": [
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6701,
+      "history_exchanges": 0
+    },
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5702,
+      "history_exchanges": 0
+    }
+  ],
+  "error": {
+    "type": "AssertionError",
+    "message": "Live composition did not complete; inspect trace before further calls."
+  },
+  "all_turns_complete": false,
+  "generation_stages_reserved": 2,
+  "receipts": [
+    {
+      "id": "824f1113738c2a48b217ccc4f89b17e08b6fbe90b6f889ba",
+      "status": "settled",
+      "charged_nano_usd": 19737500,
+      "measured_nano_usd": 19737500,
+      "input_tokens": 6701,
+      "output_tokens": 199
+    },
+    {
+      "id": "30230ab6ac124fc56b4b3673e9a25de21ec4a602d374473f",
+      "status": "settled",
+      "charged_nano_usd": 13343000,
+      "measured_nano_usd": 13343000,
+      "input_tokens": 5702,
+      "output_tokens": 208
+    }
+  ],
+  "measured_usd": 0.0330805,
+  "accounted_usd": 0.0330805
+}

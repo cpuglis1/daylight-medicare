@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 33336,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6450,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 253,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 6703
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Prescription drug coverage is called Part D. With Original Medicare, drug coverage is separate—you would usually add a standalone Part D drug plan. With Medicare Advantage, most plans include drug coverage as part of the plan.\\n\\nThe important tradeoff is that medicine coverage is never just “included or not.” In either path, the exact plan can have its own list of covered drugs, pharmacy rules, restrictions, and costs, so a medicine check means looking at your specific prescriptions before relying on coverage.\",\"question\":\"\",\"education_followups\":[\"If I choose Original Medicare, do I have to buy a drug plan separately?\",\"What do you need to check to know whether my medicines are covered?\"],\"report_refs\":[],\"evidence_refs\":[\"drugbasics\",\"drugs\",\"original\"],\"agenda_update\":{\"current_concern\":\"how prescription medicines fit into the two paths\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"prescription_coverage\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"part_d_role\",\"route_relationship\",\"exact_medicine_conditions\"],\"evidence_refs\":[\"drugbasics\",\"drugs\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 5.704191,
+  "turn": 4,
+  "event": "explicit_defer_and_detour",
+  "fictional_inputs": true
+}

@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 46409,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8863,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 343,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9206
+    },
+    "text": "{\"question_target\":\"T05\",\"reply\":\"A simple place to start is this: Medicare is federal health insurance, and there are two main ways to get it. One is Original Medicare, which is Part A and Part B through the federal program. The other is Medicare Advantage, where a private plan provides Parts A and B. With Original Medicare, drug coverage is separate and Medigap may help with your share of costs. With Medicare Advantage, most plans include drug coverage. The Part B premium still applies either way. Since you want to work out coverage and practical help, knowing what coverage she has now will tell us which next questions matter most.\",\"question\":\"What health insurance does your mother have now? If you’re not sure, “Not sure” is fine.\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"basics\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"where to start with Medicare coverage options and practical help for mother\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"medicare_basics\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"federal_health_insurance\"],\"evidence_refs\":[\"basics\"]},{\"concept_id\":\"coverage_paths\",\"depth\":\"needs_clarification\",\"reason\":\"clarify\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 5.860476
+}

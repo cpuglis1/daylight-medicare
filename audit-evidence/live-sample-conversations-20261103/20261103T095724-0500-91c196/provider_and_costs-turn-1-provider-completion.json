@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 39798,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7515,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 428,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7943
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"Start with two things: your coverage route and your doctor/cost checks. Medicare has two main paths: Original Medicare is Parts A and B through the federal program, while Medicare Advantage gives you Parts A and B through a private Medicare-approved plan. With Original Medicare, you can add a separate drug plan and may be able to buy Medigap to help with your share of costs. With Medicare Advantage, most plans include drug coverage, and you still pay the Part B premium either way.\\n\\nFor your situation, keeping a cardiologist means we’ll eventually need to check the exact doctor and office against the exact plan, because a plan list by itself doesn’t prove that participation or what a specific cardiology visit would cost. And for costs, it helps to separate monthly premium from what you pay when you actually use care, like deductibles, copays, or coinsurance.\",\"question\":\"What ZIP code do you live in? Plans differ by area, and this helps focus on the right Collier County options.\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"routesintro\",\"options\",\"checks\"],\"agenda_update\":{\"current_concern\":\"where to start with keeping cardiologist and visit costs\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"premiums\",\"cost_sharing\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 10.677315
+}

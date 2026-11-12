@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+    <link rel="shortcut icon" type="image/x-icon" href="/Tools/favicon.ico" />
+
+    <title>Plan Search Questionnaire - Tools</title>
+
+    <link rel="stylesheet" href="/Tools/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Tools/css/mvc-grid/mvc-grid.css" />
+    <link rel="stylesheet" href="/Tools/css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" async>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link href="https://kendo.cdn.telerik.com/themes/11.3.2/bootstrap/bootstrap-main.css" rel="stylesheet" type="text/css" />
+
+    <!-- jas added -->
+    <link rel="stylesheet" href="https://www.youroptimumhealthcare.com/themes/custom/OPT_2020/css/menu.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Mulish:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Tools/css/site.css" />
+
+
+
+    <link rel="stylesheet" media="all" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+
+    <style>
+
+    .requiredField:after {
+        content: " *";
+        color: #B94a48;
+    }
+
+    .requiredBeforeField:before {
+        content: "* ";
+        color: #B94a48;
+    }
+
+    </style>
+
+
+
+    <script src="/Tools/js/jquery-3.7.1.min.js"></script>
+    <script src="/Tools/js/mvc-grid/mvc-grid.js"></script>
+    <script src="/Tools/js/jquery-ui.js"></script>
+    <script src="//code.iconify.design/1/1.0.0-rc2/iconify.min.js"></script>
+
+    <script src="/Tools/js/inputmask/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="/Tools/js/moment.min.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-sliderAccess.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-timepicker-addon-i18n.js" type="text/javascript"></script>
+    <script src="/Tools/js/bootstrap.bundle.js"></script>
+
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2025.3.812/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2025.3.812/js/kendo.aspnetmvc.min.js"></script>
+
+    <script src="/Tools/js/kendo-ui-license.js"></script>
+
+
+
+    <script>
+        document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+    </script>
+
+
+
+        <style type="text/css">
+
+            /* aqua 2020 */
+
+            .btn-primary    
+            {
+                background-color: #005f68 !important;
+            }
+
+            .bg-primary {
+                background-color: #005f68 !important;
+            }
+
+
+            .popover {
+                border: 2px solid #005f68;
+            }
+
+            .popover-header {
+                background: #005f68;
+                color: white;
+            }
+
+            .popover-body {
+                color: #005f68;
+            }
+
+        </style>
+    <style>
+
+        #fontslider-box-vl {
+            position: absolute;
+            right: 278px;
+            bottom: 26px;
+            border-radius: 8px;
+        }
+
+        /* The slider itself */
+        .slider {
+            -webkit-appearance: none; /* Override default CSS styles */
+            appearance: none;
+            width: 70px;
+            height: 14px;
+            outline: none; /* Remove outline */
+            -webkit-transition: width 1s ease-in-out;
+            transition: width 1s ease-in-out;
+            border-radius: 8px; /* Makes the edges curved*/
+            cursor: pointer;
+            background: blue;
+            border: 1px solid black;
+            padding: 5px;
+            position: absolute;
+            bottom: 1px;
+        }
+
+            /* Mouse-over effects */
+            .slider:hover {
+                opacity: 1; /* Fully shown on mouse-over */
+            }
+            /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none; /*Override default look */
+                appearance: none;
+                width: 25px; /*Set a specific slider handle width */
+                height: 25px; /*Slider handle height */
+                cursor: pointer; /*Cursor on hover */
+                border-radius: 4px; /* Makes the edges curved*/
+                border: 1px solid #c5c5c5;
+                background: #f6f6f6;
+                font-weight: normal;
+                color: #454545;
+            }
+
+            .slider::-moz-range-thumb {
+                -webkit-appearance: none; /*Override default look */
+                appearance: none;
+                width: 25px; /*Set a specific slider handle width */
+                height: 25px; /*Slider handle height */
+                cursor: pointer; /*Cursor on hover */
+                border-radius: 4px; /* Makes the edges curved*/
+                border: 1px solid #c5c5c5;
+                background: #f6f6f6;
+                font-weight: normal;
+                color: #454545;
+            }
+    </style>
+
+</head>
+<body>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X2EC22RFLG"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-X2EC22RFLG');
+    </script>
+
+    <header id="header" class="masthead mb-auto sticky-top">
+        <div>
+            <div id="block-frh-2020togglermenuwide">
+
+
+
+                <div>
+                    <nav class="container-fluid bg-primary fs-6" id="top-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm order-1 text-light d-flex py-1 my-auto justify-content-start">
+                                    <a href="https://www.youroptimumhealthcare.com/latest-news" class="nav-link p-1 text-light mr-3" title="Important News / Updates, Hurricane Notification, Disaster Guides etc." aria-describedby="default"><i class="bi bi-hurricane mr-1"></i> Important News / Updates</a>
+                                    <a href="https://cwtools.globalmedicareapps.com/tools/ProviderSearch?payerid=OPT" class="nav-link p-1 text-light mr-3" title="Find Provider / Pharmacy " aria-describedby="default"><i class="bi bi-hospital mr-1"></i> Find Provider / Pharmacy</a>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end p-1 order-2">
+                                    <form action="https://www.youroptimumhealthcare.com/search/node" class="d-flex align-items-center justify-content-end w-100 m-0 p-0" method="get" target="_parent" id="frmSearch">
+                                        <div class="form-group d-flex">
+                                            <input type="search" name="keys" class="form-control form-control-sm border-0 rounded-0" placeholder="SEARCH" aria-label="Search Freedom Health" aria-describedby="search-addon">
+                                            <button class="btn btn-primary btn-sm border-0 rounded-0" type="submit" form="frmSearch">
+                                                <i>
+                                                    <span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+                                                </i>
+                                                <span class="visually-hidden">Search</span>
+                                            </button>
+                                                <a class="nav-link py-1 text-light ml-2 langLink spanish-link" data-href="https://espanol.youroptimumhealthcare.com" href="https://espanol.youroptimumhealthcare.com" data-lang="es" mporgnav="href">Espa&ntilde;ol</a>
+                                        </div>
+                                        <!-- Descriptive Element for Aria -->
+                                        <div id="search-addon" class="visually-hidden">
+                                            Enter your search term and press enter.
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+   
+
+                     
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container d-flex justify-content-between align-iteml-end">
+                            <!-- Logo -->
+                                <a class="navbar-brand py-auto" href="https://www.youroptimumhealthcare.com"><img src="https://www.youroptimumhealthcare.com/sites/all/images/OPT_logo.png" alt="https://www.youroptimumhealthcare.com Logo" style="height: 90px; width: auto;" /></a>
+
+                            <!-- Mobile Menu Toggle Button -->
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <!-- Menu Items -->
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul id="menu" class="navbar-nav nav-pills ml-auto mr-auto"></ul>
+                                <!--  MENo -->                            
+
+                            </div>
+                            <a id="member-login-link" href="https://memberportal.globalmedicareapps.com/User/OptimumLogin.aspx?PayerID=37053329-c9fb-4510-8d43-ba741ff351bd&amp;LoginFrom=1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" title="" data-bs-content="Click to go to the Member Portal Login. You can order Over-the-Counter medications and access account information here." style="text-decoration:none" data-original-title="Member Portal"><span class="btn btn-secondary white ml-auto text-nowrap border-0 rounded-0">Member Login</span></a>
+                        </div>
+                    </nav>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="container-fluid mb-3">
+
+        
+
+
+        <main>
+
+            
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+<div id="SearchGrid">
+	
+<div class="row">
+    <div class="col-1">
+        &nbsp;
+    </div>
+    <div class="form-group" style="width:65%">
+        <div class="card">
+            <div class="card-header" style="background-color: rgb(44,54,122); color: #FFFFFF;  min-height:100px;x">
+                <text style="text-align:left; font-size:30px">
+                    We recommend the following Plans for you
+                </text>
+                <h6 style="padding-left: 20%;">
+                    34102, Collier  County,
+FL                </h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" style="width:18%">
+        <div class="card">
+                <div class="card-header" style="background-color: rgb(44,54,122); color: #FFFFFF; min-height:100px;" >
+                <h6 style="text-align:left">
+                Plan for the Year <br />
+                2027
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-1">
+        &nbsp;
+    </div>
+    <div class="form-group" style="width:85%">
+
+            <p class="text-start">
+                <img src="/Tools/Images/PlanArea.svg" style="width: 30%;" />
+                <button id="btnExploreAllPlans" name="btnExploreAllPlans" style="width: 35%;background-color:white; color: #007bff; border:none; border-color:white;font-size:larger;" onclick="location.href='/Tools/Plan/PlanSearchInitial?payerid=OPT&amp;year=2027&amp;zip=34102&amp;county=Collier&amp;fb=False'" class="text-center">Please click here to see all the plans in your area</button>
+                <img src="/Tools/Images/PlanArea.svg" style="width: 30%;" />
+            </p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col mx-2">
+        <div class="card-deck" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+
+                <div class="card h-auto w-auto shadow m-2" style="flex: 1 0 auto;">
+                    <div class="card-header text-center d-flex" style="background-color: #d1e7ff; color: black; font-size: 115%;">
+                        <div class="vstack gap-3 w-100">
+                            <div>
+<p><b>Optimum Emerald Partial <br />(HMO D-SNP)<br>
+</b>Plan Type: Dual Special Needs Plan<br>
+Plan Number: 016</p>
+</div>
+                                <div><p><b style="font-size:x-large">$0 </b> Per Month</p></div>
+                            <div class="font-italic">
+<p>*For individuals with Medicare AND Medicaid</p>
+</div>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex">
+                        <div class="vstack gap-3 w-100">
+                            <div class="card-text text-center" style="color: black; font-size: 115%;">
+                                <b>
+                                    Plan Highlights
+                                </b>
+                            </div>
+                            <div class="card-text">
+<br /><span class="iconify" data-icon="octicon-check"></span>  $500 Max Out-of-Pocket (MOOP)<br /><span class="iconify" data-icon="octicon-check"></span>  $0 Specialist copay<br /><span class="iconify" data-icon="octicon-check"></span>  $0 Inpatient Hospital copay (per stay)<br /><span class="iconify" data-icon="octicon-check"></span>  $47/month Over-the-Counter (OTC) benefit</p>                            </div>
+                            <div class="card-text mt-3">
+                                    <div>
+<p>$235/month Everyday Options Allowance<br>
+Personal Emergency Response System (PERS)<br>
+Unlimited Transportation<br>
+Dental - Deep Cleanings, Crowns and Dentures included</p>
+</div>
+                            </div>
+                            <div class="card-text w-100 text-center">
+                                <form target="_blank" id="PlanViewDetails" name="PlanViewDetails" method="post" action="/Tools/Plan/PlanDetails">
+                                <div class="hstack gap-3">
+                                        <button type="button" id="PlanApplyOnlineModal" data-id="OP27016" class="btn btn-primary mx-4 my-2" value="OP27016">
+                                            Apply Online
+                                        </button>
+                                    <input data-val="true" data-val-maxlength="The field PayerId must be a string or array type with a maximum length of &#x27;3&#x27;." data-val-maxlength-max="3" id="PayerId" name="PayerId" type="hidden" value="OPT" />
+                                    <input data-val="true" data-val-maxlength="The field Year must be a string or array type with a maximum length of &#x27;4&#x27;." data-val-maxlength-max="4" data-val-required="The Year field is required." id="Year" name="Year" type="hidden" value="2027" />
+                                    <input data-val="true" data-val-maxlength="Zip cannot be greater than 5 digits in length" data-val-maxlength-max="5" data-val-minlength="Zip must be at least 5 digits in length" data-val-minlength-min="5" data-val-required="Enter a Zip Code" id="Zip" name="Zip" type="hidden" value="34102" />
+                                    <input data-val="true" data-val-maxlength="The field County must be a string or array type with a maximum length of &#x27;50&#x27;." data-val-maxlength-max="50" id="County" name="County" type="hidden" value="Collier" />
+                                    <input id="PlanID" name="PlanID" type="hidden" value="OP27016" />
+                                    <input data-val="true" data-val-required="The Fb field is required." id="Fb" name="Fb" type="hidden" value="False" />
+                                    <button type="submit" class="btn btn-primary" id="btnPlanDetails">
+                                        Explore Plan
+                                    </button>
+                                </div>
+
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KN6a2kZt_9KvA47owq8xtB78cqMWsuG_LkNv4aX7rAplj8BV9rJ6wu5cKVLsXPjQkHGCiwIqUDcms391HkNSjyOYIlx0wUwL3GpRkkA2lT1Fknm5UL71_DCk5YQ73uOdSz5wE7hvZ4uCLHVFmgPX0c" /></form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card h-auto w-auto shadow m-2" style="flex: 1 0 auto;">
+                    <div class="card-header text-center d-flex" style="background-color: #d1e7ff; color: black; font-size: 115%;">
+                        <div class="vstack gap-3 w-100">
+                            <div>
+<p><b>Optimum Emerald Full <br />(HMO D-SNP)<br>
+</b>Plan Type: Dual Special Needs Plan<br>
+Plan Number: 017</p>
+</div>
+                                <div><p><b style="font-size:x-large">$0 </b> Per Month</p></div>
+                            <div class="font-italic">
+<p>*For individuals with Medicare AND Medicaid</p>
+</div>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex">
+                        <div class="vstack gap-3 w-100">
+                            <div class="card-text text-center" style="color: black; font-size: 115%;">
+                                <b>
+                                    Plan Highlights
+                                </b>
+                            </div>
+                            <div class="card-text">
+<br /><span class="iconify" data-icon="octicon-check"></span>  $500 Max Out-of-Pocket (MOOP)<br /><span class="iconify" data-icon="octicon-check"></span>  $0 Specialist copay<br /><span class="iconify" data-icon="octicon-check"></span>  $0 Inpatient Hospital copay (per stay)<br /><span class="iconify" data-icon="octicon-check"></span>  $50/month Over-the-Counter (OTC) benefit</p>                            </div>
+                            <div class="card-text mt-3">
+                                    <div>
+<p>$235/month Everyday Options Allowance<br>
+Personal Emergency Response System (PERS)<br>
+Unlimited Transportation<br>
+Dental - Deep Cleanings, Crowns and Dentures included</p>
+</div>
+                            </div>
+                            <div class="card-text w-100 text-center">
+                                <form target="_blank" id="PlanViewDetails" name="PlanViewDetails" method="post" action="/Tools/Plan/PlanDetails">
+                                <div class="hstack gap-3">
+                                        <button type="button" id="PlanApplyOnlineModal" data-id="OP27017" class="btn btn-primary mx-4 my-2" value="OP27017">
+                                            Apply Online
+                                        </button>
+                                    <input data-val="true" data-val-maxlength="The field PayerId must be a string or array type with a maximum length of &#x27;3&#x27;." data-val-maxlength-max="3" id="PayerId" name="PayerId" type="hidden" value="OPT" />
+                                    <input data-val="true" data-val-maxlength="The field Year must be a string or array type with a maximum length of &#x27;4&#x27;." data-val-maxlength-max="4" data-val-required="The Year field is required." id="Year" name="Year" type="hidden" value="2027" />
+                                    <input data-val="true" data-val-maxlength="Zip cannot be greater than 5 digits in length" data-val-maxlength-max="5" data-val-minlength="Zip must be at least 5 digits in length" data-val-minlength-min="5" data-val-required="Enter a Zip Code" id="Zip" name="Zip" type="hidden" value="34102" />
+                                    <input data-val="true" data-val-maxlength="The field County must be a string or array type with a maximum length of &#x27;50&#x27;." data-val-maxlength-max="50" id="County" name="County" type="hidden" value="Collier" />
+                                    <input id="PlanID" name="PlanID" type="hidden" value="OP27017" />
+                                    <input data-val="true" data-val-required="The Fb field is required." id="Fb" name="Fb" type="hidden" value="False" />
+                                    <button type="submit" class="btn btn-primary" id="btnPlanDetails">
+                                        Explore Plan
+                                    </button>
+                                </div>
+
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KN6a2kZt_9KvA47owq8xtB78cqMWsuG_LkNv4aX7rAplj8BV9rJ6wu5cKVLsXPjQkHGCiwIqUDcms391HkNSjyOYIlx0wUwL3GpRkkA2lT1Fknm5UL71_DCk5YQ73uOdSz5wE7hvZ4uCLHVFmgPX0c" /></form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ApplyOnlineModal" tabindex="-1" role="dialog" data-bs-dismiss="modal" aria-labelledby="ApplyOnlineModallabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="PlanOnlinetitle">Member Question</h5> 
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="applyOnlineModalMessage">
+                            <p>
+                                Existing members can now change their plan by logging into the Member Portal website by clicking the <strong>&quot;Existing Member&quot;</strong> button below.
+                                Once inside the site you can click on the <strong>&quot;Request Plan Change&quot;</strong> link from the Member Portal home page.
+                                If you are <strong>NOT</strong> currently a registered Member Portal member, please click the <strong>&quot;New Enrollee&quot;</strong> link below.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-12" style="text-align:center;">
+                            <input type="hidden" name="planID" id="planID" value="" />
+                            <div id="applyOnlineDefaultActions">
+                                <button type="button" class="btn btn-primary" id="BtnYes" name="BtnYes" onclick="URLRedirectToOEC('Yes', 'OPT', '2027', 'Collier', '34102', 'False')">Existing Member</button>
+                                <button type="button" class="btn btn-secondary" id="BtnNo" name="BtnNo" onclick="URLRedirectToOEC('No', 'OPT', '2027', 'Collier', '34102', 'False')">New Enrollee</button>
+                            </div>
+                            <div id="applyOnlineSuppressedActions" style="display:none;">
+                                <button type="button" class="btn btn-primary" id="BtnContinueToMedicare" name="BtnContinueToMedicare">Continue</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="ApplyOnlineModalclose" data-bs-dismiss="modal" class="btn btn-danger text-white">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog" style="display: none">
+</div>
+
+<script>
+    var defaultApplyOnlineMessage = '';
+    var medicareGovUrl = 'https://www.medicare.gov/';
+
+    function setApplyOnlineModalMode(isSuppressed) {
+        if (!defaultApplyOnlineMessage) {
+            defaultApplyOnlineMessage = $('#applyOnlineModalMessage').html();
+        }
+
+        if (isSuppressed) {
+            $('#applyOnlineModalMessage').html('<p>You’ll be directed to Medicare.gov to continue exploring the Medicare plan you selected. On Medicare.gov, you’ll be able to review more information about the plan and continue with the next steps.</p><p>Click Continue to leave this website and visit Medicare.gov</p>');
+            $('#applyOnlineDefaultActions').hide();
+            $('#applyOnlineSuppressedActions').show();
+        }
+        else {
+            $('#applyOnlineModalMessage').html(defaultApplyOnlineMessage);
+            $('#applyOnlineSuppressedActions').hide();
+            $('#applyOnlineDefaultActions').show();
+        }
+    }
+
+    function configureApplyOnlineModal(planIdValue, yearValue) {
+        return $.ajax({
+            url: '/Tools/Plan/GetApplyOnlineModalMode',
+            type: 'GET',
+            data: { planId: planIdValue, year: yearValue },
+            timeout: 0,
+            async: true
+        }).done(function (result) {
+            setApplyOnlineModalMode(result && result.isSuppressed === true);
+        }).fail(function () {
+            setApplyOnlineModalMode(false);
+        });
+    }
+
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            title: '', // Leave title empty
+            width: 500,
+            open: function () {
+                // Set HTML title after dialog is opened
+                var htmlTitle = '<span>Enrollment Alert Message</span><button type="button" class="ui-dialog-titlebar-close custom-dialog-close" aria-label="Close" style="float:right;border:none;background:transparent;font-size:1.5rem;line-height:1;color:#000;cursor:pointer;">&times;</button>';
+                $('.ui-dialog-titlebar').html(htmlTitle);
+
+                // Attach close event to custom close button
+                $('.custom-dialog-close').off('click').on('click', function () {
+                    $("#dialog").dialog("close");
+                });
+            },
+            buttons: {
+                OK: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+    $(document).on("click", "#PlanApplyOnlineModal", function (e) {
+        e.preventDefault();
+
+        var enrollPeriod_val = '10/15/';
+        var year_val = '2027';
+        var currentdate = new Date();
+        var enrollmentBeginDate = (enrollPeriod_val + (year_val - 1));
+        var enrollmentDate = new Date(enrollmentBeginDate);
+
+        if (currentdate >= enrollmentDate) {
+            var _self = $(this);
+
+            var myplanId = _self.data('id');
+            $("#planID").val(myplanId);
+
+            configureApplyOnlineModal(myplanId, year_val).always(function () {
+                $('#ApplyOnlineModal').modal('show');
+            });
+        }
+        else
+        {
+            // PlanApplyOnlineModal would display here, so do not show ApplyOnlineModal
+            $('#ApplyOnlineModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            $('#dialog').html('Annual Enrollment Period begins on ' + enrollmentBeginDate);
+            $('#dialog').dialog('open');
+            return false;
+        }
+
+    });
+
+    function URLRedirectToOEC(buttonvalue, payerId, year, countyvalue, zipvalue ,fbvalue) {
+
+        var planIdValue = $("#planID").val();
+
+        $.ajax({
+            url: '/Tools/Plan/RedirectToOECURL',
+            type: "POST",
+            data: { buttonValue: buttonvalue, payerid: payerId, year: year, county: countyvalue, zip: zipvalue, planId: planIdValue,  fbValue: fbvalue },
+            timeout: 0,
+            async: true,
+            success: function (result) {
+                $("#ApplyOnlineModal").modal('hide');
+                window.open( result, '_blank');
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+
+        });
+
+    }
+
+    $(document).on('click', '#BtnContinueToMedicare', function () {
+        $('#ApplyOnlineModal').modal('hide');
+        window.open(medicareGovUrl, '_blank');
+    });
+
+</script>
+
+<p>&nbsp;</p>
+
+
+
+</div>
+
+<style>
+
+	.hero-bg-3 {
+		background-color: #eeeeed;
+		min-height: 80vh;
+	}
+</style>
+
+<section class="hero-bg-3 py-5 border-bottom border-1">
+	<div class="container">
+		<div class="text-center mb-5 col-lg-6 mx-auto px-2">
+			<h2 class="fw-semibold text-primary mb-3">HAVE QUESTIONS?</h2>
+			<p class="text-muted">Our licensed agents are taking action to connect you with the right plan and provide ongoing support for all your healthcare needs.</p>
+		</div>
+
+		<div class="row g-4">
+			<div class="col-lg-4">
+				<div class="text-center h-100 p-4 d-flex flex-column">
+					<div class="mb-4">
+						<div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+							<i class="text-white">
+								<span class="material-symbols-outlined" style="font-size: 36px;">phone_enabled</span>
+							</i>
+						</div>
+					</div>
+					<h5 class="fw-semibold mb-3">Speak to an Agent</h5>
+					<p class="text-muted mb-4 flex-grow-1">Talk directly with our licensed agents who can answer your questions and help you find the perfect plan.</p>
+					<button type="button" class="btn btn-primary w-100 mt-auto" onclick="window.location = &#x27;https://www.youroptimumhealthcare.com/medicare/speak-to-agent-now&#x27;;">Speak to an Agent</button>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="text-center h-100 p-4 d-flex flex-column">
+					<div class="mb-4">
+						<div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+							<i class="text-white">
+								<span class="material-symbols-outlined" style="font-size: 36px;">calendar_month</span>
+							</i>
+						</div>
+					</div>
+					<h5 class="fw-semibold mb-3">Request an Appointment</h5>
+					<p class="text-muted mb-4 flex-grow-1">Schedule a convenient time to meet with one of our specialists to discuss your Medicare options.</p>
+					<button id="apptr" type="button" class="btn btn-primary w-100 mt-auto" onclick="window.location = &#x27;https://www.youroptimumhealthcare.com/#openirc&#x27;;">Request an Appointment</button>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="text-center h-100 p-4 d-flex flex-column">
+					<div class="mb-4">
+						<div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+							<i class="text-white">
+								<span class="material-symbols-outlined" style="font-size: 36px;">location_on</span>
+							</i>
+						</div>
+					</div>
+					<h5 class="fw-semibold mb-3">Visit an Office</h5>
+					<p class="text-muted mb-4 flex-grow-1">Find a local office near you or call us directly for immediate assistance with your Medicare questions.</p>
+					<button type="button" class="btn btn-primary w-100 mt-auto" onclick="window.location = &#x27;https://www.youroptimumhealthcare.com/concierge-offices&#x27;;">Visit an Office</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br/>
+<div class="row" id="lastUpdate">
+    <div class="col-md-10">
+        <label for="lblRefreshDate"> Last Updated: 10/13/2026</label>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
+
+<br />
+
+
+            <div class="custom-modal" id="confirmation-modal">
+                <div class="modal-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="d-flex justify-content-end">
+                                <span id="close-btn" data-bs-dismiss="modal">×</span>
+                            </div>
+                            <div class="col-sm-6 m-auto">
+                                <div class="modal-body" id="modal-message"><p class="lead">Would you like to leave our website and visit <strong class="primary">Member Login</strong>?</p><p><small>By clicking <strong>"Continue"</strong>, you will be directed to an <mark style="background-color: palegoldenrod; color: var(--bs-highlight-color, #212529); padding: .2em;">external website in a new window</mark>.<br>If you prefer to stay on <strong>YourOptimumHealthCare.com</strong>, please click <strong>"Cancel"</strong>.</small></p></div>
+                                <div class="modal-footer">
+                                    <button id="continue-btn" type="button" class="btn btn-primary me-2">Continue</button>
+                                    <button id="cancel-btn" type="button" class="btn btn-outline-secondary btn-sm">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <span class="AntiForge"> <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KN6a2kZt_9KvA47owq8xtB78cqMWsuG_LkNv4aX7rAplj8BV9rJ6wu5cKVLsXPjQkHGCiwIqUDcms391HkNSjyOYIlx0wUwL3GpRkkA2lT1Fknm5UL71_DCk5YQ73uOdSz5wE7hvZ4uCLHVFmgPX0c" /> </span>
+    </div>
+
+    <footer class="footer bg-dark text-white">
+
+        <!-- Copyright -->
+        <div class="container-fluid bg-black">
+            <div class="row align-items-center g-0 px-4 py-2">
+                <!-- Desc -->
+                <div class="col-12">                  
+                    <div>
+                       Y0114_27_3022215_0000_U_M
+                        &nbsp; | &nbsp; <span class="copyright">© 2026 Optimum Healthcare</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <div>
+        <div class="telbar2">
+                <span class="left">Toll Free 1-866-245-5360 TTY/TDD: 711</span>
+            <span class="right">
+
+            </span>
+        </div>
+    </div>
+
+
+
+    <script src="/Tools/js/jquery.validate.js"></script>
+    <script src="/Tools/js/jquery.validate.unobtrusive.js"></script>
+	<script src="/Tools/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive-bootstrap@2.2.0/dist/unobtrusive-bootstrap.min.js"></script>
+
+    <script src="/Tools/js/site.js?v=CPBnQZH9UZC7dEP1indrcI5OdokK4icPpJFQpEb19xc"></script>
+
+
+    <script src="/Tools/js/validate.js?v=5XuNAghsUZybhqrhZV4_S8yWX8WldFILTrrD8UC2S4k" type="text/javascript"></script>
+    <script src="/Tools/js/purify.js?v=z7PP2aVNrjjNmOqx7L8sN7c8gIHmbRpMjevD77k0D0k"></script>
+
+
+
+    <script src="https://www.youroptimumhealthcare.com/themes/custom/OPT_2020/js/menu.js"></script>
+
+
+    <script>
+        // Fetch and process JSON data
+        fetch("/Tools/OPTmenu.json")
+            .then(response => response.json())
+            .then(jsonData => {
+                buildMenu(jsonData);
+            })
+            .catch(error => {
+                console.error("Error fetching JSON data:", error);
+            });
+
+        (function () {
+            var memberLoginLink = document.getElementById("member-login-link");
+            var confirmationModal = document.getElementById("confirmation-modal");
+            var closeBtn = document.getElementById("close-btn");
+            var cancelBtn = document.getElementById("cancel-btn");
+            var continueBtn = document.getElementById("continue-btn");
+            var memberLoginUrl = "";
+
+            if (!memberLoginLink || !confirmationModal || !closeBtn || !cancelBtn || !continueBtn) {
+                return;
+            }
+
+            function closeModal() {
+                confirmationModal.style.display = "none";
+            }
+
+            memberLoginLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                memberLoginUrl = memberLoginLink.getAttribute("href") || "";
+                confirmationModal.style.display = "block";
+            });
+
+            closeBtn.addEventListener("click", closeModal);
+            cancelBtn.addEventListener("click", closeModal);
+
+            continueBtn.addEventListener("click", function () {
+                if (memberLoginUrl) {
+                    window.open(memberLoginUrl, "_blank", "noopener,noreferrer");
+                }
+                closeModal();
+            });
+
+            window.addEventListener("click", function (event) {
+                if (event.target === confirmationModal) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+
+
+    
+
+
+
+</body>
+</html>

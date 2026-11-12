@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+ok 1 - the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+  ---
+  duration_ms: 2.665417
+  ...
+# Subtest: reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+ok 2 - reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+  ---
+  duration_ms: 1.73225
+  ...
+# Subtest: visual and accessible text each preserve every character, including spaces and HTML-like user content
+ok 3 - visual and accessible text each preserve every character, including spaces and HTML-like user content
+  ---
+  duration_ms: 0.86375
+  ...
+# Subtest: the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+ok 4 - the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+  ---
+  duration_ms: 0.7325
+  ...
+# Subtest: the reveal preserves the requested heading tag, class and sequential offset
+ok 5 - the reveal preserves the requested heading tag, class and sequential offset
+  ---
+  duration_ms: 0.632208
+  ...
+# Subtest: the complete opening question, example and reassurance reveal in sequence after the greeting
+ok 6 - the complete opening question, example and reassurance reveal in sequence after the greeting
+  ---
+  duration_ms: 0.652875
+  ...
+# Subtest: repainting the opening never replays its question, examples or reassurance
+ok 7 - repainting the opening never replays its question, examples or reassurance
+  ---
+  duration_ms: 0.446333
+  ...
+# Subtest: reduced motion leaves the complete opening readable immediately and does not replay later
+ok 8 - reduced motion leaves the complete opening readable immediately and does not replay later
+  ---
+  duration_ms: 0.399125
+  ...
+# Subtest: the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+ok 9 - the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+  ---
+  duration_ms: 0.540541
+  ...
+# Subtest: reduced motion renders complete plain text for greetings, replies and facts
+ok 10 - reduced motion renders complete plain text for greetings, replies and facts
+  ---
+  duration_ms: 0.776375
+  ...
+# Subtest: ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+ok 11 - ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+  ---
+  duration_ms: 0.485625
+  ...
+# Subtest: completed words retire the animation class so leaving and returning to chat cannot replay them
+ok 12 - completed words retire the animation class so leaving and returning to chat cannot replay them
+  ---
+  duration_ms: 0.391083
+  ...
+# Subtest: cancelled words also retire their animation class and remain readable on return
+ok 13 - cancelled words also retire their animation class and remain readable on return
+  ---
+  duration_ms: 0.381791
+  ...
+# Subtest: appending a reply preserves previous node identity and reveals only the new answer
+ok 14 - appending a reply preserves previous node identity and reveals only the new answer
+  ---
+  duration_ms: 0.398042
+  ...
+# Subtest: a history rebuild shows previously revealed objects immediately and reveals new objects once
+ok 15 - a history rebuild shows previously revealed objects immediately and reveals new objects once
+  ---
+  duration_ms: 0.419708
+  ...
+# Subtest: a reply first displayed with reduced motion never animates when the preference later changes
+ok 16 - a reply first displayed with reduced motion never animates when the preference later changes
+  ---
+  duration_ms: 0.381208
+  ...
+# Subtest: a user-only exchange stays immediate and an empty reply does not create an assistant message
+ok 17 - a user-only exchange stays immediate and an empty reply does not create an assistant message
+  ---
+  duration_ms: 0.340459
+  ...
+# Subtest: static explanations remain immediate and reveal does not weaken source URL filtering
+ok 18 - static explanations remain immediate and reveal does not weaken source URL filtering
+  ---
+  duration_ms: 0.707
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83.375583

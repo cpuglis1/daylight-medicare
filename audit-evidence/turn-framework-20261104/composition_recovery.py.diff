@@ -1,0 +1,11 @@
+--- alternatives/advisor-first/composition_recovery.py (before)
++++ alternatives/advisor-first/composition_recovery.py
+@@ -24,7 +24,7 @@
+     'The response exceeded the conversational text allowance.': 'text_bound',
+     'The conversational response was empty.': 'empty_response',
+ }
+-OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work'}
++OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work', 'conversation_assessment'}
+ 
+ 
+ class CompositionRejected(ModelUnavailable):

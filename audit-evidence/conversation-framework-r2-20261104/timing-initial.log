@@ -1,0 +1,57 @@
+Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=False
+E.Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=True
+.Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=False
+EDaylight composition unavailable code=unsupported_finding question_available=False
+E.Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=True
+...Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=True
+F
+======================================================================
+ERROR: test_age_64_timing_opening_recovers_current_insurance_not_desired_start (test_timing_recovery.TimingRecoveryTests.test_age_64_timing_opening_recovers_current_insurance_not_desired_start)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_timing_recovery.py", line 108, in test_age_64_timing_opening_recovers_current_insurance_not_desired_start
+    self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+ERROR: test_failed_opening_and_cobra_reply_keep_timing_and_show_public_lessons (test_timing_recovery.TimingRecoveryTests.test_failed_opening_and_cobra_reply_keep_timing_and_show_public_lessons)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_timing_recovery.py", line 85, in test_failed_opening_and_cobra_reply_keep_timing_and_show_public_lessons
+    self.assertEqual(opening['assessment']['nextQuestion']['id'], 'T05')
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+ERROR: test_fresh_age_64_explanation_recovers_insurance_and_retains_correct_target (test_timing_recovery.TimingRecoveryTests.test_fresh_age_64_explanation_recovers_insurance_and_retains_correct_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_timing_recovery.py", line 56, in test_fresh_age_64_explanation_recovers_insurance_and_retains_correct_target
+    self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+FAIL: test_unvalidated_timing_request_does_not_change_default_recovery (test_timing_recovery.TimingRecoveryTests.test_unvalidated_timing_request_does_not_change_default_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_timing_recovery.py", line 74, in test_unvalidated_timing_request_does_not_change_default_recovery
+    self.assertEqual(out['assessment']['nextQuestion']['id'], before)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'T04' != 'T05'
+- T04
+?   ^
++ T05
+?   ^
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.271s
+
+FAILED (failures=1, errors=3)

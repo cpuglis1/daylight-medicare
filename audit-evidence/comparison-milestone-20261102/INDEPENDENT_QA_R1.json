@@ -1,0 +1,111 @@
+{
+  "schema": "daylight.comparison-milestone-independent-qa.v1",
+  "recorded_at": "2026-11-02T15:18:00.393650+00:00",
+  "scope": "Bounded technical review and synthetic isolated checks only; integrated app/identity changes remain in progress.",
+  "status": "bounded_review_complete_final_integrated_review_pending",
+  "reviewer_application_edits": 0,
+  "checks": {
+    "provider_discovery_before_correction": {
+      "passed": 202,
+      "new_discovery": 47,
+      "existing_identity_serving": 155,
+      "log": "provider-discovery-independent-tests-r1.log"
+    },
+    "provider_discovery_after_correction": {
+      "passed": 207,
+      "new_discovery": 52,
+      "existing_identity_serving": 155,
+      "log": "provider-discovery-independent-tests-r2.log"
+    },
+    "identity_journey_intermediate_snapshot": {
+      "passed": 46,
+      "journey": 20,
+      "http": 9,
+      "frozen_choice": 17,
+      "log": "identity-journey-independent-tests-r1.log",
+      "identity_journey_sha256": "dac7df2188c5fed0b8737dd63e80b86e6f711dacfe1a44d35c99bf0906ebf672",
+      "identity_http_sha256": "557c4db9d76ffdce98f94c349c4ea636ab8847395d4a1d48fa3c0eb99cee570b",
+      "current_final_integrated_certification": false
+    }
+  },
+  "findings": [
+    {
+      "id": "QA-PROVIDER-ORDINAL",
+      "priority": "P2",
+      "state": "closed_by_owner_fix_and_independent_reproduction",
+      "location": "provider_candidates._selected_record",
+      "description": "A self-consistent synthetic source ordinal outside TABLE_ROWS[sources], or altered entity/source ordinal_basis, was accepted as complete lineage. Owner added exact int/range/PK-order checks.",
+      "before_probes_accepted": 3,
+      "after_same_probes_rejected": 3,
+      "after_error_code": "PROVIDER_DISCOVERY_LINEAGE_MISMATCH",
+      "receipt": "provider-discovery-independent-review-r1.json",
+      "actual_corruption_observed": false
+    },
+    {
+      "id": "QA-IDENTITY-PROVIDER-STOP",
+      "priority": "P2",
+      "state": "closed_at_intermediate_module_snapshot",
+      "location": "identity_journey.provider_search",
+      "description": "Provider discovery lacked the drug branch row-level source-use/snapshot-state rejection. Owner added before-label candidate/source-record checks. Independent stopped discovery-candidate and stopped exact-source-record probes both reject before labels.",
+      "identity_journey_sha256": "dac7df2188c5fed0b8737dd63e80b86e6f711dacfe1a44d35c99bf0906ebf672",
+      "final_integration_recheck_required": true
+    },
+    {
+      "id": "QA-IDENTITY-CONVERSATION",
+      "priority": "P2",
+      "state": "reproduced_owner_fix_in_progress_not_retested",
+      "location": "identity_http service-owner binding",
+      "description": "An old offer could be explicitly confirmed in a different current signed conversation chain with identical fictional report profile because RAM offers used only the cookie owner. New request HMAC/head checks passed, while old offer crossed chains.",
+      "reproduction": "identity-cross-chain-reproduction-r1.json",
+      "observed_http_status": 200,
+      "observed_selected_count": 1,
+      "planned_owner_correction": "Server-derived owner+conversation-chain identity scope, with deletion/reset forgetting hooks.",
+      "closure_requires": "Same original HTTP probe rejects; new-chain preparation has no old bindings; same-chain search/confirm still succeeds; deletion/reset clears all relevant RAM visits."
+    },
+    {
+      "id": "QA-IDENTITY-PARTIAL-CONTEXT",
+      "priority": "P2",
+      "state": "owner_notified_implementation_in_progress_not_retested",
+      "location": "identity_journey._source_label / web/identity-view.js model and partial warning",
+      "description": "Exact provider results communicate missing/truncated identities via top-level partial.is_partial and page.entities_have_more/roles_have_more. Reviewed renderer dropped top-level partial and did not warn for those page flags; journey did not forward site_continuation. Exact-provider role/entity continuation was not composed by the reviewed route.",
+      "closure_requires": "All partial/truncation/missing source states remain visible, unsupported exact-site continuation is explicit, and any offered Next action uses the correct bound cursor."
+    },
+    {
+      "id": "QA-IDENTITY-PERIOD-CONTEXT",
+      "priority": "P2",
+      "state": "owner_notified_implementation_in_progress_not_retested",
+      "location": "identity_journey._provider_label",
+      "description": "Repository site candidates retain entity/role source_periods; reviewed journey omitted these, with source status/qualifier context left only in repository records. Generic dated-source notice does not expose explicit recorded end periods.",
+      "closure_requires": "Inspectable literal periods/status/qualifiers or explicit full-source inspection linkage; preserve unknown and avoid clinical/current-practice/network inference."
+    }
+  ],
+  "provider_discovery_assessment": {
+    "raw_projection_native_locator_selected_source_checks": "reviewed; ordinal/basis gap corrected",
+    "literal_wildcards": "escaped bound SQL data",
+    "alias_grain": "all query tokens constrained to one source name variant; no metadata-use matching or alias splicing",
+    "city": "not silently filtered from actor name results",
+    "consumer_purposes": "all held; no clinical/network inference",
+    "actual_postgresql_by_reviewer": false,
+    "root_actual_r2_replay": "pending receipt; owner reports adding a real structured Practitioner HumanName positive case",
+    "sql_limit": "Unit mocks do not execute PostgreSQL JSONPath/ILIKE. SQL collation semantics are not complete Unicode normalization."
+  },
+  "separate_incident": {
+    "path": "audit-evidence/provider-incident-20261102-r2/RESULT.json",
+    "status": "original_http500_undiagnosed_unreproduced_not_closed",
+    "packet_unchanged_by_this_review": true
+  },
+  "preserved_boundaries": {
+    "live_postgresql_queries": 0,
+    "customer_store_reads": false,
+    "paid_model_calls": 0,
+    "runtime_or_service_changes": 0,
+    "source_schema_or_sealed_packet_edits": 0,
+    "new_source_or_consumer_acceptance": false
+  },
+  "remaining": [
+    "Receive owner-frozen identity route/context/deletion changes and independently rerun targeted plus integrated suites.",
+    "Reproduce cross-chain rejection with same original fixture after correction.",
+    "Review root code-bound actual-provider-discovery r2 receipt including structured HumanName query.",
+    "No whole-offering/domain/release acceptance or final whole-program completion is established."
+  ]
+}

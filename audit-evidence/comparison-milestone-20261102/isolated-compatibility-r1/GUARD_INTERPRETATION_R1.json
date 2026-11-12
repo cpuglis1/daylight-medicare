@@ -1,0 +1,62 @@
+{
+  "schema": "daylight.isolated-guard-interpretation.v1",
+  "raw_guard_receipts_preserved": true,
+  "blocked_attempts": {
+    "suite": [
+      {
+        "path": "/Users/cep4u/daylight/budget",
+        "attempts": 14,
+        "file_now_exists": false
+      },
+      {
+        "path": "/Users/cep4u/daylight/private",
+        "attempts": 2,
+        "file_now_exists": false
+      },
+      {
+        "path": "/Users/cep4u/daylight/infrastructure",
+        "attempts": 1,
+        "file_now_exists": false
+      },
+      {
+        "path": "/Users/cep4u/daylight/daylight-data",
+        "attempts": 1,
+        "file_now_exists": false
+      },
+      {
+        "path": "/Users/cep4u/daylight/config",
+        "attempts": 1,
+        "file_now_exists": false
+      },
+      {
+        "path": "/Users/cep4u/daylight/<unknown>",
+        "attempts": 1,
+        "file_now_exists": false
+      }
+    ],
+    "reference": [],
+    "journey": [
+      {
+        "path": "/Users/cep4u/daylight/infrastructure/daylight-data/.venv/lib/python3.14/site-packages/psycopg_binary-3.3.6.dist-info/METADATA",
+        "attempts": 1,
+        "file_now_exists": true
+      },
+      {
+        "path": "/Users/cep4u/daylight/infrastructure/daylight-data/.venv/lib/python3.14/site-packages/psycopg-3.3.6.dist-info/METADATA",
+        "attempts": 1,
+        "file_now_exists": true
+      }
+    ]
+  },
+  "suite_nonexistent_pseudo_filename_probes": 20,
+  "journey_optional_package_metadata_reads_denied": 2,
+  "all_application_shared_replay_and_serving_modules_from_snapshot": true,
+  "journey_non_snapshot_modules_are_only_hashed_psycopg_runtime": true,
+  "raw_journey_all_workspace_modules_flag": false,
+  "raw_flag_explanation": "False includes the explicitly declared installed PostgreSQL driver. Every such module is in EXTERNAL_RUNTIME_INPUTS.json; no mutable app/shared/serving module was imported.",
+  "postgres_default_read_only_connections_witnessed": 9,
+  "source_code_transaction_guards": "Copied serving/repository.py also sets each research transaction READ ONLY and SET LOCAL ROLE daylight_research_reader.",
+  "sql_monitoring_limit": "The harness witnesses connection defaults; it is not a server-wide audit or an independent audit of concurrent database activity.",
+  "resource_warnings_in_initial_log": 16,
+  "warning_limit": "Existing tests emitted unclosed temporary SQLite ResourceWarnings. No application fix or broad rerun was made."
+}

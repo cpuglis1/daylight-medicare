@@ -1,0 +1,65 @@
+{
+  "recorded_at_utc": "2026-10-20T02:37:58.500568+00:00",
+  "items": {
+    "C09": {
+      "status": "complete_request_sent",
+      "sent_at_utc": "2026-10-20T02:35:00Z",
+      "sent_date_eastern": "2026-10-19",
+      "outbound_reference_type": "Gmail message ID (not an OIR case number)",
+      "outbound_reference": "1a157298265d98b7",
+      "agency_reference": null,
+      "agency_reference_status": "awaiting acknowledgment",
+      "data_response_status": "pending; ingestion remains C23",
+      "internal_follow_up_date": "2026-10-22",
+      "evidence": [
+        "c09-oir-request.md",
+        "c09-send-receipt.json"
+      ]
+    },
+    "C10": {
+      "status": "complete",
+      "decision": "defer purchase; Florida-free route first",
+      "amount_committed_usd": 0,
+      "internal_review_date": "2026-10-26",
+      "evidence": [
+        "c10-csg-decision.json",
+        "c10-csg-decision.md"
+      ]
+    },
+    "C11": {
+      "status": "in_progress_awaiting_CMS_reply",
+      "sent_at_utc": "2026-10-20T02:35:13Z",
+      "outbound_reference_type": "Gmail message ID (not a CMS case number)",
+      "outbound_reference": "1a15729b56f1606c",
+      "agency_reference": null,
+      "reply": null,
+      "reply_checked_at_utc": "2026-10-20T02:37:04Z",
+      "internal_follow_up_date": "2026-10-26",
+      "evidence": [
+        "c11-cms-request.md",
+        "c11-send-receipt.json",
+        "agency-reply-check.json"
+      ]
+    },
+    "C12": {
+      "status": "complete_owner_reported_legal_approval",
+      "evidence": [
+        "c12-legal-decision.json",
+        "c12-legal-decision.md"
+      ]
+    }
+  },
+  "external_action_limits": {
+    "fees_authorized_usd": 0,
+    "subscriptions_started": 0,
+    "legal_engagements_started": 0,
+    "collector_runs": 0
+  },
+  "unchanged": [
+    "C01 deferral",
+    "C13 prerequisite",
+    "G9 existing operational guardrails",
+    "H03 and H09 hold scope",
+    "Runtime code and selected demo release"
+  ]
+}

@@ -1,0 +1,375 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "turns": [
+    {
+      "case": "self",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "Turning 65 in november and looking to understand my medicare options"
+      },
+      "elapsed_seconds": 7.878,
+      "reply": "The main choice is between Original Medicare and Medicare Advantage. Original Medicare is Parts A and B from the federal program; you can add a separate drug plan and may be able to add Medigap. Medicare Advantage is a private plan that provides Parts A and B, and many plans include drug coverage.",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "routesintro",
+          "options"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two coverage routes"
+          }
+        ],
+        "visual": "routes",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 1,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [
+          "routes"
+        ],
+        "focus": [
+          "coverage_paths"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3412,
+          "composition": 4374
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    },
+    {
+      "case": "self",
+      "turn": 2,
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "employer"
+        }
+      },
+      "elapsed_seconds": 4.489,
+      "reply": "That helps because current-job coverage can affect when it makes sense to start Medicare, especially Part B. I can’t tell from that alone whether you’d want to enroll right away or keep employer coverage for a while.",
+      "question": {
+        "id": "RC09",
+        "inventoryIds": [
+          "RC09"
+        ],
+        "question": "Whose job is this health insurance through?",
+        "why": "",
+        "choices": [
+          [
+            "my_job",
+            "My current job"
+          ],
+          [
+            "spouse_job",
+            "Spouse’s current job"
+          ],
+          [
+            "family_job",
+            "Family member’s current job"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC09.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC09"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "contextual_teaching",
+        "teachingFactIds": [
+          "enrollment_intro",
+          "dates"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+            "label": "Medicare.gov: Getting started with enrollment timing"
+          },
+          {
+            "url": "https://www.ssa.gov/medicare/sign-up",
+            "label": "Medicare.gov: Dates depend on your situation"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "current_coverage_timing",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [
+          "routes"
+        ],
+        "focus": [
+          "current_coverage_timing"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 1,
+        "synthetic": false,
+        "stageMs": {
+          "composition": 4443
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "coverage.current": {
+          "value": [
+            "employer"
+          ],
+          "status": "reported",
+          "source": "user_choice",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    }
+  ],
+  "token_checks": [
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6701,
+      "history_exchanges": 0
+    },
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5549,
+      "history_exchanges": 0
+    },
+    {
+      "case": "self",
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5570,
+      "history_exchanges": 1
+    }
+  ],
+  "self_reference_captured": true,
+  "birthday_precision_preserved": true,
+  "error": {
+    "type": "ModelUnavailable",
+    "message": "Live AI could not complete this request. Retry or use the manual guide; your details are unchanged."
+  },
+  "all_turns_complete": false,
+  "generation_stages_reserved": 5,
+  "receipts": [
+    {
+      "id": "0705eff8847b19c885da71bde8e80e5842b71d1313ebae88",
+      "status": "settled",
+      "charged_nano_usd": 6339500,
+      "measured_nano_usd": 6339500,
+      "input_tokens": 6701,
+      "output_tokens": 189
+    },
+    {
+      "id": "f5b5b0fb3aff5ed9c75a4be588ad1fbfe7445f8f847927ec",
+      "status": "settled",
+      "charged_nano_usd": 16647500,
+      "measured_nano_usd": 16647500,
+      "input_tokens": 5549,
+      "output_tokens": 185
+    },
+    {
+      "id": "2083af56ce860ead9f74acaf457a5768b1288f71c874aeac",
+      "status": "settled",
+      "charged_nano_usd": 12338000,
+      "measured_nano_usd": 12338000,
+      "input_tokens": 5570,
+      "output_tokens": 163
+    },
+    {
+      "id": "5c20efc698c0718ff4a0faf9612afa578d8339893f6b1e26",
+      "status": "cancelled",
+      "charged_nano_usd": 0,
+      "measured_nano_usd": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    {
+      "id": "0e9feefc67831b39697267101d11dabf2a31b444c319fe40",
+      "status": "cancelled",
+      "charged_nano_usd": 0,
+      "measured_nano_usd": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  ],
+  "measured_usd": 0.035325,
+  "accounted_usd": 0.035325
+}

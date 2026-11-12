@@ -1,0 +1,69 @@
+.............FFF.E....................Daylight composition unavailable code=unavailable question_available=False
+.........................Daylight composition unavailable code=input_token_verification question_available=False
+.Daylight extraction unavailable code=input_token_verification
+..........E
+======================================================================
+ERROR: test_repeated_explicit_lesson_is_allowed_and_counts_once_per_distinct_request (test_education_lifecycle.EducationLifecycleTests.test_repeated_explicit_lesson_is_allowed_and_counts_once_per_distinct_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_education_lifecycle.py", line 126, in test_repeated_explicit_lesson_is_allowed_and_counts_once_per_distinct_request
+    self.assertEqual(self.record()['concepts']['coverage_paths']['deliveries'], 1)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'coverage_paths'
+
+======================================================================
+ERROR: test_free_cost_lesson_uses_real_http_and_stays_outside_saved_profiles (test_understanding_http.UnderstandingHttpTests.test_free_cost_lesson_uses_real_http_and_stays_outside_saved_profiles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_understanding_http.py", line 27, in test_free_cost_lesson_uses_real_http_and_stays_outside_saved_profiles
+    self.assertEqual(out['understanding']['capability'], 'costs')
+                     ~~~^^^^^^^^^^^^^^^^^
+KeyError: 'understanding'
+
+======================================================================
+FAIL: test_explicit_free_lesson_records_primary_concept_and_preserves_current_question (test_education_lifecycle.EducationLifecycleTests.test_explicit_free_lesson_records_primary_concept_and_preserves_current_question)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_education_lifecycle.py", line 115, in test_explicit_free_lesson_records_primary_concept_and_preserves_current_question
+    self.assertEqual([fact['id'] for fact in out['facts']], ['checks'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['checks']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'checks'
+
+- []
++ ['checks']
+
+======================================================================
+FAIL: test_explicit_parts_lesson_records_both_parts_without_marking_other_sections (test_education_lifecycle.EducationLifecycleTests.test_explicit_parts_lesson_records_both_parts_without_marking_other_sections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_education_lifecycle.py", line 142, in test_explicit_parts_lesson_records_both_parts_without_marking_other_sections
+    self.assertEqual(set(self.record()['concepts']), {'part_a', 'part_b'})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'part_a'
+'part_b'
+
+======================================================================
+FAIL: test_free_lesson_without_prior_v3_permission_cannot_create_memory_or_consent (test_education_lifecycle.EducationLifecycleTests.test_free_lesson_without_prior_v3_permission_cannot_create_memory_or_consent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_education_lifecycle.py", line 134, in test_free_lesson_without_prior_v3_permission_cannot_create_memory_or_consent
+    self.assertEqual([fact['id'] for fact in out['facts']], ['parts'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['parts']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'parts'
+
+- []
++ ['parts']
+
+----------------------------------------------------------------------
+Ran 75 tests in 22.031s
+
+FAILED (failures=3, errors=2)

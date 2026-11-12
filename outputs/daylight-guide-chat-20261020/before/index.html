@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf9f4">
+  <meta name="description" content="Daylight Medicare. Your coverage, plain as day. Understand Medicare, build a checklist, and compare published 2027 Collier County plan records when available.">
+  <title>Daylight</title>
+  <link rel="icon" type="image/svg+xml" href="/daylight.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#stage">Skip to content</a>
+  <div id="sr-live" class="sr-only" aria-live="polite"></div>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Daylight Medicare home">
+      <img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36">
+      <span class="brand-name">Daylight<span class="brand-category">Medicare</span></span>
+    </a>
+    <p class="header-note">Understand Medicare at your pace.</p>
+    <div class="header-actions">
+      <button id="ask-open" class="ask-open-btn" type="button" hidden><span class="ask-ico" aria-hidden="true">?</span> Ask Daylight</button>
+      <button id="restart" class="text-button" type="button" hidden>Start over</button>
+    </div>
+  </header>
+
+  <!-- ============ JOURNEY MAP ============ -->
+  <nav id="journey-map" class="journey-map" aria-label="Your journey" hidden></nav>
+
+  <!-- ============ LANDING (shown first) ============ -->
+  <main id="main">
+    <section id="landing" class="landing" aria-labelledby="landing-title">
+      <div class="landing-inner">
+        <h1 tabindex="-1" id="landing-title" class="landing-title">Your coverage, plain as day</h1>
+        <p class="landing-sub">Understand Medicare with pictures, clear comparisons, and one question at a time.</p>
+        <button id="get-started" class="primary-button landing-cta" type="button">Start the guide</button>
+        <div class="experienced-route">
+          <p>Already understand your Medicare options?</p>
+          <button id="fast-start" class="text-button landing-fast" type="button">Skip the guide and compare plans</button>
+        </div>
+        <ul class="landing-points">
+          <li><span class="lp-ico" aria-hidden="true">◷</span> At your pace</li>
+          <li><span class="lp-ico" aria-hidden="true">⛉</span> No sign-up, no ID numbers</li>
+          <li><span class="lp-ico" aria-hidden="true">✦</span> A guide, never a salesperson</li>
+        </ul>
+        <p class="landing-area">Plan comparison covers <strong>2027 plans in Collier County, Florida</strong> (Naples). The guide is available elsewhere too.</p>
+      </div>
+    </section>
+
+    <!-- ============ THE STAGE (one stop at a time) ============ -->
+    <section id="stage" class="stage" tabindex="-1" aria-live="polite" hidden></section>
+  </main>
+
+  <!-- ============ ASK DAYLIGHT PANEL (helper, opens over the stop) ============ -->
+  <div id="ask-panel" class="ask-panel" role="dialog" aria-modal="true" aria-label="Ask Daylight" hidden>
+    <div class="ask-head">
+      <h2 class="ask-title">Ask Daylight</h2>
+      <button id="ask-close" class="text-button" type="button" aria-label="Close Ask Daylight">Close</button>
+    </div>
+    <p class="ask-sub">An automated guide. Common questions have short, source-linked explanations. Typed questions need the conversation service.</p>
+    <div id="ask-canned" class="ask-canned"></div>
+    <div id="ask-thread" class="ask-thread" aria-live="polite"></div>
+    <form id="ask-form" class="ask-form">
+      <label for="ask-input">Or type your own question</label>
+      <div class="ask-input-row">
+        <textarea id="ask-input" rows="2" maxlength="1200" placeholder="Type a question about this step…"></textarea>
+        <button id="ask-send" type="submit" aria-label="Send question">Send</button>
+      </div>
+      <p id="ask-status" class="ask-status" role="status"></p>
+    </form>
+  </div>
+  <div id="ask-scrim" class="ask-scrim" hidden></div>
+
+  <footer class="site-footer">
+    <span id="footer-note">No sign-up or ID numbers. Guide notes stay in this tab; submitted chat may be logged.</span>
+    <details id="about-answers"><summary>About your answers</summary><div class="privacy-copy"><p>Guide answers and medicine/doctor notes stay in this browser tab only. Refreshing or closing the tab clears them. Public plan browsing calls the local server. We don't create an account or a customer profile, and we never ask for Medicare numbers, Social Security numbers, or documents. The guide's birth month, job coverage, medicine and doctor fields are not logged or automatically attached to chat.</p><p>When you type your own question into Ask Daylight, that question and recent messages are sent to a local server to continue the conversation. Submitted chat can be saved in local conversation logs. When a conversation service is connected, the submitted question and recent typed messages are also sent to the model that powers the reply. Guide notes are not attached automatically.</p><p>This is general information to help you understand your options. It is not a recommendation, a quote, or enrollment, and it is not a substitute for Medicare.gov or free SHINE counseling.</p></div></details>
+  </footer>
+
+  <!-- ============ PRINTABLE MAP (print only) ============ -->
+  <div id="print-view" class="print-view" aria-hidden="true"></div>
+
+  <noscript><p class="noscript-note">Please enable JavaScript to use Daylight Medicare.</p></noscript>
+</body>
+</html>

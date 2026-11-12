@@ -1,0 +1,55 @@
+{
+  "maximumReservationUsd": 0.201,
+  "maximumGenerationStages": 6,
+  "fictionalInputs": true,
+  "automaticRetries": false,
+  "savedProfile": false,
+  "extractReasoning": "none",
+  "checks": "failed",
+  "failure": "{'status': 'unavailable', 'retryable': False, 'reason': 'A spouse-job statement needs its resolved worker relationship.'}",
+  "generationStageCount": 2,
+  "measuredEstimateUsd": 0.0122245,
+  "heldUsd": 0.0,
+  "accountedUsd": 0.0122245,
+  "outputs": [
+    {
+      "case": "turn-1",
+      "message": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.",
+      "seconds": 8.005,
+      "reply": "Your details are here. I couldn\u2019t finish the response just now, but we can continue.",
+      "question": "When would you like Medicare coverage to start?",
+      "target": "T04",
+      "generated": {
+        "status": "unavailable",
+        "retryable": false,
+        "reason": "A spouse-job statement needs its resolved worker relationship."
+      }
+    }
+  ],
+  "timings": [
+    {
+      "case": "turn-1",
+      "stage": "daylight_guide_commands",
+      "part": "count_tokens",
+      "seconds": 0.416
+    },
+    {
+      "case": "turn-1",
+      "stage": "extract",
+      "part": "whole_stage",
+      "seconds": 5.584
+    },
+    {
+      "case": "turn-1",
+      "stage": "daylight_resolved_conversation",
+      "part": "count_tokens",
+      "seconds": 0.238
+    },
+    {
+      "case": "turn-1",
+      "stage": "compose",
+      "part": "whole_stage",
+      "seconds": 2.413
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "case": "retiree_insurance",
+  "effort": "low",
+  "model": "gpt-5.4",
+  "outputLimit": 900,
+  "saved": false,
+  "passed": true,
+  "checks": {
+    "noIrrelevantTeaching": true,
+    "noInventedInsuranceEnd": true,
+    "noRecommendation": true,
+    "actualRetireeCoverageRetained": true
+  },
+  "reply": "You\u2019re turning 65 in November 2026.",
+  "reviewRows": [
+    {
+      "id": "T01",
+      "label": "Your goal",
+      "value": "Understand Medicare",
+      "status": "reported"
+    },
+    {
+      "id": "T05",
+      "label": "Current health insurance",
+      "value": "Retiree coverage",
+      "status": "reported"
+    },
+    {
+      "id": "S_AGE65",
+      "label": "65th birthday",
+      "value": "Turning 65 in November 2026",
+      "status": "reported"
+    },
+    {
+      "id": "RC09",
+      "label": "Work insurance",
+      "value": "Retiree coverage",
+      "status": "reported"
+    },
+    {
+      "id": "RC01",
+      "label": "Who this is for",
+      "value": "Me",
+      "status": "reported"
+    }
+  ],
+  "usage": {
+    "input_tokens": 6891,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 686,
+    "output_tokens_details": {
+      "reasoning_tokens": 342
+    },
+    "total_tokens": 7577
+  },
+  "semanticRejections": [],
+  "seconds": 8.91
+}

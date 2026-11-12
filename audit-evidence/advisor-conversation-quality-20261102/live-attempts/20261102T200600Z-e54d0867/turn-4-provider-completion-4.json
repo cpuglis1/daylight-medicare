@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 36823,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7191,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 301,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7492
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Prescription drug coverage is called Part D. With Original Medicare, drug coverage is separate—you would join a standalone Part D plan if you want help paying for medicines. With Medicare Advantage, most plans include drug coverage as part of the plan, but you still have to check the exact drug list, any restrictions, the pharmacy options, and your costs for each medicine.\\n\\nSo the practical difference is: Original Medicare lets you pair your medical coverage with a separate drug plan, while Medicare Advantage usually bundles medical and drug coverage together in one plan. In either path, a medicine list is the starting point for checking whether your specific prescriptions are covered well.\",\"question\":\"Would it help if I next explain the pros and cons of separate drug coverage versus bundled drug coverage, without getting personal yet?\",\"education_followups\":[\"How do restrictions on a medicine work?\",\"Why would someone prefer a separate drug plan instead of a bundled one?\"],\"report_refs\":[],\"evidence_refs\":[\"drugbasics\",\"drugs\",\"original\"],\"agenda_update\":{\"current_concern\":\"how prescription medicines fit into the two paths\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"prescription_coverage\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"part_d_role\",\"route_relationship\",\"exact_medicine_conditions\"],\"evidence_refs\":[\"drugbasics\",\"drugs\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 7.177729,
+  "turn": 4,
+  "event": "explicit_defer_and_detour",
+  "fictional_inputs": true
+}

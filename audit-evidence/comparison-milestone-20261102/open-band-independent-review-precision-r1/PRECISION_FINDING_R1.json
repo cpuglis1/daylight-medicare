@@ -1,0 +1,29 @@
+{
+  "schema": "daylight.open-band.independent-precision-finding.v1",
+  "id": "OB-R1-F02",
+  "status": "confirmed",
+  "discovered_after_prior_review_freeze": true,
+  "producer_discovered_and_root_independently_reproduced": true,
+  "reason": "Borrowed sealed helper Decimal.normalize rounds under its default28digit context, merging distinct high-precision values. String amount inputs avoid the separately confirmed integer OverflowError and demonstrate that precision collision already exists in frozen r1.",
+  "probes": [
+    {
+      "left_amount": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "right_amount": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "mathematically_equal": false,
+      "observed_outcome": "exact_agreement",
+      "differences": []
+    },
+    {
+      "left_amount": "1.00000000000000000000000000001",
+      "right_amount": "1.00000000000000000000000000002",
+      "mathematically_equal": false,
+      "observed_outcome": "exact_agreement",
+      "differences": []
+    }
+  ],
+  "fixture_origin": "Producer synthetic example used only to supply a complete mechanical shape; numeric pairs and inequality expectations independently specified after code review. No real source fact or independent blind study is claimed.",
+  "required_action": "Exact local decimal canonicalization in a new module revision; sealed helper/source bytes unchanged. Preserve numeric distinctions and decimal equivalence, including canonical zero.",
+  "prior_review_freeze_sha256": "46ef170fa67992a39c67d478970ef3bb211bb2021bb47ef7b521edf6b962454d",
+  "candidate_freeze_sha256": "6317f7882fd654fd7c5f7689d22b1deb06b74ec5cb6a053a33fd20b3cfc292c1",
+  "source_acceptance": false
+}

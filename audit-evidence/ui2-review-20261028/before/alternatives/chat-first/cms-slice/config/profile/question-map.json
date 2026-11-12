@@ -1,0 +1,2993 @@
+{
+  "version": "customer-profile-input-map-20261023-v1",
+  "counts": {
+    "baseline": 10,
+    "conditionalParents": 28,
+    "documentedChildPrompts": 3,
+    "runtimeVariantTemplates": 11,
+    "detailControls": 31,
+    "nonIntakeGuards": 2,
+    "historicalQuestionFormNodes": 46,
+    "historicalIntakeComparisonNodes": 34
+  },
+  "questionMap": [
+    {
+      "id": "T01",
+      "kind": "baseline",
+      "question": "What would you like help with today?",
+      "choices": [
+        [
+          "learn",
+          "Understand Medicare"
+        ],
+        [
+          "compare",
+          "Find coverage"
+        ],
+        [
+          "review",
+          "Review existing coverage"
+        ],
+        [
+          "unresolved",
+          "Something else"
+        ]
+      ],
+      "fields": [
+        "guide.fields.intent.goal",
+        "guide.fields.intent.goalDetail"
+      ],
+      "purpose": "Your goal tells Daylight what to explain and what to emphasize. We will work through your situation, needs and priorities in ten questions.",
+      "capabilities": [
+        "route_comparison"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "intent.goal",
+        "intent.goalDetail"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T02",
+      "kind": "baseline",
+      "question": "How familiar are you with Medicare?",
+      "choices": [
+        [
+          "new",
+          "New to Medicare"
+        ],
+        [
+          "some",
+          "Know a little"
+        ],
+        [
+          "comfortable",
+          "Comfortable with the basics"
+        ],
+        [
+          "unknown",
+          "Not sure yet"
+        ]
+      ],
+      "fields": [
+        "guide.fields.knowledge.general"
+      ],
+      "purpose": "This sets how much explanation you see. It changes the detail, not the questions or the facts we need.",
+      "capabilities": [],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "optional_preference",
+      "dependencies": [],
+      "staleOnChange": [
+        "knowledge.general"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T03",
+      "kind": "baseline",
+      "question": "What ZIP code do you live in?",
+      "choices": [],
+      "fields": [
+        "guide.fields.comparison.scope.zip",
+        "guide.fields.comparison.scope.county",
+        "guide.fields.comparison.scope.locationEvidence"
+      ],
+      "purpose": "Plan availability and published prices can depend on the county. A ZIP lookup is a location reference, not proof of residency.",
+      "capabilities": [
+        "availability"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T04",
+      "kind": "baseline",
+      "question": "When do you need Medicare coverage to start?",
+      "choices": [
+        [
+          "month",
+          "Choose a start month"
+        ],
+        [
+          "already",
+          "Already on Medicare"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "fields": [
+        "guide.fields.coverage.requestedStart",
+        "guide.fields.coverage.requestedStartMonth"
+      ],
+      "purpose": "The timing helps organize what to check next. Your requested month does not establish eligibility or an enrollment deadline.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T05",
+      "kind": "baseline",
+      "question": "What health coverage do you have now?",
+      "choices": [
+        [
+          "original",
+          "Original Medicare (Parts A and B)"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage (Part C)"
+        ],
+        [
+          "medigap",
+          "Medicare Supplement / Medigap"
+        ],
+        [
+          "drug",
+          "Separate prescription drug plan"
+        ],
+        [
+          "employer",
+          "Current-job coverage"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ],
+        [
+          "military",
+          "VA, TRICARE or military coverage"
+        ],
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "none",
+          "None"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "fields": [
+        "guide.fields.coverage.current"
+      ],
+      "purpose": "We need to understand what is already in place before considering a change. Your answers describe your coverage; they do not verify its benefits.",
+      "capabilities": [
+        "route_comparison"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T06",
+      "kind": "baseline",
+      "question": "Which doctors or hospitals would you like to keep?",
+      "choices": [
+        [
+          "list",
+          "Add doctors or hospitals"
+        ],
+        [
+          "none",
+          "None to check"
+        ],
+        [
+          "later",
+          "Add later"
+        ]
+      ],
+      "fields": [
+        "guide.fields.needs.providersStatus",
+        "guide.fields.needs.providers"
+      ],
+      "purpose": "Provider access is an important check before choosing coverage. A name alone does not establish participation or guarantee access.",
+      "capabilities": [
+        "provider_fit"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "needs.providersStatus",
+        "needs.providers"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T07",
+      "kind": "baseline",
+      "question": "What prescriptions do you take?",
+      "choices": [
+        [
+          "yes",
+          "Add prescriptions"
+        ],
+        [
+          "no",
+          "None"
+        ],
+        [
+          "unknown",
+          "Add later"
+        ]
+      ],
+      "fields": [
+        "guide.fields.needs.medicinesStatus",
+        "guide.fields.needs.medications",
+        "guide.fields.needs.medicationDetails",
+        "guide.fields.needs.pharmacies"
+      ],
+      "purpose": "Drug coverage and costs depend on the exact medicine and plan. Dose and pharmacy details can help later; unknown details can stay open.",
+      "capabilities": [
+        "drug_coverage",
+        "drug_pricing"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "needs.medicinesStatus",
+        "needs.medications",
+        "needs.medicationDetails",
+        "needs.pharmacies"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T08",
+      "kind": "baseline",
+      "question": "Will you need routine care away from home?",
+      "choices": [
+        [
+          "local",
+          "Local only"
+        ],
+        [
+          "another_state",
+          "Another state"
+        ],
+        [
+          "outside_us",
+          "Outside the US"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "fields": [
+        "guide.fields.needs.travel"
+      ],
+      "purpose": "Routine care away from home can have different coverage limits from emergency care. Tell us where you expect to need routine care.",
+      "capabilities": [
+        "provider_fit",
+        "route_comparison"
+      ],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "required_only_for_relevant_capability",
+      "dependencies": [],
+      "staleOnChange": [
+        "needs.travel"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T09",
+      "kind": "baseline",
+      "question": "How would you prefer to balance monthly payments and costs when you get care?",
+      "choices": [
+        [
+          "lower_monthly",
+          "Lower monthly payments"
+        ],
+        [
+          "predictable",
+          "More predictable costs"
+        ],
+        [
+          "no_preference",
+          "No preference yet"
+        ]
+      ],
+      "fields": [
+        "guide.fields.needs.costPreference"
+      ],
+      "purpose": "This helps us explain the tradeoffs you care about. It is not enough by itself to choose a coverage route or calculate your total costs.",
+      "capabilities": [],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "optional_preference",
+      "dependencies": [],
+      "staleOnChange": [
+        "needs.costPreference"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "T10",
+      "kind": "baseline",
+      "question": "What matters most when we compare your options?",
+      "choices": [
+        [
+          "doctors",
+          "Doctors and hospitals"
+        ],
+        [
+          "drugs",
+          "Prescriptions"
+        ],
+        [
+          "total_cost",
+          "Total cost"
+        ],
+        [
+          "bills",
+          "Predictable costs"
+        ],
+        [
+          "travel",
+          "Travel"
+        ],
+        [
+          "other",
+          "Something else"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "fields": [
+        "guide.fields.needs.priorities",
+        "guide.fields.needs.priorityOther"
+      ],
+      "purpose": "Your priorities should guide the comparison, independently of commissions or other commercial relationships. Choose up to three.",
+      "capabilities": [],
+      "applicability": "Context/goal-based comparison preparation; browsing does not require completion.",
+      "requiredness": "optional_preference",
+      "dependencies": [],
+      "staleOnChange": [
+        "needs.priorities",
+        "needs.priorityOther"
+      ],
+      "source": "cms-slice/apps/ten-question/ten-state.js",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false
+    },
+    {
+      "id": "RC01",
+      "kind": "conditional",
+      "question": "Who is this coverage for?",
+      "researchQuestion": "Who is this coverage for?",
+      "choices": [
+        [
+          "self",
+          "Me"
+        ],
+        [
+          "someone",
+          "Someone I help"
+        ],
+        [
+          "research",
+          "Research only"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC01.value.choice"
+      ],
+      "purpose": "Why we ask: We need to keep one person\u2019s details together.",
+      "capabilities": [
+        "route_comparison"
+      ],
+      "applicability": "A personal comparison is requested and recipient or requested capability is unconfirmed. Reuse a confirmed Ask fact; education-only may bypass. **baseline_by_capability \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "None; integrity guards run before dependent checks.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC02",
+      "kind": "conditional",
+      "question": "Where is your permanent home?",
+      "researchQuestion": "Where is your permanent home?",
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC02.value.choice",
+        "readiness.facts.RC02.value.zip",
+        "readiness.facts.RC02.value.county",
+        "readiness.facts.RC02.value.homeStatus"
+      ],
+      "purpose": "Why we ask: Plan availability depends on where you live.",
+      "capabilities": [
+        "availability"
+      ],
+      "applicability": "Requested availability/network check lacks usable home ZIP/county, spans counties, or moving/seasonal facts conflict with home. **baseline_by_capability \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01.",
+      "staleOnChange": [
+        "comparison.scope.zip",
+        "comparison.scope.county"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC03",
+      "kind": "conditional",
+      "question": "Which year should we compare?",
+      "researchQuestion": "Which year should we compare?",
+      "choices": [
+        [
+          "2026",
+          "2026"
+        ],
+        [
+          "2027",
+          "2027"
+        ],
+        [
+          "other",
+          "Another year"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC03.value.choice",
+        "readiness.facts.RC03.value.year"
+      ],
+      "purpose": "Why we ask: Plan benefits and prices can change each year.",
+      "capabilities": [
+        "availability"
+      ],
+      "applicability": "Requested benefit year/start is unknown, mismatches source year, or already-on-Medicare answer supplied no comparison year. **baseline_by_capability \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01.",
+      "staleOnChange": [
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC04",
+      "kind": "conditional",
+      "question": "Which Medicare parts do you have now?",
+      "researchQuestion": "Which Medicare parts do you have now?",
+      "choices": [
+        [
+          "both",
+          "A and B"
+        ],
+        [
+          "a_only",
+          "A only"
+        ],
+        [
+          "b_only",
+          "B only"
+        ],
+        [
+          "neither",
+          "Neither"
+        ],
+        [
+          "pending",
+          "Applied; waiting"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC04.value.choice"
+      ],
+      "purpose": "Why we ask: Different plans require different Medicare parts.",
+      "capabilities": [
+        "timing",
+        "route_comparison"
+      ],
+      "applicability": "Personal health/drug candidates requested and active/pending Part A/Part B status is not independently represented; Q4 Already on Medicare is insufficient. **baseline_by_capability \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC05",
+      "kind": "conditional",
+      "question": "When did Part B start?",
+      "researchQuestion": "When did Part B start?",
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC05.value.choice",
+        "readiness.facts.RC05.value.month"
+      ],
+      "purpose": "Why we ask: This can affect your enrollment and Medigap options.",
+      "capabilities": [
+        "timing",
+        "medigap_rights"
+      ],
+      "applicability": "Timing/Medigap/change review needs actual A/B dates and they are missing or different from requested start. **baseline_by_capability \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC04.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC04"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC06",
+      "kind": "conditional",
+      "question": "How did you first qualify, or expect to qualify, for Medicare?",
+      "researchQuestion": "How did you first qualify for Medicare?",
+      "choices": [
+        [
+          "age65",
+          "Age 65 or older"
+        ],
+        [
+          "disability",
+          "Disability before 65"
+        ],
+        [
+          "esrd",
+          "Kidney failure / ESRD"
+        ],
+        [
+          "als",
+          "ALS"
+        ],
+        [
+          "other",
+          "Another reason"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC06.value.choice",
+        "readiness.facts.RC06.value.ageBand"
+      ],
+      "purpose": "Why we ask: Some enrollment rules depend on how you qualified.",
+      "capabilities": [
+        "timing",
+        "medigap_rights"
+      ],
+      "applicability": "Timing, premium eligibility or Medigap rights need age/basis that existing confirmed enrollment does not resolve; not a universal diagnosis screen. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC04.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC07",
+      "kind": "conditional",
+      "question": "How do you get your A and B benefits now?",
+      "researchQuestion": "How do you get your A and B benefits now?",
+      "choices": [
+        [
+          "original",
+          "Original Medicare"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage"
+        ],
+        [
+          "pending",
+          "A change is pending"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC07.value.choice"
+      ],
+      "purpose": "Why we ask: We need to separate current coverage from a possible change.",
+      "capabilities": [
+        "route_comparison",
+        "medigap_rights"
+      ],
+      "applicability": "Current medical arrangement has incompatible same-period reports or user wants to leave MA/Medigap without a clear current-versus-future distinction. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC04.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC08",
+      "kind": "conditional",
+      "question": "What changed about your coverage?",
+      "researchQuestion": "What changed about your coverage?",
+      "choices": [
+        [
+          "loss",
+          "Losing coverage"
+        ],
+        [
+          "move",
+          "Moving"
+        ],
+        [
+          "plan_change",
+          "Plan ending or changing service area"
+        ],
+        [
+          "assistance_change",
+          "Medicaid or Extra Help changed"
+        ],
+        [
+          "other",
+          "Another event"
+        ],
+        [
+          "none",
+          "Nothing changed"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC08.value.choice",
+        "readiness.facts.RC08.value.eventDate"
+      ],
+      "purpose": "Why we ask: This can affect when you can enroll.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "User requests a change/start outside an established reviewed window, or reports move, loss, plan termination, institutional stay, disaster or other potential event. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC03, RC04, RC07.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC09",
+      "kind": "conditional",
+      "question": "Is this coverage from someone who is still working?",
+      "researchQuestion": "Is this coverage from someone who is still working?",
+      "choices": [
+        [
+          "my_job",
+          "My current job"
+        ],
+        [
+          "spouse_job",
+          "Spouse\u2019s current job"
+        ],
+        [
+          "family_job",
+          "Family member\u2019s current job"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC09.value.choice"
+      ],
+      "purpose": "Why we ask: Current work can affect your Medicare sign-up window.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Q5 employer/retiree/COBRA or free text indicates job-related insurance, but source of coverage/current-work relationship unclear. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC10",
+      "kind": "conditional",
+      "question": "Does the employer have 20 or more employees?",
+      "researchQuestion": "Does the employer have 20 or more employees?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC10.value.choice"
+      ],
+      "purpose": "Why we ask: Employer size can change which coverage pays first.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Current group coverage plus payer-order question; age/basis known. Do not run age threshold for ESRD. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC06, RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC06",
+        "RC09"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC11",
+      "kind": "conditional",
+      "question": "When did the job or coverage end?",
+      "researchQuestion": "When did the job end?",
+      "choices": [
+        [
+          "dates",
+          "Add the end dates I know"
+        ],
+        [
+          "working",
+          "Still working"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC11.value.choice",
+        "readiness.facts.RC11.value.jobEnd",
+        "readiness.facts.RC11.value.coverageEnd"
+      ],
+      "purpose": "Why we ask: Different end dates can change your sign-up window.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Coverage/job ending or ended, COBRA/retiree transition, or prospective change needs loss chronology. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC09"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC12",
+      "kind": "conditional",
+      "question": "Do you have a written notice saying your drug coverage counts as creditable (as good as Medicare\u2019s standard coverage), and has there been a gap?",
+      "researchQuestion": "Does your plan say its drug coverage is creditable?",
+      "choices": [
+        [
+          "yes",
+          "Yes, according to its notice"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "none",
+          "I have no drug coverage"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC12.value.choice",
+        "readiness.facts.RC12.value.gap"
+      ],
+      "purpose": "Why we ask: A gap in qualifying drug coverage can affect later costs.",
+      "capabilities": [
+        "timing",
+        "drug_coverage"
+      ],
+      "applicability": "Part D is absent/ending/unknown and employer/retiree/military/other drug coverage might exist, or user proposes no drug coverage. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC09.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC13",
+      "kind": "conditional",
+      "question": "Could a change affect anyone else\u2019s coverage?",
+      "researchQuestion": "Could a change affect anyone else\u2019s coverage?",
+      "choices": [
+        [
+          "yes",
+          "Administrator says yes"
+        ],
+        [
+          "no",
+          "Administrator says no"
+        ],
+        [
+          "unchecked",
+          "I have not checked"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC13.value.choice"
+      ],
+      "purpose": "Why we ask: Some changes can affect family or retiree benefits.",
+      "capabilities": [
+        "timing",
+        "route_comparison"
+      ],
+      "applicability": "Employer/union/retiree coverage exists and user considers joining outside MA/PDP or dropping group coverage. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC09"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC14",
+      "kind": "conditional",
+      "question": "Are you or your employer adding money to an HSA?",
+      "researchQuestion": "Are you or your employer adding money to an HSA?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC14.value.choice"
+      ],
+      "purpose": "Why we ask: Medicare start dates can affect HSA contributions.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "User reports current-work coverage, Medicare deferral/retroactive A or specifically mentions HSA contributions. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC05, RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC09"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC15",
+      "kind": "conditional",
+      "question": "For the Medigap option you want to explore, what coverage change or notice should we check?",
+      "researchQuestion": "When did your Part B coverage begin?",
+      "choices": [
+        [
+          "details",
+          "Relevant change or notice"
+        ],
+        [
+          "none",
+          "No change or notice known"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC15.value.choice",
+        "readiness.facts.RC15.value.event"
+      ],
+      "purpose": "Why we ask: This can affect your Medigap purchase rights.",
+      "capabilities": [
+        "medigap_rights"
+      ],
+      "applicability": "Original+Medigap purchase/replacement path requested; age, basis, Part B start or qualifying group-loss dates are missing or not reviewed. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC02, RC05, RC06, RC11.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC05"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC16",
+      "kind": "conditional",
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "researchQuestion": "Was this your first Medicare Advantage plan?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC16.value.choice",
+        "readiness.facts.RC16.value.start",
+        "readiness.facts.RC16.value.priorMedigap"
+      ],
+      "purpose": "Why we ask: Your coverage history may affect Medigap rights.",
+      "capabilities": [
+        "medigap_rights"
+      ],
+      "applicability": "Current/recent MA plus interest in Original+Medigap, lost supplement, plan termination/move or alleged insurer misconduct. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC08, RC15.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC07"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC17",
+      "kind": "conditional",
+      "question": "Are you replacing an existing Medigap policy?",
+      "researchQuestion": "Are you replacing an existing Medigap policy?",
+      "choices": [
+        [
+          "replace",
+          "Yes, replacing it"
+        ],
+        [
+          "keep",
+          "No, keeping it"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC17.value.choice"
+      ],
+      "purpose": "Why we ask: You may not have the same rights to buy it again.",
+      "capabilities": [
+        "medigap_rights"
+      ],
+      "applicability": "User already has Medigap and wants another supplement/carrier or is considering dropping it. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC15.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC18",
+      "kind": "conditional",
+      "question": "Do you get help with Medicare costs now? You can name more than one program.",
+      "researchQuestion": "Do you get help with Medicare costs now?",
+      "choices": [
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "extra_help",
+          "Extra Help"
+        ],
+        [
+          "part_b_help",
+          "Help paying Part B"
+        ],
+        [
+          "ssi",
+          "SSI"
+        ],
+        [
+          "none",
+          "None known"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC18.value.choice"
+      ],
+      "purpose": "Why we ask: Assistance can change what you pay.",
+      "capabilities": [
+        "drug_pricing",
+        "snp"
+      ],
+      "applicability": "Subsidy-adjusted costs, a reported Medicaid program, affordability concern or explicit help request makes program status consequential. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01, RC03.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC19",
+      "kind": "conditional",
+      "question": "For the Special Needs Plan type you want to explore, what exact qualifying program or plan confirmation do you have?",
+      "researchQuestion": "Has anyone confirmed you qualify for this type of special-needs plan?",
+      "choices": [
+        [
+          "details",
+          "Program or plan confirmation"
+        ],
+        [
+          "no",
+          "No confirmation"
+        ],
+        [
+          "declined",
+          "Do not explore this type"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC19.value.choice",
+        "readiness.facts.RC19.value.qualification"
+      ],
+      "purpose": "Why we ask: These plans have additional requirements; your report still needs independent verification.",
+      "capabilities": [
+        "snp"
+      ],
+      "applicability": "User asks about an SNP or volunteers Medicaid/qualifying institutional/chronic circumstances and a supported candidate actually requires them. **conditional \u00b7 MVP flags/referral; detailed SNP matching future.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC02, RC04, RC18.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC20",
+      "kind": "conditional",
+      "question": "Where will you need routine care away from home?",
+      "researchQuestion": "Where will you need routine care away from home?",
+      "choices": [
+        [
+          "us",
+          "Another U.S. state"
+        ],
+        [
+          "abroad",
+          "Outside the U.S."
+        ],
+        [
+          "emergency",
+          "Emergency travel cover only"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC20.value.choice",
+        "readiness.facts.RC20.value.location"
+      ],
+      "purpose": "Why we ask: Routine care and emergency care can have different coverage.",
+      "capabilities": [
+        "provider_fit"
+      ],
+      "applicability": "Q8 another-state/outside-US/unknown or moving/seasonal facts make care locations material to requested provider/travel fit. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC02.",
+      "staleOnChange": [
+        "needs.travel"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC21",
+      "kind": "conditional",
+      "question": "What exact office and location should we use for each doctor or hospital?",
+      "researchQuestion": "Which location do you use for this doctor?",
+      "choices": [
+        [
+          "details",
+          "Add practice and location"
+        ],
+        [
+          "none",
+          "No longer needed"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC21.value.choice",
+        "readiness.facts.RC21.value.items[].entity",
+        "readiness.facts.RC21.value.items[].practice",
+        "readiness.facts.RC21.value.items[].city"
+      ],
+      "purpose": "Why we ask: The office location can affect the network check.",
+      "capabilities": [
+        "provider_fit"
+      ],
+      "applicability": "Provider-fit requested and Q6 names are unresolved, ambiguous, location-free, or source/network result unavailable. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC02, RC03.",
+      "staleOnChange": [
+        "needs.providersStatus",
+        "needs.providers"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC22",
+      "kind": "conditional",
+      "question": "What exact name, strength, form, and brand or generic preference should we use for each medicine?",
+      "researchQuestion": "Which version of this prescription do you take?",
+      "choices": [
+        [
+          "details",
+          "Add exact name, strength and form"
+        ],
+        [
+          "none",
+          "No longer taking"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC22.value.choice",
+        "readiness.facts.RC22.value.items[].entity",
+        "readiness.facts.RC22.value.items[].name",
+        "readiness.facts.RC22.value.items[].strength",
+        "readiness.facts.RC22.value.items[].form",
+        "readiness.facts.RC22.value.items[].brand"
+      ],
+      "purpose": "Why we ask: Strength and form can change the coverage check.",
+      "capabilities": [
+        "drug_coverage",
+        "drug_pricing"
+      ],
+      "applicability": "Drug-fit/cost requested and medication string lacks a unique ingredient/brand, strength or form; preserve original wording. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC03.",
+      "staleOnChange": [
+        "needs.medicinesStatus",
+        "needs.medications",
+        "needs.medicationDetails"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC23",
+      "kind": "conditional",
+      "question": "For each medicine, what quantity, days supply, exact pharmacy and retail or mail order should we use?",
+      "researchQuestion": "How do you usually fill this prescription?",
+      "choices": [
+        [
+          "details",
+          "Add supply and pharmacy"
+        ],
+        [
+          "mail",
+          "Mail order"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC23.value.choice",
+        "readiness.facts.RC23.value.items[].entity",
+        "readiness.facts.RC23.value.items[].quantity",
+        "readiness.facts.RC23.value.items[].daysSupply",
+        "readiness.facts.RC23.value.items[].pharmacy",
+        "readiness.facts.RC23.value.items[].channel",
+        "readiness.facts.RC23.value.items[].supply"
+      ],
+      "purpose": "Why we ask: Supply and pharmacy can change the price.",
+      "capabilities": [
+        "drug_pricing"
+      ],
+      "applicability": "A drug-cost check is requested and days supply/quantity/fill channel or exact pharmacy is missing. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC22.",
+      "staleOnChange": [
+        "needs.medicinesStatus",
+        "needs.medications",
+        "needs.pharmacies",
+        "RC22"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC24",
+      "kind": "conditional",
+      "question": "Is this given at a clinic or filled at a pharmacy?",
+      "researchQuestion": "Is this given at a clinic or filled at a pharmacy?",
+      "choices": [
+        [
+          "clinic",
+          "At a clinic"
+        ],
+        [
+          "pharmacy",
+          "At a pharmacy"
+        ],
+        [
+          "both",
+          "Both / Not sure"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC24.value.choice"
+      ],
+      "purpose": "Why we ask: Some medicines use different Medicare coverage rules.",
+      "capabilities": [
+        "drug_coverage"
+      ],
+      "applicability": "Validated source flags PA/ST/quantity restrictions, administration setting is ambiguous, or user reports a current exception/coverage problem. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC22, RC23.",
+      "staleOnChange": [
+        "needs.medications",
+        "RC22"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC25",
+      "kind": "conditional",
+      "question": "Is there a monthly amount you want to stay under?",
+      "researchQuestion": "Is there a monthly amount you want to stay under?",
+      "choices": [
+        [
+          "amount",
+          "Add an optional budget"
+        ],
+        [
+          "none",
+          "No fixed limit"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC25.value.choice",
+        "readiness.facts.RC25.value.amount",
+        "readiness.facts.RC25.value.includes"
+      ],
+      "purpose": "Why we ask: A low plan premium is not the whole cost.",
+      "capabilities": [],
+      "applicability": "Cost priority or numeric budget request is material; Q9 cost preference alone does not establish affordability or total annual spending. **conditional \u00b7 MVP.**",
+      "requiredness": "optional_preference",
+      "dependencies": "RC03, RC18.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC26",
+      "kind": "conditional",
+      "question": "Which military or veterans\u2019 coverage do you have?",
+      "researchQuestion": "Which military or veterans\u2019 coverage do you have?",
+      "choices": [
+        [
+          "va",
+          "VA health care"
+        ],
+        [
+          "tfl",
+          "TRICARE For Life"
+        ],
+        [
+          "tricare",
+          "Other TRICARE"
+        ],
+        [
+          "champva",
+          "CHAMPVA"
+        ],
+        [
+          "other",
+          "Another program"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC26.value.choice"
+      ],
+      "purpose": "Why we ask: These programs work with Medicare in different ways.",
+      "capabilities": [
+        "timing",
+        "route_comparison"
+      ],
+      "applicability": "Q5 military category or free text indicates VA, TRICARE, CHAMPVA or another federal program without exact program context. **conditional \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC04, RC12.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC27",
+      "kind": "conditional",
+      "question": "Is there a coverage interruption you need help with now?",
+      "researchQuestion": "Is there a coverage interruption you need help with now?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "human",
+          "I want human help"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC27.value.choice"
+      ],
+      "purpose": "Why we ask: An immediate gap may need a different next step.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "User/notice reports ESRD coordination, institutional stay, disaster, plan misconduct/termination, imminent coverage/refill gap or another source-listed exception. Do not screen everyone for every condition. **conditional \u00b7 MVP recognition/referral; rare-case automation future.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC08.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC28",
+      "kind": "conditional",
+      "question": "What should I correct about the specific detail we were discussing?",
+      "researchQuestion": "Which detail should we use?",
+      "choices": [
+        [
+          "original",
+          "Original Medicare is current"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage is current"
+        ],
+        [
+          "different",
+          "They apply at different times"
+        ],
+        [
+          "neither",
+          "Neither"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC28.value.choice"
+      ],
+      "purpose": "Why we ask: These answers lead to different checks.",
+      "capabilities": [
+        "route_comparison"
+      ],
+      "applicability": "Same person/period has mutually exclusive confirmed reports, unconfirmed text interpretation, or a result conflicts with the profile. **integrity_guard \u00b7 MVP.**",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "None; integrity guards run before dependent checks.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-content.json + docs/product/READINESS_TRIGGERS.md",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC11.C1",
+      "kind": "documented_child",
+      "question": "When does the job-based health coverage end?",
+      "researchQuestion": "When did the job end?",
+      "choices": [
+        [
+          "dates",
+          "Add the end dates I know"
+        ],
+        [
+          "working",
+          "Still working"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC11.value.coverageEnd"
+      ],
+      "purpose": "Why we ask: Different end dates can change your sign-up window.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Only the missing child detail/variant of RC11; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC09"
+      ],
+      "source": "docs/product/READINESS_TRIGGERS.md",
+      "parent": "RC11",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC16.C1",
+      "kind": "documented_child",
+      "question": "When did it start?",
+      "researchQuestion": "Was this your first Medicare Advantage plan?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC16.value.start"
+      ],
+      "purpose": "Why we ask: Your coverage history may affect Medigap rights.",
+      "capabilities": [
+        "medigap_rights"
+      ],
+      "applicability": "Only the missing child detail/variant of RC16; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC08, RC15.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC07"
+      ],
+      "source": "docs/product/READINESS_TRIGGERS.md",
+      "parent": "RC16",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC16.C2",
+      "kind": "documented_child",
+      "question": "Did you have Medigap before it?",
+      "researchQuestion": "Was this your first Medicare Advantage plan?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC16.value.priorMedigap"
+      ],
+      "purpose": "Why we ask: Your coverage history may affect Medigap rights.",
+      "capabilities": [
+        "medigap_rights"
+      ],
+      "applicability": "Only the missing child detail/variant of RC16; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC08, RC15.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC07"
+      ],
+      "source": "docs/product/READINESS_TRIGGERS.md",
+      "parent": "RC16",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC02.V1",
+      "kind": "runtime_variant",
+      "question": "Which county and state is your permanent home in?",
+      "researchQuestion": "Where is your permanent home?",
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC02.value.county"
+      ],
+      "purpose": "Why we ask: Plan availability depends on where you live.",
+      "capabilities": [
+        "availability"
+      ],
+      "applicability": "Only the missing child detail/variant of RC02; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01.",
+      "staleOnChange": [
+        "comparison.scope.zip",
+        "comparison.scope.county"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC02",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC02.V2",
+      "kind": "runtime_variant",
+      "question": "What is your permanent home ZIP?",
+      "researchQuestion": "Where is your permanent home?",
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC02.value.zip"
+      ],
+      "purpose": "Why we ask: Plan availability depends on where you live.",
+      "capabilities": [
+        "availability"
+      ],
+      "applicability": "Only the missing child detail/variant of RC02; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01.",
+      "staleOnChange": [
+        "comparison.scope.zip",
+        "comparison.scope.county"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC02",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC02.V3",
+      "kind": "runtime_variant",
+      "question": "Which ZIP and county will be your permanent home? Tell me whether you are moving or splitting time between homes.",
+      "researchQuestion": "Where is your permanent home?",
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC02.value.zip",
+        "readiness.facts.RC02.value.county",
+        "readiness.facts.RC02.value.homeStatus"
+      ],
+      "purpose": "Why we ask: Plan availability depends on where you live.",
+      "capabilities": [
+        "availability"
+      ],
+      "applicability": "Only the missing child detail/variant of RC02; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC01.",
+      "staleOnChange": [
+        "comparison.scope.zip",
+        "comparison.scope.county"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC02",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC10.V1",
+      "kind": "runtime_variant",
+      "question": "Does the employer have 100 or more employees?",
+      "researchQuestion": "Does the employer have 20 or more employees?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC10.value.choice"
+      ],
+      "purpose": "Why we ask: Employer size can change which coverage pays first.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Only the missing child detail/variant of RC10; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC06, RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC06",
+        "RC09"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC10",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC11.V1",
+      "kind": "runtime_variant",
+      "question": "What {missing job end / coverage end date fields} should I use?",
+      "researchQuestion": "When did the job end?",
+      "choices": [
+        [
+          "dates",
+          "Add the end dates I know"
+        ],
+        [
+          "working",
+          "Still working"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC11.value.jobEnd",
+        "readiness.facts.RC11.value.coverageEnd"
+      ],
+      "purpose": "Why we ask: Different end dates can change your sign-up window.",
+      "capabilities": [
+        "timing"
+      ],
+      "applicability": "Only the missing child detail/variant of RC11; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC09.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC09"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC11",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC12.V1",
+      "kind": "runtime_variant",
+      "question": "Has there been any gap in that drug coverage? If so, when?",
+      "researchQuestion": "Does your plan say its drug coverage is creditable?",
+      "choices": [
+        [
+          "yes",
+          "Yes, according to its notice"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "none",
+          "I have no drug coverage"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC12.value.gap"
+      ],
+      "purpose": "Why we ask: A gap in qualifying drug coverage can affect later costs.",
+      "capabilities": [
+        "timing",
+        "drug_coverage"
+      ],
+      "applicability": "Only the missing child detail/variant of RC12; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC09.",
+      "staleOnChange": [
+        "coverage.current"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC12",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC16.V1",
+      "kind": "runtime_variant",
+      "question": "What {missing Advantage start / prior Medigap fields} should I use?",
+      "researchQuestion": "Was this your first Medicare Advantage plan?",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC16.value.start",
+        "readiness.facts.RC16.value.priorMedigap"
+      ],
+      "purpose": "Why we ask: Your coverage history may affect Medigap rights.",
+      "capabilities": [
+        "medigap_rights"
+      ],
+      "applicability": "Only the missing child detail/variant of RC16; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC07, RC08, RC15.",
+      "staleOnChange": [
+        "coverage.current",
+        "RC07"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC16",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC21.V1",
+      "kind": "runtime_variant",
+      "question": "For {listed provider}, what {missing practice / office fields} should I use?",
+      "researchQuestion": "Which location do you use for this doctor?",
+      "choices": [
+        [
+          "details",
+          "Add practice and location"
+        ],
+        [
+          "none",
+          "No longer needed"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC21.value.items[].practice",
+        "readiness.facts.RC21.value.items[].city"
+      ],
+      "purpose": "Why we ask: The office location can affect the network check.",
+      "capabilities": [
+        "provider_fit"
+      ],
+      "applicability": "Only the missing child detail/variant of RC21; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC02, RC03.",
+      "staleOnChange": [
+        "needs.providersStatus",
+        "needs.providers"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC21",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC22.V1",
+      "kind": "runtime_variant",
+      "question": "For {listed medicine}, what {missing exact identity fields} should I use?",
+      "researchQuestion": "Which version of this prescription do you take?",
+      "choices": [
+        [
+          "details",
+          "Add exact name, strength and form"
+        ],
+        [
+          "none",
+          "No longer taking"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC22.value.items[].name",
+        "readiness.facts.RC22.value.items[].strength",
+        "readiness.facts.RC22.value.items[].form",
+        "readiness.facts.RC22.value.items[].brand"
+      ],
+      "purpose": "Why we ask: Strength and form can change the coverage check.",
+      "capabilities": [
+        "drug_coverage",
+        "drug_pricing"
+      ],
+      "applicability": "Only the missing child detail/variant of RC22; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC03.",
+      "staleOnChange": [
+        "needs.medicinesStatus",
+        "needs.medications",
+        "needs.medicationDetails"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC22",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC23.V1",
+      "kind": "runtime_variant",
+      "question": "For {listed medicine}, what {missing fill fields} should I use?",
+      "researchQuestion": "How do you usually fill this prescription?",
+      "choices": [
+        [
+          "details",
+          "Add supply and pharmacy"
+        ],
+        [
+          "mail",
+          "Mail order"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC23.value.items[].quantity",
+        "readiness.facts.RC23.value.items[].daysSupply",
+        "readiness.facts.RC23.value.items[].pharmacy",
+        "readiness.facts.RC23.value.items[].channel"
+      ],
+      "purpose": "Why we ask: Supply and pharmacy can change the price.",
+      "capabilities": [
+        "drug_pricing"
+      ],
+      "applicability": "Only the missing child detail/variant of RC23; deduplicate against the parent report.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "dependencies": "RC22.",
+      "staleOnChange": [
+        "needs.medicinesStatus",
+        "needs.medications",
+        "needs.pharmacies",
+        "RC22"
+      ],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC23",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    },
+    {
+      "id": "RC25.V1",
+      "kind": "runtime_variant",
+      "question": "What should that amount include: monthly premiums or total spending?",
+      "researchQuestion": "Is there a monthly amount you want to stay under?",
+      "choices": [
+        [
+          "amount",
+          "Add an optional budget"
+        ],
+        [
+          "none",
+          "No fixed limit"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "fields": [
+        "readiness.facts.RC25.value.includes"
+      ],
+      "purpose": "Why we ask: A low plan premium is not the whole cost.",
+      "capabilities": [],
+      "applicability": "Only the missing child detail/variant of RC25; deduplicate against the parent report.",
+      "requiredness": "optional_preference",
+      "dependencies": "RC03, RC18.",
+      "staleOnChange": [],
+      "source": "cms-slice/apps/ten-question/readiness-core.js::question",
+      "parent": "RC25",
+      "initialState": "unanswered",
+      "acceptedEvidence": "explicit user report or explicit unknown/deferred; never independently verified",
+      "provenance": [
+        "source",
+        "confirmation",
+        "revision",
+        "confirmedAt when available"
+      ],
+      "unknownDeferredSatisfiesRequired": false,
+      "dependencyPolicy": "Only existing reported-input dependencies; external verification remains independently held."
+    }
+  ],
+  "guards": [
+    {
+      "id": "RC29",
+      "kind": "system_missing_data_guard",
+      "intakeQuestion": false,
+      "purpose": "Unresolved source, year, geography and verification holds; intake cannot resolve these."
+    },
+    {
+      "id": "RC30",
+      "kind": "future_application_gate",
+      "intakeQuestion": false,
+      "purpose": "Plan-specific application/transition authorization; not implemented or part of intake."
+    }
+  ],
+  "sourceStatus": "29 research references; no domain/legal-policy approval. No verified plan matching, pricing or enrollment release.",
+  "independence": "Commercial economics cannot enter inclusion, eligibility, ranking, explanations or personal fit.",
+  "historicalQuestionNodes": [
+    {
+      "id": "A01",
+      "question": "What would you like help with today?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.goal",
+        "guide.fields.intent.goalRaw"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "A02",
+      "question": "Who is this for?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.subject.role",
+        "guide.fields.subject.displayLabel"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "A02B",
+      "question": "How would you like us to refer to them?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.subject.displayLabel"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "A03",
+      "question": "How familiar are you with Medicare?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.knowledge.general",
+        "guide.fields.presentation.depth"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "A04",
+      "question": "What do you already know, and what would you like explained?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.drafts.knowledgeRaw"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "A05",
+      "question": "Would you like to save this guide for your next visit?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.privacy.persistenceChoice",
+        "guide.fields.privacy.noticeAcknowledgedAt"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "L00",
+      "question": "What is Medicare?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.knowledge.topics.medicare.seen",
+        "guide.fields.knowledge.topics.medicare.selfReport"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "L01",
+      "question": "What would help next?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.learningNext"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C00",
+      "question": "Do you have Medicare yet?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.enrollment"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C01",
+      "question": "Would you like help checking what is in place?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.checks.enrollment"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C02",
+      "question": "Do you receive Social Security or Railroad Retirement benefits?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.socialBenefits"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C03",
+      "question": "Which coverage do you have now?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.current",
+        "guide.fields.intent.change"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C04",
+      "question": "What would you like to do with this coverage?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.change"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C05",
+      "question": "What birth month and year should we use for age-based timing?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.birth"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C06",
+      "question": "Is the birthday on the first day of the month?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.birth.firstDay"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "C07",
+      "question": "Do you know the Part B start month?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.partBStart"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "J00",
+      "question": "Does health insurance come from your own or a spouse\u2019s current job?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.job.status",
+        "guide.fields.intent.jobTask"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "J01",
+      "question": "What would help with the job coverage?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.jobTask"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "J02",
+      "question": "How many employees does the employer have?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.job.employerSize"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "J03",
+      "question": "When do employment and health coverage end?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.job.employmentEnd",
+        "guide.fields.coverage.job.coverageEnd"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "J04",
+      "question": "When does the job health coverage end?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.job.coverageEnd"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "J05",
+      "question": "Has the current coverage confirmed that its drug coverage is creditable?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.coverage.creditableDrug"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N00",
+      "question": "Do you take prescription medicines?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.medicinesStatus"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N01",
+      "question": "Would you like to add medicines to the checking list?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.medications"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N02",
+      "question": "Is there a pharmacy you would like to check?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.pharmacies"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N03",
+      "question": "Which dental, vision or hearing needs should we check?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.extras"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N04",
+      "question": "What is most important to you?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.priorities"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N05",
+      "question": "If these pull in different directions, which matters most?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.priorityOrder"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "N06",
+      "question": "Which doctors or hospitals would you like to check?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.needs.providers"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O00",
+      "question": "Which plans or options would you like to compare?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.compareKind",
+        "guide.fields.intent.comparisonMode"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O01",
+      "question": "How would you like to explore these options?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.comparisonMode"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O02",
+      "question": "Which plans do you have in mind?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.comparison.requestedNames"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O03",
+      "question": "Where and which coverage year?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.comparison.scope.zip",
+        "guide.fields.comparison.scope.county",
+        "guide.fields.comparison.scope.locationEvidence",
+        "guide.fields.comparison.scope.year"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O04B",
+      "question": "Which county is the home in?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.comparison.scope.county"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O05",
+      "question": "Which coverage year are you exploring?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.comparison.scope.year"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O06B",
+      "question": "Which exact record did you mean?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.comparison.candidates"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "O10",
+      "question": "What would you like to keep as your current preference?",
+      "kind": "legacy_intake_or_comparison",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.intent.statedPreference"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "H00",
+      "question": "Would you like help reviewing the next step?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.outcome.handoffIntent"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "X01",
+      "question": "Did Daylight understand you correctly?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.confirmed_patch",
+        "guide.fields.history.event"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "X05",
+      "question": "Resume your saved guide?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.session.active"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "X07",
+      "question": "Delete this saved guest guide?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.deletion.request"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "X08",
+      "question": "Save medicine and provider details for another visit?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [
+        "guide.fields.privacy.sensitiveChoice"
+      ],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "E01",
+      "question": "What would help you next?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "E02",
+      "question": "What would help you next?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "E03",
+      "question": "What would you like to do next?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    },
+    {
+      "id": "E04",
+      "question": "Which next step would help?",
+      "kind": "legacy_learning_navigation_consent_or_operation",
+      "activeInAlternative": false,
+      "fields": [],
+      "requiredness": "not_required_by_active_gate",
+      "purpose": "Preserved historical node; equivalent accepted facts are reused through baseline/RC where applicable. No new collection authorized by inventory.",
+      "source": "cms-slice/apps/chat/guide-contract.json",
+      "verification": "reported_only_or_consent/navigation; not verified coverage"
+    }
+  ]
+}

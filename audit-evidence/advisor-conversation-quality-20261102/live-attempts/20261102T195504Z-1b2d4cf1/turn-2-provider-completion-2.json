@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34596,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6742,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 289,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7031
+    },
+    "text": "{\"question_target\":\"T10\",\"reply\":\"No—these are usually two different ways to get your Medicare coverage, not two policies you buy together. In simple terms, you generally choose one path: Original Medicare means Part A and Part B through the federal program, and Medicare Advantage is a private plan that provides your Part A and Part B instead; if you choose Original Medicare, you can add a separate drug plan and possibly Medigap, but Medigap does not go with Medicare Advantage.\",\"question\":\"What matters most when we compare the two paths for you: doctors and hospitals, prescriptions, total cost, predictable costs, travel, or something else?\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.coverage.current\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"options\",\"routesintro\"],\"agenda_update\":{\"current_concern\":\"understanding Medicare choices\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"options\",\"routesintro\"]},{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"route_relationship\",\"separate_drugs\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 6.177804,
+  "turn": 2,
+  "event": "unknown_preference_and_misconception",
+  "fictional_inputs": true
+}

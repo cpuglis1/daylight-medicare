@@ -1,5 +1,7 @@
 # Daylight knowledge in Obsidian
 
+> **Retired (D142, November 11, 2026).** This vault and its refresh tooling are no longer used. Business context now lives in the Daylight Brain; see [CURRENT_STATE](CURRENT_STATE.md), "How work runs". This runbook is kept as history.
+
 D113 · November 9, 2026 · Owner's Mac · Codex and Claude Code.
 
 The existing vault is `/Users/cep4u/daylight/daylight_obsidian`. Open

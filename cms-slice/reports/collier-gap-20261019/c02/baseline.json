@@ -1,0 +1,123 @@
+{
+  "extracted_at_utc": "2026-10-20T01:32:39.481520+00:00",
+  "release_id": "naples-7a0b8eff1577df6e41eb",
+  "release_manifest_sha256": "529c0d307938014797cabfcc0ec86509a4121997946e4cd6813945058f915d95",
+  "counts": {
+    "catalog": 70,
+    "drug_bearing": 61,
+    "medical": 59,
+    "packaged_pharmacy_networks": 31
+  },
+  "categories": {
+    "MA-PD": 23,
+    "MA": 9,
+    "PDP": 11,
+    "SNP": 27
+  },
+  "contracts": [
+    "H0710",
+    "H1032",
+    "H1035",
+    "H1036",
+    "H1045",
+    "H1609",
+    "H1889",
+    "H2406",
+    "H5216",
+    "H5427",
+    "H5434",
+    "H5521",
+    "H5594",
+    "H7617",
+    "H9884",
+    "H9917",
+    "R0759",
+    "R5826",
+    "S4802",
+    "S5601",
+    "S5715",
+    "S5884",
+    "S5904",
+    "S5921"
+  ],
+  "historical_scope": {
+    "options": 38,
+    "exclusions": 32
+  },
+  "sources": {
+    "landscape": {
+      "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+      "sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab"
+    },
+    "pbp": {
+      "url": "https://www.cms.gov/files/zip/pbp-benefits-json-2027-zip.zip-0",
+      "sha256": "81288e50343924081ae0a17edf1cb2f5194e6da8fc5ed180e6c6c4fd72a05eb8"
+    },
+    "counties": {
+      "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_counties_national.zip",
+      "sha256": "4c90d0f805779923b5958ab13d0c1e9b99fe4932b786bfcf75dd739bb2dcb4ea"
+    }
+  },
+  "prescription_source": {
+    "url": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+    "bytes": 2290695063,
+    "sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+    "path": "data-sources/raw/prescription/2027_20261008.zip",
+    "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/monthly-prescription-drug-plan-formulary-and-pharmacy-network-information",
+    "catalog_distribution": {
+      "@type": "dcat:Distribution",
+      "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+      "mediaType": "application/zip",
+      "format": "ZIP",
+      "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/ed1496ea-23e7-41f1-9292-172fa842ccfb",
+      "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information : 2026-10-15",
+      "modified": "2026-10-15",
+      "temporal": "2026-10-01/2026-10-31"
+    }
+  },
+  "parser_and_runtime_sha256": {
+    "scripts/audit_prescription.py": "da360a7d96b0e2b1e950e23a654b3ad200a70af3e13f3571c0c75f3466675df5",
+    "scripts/carrier_quality.py": "f7c8054c1e4f0ab715fdb96b24d6ea9d481f409a3e701001d8d84b6750a81755",
+    "scripts/catalog_actions.py": "954a933a46e462b2dd531782a297196f11720151c83c1c73eea7300c4f00f1e4",
+    "scripts/chat.py": "7f9011ce8af8c0eb60e61034a6893113654ba8b385a397fcd8a2937823594562",
+    "scripts/check_missing_pbp.py": "42d2c331de1d68bc2c41808a2297b185602991c2ef8161a7c262b6743d03e777",
+    "scripts/cms_slice.py": "5bdb6c58d0c19b913373abee5d595373f0751d82018bef2aad003cba01064de9",
+    "scripts/conversation.py": "4c77497e38bd27030157c8223aa1a7f110ecd900877623cfd3f7bf0410e979dc",
+    "scripts/conversation_state.py": "2b687afb97906a459efe5db592d4baa2846ade4e75c533055b6866cf562dcc4d",
+    "scripts/demo.py": "9ffd55dfea5dbc1a692e980ff09298eb6c0f37420343c1c87f5b8d4c714c690b",
+    "scripts/demo_release.py": "8803589246f7d3b631b31744cb3b129a1962841e3a9919651af40ea8b41787fe",
+    "scripts/demo_tools.py": "b4dc61684ed03323c23e6f3b38f05bb207b39e765067bec688295b1e42f5564b",
+    "scripts/drug_validation.py": "6ecc265f99b836f07c220b5b35ef0dff7d7768b7bb82aa023f2a63b5b73ac799",
+    "scripts/eval_conversations.py": "5475df755366f82b93939e0bdce5d4d4daa7d2860b97b3dcf36f1164be2e66b6",
+    "scripts/eval_rubric.py": "eb60e2075e24578666944523980cf81d4f19f6dee414068cd9df4ed09bd1bc07",
+    "scripts/evidence_store.py": "a2f7f81cf84c1cd67d5bf487c2b77141de39841282d0a72337c5011a42b8bf79",
+    "scripts/identity_lookup.py": "c44ce70bf3a7dab9166b6347113333647f1618c01c0c437a5f178d6f2fb2b0e2",
+    "scripts/knowledge.py": "623b03f8c245fbbf1439e0dfad32ece90fd5f6d1e0b8a5aae6470f178e89b6cc",
+    "scripts/live_conversation.py": "74318a889b5bec6acda2e71c43c1e9fd2ae9e26cb111ae4c147fda2fae7dd475",
+    "scripts/naples_catalog.py": "6cb8187c43c30223ee6be661569f998aa65922346812293f4b16d85213d0d1a4",
+    "scripts/prescription.py": "87ca7560cf109b75afda5fd06797b0aea96cfd2e61be7b026b3f869fde25ce73",
+    "scripts/reference_evidence.py": "085846b022d00fc1d694dc934ff8d0bcf910d1a516daec65fc10bea2cd030a39",
+    "scripts/reply_validation.py": "89ee0a767a195cd6eabaa4f5eeb58b5adc9d694f85d636f774e0bc4cd1b5f7e3",
+    "scripts/research.py": "c98452e17b7f5efd69029bca8101b39bcd8d484c0daf6e9d108346d1c87d0a56",
+    "scripts/runtime_env.py": "ef44ba173e40804eae63357d8a914263a875c5598f91112e8347e3978bbc076d",
+    "scripts/source_refresh.py": "58fc43e782ede3170adc8c121b1e024a26d1bc9a9808b311f27678ee6863115b",
+    "scripts/starter_questions.py": "8a7bb99352a031efb3fa8864b6c3e8d2bf6449600e11a5053918a787b598e7e3",
+    "scripts/transcript_log.py": "53450cdc49e88cb5fe6e049091964ae65ad593e4bae1f7c9e4cdaacebf77e729",
+    "scripts/usage_metrics.py": "cff0ab3db542ecf952ac7cdd5be2eac7ce00b5b8e6d328c9e3c8b986f1f3c361",
+    "scripts/validate_devoted_drugs.py": "1f737f46530e8c8c2f197f5f5f96686da1cd71697e50b92d25d6d5e26cbab87d",
+    "scripts/validate_naples.py": "28bb0cef7f28ebf462cd77c3a923dccaf6af34012e5356768fe0b6a3714c7126",
+    "apps/chat/app.js": "cc8dc3b8a4f2e3f29ef4e7dd86221d55412d48bbc2ded0b5819c68302cf19287",
+    "apps/chat/daylight.svg": "f2124fe1ceb3dbaa55909093aa9ea5eb51edae2bc838b3dfd36f0b7523d1e286",
+    "apps/chat/index.html": "2452ca6b478b4594ca8d536c28e15dec9a1ce493ae2f0a074269084339f0507e",
+    "apps/chat/milkman.svg": "05381bdd51f50a68ec649f466f5f4b1fd031cf1bfdef9750e2097f48dce478c4",
+    "apps/chat/styles.css": "5df873854ad00b4e09959679f787953032264c6a09f0e7a4aebd50b4559f69fe",
+    "config/model_rates.json": "d1ae1602859b09b99243df1be8831ac98090a204cdc8a6e319903c0c5e859249"
+  },
+  "workspace_code_differs_from_historical_release": [],
+  "verified_release_files": 52,
+  "limits": [
+    "Historical packaged evidence verified against its own manifest; current workspace code may differ.",
+    "This baseline does not certify live-market completeness or close consumer-fact issues.",
+    "Candidate app/audit alignment is a later C34 release gate."
+  ]
+}

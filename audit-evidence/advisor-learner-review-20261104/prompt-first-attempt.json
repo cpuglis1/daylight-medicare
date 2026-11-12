@@ -1,0 +1,70 @@
+{
+  "arm": "prompt",
+  "model": "gpt-6.1-sol",
+  "fictional": true,
+  "send_limit": 8,
+  "turns": [
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense."
+      },
+      "reply": "We can review whether the current coverage still fits without assuming a change is needed. A useful review looks at doctor participation, prescription coverage, and both monthly premiums and costs when getting care—not just the premium alone. Starting with the coverage in place will help us focus on the right questions.",
+      "notice": null,
+      "question": "What health insurance does the person you’re helping have now? If you’re unsure, you can share the coverage names shown on their insurance cards.",
+      "target": "T05",
+      "learner_signal": "none",
+      "source_ids": [
+        "costs"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "elapsed_seconds": 13.96
+    },
+    {
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "original,medigap"
+        }
+      },
+      "reply": "With Original Medicare and a Medicare supplement reported, we can focus the review on that combination rather than assume a change is needed. Before comparing options, it would help to start with how the supplement fits into the coverage.\n\nWhat’s your understanding of what the Medicare supplement helps pay for? It’s fine if that part is new to you.",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 7.39
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm new to this. I don't know what the supplement does."
+      },
+      "reply": "For this review, the key idea is that a Medicare supplement—also called Medigap—helps pay some of the share of medical costs that Original Medicare leaves for the person to pay. It works alongside Original Medicare rather than replacing it.\n\nFor example, after Original Medicare pays its share of a covered doctor visit, the supplement may help with the remaining share, depending on the policy. That doesn’t mean every bill is fully paid.\n\nSo reviewing the supplement means looking at two things together: its premium—the monthly payment to keep coverage—and what remains to pay when getting care. A lower premium alone doesn’t necessarily mean lower total costs.\n\nTo try that idea out: if a supplement has a lower monthly premium, what other costs would you want to check before deciding it’s a better deal?",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "none",
+      "source_ids": [
+        "costs"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 12.87
+    }
+  ],
+  "stop": "no applicable scripted answer to the delivered question",
+  "elapsed_seconds": 34.32,
+  "accounted_usd": 0.0860781,
+  "measured_usd": 0.0860781
+}

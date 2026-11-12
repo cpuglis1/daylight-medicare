@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 44003,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8380,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 311,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 8691
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"Medicare Advantage means you get your Medicare hospital and medical coverage through a Medicare-approved private plan instead of Original Medicare. Most of those plans also include drug coverage. The important practical point for your question is that doctors, costs, and rules can vary by the exact plan, even under the same company name. So an office saying it accepts Aetna does not, by itself, prove it accepts your particular Medicare Advantage plan or what your visit would cost under it.\",\"question\":\"What ZIP code do you live in? Plans differ by county, so that helps narrow the comparison area.\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"advantage\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"what Medicare Advantage means and whether accepting Aetna proves plan acceptance\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\",\"plan_specific_rules\"],\"evidence_refs\":[\"advantage\",\"routesintro\",\"options\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\",\"advantage\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_participation\"],\"blocking_concepts\":[],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 6.455746
+}

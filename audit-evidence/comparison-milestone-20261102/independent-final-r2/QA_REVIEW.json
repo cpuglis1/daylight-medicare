@@ -1,0 +1,78 @@
+{
+  "schema": "daylight.final-bounded-independent-qa.v2",
+  "recorded_at": "2026-11-02T15:31:44.718414+00:00",
+  "disposition": "No remaining material code defect found in the reviewed bounded scope; all prior listed technical findings closed for these bytes.",
+  "source_before_after_stable": true,
+  "source_changed_paths": [],
+  "tests": {
+    "focused_python_tests": 74,
+    "passed": 74,
+    "elapsed_seconds": 7.351,
+    "log": "focused-tests.log",
+    "contains_node_wrappers": true,
+    "node_counts_not_added_to_python_total": true
+  },
+  "independent_probes": {
+    "passed": 25,
+    "receipt": "IDENTITY_PROBES.json",
+    "operator": "probe_final_identity_r2.py",
+    "actual_http": true,
+    "source_dependencies": "scripted fictional fixtures",
+    "core_profile_adapter": "actual adapter over fictional report envelopes",
+    "real_adapter_actual_source_http": "root-owned separate verification, not performed/certified by this reviewer"
+  },
+  "closures": [
+    {
+      "id": "QA-IDENTITY-CONVERSATION",
+      "state": "closed",
+      "proof": "Original r1 logical sequence repeated against fixed HTTP code: a different signed start chain immediately erases old offer; old-token confirm returns422. A new same-chain offer and explicit confirmation still work."
+    },
+    {
+      "id": "QA-IDENTITY-DELETION",
+      "state": "closed",
+      "proof": "Independent HTTP: bad CSRF returns403 and preserves pending+selected; authenticated DELETE with stale expected version returns409 and clears both. Successful delete cleanup is covered by focused HTTP suite."
+    },
+    {
+      "id": "QA-IDENTITY-PROVIDER-STOP",
+      "state": "closed",
+      "proof": "Independent per-record discovery candidate STOP, exact source-record STOP and actor snapshot STOP all reject before source labels. Focused tests also cover source revisions, qualifiers, report corrections and expiry."
+    },
+    {
+      "id": "QA-IDENTITY-STALE-HEAD",
+      "state": "closed",
+      "proof": "Changed head during source read yields409 with no identity/comparison output; stale-head repeat stops before another source query. Focused suite covers journal-signature changes and comparison endpoint head changes."
+    },
+    {
+      "id": "QA-IDENTITY-PARTIAL-CONTEXT",
+      "state": "closed_for_explicit_partial_scope",
+      "proof": "Renderer retains top-level partial plus entity/role/site flags and site-continuation restriction. Journey rejects unsupported exact-window continuation rather than replaying first window silently; it does not claim full site enumeration."
+    },
+    {
+      "id": "QA-IDENTITY-PERIOD-CONTEXT",
+      "state": "closed",
+      "proof": "Independent provider result retains explicit source-period end, literal active=false status and qualifier text. Renderer tests inspect source dates/qualifications as text and explicitly disavow current-practice/network verification."
+    }
+  ],
+  "integration_review": {
+    "server": "Default identity service held; internal source dependencies require explicit server-side --identity-research, separate from --local-research. Protected ports still rejected. Source data not provided through request parameters.",
+    "ownership": "Cookie/CSRF + current signed head/journal checked before and after reads; RAM ownership includes server-derived owner+chain. New chain/deletion/server close clear appropriate state.",
+    "comparison": "Current technical report associations attach to private preparation with new digest/ref and held authority; coverage findings remain empty and saving/model context unchanged.",
+    "frontend": "Current-continuation acceptance, stale/failure clearing of source labels, source/own-report distinction, partial/period contexts and no clinical/network/consumer purpose promotion reviewed."
+  },
+  "remaining_limits": [
+    "Provider exact entity/role/location windows are explicitly not routed as a complete continuation; source omissions/caps remain visible.",
+    "Technical identity association still requires separate reported-detail consistency, current practice/network/clinical/coverage methods and their source/release authority.",
+    "Root performs actual-source full HTTP and responsive browser checks separately; this receipt grants no actual-source, expert/domain or consumer acceptance.",
+    "The historical doctor-entry HTTP500 remains undiagnosed; earlier incident packet and diagnostic limitations remain unchanged."
+  ],
+  "fixture_correction_history": "First additional operator attempt reached its final supplementary HTTP seed then rejected a comparison-only template as invalid controller input. Failed operator/log retained unchanged. The corrected final operator omits that duplicate actual-adapter HTTP journey as requested; legitimate entity=new seeding was independently confirmed in a separate fictional inline check. No product fix was made or inferred.",
+  "actions": {
+    "app_or_test_source_edits": 0,
+    "actual_postgresql_queries": 0,
+    "real_customer_store_reads": false,
+    "paid_model_calls": 0,
+    "runtime_restart_or_actual_service_lifecycle_actions": 0,
+    "source_schema_or_sealed_packet_changes": 0,
+    "new_source_or_consumer_acceptance": false
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 38806,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7597,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 336,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7933
+    },
+    "text": "{\"question_target\":null,\"reply\":\"You learned that Medicare is federal health insurance and that your two main paths are Original Medicare or Medicare Advantage. Original Medicare is Parts A and B through the federal program; Medicare Advantage is a private plan that provides Parts A and B instead. For the concern you raised, the key difference is doctor access: with Original Medicare, any U.S. doctor who takes Medicare can accept you as a patient, while with Medicare Advantage, whether a doctor is available to you depends on the specific plan. You also learned that drug coverage fits in differently: with Original Medicare it is separate, and with Medicare Advantage most plans include it.\\n\\nOne next thing to check later is any doctor or hospital you want to keep, because that can strongly affect which path feels safer for you.\",\"question\":\"\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"basics\",\"routesintro\",\"original\"],\"agenda_update\":{\"current_concern\":\"summary for today\",\"pause\":true},\"education\":{\"purpose\":\"recap\",\"updates\":[{\"concept_id\":\"medicare_basics\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"federal_health_insurance\"],\"evidence_refs\":[\"basics\"]},{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\"],\"evidence_refs\":[\"routesintro\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"original_provider_access\",\"plan_specific_participation\"],\"evidence_refs\":[\"original\",\"checks\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 11.33561,
+  "turn": 7,
+  "event": "closure",
+  "fictional_inputs": true
+}

@@ -1,0 +1,1145 @@
+DEPARTMENT OF HEALTH & HUMAN SERVICES
+Centers for Medicare & Medicaid Services
+7500 Security Boulevard
+Baltimore, Maryland 21244-1850
+
+CENTERS FOR MEDICARE & MEDICAID SERVICES
+
+DATE:          June 11, 2026
+
+TO:            All Part D Plans
+
+FROM:          Vanessa S. Duran, Director
+               Medicare Drug Benefit and C & D Data Group
+               Center for Medicare
+
+               Jon G. Booth, Director
+               Web and Emerging Technologies Group
+               Office of Communications
+
+SUBJECT:       Contract Year (CY) 2027 Part D Pricing Data Submission Guidance
+
+Part D sponsors will use the Health Plan Management System (HPMS) Part D Pricing File
+Submission (PDPFS) module to submit their drug pricing and pharmacy data for posting on the
+Medicare Plan Finder (MPF). CMS will release the CY 2027 module to all Part D sponsors on
+June 27, 2026 in preparation for the first official CY 2027 pricing file test window.
+
+Designed as a “one-stop shop” for all aspects of the Part D drug pricing submission process, this
+module consolidates the upload, validation, and attestation functions into a single location. This
+solution:
+
+   •   Enables users to resubmit continuously to address errors
+   •   Provides validation results after each upload rather than at the end of the submission
+       period
+   •   Ensures that validations are being applied using the benefit and formulary data that
+       resides natively inside HPMS
+   •   Presents validation results immediately to users via online views and reports
+   •   Allows users to perform attestations online in HPMS
+   •   Supports the submission of Part D pricing files using an Application Programming
+       Interface (API)
+
+The PDPFS module can be accessed using the following navigation path:
+
+HPMS Home Page > Plan Formularies > Part D Pricing File Submission
+
+
+
+
+                                                                                        Page 1 of 23
+New for CY 2027
+
+   1. CMS will extend the bi-weekly submission of drug pricing and pharmacy network data
+       through mid-December to ensure beneficiaries can access the most up-to-date
+       information on MPF through the end of the year. Additional guidance will be issued for
+       CY 2026 under separate cover.
+
+   2. The thresholds for the “Difference in Brand and Generic Dispensing Fees” validation for
+       30, 60, and 90 day supply will increase from $4 to $12.
+
+   3. The “Difference in Retail Pharmacy Brand and Generic Dispensing Fees” and
+       “Difference in Mail Order Pharmacy Brand and Generic Dispensing Fees” informational
+       validations will be removed.
+
+   4. CMS will send the “processing completed” email notification after the generation of the
+       Findings Detail Reports. This change will better signal to users when their reports have
+       been fully refreshed.
+
+Dispensing Fees for Drugs Selected for Negotiation
+
+Part D sponsors can define a different dispensing fee for selected drugs at a 30 day supply, 60
+day supply, and 90 day supply.
+
+When reporting the dispensing fee for a selected drug, Part D sponsors have two options:
+
+   1. Use the standard brand dispensing fee, or
+   2. Establish a separate dispensing fee for the selected drug.
+
+Option 1: Standard Brand Dispensing Fee
+
+Part D sponsors opting to use standard brand dispensing fees for selected drugs should continue
+to use the existing pharmacy cost file layout presented in Appendix D. MPF will apply the brand
+dispensing fee to all brand name drugs, including selected drugs on the plan formulary.
+
+Option 2: Separate Dispensing Fee
+
+Part D sponsors electing to establish a different dispensing fee for selected drugs will use the
+modified pharmacy cost file layout presented in Appendix E. MPF will apply the selected drug
+dispensing fee to all selected drugs on the plan formulary.
+
+Three fields have been added to the end of this alternative layout:
+
+   •   SELECTED_DRUG_DISPENSING_FEE_30
+   •   SELECTED_DRUG_DISPENSING_FEE_60
+   •   SELECTED_DRUG_DISPENSING_FEE_90
+
+
+
+
+                                                                                        Page 2 of 23
+When using the Appendix E layout, Part D sponsors must:
+
+   •   Include all three selected drug dispensing fee fields on all records in the file. These
+       values cannot be null.
+
+   •   Record the brand dispensing fee in the selected drug dispensing fee field where the brand
+       and selected drug dispensing fees are the same for a certain day supply.
+
+       Example: A Part D sponsor has established the following brand and selected drug
+       dispensing fees for CY 2027.
+
+            Day Supply Brand Dispensing Fee Selected Drug Dispensing Fee
+                30            $2.00                     $8.00
+                60            $4.00                     $4.00
+                90            $6.00                     $6.00
+
+       In this case, the Part D sponsor will use the alternative pharmacy cost file layout and
+       submit these values, which includes reporting $4.00 in both the 60 brand dispensing fee
+       field and the 60 day selected drug dispensing fee field.
+
+Getting Access to the HPMS Part D Pricing File Submission Module
+
+To access the module, each user must have the following:
+
+1. An active CMS user ID with the HPMS production job code assigned (HPMS_Prod_AWS),
+2. One or more contract numbers assigned to the user ID in HPMS, and the
+3. Following HPMS access types assigned to the user ID:
+       a. Part D Pricing Submission - Plan
+       b. Part D Pricing View/Reports - Plan
+
+Consultants may also perform this work on behalf of Part D sponsors in HPMS. Please refer to
+the March 9, 2026 memo entitled “Instructions for Requesting Consultant Access to the Health
+Plan Management System (HPMS)” for detailed guidance on requesting this type of access.
+
+Please note that there is no limit on the number of users permitted access to HPMS per
+organization.
+
+General HPMS user access guidance is available at the following website:
+https://www.cms.gov/Research-Statistics-Data-and-Systems/Computer-Data-and-
+Systems/HPMS/UserIDProcess.html
+
+Part D Pricing File Submission API
+
+An application programming interface, or API, provides an interface that allows two pieces of
+software or systems to communicate with each other. HPMS follows the Partner API release
+policy, where the API is shared only with users that have access to HPMS.
+
+
+                                                                                         Page 3 of 23
+  In the case of the Part D pricing files, the API can be used to set up protocols to submit the
+  pricing files automatically to HPMS on a scheduled basis, without an individual physically
+  logging into the HPMS website. 1 To accomplish this, a Part D sponsor or contracted industry
+                                         0F
+
+
+
+
+  partner would be responsible for developing an API to: (1) send the drug pricing files to the
+  PDPFS API, and (2) call the PDPFS API to determine the status of the submitted drug pricing
+  files.
+
+  For additional API guidance, please refer to the Documentation section of the publicly-available
+  HPMS landing page (https://hpms.cms.gov).
+
+  For API technical support, please contact hpmstechsupport@softrams.com. The HPMS Help
+  Desk will not provide this level of technical assistance.
+
+  CY 2027 Drug Pricing Submission Schedule
+
+  HPMS uses a two-week cycle for drug pricing submissions. The following calendar provides a
+  sample daily view of the two-week submission schedule.
+
+                                                       Week One
+
+Sunday       Monday              Tuesday            Wednesday            Thursday              Friday             Saturday
+
+          Submission          Plans submit        Plans submit        Plans submit        Resubmission          Eligible
+          period begins       pricing files       pricing files       pricing files       period begins         plans submit
+          at 6:00             and receive         and receive         and receive         at 12:00 p.m.         pricing files
+          a.m. ET.            validation          validation          validation          ET.                   and receive
+                              results. Can        results. Can        results. Can                              validation
+          Plans submit        resubmit            resubmit            resubmit            Eligible plans        results. Can
+          pricing files       continuously.       continuously.       continuously.       submit pricing        resubmit
+          and receive                                                                     files and receive     continuously.
+          validation                                                  Submission          validation
+          results. Can                                                period ends at      results. Can
+          resubmit                                                    12:00 p.m. ET.      resubmit
+          continuously.                                                                   continuously.
+                                                                      HPMS runs
+                                                                      outlier checks
+                                                                      and notifies
+                                                                      plans.
+
+
+
+
+  1
+   The PDPFS API supports the submission of pricing files and retrieval of the file submission status. At this time,
+  other actions, such as performing attestations and retrieving detailed validation findings, must be performed in the
+  PDPFS module.
+
+
+                                                                                                              Page 4 of 23
+                                                    Week Two
+
+   Sunday           Monday          Tuesday         Wednesday       Thursday            Friday             Saturday
+
+Eligible plans   Eligible plans   Eligible plans   Eligible plans   Eligible       Plan attestations
+submit pricing   submit pricing   submit pricing   submit pricing   plans          due in HPMS by
+files and        files and        files and        files and        complete       2:00 p.m. ET.
+receive          receive          receive          receive          attestations
+validation       validation       validation       validation       in
+results. Can     results. Can     results. Can     results. Can     HPMS.
+resubmit         resubmit         resubmit         resubmit
+continuously.    continuously.    continuously.    continuously.
+
+                                                   Submission
+                                                   period ends
+                                                   at 12:00 p.m.
+                                                   ET.
+
+                                                   HPMS runs
+                                                   outlier checks
+                                                   and notifies
+                                                   plans.
+
+
+   The CY 2027 drug pricing submission calendar is provided in Appendix A.
+
+   Appendix B includes the dates on which HPMS will pull approved formularies and benefits and
+   corresponding reference data to perform validations during each CY 2027 bi-weekly drug pricing
+   submission window.
+
+   CY 2027 Drug Pricing Validations
+
+   HPMS uses a multi-tiered approach when validating the in-bound drug pricing file submissions
+   regarding both format and content. The three distinct validation levels are described in the table
+   below.
+
+         Validation                                         Description
+           Step
+
+        Level One        Level One validation is performed when the user attempts to upload the zip file.
+                         This step performs basic checks (e.g., file format and file size) in real-time. If
+                         the zip file fails one or more checks in level one, it will not be uploaded to
+                         HPMS.
+
+        Level Two        Level Two validation is performed after the zip file passes level one. The zip
+                         file goes into a queue where HPMS performs continuous processing. When the
+                         zip file is selected in the queue, HPMS executes two distinct sets of validation:
+
+                         Part One: Fatal Errors
+
+
+
+
+                                                                                                       Page 5 of 23
+     Validation                                       Description
+       Step
+
+                    The upload will be automatically rejected if one or more of these validations
+                    fail. Some examples include:
+
+                        •   Upload does not contain required files
+                        •   Record format in each of the pharmacy cost/pricing/ceiling price files
+                            does not match the format specified in the guidelines
+                        •   Pharmacy cost file has invalid plans or segments
+
+                    Part Two: Comprehensive Validations
+
+                    When the upload passes part one, HPMS will perform a set of comprehensive
+                    checks. Some examples include:
+
+                        •   Mail order pricing not indicated in the Plan Benefit Package (PBP)
+                        •   Pharmacy cost and pricing file mismatch
+                        •   Pharmacies marked as neither retail nor mail
+
+    Level Three     Level Three is performed one time after each of the first and second submission
+                    windows close. This step performs outlier checks that are based upon the entire
+                    set of drug pricing data submitted by Part D plans (i.e., high/low unit cost and
+                    high/low ceiling quantity).
+
+
+Medicare beneficiaries depend on the display of accurate data on MPF. As such, Part D sponsors
+are required to perform their own quality assurance checks before submission to ensure that the
+files are complete and accurate.
+
+The validations discussed in this memo are not statements of the levels of permissible error for
+Part D program compliance purposes. These validations are tools used by CMS to identify
+potential inaccuracies prior to display on MPF. They do not necessarily identify inaccurate drug
+pricing files; rather, they may prompt CMS to contact a sponsor for clarification of the accuracy
+of its submission.
+
+Drug pricing submissions must be complete and accurate in all respects. Part D sponsors are
+solely accountable for any anomalies or errors in their data. Drug pricing submissions submitted
+for display on MPF during the Annual Enrollment Period must accurately reflect drug costs for
+the upcoming contract year. This means that the drug pricing data provided during the Annual
+Enrollment Period should reflect the pricing methodology that the plan will use to determine
+drug prices during the upcoming year. However, it does NOT mean that a plan should alter the
+drug pricing reference, such as Average Wholesale Price (AWP), used in that methodology to
+account for future changes that the plan believes may occur. Additionally, sponsors may not
+artificially inflate drug price submissions made during the contract year for the purpose of
+improving performance measures.
+
+
+
+
+                                                                                             Page 6 of 23
+Because of MPF’s critical role in providing beneficiaries with reliable information about their
+drug plan options, CMS will suppress the display of a sponsor’s information when the sponsor
+fails to correct their data, confirm the accuracy of its data, or respond to a CMS inquiry.
+Sponsors may be subject to Part D program compliance and enforcement actions because of
+MPF suppressions or inaccurate data submissions. Inflating or deflating prices based on artificial
+projections and/or applying pricing methodology for the incorrect year as discussed above may
+be considered inaccurate MPF submissions.
+
+Please refer to Appendix C for a comprehensive inventory of the validations to be performed in
+CY 2027 across all three levels.
+
+CY 2027 Drug Pricing Submission Rules
+
+Only eligible Part D sponsors may resubmit pricing data during the second window of the two
+week submission period. The following table illustrates the circumstances under which a sponsor
+may resubmit in week two.
+
+     What happened in the           Level One           Level Two         Level Three             Can the
+        first window?                Results             Results           Results               sponsor
+                                                                                               submit in the
+                                                                                                  second
+                                                                                                 window?
+
+    Sponsor does not submit             N/A                N/A                 N/A                  No
+    any pricing data in HPMS.
+
+    Sponsor submits but fails           Fail               N/A                 N/A                  No
+    level one.
+
+    Sponsor submits, passes             Pass               Fail                N/A                  No
+    level one, but fails level
+    two.
+
+    Sponsor submits and                 Pass               Pass                Pass                No 21F
+
+
+
+
+    passes all levels.
+
+    Sponsor submits, passes             Pass               Pass                Fail                 Yes
+    levels one and two, but
+    triggers an outlier in level
+    three.
+
+
+
+
+2
+ Sponsors that subsequently identify an error in their data from the regular submission window (i.e., the first
+submission period of the two week cycle) may submit a request to hpms@cms.hhs.gov to resubmit in the correction
+window. CMS will review these requests on a case-by-case basis. If a suppressible error is discovered during the
+correction window, the contract will be suppressed on MPF.
+
+
+                                                                                                    Page 7 of 23
+   What happened in the           Level One        Level Two        Level Three           Can the
+      first window?                Results          Results          Results             sponsor
+                                                                                       submit in the
+                                                                                          second
+                                                                                         window?
+
+  Sponsor submits, passes            Pass             Fail              Pass               Yes
+  level one, triggers an
+  outlier in level two, but
+  passes level three.
+
+  Sponsor submits, passes            Pass             Fail               Fail              Yes
+  level one, but
+  triggers outliers in levels
+  two and three.
+
+
+Please note the following:
+
+    •   If a Part D sponsor submits multiple times during either the first or second window,
+        HPMS will consider the last one to be the sponsor’s official submission, regardless of its
+        status.
+
+    •   A submission will be included in the Level Three validation as long as it is processed
+        through Level Two.
+
+File Specifications
+
+For CY 2027, Part D sponsors will use the same pharmacy cost file, pricing file, and ceiling price
+file layouts that are currently in use. These file layouts are provided in Appendix D (pharmacy
+cost), Appendix E (alternative pharmacy cost), Appendix F (pricing file), and Appendix G
+(ceiling price).
+
+Submissions must adhere to the following specifications:
+
+    •   For each contract number, HPMS requires one pharmacy cost (PC) file, one pricing file
+        (PF), and if applicable, one ceiling price (CP) file.
+
+    •   All files must be prepared as fixed length, tab-delimited text (.txt) files.
+
+    •   All files must follow these Float(12) and Currency(12) guidelines:
+
+            o Do not include the decimal point
+            o Format structure of $$$$$$$$cccc
+                  $$$$$$$$ are the numbers to the left of the decimal point (with leading
+                     zeros)
+                  cccc are the numbers to the right of the decimal point (with trailing zeros)
+
+
+
+                                                                                            Page 8 of 23
+           Examples:
+
+           $1.50 = 000000015000
+           10% = 000000001000
+
+   •   Each file must have a header record that includes:
+
+           o   Contract number (letter plus four numbers)
+           o   Contract year (YYYY)
+           o   Record count for the entire file (num (9) with leading zeros) (XXXXXXXXX)
+           o   Create date (CCYYMMDD)
+
+           Sample Header Record – H9999202700000001020260710
+
+           (Contract number is H9999; contract year is 2027; record count is 000000010; and
+           create date is 20260710)
+
+   •   Each file must have a footer record that includes:
+
+           o Contract number (letter plus four numbers)
+           o EOF (for End of File)
+
+           Sample Footer Record – H9999EOF
+
+   •   Each file must use the following naming convention: ContractIDXX.txt
+
+           o Contract ID is the five position (one letter followed by four numbers) contract
+             number issued by CMS
+           o XX is the abbreviation for each of the three files (i.e., PC, PF, and CP)
+           o Example: H9999PC.txt
+
+   •   These files must be packaged in a single zip file that uses the following naming
+       convention: ContractID.zip
+
+           o Example: H9999.zip
+
+Timeline for CY 2027 Data Submissions for October 1, 2026 MPF Launch
+
+The CY 2027 pricing data will be published on MPF on October 1, 2026. The following table
+outlines the key submission, preview, and release schedules leading up to the October 1, 2026
+publication.
+
+HPMS will administer each test submission window according to the typical two-week cycle as
+described in the “CY 2027 Drug Pricing Submission Schedule” section above. In other words,
+the system will follow the same daily schedule, apply the full set of validations and accept
+attestations during each test submission window as it would during a production window.
+
+
+
+                                                                                          Page 9 of 23
+   Start Date        End Date                   Event                         Comments
+
+June 29, 2026     July 2, 2026      Part D sponsors perform test     Eligible sponsors can
+                                    submission #1 of their CY        resubmit from July 3 (12:00
+6:00 a.m. ET      12:00 p.m. ET
+                                    2027 pricing and pharmacy        p.m. ET) through July 8
+                                    data in HPMS. Data from test     (12:00 p.m. ET).
+                                    submission #1 will not be
+                                    publicly released.
+
+July 20, 2026     July 23, 2026     Part D sponsors perform test     Eligible sponsors can
+                                    submission #2 of their CY        resubmit from July 24 (12:00
+6:00 a.m. ET      12:00 p.m. ET
+                                    2027 pricing and pharmacy        p.m. ET) through July 29
+                                    data in HPMS. Data from test     (12:00 p.m. ET).
+                                    submission #2 will not be
+                                    publicly released.
+
+August 5, 2026    August 11, 2026   Part D sponsors participate in   This preview will be
+                                    the first preview of their CY    populated with data from test
+                                    2027 drug pricing data in        submission window #2.
+                                    HPMS.
+
+August 17, 2026   August 20, 2026   Part D sponsors perform test     Eligible sponsors can
+                                    submission #3 of their CY        resubmit from August 21
+6:00 a.m. ET      12:00 p.m. ET
+                                    2027 pricing and pharmacy        (12:00 p.m. ET) through
+                                    data in HPMS. Data from test     August 26 (12:00 p.m. ET).
+                                    submission #3 will not be
+                                    publicly released.
+
+September 8,      September 11,     Part D sponsors participate in   This preview will be
+2026              2026              the second preview of their      populated with data from test
+                                    CY 2027 drug pricing data in     submission window #3.
+                                    HPMS.
+
+
+September 14,     September 17,     Part D sponsors perform their    Eligible sponsors can
+2026              2026              first CY 2027 production         resubmit from September 18
+                                    pricing and pharmacy data        (12:00 p.m. ET) through
+6:00 a.m. ET      12:00 noon ET
+                                    submission in HPMS. These        September 23 (12:00 p.m.
+                                    data will be published on MPF    ET).
+                                    on October 1, 2026.
+
+October 1, 2026   October 1, 2026   CMS launches the CY 2027         MPF will use the drug pricing
+                                    drug pricing data on MPF.        data from the first CY 2027
+                                                                     production submission cycle.
+
+
+
+
+                                                                                       Page 10 of 23
+General Submission Guidance
+
+In support of the MPF, Part D sponsors are required to:
+
+   •   Ensure that there are enough individuals with the HPMS access required to perform the
+       CY 2027 drug pricing submissions.
+
+   •   Participate in the scheduled test submission windows and plan previews, as outlined in
+       this memo.
+
+   •   Prepare and submit their drug pricing files in accordance with the technical specifications
+       and timelines provided in this memo.
+
+           o If multiple files are submitted for a given contract number, HPMS will consider
+             the latest one that is received to be the official submission on record. If a prior
+             submission is successful, but the last submission is not, HPMS will use the results
+             from the last submission.
+
+   •   Submit complete pricing files for each contract number during every two-week
+       submission cycle.
+
+           o When changes occur, submit updated pricing files.
+           o When no changes have occurred, submit the same pricing files from the previous
+             cycle.
+
+   •   Monitor and review the submission status and validation results as presented in HPMS.
+
+   •   Address validation errors, as needed, and resubmit pricing files to HPMS.
+
+   •   Complete plan attestations in HPMS, where applicable.
+
+CMS strongly recommends that plans submit their pricing files as early as possible to
+retrieve the validation results and resubmit accordingly.
+
+Preparing the Pharmacy Cost File
+
+Part D sponsors are required to adhere to the following guidance when preparing the pharmacy
+cost (PC) file:
+
+   •   Pharmacy network submissions for MPF must be a full representation of the Part D
+       sponsor’s contracted retail and mail order network pharmacies. All pharmacies submitted
+       for MPF display must be identified as either retail or mail order based on the sponsor’s
+       retail and mail order pharmacy network contracts.
+
+
+
+
+                                                                                      Page 11 of 23
+       o Any contracted pharmacy that only serves as a long-term care (LTC), home
+         infusion (HI), limited access (LA), or any other non-retail or non-mail pharmacy
+         type may not be included in the PC file.
+
+       o A pharmacy that serves as both retail and/or mail order and as LTC, HI, or LA
+         organizations may be included in the PC file. In the PC file, sponsors must ensure
+         that the retail and/or mail order pharmacy flag(s) are set to “1,” in accordance
+         with their network contracts.
+
+       o If a Part D sponsor submits pharmacies that are not flagged as either retail or mail
+         order (i.e., PHARMACY_RETAIL=0 and PHARMACY_MAIL=0), their pricing
+         data will be suppressed in MPF. Conversely, an organization must not falsely flag
+         pharmacies contracted to only serve as LTC, HI, or LA as a retail network or mail
+         network order pharmacy, if not contracted as such, in their PC file.
+
+•   There must only be one record per network pharmacy/plan.
+
+•   All PRICE_IDs listed in the PC file must exist in the corresponding pricing file (PF).
+
+•   If a sponsor’s network has Preferred Network pharmacies, then there must also be
+    Standard Network pharmacies.
+
+       o In other words, if a sponsor has indicated “1” (i.e., Preferred Network Pharmacy),
+         the PC file must also have a “0” (i.e., Standard Network Pharmacy).
+       o If a sponsor’s network does not have Preferred Pharmacies, then all pharmacies
+         must be indicated as “0” (i.e., Standard Network Pharmacy).
+       o As defined in the regulation 42 CFR § 423.104, a preferred pharmacy is a
+         network pharmacy that offers covered Part D drugs at negotiated prices to Part D
+         enrollees at lower levels of cost sharing than would apply at a non-preferred
+         pharmacy under its pharmacy network contract with a Part D sponsor.
+
+•   PHARMACY_RETAIL and PHARMACY_MAIL are present to indicate whether a
+    particular contracted network retail or mail order pharmacy offers drug sales at either a
+    standard retail supply or a mail order supply. If both services are offered, enter “1” for
+    both fields. Otherwise, enter a “1” only for the applicable pharmacy type.
+
+    Example: If pharmacy #101234567890 offers 30, 60, and 90 day retail and 90 day mail
+    order, the pharmacy cost file would be prepared as follows:
+
+    H9999 001 000 101234567890 100 000000030000 000000015000 000000200000 0 1 1 0
+    0 0 0 000000060000 000000030000 000000090000 000000045000
+
+•   Pharmacies that offer both retail and mail order pharmacies can designate different
+    preferred network pharmacy statuses. Please note that the preferred status of both retail
+    and mail order pharmacies as presented in the PC file must match the sponsor’s CY 2027
+    bid submission.
+
+
+
+                                                                                     Page 12 of 23
+   •   For pharmacies that offer both retail and mail order pharmacies and have different
+       dispensing fees for retail and mail order pharmacies, the highest dispensing fee must be
+       entered (applies to BRAND_DISPENSING_FEE_30,
+       GENERIC_DISPENSING_FEE_30, BRAND_DISPENSING_FEE_60,
+       GENERIC_DISPENSING_FEE_60, BRAND_DISPENSING_FEE_90, and
+       GENERIC_DISPENSING_FEE_90). This guidance also applies to the selected drug
+       dispensing fee fields: SELECTED_DRUG_DISPENSING_FEE_30,
+       SELECTED_DRUG_DISPENSING_FEE_60, and
+       SELECTED_DRUG_DISPENSING_FEE_90.
+
+   •   The maximum cost of administering any covered vaccine under the respective price ID
+       must be entered. If a vaccine requires a series of administrations, include the cost of one
+       (1) dose.
+
+   •   Floor pricing is used when a sponsor negotiates a minimum price that a given pharmacy
+       will be paid for filling a prescription. Floor pricing is often used for very low cost
+       generics. Please note that floor pricing is applied to drugs when the full cost is less than
+       the floor price. This full cost includes the dispensing fee.
+
+       Example: A sponsor has a floor price of $3 in price ID 101 at Pharmacy A. The sponsor
+       would submit pharmacy records in the following format:
+
+       H9999 001 000 101234567890 101 000000015000 000000015000 000000000000
+       010000 0 000000030000 000000015000 000000015000 000000015000 000000015000
+
+       If drug Z has a full cost of $4 at Pharmacy A, then MPF will display the standard full
+       cost.
+       If drug Y has a full cost of $2.50 at Pharmacy A, then MPF will display the floor price of
+       $3.
+
+       Note: This example uses the pharmacy cost file format in Appendix D.
+
+Preparing the Pricing File
+
+Part D sponsors are required to adhere to the following guidance when preparing the pricing file
+(PF):
+
+   •   MPF displays one cost for all National Drug Codes (NDCs) for a given brand name,
+       generic name, dosage form, route of administration, and strength combination. Sponsors
+       must submit records, as described in this memo, with unit costs for all NDCs listed on the
+       CMS Formulary Reference File (FRF) that are also present on the corresponding
+       approved plan formulary.
+
+   •   Enhanced alternative plans that submitted a supplemental excluded drug file in HPMS
+       must also include the pricing for the related NDCs in this submission.
+
+
+
+
+                                                                                         Page 13 of 23
+•   Failure to submit pricing for an NDC/RXCUI on the plan’s approved formulary will
+    result in the display of a default drug price (to approximate cash pricing) on MPF.
+
+•   Submission of pricing for NDCs that are not included on the plan’s approved formulary
+    will also result in the display of default pricing.
+
+•   The pricing file determines the base unit cost of an NDC in the associated PRICE_ID.
+
+•   The PRICE_ID field is determined by the Part D sponsor using the following parameters:
+
+       o The lowest available PRICE_ID is 001.
+       o PRICE_IDs are assigned sequentially.
+
+•   Ranges of PRICE_IDs are no longer reserved for certain types of pharmacies. As long as
+    the lowest available PRICE_ID is 001, and the PRICE_IDs are assigned sequentially,
+    sponsors may associate a given PRICE_ID to any type of pharmacy (i.e., retail or mail
+    order).
+
+•   The pricing file is associated with a plan through the pharmacy cost file.
+
+•   Every drug from the formulary must be covered under each PRICE_ID.
+
+•   Unit pricing can be provided for 30, 60, and 90-day supplies at either a retail or mail-
+    order pharmacy. Pricing must not be included for any DAYS_SUPPLY that is other than
+    30, 60, or 90. For example, a 34-day supply is not supported and will produce a level 2
+    fatal error (i.e., invalid record format).
+
+•   Plans must review their pricing data prior to submission.
+
+•   Unit costs reported in PDPFS should be based on the NCPDP unit.
+
+•   HPMS will treat a value of 00000000000 in the Unit_Cost field of the pricing file as a
+    “true” $0 unit cost. This value will no longer trigger the display of default pricing on
+    MPF.
+
+•   An NDC can be listed up to 6 times, as long as the DAYS_SUPPLY and IS_MAIL fields
+    are unique (i.e., 30-Retail, 30-Mail Order, 60-Retail, 60-Mail Order, 90-Retail-90, or 90-
+    Mail Order).
+
+•   Pricing must be included for all DAYS_SUPPLY and IS_MAIL types offered by the plan
+    benefit package. If drug pricing is provided for a type that the plan has not defined as
+    covered, those prices will be ignored.
+
+    Example: If a pharmacy offers 30, 60, and 90 day supply at retail and 90 day supply at
+    mail order under PRICE_ID 100, the following records must be included in the pricing
+    file:
+
+
+                                                                                    Page 14 of 23
+    S1234 100 12345678910 30 0 000000080000 0
+    S1234 100 12345678910 60 0 000000125000 0
+    S1234 100 12345678910 90 0 000000160000 0
+    S1234 100 12345678910 90 1 000000100000 0
+
+    The above structure indicates that NDC 12345678910 has a UNIT_COST of $8.00 for a
+    30-day retail supply, $12.50 for a 60-day retail supply, $16.00 for a 90-day retail supply,
+    and $10.00 for a 90-day mail order supply. If the plan submitted a UNIT_COST for this
+    drug at a 30- or 60-day mail order pharmacy, those unit costs would be ignored. If the
+    plan did not provide a price for this drug at 30 day supply at retail, MPF would display a
+    default price.
+
+•   Plans that have vaccines in their formulary are required to include pricing for vaccines in
+    all PRICE_IDs, including those PRICE_IDs specifically designated for mail order.
+    Please refer to the pharmacy cost file layout for more information.
+
+•   Related NDCs contained on the CY 2027 FRF must be used for the submission of Part D
+    drug pricing files.
+
+    Example: Zocor 10 MG and Simvastatin 10 MG are represented on the CY 2027 FRF as
+    follows:
+
+    RXCUI TTY            RxNorm Description          Related NDC
+    314231 SCD SIMVASTATIN 10 MG ORAL TABLET         16729000417
+    104490 SBD SIMVASTATIN 10 MG ORAL TABLET [ZOCOR] 78206018001
+
+•   When submitting pricing for Zocor 10 MG and Simvastatin 10 MG, the sponsor must
+    adhere to the following:
+
+       o For Simvastatin 10 MG, RXCUI 314231 is used for the HPMS formulary
+         submission, while the related NDC 16729000417 is used for the pricing file
+         submission.
+
+       o For Zocor 10 MG, RXCUI 104490 is used for the HPMS formulary submission,
+         while the related NDC 00006073531 is used for the pricing file submission.
+
+           Example: The sponsor would use the following format when submitting pricing
+           data for these two drugs, assuming 30-day retail supply and no ceiling price:
+
+           H1001 101 16729000417 30 0 000000000846 0
+           H1001 101 00006073531 30 0 000000053128 0
+
+•   CMS may update the related NDCs associated with RXCUIs due to factors such as
+    changes in the marketing status of the FRF NDCs. These changes will be included in
+    CMS’ updates to the CY 2027 FRF. Sponsors will be required to submit updated pricing
+
+
+
+
+                                                                                    Page 15 of 23
+    files that reflect the new related NDCs for RXCUIs on their last approved HPMS
+    formulary file.
+
+•   The RXCUIs for supplies associated with the administration of insulin, prenatal vitamins,
+    and fluoride preparations do not have related NDCs and are not displayed on MPF.
+    Therefore, sponsors are prohibited from submitting pricing for insulin supplies, prenatal
+    vitamins, and fluoride preparations.
+
+•   If the sponsor is unable to provide pricing data for a particular related NDC, they must
+    submit pricing based on the most comparable drug product. Regardless, the pricing file
+    must contain the related NDC from the FRF. Each NDC pricing must be based on the
+    cost at the point of sale (POS). Sponsors must not submit pricing based on the assumption
+    that a generic NDC will be substituted for a brand NDC.
+
+    Common examples of a “unit” for formulations are:
+
+       o Solid Oral Dosage Forms - For oral tablets with a unit of “EACH” (i.e., one unit
+         of Simvastatin 20 mg is one tablet of Simvastatin 20 mg).
+       o Liquid - For liquid, a unit can be defined in several ways, such as one “vial,”
+         “syringe,” or as “1MG,” depending upon the availability of packaging for the
+         drug. For example, one unit of Fortaz INJ (All strengths) or Protonix INJ (40MG)
+         is represented by a vial, while one unit of Aralast 500MG vial is represented by
+         1MG.
+       o Nebulizers - For inhalers or nebulizers, similarly to liquid, a unit can be defined
+         in several ways. For example, one unit of albuterol is represented by per “ML,”
+         while one unit of Proair HFA is represented by “GM” instead of bottle of vial.
+
+•   For pharmacies that offer different price structures at the point-of-sale for different
+    pharmacy services (i.e., retail versus mail versus LTC), the unit cost field must reflect the
+    applicable retail cost for retail pricing or the mail order price for mail order pricing (this
+    applies to both brand and generic drugs and the UNIT_COST field).
+
+    Example: If a pharmacy is marked as retail and HI, the cost must reflect the price to be
+    paid by the beneficiary at retail. If the pharmacy is marked as mail order and HI, the cost
+    must reflect the price to be paid by the beneficiary at mail order. Similarly, if a pharmacy
+    is marked as retail, mail, and HI, the cost submitted must be the applicable retail or mail
+    order cost per the pricing file.
+
+    Sponsors must indicate if the pharmacy dispenses retail, mail, or both in the pharmacy
+    cost file as well as use the IS_MAIL indicator to ensure the display of the proper unit cost
+    on MPF. MPF is not designed to display the LTC, HI, or LA pharmacy drug costs, so
+    only retail or mail order costs may be provided.
+
+•   Ceiling pricing is used when a sponsor negotiates a maximum price that a given
+    pharmacy will be paid for a specific NDC. Ceiling pricing is often used for high cost
+    generics. If ceiling pricing is provided in the ceiling price file for an NDC, the sponsor
+    must enter “1” in the HAS_CEILING_COST field.
+
+
+                                                                                      Page 16 of 23
+       Example: H1001 101 00001234567 30 0 000000050000 1
+
+       In this example, the plan will provide the ceiling cost for a 30-day retail supply of this
+       drug in price ID 101 at this pharmacy.
+
+Preparing the Ceiling Cost File
+
+Part D sponsors are required to adhere to the following guidance when preparing the ceiling cost
+file (CF):
+
+   •   This file determines the ceiling cost of an NDC in the associated PRICE_ID within a
+       certain range of quantity.
+
+   •   The ceiling price file is associated with a plan through the pricing file.
+
+   •   Every drug from the pricing file that has indicated “1” in the HAS_CEILING_PRICE
+       field must be priced within the ceiling price file.
+
+   •   Ceiling pricing is used when a sponsor negotiates a maximum price that a given
+       pharmacy will be paid for a specific NDC. It is often used for high cost generics.
+
+           o A plan has a ceiling price of $100 for a 30-day retail supply of a drug in price ID
+             101 at this pharmacy with a dispensing fee of $2. The plan would use the
+             following format when submitting a pricing file record:
+
+              H1001 101 00001234567 30 0 030000 000001000000
+
+              Since this drug has a UNIT_COST of $5 (defined in the PF file), it would cost
+              $152 for a quantity of 30 tablets ($5 * 30 quantity + $2 dispensing fee). Because
+              there is a ceiling price of $100 for a 30-day supply, MPF will display $100 as the
+              full drug cost of this particular drug.
+
+   •   Ceiling price can be provided at varying quantity ranges for an NDC.
+
+           o Example: A pharmacy offers ceiling prices for a 30-day supply at retail for a
+             given drug. The ceiling price is $4 at quantity 180 and $6 at quantity 360. The
+             sponsor would use the following format in the ceiling price file:
+
+              S1234 100 12345678910 30 0 180000 000000040000
+              S1234 100 12345678910 30 0 360000 000000060000
+
+
+
+
+                                                                                         Page 17 of 23
+End User Support Resources
+
+             Support Resource                               Contact Information
+
+ Technical support for the Part D drug         HPMS Help Desk
+ pricing submission process in HPMS            1-800-220-2028
+                                               hpms@cms.hhs.gov
+
+
+ Technical support for Part D drug pricing     hpmstechsupport@softrams.com
+ API submissions
+
+
+ Questions regarding drug pricing file         hpms@cms.hhs.gov
+ validations
+
+
+ General HPMS user access questions            hpms_access@cms.hhs.gov
+
+
+ HPMS consultant user access requests          HPMSConsultantAccess@cms.hhs.gov
+
+
+ General MPF Questions                         MPF@cms.hhs.gov
+
+
+Frequently Asked Questions
+
+1. How do I get access to the Part D Pricing File Submission module in HPMS?
+
+   To access the Part D Pricing File Submission module in HPMS, a user requires a CMS user
+   ID, the HPMS production job code to be assigned to that user ID, and the module’s plan
+   access types assigned to that user ID. Details are provided in the “Getting Access to the
+   HPMS Part D Pricing File Submission Module” section of this memo.
+
+   General HPMS user access guidance is also available at the following website:
+   https://www.cms.gov/Research-Statistics-Data-and-Systems/Computer-Data-and-
+   Systems/HPMS/UserIDProcess.html
+
+2. I have an active CMS user ID with access to HPMS. How do I request access to the
+   module for my existing account?
+
+   To request access to the Part D Pricing File Submission module, a request must be sent to the
+   HPMS User Access mailbox (hpms_access@cms.hhs.gov) with the name, CMS user ID,
+   organization name, contract number(s), and specific access types required:
+
+   •   Part D Pricing Submission - Plan
+
+                                                                                    Page 18 of 23
+   •   Part D Pricing View/Reports - Plan
+
+3. Can a third party, such as a pharmacy benefit manager (PBM), submit pricing files on
+   our behalf in HPMS?
+
+   Yes. Pricing files can be submitted in HPMS by both plan users and designated PBM or
+   consultant users. Please refer to the April 11, 2026 memo entitled “Instructions for
+   Requesting Consultant Access to the Health Plan Management System (HPMS)”
+   (https://www.cms.gov/Research-Statistics-Data-and-Systems/Computer-Data-and-
+   Systems/HPMS/UserIDProcess.html) for detailed guidance on requesting this type of access
+   for a third party user.
+
+4. Is there a limit on the number of users that can access HPMS for a given organization?
+
+   No. There is no limit on the number of users that can be registered in HPMS for a given
+   organization.
+
+5. Is there an alternative method to transmit my pricing files to CMS?
+
+   Yes. Part D sponsors have the option to submit their Part D pricing files via an HPMS API.
+
+6. Can I submit pricing files for multiple contracts at one time in HPMS?
+
+   Yes. HPMS allows a user to select and upload multiple contract-level zip files at one time.
+
+7. There are no changes to my drug pricing files for the upcoming submission cycle. Am I
+   still required to submit files to HPMS?
+
+   Yes. Sponsors are required to submit pricing files for every two-week submission cycle, even
+   if there are no changes to the data. If there are no changes, then sponsors are required to
+   submit the same files for the upcoming submission cycle. Conversely, if there are changes,
+   then sponsors are required to submit updated files for the upcoming submission cycle.
+
+8. What data needs to be submitted by sponsors during each test submission period?
+
+   Sponsors must upload a complete submission. A complete submission for a given contract
+   number includes one pharmacy cost file, one pricing file, and if applicable, one ceiling price
+   file.
+
+9. Which drug pricing data will be used for the initial launch of the CY 2027 Medicare
+   Plan Finder?
+
+   CMS will use the CY 2027 data submitted by Part D plans during the September 7, 2026
+   submission cycle for the October 1, 2026 launch of the CY 2027 MPF.
+
+
+
+
+                                                                                      Page 19 of 23
+10. Who do I contact for technical support with this process?
+
+   The HPMS Help Desk can be reached at either hpms@cms.hhs.gov or 1-800-220-2028. For
+   technical support for the API submission process, Part D sponsors should use
+   hpmstechsupport@softrams.com.
+
+11. Are all Part D plans required to submit drug pricing to CMS?
+
+   All Part D sponsors are required to submit drug pricing to CMS, except for the following
+   plans: employer-only; PACE; and 1876 and 1833 cost.
+
+12. If my plan offers over-the-counter (OTC) drugs as part of a supplemental benefit,
+    should I include them in my pricing file submission?
+
+   No. OTC drugs (where a plan has indicated OTC coverage in their Part D PBP submission)
+   are provided to the beneficiary without any direct cost sharing at the point of sale. As such,
+   they should not be included in the pricing file submission.
+
+13. Can I submit pricing for drugs that are not included on my plan’s approved
+    formulary?
+
+   No. Sponsors may only submit pricing for drugs on the approved formulary, and in the case
+   of enhanced alternative plans, the approved supplemental excluded drug file, that are
+   associated with a related NDC and/or NDCs.
+
+14. If my plan does not submit files during a regular submission, is there another
+    opportunity to submit files?
+
+   No. If a plan does not submit files during a regular submission (i.e., the first submission
+   period of a two-week cycle), they will be suppressed in the next MPF update.
+
+15. Can we submit data for non-existent Plan IDs or Segment IDs?
+
+   No. Sponsors may only submit data for valid plan IDs and segment IDs that are offered by a
+   given contract number. Sponsors that attempt to submit pricing data for invalid plan IDs and
+   segment IDs will be suppressed on MPF and may face a compliance action.
+
+16. Can a plan submit pricing data for pharmacies that are contracted as LTC, HI, or LA
+    pharmacies?
+
+   Sponsors may only submit pricing data for LTC, HI, and LA pharmacies when they are also
+   contracted with the sponsor as network retail or mail order pharmacies. To reflect this type of
+   arrangement in the pharmacy cost file, sponsors must accurately set the retail and/or mail
+   order pharmacy flag to “1” per their network contracts and set the flags for the LTC, HI, and
+   LA pharmacies to “1,” as applicable.
+
+   If these pharmacies are only contracted with the Part D sponsor as LTC, HI, LA, or as
+   another non-retail or non-mail pharmacy type, the sponsor is prohibited from including them
+
+                                                                                        Page 20 of 23
+   in their drug pricing submission. Moreover, sponsors may not falsely flag pharmacies that are
+   only contracted as LTC, HI, or LA in the pharmacy cost file as network retail or mail order
+   pharmacies.
+
+17. What determines a plan’s eligibility to submit during a correction submission window?
+
+   Sponsors that received an error in their last upload during the first submission period of the
+   two-week cycle are eligible to resubmit during the correction window (i.e., the second
+   submission period of the two-week cycle). Please refer to the “CY 2027 Drug Pricing
+   Submission Rules” section of this memo for detailed guidance.
+
+   Sponsors that subsequently identify an error in their data from the regular submission
+   window (i.e., the first submission period of the two-week cycle) may submit a request to
+   hpms@cms.hhs.gov to resubmit in the correction window. CMS will review these requests
+   on a case-by-case basis. If a suppressible error is discovered during the correction window,
+   the contract will be suppressed on MPF.
+
+18. If in my plan’s uploaded PBP we have indicated that preferred mail order pharmacies
+    are offered as a benefit, must there be preferred mail order pharmacies in the bi-weekly
+    pricing files submitted to display on the Medicare Plan Finder?
+
+   Yes. Drug pricing submissions must be consistent with the corresponding plan’s approved
+   plan benefit package submission. If the plan’s benefit package indicates that preferred mail
+   order pharmacies are offered as a benefit, then the drug pricing submission must contain at
+   least one mail order pharmacy that is marked as preferred. Conversely, if the plan’s benefit
+   package indicates that preferred mail order pharmacies are not offered as a benefit, then the
+   drug pricing submission may not contain mail order pharmacies that are marked as preferred.
+
+   Where a drug pricing submission differs from the corresponding approved plan benefit
+   package, the contract will be suppressed on MPF.
+
+19. If I submit my files via the HPMS PDPFS module, do I have to continue using the
+    module for resubmissions of those files or can I submit them via the API? Similarly, if I
+    submit files via the API, do I have to use the API for resubmissions?
+
+   No. Files can be submitted via the module interface and API interchangeably.
+
+20. How are the fatal upload errors (Level 1) handled with the API?
+
+   The API will return a response with either error(s) or successful submission.
+
+21. If I submit my files via the API, will I still receive notification emails from the PDPFS
+    module?
+
+   Yes. Regardless of how the files are submitted (i.e., via the module or API), the PDPFS
+   module will operate in the same manner (e.g., validation logic, reports, attestations, and
+   email notifications).
+
+
+
+                                                                                       Page 21 of 23
+22. Are there any differences in the validation process (Level 1, Level 2, and Level 3) when
+    submitting via the API?
+
+   No. PDPFS will apply the same validations as if the files were submitted via the module.
+
+23. Can I verify the submission status or other information through the API?
+
+   The API can be used to retrieve the submission status of the files. For detailed information on
+   findings, as in the case of a “Review/Resubmit” status, please refer to the Findings Detail
+   Report in the PDPFS module.
+
+24. Is there any limit to the number of files I can submit at one time through the API?
+
+   One file (i.e., one zip file of pricing files for one contract number) can be sent per request.
+   However, organizations can automate this process by sending another file immediately after
+   receiving an API response on each prior submission.
+
+Point-of-Sale Rebates
+
+Current Part D rules allow sponsors to apply rebates at the point of sale. Below we address
+questions about MPF pricing file submissions from Part D plan sponsors that must apply (in the
+case of pharmacy price concessions that can reasonably be determined at the point of sale) or that
+wish to apply rebates or other price concessions, which we will collectively refer to as “rebates”
+for the purposes of this guidance, to the price at the point of sale.
+
+25. Can Part D sponsors submit point-of-sale rebate data separately on the drug pricing
+    files? Will the point-of-sale rebate be displayed on MPF?
+
+   No. For CY 2027, Part D sponsors will use the same pharmacy cost file, pricing file, and
+   ceiling cost file layouts that are currently in use. Point-of-sale rebate information will not be
+   reported separately in the pricing files nor displayed separately on MPF. Part D sponsors that
+   apply rebates to the point-of-sale price of a drug must continue to submit the drug’s
+   negotiated price in their pricing files, which would be net of the rebates the sponsor applies at
+   the point of sale. For example, if the unit cost for a drug is $20, and the sponsor applies a $10
+   point-of-sale rebate to the unit cost for that drug, then the Part D plan must enter $10 into the
+   unit cost field in the pricing file.
+
+26. Which field(s) of the drug pricing files should any point-of-sale rebates be applied to –
+    unit cost, dispensing fee, or both? What should be reported in instances where the
+    point-of-sale rebate exceeds the unit cost?
+
+   Part D sponsors that apply rebates at the point of sale must apply the point-of-sale rebate only
+   to the drug’s unit cost reported in the pricing file, up to the full value of the unit cost, and not
+   the dispensing fee. If the point-of-sale rebate is greater than the drug’s unit cost, the sponsor
+   must submit a $0 unit cost for that drug. HPMS will treat a value of 00000000000 in the unit
+   cost field of the pricing file as a $0 unit cost, and this value will no longer trigger the display
+   of default pricing on Medicare Plan Finder (MPF). We cannot accept a negative unit cost at
+   this time. Please note that default pricing will still be calculated and displayed when a
+
+                                                                                          Page 22 of 23
+   formulary drug is not submitted by the plan sponsor, and also will be displayed for non-
+   formulary drugs and out-of-network pharmacies.
+
+   Additionally, while point-of-sale rebate amounts might vary at the NDC level, the sponsor
+   must continue to price the related NDC specified by CMS and include in the reported price
+   only the point-of-sale rebates for that related NDC. If a plan is unable to provide pricing data
+   for a related NDC, the plan should submit pricing for the most comparable drug product. The
+   pricing files must still contain the related NDC.
+
+   If the point-of-sale rebate amount is not dependent on the number of units dispensed, the
+   sponsor must allocate the flat or bundled rebate amount to the unit level. Pricing of each
+   NDC should be based on the cost at the point of sale. Sponsors may determine how to
+   allocate the rebate amount to the unit level in the most representative manner, and may opt to
+   use the average or most frequently dispensed quantity.
+
+   In a similar fashion, if the point-of-sale rebate amount is based on a “bundled” arrangement,
+   sponsors may use the allocation methodology determined to yield the most representative
+   price that the member will encounter at point of sale for the various NDCs and unit amounts
+   included under each bundled arrangement.
+
+27. If the application of rebates at the point of sale creates a need for additional price file
+    IDs, will CMS expand the number of price file IDs available to plans?
+
+   Ranges of PRICE_IDs are no longer reserved for certain types of pharmacies. As long as the
+   lowest available PRICE_ID is 001, and the PRICE_IDs are assigned sequentially, plans may
+   associate a given PRICE_ID to any type of pharmacy (i.e., retail or mail order).
+
+28. Will Part D sponsors applying rebates to the point of sale be given more time to update
+    their drug pricing files?
+
+   No. All Part D sponsors will be required to update their drug pricing data on a biweekly
+   schedule, regardless of whether they apply rebates to the point-of-sale price.
+
+
+
+
+                                                                                       Page 23 of 23
+

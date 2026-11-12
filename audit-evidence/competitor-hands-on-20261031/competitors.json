@@ -1,0 +1,568 @@
+{
+  "test_date": "2026-10-31",
+  "timezone": "America/New_York",
+  "purpose": "Prioritized manual-access handoff after live public-browser investigation",
+  "scope": "36 named offerings in the supplied inventory; not 36 independent companies; not an exhaustive market census",
+  "synthetic_profile": "This is a fictional research test, not a real person or enrollment request. I am a 67-year-old woman in Naples, Florida, ZIP 34102, Collier County, born April 15, 1959. I have Medicare A and B, Medigap Plan G and a standalone Part D plan. I am reviewing coverage for 2027. I take metformin 500 mg twice daily (60 tablets/month), lisinopril 10 mg daily (30/month), and atorvastatin 20 mg daily (30/month), filled at CVS. I have diabetes and high blood pressure, no Medicaid or Extra Help, and do not smoke. I spend four months a year in New Jersey and want routine care there as well as in Florida. Help me understand keeping Original Medicare plus G and Part D versus switching to Medicare Advantage before recommending policies. Then show actual local options and estimated total annual costs, tell me what you checked and what remains unknown, and let me continue without a sales call.",
+  "name_if_requested": "Pat Morgan",
+  "limitations": [
+    "Not every gated tool was used with the profile.",
+    "A single experienced-beneficiary snowbird case does not measure beginner teaching quality.",
+    "Quotes, drug/network assertions, plan counts and completeness were not independently validated.",
+    "No accounts, subscriptions, calls, microphone permissions, enrollment or medical orders were created.",
+    "Manual-investigation priorities are judgments, not performance scores for inaccessible products."
+  ],
+  "offerings": [
+    {
+      "number": 1,
+      "name": "The Pocket Protector / Dorothy",
+      "group": "Consumer advisor candidates",
+      "priority": 1,
+      "url": "https://thepocketprotector.com/",
+      "access_url": "https://thepocketprotector.com/tools/medicare-advantage",
+      "test_status": "Partial profile; Dorothy not tested",
+      "observed": "The existing-Medigap branch immediately advised retaining G/F and offered meetings. The separate MA finder accepted 34102, displayed 56 county plans and opened a four-stage personalizer. That flow was not finished. Dorothy was linked through mobile apps, rather than tested in this web session.",
+      "daylight_overlap": "High investigation priority: consumer education, coverage-path guidance and plan research are present across its surfaces. Whether Dorothy actually connects all three remains untested.",
+      "manual_next_step": "Install the Dorothy app and determine its account requirements. Ask whether one conversation can preserve this profile, compare keeping G plus Part D against MA, and inspect actual plan evidence. Finish the separate MA personalizer.",
+      "evidence": [
+        "pocket-existing-medigap",
+        "pocket-ma-personalizer",
+        "pocket-ma-zip"
+      ]
+    },
+    {
+      "number": 2,
+      "name": "MatchYourMedicare / careCycle",
+      "group": "Consumer advisor candidates",
+      "priority": 2,
+      "url": "https://www.matchyourmedicare.com/",
+      "access_url": "https://www.matchyourmedicare.com/",
+      "test_status": "Live plan results; voice guide not tested",
+      "observed": "ZIP, DOB, sex, three drug strengths and diabetes/hypertension produced 32 MA options without an account. A detail view showed approximately $629 annual medical and $0 drug cost for BlueMedicare Premier. A separate preference branch produced 74 supplement options, headed by high-deductible F. The tested flow had not established F eligibility or a combined G-plus-Part-D comparison. Voice guidance requested microphone permission.",
+      "daylight_overlap": "Strong observed overlap in self-service research and estimated-cost comparison; conversational guidance remains untested. No full verified annual-cost comparison was established.",
+      "manual_next_step": "Run the voice guide with microphone permission and this exact case. Check whether it can challenge its own MA-versus-Medigap defaults, establish eligibility/underwriting, collect quantities and pharmacy, and explain estimate assumptions.",
+      "evidence": [
+        "match-plan-detail",
+        "match-supplement-path",
+        "match-guide-access"
+      ]
+    },
+    {
+      "number": 3,
+      "name": "MedicareShopper.ai",
+      "group": "Plan comparison benchmarks",
+      "priority": 9,
+      "url": "https://medicareshopper.ai/",
+      "access_url": "https://medicareshopper.ai/",
+      "test_status": "Live personalized results; detail action led to callback form",
+      "observed": "A long form using the same demographics, preferences, conditions and drug strengths returned BlueMedicare Premier at $629.37 and Wellcare Simple at $670.79 annual estimated cost, each with $0 pharmacy cost. Dose, quantity and CVS were not collected in that run. The recommendation card asserted a physician-network match although no doctors were supplied. Learn More led to a callback request. Inline commission-independence language conflicted with the footer’s compensation/order disclosure.",
+      "daylight_overlap": "Direct substitute for plan matching, with weaker observed education and call-free depth. The conflicting disclosure is evidence of inconsistency, not proof that commissions actually changed a result.",
+      "manual_next_step": "Investigate exact plan year/IDs, cost-model inputs and network reasons. Ask how its independence statements reconcile, and whether detailed plan research is available without submitting a callback request.",
+      "evidence": [
+        "shopper-results",
+        "shopper-detail"
+      ]
+    },
+    {
+      "number": 4,
+      "name": "64Plus",
+      "group": "Consumer advisor candidates",
+      "priority": 4,
+      "url": "https://64plus.org/",
+      "access_url": "https://64plus.org/login?redirect=%2Fdashboard%2Fchat",
+      "test_status": "Login gate; no scenario run",
+      "observed": "The public Ask 64Plus action redirected to a sign-in page for dashboard/chat. No assistant response, personalized research or plan recommendation was observed.",
+      "daylight_overlap": "Potential direct consumer-advisor competitor; priority reflects apparent product scope and the live chat entry, not demonstrated quality.",
+      "manual_next_step": "Check account and subscription requirements, then run the synthetic case. Establish whether it researches actual 2027 plans or primarily explains Medicare and uploaded documents.",
+      "evidence": [
+        "64plus-access"
+      ]
+    },
+    {
+      "number": 5,
+      "name": "Pops",
+      "group": "Consumer advisor candidates",
+      "priority": 5,
+      "url": "https://heypops.ai/",
+      "access_url": "https://app.pops.health/hub",
+      "test_status": "Verified-contact/account gate; no scenario run",
+      "observed": "Get Started opened an app requiring verified phone access, with an email alternative. No phone number, email or verification code was submitted.",
+      "daylight_overlap": "Potential consumer AI advisor and brokerage competitor. Its actual balance of education, advice and human transfer is untested.",
+      "manual_next_step": "Determine whether email provides a self-service test path and whether a phone conversation is required. Use an approved test account or your own contact details if you choose to proceed.",
+      "evidence": [
+        "pops-access"
+      ]
+    },
+    {
+      "number": 6,
+      "name": "ANA Health / CheckRx",
+      "group": "Consumer advisor candidates",
+      "priority": 7,
+      "url": "https://checkrx.com/work",
+      "access_url": "https://app.anahealth.us/login",
+      "test_status": "ANA login gate; consumer ZIP request failed",
+      "observed": "Try ANA ultimately opened a web app login, not only app-store downloads. The separate CheckRx senior questionnaire accepted 34102 but failed to fetch county information, leaving Find Plans disabled. Neither produced a usable profile-based comparison.",
+      "daylight_overlap": "Worth investigating as a possible consumer-and-agent bridge. Do not infer consumer autonomy from the agent assistant’s positioning.",
+      "manual_next_step": "Establish which ANA account supports a beneficiary rather than an agent. Retry the CheckRx senior plan finder, and request a sandbox if ZIP lookup remains unavailable.",
+      "evidence": [
+        "ana-login",
+        "checkrx-zip-error"
+      ]
+    },
+    {
+      "number": 7,
+      "name": "MedicareCopilot / HealthcareGPS",
+      "group": "Agent tools and infrastructure",
+      "priority": 15,
+      "url": "https://medicarecopilot.ai/",
+      "access_url": "https://agent.medicarecopilot.ai/",
+      "test_status": "Agent login gate",
+      "observed": "The live entry was an agent portal requiring email/password. No beneficiary-facing scenario was run.",
+      "daylight_overlap": "Relevant as tooling that could let broker competitors deliver similar work. Less direct as a standalone consumer substitute based on the accessible surface.",
+      "manual_next_step": "Request an agent sandbox and ask to see any distinct consumer/white-label experience. Evaluate plan evidence, scoring, missing inputs and commission separation.",
+      "evidence": [
+        "medicarecopilot-login"
+      ]
+    },
+    {
+      "number": 8,
+      "name": "Medi-Chat / Medicare Advantage Answers",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 28,
+      "url": "https://medicareadvantageanswers.com/",
+      "access_url": "https://medicareadvantageanswers.com/compare.html",
+      "test_status": "Scenario entered; Send produced no response",
+      "observed": "Opening Medi-Chat exposed a composer, but two Send methods left the prompt unchanged without an answer. The comparison link opened a separate external marketplace, which was not run with the profile. This session failure may be environmental or transient.",
+      "daylight_overlap": "Possible educational widget plus comparison routing, not an established integrated advisor from this test.",
+      "manual_next_step": "Retry the chat manually and investigate whether the marketplace shares profile context. Confirm support for 2027 rather than assuming it from the chat’s 2026 source label.",
+      "evidence": [
+        "medichat-send-no-answer"
+      ]
+    },
+    {
+      "number": 9,
+      "name": "Hughes Health / Kim",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 27,
+      "url": "https://hugheshealth.care/",
+      "access_url": "https://hugheshealth.care/ask-an-expert",
+      "test_status": "Full scenario and follow-up; public chat",
+      "observed": "Kim discussed the coverage paths and snowbird concern, then named local-looking MA options and made drug-coverage assertions without exact 2027 plan/formulary support. A challenge requesting verification returned a processing error and an agent route. The drug assertions were not independently established as correct or incorrect.",
+      "daylight_overlap": "Observed educational/advisory overlap, but this run did not establish reliable plan research or cost comparison.",
+      "manual_next_step": "Optional retest: ask for exact contract/PBP/year, formulary evidence and annual cost components. Check whether the prior failure was transient.",
+      "evidence": [
+        "hughes-kim-answer",
+        "hughes-kim-challenge",
+        "hughes-kim-response"
+      ]
+    },
+    {
+      "number": 10,
+      "name": "Talk Ensure / Ava",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 30,
+      "url": "https://talkensure.com/how-to-use-ava/",
+      "access_url": "https://ai.talkensure.com/chat",
+      "test_status": "Scenario and explicit Medicare follow-up; off-topic replies",
+      "observed": "Both attempts routed back to life-insurance product choices rather than answering the Medicare case.",
+      "daylight_overlap": "The claimed Medicare-advisor overlap was not demonstrated. Low manual-investigation priority unless the vendor supplies a different Medicare entry.",
+      "manual_next_step": "Ask for the current Medicare-specific assistant URL before spending time on account or quote setup.",
+      "evidence": [
+        "ava-scenario"
+      ]
+    },
+    {
+      "number": 11,
+      "name": "AskRamona — agent surface",
+      "group": "Agent tools and infrastructure",
+      "priority": 20,
+      "url": "https://askramona.app/",
+      "access_url": "https://askramona.app/",
+      "test_status": "Agent access-code gate",
+      "observed": "The agent interface required a personal access code tied to an NPN. Entering the scenario did not yield an answer without access. This gate is separate from the working public PlanMatch Ramona chat.",
+      "daylight_overlap": "Potential agent research rival within the Ramona ecosystem. Do not count it as an independently demonstrated consumer competitor in addition to PlanMatch.",
+      "manual_next_step": "Request vendor-issued test access; do not substitute an invented NPN. Compare the agent assistant’s research depth with public Ramona.",
+      "evidence": [
+        "askramona-access",
+        "askramona-denied"
+      ]
+    },
+    {
+      "number": 12,
+      "name": "Insuras Health Benefits",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 29,
+      "url": "https://www.insurashealth.com/",
+      "access_url": "https://www.insurashealth.com/plan-finder",
+      "test_status": "Scenario sent; error/human route",
+      "observed": "The public AI plan-finder entry accepted the case but returned a trouble message and a named human contact. The interface expressly placed licensed human review before policy recommendations.",
+      "daylight_overlap": "Education and brokerage overlap, with no substantive AI answer or self-service comparison established in this run.",
+      "manual_next_step": "Retest if desired and ask what the assistant can complete before human review.",
+      "evidence": [
+        "insuras-scenario"
+      ]
+    },
+    {
+      "number": 13,
+      "name": "Navigage AI",
+      "group": "Consumer advisor candidates",
+      "priority": 6,
+      "url": "https://www.navigage.ai/",
+      "access_url": "https://app.navigage.ai/login",
+      "test_status": "Login gate; no scenario run",
+      "observed": "A current public site led to a live app sign-in offering email or Google login. The original inventory’s launch-only description was therefore not an adequate account of the entry point. No authenticated product behavior was tested.",
+      "daylight_overlap": "Potential direct competitor for continuing Medicare guidance and coverage support. Personalized selection and cost verification remain unknown.",
+      "manual_next_step": "Check available account tiers and whether the product accepts a fictional profile. Separate ongoing benefits navigation from actual plan shopping when testing.",
+      "evidence": [
+        "navigage-access"
+      ]
+    },
+    {
+      "number": 14,
+      "name": "AidenRx / RxCare",
+      "group": "Watch or verify current status",
+      "priority": 34,
+      "url": "https://aidenrx.com/",
+      "access_url": "https://aidenrx.com/",
+      "test_status": "Consumer launch notice; no live consumer composer",
+      "observed": "Ask Aiden was a sample-image surface, while the availability FAQ pointed to January 2027. The page offered updates rather than a live consumer trial. A separate fixed-profile agent voice demo was not a valid run of this common case.",
+      "daylight_overlap": "Emerging prescription/benefits adjacency; not an observed current end-to-end plan-selection competitor.",
+      "manual_next_step": "Recheck consumer availability after launch and confirm whether plan recommendations are in scope.",
+      "evidence": [
+        "aidenrx-launch"
+      ]
+    },
+    {
+      "number": 15,
+      "name": "Maya / NestedLoop",
+      "group": "Agent tools and infrastructure",
+      "priority": 21,
+      "url": "https://nestedloop.ai/demos",
+      "access_url": "https://nestedloop.ai/demo-maya.html",
+      "test_status": "Demo password gate",
+      "observed": "Launching the Maya demo reached an access-password page. No synthetic-profile conversation was possible.",
+      "daylight_overlap": "Potential technology supplier or white-label competitor; an independent production consumer service was not established.",
+      "manual_next_step": "Ask for a demo password and a reusable fictional-profile sandbox. Clarify what is a demonstration versus deployed carrier/agency functionality.",
+      "evidence": [
+        "maya-password"
+      ]
+    },
+    {
+      "number": 16,
+      "name": "Hyperspace AI Medicare Navigation",
+      "group": "Watch or verify current status",
+      "priority": 36,
+      "url": "https://hyperspace.ai/ai/ai-medicare-navigation",
+      "access_url": "https://hyperspace.ai/ai/ai-medicare-navigation",
+      "test_status": "Listed product URL returned 404",
+      "observed": "The specific Medicare navigation URL returned a 404 page. No scenario could be run there.",
+      "daylight_overlap": "No currently usable competing Medicare experience was established at the supplied entry.",
+      "manual_next_step": "Only investigate further if the vendor supplies a replacement live URL.",
+      "evidence": [
+        "hyperspace-404"
+      ]
+    },
+    {
+      "number": 17,
+      "name": "Chapter",
+      "group": "Brokerage business benchmarks",
+      "priority": 12,
+      "url": "https://askchapter.org/",
+      "access_url": "https://askchapter.org/",
+      "test_status": "Partial intake; required phone gate before results",
+      "observed": "ZIP, Medicare status, prescription need, extras, DOB and synthetic name reached a phone/marketing-consent step before matches. No public consumer AI conversation or plan comparison was completed.",
+      "daylight_overlap": "Important competitor for the overall Medicare advisory and brokerage service, rather than a demonstrated public autonomous AI experience in this test.",
+      "manual_next_step": "Ask for a demonstration using the same fictional case. Establish what the consumer can see before a call, what agents verify, and how much work an internal copilot performs.",
+      "evidence": [
+        "chapter-phone-gate"
+      ]
+    },
+    {
+      "number": 18,
+      "name": "Healthpilot",
+      "group": "Plan comparison benchmarks",
+      "priority": 8,
+      "url": "https://www.healthpilot.com/",
+      "access_url": "https://medicare.healthpilot.com/",
+      "test_status": "Partial 2027 profile; final ranking not completed",
+      "observed": "The live 2027 path quiz recommended MAPD after nationwide doctor freedom, frequent domestic travel, willingness to pay for fewer referrals and diabetes were entered; it also offered a supplement alternative. The drug UI supported selecting drug form and displayed dose choices. The metformin form was selected, but the dose/quantity/pharmacy sequence and final quotes were not completed after the user shifted to manual investigation.",
+      "daylight_overlap": "A serious self-service recommendation benchmark even without a demonstrated consumer LLM. Its guided intake is relevant to Daylight’s education-and-decision experience.",
+      "manual_next_step": "Finish exact prescriptions, quantities, pharmacy and providers. Examine why its path recommendation weighs chronic conditions against travel and doctor freedom, and compare both paths on the same cost basis.",
+      "evidence": [
+        "healthpilot-drug-entry"
+      ]
+    },
+    {
+      "number": 19,
+      "name": "Connie Health",
+      "group": "Brokerage business benchmarks",
+      "priority": 14,
+      "url": "https://www.conniehealth.com/",
+      "access_url": "https://www.conniehealth.com/",
+      "test_status": "Partial intake; required phone gate",
+      "observed": "The online questionnaire collected the synthetic coverage priorities and name, then required a phone number to review matches. No contact information was submitted and no recommendations were viewed.",
+      "daylight_overlap": "A Medicare advisory/distribution competitor; actual consumer AI interaction was not demonstrated.",
+      "manual_next_step": "Investigate whether matches can be reviewed independently, what the local broker contributes, and whether any AI guidance is consumer-facing.",
+      "evidence": [
+        "connie-phone-gate"
+      ]
+    },
+    {
+      "number": 20,
+      "name": "CoverRight",
+      "group": "Brokerage business benchmarks",
+      "priority": 13,
+      "url": "https://coverright.com/",
+      "access_url": "https://medicareai.coverright.com/",
+      "test_status": "Partial intake; email/contact gate",
+      "observed": "ZIP, DOB, sex, tobacco status and synthetic name led to a required email/contact screen with marketing language before plan results. No contact details were submitted.",
+      "daylight_overlap": "Digital education and brokerage competitor. This session did not establish a public conversational advisor or independent plan-research completion.",
+      "manual_next_step": "Investigate what is accessible after contact submission, whether an agent call becomes necessary, and whether the comparison includes retaining current G plus Part D.",
+      "evidence": [
+        "coverright-contact-gate"
+      ]
+    },
+    {
+      "number": 21,
+      "name": "AISmartBids / One & Done",
+      "group": "Plan comparison benchmarks",
+      "priority": 10,
+      "url": "https://www.aismartbids.com/",
+      "access_url": "https://www.aismartbids.com/login",
+      "test_status": "Login gate; no scenario run",
+      "observed": "The sign-in menu led to an email/password login. The plan optimizer was inaccessible in this session.",
+      "daylight_overlap": "Potential recommendation and annual-reshopping substitute. Conversational education and verified comparison quality are untested.",
+      "manual_next_step": "Check whether beneficiary accounts are available independently of an agent. Request test access to an annual optimization run, including keep-current coverage as a possible outcome.",
+      "evidence": [
+        "aismartbids-login"
+      ]
+    },
+    {
+      "number": 22,
+      "name": "MedicareHarbor",
+      "group": "Plan comparison benchmarks",
+      "priority": 11,
+      "url": "https://medicareharbor.com/",
+      "access_url": "https://medicareharbor.com/",
+      "test_status": "Initial match and partial personalized assessment",
+      "observed": "An initial Wellcare Simple match appeared before detailed drug/provider entry. More-plan access asked for email. In a separate personalization flow, selecting predictable costs and doctor freedom led to a supplement-oriented path message; the flow reached the conditions step. The final detailed comparison was not completed.",
+      "daylight_overlap": "A relevant personalized matcher with some observed path sensitivity. No conversational advisor was demonstrated.",
+      "manual_next_step": "Finish the assessment and determine which results need email. Test whether the preliminary match changes once exact prescriptions, travel and provider needs are known.",
+      "evidence": [
+        "harbor-personalization"
+      ]
+    },
+    {
+      "number": 23,
+      "name": "PlanMatch / Benefits Life — consumer Ramona",
+      "group": "Consumer advisor candidates",
+      "priority": 3,
+      "url": "https://planmatchmedicare.com/",
+      "access_url": "https://planmatchmedicare.com/?zip=34102#ask",
+      "test_status": "Full scenario and two follow-ups; public chat",
+      "observed": "Ramona accepted the full case without login. The first reply declined ranking or recommending a specific plan. A narrower education question produced relevant snowbird, HMO/PPO and Medigap-return discussion with source links and explicit unknowns. A verification follow-up could not substantiate exact plan IDs or drug/provider checks. The separate site displayed 2027 options: 32 MA, 27 Medigap and 5 Part D, explicitly limited to plans it offers. Those listings were not personally validated.",
+      "daylight_overlap": "The clearest observed combination of accessible Medicare conversation and nearby plan browsing. Its explicit recommendation boundary leaves an important distinction from Daylight’s intended advice-and-action model.",
+      "manual_next_step": "No access request is needed for the public chat. Test whether chat and the drug/pharmacy/plan controls share confirmed context, and whether a consumer can complete a comparison and proceed without a call.",
+      "evidence": [
+        "planmatch-ramona-scenario",
+        "planmatch-education",
+        "planmatch-verification-reply"
+      ]
+    },
+    {
+      "number": 24,
+      "name": "GoHealth / PlanGPT",
+      "group": "Agent tools and infrastructure",
+      "priority": 18,
+      "url": "https://www.gohealth.com/",
+      "access_url": "https://www.gohealth.com/newsroom/brand-stories/harnessing-ai-to-enhance-medicare-enrollment-how-gohealths-plangpt-delivered-clarity-this-aep/",
+      "test_status": "Official access research only; no console",
+      "observed": "The official PlanGPT page described an internal licensed-agent tool. There was no public PlanGPT profile input to use. This is not a hands-on test of PlanGPT.",
+      "daylight_overlap": "GoHealth competes in Medicare distribution; PlanGPT is relevant to the agent-assisted operating model rather than a demonstrated public advisor.",
+      "manual_next_step": "Seek a product demo if comparing agent research operations. Ask how document answers become verified recommendations and what consumers can do on their own.",
+      "evidence": [
+        "gohealth-plangpt-access"
+      ]
+    },
+    {
+      "number": 25,
+      "name": "Medicare Vox / Sophia",
+      "group": "Agent tools and infrastructure",
+      "priority": 23,
+      "url": "https://medicarevox.com/",
+      "access_url": "https://medicarevox.com/",
+      "test_status": "Navigation failed in this browser",
+      "observed": "Opening the listed domain failed with ERR_SSL_PROTOCOL_ERROR. No security bypass or phone test was attempted. There is no screenshot of a working product in this session.",
+      "daylight_overlap": "Possible voice/distribution technology competitor from the supplied inventory; current product scope and access need confirmation.",
+      "manual_next_step": "Verify the current vendor/domain and request a live voice sandbox using this case. Establish whether the function is lead screening, advice, enrollment or agent coaching.",
+      "evidence": []
+    },
+    {
+      "number": 26,
+      "name": "eHealth / Alice",
+      "group": "Agent tools and infrastructure",
+      "priority": 24,
+      "url": "https://www.ehealthinsurance.com/",
+      "access_url": "https://ir.ehealthinsurance.com/news/news-details/2025/eHealth-Advances-its-AI-Strategy-with-Expanded-Voice-Agent-Capabilities/default.aspx",
+      "test_status": "Official access research; live voice not tested",
+      "observed": "The official Alice page offered a recorded demonstration and telephone service, not a live text console. No call or microphone interaction was made.",
+      "daylight_overlap": "Relevant as a major brokerage’s consumer voice channel. Its full advice capability cannot be inferred from the recorded material.",
+      "manual_next_step": "Locate the current live Alice phone entry or ask for a test number. Test whether it educates, recommends, verifies and preserves context through human transfer.",
+      "evidence": [
+        "alice-access"
+      ]
+    },
+    {
+      "number": 27,
+      "name": "Cairie",
+      "group": "Agent tools and infrastructure",
+      "priority": 17,
+      "url": "https://letcairie.com/",
+      "access_url": "https://letcairie.com/",
+      "test_status": "Trial/launch-list contact route",
+      "observed": "The trial action requested a work email for extension access; no public research console was available.",
+      "daylight_overlap": "Potential agent productivity competitor, not an observed beneficiary advisor.",
+      "manual_next_step": "Request a controlled extension demo with the fictional case and inspect whether it executes searches or mainly summarizes agent context.",
+      "evidence": [
+        "cairie-access"
+      ]
+    },
+    {
+      "number": 28,
+      "name": "LivmorIQ / Ask Erin",
+      "group": "Agent tools and infrastructure",
+      "priority": 16,
+      "url": "https://livmor.ai/",
+      "access_url": "https://livmoriq.livmor.ai/plans",
+      "test_status": "Organization sign-in gate",
+      "observed": "Following Basic signup reached the plans app and an organizational Microsoft sign-in requirement. No Ask Erin conversation was tested. Tabor is treated as an alias, not another tested offering.",
+      "daylight_overlap": "Agent-side research/copilot competitor; consumer self-service overlap remains unestablished.",
+      "manual_next_step": "Ask whether a trial organization or sandbox is available. Test one case across plan finder, conversational explanation and underlying drug/provider evidence.",
+      "evidence": [
+        "livmor-access"
+      ]
+    },
+    {
+      "number": 29,
+      "name": "Summed AI",
+      "group": "Watch or verify current status",
+      "priority": 35,
+      "url": "https://summed.ai/",
+      "access_url": "https://www.moonsethealth.com/legal/summed-ai-inc-terms-of-service",
+      "test_status": "Listed domain timed out; associated current site checked",
+      "observed": "summed.ai timed out in this browser. Associated official legal material identified Moonset Health as a Summed AI product/brand; the current Moonset home page focused on hospice/home-health documentation. That does not prove the Medicare offering was discontinued.",
+      "daylight_overlap": "Current Medicare competitor identity and availability are unresolved. Do not count this as a proven active Medicare advisor.",
+      "manual_next_step": "Verify the current product name and live Medicare tool before requesting access or including it in a direct-competitor count.",
+      "evidence": [
+        "summed-current-site"
+      ]
+    },
+    {
+      "number": 30,
+      "name": "Gyde / Gia / GydeOS",
+      "group": "Agent tools and infrastructure",
+      "priority": 19,
+      "url": "https://www.gydehealth.ai/",
+      "access_url": "https://www.gydehealth.ai/contact-us",
+      "test_status": "Agency demo/contact gate",
+      "observed": "Schedule a demo led to an agency-oriented contact form with terms and CAPTCHA. No Gia conversation or GydeOS scenario was available publicly.",
+      "daylight_overlap": "Relevant to AI-enabled brokerage operations and member service. Its direct consumer-selection overlap is untested.",
+      "manual_next_step": "Request a demo distinguishing consumer Gia, agent copilot, renewals and actual plan recommendation workflows.",
+      "evidence": [
+        "gyde-demo-gate"
+      ]
+    },
+    {
+      "number": 31,
+      "name": "LeadGPT / Sofia",
+      "group": "Agent tools and infrastructure",
+      "priority": 25,
+      "url": "https://leadgpt.com/",
+      "access_url": "https://app.leadgpt.com/auth?tab=login",
+      "test_status": "Login gate",
+      "observed": "The sign-in action opened email/password authentication. Sofia was not run.",
+      "daylight_overlap": "Primarily an agent communications/lead-workflow candidate in this inventory. Full Medicare advice was not demonstrated.",
+      "manual_next_step": "Only prioritize a demo if researching acquisition, reception or follow-up operations. Ask the vendor to distinguish qualification from actual plan advice.",
+      "evidence": [
+        "leadgpt-login"
+      ]
+    },
+    {
+      "number": 32,
+      "name": "MedicareSuite / RamonaChat / Ramona Elite",
+      "group": "Agent tools and infrastructure",
+      "priority": 26,
+      "url": "https://medicaresuite.com/",
+      "access_url": "https://medicaresuite.com/",
+      "test_status": "Coming-soon/waitlist surface",
+      "observed": "The main suite promoted a waitlist rather than a usable RamonaChat console. Public PlanMatch and the agent AskRamona page were investigated separately.",
+      "daylight_overlap": "Future agent-suite overlap; do not treat suite marketing, public Ramona and agent Ramona as three independently proven competitors.",
+      "manual_next_step": "Confirm which modules are shipping and request test access to those modules only.",
+      "evidence": [
+        "medicaresuite-waitlist"
+      ]
+    },
+    {
+      "number": 33,
+      "name": "NestedLoop Member Services & Enrollment demo",
+      "group": "Agent tools and infrastructure",
+      "priority": 22,
+      "url": "https://nestedloop.ai/demos",
+      "access_url": "https://nestedloop.ai/demo-enrollment.html",
+      "test_status": "Demo password gate",
+      "observed": "The enrollment/member-services demo also required an access password. It is a second surface from the same vendor, not a second independent company.",
+      "daylight_overlap": "Potential infrastructure overlap in plan research and service execution; no performance was observed.",
+      "manual_next_step": "Request access alongside Maya. Ask whether enrollment and formulary steps use real test APIs or scripted demo data.",
+      "evidence": [
+        "nestedloop-enrollment-password"
+      ]
+    },
+    {
+      "number": 34,
+      "name": "MetaCare.ai",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 31,
+      "url": "https://metacare.ai/",
+      "access_url": "https://metacare.ai/welcome",
+      "test_status": "Full scenario and follow-up; public chat",
+      "observed": "The first answer provided useful general path/travel education and acknowledged missing 2027 plan/network/formulary verification. It supplied generic cost ranges rather than actual local options. A follow-up about returning to Medigap elicited a generic request for another health question rather than an answer.",
+      "daylight_overlap": "Adjacent health/benefits interpretation, with some Medicare education overlap. No end-to-end shopping capability was demonstrated.",
+      "manual_next_step": "Investigate only if coverage interpretation or connected health records are a priority; keep general explanations separate from verified plan selection.",
+      "evidence": [
+        "metacare-response",
+        "metacare-switching-rights"
+      ]
+    },
+    {
+      "number": 35,
+      "name": "MHICO",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 32,
+      "url": "https://mhico.ai/",
+      "access_url": "https://mhico.ai/accounts/signup/",
+      "test_status": "Account creation/terms gate",
+      "observed": "Get Started required email/password, state and explicit agreement to terms/privacy. No account or record connection was created.",
+      "daylight_overlap": "Adjacent coverage/claims interpretation candidate. Direct plan-shopping overlap was not established.",
+      "manual_next_step": "If relevant, ask for a synthetic claims/EOB sandbox and establish whether it recommends replacement coverage or only explains existing bills/coverage.",
+      "evidence": [
+        "mhico-signup-gate"
+      ]
+    },
+    {
+      "number": 36,
+      "name": "HealixAI",
+      "group": "Lower-priority education and adjacent tools",
+      "priority": 33,
+      "url": "https://www.healixai.com/",
+      "access_url": "https://app.healixai.com/",
+      "test_status": "Full scenario; captured generated clinical response",
+      "observed": "The public app produced a long Medicare/snowbird answer with illustrative cost ranges, local-carrier/drug assertions and PubMed references. It did not establish exact 2027 plan IDs, formulary or network evidence. It also treated 2027 data as not yet available despite the October 31 test date and digressed into clinical tests and draft-order text. No actual clinical order was placed or confirmed. The latest capture still showed a streaming marker.",
+      "daylight_overlap": "Adjacent clinical assistant, not an observed Medicare research engine. Fluent insurance explanation was much stronger than its demonstrated plan verification.",
+      "manual_next_step": "Low priority for plan-shopping competition. If testing, insist on exact year/source evidence and separate clinical drafting from actual supported actions.",
+      "evidence": [
+        "healix-latest",
+        "healix-voice-entry"
+      ]
+    }
+  ]
+}

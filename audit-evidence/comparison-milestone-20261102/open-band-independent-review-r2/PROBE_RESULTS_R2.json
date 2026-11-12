@@ -1,0 +1,505 @@
+{
+  "producer_freeze_sha256": "3a5ff2a5a002a06d059b9873423704ab9ec1b79c52bffcc8db6bbb1ac06ff20e",
+  "pre_code_expected_cases": 32,
+  "independent_scenarios": 45,
+  "passed": 45,
+  "failures": [],
+  "results": [
+    {
+      "case_id": "FINITE",
+      "pass": true,
+      "outcome": "exact_agreement",
+      "differences": [],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "DECIMAL",
+      "pass": true,
+      "outcome": "exact_agreement",
+      "differences": [],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "OPEN-COMPLETE",
+      "pass": true,
+      "outcome": "exact_agreement",
+      "differences": [],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "RAW999",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "NOT-STATED",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:extent_mismatch",
+          "schedule:unresolved_endpoint:1",
+          "schedule:unused_covered_stay_rule"
+        ],
+        "cms": [
+          "schedule:extent_mismatch",
+          "schedule:unresolved_endpoint:1",
+          "schedule:unused_covered_stay_rule"
+        ]
+      }
+    },
+    {
+      "case_id": "UNKNOWN",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "meaning:unknown"
+        ],
+        "cms": [
+          "meaning:unknown"
+        ]
+      }
+    },
+    {
+      "case_id": "NULL",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/boundaries:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "RULE-MISSING",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:missing_covered_stay_rule",
+          "schedule:unused_covered_stay_rule"
+        ]
+      }
+    },
+    {
+      "case_id": "RULE-UNBOUND",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:rule_not_bound_to_covered_days"
+        ]
+      }
+    },
+    {
+      "case_id": "RULE-DIFFERENT",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "boundaries",
+        "conditions"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "RULE-UNKNOWN",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:rule_not_bound_to_covered_days"
+        ],
+        "cms": [
+          "schedule:rule_not_bound_to_covered_days"
+        ]
+      }
+    },
+    {
+      "case_id": "LAST-BAND",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:unbounded_must_be_last",
+          "schedule:gap_overlap_or_nonterminal_open_band:2"
+        ]
+      }
+    },
+    {
+      "case_id": "LATER-ZERO",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "GAP",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:gap_overlap_or_nonterminal_open_band:1"
+        ]
+      }
+    },
+    {
+      "case_id": "OVERLAP",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:gap_overlap_or_nonterminal_open_band:1"
+        ]
+      }
+    },
+    {
+      "case_id": "REVERSE",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:extent_mismatch",
+          "schedule:inverted_band:1"
+        ]
+      }
+    },
+    {
+      "case_id": "BOOLEAN-DAY",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/boundaries:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "AMOUNT-CHANGE",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "NONFINITE-AMOUNT",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:invalid_amount:0",
+          "meaning:invalid_decimal"
+        ]
+      }
+    },
+    {
+      "case_id": "NONFINITE-AMOUNT",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:invalid_amount:0",
+          "meaning:invalid_decimal"
+        ]
+      }
+    },
+    {
+      "case_id": "NONFINITE-AMOUNT",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:invalid_amount:0",
+          "meaning:invalid_decimal"
+        ]
+      }
+    },
+    {
+      "case_id": "DAY-VS-STAY",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "unit"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "NETWORK",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "context"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "CURRENCY",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "unit"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "RESET",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "PARTIAL-ANCHOR",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "cost:partial_scalar_anchor"
+        ],
+        "cms": [
+          "cost:partial_scalar_anchor"
+        ]
+      }
+    },
+    {
+      "case_id": "SCHEDULE-SCOPE",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "schedule:complete_scope_required"
+        ]
+      }
+    },
+    {
+      "case_id": "NATIVE-CATEGORIES",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "service"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-CONDITION",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/conditions:anyOf"
+        ]
+      }
+    },
+    {
+      "case_id": "MISSING-EVIDENCE",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "$/evidence/0:missing:footnotes"
+        ]
+      }
+    },
+    {
+      "case_id": "WRONG-IDENTITY",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "identity"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "WRONG-IDENTITY",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "identity"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "WRONG-IDENTITY",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "identity"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "SCOPE-PLACEHOLDER",
+      "pass": true,
+      "outcome": "insufficient_evidence",
+      "differences": [],
+      "readiness_errors": {
+        "carrier": [
+          "meaning:uninterpreted_source_scope"
+        ],
+        "cms": [
+          "meaning:uninterpreted_source_scope"
+        ]
+      }
+    },
+    {
+      "case_id": "ARBITRARY-MAPPING",
+      "pass": true,
+      "outcome": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "readiness_errors": {}
+    },
+    {
+      "case_id": "NO-ACCEPTANCE",
+      "pass": true,
+      "assertion": "Every result above checked accepted_for_reference is false."
+    }
+  ],
+  "post_code_supplemental_robustness": [
+    {
+      "target": "begin",
+      "exception": null,
+      "outcome": "insufficient_evidence"
+    },
+    {
+      "target": "end",
+      "exception": null,
+      "outcome": "insufficient_evidence"
+    },
+    {
+      "target": "amount",
+      "exception": null,
+      "outcome": "conflict"
+    }
+  ],
+  "factual_source_acceptance": false,
+  "writes_performed": false
+}

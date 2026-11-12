@@ -1,0 +1,41 @@
+{
+  "activated_check_at": "2026-11-04T22:43:37.020535+00:00",
+  "checks": {
+    "/": {
+      "status": 200,
+      "bytes": 5205
+    },
+    "/advisor.js": {
+      "status": 200,
+      "bytes": 75642,
+      "matches_local_ui": true
+    },
+    "/api/ai/usage": {
+      "status": 200,
+      "bytes": 554,
+      "usage": {
+        "enabled": true,
+        "budget": {
+          "day": "2026-11-04",
+          "timezone": "UTC",
+          "resetAt": "2026-11-05T00:00:00+00:00",
+          "dailyLimitUsd": 5,
+          "estimatedUsd": 3.3869962,
+          "maxInputTokens": null,
+          "maxOutputTokens": 900,
+          "reservedOrUncertainUsd": 1.223584,
+          "accountedUsd": 4.6105802,
+          "remainingUsd": 0.3894198,
+          "requestCount": 168,
+          "canRequest": true,
+          "reason": "",
+          "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+          "pricingValidUntil": "2026-11-11T00:00:00Z",
+          "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+        }
+      }
+    }
+  },
+  "paid_model_calls": 0,
+  "listener": "COMMAND   PID  USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nPython  79889 cep4u    3u  IPv4 0x3ecee597b5fd930b      0t0  TCP 127.0.0.1:8893 (LISTEN)"
+}

@@ -1,0 +1,56 @@
+{
+  "candidate_freeze_sha256": "16679ea784200b1bafa20c61d482d5d2b8c6f6fcc3f052106973b81d4a76e05f",
+  "findings": [
+    {
+      "counterexample": "OON wellness record with concurrent existing-condition care: this IN-qualified paragraph cannot establish a copayment for that OON care. Do not infer a free service or a particular OON charge instead.",
+      "id": "AWV-R1-F01",
+      "old_primary_and_derived_fields": [
+        {
+          "file": "COMPARISON_RECORDS_R1.json",
+          "old": "Annual-wellness tests excluded; separate tests MAY have cost; existing-condition care copayment WILL APPLY when treated OR monitored at preventive visit",
+          "pointer": "/0/carrier/exceptions/0/scope",
+          "record_id": "AWV-R1-IN_NETWORK"
+        },
+        {
+          "file": "COMPARISON_RECORDS_R1.json",
+          "old": "Annual-wellness tests excluded; separate tests MAY have cost; existing-condition care copayment WILL APPLY when treated OR monitored at preventive visit",
+          "pointer": "/1/carrier/exceptions/0/scope",
+          "record_id": "AWV-R1-OUT_OF_NETWORK"
+        },
+        {
+          "file": "DIMENSION_COMPARISON_AND_HOLDS.json",
+          "old": "Annual-wellness tests excluded; separate tests MAY have cost; existing-condition care copayment WILL APPLY when treated OR monitored at preventive visit",
+          "pointer": "/dimensions/6/carrier_by_network/in_network/0/scope"
+        },
+        {
+          "file": "DIMENSION_COMPARISON_AND_HOLDS.json",
+          "old": "Annual-wellness tests excluded; separate tests MAY have cost; existing-condition care copayment WILL APPLY when treated OR monitored at preventive visit",
+          "pointer": "/dimensions/6/carrier_by_network/out_of_network/0/scope"
+        }
+      ],
+      "origin": "Supplementary finding after candidate inspection; not a claimed presealed exact expected judgment.",
+      "priority": 2,
+      "problem": "Known concurrent-condition copay summary omits the network preventive-visit antecedent in both network records. In the explicitly OON record, this imports a qualified IN source statement without an applicability guard. Other fields retain the qualifier but do not bind this exact exception summary.",
+      "producer_independently_confirmed_no_existing_binding": true,
+      "related_hold_summary": {
+        "file": "DIMENSION_COMPARISON_AND_HOLDS.json",
+        "old": "Known tests exclusion, separate-cost MAY, existing-condition copayment WILL APPLY, QMB OR full-Medicaid MAY-reduction are retained. Complete global exclusions/replacements and exact amendment applicability remain held.",
+        "pointer": "/holds/5/question",
+        "role": "Qualify the related summary for consistency; do not change the held question or outcome."
+      },
+      "required_correction": "Use the complete network-qualified rule in both summaries. In the OON record explicitly label it retained IN source context and keep OON concurrent-service pricing unresolved. Preserve WILL APPLY, treated OR monitored, separate-testing MAY, all source/old-ID/child roles, every existing hold and insufficient outcome. Correct only affected summaries and required revision/provenance metadata in a new additive packet.",
+      "source_parent_id": "E42-PREVENTIVE-CONCURRENT",
+      "source_parent_sha256": "94db8f30dbbc2cc3c2e1138f1a37e722b507980b6f564519d4a272b2fb79976a",
+      "source_qualified_logic": "Original Medicare preventive service covered at no cost AND network provider AND also (treated OR monitored for an existing medical condition) during the preventive visit => copayment WILL APPLY for that existing-condition care. The paragraph separately directs OON costs to the Medical Benefits Chart."
+    }
+  ],
+  "frozen_candidate_changed": false,
+  "independent_CMS_scope_supplement_assessed": true,
+  "inventory_adoption": false,
+  "mechanical_lineage_review_pending": true,
+  "new_acceptance": false,
+  "schema": "daylight.annual-wellness.source-semantic-findings.r1",
+  "sealed_at": "2026-11-03T01:12:30.259207+00:00",
+  "semantic_enumeration_complete": true,
+  "source_cases_assessed": 25
+}

@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "part_c_premium",
+      "label": "Part C Premium",
+      "landscape_column": "Part C Premium",
+      "unit": "USD/month",
+      "meaning": "Published Part C component; not all Medicare costs.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "part_d_basic_premium",
+      "label": "Part D Basic Premium",
+      "landscape_column": "Part D Basic Premium",
+      "unit": "USD/month",
+      "meaning": "Published basic component; negative source credits retained.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "part_d_supplemental_premium",
+      "label": "Part D Supplemental Premium",
+      "landscape_column": "Part D Supplemental Premium",
+      "unit": "USD/month",
+      "meaning": "Published supplemental component.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "part_d_total_premium",
+      "label": "Part D Total Premium",
+      "landscape_column": "Part D Total Premium",
+      "unit": "USD/month",
+      "meaning": "Published Part D total; retain separate subsidy/beneficiary fields.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "consolidated_premium",
+      "label": "Monthly Consolidated Premium (Part C + D)",
+      "landscape_column": "Monthly Consolidated Premium (Part C + D)",
+      "unit": "USD/month",
+      "meaning": "Part C plus Part D where applicable, not total Medicare cost.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "part_d_lips",
+      "label": "Part D LIPS (CMS Pays)",
+      "landscape_column": "Part D LIPS (CMS Pays)",
+      "unit": "USD/month",
+      "meaning": "Published subsidy field, not an eligibility determination.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "low_income_beneficiary_premium",
+      "label": "Part D Low Income Beneficiary Premium Amount",
+      "landscape_column": "Part D Low Income Beneficiary Premium Amount",
+      "unit": "USD/month",
+      "meaning": "Published assistance-basis field, never an unconditional personal quote.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "annual_part_d_deductible",
+      "label": "Annual Part D Deductible Amount",
+      "landscape_column": "Annual Part D Deductible Amount",
+      "unit": "USD/benefit-year",
+      "meaning": "Plan-level deductible; tier/drug exceptions require confirmation.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "in_network_medical_moop",
+      "label": "In-Network Maximum Out-of-Pocket (MOOP) Amount",
+      "landscape_column": "In-Network Maximum Out-of-Pocket (MOOP) Amount",
+      "unit": "USD/benefit-year",
+      "meaning": "Published medical limit; not premiums/Part D. Regional PPO semantics require review.",
+      "interpretation_source": "data-sources/field-mapping.json; pinned landscape README (source ZIP landscape-readme.txt)",
+      "requires_conditions": true
+    },
+    {
+      "id": "part_b_reduction",
+      "label": "Part B premium reduction",
+      "pbp_candidate_section": "/pbp/0/standardBid/standardBidDetails",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "USD/month; separate from plan premium and eligibility-dependent adjustments",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "medical_deductible",
+      "label": "Medical deductible",
+      "pbp_candidate_section": "/pbp/0/planLevelCostSharing",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "USD/year and network/service applicability",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "out_of_network_moop",
+      "label": "Out-of-network medical spending limit",
+      "pbp_candidate_section": "/pbp/0/planLevelCostSharing",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "USD/year; preserve network and Regional PPO qualifications",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "combined_moop",
+      "label": "Combined medical spending limit",
+      "pbp_candidate_section": "/pbp/0/planLevelCostSharing",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "USD/year; never infer by summing in/out limits",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "primary_care",
+      "label": "Primary care cost sharing",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "copay/coinsurance/range, unit, network, site and deductible conditions",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "specialist",
+      "label": "Specialist cost sharing",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "copay/coinsurance/range, network/site and authorization/referral conditions",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "inpatient",
+      "label": "Inpatient hospital cost sharing",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "per day/stay, day bands, benefit period, network and authorization",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "emergency",
+      "label": "Emergency care cost sharing",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "per encounter, admission waiver and travel/network scope",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "skilled_nursing",
+      "label": "Skilled nursing facility cost sharing",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "per day/day bands, qualifying stay, benefit period, authorization",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "referrals",
+      "label": "Referral rules",
+      "pbp_candidate_section": "/pbp/0/priorAuthorizationAndReferral/priorReferral",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "service-specific scope; never decode a bare code as a yes/no rule",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "prior_authorization",
+      "label": "Prior authorization",
+      "pbp_candidate_section": "/pbp/0/priorAuthorizationAndReferral/priorAuthorization",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "service-specific rules, exceptions and effective year",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "dental",
+      "label": "Dental benefit and limits",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "preventive/comprehensive, annual limit, covered services, network and frequency",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "vision",
+      "label": "Vision benefit and limits",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "exam/eyewear allowance, frequency, network and exclusions",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "hearing",
+      "label": "Hearing benefit and limits",
+      "pbp_candidate_section": "/pbp/0/benefitDetails/benefitDetailsInfo",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "exam/devices, per ear/pair, copay/allowance, frequency and network",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    },
+    {
+      "id": "travel",
+      "label": "Travel/out-of-area rules",
+      "pbp_candidate_section": "/pbp/0/visitorTravel/visitorTravelDetails",
+      "unit": "structured_conditioned_benefit",
+      "meaning": "urgent/emergency/routine travel coverage, duration and geographic scope",
+      "interpretation_source": "Exact-year/plan Summary of Benefits or EOC passage required; raw PBP candidate sections are not a decoded field mapping.",
+      "requires_conditions": true,
+      "ranking_allowed": false
+    }
+  ],
+  "null_policy": "Zero, absent, blank, not applicable, unavailable, uninterpreted and conflicting remain distinct; never infer eligibility or noncoverage from a missing value."
+}

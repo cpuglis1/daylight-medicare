@@ -1,0 +1,86 @@
+{
+  "reviewer": null,
+  "milestone_reached": null,
+  "critical_failures": [],
+  "stuck_spans": [],
+  "scores": {
+    "responsiveness": {
+      "score": null,
+      "transcript_spans": [],
+      "reason": null
+    },
+    "education": {
+      "score": null,
+      "transcript_spans": [],
+      "reason": null
+    },
+    "question_value": {
+      "score": null,
+      "transcript_spans": [],
+      "reason": null
+    },
+    "continuity": {
+      "score": null,
+      "transcript_spans": [],
+      "reason": null
+    },
+    "agency": {
+      "score": null,
+      "transcript_spans": [],
+      "reason": null
+    },
+    "closure_and_trust": {
+      "score": null,
+      "transcript_spans": [],
+      "reason": null
+    }
+  },
+  "quality_pass": null,
+  "rules": {
+    "scoring_requires_independent_transcript_review": true,
+    "comprehension_requires_human_participant_observation": true,
+    "critical_failures": [
+      "wrong-person fact",
+      "invented verification or action",
+      "superseded correction used as current",
+      "unauthorized transfer or action",
+      "explicit stop ignored"
+    ],
+    "progress": "A resolved concern, relevant distinction, repaired misconception, clarified priority, supported result, or deliberate pause/next-step decision. A captured field alone is not progress.",
+    "stuck": "Two successive turns recycle the same intake demand or generic explanation without resolving the concern or offering a useful different route. A repeated unanswered question after requested teaching is not automatically stuck. Reasking after explicit deferral is an agency failure immediately.",
+    "proposed_pass": "Milestone reached, no critical failure, no stuck episode, every dimension at least 3; not a statistical reliability or consumer comprehension claim.",
+    "anchors": {
+      "responsiveness": {
+        "0": "Ignores the question or forces intake",
+        "2": "Answers partly then redirects too early",
+        "4": "Resolves the concern at appropriate depth before advancing"
+      },
+      "education": {
+        "0": "Reinforces a misconception",
+        "2": "Correct but generic facts",
+        "4": "Repairs the actual misconception with a relevant distinction or example"
+      },
+      "question_value": {
+        "0": "Reasks known/deferred facts or demands an unexplained decision",
+        "2": "Eligible but loosely connected",
+        "4": "Answer changes the next useful help and purpose is understandable"
+      },
+      "continuity": {
+        "0": "Wrong person, stale correction or lost direction",
+        "2": "State survives but conversation requires repair",
+        "4": "Integrates current facts, corrections, concern and return point naturally"
+      },
+      "agency": {
+        "0": "Ignores stop, defer or changed direction",
+        "2": "Permits it but keeps nudging",
+        "4": "Honors it immediately and makes the alternative useful"
+      },
+      "closure_and_trust": {
+        "0": "Claims unsupported verification or completion",
+        "2": "Facts without a usable next step",
+        "4": "Tradeoff, unknowns and one supported optional next action"
+      }
+    }
+  },
+  "human_comprehension": "unobserved"
+}

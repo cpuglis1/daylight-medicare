@@ -1,0 +1,22 @@
+{
+  "executed": 139,
+  "failures": 0,
+  "errors": 0,
+  "modules": [
+    "test_adaptive_flow",
+    "test_chat_alternative",
+    "test_profile_readiness",
+    "test_ai_budget",
+    "test_guest_guide",
+    "test_readiness_conversation",
+    "test_ui_review_flow"
+  ],
+  "excludedUnavailableHistoricalChecks": [
+    {
+      "test": "test_guest_guide.SourceAndProductionTests.test_sample_identities_match_actual_locally_captured_cms_rows",
+      "reason": "Unmodified historical test depends on the pinned dataset/read-model package intentionally absent from the relocated alternative; the initial full run confirmed FileNotFoundError for data-sources/release.json. Source validation remains held."
+    }
+  ],
+  "synthetic": true,
+  "liveGuestRecordsUsed": false
+}

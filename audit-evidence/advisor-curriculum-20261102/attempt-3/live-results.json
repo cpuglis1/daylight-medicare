@@ -1,0 +1,374 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "turns": [
+    {
+      "case": "self",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "Turning 65 in november and looking to understand my medicare options"
+      },
+      "elapsed_seconds": 8.08,
+      "reply": "You mainly have two Medicare paths to compare. One is Original Medicare, which is Part A for hospital care and Part B for doctors and outpatient care; the other is Medicare Advantage, a private plan that provides your Part A and Part B coverage with its own rules and costs. What you have now matters because current coverage can affect which options make sense and what timing needs checking.",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "parts",
+          "routesintro"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two parts to start with"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 1,
+        "covered": [
+          {
+            "concept_id": "part_a",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "part_a",
+          "part_b",
+          "coverage_paths"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3954,
+          "composition": 4029
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    },
+    {
+      "case": "self",
+      "turn": 2,
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "employer"
+        }
+      },
+      "elapsed_seconds": 4.461,
+      "reply": "With current job coverage, the key timing question is whose job that coverage is through, because that can affect how Medicare timing gets checked while you keep working.",
+      "question": {
+        "id": "RC09",
+        "inventoryIds": [
+          "RC09"
+        ],
+        "question": "Whose job is this health insurance through?",
+        "why": "",
+        "choices": [
+          [
+            "my_job",
+            "My current job"
+          ],
+          [
+            "spouse_job",
+            "Spouse’s current job"
+          ],
+          [
+            "family_job",
+            "Family member’s current job"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC09.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC09"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "contextual_teaching",
+        "teachingFactIds": [
+          "dates",
+          "enrollment_intro"
+        ],
+        "sources": [
+          {
+            "url": "https://www.ssa.gov/medicare/sign-up",
+            "label": "Medicare.gov: Dates depend on your situation"
+          },
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+            "label": "Medicare.gov: Getting started with enrollment timing"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "part_a",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "current_coverage_timing",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "current_coverage_timing"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 1,
+        "synthetic": false,
+        "stageMs": {
+          "composition": 4406
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "coverage.current": {
+          "value": [
+            "employer"
+          ],
+          "status": "reported",
+          "source": "user_choice",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    }
+  ],
+  "self_reference_captured": true,
+  "birthday_precision_preserved": true,
+  "error": {
+    "type": "BudgetError",
+    "message": "This request exceeds the reviewed input allowance. Your information is preserved."
+  },
+  "all_turns_complete": false,
+  "generation_stages_reserved": 5,
+  "receipts": [
+    {
+      "id": "ef008570b4893aaa730cab5762570319ed71d77bad25d784",
+      "status": "settled",
+      "charged_nano_usd": 5608000,
+      "measured_nano_usd": 5608000,
+      "input_tokens": 7084,
+      "output_tokens": 230
+    },
+    {
+      "id": "52520e53bac081dfe29bc6626cb645d3bc2fada930461697",
+      "status": "settled",
+      "charged_nano_usd": 18870000,
+      "measured_nano_usd": 18870000,
+      "input_tokens": 6120,
+      "output_tokens": 238
+    },
+    {
+      "id": "ec4bb3fe739006554af54a13e0cfb94c80791e9ae70d34fd",
+      "status": "settled",
+      "charged_nano_usd": 18115000,
+      "measured_nano_usd": 18115000,
+      "input_tokens": 6346,
+      "output_tokens": 150
+    },
+    {
+      "id": "293c35f3114a76adcbfab2c15bed814662dd7ec8921f15f1",
+      "status": "cancelled",
+      "charged_nano_usd": 0,
+      "measured_nano_usd": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    {
+      "id": "c77e5259c431eb06cf2b5814dba55f36718513b974d7dcc0",
+      "status": "cancelled",
+      "charged_nano_usd": 0,
+      "measured_nano_usd": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  ],
+  "measured_usd": 0.042593,
+  "accounted_usd": 0.042593
+}

@@ -1,0 +1,100 @@
+--- after-brand/alternatives/advisor-first/natural_flow.py
++++ concurrent/alternatives/advisor-first/natural_flow.py
+@@ -394,11 +394,11 @@
+ 
+     @staticmethod
+     def named_plan_task(text):
+-        """The Original Medicare product a person names, if any (D137)."""
++        """The Original Medicare product a person names, if any (D138)."""
+         if not isinstance(text, str) or not text:
+             return None
+         if re.search(r'(?i)\bmedigap\b|\bmedicare supplements?\b|\bsupplement(?:al)? (?:plans?|insurance|polic(?:y|ies)|coverage)\b'
+-                     r'|\b(?:a|the|my) supplement\b|\b(?:high[- ]deductible )?plan [a-dfgk-n]\b(?! or)', text):
++                     r'|\b(?:a|the) supplement\b|\b(?:high[- ]deductible )?plan [fgk-n]\b', text):
+             return 'medigap'
+         if re.search(r'(?i)\bpart d\b|\b(?:drug|prescription)(?: drug)? (?:plans?|coverage)\b|\bpdp\b', text):
+             return 'drug_pricing'
+@@ -950,7 +950,7 @@
+                          'MG_TOBACCO': 'tobacco category'}
+ 
+     def plans_pages(self, g, r):
+-        """D137: what the Plans page can show for this profile right now.
++        """D138: what the Plans page can show for this profile right now.
+ 
+         Status only. No rate, plan name or count enters model context (D129);
+         the tabs remain the place where listed amounts are read.
+@@ -1844,13 +1844,18 @@
+             goal_quote = result.get('goal_quote', '')
+             if not isinstance(goal_quote, str) or len(goal_quote) > 200 or goal_quote.casefold() not in message.casefold():
+                 goal_quote = ''
+-            # D137: naming the product is enough. The November 10 live runs
++            # D138: naming the product is enough. The November 10 live runs
+             # showed that requiring an exact product word plus a price word left
+             # "what do the supplement plans cost?" and every Part D request
+             # without a route to the tabs. Medigap is first when both are named;
+             # its location questions also complete the Part D reference.
+-            wanted = self.named_plan_task(goal_quote) or self.named_plan_task(message)
+-            if wanted and m['task'] not in {'medigap', 'drug_pricing'} or wanted == 'medigap':
++            wanted = self.named_plan_task(goal_quote)
++            if not wanted and re.search(r"(?i)\?|\b(?:want|need|looking|show|see|cost|price|premium|how much|compare|find|get)", message) \
++                    and not re.search(r'(?i)\badvantage\b|\bpart c\b|\bhmo\b|\bppo\b', message):
++                wanted = self.named_plan_task(message)
++            if wanted == 'drug_pricing' and m['task'] == 'medigap' and self.medigap_questions(g, r):
++                wanted = None  # Finish the Medigap details first; they also locate the Part D plans.
++            if wanted:
+                 m['task'], m['preparing'] = wanted, True
+             m['checks'] = sorted(set(m['checks']) | {x['id'] for x in result.get('requests', []) if x['id']!='coverage_change' or re.search(r'(?i)\bjoin|drop|cancel|switch|replace',x['quote'])})
+             pending_goal = self.pending_for(owner)
+@@ -2229,6 +2234,42 @@
+         set_target(out['record'],out['assessment'].get('nextQuestion'))
+         return out
+ 
++    def ai_paused(self):
++        agent = self.agent
++        budget = getattr(agent, 'budget', None)
++        if budget is None:
++            return False
++        try:
++            return not budget.summary(agent.client.model)['canRequest']
++        except Exception:
++            return True
++
++    def direct_local_answer(self, owner, payload, g, r):
++        """D138: while AI replies are paused, a bare ZIP or age that answers
++        the question on screen is recorded without a model call, so a pause
++        never strands the person short of the Plans tabs. With AI available the
++        ordinary composed turn is unchanged."""
++        action = payload['action']
++        if set(action) != {'type', 'message'} or not isinstance(action.get('message'), str):
++            return None
++        message = action['message'].strip().rstrip('.')
++        if not re.fullmatch(r'\d{1,5}', message) or self.fixture or self.pending_for(owner) or not self.ai_paused():
++            return None
++        current = self.assess(g, r)['nextQuestion']
++        if not current:
++            return None
++        if current['id'] == 'T03' and re.fullmatch(r'\d{5}', message):
++            legacy = {k: v for k, v in payload.items() if k not in {'contextPolicy', 'continuation', 'model', 'aiProvider', 'plansContext', 'plansContextPolicy'}}
++            legacy['action'] = {'type': 'choice', 'id': 'T03', 'fields': {'zip': message}}
++            out = super().turn(owner, legacy)
++        elif current['id'] == 'MG_AGE' and re.fullmatch(r'\d{1,3}', message) and int(message) <= 120:
++            self.capture(g, r, {'id': 'MG_AGE', 'entity': 'profile', 'fields': {'choice': message}})
++            out = self.response(g, r)
++        else:
++            return None
++        set_target(out['record'], out['assessment'].get('nextQuestion'))
++        return out
++
+     def compose_choice(self,owner,payload,out,before_g,before_r):
+         """A deliberate finite answer uses resolution + one composition only."""
+         if (self.fixture or payload.get('aiConsent') is not True
+@@ -2554,7 +2595,8 @@
+                         out = self.compose_choice(owner, payload, out, before_g, before_r)
+                 set_target(out['record'], out['assessment'].get('nextQuestion'))
+             elif action.get('type') == 'message':
+-                out = self.direct_disposition(owner,payload,g,r) or self.message(owner, payload, g, r)
++                out = (self.direct_disposition(owner,payload,g,r) or self.direct_local_answer(owner, payload, g, r)
++                       or self.message(owner, payload, g, r))
+             elif action.get('type') == 'read_concept':
+                 # Older clients can still open sources without receiving a
+                 # prepared lesson or recording undelivered teaching.

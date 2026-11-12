@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47204,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9026,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 453,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9479
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"Start with two things: the coverage route and your doctor/cost checks. Medicare has two main paths: Original Medicare is Parts A and B through the federal program; Medicare Advantage is a private plan that provides Parts A and B. With Original Medicare, you can add a separate drug plan and may be able to buy Medigap to help with your share of costs. With Advantage, most plans include drug coverage. You still pay the Part B premium either way. For visit costs, don’t look only at the monthly premium—total cost also includes deductibles, copays, and coinsurance when you use care. Since keeping your cardiologist matters, the next comparison is whether the exact doctor and office participate in the exact plan, because that isn’t established yet.\",\"question\":\"What ZIP code do you live in? That helps narrow the local Medicare options in the county before we compare doctor access and likely visit costs.\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.intent.goal\",\"guide.needs.providersStatus\",\"guide.needs.providers\",\"guide.needs.priorities\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"routesintro\",\"options\",\"costs\"],\"agenda_update\":{\"current_concern\":\"where to start with Medicare options, cardiologist access, and visit costs\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"premiums\",\"deductible\",\"cost_sharing\"],\"evidence_refs\":[\"costs\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"prepare\"}}"
+  },
+  "elapsed_seconds": 7.993265
+}

@@ -1,0 +1,109 @@
+{
+  "candidate_content_read": false,
+  "cases": [
+    {
+      "id": "AW01",
+      "source_expected_meaning": "Bind the exact 2026 H5652-002-000 offering. Do not infer an actual provider availability, personal applicability or complete geographic extent."
+    },
+    {
+      "id": "AW02",
+      "source_expected_meaning": "Annual wellness develops or updates a personalized prevention plan based on current health and risk factors. Keep it distinct from an annual routine physical and the Welcome to Medicare visit."
+    },
+    {
+      "id": "AW03",
+      "source_expected_meaning": "The EOC 48 in-network column explicitly states no coinsurance, copayment or deductible for the annual wellness visit."
+    },
+    {
+      "id": "AW04",
+      "source_expected_meaning": "The EOC 48 out-of-network column states 40% coinsurance for annual wellness, with its printed out-of-pocket maximum stopping rule."
+    },
+    {
+      "id": "AW05",
+      "source_expected_meaning": "EOC 48 says Part B for longer than 12 months; EOC 49 says after Part B for 12 months. Preserve both literal statements without silently deciding their exact boundary."
+    },
+    {
+      "id": "AW06",
+      "source_expected_meaning": "The annual wellness visit is covered once every 12 months. Do not replace this with one visit per calendar year."
+    },
+    {
+      "id": "AW07",
+      "source_expected_meaning": "The annual wellness visit does not include lab tests, radiological diagnostic tests or non-radiological diagnostic tests. Do not expand this into a denial of separately covered tests."
+    },
+    {
+      "id": "AW08",
+      "source_expected_meaning": "Additional cost sharing may apply to separate lab or diagnostic testing performed during the visit, as described for each separate service. Preserve the EOC 48 to 49 continuation."
+    },
+    {
+      "id": "AW09",
+      "source_expected_meaning": "The first annual wellness visit cannot take place within 12 months of a Welcome to Medicare preventive visit. This is a timing condition, not a requirement to have the Welcome visit."
+    },
+    {
+      "id": "AW10",
+      "source_expected_meaning": "The source explicitly says a prior Welcome to Medicare visit is not required for annual wellness after 12 months of Part B."
+    },
+    {
+      "id": "AW11",
+      "source_expected_meaning": "The adjacent annual routine physical has one in-network or out-of-network visit per calendar year and need not be 12 months apart. Do not import that rule into annual wellness."
+    },
+    {
+      "id": "AW12",
+      "source_expected_meaning": "The Welcome to Medicare visit is one-time within the first 12 months of Part B. Its health review, education, counseling, referrals and conditional one-time EKG remain separate from annual wellness."
+    },
+    {
+      "id": "AW13",
+      "source_expected_meaning": "The EOC footer states QMB OR full Medicaid benefits may reduce cost sharing for Original Medicare-covered services. Preserve that conditional basis separately from the nominal schedule; do not determine personal qualification."
+    },
+    {
+      "id": "AW14",
+      "source_expected_meaning": "The apple preventive icon is distinct from the double-dagger authorization marker. Marker absence alone does not prove universal no-authorization or inapplicability."
+    },
+    {
+      "id": "AW15",
+      "source_expected_meaning": "SB 3 lists annual wellness within the Medicare-covered preventive group: in-network $0 copay and out-of-network $0 copay to 40% coinsurance depending on the service. The summary range does not establish a wellness-specific zero out-of-network charge."
+    },
+    {
+      "id": "AW16",
+      "source_expected_meaning": "SB 4 continues the preventive list and states additional Medicare-approved preventive services during the contract year will be covered. Preserve its summary scope rather than treating it as a new annual wellness schedule."
+    },
+    {
+      "id": "AW17",
+      "source_expected_meaning": "General PCP coordination, scoped no-referral network specialist access and POS no-authorization/referral statements retain their own scopes and unresolved generic-gate applicability. Do not infer a universal annual-wellness-specific No."
+    },
+    {
+      "id": "AW18",
+      "source_expected_meaning": "The explicit in-network annual wellness no-deductible statement is distinct from the generic medical deductible. Do not transfer that waiver to out-of-network care."
+    },
+    {
+      "id": "AW19",
+      "source_expected_meaning": "The out-of-network percentage base, provider participation rules and maximum account need exact general source linkage. A percentage alone is not a dollar estimate."
+    },
+    {
+      "id": "AW20",
+      "source_expected_meaning": "Medicare coverage guidelines, prevention/medical necessity, applicable exclusions, definitions and amendment applicability require separate dispositions. Preparing these published conditions does not require personal care facts."
+    },
+    {
+      "id": "AW21",
+      "source_expected_meaning": "Preserve malformed or mis-tagged original service, claim and condition payloads. Any new pixel-bound correction must be additive and disclose exact role and lineage."
+    },
+    {
+      "id": "AW22",
+      "source_expected_meaning": "The existing canonical census names a combined CMS category 13d annual wellness exam and screening mammography coverage selection. Inspect the exact original object/control before assigning narrower annual wellness meaning; do not transfer flat code labels to native fields."
+    },
+    {
+      "id": "AW23",
+      "source_expected_meaning": "All ten condition families need individually evidenced dispositions. Unresolved remains unknown, never zero, No or an unsupported empty exception/footnote list."
+    },
+    {
+      "id": "AW24",
+      "source_expected_meaning": "A schema or comparator pass does not accept source meaning or complete an original. Bind exact source hashes, pointers, columns, headers, continuations, footnotes and actual interpretation review."
+    },
+    {
+      "id": "AW25",
+      "source_expected_meaning": "Keep all 4,675 original offering obligations and 392,570 global obligations required and unchanged. Context memberships are not completed comparisons; all new acceptance stays false."
+    }
+  ],
+  "prior_expected_freeze_sha256": "ebd68cc2aff31cfd0c3ffb305b359e90d07480d9c16136604b2fcc9ba6e9afae",
+  "reason": "The first sealed expectation file contains compressed prose and a drafting question in AW07. This additive readable clarification states the intended source meanings before candidate content is opened. It grants no new interpretation authority and does not edit the prior seal. AW07 specifically means tests are excluded from the visit, not categorically excluded as separately billed covered services.",
+  "schema": "daylight.annual-wellness.expected-readable-clarification.r1",
+  "sealed_at": "2026-11-03T00:48:22.555773+00:00"
+}

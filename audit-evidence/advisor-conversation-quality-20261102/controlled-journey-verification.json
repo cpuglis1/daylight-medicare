@@ -1,0 +1,41 @@
+{
+  "evidence_kind": "network-forbidden controlled-response controller checks",
+  "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s alternatives/advisor-first/tests -p test_conversation_quality_journey.py -v",
+  "latest_executed_result": {
+    "exit_code": 0,
+    "tests": 3,
+    "unittest_seconds": 1.359,
+    "status": "OK"
+  },
+  "checked": [
+    "Seven uninterrupted typed turns through actual controller with independently supplied expected prose and reports",
+    "Unknown desired start then explicit defer, without inventing start month or retaining a target for that disposed question",
+    "Requested coverage-path misconception clarification and prescription-coverage detour",
+    "Birthday correction from November to December with year unknown and a superseded-value receipt",
+    "Answer-only turn, final pause, no next practical question and no education suggestions",
+    "Nine-turn history rollover retains authoritative reported state and learning while original raw exchange leaves the six-exchange window",
+    "Frozen persona branches only between prewritten wording variants, with no fabricated facts to rescue a route"
+  ],
+  "development_findings": [
+    {
+      "kind": "fixture corrected to current supported API",
+      "finding": "drugbasics was not in the extraction source shortlist for the medicines wording",
+      "resolution": "Use the supported quoted education_request for prescription_coverage; the controller supplies the reviewed composition source. Do not weaken source-reference validation."
+    },
+    {
+      "kind": "fixture corrected to proposition scope",
+      "finding": "Birthday correction quote originally included a separate question, which the circumstance guard correctly rejected",
+      "resolution": "Bind the correction proposal only to the exact declarative correction sentence."
+    },
+    {
+      "kind": "product defect confirmed",
+      "finding": "Explicit 'leave the start-month question for later' was rejected by the unresolved-field phrase guard; the prior unknown disposition masked the lost defer",
+      "resolution": "Gate agent added a scoped defer-request guard. The test now asserts the actual deferred disposition, not merely absent start data."
+    }
+  ],
+  "paid_model_calls": 0,
+  "live_harness_execution": "not run by this verification",
+  "model_language_quality": "unmeasured by injected responses",
+  "human_comprehension": "unobserved",
+  "source_binding": "This receipt describes the focused run above. Parent final-suite/build receipts bind the final combined implementation."
+}

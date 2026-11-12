@@ -1,0 +1,15 @@
+{
+  "actor": "primary_agent",
+  "command": "PYTHONDONTWRITEBYTECODE=1 python3 runtime/sync_runtime.py --apply --restart",
+  "cwd": "/Users/cep4u/daylight/alternatives/chat-first",
+  "escalationReview": "approved",
+  "result": "failed_safely_before_write",
+  "failure": "launchctl could not find gui/501/com.daylight.chat-alternative.8891",
+  "launchctlExitCode": 113,
+  "sourceCopied": false,
+  "backupCreated": false,
+  "restarted": false,
+  "pendingFile": "cms-slice/scripts/adaptive_flow.py",
+  "nextRequiredStep": "Restore or identify the exact existing authorized launchd service identity; rerun the guarded source-only update without bypassing the guard.",
+  "evidenceOrigin": "Primary agent execution result reported to profile task."
+}

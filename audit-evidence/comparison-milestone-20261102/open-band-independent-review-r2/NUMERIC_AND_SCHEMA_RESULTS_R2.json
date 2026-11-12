@@ -1,0 +1,201 @@
+{
+  "numeric_comparison_scenarios": 20,
+  "passed": 20,
+  "exact_decimal_equality_cross_checks": 256,
+  "schema_delta_operations_replayed": 10,
+  "r1_r2_storage_schema_identical": true,
+  "integer_string_limit_unchanged": true,
+  "results": [
+    {
+      "case": "huge integer one-unit distinction",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "huge text one-unit distinction",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "29th-digit distinction",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "exact decimal equivalence 7 / 7.00000",
+      "expected": "exact_agreement",
+      "actual": "exact_agreement",
+      "differences": [],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "exact decimal equivalence 7e0 / 0.7e1",
+      "expected": "exact_agreement",
+      "actual": "exact_agreement",
+      "differences": [],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "exact decimal equivalence -0 / 0.000e-20",
+      "expected": "exact_agreement",
+      "actual": "exact_agreement",
+      "differences": [],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "exact decimal equivalence 0.1000000000000000001 / 0.100000000000000000100000",
+      "expected": "exact_agreement",
+      "actual": "exact_agreement",
+      "differences": [],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "shared-budget amount",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "shared_budgets"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "generic quantity amount",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "shared-budget minimum",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "shared_budgets"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "generic quantity minimum",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "shared-budget maximum",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "shared_budgets"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "generic quantity maximum",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "shared-budget percentage",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "shared_budgets"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "generic quantity percentage",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "generic frequency percentage",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "exception maximum",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "exceptions"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "matching dates with10**10000 (in-memory synthetic only)",
+      "expected": "exact_agreement",
+      "actual": "exact_agreement",
+      "differences": [],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "matching monetary10**10000 (in-memory synthetic only)",
+      "expected": "exact_agreement",
+      "actual": "exact_agreement",
+      "differences": [],
+      "pass": true,
+      "inputs_unchanged": true
+    },
+    {
+      "case": "monetary10**10000 one-unit distinction",
+      "expected": "conflict",
+      "actual": "conflict",
+      "differences": [
+        "boundaries"
+      ],
+      "pass": true,
+      "inputs_unchanged": true
+    }
+  ],
+  "real_source_records_changed": false,
+  "source_acceptance": false,
+  "writes_performed": false
+}

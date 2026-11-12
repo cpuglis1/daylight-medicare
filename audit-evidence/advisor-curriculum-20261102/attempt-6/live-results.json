@@ -1,0 +1,956 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "turns": [
+    {
+      "case": "self",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "Turning 65 in november and looking to understand my medicare options"
+      },
+      "elapsed_seconds": 0.087,
+      "reply": "The main choice is between Original Medicare and Medicare Advantage. Original Medicare is Parts A and B from the federal program; you can add a separate drug plan and may be able to add Medigap. Medicare Advantage is a private plan that provides Parts A and B, and many plans include drug coverage.",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "routesintro",
+          "options"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two coverage routes"
+          }
+        ],
+        "visual": "routes",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 1,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [
+          "routes"
+        ],
+        "focus": [
+          "coverage_paths"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3,
+          "composition": 4
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      },
+      "synthetic_replay": true,
+      "replay_source": "/Users/cep4u/daylight/audit-evidence/advisor-curriculum-20261102/attempt-5",
+      "shared_budget_charged": false
+    },
+    {
+      "case": "self",
+      "turn": 2,
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "employer"
+        }
+      },
+      "elapsed_seconds": 0.038,
+      "reply": "That helps because current-job coverage can affect when it makes sense to start Medicare, especially Part B. I can’t tell from that alone whether you’d want to enroll right away or keep employer coverage for a while.",
+      "question": {
+        "id": "RC09",
+        "inventoryIds": [
+          "RC09"
+        ],
+        "question": "Whose job is this health insurance through?",
+        "why": "",
+        "choices": [
+          [
+            "my_job",
+            "My current job"
+          ],
+          [
+            "spouse_job",
+            "Spouse’s current job"
+          ],
+          [
+            "family_job",
+            "Family member’s current job"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC09.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC09"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "contextual_teaching",
+        "teachingFactIds": [
+          "enrollment_intro",
+          "dates"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+            "label": "Medicare.gov: Getting started with enrollment timing"
+          },
+          {
+            "url": "https://www.ssa.gov/medicare/sign-up",
+            "label": "Medicare.gov: Dates depend on your situation"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "current_coverage_timing",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [
+          "routes"
+        ],
+        "focus": [
+          "current_coverage_timing"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 1,
+        "synthetic": false,
+        "stageMs": {
+          "composition": 1
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "coverage.current": {
+          "value": [
+            "employer"
+          ],
+          "status": "reported",
+          "source": "user_choice",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      },
+      "synthetic_replay": true,
+      "replay_source": "/Users/cep4u/daylight/audit-evidence/advisor-curriculum-20261102/attempt-5",
+      "shared_budget_charged": false
+    },
+    {
+      "case": "self",
+      "turn": 3,
+      "action": {
+        "type": "message",
+        "message": "Could you explain the two Medicare paths again?"
+      },
+      "elapsed_seconds": 7.351,
+      "reply": "Yes. There are two main paths: Original Medicare and Medicare Advantage. Original Medicare is Part A and Part B through the federal program; you can usually add a separate drug plan, and Medigap may help with out-of-pocket costs. Medicare Advantage is a private plan approved by Medicare that provides Parts A and B, and many plans include drug coverage. With either path, you still pay the Part B premium.",
+      "question": {
+        "id": "RC09",
+        "inventoryIds": [
+          "RC09"
+        ],
+        "question": "Whose job is this health insurance through?",
+        "why": "",
+        "choices": [
+          [
+            "my_job",
+            "My current job"
+          ],
+          [
+            "spouse_job",
+            "Spouse’s current job"
+          ],
+          [
+            "family_job",
+            "Family member’s current job"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC09.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC09"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "routesintro",
+          "options"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two coverage routes"
+          }
+        ],
+        "visual": "routes",
+        "educationFollowups": [
+          "How do doctors and hospitals work differently in Original Medicare vs Medicare Advantage?",
+          "How do drug coverage and Medigap fit into the two paths?"
+        ]
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 3,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "explored",
+            "needs_clarification": false,
+            "deliveries": 2
+          },
+          {
+            "concept_id": "current_coverage_timing",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [
+          "routes"
+        ],
+        "focus": [
+          "coverage_paths"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 2576,
+          "composition": 4688
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "coverage.current": {
+          "value": [
+            "employer"
+          ],
+          "status": "reported",
+          "source": "user_choice",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "I am helping my mother, who turns 65 in November. I have insurance through my current job, but she has no health insurance. She wants to understand her Medicare options."
+      },
+      "elapsed_seconds": 9.496,
+      "reply": "Your mother will usually start by choosing between two Medicare paths: Original Medicare, which is Part A and Part B through the federal program, or a Medicare Advantage plan, which is a private plan that provides Part A and Part B. With Original Medicare, drug coverage is separate and Medigap may help with out-of-pocket costs; with Medicare Advantage, drug coverage is often included, and doctors, medicines, and total costs are important to check before choosing.",
+      "question": {
+        "id": "RC01",
+        "inventoryIds": [
+          "RC01"
+        ],
+        "question": "Who is this for?",
+        "why": "",
+        "choices": [
+          [
+            "self",
+            "Me"
+          ],
+          [
+            "someone",
+            "Someone I help"
+          ],
+          [
+            "research",
+            "Research only"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC01.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC01"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "routesintro",
+          "options",
+          "parts"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two parts to start with"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 1,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "original_medicare",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "coverage_paths",
+          "original_medicare",
+          "medicare_advantage"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 4441,
+          "composition": 4951
+        }
+      },
+      "guide": {
+        "coverage.current": {
+          "value": [
+            "none"
+          ],
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {}
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "action": {
+        "type": "message",
+        "message": "Before I answer, what does Part B cover?"
+      },
+      "elapsed_seconds": 5.36,
+      "reply": "Part B is the medical insurance part of Medicare. It covers doctor visits, outpatient care, tests, medical equipment, and many preventive services like certain screenings. Together, Part A and Part B make up Original Medicare.",
+      "question": {
+        "id": "RC01",
+        "inventoryIds": [
+          "RC01"
+        ],
+        "question": "Who is this for?",
+        "why": "",
+        "choices": [
+          [
+            "self",
+            "Me"
+          ],
+          [
+            "someone",
+            "Someone I help"
+          ],
+          [
+            "research",
+            "Research only"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC01.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC01"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "partb",
+          "parts"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: Part B: medical care"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "original_medicare",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "part_b"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 2350,
+          "composition": 2901
+        }
+      },
+      "guide": {
+        "coverage.current": {
+          "value": [
+            "none"
+          ],
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {}
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "action": {
+        "type": "message",
+        "message": "Actually, she turns 65 in December, not November."
+      },
+      "elapsed_seconds": 6.204,
+      "reply": "Thanks for the correction. I’ll use December as her 65th birthday month; that matters for general enrollment timing, but it doesn’t by itself tell us her exact start date.",
+      "question": {
+        "id": "RC01",
+        "inventoryIds": [
+          "RC01"
+        ],
+        "question": "Who is this for?",
+        "why": "",
+        "choices": [
+          [
+            "self",
+            "Me"
+          ],
+          [
+            "someone",
+            "Someone I help"
+          ],
+          [
+            "research",
+            "Research only"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC01.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "RC01"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "",
+        "reason": "contextual_teaching",
+        "teachingFactIds": [
+          "enrollment_intro",
+          "dates"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+            "label": "Medicare.gov: Getting started with enrollment timing"
+          },
+          {
+            "url": "https://www.ssa.gov/medicare/sign-up",
+            "label": "Medicare.gov: Dates depend on your situation"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 3,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "original_medicare",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "enrollment_timing",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "enrollment_timing"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3144,
+          "composition": 2944
+        }
+      },
+      "guide": {
+        "coverage.current": {
+          "value": [
+            "none"
+          ],
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 12,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {}
+    }
+  ],
+  "token_checks": [
+    {
+      "case": "self",
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "tokens": 7627,
+      "history_exchanges": 2
+    },
+    {
+      "case": "self",
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5807,
+      "history_exchanges": 2
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6723,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 4433,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_guide_commands",
+      "tokens": 7427,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 4459,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "tokens": 7355,
+      "history_exchanges": 2
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 4795,
+      "history_exchanges": 2
+    }
+  ],
+  "replay_prefix": "/Users/cep4u/daylight/audit-evidence/advisor-curriculum-20261102/attempt-5",
+  "synthetic_prefix_replay": true,
+  "uninterrupted_final_live_run": false,
+  "evidence_note": "The first two turns replay accepted fictional captures; only subsequent stages use the provider.",
+  "self_reference_captured": true,
+  "birthday_precision_preserved": true,
+  "requested_revisit_recorded": true,
+  "caregiver_scope_preserved": false,
+  "caregiver_correction_preserved": true,
+  "all_turns_complete": true,
+  "generation_stages_reserved": 8,
+  "receipts": [
+    {
+      "id": "f792bebbad0ea0e1952673b1b562f06e5057f67d4ebf3ee1",
+      "status": "settled",
+      "charged_nano_usd": 20357500,
+      "measured_nano_usd": 20357500,
+      "input_tokens": 7627,
+      "output_tokens": 86
+    },
+    {
+      "id": "11b1b8e6a85b9cf53f3ee9c3f257f99d895a4ec5d3fa2168",
+      "status": "settled",
+      "charged_nano_usd": 17892500,
+      "measured_nano_usd": 17892500,
+      "input_tokens": 5807,
+      "output_tokens": 225
+    },
+    {
+      "id": "aa96122be1f19db36b5fdfc49179f38408c70b6a607017da",
+      "status": "settled",
+      "charged_nano_usd": 21802500,
+      "measured_nano_usd": 21802500,
+      "input_tokens": 6723,
+      "output_tokens": 333
+    },
+    {
+      "id": "bdd2132baadbced7689a4e2cc16db43c9d5f17f911967dc5",
+      "status": "settled",
+      "charged_nano_usd": 14952500,
+      "measured_nano_usd": 14952500,
+      "input_tokens": 4433,
+      "output_tokens": 258
+    },
+    {
+      "id": "1d3782d174c1d78a729020f017fbb4845c9fdf15a12ebed1",
+      "status": "settled",
+      "charged_nano_usd": 19872500,
+      "measured_nano_usd": 19872500,
+      "input_tokens": 7427,
+      "output_tokens": 87
+    },
+    {
+      "id": "51ccdfef77a2df7c519b45e0b5bf457d547fd44ad0fb2e08",
+      "status": "settled",
+      "charged_nano_usd": 13352500,
+      "measured_nano_usd": 13352500,
+      "input_tokens": 4459,
+      "output_tokens": 147
+    },
+    {
+      "id": "f35c0c4679606c34fc85b203bf42bf707b413505ea7dc03d",
+      "status": "settled",
+      "charged_nano_usd": 21087500,
+      "measured_nano_usd": 21087500,
+      "input_tokens": 7355,
+      "output_tokens": 180
+    },
+    {
+      "id": "b6eff5d88f2b81d06154e74dec8c321dbd1f1f2605d5278a",
+      "status": "settled",
+      "charged_nano_usd": 14237500,
+      "measured_nano_usd": 14237500,
+      "input_tokens": 4795,
+      "output_tokens": 150
+    }
+  ],
+  "measured_usd": 0.143555,
+  "accounted_usd": 0.143555
+}

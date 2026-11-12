@@ -1,0 +1,38 @@
+...Daylight composition unavailable code=unavailable question_available=True
+....Daylight composition unavailable code=composition_unavailable question_available=True
+......Daylight composition unavailable code=transport_or_format question_available=True
+.............Daylight controller failure code=unexpected_exception type=AttributeError locations=natural_flow.py:1183,natural_flow.py:876,natural_agent.py:575,narrative_agent.py:232
+E........................Daylight composition unavailable code=unavailable question_available=True
+......Daylight composition unavailable code=unavailable question_available=True
+.........
+======================================================================
+ERROR: test_extraction_failure_preserves_reports_and_never_calls_composer (test_natural_flow.NaturalFlowTests.test_extraction_failure_preserves_reports_and_never_calls_composer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 670, in test_extraction_failure_preserves_reports_and_never_calls_composer
+    self.turn({'type': 'message', 'message': 'My current health insurance is through my job.'})
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 128, in turn
+    return self.take(self.payload(action, **extra))
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 122, in take
+    out = self.flow.turn(self.owner, payload)
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_flow.py", line 1183, in turn
+    out = self.direct_disposition(owner,payload,g,r) or self.message(owner, payload, g, r)
+                                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_flow.py", line 876, in message
+    result = self.agent.extract(owner, message, extraction_guide, context, payload['requestId'], reservation)
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py", line 575, in extract
+    return self.run(owner, message, guide, ['R00'], request_id)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/narrative_agent.py", line 232, in run
+    result=self.client.transport(payload)
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 57, in transport
+    value.setdefault('education_request', {'kind': 'none', 'concept_ids': [], 'quote': ''})
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'TimeoutError' object has no attribute 'setdefault'
+
+----------------------------------------------------------------------
+Ran 66 tests in 15.317s
+
+FAILED (errors=1)

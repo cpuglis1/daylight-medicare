@@ -1,0 +1,1661 @@
+{
+  "plans": 14,
+  "cells": 42,
+  "states": {
+    "numeric_agreement_conditions_retained": 40,
+    "unresolved_basis_difference": 1,
+    "cms_not_applicable_carrier_negative_not_established": 1
+  },
+  "new_carrier_document_checks": [
+    {
+      "plan_id": "H1036-285-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11943,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H1036285000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036285000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036285000SB27pdf",
+        "sha256": "8c7afa7cccf092b04ce8950833183e9290aeec02891ac98eee0ee711edcbfb0e",
+        "bytes": 11725603,
+        "retrieved_at_utc": "2026-10-20T17:11:10.454225+00:00",
+        "review_after_utc": "2026-10-27T17:11:10.454225+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:05 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-285-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 70000,
+      "cms": {
+        "raw": "$700.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11943,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 70000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H1036285000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036285000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036285000SB27pdf",
+        "sha256": "8c7afa7cccf092b04ce8950833183e9290aeec02891ac98eee0ee711edcbfb0e",
+        "bytes": 11725603,
+        "retrieved_at_utc": "2026-10-20T17:11:10.454225+00:00",
+        "review_after_utc": "2026-10-27T17:11:10.454225+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:05 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H1036-285-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 340000,
+      "cms": {
+        "raw": "$3,400.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11943,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 340000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H1036285000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036285000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036285000SB27pdf",
+        "sha256": "8c7afa7cccf092b04ce8950833183e9290aeec02891ac98eee0ee711edcbfb0e",
+        "bytes": 11725603,
+        "retrieved_at_utc": "2026-10-20T17:11:10.454225+00:00",
+        "review_after_utc": "2026-10-27T17:11:10.454225+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:05 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-310-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11945,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H1036310000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036310000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036310000SB27pdf",
+        "sha256": "a22db2d5903068c3d3c7de6238ca6d78b07fc86211dea507138b67817990b627",
+        "bytes": 11945702,
+        "retrieved_at_utc": "2026-10-20T17:11:11.949294+00:00",
+        "review_after_utc": "2026-10-27T17:11:11.949294+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:02:00 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-310-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 10000,
+      "cms": {
+        "raw": "$100.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11945,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 10000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H1036310000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036310000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036310000SB27pdf",
+        "sha256": "a22db2d5903068c3d3c7de6238ca6d78b07fc86211dea507138b67817990b627",
+        "bytes": 11945702,
+        "retrieved_at_utc": "2026-10-20T17:11:11.949294+00:00",
+        "review_after_utc": "2026-10-27T17:11:11.949294+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:02:00 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H1036-310-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 330000,
+      "cms": {
+        "raw": "$3,300.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11945,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 330000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H1036310000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036310000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036310000SB27pdf",
+        "sha256": "a22db2d5903068c3d3c7de6238ca6d78b07fc86211dea507138b67817990b627",
+        "bytes": 11945702,
+        "retrieved_at_utc": "2026-10-20T17:11:11.949294+00:00",
+        "review_after_utc": "2026-10-27T17:11:11.949294+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:02:00 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-311-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11946,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H1036311000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036311000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036311000SB27pdf",
+        "sha256": "5b337e09e14014913a807bea7f1fbf74c0219c5fbe0ce4765071d5769e0f9641",
+        "bytes": 11945366,
+        "retrieved_at_utc": "2026-10-20T17:11:13.437024+00:00",
+        "review_after_utc": "2026-10-27T17:11:13.437024+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:04:40 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-311-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11946,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H1036311000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036311000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036311000SB27pdf",
+        "sha256": "5b337e09e14014913a807bea7f1fbf74c0219c5fbe0ce4765071d5769e0f9641",
+        "bytes": 11945366,
+        "retrieved_at_utc": "2026-10-20T17:11:13.437024+00:00",
+        "review_after_utc": "2026-10-27T17:11:13.437024+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:04:40 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": false,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H1036-311-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 330000,
+      "cms": {
+        "raw": "$3,300.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11946,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 330000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H1036311000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036311000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036311000SB27pdf",
+        "sha256": "5b337e09e14014913a807bea7f1fbf74c0219c5fbe0ce4765071d5769e0f9641",
+        "bytes": 11945366,
+        "retrieved_at_utc": "2026-10-20T17:11:13.437024+00:00",
+        "review_after_utc": "2026-10-27T17:11:13.437024+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:04:40 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-314-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11947,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H1036314000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036314000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036314000SB27pdf",
+        "sha256": "8cdf89be00feb88eb1c54fe6cc10fedd60d4ad9bde8843fcaad8a0409fcd0df9",
+        "bytes": 11727052,
+        "retrieved_at_utc": "2026-10-20T17:11:15.683485+00:00",
+        "review_after_utc": "2026-10-27T17:11:15.683485+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:57 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-314-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 70000,
+      "cms": {
+        "raw": "$700.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11947,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 70000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H1036314000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036314000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036314000SB27pdf",
+        "sha256": "8cdf89be00feb88eb1c54fe6cc10fedd60d4ad9bde8843fcaad8a0409fcd0df9",
+        "bytes": 11727052,
+        "retrieved_at_utc": "2026-10-20T17:11:15.683485+00:00",
+        "review_after_utc": "2026-10-27T17:11:15.683485+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:57 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H1036-314-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 340000,
+      "cms": {
+        "raw": "$3,400.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11947,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 340000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H1036314000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036314000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036314000SB27pdf",
+        "sha256": "8cdf89be00feb88eb1c54fe6cc10fedd60d4ad9bde8843fcaad8a0409fcd0df9",
+        "bytes": 11727052,
+        "retrieved_at_utc": "2026-10-20T17:11:15.683485+00:00",
+        "review_after_utc": "2026-10-27T17:11:15.683485+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:57 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-340-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11948,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H1036340000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036340000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036340000SB27pdf",
+        "sha256": "9cd9bce8c0135b790ea9573aca6a535dd12bc64fe496616be059a58f0f1511f8",
+        "bytes": 12705979,
+        "retrieved_at_utc": "2026-10-20T17:12:14.521124+00:00",
+        "review_after_utc": "2026-10-27T17:12:14.521124+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:02:03 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H1036-340-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 70000,
+      "cms": {
+        "raw": "$700.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11948,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 70000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H1036340000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036340000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036340000SB27pdf",
+        "sha256": "9cd9bce8c0135b790ea9573aca6a535dd12bc64fe496616be059a58f0f1511f8",
+        "bytes": 12705979,
+        "retrieved_at_utc": "2026-10-20T17:12:14.521124+00:00",
+        "review_after_utc": "2026-10-27T17:12:14.521124+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:02:03 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H1036-340-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 985000,
+      "cms": {
+        "raw": "$9,850.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11948,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 985000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H1036340000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H1036340000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H1036340000SB27pdf",
+        "sha256": "9cd9bce8c0135b790ea9573aca6a535dd12bc64fe496616be059a58f0f1511f8",
+        "bytes": 12705979,
+        "retrieved_at_utc": "2026-10-20T17:12:14.521124+00:00",
+        "review_after_utc": "2026-10-27T17:12:14.521124+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 17:02:03 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 5
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5216-394-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11965,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H5216394000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H5216394000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H5216394000SB27pdf",
+        "sha256": "9a7815b55ca62ec6e0fdcccb27e65824ce5d5fff2e7e241308e7851b5a7ff5e3",
+        "bytes": 13818699,
+        "retrieved_at_utc": "2026-10-20T17:12:15.901721+00:00",
+        "review_after_utc": "2026-10-27T17:12:15.901721+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:26 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 6
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5216-394-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 5000,
+      "cms": {
+        "raw": "$50.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11965,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 5000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H5216394000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H5216394000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H5216394000SB27pdf",
+        "sha256": "9a7815b55ca62ec6e0fdcccb27e65824ce5d5fff2e7e241308e7851b5a7ff5e3",
+        "bytes": 13818699,
+        "retrieved_at_utc": "2026-10-20T17:12:15.901721+00:00",
+        "review_after_utc": "2026-10-27T17:12:15.901721+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:26 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 6
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H5216-394-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 490000,
+      "cms": {
+        "raw": "$4,900.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11965,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 490000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H5216394000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H5216394000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H5216394000SB27pdf",
+        "sha256": "9a7815b55ca62ec6e0fdcccb27e65824ce5d5fff2e7e241308e7851b5a7ff5e3",
+        "bytes": 13818699,
+        "retrieved_at_utc": "2026-10-20T17:12:15.901721+00:00",
+        "review_after_utc": "2026-10-27T17:12:15.901721+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 06 Oct 2026 17:50:26 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 6
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5216-480-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11966,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-H5216480000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H5216480000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H5216480000SB27pdf",
+        "sha256": "2e7213485c06357647a8a71733d92b43bc1f8b51e15a590549a61ffb0cf23b90",
+        "bytes": 15801355,
+        "retrieved_at_utc": "2026-10-20T17:12:17.360857+00:00",
+        "review_after_utc": "2026-10-27T17:12:17.360857+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 18:06:10 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 6
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5216-480-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 15000,
+      "cms": {
+        "raw": "$150.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11966,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 15000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-H5216480000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H5216480000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H5216480000SB27pdf",
+        "sha256": "2e7213485c06357647a8a71733d92b43bc1f8b51e15a590549a61ffb0cf23b90",
+        "bytes": 15801355,
+        "retrieved_at_utc": "2026-10-20T17:12:17.360857+00:00",
+        "review_after_utc": "2026-10-27T17:12:17.360857+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 18:06:10 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 6
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H5216-480-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 985000,
+      "cms": {
+        "raw": "$9,850.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11966,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 985000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-H5216480000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/H5216480000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/H5216480000SB27pdf",
+        "sha256": "2e7213485c06357647a8a71733d92b43bc1f8b51e15a590549a61ffb0cf23b90",
+        "bytes": 15801355,
+        "retrieved_at_utc": "2026-10-20T17:12:17.360857+00:00",
+        "review_after_utc": "2026-10-27T17:12:17.360857+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 18:06:10 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 6
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-016-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11979,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB016",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB016&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=47815259&yeardoc=2027",
+        "sha256": "616b131e8ec6fe26d2cfccca498b3fb34faf261af2d943a5c48b79309d3fcc59",
+        "bytes": 3325449,
+        "retrieved_at_utc": "2026-10-20T17:18:19.753286+00:00",
+        "review_after_utc": "2026-10-27T17:18:19.753286+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-016-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 10500,
+      "cms": {
+        "raw": "$105.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11979,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 10500
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB016",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB016&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=47815259&yeardoc=2027",
+        "sha256": "616b131e8ec6fe26d2cfccca498b3fb34faf261af2d943a5c48b79309d3fcc59",
+        "bytes": 3325449,
+        "retrieved_at_utc": "2026-10-20T17:18:19.753286+00:00",
+        "review_after_utc": "2026-10-27T17:18:19.753286+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": true
+    },
+    {
+      "plan_id": "H5594-016-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 50000,
+      "cms": {
+        "raw": "$500.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11979,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 50000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB016",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB016&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=47815259&yeardoc=2027",
+        "sha256": "616b131e8ec6fe26d2cfccca498b3fb34faf261af2d943a5c48b79309d3fcc59",
+        "bytes": 3325449,
+        "retrieved_at_utc": "2026-10-20T17:18:19.753286+00:00",
+        "review_after_utc": "2026-10-27T17:18:19.753286+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 9
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-017-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$7.30 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11980,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 730
+      },
+      "comparison_state": "unresolved_basis_difference",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB017",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB017&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=19475964&yeardoc=2027",
+        "sha256": "97d9be98ae050bd9f75b0d5f39b6bc721a58be7e891cc1055c01d5e082e9ea13",
+        "bytes": 3335225,
+        "retrieved_at_utc": "2026-10-20T17:18:29.283917+00:00",
+        "review_after_utc": "2026-10-27T17:18:29.283917+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "disposition": "Exact 2027 SB and LIS table support zero for the eligible/assisted population. CMS landscape total is 730 cents, subsidy is 730 cents and low-income beneficiary field is zero; monthly PUF is zero. PUF layout says monthly premium amount without defining subsidy basis. No unqualified gross/beneficiary substitution; DQ-004 remains open."
+    },
+    {
+      "plan_id": "H5594-017-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 10500,
+      "cms": {
+        "raw": "$105.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11980,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 10500
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB017",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB017&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=19475964&yeardoc=2027",
+        "sha256": "97d9be98ae050bd9f75b0d5f39b6bc721a58be7e891cc1055c01d5e082e9ea13",
+        "bytes": 3335225,
+        "retrieved_at_utc": "2026-10-20T17:18:29.283917+00:00",
+        "review_after_utc": "2026-10-27T17:18:29.283917+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": true,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": true
+    },
+    {
+      "plan_id": "H5594-017-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 50000,
+      "cms": {
+        "raw": "$500.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11980,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 50000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB017",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB017&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=19475964&yeardoc=2027",
+        "sha256": "97d9be98ae050bd9f75b0d5f39b6bc721a58be7e891cc1055c01d5e082e9ea13",
+        "bytes": 3335225,
+        "retrieved_at_utc": "2026-10-20T17:18:29.283917+00:00",
+        "review_after_utc": "2026-10-27T17:18:29.283917+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 9
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-030-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11981,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB030",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB030&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=16985988&yeardoc=2027",
+        "sha256": "4c8f510985246a9da872528315be10089312c644220963ddb242c0f97356d37a",
+        "bytes": 3320651,
+        "retrieved_at_utc": "2026-10-20T17:18:34.746483+00:00",
+        "review_after_utc": "2026-10-27T17:18:34.746483+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-030-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11981,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB030",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB030&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=16985988&yeardoc=2027",
+        "sha256": "4c8f510985246a9da872528315be10089312c644220963ddb242c0f97356d37a",
+        "bytes": 3320651,
+        "retrieved_at_utc": "2026-10-20T17:18:34.746483+00:00",
+        "review_after_utc": "2026-10-27T17:18:34.746483+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": false,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H5594-030-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 500000,
+      "cms": {
+        "raw": "$5,000.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11981,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 500000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB030",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB030&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=16985988&yeardoc=2027",
+        "sha256": "4c8f510985246a9da872528315be10089312c644220963ddb242c0f97356d37a",
+        "bytes": 3320651,
+        "retrieved_at_utc": "2026-10-20T17:18:34.746483+00:00",
+        "review_after_utc": "2026-10-27T17:18:34.746483+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 9
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-031-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11982,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB031",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB031&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=22420803&yeardoc=2027",
+        "sha256": "c26702959febfa6403e37b1553dd3703cb30aca045126dca92bd043703a8bfff",
+        "bytes": 3317186,
+        "retrieved_at_utc": "2026-10-20T17:18:41.589249+00:00",
+        "review_after_utc": "2026-10-27T17:18:41.589249+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "H5594-031-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 0,
+      "cms": {
+        "raw": "$0.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11982,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 0
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB031",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB031&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=22420803&yeardoc=2027",
+        "sha256": "c26702959febfa6403e37b1553dd3703cb30aca045126dca92bd043703a8bfff",
+        "bytes": 3317186,
+        "retrieved_at_utc": "2026-10-20T17:18:41.589249+00:00",
+        "review_after_utc": "2026-10-27T17:18:41.589249+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 8
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": false,
+      "insulin_exception_on_page": false
+    },
+    {
+      "plan_id": "H5594-031-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 500000,
+      "cms": {
+        "raw": "$5,000.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11982,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 500000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "optimum-OPT27SB031",
+        "requested_url": "https://www.youroptimumhealthcare.com/dlsecure?_id=OPT27SB031&yeardoc=2027",
+        "final_url": "https://www.youroptimumhealthcare.com/dlsecure/?_id=22420803&yeardoc=2027",
+        "sha256": "c26702959febfa6403e37b1553dd3703cb30aca045126dca92bd043703a8bfff",
+        "bytes": 3317186,
+        "retrieved_at_utc": "2026-10-20T17:18:41.589249+00:00",
+        "review_after_utc": "2026-10-27T17:18:41.589249+00:00",
+        "content_type": "application/pdf",
+        "last_modified": null,
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 9
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false
+    },
+    {
+      "plan_id": "R5826-005-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 16100,
+      "cms": {
+        "raw": "$161.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11991,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 16100
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-R5826005000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826005000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826005000SB27pdf",
+        "sha256": "9c2d6dc11463928e8b66ffe6aa941998ca2aa883e9f0220defb714976d6589fb",
+        "bytes": 12775618,
+        "retrieved_at_utc": "2026-10-20T17:12:18.784984+00:00",
+        "review_after_utc": "2026-10-27T17:12:18.784984+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:35:14 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-005-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 70000,
+      "cms": {
+        "raw": "$700.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11991,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 70000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-R5826005000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826005000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826005000SB27pdf",
+        "sha256": "9c2d6dc11463928e8b66ffe6aa941998ca2aa883e9f0220defb714976d6589fb",
+        "bytes": 12775618,
+        "retrieved_at_utc": "2026-10-20T17:12:18.784984+00:00",
+        "review_after_utc": "2026-10-27T17:12:18.784984+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:35:14 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": true,
+      "insulin_exception_on_page": true,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-005-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 670000,
+      "cms": {
+        "raw": "$6,700.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11991,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 670000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-R5826005000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826005000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826005000SB27pdf",
+        "sha256": "9c2d6dc11463928e8b66ffe6aa941998ca2aa883e9f0220defb714976d6589fb",
+        "bytes": 12775618,
+        "retrieved_at_utc": "2026-10-20T17:12:18.784984+00:00",
+        "review_after_utc": "2026-10-27T17:12:18.784984+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:35:14 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-018-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 900,
+      "cms": {
+        "raw": "$9.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11992,
+          "column": "Part C Premium"
+        },
+        "value_cents": 900
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-R5826018000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826018000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826018000SB27pdf",
+        "sha256": "58a066df4900648291355c3b5f3eadb3aabe380c5f3b7824f39ee10eb40b9435",
+        "bytes": 13286837,
+        "retrieved_at_utc": "2026-10-20T17:12:20.170609+00:00",
+        "review_after_utc": "2026-10-27T17:12:20.170609+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:37:10 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-018-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": null,
+      "cms": {
+        "raw": "Not Applicable",
+        "state": "not_applicable",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11992,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": null
+      },
+      "comparison_state": "cms_not_applicable_carrier_negative_not_established",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-R5826018000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826018000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826018000SB27pdf",
+        "sha256": "58a066df4900648291355c3b5f3eadb3aabe380c5f3b7824f39ee10eb40b9435",
+        "bytes": 13286837,
+        "retrieved_at_utc": "2026-10-20T17:12:20.170609+00:00",
+        "review_after_utc": "2026-10-27T17:12:20.170609+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:37:10 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": false,
+      "insulin_exception_on_page": true,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-018-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 755000,
+      "cms": {
+        "raw": "$7,550.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11992,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 755000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-R5826018000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826018000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826018000SB27pdf",
+        "sha256": "58a066df4900648291355c3b5f3eadb3aabe380c5f3b7824f39ee10eb40b9435",
+        "bytes": 13286837,
+        "retrieved_at_utc": "2026-10-20T17:12:20.170609+00:00",
+        "review_after_utc": "2026-10-27T17:12:20.170609+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:37:10 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-074-000-2027",
+      "field": "monthly_premium",
+      "carrier_value_cents": 3500,
+      "cms": {
+        "raw": "$35.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11993,
+          "column": "Monthly Consolidated Premium (Part C + D)"
+        },
+        "value_cents": 3500
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per month",
+      "conditions": "Published monthly plan premium, separate from other Medicare obligations; eligibility and assistance apply.",
+      "carrier_evidence": {
+        "id": "humana-R5826074000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826074000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826074000SB27pdf",
+        "sha256": "c8452ed3f0b8e8ec56fadcebee02da198cadd2ac9df64db0f5dd11d38a548934",
+        "bytes": 13317458,
+        "retrieved_at_utc": "2026-10-20T17:12:21.559824+00:00",
+        "review_after_utc": "2026-10-27T17:12:21.559824+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:35:49 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-074-000-2027",
+      "field": "drug_deductible",
+      "carrier_value_cents": 70000,
+      "cms": {
+        "raw": "$700.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11993,
+          "column": "Annual Part D Deductible Amount"
+        },
+        "value_cents": 70000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual Part D amount before applicable tier/insulin exceptions or Extra Help; not a medicine-specific cost.",
+      "carrier_evidence": {
+        "id": "humana-R5826074000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826074000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826074000SB27pdf",
+        "sha256": "c8452ed3f0b8e8ec56fadcebee02da198cadd2ac9df64db0f5dd11d38a548934",
+        "bytes": 13317458,
+        "retrieved_at_utc": "2026-10-20T17:12:21.559824+00:00",
+        "review_after_utc": "2026-10-27T17:12:21.559824+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:35:49 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "extra_help_changes_deductible": false,
+      "tier_qualification_on_page": false,
+      "insulin_exception_on_page": true,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    },
+    {
+      "plan_id": "R5826-074-000-2027",
+      "field": "medical_limit",
+      "carrier_value_cents": 755000,
+      "cms": {
+        "raw": "$7,550.00 ",
+        "state": "value",
+        "evidence": {
+          "artifact": "landscape",
+          "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+          "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+          "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+          "record_ordinal": 11993,
+          "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount"
+        },
+        "value_cents": 755000
+      },
+      "comparison_state": "numeric_agreement_conditions_retained",
+      "unit": "USD cents per benefit year",
+      "conditions": "Annual in-network covered medical spending limit; premiums and Part D costs are separate; Medicaid assistance can change member payments.",
+      "carrier_evidence": {
+        "id": "humana-R5826074000-sb",
+        "requested_url": "https://assets.humana.com/is/content/humana/R5826074000SB27pdf",
+        "final_url": "https://assets.humana.com/is/content/humana/R5826074000SB27pdf",
+        "sha256": "c8452ed3f0b8e8ec56fadcebee02da198cadd2ac9df64db0f5dd11d38a548934",
+        "bytes": 13317458,
+        "retrieved_at_utc": "2026-10-20T17:12:21.559824+00:00",
+        "review_after_utc": "2026-10-27T17:12:21.559824+00:00",
+        "content_type": "application/pdf",
+        "last_modified": "Tue, 29 Sep 2026 19:35:49 GMT",
+        "scope": "Public reference snapshot; no personal coverage confirmation or rights approval implied",
+        "previous_sha256": null,
+        "pdf_page": 4
+      },
+      "technical_review": "Codex; rendered page and source text inspected 2026-10-20",
+      "domain_acceptance": "pending",
+      "consumer_use_allowed": false,
+      "regional_ppo_condition": "The combined medical deductible has listed exclusions including in-network services; do not apply it as a universal in-network deductible. Combined MOOP is separate. Full EOC/domain interpretation pending."
+    }
+  ],
+  "consumer_accepted_cells": 0,
+  "scope": "Additional selected financial fields for 14 previously unsampled SNP/Regional PPO records; not a complete SB/EOC or all-70-plan review."
+}

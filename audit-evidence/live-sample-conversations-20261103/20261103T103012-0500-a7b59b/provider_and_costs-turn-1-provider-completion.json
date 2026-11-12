@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 40958,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7745,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 354,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 8099
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"A good place to start is with the two big decisions tied to your goals: keeping your cardiologist and understanding visit costs. Medicare has two main paths: Original Medicare, which is Parts A and B through the federal program, or Medicare Advantage, which is a private plan that provides Parts A and B. With Original Medicare, you may add a separate drug plan and possibly Medigap; with Medicare Advantage, most plans include drug coverage. In either path, the Part B premium still applies. For costs, look at both the monthly premium and what you pay when you use care, like deductibles, copays, or coinsurance. To compare plans in your area, I need to clear up one detail first.\",\"question\":\"What ZIP code do you live in? Plans differ by area, and this helps focus the comparison where you want coverage.\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"routesintro\",\"options\",\"costs\"],\"agenda_update\":{\"current_concern\":\"where to start comparing coverage, doctor access, and visit costs\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"premiums\",\"deductible\",\"cost_sharing\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"personal_cost\"],\"blocking_concepts\":[],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 6.532795
+}

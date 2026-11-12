@@ -1,0 +1,17 @@
+/* D87 identity preparation inherits the existing chat's type and palette. */
+.identity-preparation { max-width: 70ch; }
+.identity-preparation h2 { margin-block: 1.7rem .5rem; }
+.identity-preparation p { overflow-wrap: anywhere; }
+.identity-item { padding-block: .25rem 1rem; border-bottom: 1px solid var(--line, #d4d3c8); }
+.identity-item h2 { margin-block: 1rem .5rem; }
+.identity-item .text-button + .text-button { margin-inline-start: 1rem; }
+.identity-candidates { padding-inline-start: 1.5rem; }
+.identity-candidates > li { padding-block: .5rem 1.25rem; }
+.identity-candidates .identity-label { font-weight: 700; margin-block-end: .4rem; }
+.identity-candidates .small { margin-block: .4rem; }
+.identity-notice { max-width: 65ch; }
+.identity-source-context { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: .9rem; }
+@media (max-width: 34rem) {
+  .identity-item .text-button + .text-button { display: block; margin-inline-start: 0; }
+  .identity-candidates button { max-width: 100%; white-space: normal; text-align: start; }
+}

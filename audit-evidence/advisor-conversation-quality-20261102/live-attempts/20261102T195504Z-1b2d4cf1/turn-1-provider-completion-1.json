@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34296,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6706,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 5888
+      },
+      "output_tokens": 302,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7008
+    },
+    "text": "{\"question_target\":\"T04\",\"reply\":\"Since you’re new to this, the big picture is: Medicare starts with Part A for hospital-type care and Part B for doctor and outpatient care. Then you usually choose one of two paths: Original Medicare, where you can add a separate drug plan and possibly Medigap, or a Medicare Advantage plan, which is a private plan that provides Parts A and B and often includes drug coverage.\",\"question\":\"When would you like Medicare coverage to start?\",\"education_followups\":[\"What’s the difference between Original Medicare and Medicare Advantage?\",\"Where do drug coverage and Medigap fit in?\"],\"report_refs\":[\"guide.subject.role\",\"guide.coverage.current\",\"guide.situation.age65\"],\"evidence_refs\":[\"parts\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"understanding Medicare choices\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"part_a\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"inpatient_care\"],\"evidence_refs\":[\"parts\"]},{\"concept_id\":\"part_b\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"outpatient_care\"],\"evidence_refs\":[\"parts\"]},{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 6.095238,
+  "turn": 1,
+  "event": "opening",
+  "fictional_inputs": true
+}

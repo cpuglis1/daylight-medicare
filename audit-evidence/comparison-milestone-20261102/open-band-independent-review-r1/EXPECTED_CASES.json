@@ -1,0 +1,240 @@
+{
+  "schema": "daylight.open-band.independent-expected.v1",
+  "authored_at": "2026-11-02T21:31:19.059825+00:00",
+  "author": "root independent model reviewer",
+  "prior_exposure": "Root read the original r9 contract/schema and created the frozen real-source inpatient assembly. Producer implementation-plan summaries were read; no new module/schema/test source or candidate verdict file has been opened. This is independent capability review, not a blind original-source study.",
+  "cases": [
+    {
+      "id": "FINITE",
+      "source_or_contract_requirement": "A complete finite varying schedule is supported by existing contract design.",
+      "permitted_result": [
+        "exact_agreement"
+      ]
+    },
+    {
+      "id": "DECIMAL",
+      "source_or_contract_requirement": "Amounts375 and375.00 differ only in decimal representation.",
+      "permitted_result": [
+        "exact_agreement"
+      ]
+    },
+    {
+      "id": "OPEN-COMPLETE",
+      "source_or_contract_requirement": "Two completely supported conditional unbounded bands with the same complete source meaning can agree mechanically; this grants no source acceptance.",
+      "permitted_result": [
+        "exact_agreement"
+      ]
+    },
+    {
+      "id": "RAW999",
+      "source_or_contract_requirement": "Explicit conditional unbounded end and finite999 cannot automatically agree.",
+      "permitted_result": [
+        "conflict",
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "NOT-STATED",
+      "source_or_contract_requirement": "Source endpoint not stated does not establish an unbounded endpoint.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "UNKNOWN",
+      "source_or_contract_requirement": "Unknown endpoint, including equal unknown endpoints, cannot agree.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "NULL",
+      "source_or_contract_requirement": "A bare null endpoint is incomplete, not infinity.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "RULE-MISSING",
+      "source_or_contract_requirement": "An unbounded end without its explicit covered-stay rule cannot be ready.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "RULE-UNBOUND",
+      "source_or_contract_requirement": "An unbounded rule must bind the relevant covered_days condition, evidence and review references.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "RULE-DIFFERENT",
+      "source_or_contract_requirement": "Different covered-stay predicates are material even when both endpoints are unbounded.",
+      "permitted_result": [
+        "conflict",
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "RULE-UNKNOWN",
+      "source_or_contract_requirement": "Unknown coverage predicate cannot pass merely because endpoint kind says unbounded.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "LAST-BAND",
+      "source_or_contract_requirement": "An unbounded end cannot precede another band.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "LATER-ZERO",
+      "source_or_contract_requirement": "Omitting the later zero-cost band cannot agree with the full schedule.",
+      "permitted_result": [
+        "conflict",
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "GAP",
+      "source_or_contract_requirement": "A silent uncovered day gap cannot be converted into a complete continuous schedule.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "OVERLAP",
+      "source_or_contract_requirement": "Overlapping bands are invalid.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "REVERSE",
+      "source_or_contract_requirement": "A finite end before begin is invalid.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "BOOLEAN-DAY",
+      "source_or_contract_requirement": "Boolean day endpoints/beginnings are not integer days.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "AMOUNT-CHANGE",
+      "source_or_contract_requirement": "Changed later-band monetary amount is material.",
+      "permitted_result": [
+        "conflict"
+      ]
+    },
+    {
+      "id": "NONFINITE-AMOUNT",
+      "source_or_contract_requirement": "NaN or infinite monetary values cannot be ready.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "DAY-VS-STAY",
+      "source_or_contract_requirement": "Daily charge versus per-stay charge is material.",
+      "permitted_result": [
+        "conflict"
+      ]
+    },
+    {
+      "id": "NETWORK",
+      "source_or_contract_requirement": "An otherwise complete opposite-network observation cannot agree.",
+      "permitted_result": [
+        "conflict"
+      ]
+    },
+    {
+      "id": "CURRENCY",
+      "source_or_contract_requirement": "USD and percentage are distinct units.",
+      "permitted_result": [
+        "conflict"
+      ]
+    },
+    {
+      "id": "RESET",
+      "source_or_contract_requirement": "Each admission versus a Medicare benefit-period reset is material.",
+      "permitted_result": [
+        "conflict"
+      ]
+    },
+    {
+      "id": "PARTIAL-ANCHOR",
+      "source_or_contract_requirement": "A partial first-band scalar anchor cannot masquerade as a complete schedule even with other fields populated.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "SCHEDULE-SCOPE",
+      "source_or_contract_requirement": "Complete-schedule scope and its evidence/review bindings cannot be absent.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "NATIVE-CATEGORIES",
+      "source_or_contract_requirement": "Native1a and separate1a1 observations do not become the same service from numeric correspondence.",
+      "permitted_result": [
+        "conflict",
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "MISSING-CONDITION",
+      "source_or_contract_requirement": "Every existing material condition-family gate remains enforced.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "MISSING-EVIDENCE",
+      "source_or_contract_requirement": "Missing exact source evidence/locator/footnote or review references remains incomplete.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "WRONG-IDENTITY",
+      "source_or_contract_requirement": "Wrong year/plan/segment or pinned expected identity cannot be excused by an endpoint model.",
+      "permitted_result": [
+        "conflict",
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "SCOPE-PLACEHOLDER",
+      "source_or_contract_requirement": "Matching uninterpreted source scope markers cannot agree.",
+      "permitted_result": [
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "ARBITRARY-MAPPING",
+      "source_or_contract_requirement": "A mapping ID without complete exact-pair review registry support cannot excuse a difference.",
+      "permitted_result": [
+        "conflict",
+        "insufficient_evidence"
+      ]
+    },
+    {
+      "id": "NO-ACCEPTANCE",
+      "source_or_contract_requirement": "Every mechanical result keeps accepted_for_reference false.",
+      "permitted_result": [
+        "false"
+      ]
+    }
+  ],
+  "real_source_records_promoted": 0,
+  "sealed_source_files_changed": false
+}

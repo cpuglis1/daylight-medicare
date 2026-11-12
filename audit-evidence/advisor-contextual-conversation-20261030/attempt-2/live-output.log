@@ -1,0 +1,6 @@
+{"case": "turn-1", "message": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.", "seconds": 8.005, "reply": "Your details are here. I couldn\u2019t finish the response just now, but we can continue.", "question": "When would you like Medicare coverage to start?", "target": "T04", "generated": {"status": "unavailable", "retryable": false, "reason": "A spouse-job statement needs its resolved worker relationship."}}
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/audit-evidence/advisor-contextual-conversation-20261030/verify_live.py", line 83, in <module>
+    assert state.get('generated',{}).get('status')=='complete',state.get('generated')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'status': 'unavailable', 'retryable': False, 'reason': 'A spouse-job statement needs its resolved worker relationship.'}

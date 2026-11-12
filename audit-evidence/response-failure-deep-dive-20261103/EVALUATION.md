@@ -1,0 +1,18 @@
+# Delivery and conversation review
+
+Both retained fictional scenarios eventually delivered six replies and reached the requested no-more-questions ending. **They completed in separate live attempts on successive revisions. No retained two-case live attempt completed both.** The final provider-only attempt began a fresh visit and used all six original messages; it did not resume a failed conversation. The final source, including a subsequent duplicate-removal correction, also replays all twelve retained successful proposals unchanged through the controller offline: [replay receipt](final-offline-replay.json).
+
+| Scenario | Delivered | Mean backend time | Range | Estimated generation cost |
+| --- | ---: | ---: | ---: | ---: |
+| Keeping cardiologist / visit costs | 6/6 | 10.87 seconds | 9.09–13.49 seconds | $0.280724 |
+| Helping mother / coverage and practical help | 6/6 | 10.06 seconds | 8.17–13.12 seconds | $0.286737 |
+
+Times measure the backend controller, exact counting and the two paid stages, not browser rendering or reading time. Each successful scenario settled twelve generation stages; neither left an own uncertain hold. Estimated costs use the reviewed local rates and usage receipts, rather than a provider invoice. These selected successful runs cost $0.5674605 together. All fresh investigation attempts, including failed revisions, cost **$1.8675285**; the preceding original failed sample cost $0.049605 separately. Three count-only probes issued no paid generation. The final shared allowance had $0.91236 remaining; its cap and policy were unchanged.
+
+The provider case retained the office correction to Bonita Springs and the home ZIP, distinguished carrier acceptance from exact-plan participation and personal price, explained Medicare Advantage and ended with useful questions for the plan and office. It completed no contacts or verified findings. It still repeated an unanswered ZIP question during an educational detour and moved into prescriptions/travel intake while the person was seeking immediate next steps. Its final “what this establishes” wording could more clearly describe what future answers would establish; the checklist itself verifies nothing.
+
+The caregiver case explained Original Medicare, Medigap and Medicare Advantage, left ride coverage unverified, accepted unknown dates/assistance and ended without another question or outside action. **A material quality gap remains:** transportation to appointments drifted into routine travel away from home. The latter question repeated and then appeared as a named priority in the recap. That is a task-interpretation problem despite successful response delivery. It must not be counted as successful comprehension or a verified transportation benefit.
+
+[Full selected transcripts](TRANSCRIPTS.md), [numeric evaluation and all attempt dispositions](evaluation.json). This review was authored by the implementation agent, not an independent domain reviewer or an observed consumer. Small fictional cases are diagnostic examples; they do not estimate a production failure rate, prove user understanding or unlock personal recommendations.
+
+The original November 3 preflight interruption remains historically unexplained because its code discarded the underlying error. New fixed categories identify future interruptions without logging customer text or credentials. A successful probe does not prove intermittent transport failure is eliminated. The broader architecture still uses bounded lexical/claim safeguards, not complete semantic entailment; additional held-out language cases remain appropriate before a reliability claim.

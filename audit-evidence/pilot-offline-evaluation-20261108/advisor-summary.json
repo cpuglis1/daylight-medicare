@@ -1,0 +1,123 @@
+{
+  "schema": "daylight-advisor-checks/v1",
+  "passed": false,
+  "python_tests_run": 1077,
+  "failures": 12,
+  "errors": 9,
+  "skipped_cases": 0,
+  "public_test_modules": 93,
+  "private_modules_not_run": {
+    "test_published_reference": "Requires exact accepted r4 evidence, original verifier and external review receipt from the private research archive."
+  },
+  "external_python_network": "denied",
+  "provider_credentials_inherited": false,
+  "source_acceptance_changed": false,
+  "raw_log_sha256": "acc503ef289a09d3f3d3f826dc06ea8b482fb27896975774cec4d2f1b18fbf4c",
+  "initial_failures_and_errors": [
+    {
+      "status": "error",
+      "test": "test_claude_keeps_valid_answer_when_optional_draft_is_out_of_bounds (test_advisor_models.AdvisorModelTests.test_claude_keeps_valid_answer_when_optional_draft_is_out_of_bounds) (refs=['reviewed'])"
+    },
+    {
+      "status": "error",
+      "test": "test_claude_keeps_valid_answer_when_optional_draft_is_out_of_bounds (test_advisor_models.AdvisorModelTests.test_claude_keeps_valid_answer_when_optional_draft_is_out_of_bounds) (refs=['unreviewed'])"
+    },
+    {
+      "status": "error",
+      "test": "test_claude_returns_normalized_metered_structured_reply (test_advisor_models.AdvisorModelTests.test_claude_returns_normalized_metered_structured_reply)"
+    },
+    {
+      "status": "error",
+      "test": "setUpClass (test_comparison_http.ComparisonHttpTests)"
+    },
+    {
+      "status": "error",
+      "test": "test_repeated_explicit_lesson_is_allowed_and_counts_once_per_distinct_request (test_education_lifecycle.EducationLifecycleTests.test_repeated_explicit_lesson_is_allowed_and_counts_once_per_distinct_request)"
+    },
+    {
+      "status": "error",
+      "test": "test_cost_question_uses_shared_blocks_and_one_existing_composition_stage (test_understanding_flow.UnderstandingFlowTests.test_cost_question_uses_shared_blocks_and_one_existing_composition_stage)"
+    },
+    {
+      "status": "error",
+      "test": "test_free_lesson_and_its_replay_recheck_source_authority_without_generation (test_understanding_flow.UnderstandingFlowTests.test_free_lesson_and_its_replay_recheck_source_authority_without_generation)"
+    },
+    {
+      "status": "error",
+      "test": "test_timing_question_preserves_reported_month_without_a_personal_window (test_understanding_flow.UnderstandingFlowTests.test_timing_question_preserves_reported_month_without_a_personal_window)"
+    },
+    {
+      "status": "error",
+      "test": "test_free_cost_lesson_uses_real_http_and_stays_outside_saved_profiles (test_understanding_http.UnderstandingHttpTests.test_free_cost_lesson_uses_real_http_and_stays_outside_saved_profiles)"
+    },
+    {
+      "status": "fail",
+      "test": "test_explicit_request_to_explain_again_authorizes_recap_and_visual (test_curriculum_flow.CurriculumFlowTests.test_explicit_request_to_explain_again_authorizes_recap_and_visual)"
+    },
+    {
+      "status": "fail",
+      "test": "test_failed_composition_can_deliver_the_requested_reviewed_lesson (test_curriculum_flow.CurriculumFlowTests.test_failed_composition_can_deliver_the_requested_reviewed_lesson)"
+    },
+    {
+      "status": "fail",
+      "test": "test_new_layer_can_reuse_evidence_without_repeating_the_paths (test_curriculum_flow.CurriculumFlowTests.test_new_layer_can_reuse_evidence_without_repeating_the_paths)"
+    },
+    {
+      "status": "fail",
+      "test": "test_reported_two_turn_sequence_reuses_citation_without_repeating_visual_or_receipt (test_curriculum_flow.CurriculumFlowTests.test_reported_two_turn_sequence_reuses_citation_without_repeating_visual_or_receipt)"
+    },
+    {
+      "status": "fail",
+      "test": "test_explicit_free_lesson_records_primary_concept_and_preserves_current_question (test_education_lifecycle.EducationLifecycleTests.test_explicit_free_lesson_records_primary_concept_and_preserves_current_question)"
+    },
+    {
+      "status": "fail",
+      "test": "test_explicit_parts_lesson_records_both_parts_without_marking_other_sections (test_education_lifecycle.EducationLifecycleTests.test_explicit_parts_lesson_records_both_parts_without_marking_other_sections)"
+    },
+    {
+      "status": "fail",
+      "test": "test_free_lesson_without_prior_v3_permission_cannot_create_memory_or_consent (test_education_lifecycle.EducationLifecycleTests.test_free_lesson_without_prior_v3_permission_cannot_create_memory_or_consent)"
+    },
+    {
+      "status": "fail",
+      "test": "test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions (test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions)"
+    },
+    {
+      "status": "fail",
+      "test": "test_same_request_replay_preserves_current_work_and_historical_replay_suppresses_it (test_task_work_flow.TaskWorkFlowTests.test_same_request_replay_preserves_current_work_and_historical_replay_suppresses_it)"
+    },
+    {
+      "status": "fail",
+      "test": "test_failed_turns_never_trigger_a_case_specific_question_or_lesson (test_timing_recovery.TimingRecoveryTests.test_failed_turns_never_trigger_a_case_specific_question_or_lesson)"
+    },
+    {
+      "status": "fail",
+      "test": "test_parts_backed_original_visual_is_limited_through_the_real_controller (test_understanding_flow.UnderstandingFlowTests.test_parts_backed_original_visual_is_limited_through_the_real_controller)"
+    },
+    {
+      "status": "fail",
+      "test": "test_concept_link_preserves_current_practical_question_without_model_call (test_utility_button_gates.UtilityButtonGatesTests.test_concept_link_preserves_current_practical_question_without_model_call)"
+    }
+  ],
+  "diagnostics": {
+    "model_module_rerun": {
+      "status": "passed",
+      "tests": 7,
+      "python": "3.14.7",
+      "jsonschema": "4.25.1",
+      "initial_cause": "jsonschema absent from Python 3.12 test environment",
+      "log_sha256": "6be384a0494eb8d05008d91c2510d30cda7bca6e63f2d54f268344a094e2301e"
+    },
+    "historical_comparison_replay": {
+      "status": "passed_in_isolation",
+      "initial_cause": "working-tree natural_state.py differs from the archived profile_capture pin",
+      "archived_file": "audit-evidence/turn-framework-20261104/before/alternatives/advisor-first/natural_state.py",
+      "archived_file_sha256": "6b89b84b857ff02facd95b254461261379b64cc2020f4f046a5779cc44e2b411",
+      "verified_bound_input_hashes": 12,
+      "additional_profile_contract_input_hashes": 5,
+      "historical_cells_replayed": 6,
+      "current_comparison_http_suite_pass": false,
+      "log_sha256": "4bf9e2dbd51633c4bfe8258d8be6d3f2098275f8fe3694e560f3c847b39bed43"
+    }
+  }
+}

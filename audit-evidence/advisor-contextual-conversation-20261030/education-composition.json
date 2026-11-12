@@ -1,0 +1,152 @@
+{
+  "value": {
+    "move_id": "explain",
+    "reply": "Part B is the medical insurance part of Medicare. It covers doctor visits, outpatient care, tests, medical equipment, and many preventive services. Part A and Part B together are Original Medicare.",
+    "question": "What would you like to compare next?",
+    "report_refs": [],
+    "evidence_refs": [
+      "partb"
+    ]
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.knowledge.general",
+        "status": "reported",
+        "value": "new",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "employer"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [
+      {
+        "id": "guide.situation.retirement",
+        "status": "reported"
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported"
+      },
+      {
+        "id": "guide.coverage.requestedStart",
+        "status": "reported"
+      },
+      {
+        "id": "readiness.RC09.profile.choice",
+        "status": "reported"
+      },
+      {
+        "id": "readiness.RC06.profile.choice",
+        "status": "reported"
+      }
+    ],
+    "task": "compare",
+    "dialogue": {
+      "orientation": "",
+      "lastTarget": {
+        "id": "T03",
+        "entity": "profile",
+        "fields": [
+          "zip"
+        ]
+      },
+      "explainedTopics": [],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      6,
+      5
+    ],
+    "activeQuestion": null,
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "A soonest-possible desired start is a preference, not an exact start month or actual enrollment.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "current_message": "I haven't applied yet. Before we keep going, what is Part B?",
+    "recent_exchanges": [
+      {
+        "user": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.",
+        "assistant": "Prescription coverage can be part of what you compare later, and your preferred Medicare start may be different from your wife\u2019s job coverage ending.",
+        "question": "When would you like Medicare coverage to start?"
+      },
+      {
+        "user": "ASAP!!",
+        "assistant": "Okay \u2014 we can look at the soonest option.",
+        "question": "What ZIP code do you live in?"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "partb",
+        "title": "Part B: medical care",
+        "text": "Part B is medical insurance. It covers doctors, outpatient care, tests, equipment, and many preventive services. Together, Part A and Part B are Original Medicare.",
+        "summary": "Medical insurance is one part of Medicare.",
+        "question": "What is Part B?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      }
+    ],
+    "uncertainties": []
+  },
+  "moves": [
+    {
+      "id": "explain",
+      "question": null,
+      "purpose": "Answer this reviewed educational question. The person has paused intake; preserve unresolved information for later without immediately reasking it.",
+      "priority": 0
+    }
+  ],
+  "accepted": false,
+  "error": "This conversation move does not ask a new question."
+}

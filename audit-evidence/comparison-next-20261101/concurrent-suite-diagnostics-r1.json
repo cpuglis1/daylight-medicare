@@ -1,0 +1,189 @@
+{
+  "schema": "daylight.concurrent-suite-diagnostics.v1",
+  "recorded_at": "2026-11-02T13:43:53.223678+00:00",
+  "scope": "Read-only historical log and current source inspection; one additive diagnostic artifact only.",
+  "inputs": [
+    {
+      "path": "audit-evidence/comparison-next-20261101/advisor-concurrent-workspace-suite-r1.log",
+      "sha256": "75a971837fe885ca74f3d2fda517274a3e7c2c8b6f5c322c3e05fc7c64dd20de"
+    },
+    {
+      "path": "audit-evidence/comparison-next-20261101/advisor-concurrent-workspace-suite-r1.json",
+      "sha256": "da4e0f28d4f8af2c6717ef2aba30533b0311b4c6d86f65924ed5598104b08a89"
+    },
+    {
+      "path": "audit-evidence/comparison-next-20261101/concurrent-workspace-observation-r1.json",
+      "sha256": "13e25731c2e2560070fc135f20507c6e603458440905a20d86624c4e654d1652"
+    }
+  ],
+  "recorded_run": {
+    "started_at": "2026-11-02T13:38:47.618561+00:00",
+    "finished_at": "2026-11-02T13:39:30.203191+00:00",
+    "python_tests_run": 446,
+    "python_failures": 2,
+    "python_errors": 4,
+    "elapsed_seconds": 42.123,
+    "exit_code": 1,
+    "snapshot_stable": false,
+    "changed_during_check": [
+      "alternatives/advisor-first/web/advisor.css"
+    ],
+    "nested_node_results_are_not_additional_python_failures": true,
+    "certification": "Failed historical regression snapshot only; not a current application certification."
+  },
+  "identity_disposition": {
+    "identity_resolution_tests_explicitly_ok_in_log": 17,
+    "log_lines": [
+      219,
+      235
+    ],
+    "module_and_test_before_after_current_hashes_match": true,
+    "failed_stacks_reference_identity_resolution": false,
+    "failed_js_harnesses_or_advisor_js_reference_identity_resolution_or_DrugIdentityChoices": false,
+    "conclusion": "No recorded failing assertion or stack implicates the callable identity-choice seam. Its 17 tests passed for the recorded run. This does not certify the concurrently changing advisor application or actual dictionary/guest integration."
+  },
+  "socket_errors": {
+    "cause": "PermissionError [Errno 1] Operation not permitted at socket.bind for isolated loopback HTTP fixtures, through pinned guide_server.py:212.",
+    "cases": [
+      {
+        "case": "test_comparison_http.ComparisonHttpTests.setUpClass",
+        "log_line": 490,
+        "test_source_line": 21
+      },
+      {
+        "case": "test_http.HttpTests.setUpClass",
+        "log_line": 516,
+        "test_source_line": 19
+      },
+      {
+        "case": "test_provider_http.ProviderHttpTests.test_pcp_capture_after_cobra_timing_and_naples_returns_complete_json",
+        "log_line": 542,
+        "test_source_line": 30
+      },
+      {
+        "case": "test_research_http.ResearchHttpTests.setUpClass",
+        "log_line": 569,
+        "test_source_line": 90
+      }
+    ],
+    "limits": "Fixture setup failed before the affected HTTP assertions; these outcomes provide no HTTP acceptance result. The provider HTTP case is advisor report-capture coverage, not the callable drug identity-choice seam."
+  },
+  "javascript_failures": [
+    {
+      "python_wrapper": "test_ai_send.AISendTests.test_send_is_one_deliberate_request_without_a_confirmation_modal",
+      "log_line": 597,
+      "node_tests": 17,
+      "node_pass": 4,
+      "node_fail": 13,
+      "recorded_failure": "ReferenceError: beginPending is not defined in the VM-extracted production-send fragment.",
+      "source_interpretation": "The harness extracts turnCandidate through the function before concept; beginPending is defined earlier in the whole advisor script and is a dependency of turn. This failure alone does not demonstrate an undefined helper in the complete browser script.",
+      "current_observation": "The current test harness already supplies beginPending and endPending stubs; its SHA differs from the historical run. No rerun was performed here."
+    },
+    {
+      "python_wrapper": "test_assistant_reveal.AssistantRevealTests.test_real_rendering_preserves_the_8891_reveal_contract",
+      "log_line": 896,
+      "node_tests": 45,
+      "node_pass": 35,
+      "node_fail": 10,
+      "recorded_failure_groups": [
+        {
+          "node_test_numbers": [
+            19,
+            23,
+            24,
+            39,
+            40
+          ],
+          "cause": "Mock DOM whitelist admitted only history/reference/current; choiceMayChange accessed message."
+        },
+        {
+          "node_test_numbers": [
+            42
+          ],
+          "cause": "VM-extracted choiceMayChange called note, absent from that harness context."
+        },
+        {
+          "node_test_numbers": [
+            25,
+            26,
+            36
+          ],
+          "cause": "Teaching/timing visibility assertions expected false and received true; these are behavior/expectation mismatches requiring reconciliation with the current interaction contract, not merely missing helper stubs."
+        },
+        {
+          "node_test_numbers": [
+            27
+          ],
+          "cause": "Static HTML assertion required ai-notice with Send uses OpenAI text; the recorded HTML omitted that element. This is a disclosure-placement/expectation mismatch, not an identity failure."
+        }
+      ],
+      "current_observation": "Current harness includes message and note and changes teaching/disclosure expectations. Current code/test hashes differ from the historical run. This review does not certify the changed expectations or rendered behavior."
+    }
+  ],
+  "observed_source_bindings": [
+    {
+      "path": "alternatives/advisor-first/identity_resolution.py",
+      "recorded_run_before_sha256": "23cbfd87a7ac521073c30d8ebd5cd6adb47aa6d41bc356313450991f854bd14c",
+      "recorded_run_after_sha256": "23cbfd87a7ac521073c30d8ebd5cd6adb47aa6d41bc356313450991f854bd14c",
+      "diagnostic_observation_sha256": "23cbfd87a7ac521073c30d8ebd5cd6adb47aa6d41bc356313450991f854bd14c",
+      "mtime_utc": "2026-11-02T01:01:21.392092+00:00"
+    },
+    {
+      "path": "alternatives/advisor-first/tests/test_identity_resolution.py",
+      "recorded_run_before_sha256": "bdf4201b2093260530104a9eaaf88b791ad295551c356553893653f193f0e998",
+      "recorded_run_after_sha256": "bdf4201b2093260530104a9eaaf88b791ad295551c356553893653f193f0e998",
+      "diagnostic_observation_sha256": "bdf4201b2093260530104a9eaaf88b791ad295551c356553893653f193f0e998",
+      "mtime_utc": "2026-11-02T01:01:21.496160+00:00"
+    },
+    {
+      "path": "alternatives/advisor-first/web/advisor.js",
+      "recorded_run_before_sha256": "9d81f7e816357fdb1a477c17057e44b4ebc19cfb77bef696b133f59f1aaf7872",
+      "recorded_run_after_sha256": "9d81f7e816357fdb1a477c17057e44b4ebc19cfb77bef696b133f59f1aaf7872",
+      "diagnostic_observation_sha256": "d004aeffe0b19b5ea432d7d4e028bf8aae07e1051c9c147faaebbcd54f497414",
+      "mtime_utc": "2026-11-02T13:40:40.396194+00:00"
+    },
+    {
+      "path": "alternatives/advisor-first/web/advisor.css",
+      "recorded_run_before_sha256": "45d533a982877a34d7793b41647409952c6f5e37bd5863ed6913e2ac6605fb54",
+      "recorded_run_after_sha256": "2aaf8427a94cf5a7bbc5ca78dfc5c217728efa86d9a2145b1c967d9b0aaddc83",
+      "diagnostic_observation_sha256": "27b73b365b93236724255c7b8f9406e02bd43529af46e31530a6c44774adaf1e",
+      "mtime_utc": "2026-11-02T13:42:04.683780+00:00"
+    },
+    {
+      "path": "alternatives/advisor-first/web/index.html",
+      "recorded_run_before_sha256": "d2b333c7c4ba3aa7245439f49f772166f43b63582bfc2ab33497763c59bb087a",
+      "recorded_run_after_sha256": "d2b333c7c4ba3aa7245439f49f772166f43b63582bfc2ab33497763c59bb087a",
+      "diagnostic_observation_sha256": "d2b333c7c4ba3aa7245439f49f772166f43b63582bfc2ab33497763c59bb087a",
+      "mtime_utc": "2026-11-02T13:38:33.303632+00:00"
+    },
+    {
+      "path": "alternatives/advisor-first/tests/test_ai_send.js",
+      "recorded_run_before_sha256": "c663b0d67a2e89600a479bec3c6208b0ea9552d0c2547ed23e604cf85ee80edd",
+      "recorded_run_after_sha256": "c663b0d67a2e89600a479bec3c6208b0ea9552d0c2547ed23e604cf85ee80edd",
+      "diagnostic_observation_sha256": "4495a33daa9a88a5a1542d5ece6d2eb5a726c23e7acc13a8a9c4e844120c304d",
+      "mtime_utc": "2026-11-02T13:40:33.135957+00:00"
+    },
+    {
+      "path": "alternatives/advisor-first/tests/test_assistant_reveal.js",
+      "recorded_run_before_sha256": "36ade8c3343282c693bbc91188f01a4fe844708754d4e2c3de816073ff7e9925",
+      "recorded_run_after_sha256": "36ade8c3343282c693bbc91188f01a4fe844708754d4e2c3de816073ff7e9925",
+      "diagnostic_observation_sha256": "f63f9db99d97e3607fc47c9f2c4c9a96e18ea73c696e777d346026ffa0a9ed21",
+      "mtime_utc": "2026-11-02T13:42:18.999599+00:00"
+    }
+  ],
+  "concurrent_workspace_limit": "Only file hashes captured by the parent before/after the historical run support that run binding. Current file observations are later samples, not an atomic or stable checkout. CSS changed during the run and JS/test files changed afterward.",
+  "next_verification": [
+    "Concurrent owner reconciles teaching and disclosure expectations with their current governing interaction contract, preserving input/consent safeguards.",
+    "Rerun the intended complete advisor suite against a stable, before/after hash-bound snapshot with permitted isolated loopback socket access.",
+    "Check browser behavior for pending Send, draft preservation, teaching visibility and privacy disclosure; a repaired VM mock alone is insufficient."
+  ],
+  "actions_in_this_diagnostic": {
+    "new_tests_executed": 0,
+    "app_or_test_source_edits": 0,
+    "frozen_r11_edits": 0,
+    "database_or_guest_store_access": false,
+    "model_calls": 0,
+    "runtime_or_service_actions": 0,
+    "source_acceptance_or_release": false
+  }
+}

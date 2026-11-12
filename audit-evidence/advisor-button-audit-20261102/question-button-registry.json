@@ -1,0 +1,3139 @@
+{
+  "inventoryIds": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "RC01",
+    "RC02",
+    "RC03",
+    "RC04",
+    "RC05",
+    "RC06",
+    "RC07",
+    "RC08",
+    "RC09",
+    "RC10",
+    "RC11",
+    "RC12",
+    "RC13",
+    "RC14",
+    "RC15",
+    "RC16",
+    "RC17",
+    "RC18",
+    "RC19",
+    "RC20",
+    "RC21",
+    "RC22",
+    "RC23",
+    "RC24",
+    "RC25",
+    "RC26",
+    "RC27",
+    "RC28",
+    "RC11.C1",
+    "RC16.C1",
+    "RC16.C2"
+  ],
+  "questions": [
+    {
+      "id": "T01",
+      "inventoryIds": [
+        "T01"
+      ],
+      "question": "What would you like help with?",
+      "why": "",
+      "choices": [
+        [
+          "learn",
+          "Understand Medicare"
+        ],
+        [
+          "compare",
+          "Find coverage"
+        ],
+        [
+          "review",
+          "Review my coverage"
+        ],
+        [
+          "unresolved",
+          "Something else"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T01.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T01",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T01",
+      "inventoryIds": [
+        "T01"
+      ],
+      "question": "What would you like help with?",
+      "why": "",
+      "choices": [
+        [
+          "learn",
+          "Understand Medicare"
+        ],
+        [
+          "compare",
+          "Find coverage"
+        ],
+        [
+          "review",
+          "Review my coverage"
+        ],
+        [
+          "unresolved",
+          "Something else"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T01.profile.text",
+      "atomicRequests": 1,
+      "auditInventoryId": "T01",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T02",
+      "inventoryIds": [
+        "T02"
+      ],
+      "question": "How familiar are you with Medicare?",
+      "why": "",
+      "choices": [
+        [
+          "new",
+          "New to Medicare"
+        ],
+        [
+          "some",
+          "Know a little"
+        ],
+        [
+          "comfortable",
+          "Comfortable with the basics"
+        ],
+        [
+          "unknown",
+          "Not sure yet"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T02.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T02",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T02",
+      "inventoryIds": [
+        "T02"
+      ],
+      "question": "How familiar are you with Medicare?",
+      "why": "",
+      "choices": [
+        [
+          "new",
+          "New to Medicare"
+        ],
+        [
+          "some",
+          "Know a little"
+        ],
+        [
+          "comfortable",
+          "Comfortable with the basics"
+        ],
+        [
+          "unknown",
+          "Not sure yet"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T02.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T02",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T03",
+      "inventoryIds": [
+        "T03"
+      ],
+      "question": "What ZIP code do you live in?",
+      "why": "Plans differ by county. This helps identify the area you want to look into.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "zip",
+          "label": "Home ZIP code",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "T03.profile.zip",
+      "atomicRequests": 1,
+      "auditInventoryId": "T03",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T03",
+      "inventoryIds": [
+        "T03"
+      ],
+      "question": "What ZIP code do you live in?",
+      "why": "Plans differ by county. This helps identify the area you want to look into.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "zip",
+          "label": "Home ZIP code",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "T03.profile.zip",
+      "atomicRequests": 1,
+      "auditInventoryId": "T03",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T04",
+      "inventoryIds": [
+        "T04"
+      ],
+      "question": "When would you like Medicare coverage to start?",
+      "why": "Your preferred start can differ from when your current insurance ends.",
+      "choices": [
+        [
+          "soonest",
+          "As soon as possible"
+        ],
+        [
+          "already",
+          "I already have Medicare"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "month",
+          "label": "Month and year",
+          "type": "text",
+          "options": [],
+          "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+        }
+      ],
+      "signature": "T04.profile.month",
+      "atomicRequests": 1,
+      "auditInventoryId": "T04",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T04",
+      "inventoryIds": [
+        "T04"
+      ],
+      "question": "When would you like Medicare coverage to start?",
+      "why": "Your preferred start can differ from when your current insurance ends.",
+      "choices": [
+        [
+          "soonest",
+          "As soon as possible"
+        ],
+        [
+          "already",
+          "I already have Medicare"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "month",
+          "label": "Month and year",
+          "type": "text",
+          "options": [],
+          "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+        }
+      ],
+      "signature": "T04.profile.month",
+      "atomicRequests": 1,
+      "auditInventoryId": "T04",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T05",
+      "inventoryIds": [
+        "T05"
+      ],
+      "question": "What health insurance do you have now?",
+      "why": "We\u2019ll use this to understand what you have before looking at other options.",
+      "choices": [
+        [
+          "original",
+          "Original Medicare (Parts A and B)"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage (Part C)"
+        ],
+        [
+          "medigap",
+          "Medicare Supplement / Medigap"
+        ],
+        [
+          "drug",
+          "Separate prescription drug plan"
+        ],
+        [
+          "employer",
+          "Current-job coverage"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ],
+        [
+          "military",
+          "VA, TRICARE or military coverage"
+        ],
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "none",
+          "None"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T05.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T05",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T05",
+      "inventoryIds": [
+        "T05"
+      ],
+      "question": "What health insurance do you have now?",
+      "why": "We\u2019ll use this to understand what you have before looking at other options.",
+      "choices": [
+        [
+          "original",
+          "Original Medicare (Parts A and B)"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage (Part C)"
+        ],
+        [
+          "medigap",
+          "Medicare Supplement / Medigap"
+        ],
+        [
+          "drug",
+          "Separate prescription drug plan"
+        ],
+        [
+          "employer",
+          "Current-job coverage"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ],
+        [
+          "military",
+          "VA, TRICARE or military coverage"
+        ],
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "none",
+          "None"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T05.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T05",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T06",
+      "inventoryIds": [
+        "T06"
+      ],
+      "question": "Are there doctors or hospitals you want to keep?",
+      "why": "You can name the doctors or hospitals you want to keep, or leave this for later.",
+      "choices": [
+        [
+          "none",
+          "No doctors to include"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T06.profile.text",
+      "atomicRequests": 1,
+      "auditInventoryId": "T06",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T06",
+      "inventoryIds": [
+        "T06"
+      ],
+      "question": "Are there doctors or hospitals you want to keep?",
+      "why": "You can name the doctors or hospitals you want to keep, or leave this for later.",
+      "choices": [
+        [
+          "none",
+          "No doctors to include"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T06.profile.text",
+      "atomicRequests": 1,
+      "auditInventoryId": "T06",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T07",
+      "inventoryIds": [
+        "T07"
+      ],
+      "question": "Which prescriptions should we include?",
+      "why": "You can list the medicines you want included, or leave this for later.",
+      "choices": [
+        [
+          "no",
+          "No prescriptions to include"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T07.profile.text",
+      "atomicRequests": 1,
+      "auditInventoryId": "T07",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T07",
+      "inventoryIds": [
+        "T07"
+      ],
+      "question": "Which prescriptions should we include?",
+      "why": "You can list the medicines you want included, or leave this for later.",
+      "choices": [
+        [
+          "no",
+          "No prescriptions to include"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T07.profile.text",
+      "atomicRequests": 1,
+      "auditInventoryId": "T07",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T08",
+      "inventoryIds": [
+        "T08"
+      ],
+      "question": "Will you need routine care away from home?",
+      "why": "This helps identify whether access to routine care in another place matters to you.",
+      "choices": [
+        [
+          "local",
+          "Local only"
+        ],
+        [
+          "elsewhere_us",
+          "Elsewhere in the U.S."
+        ],
+        [
+          "outside_us",
+          "Outside the U.S."
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T08.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T08",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T08",
+      "inventoryIds": [
+        "T08"
+      ],
+      "question": "Will you need routine care away from home?",
+      "why": "This helps identify whether access to routine care in another place matters to you.",
+      "choices": [
+        [
+          "local",
+          "Local only"
+        ],
+        [
+          "elsewhere_us",
+          "Elsewhere in the U.S."
+        ],
+        [
+          "outside_us",
+          "Outside the U.S."
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T08.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T08",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T09",
+      "inventoryIds": [
+        "T09"
+      ],
+      "question": "How would you prefer to balance monthly payments and costs when you get care?",
+      "why": "",
+      "choices": [
+        [
+          "lower_monthly",
+          "Lower monthly payments"
+        ],
+        [
+          "predictable",
+          "More predictable costs"
+        ],
+        [
+          "no_preference",
+          "No preference yet"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T09.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T09",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T09",
+      "inventoryIds": [
+        "T09"
+      ],
+      "question": "How would you prefer to balance monthly payments and costs when you get care?",
+      "why": "",
+      "choices": [
+        [
+          "lower_monthly",
+          "Lower monthly payments"
+        ],
+        [
+          "predictable",
+          "More predictable costs"
+        ],
+        [
+          "no_preference",
+          "No preference yet"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T09.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "T09",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "T10",
+      "inventoryIds": [
+        "T10"
+      ],
+      "question": "What matters most when we compare your options?",
+      "why": "",
+      "choices": [
+        [
+          "doctors",
+          "Doctors and hospitals"
+        ],
+        [
+          "drugs",
+          "Prescriptions"
+        ],
+        [
+          "total_cost",
+          "Total cost"
+        ],
+        [
+          "bills",
+          "Predictable costs"
+        ],
+        [
+          "travel",
+          "Travel"
+        ],
+        [
+          "other",
+          "Something else"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "T10.profile.choice",
+      "atomicRequests": 1,
+      "max": 3,
+      "auditInventoryId": "T10",
+      "auditVariant": "default"
+    },
+    {
+      "id": "T10",
+      "inventoryIds": [
+        "T10"
+      ],
+      "question": "What matters most when we compare your options?",
+      "why": "",
+      "choices": [
+        [
+          "doctors",
+          "Doctors and hospitals"
+        ],
+        [
+          "drugs",
+          "Prescriptions"
+        ],
+        [
+          "total_cost",
+          "Total cost"
+        ],
+        [
+          "bills",
+          "Predictable costs"
+        ],
+        [
+          "travel",
+          "Travel"
+        ],
+        [
+          "other",
+          "Something else"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "text",
+          "label": "Type your answer",
+          "type": "textarea",
+          "options": []
+        }
+      ],
+      "signature": "T10.profile.text",
+      "atomicRequests": 1,
+      "max": 3,
+      "auditInventoryId": "T10",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC01",
+      "inventoryIds": [
+        "RC01"
+      ],
+      "question": "Who is this for?",
+      "why": "",
+      "choices": [
+        [
+          "self",
+          "Me"
+        ],
+        [
+          "someone",
+          "Someone I help"
+        ],
+        [
+          "research",
+          "Research only"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC01.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC01",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC01",
+      "inventoryIds": [
+        "RC01"
+      ],
+      "question": "Who is this for?",
+      "why": "",
+      "choices": [
+        [
+          "self",
+          "Me"
+        ],
+        [
+          "someone",
+          "Someone I help"
+        ],
+        [
+          "research",
+          "Research only"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC01.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC01",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC02",
+      "inventoryIds": [
+        "RC02"
+      ],
+      "question": "Where is your permanent home?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC02.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC02",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC02",
+      "inventoryIds": [
+        "RC02"
+      ],
+      "question": "Where is your permanent home?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "zip",
+          "label": "Home ZIP code",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "county",
+          "label": "County and state",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "homeStatus",
+          "label": "homeStatus",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC02.profile.zip.county.homeStatus",
+      "atomicRequests": 3,
+      "auditInventoryId": "RC02",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC03",
+      "inventoryIds": [
+        "RC03"
+      ],
+      "question": "Which year should we compare?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC03.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC03",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC03",
+      "inventoryIds": [
+        "RC03"
+      ],
+      "question": "Which year should we compare?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "year",
+          "label": "When you need coverage",
+          "type": "text",
+          "options": [],
+          "hint": "A month and year, such as December 2026 or 12/26. A year alone is enough if you are only browsing."
+        }
+      ],
+      "signature": "RC03.profile.year",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC03",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC04",
+      "inventoryIds": [
+        "RC04"
+      ],
+      "question": "Which Medicare parts do you have now?",
+      "why": "",
+      "choices": [
+        [
+          "both",
+          "A and B"
+        ],
+        [
+          "a_only",
+          "A only"
+        ],
+        [
+          "b_only",
+          "B only"
+        ],
+        [
+          "neither",
+          "Neither"
+        ],
+        [
+          "pending",
+          "Applied; waiting"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC04.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC04",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC04",
+      "inventoryIds": [
+        "RC04"
+      ],
+      "question": "Which Medicare parts do you have now?",
+      "why": "",
+      "choices": [
+        [
+          "both",
+          "A and B"
+        ],
+        [
+          "a_only",
+          "A only"
+        ],
+        [
+          "b_only",
+          "B only"
+        ],
+        [
+          "neither",
+          "Neither"
+        ],
+        [
+          "pending",
+          "Applied; waiting"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC04.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC04",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC05",
+      "inventoryIds": [
+        "RC05"
+      ],
+      "question": "When did Part B start?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC05.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC05",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC05",
+      "inventoryIds": [
+        "RC05"
+      ],
+      "question": "When did Part B start?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "month",
+          "label": "Month and year",
+          "type": "text",
+          "options": [],
+          "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+        }
+      ],
+      "signature": "RC05.profile.month",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC05",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC06",
+      "inventoryIds": [
+        "RC06"
+      ],
+      "question": "How did you first qualify, or expect to qualify, for Medicare?",
+      "why": "",
+      "choices": [
+        [
+          "age65",
+          "Age 65 or older"
+        ],
+        [
+          "disability",
+          "Disability before 65"
+        ],
+        [
+          "esrd",
+          "Kidney failure / ESRD"
+        ],
+        [
+          "als",
+          "ALS"
+        ],
+        [
+          "other",
+          "Another reason"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC06.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC06",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC06",
+      "inventoryIds": [
+        "RC06"
+      ],
+      "question": "How did you first qualify, or expect to qualify, for Medicare?",
+      "why": "",
+      "choices": [
+        [
+          "age65",
+          "Age 65 or older"
+        ],
+        [
+          "disability",
+          "Disability before 65"
+        ],
+        [
+          "esrd",
+          "Kidney failure / ESRD"
+        ],
+        [
+          "als",
+          "ALS"
+        ],
+        [
+          "other",
+          "Another reason"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "ageBand",
+          "label": "ageBand",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC06.profile.ageBand",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC06",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC07",
+      "inventoryIds": [
+        "RC07"
+      ],
+      "question": "How do you get your A and B benefits now?",
+      "why": "",
+      "choices": [
+        [
+          "original",
+          "Original Medicare"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage"
+        ],
+        [
+          "pending",
+          "A change is pending"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC07.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC07",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC07",
+      "inventoryIds": [
+        "RC07"
+      ],
+      "question": "How do you get your A and B benefits now?",
+      "why": "",
+      "choices": [
+        [
+          "original",
+          "Original Medicare"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage"
+        ],
+        [
+          "pending",
+          "A change is pending"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC07.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC07",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC08",
+      "inventoryIds": [
+        "RC08"
+      ],
+      "question": "What changed about your coverage?",
+      "why": "",
+      "choices": [
+        [
+          "loss",
+          "Losing coverage"
+        ],
+        [
+          "move",
+          "Moving"
+        ],
+        [
+          "plan_change",
+          "Plan ending or changing service area"
+        ],
+        [
+          "assistance_change",
+          "Medicaid or Extra Help changed"
+        ],
+        [
+          "other",
+          "Another event"
+        ],
+        [
+          "none",
+          "Nothing changed"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC08.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC08",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC08",
+      "inventoryIds": [
+        "RC08"
+      ],
+      "question": "What changed about your coverage?",
+      "why": "",
+      "choices": [
+        [
+          "loss",
+          "Losing coverage"
+        ],
+        [
+          "move",
+          "Moving"
+        ],
+        [
+          "plan_change",
+          "Plan ending or changing service area"
+        ],
+        [
+          "assistance_change",
+          "Medicaid or Extra Help changed"
+        ],
+        [
+          "other",
+          "Another event"
+        ],
+        [
+          "none",
+          "Nothing changed"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "eventDate",
+          "label": "Date of that change",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC08.profile.eventDate",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC08",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC09",
+      "inventoryIds": [
+        "RC09"
+      ],
+      "question": "Whose job is this health insurance through?",
+      "why": "",
+      "choices": [
+        [
+          "my_job",
+          "My current job"
+        ],
+        [
+          "spouse_job",
+          "Spouse\u2019s current job"
+        ],
+        [
+          "family_job",
+          "Family member\u2019s current job"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC09.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC09",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC09",
+      "inventoryIds": [
+        "RC09"
+      ],
+      "question": "Whose job is this health insurance through?",
+      "why": "",
+      "choices": [
+        [
+          "my_job",
+          "My current job"
+        ],
+        [
+          "spouse_job",
+          "Spouse\u2019s current job"
+        ],
+        [
+          "family_job",
+          "Family member\u2019s current job"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC09.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC09",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC10",
+      "inventoryIds": [
+        "RC10"
+      ],
+      "question": "Does the employer have 20 or more employees?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "20 or more"
+        ],
+        [
+          "no",
+          "Fewer than 20"
+        ],
+        [
+          "unknown",
+          "I'm not sure"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC10.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC10",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC10",
+      "inventoryIds": [
+        "RC10"
+      ],
+      "question": "Does the employer have 20 or more employees?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "20 or more"
+        ],
+        [
+          "no",
+          "Fewer than 20"
+        ],
+        [
+          "unknown",
+          "I'm not sure"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC10.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC10",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC11",
+      "inventoryIds": [
+        "RC11"
+      ],
+      "question": "When do the job and its insurance end?",
+      "why": "Your job and health insurance can end on different dates.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC11.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC11",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC11",
+      "inventoryIds": [
+        "RC11"
+      ],
+      "question": "When do the job and its insurance end?",
+      "why": "Your job and health insurance can end on different dates.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "jobEnd",
+          "label": "Job end",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "coverageEnd",
+          "label": "Work insurance end",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC11.profile.jobEnd.coverageEnd",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC11",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC12",
+      "inventoryIds": [
+        "RC12"
+      ],
+      "question": "Do you have a written notice saying your drug coverage counts as creditable (as good as Medicare\u2019s standard coverage), and has there been a gap?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes, according to its notice"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "none",
+          "I have no drug coverage"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC12.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC12",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC12",
+      "inventoryIds": [
+        "RC12"
+      ],
+      "question": "Do you have a written notice saying your drug coverage counts as creditable (as good as Medicare\u2019s standard coverage), and has there been a gap?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes, according to its notice"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "none",
+          "I have no drug coverage"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "gap",
+          "label": "Any relevant gap in drug coverage",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC12.profile.gap",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC12",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC13",
+      "inventoryIds": [
+        "RC13"
+      ],
+      "question": "Could a change affect anyone else\u2019s coverage?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Administrator says yes"
+        ],
+        [
+          "no",
+          "Administrator says no"
+        ],
+        [
+          "unchecked",
+          "I have not checked"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC13.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC13",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC13",
+      "inventoryIds": [
+        "RC13"
+      ],
+      "question": "Could a change affect anyone else\u2019s coverage?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Administrator says yes"
+        ],
+        [
+          "no",
+          "Administrator says no"
+        ],
+        [
+          "unchecked",
+          "I have not checked"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC13.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC13",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC14",
+      "inventoryIds": [
+        "RC14"
+      ],
+      "question": "Are you or your employer adding money to an HSA?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC14.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC14",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC14",
+      "inventoryIds": [
+        "RC14"
+      ],
+      "question": "Are you or your employer adding money to an HSA?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC14.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC14",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC15",
+      "inventoryIds": [
+        "RC15"
+      ],
+      "question": "For the Medigap option you want to explore, what coverage change or notice should we check?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC15.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC15",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC15",
+      "inventoryIds": [
+        "RC15"
+      ],
+      "question": "For the Medigap option you want to explore, what coverage change or notice should we check?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "event",
+          "label": "The relevant coverage change or notice",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC15.profile.event",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC15",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC16.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC16",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "start",
+          "label": "When that Medicare Advantage coverage first started",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "priorMedigap",
+          "label": "Did you leave Medigap to join that Advantage plan?",
+          "type": "select",
+          "options": [
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No"
+            ],
+            [
+              "unknown",
+              "I don\u2019t know"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC16.profile.start.priorMedigap",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC16",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC17",
+      "inventoryIds": [
+        "RC17"
+      ],
+      "question": "Are you replacing an existing Medigap policy?",
+      "why": "",
+      "choices": [
+        [
+          "replace",
+          "Yes, replacing it"
+        ],
+        [
+          "keep",
+          "No, keeping it"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC17.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC17",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC17",
+      "inventoryIds": [
+        "RC17"
+      ],
+      "question": "Are you replacing an existing Medigap policy?",
+      "why": "",
+      "choices": [
+        [
+          "replace",
+          "Yes, replacing it"
+        ],
+        [
+          "keep",
+          "No, keeping it"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC17.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC17",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC18",
+      "inventoryIds": [
+        "RC18"
+      ],
+      "question": "Do you currently receive benefits from any of these programs?",
+      "why": "",
+      "choices": [
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "extra_help",
+          "Extra Help"
+        ],
+        [
+          "part_b_help",
+          "Help paying Part B"
+        ],
+        [
+          "ssi",
+          "SSI"
+        ],
+        [
+          "none",
+          "None known"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC18.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC18",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC18",
+      "inventoryIds": [
+        "RC18"
+      ],
+      "question": "Do you currently receive benefits from any of these programs?",
+      "why": "",
+      "choices": [
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "extra_help",
+          "Extra Help"
+        ],
+        [
+          "part_b_help",
+          "Help paying Part B"
+        ],
+        [
+          "ssi",
+          "SSI"
+        ],
+        [
+          "none",
+          "None known"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "multi": true,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC18.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC18",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC19",
+      "inventoryIds": [
+        "RC19"
+      ],
+      "question": "For the Special Needs Plan type you want to explore, what exact qualifying program or plan confirmation do you have?",
+      "why": "",
+      "choices": [
+        [
+          "details",
+          "Program or plan confirmation"
+        ],
+        [
+          "no",
+          "No confirmation"
+        ],
+        [
+          "declined",
+          "Do not explore this type"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC19.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC19",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC19",
+      "inventoryIds": [
+        "RC19"
+      ],
+      "question": "For the Special Needs Plan type you want to explore, what exact qualifying program or plan confirmation do you have?",
+      "why": "",
+      "choices": [
+        [
+          "details",
+          "Program or plan confirmation"
+        ],
+        [
+          "no",
+          "No confirmation"
+        ],
+        [
+          "declined",
+          "Do not explore this type"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "qualification",
+          "label": "Named program or plan confirmation",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC19.profile.qualification",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC19",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC20",
+      "inventoryIds": [
+        "RC20"
+      ],
+      "question": "Where will you need routine care away from home?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC20.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC20",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC20",
+      "inventoryIds": [
+        "RC20"
+      ],
+      "question": "Where will you need routine care away from home?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "location",
+          "label": "Where routine care is needed",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC20.profile.location",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC20",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC21",
+      "inventoryIds": [
+        "RC21"
+      ],
+      "question": "What exact office and location should we use for each doctor or hospital?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "doctor-2",
+      "fields": [],
+      "signature": "RC21.doctor-2.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC21",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC21",
+      "inventoryIds": [
+        "RC21"
+      ],
+      "question": "What exact office and location should we use for each doctor or hospital?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "doctor-2",
+      "fields": [
+        {
+          "key": "practice",
+          "label": "Doctor, hospital or practice",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "city",
+          "label": "Office city and state",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC21.doctor-2.practice.city",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC21",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC22",
+      "inventoryIds": [
+        "RC22"
+      ],
+      "question": "What exact name, strength, form, and brand or generic preference should we use for each medicine?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "medicine-2",
+      "fields": [],
+      "signature": "RC22.medicine-2.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC22",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC22",
+      "inventoryIds": [
+        "RC22"
+      ],
+      "question": "What exact name, strength, form, and brand or generic preference should we use for each medicine?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "medicine-2",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Prescription name",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "strength",
+          "label": "Strength on the label",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "form",
+          "label": "Form, such as tablet or inhaler",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "brand",
+          "label": "brand",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC22.medicine-2.name.strength.form.brand",
+      "atomicRequests": 4,
+      "auditInventoryId": "RC22",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC23",
+      "inventoryIds": [
+        "RC23"
+      ],
+      "question": "For each medicine, what quantity, days supply, exact pharmacy and retail or mail order should we use?",
+      "why": "These are the fill details still needed for the prescription price question you asked.",
+      "choices": [],
+      "multi": false,
+      "entity": "medicine-2",
+      "fields": [],
+      "signature": "RC23.medicine-2.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC23",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC23",
+      "inventoryIds": [
+        "RC23"
+      ],
+      "question": "For each medicine, what quantity, days supply, exact pharmacy and retail or mail order should we use?",
+      "why": "These are the fill details still needed for the prescription price question you asked.",
+      "choices": [],
+      "multi": false,
+      "entity": "medicine-2",
+      "fields": [
+        {
+          "key": "quantity",
+          "label": "Quantity and units, such as 30 tablets",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "daysSupply",
+          "label": "Days supply",
+          "type": "select",
+          "options": [
+            [
+              "30",
+              "30 days"
+            ],
+            [
+              "60",
+              "60 days"
+            ],
+            [
+              "90",
+              "90 days"
+            ],
+            [
+              "other",
+              "Another amount"
+            ]
+          ]
+        },
+        {
+          "key": "pharmacy",
+          "label": "Pharmacy name and exact location",
+          "type": "search",
+          "options": [],
+          "hint": "No pharmacy directory is connected. Enter the exact store or mail service you mean; it remains unverified."
+        },
+        {
+          "key": "channel",
+          "label": "Retail or mail order",
+          "type": "select",
+          "options": [
+            [
+              "retail",
+              "Retail pharmacy"
+            ],
+            [
+              "mail",
+              "Mail order"
+            ]
+          ]
+        },
+        {
+          "key": "supply",
+          "label": "supply",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC23.medicine-2.quantity.daysSupply.pharmacy.channel.supply",
+      "atomicRequests": 5,
+      "auditInventoryId": "RC23",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC24",
+      "inventoryIds": [
+        "RC24"
+      ],
+      "question": "Is this given at a clinic or filled at a pharmacy?",
+      "why": "",
+      "choices": [
+        [
+          "clinic",
+          "At a clinic"
+        ],
+        [
+          "pharmacy",
+          "At a pharmacy"
+        ],
+        [
+          "both",
+          "Both / Not sure"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC24.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC24",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC24",
+      "inventoryIds": [
+        "RC24"
+      ],
+      "question": "Is this given at a clinic or filled at a pharmacy?",
+      "why": "",
+      "choices": [
+        [
+          "clinic",
+          "At a clinic"
+        ],
+        [
+          "pharmacy",
+          "At a pharmacy"
+        ],
+        [
+          "both",
+          "Both / Not sure"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC24.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC24",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC25",
+      "inventoryIds": [
+        "RC25"
+      ],
+      "question": "Is there a monthly amount you want to stay under?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC25.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC25",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC25",
+      "inventoryIds": [
+        "RC25"
+      ],
+      "question": "Is there a monthly amount you want to stay under?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "amount",
+          "label": "Monthly amount or range",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "includes",
+          "label": "What that limit includes",
+          "type": "select",
+          "options": [
+            [
+              "all_premiums_with_part_b",
+              "All monthly premiums, including Part B"
+            ],
+            [
+              "additional_premiums",
+              "Additional plan premiums only"
+            ],
+            [
+              "premiums_and_care",
+              "Premiums and care costs"
+            ],
+            [
+              "drugs",
+              "Prescription spending"
+            ],
+            [
+              "other",
+              "Another scope"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC25.profile.amount.includes",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC25",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC26",
+      "inventoryIds": [
+        "RC26"
+      ],
+      "question": "Which military or veterans\u2019 coverage do you have?",
+      "why": "",
+      "choices": [
+        [
+          "va",
+          "VA health care"
+        ],
+        [
+          "tfl",
+          "TRICARE For Life"
+        ],
+        [
+          "tricare",
+          "Other TRICARE"
+        ],
+        [
+          "champva",
+          "CHAMPVA"
+        ],
+        [
+          "other",
+          "Another program"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC26.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC26",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC26",
+      "inventoryIds": [
+        "RC26"
+      ],
+      "question": "Which military or veterans\u2019 coverage do you have?",
+      "why": "",
+      "choices": [
+        [
+          "va",
+          "VA health care"
+        ],
+        [
+          "tfl",
+          "TRICARE For Life"
+        ],
+        [
+          "tricare",
+          "Other TRICARE"
+        ],
+        [
+          "champva",
+          "CHAMPVA"
+        ],
+        [
+          "other",
+          "Another program"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC26.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC26",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC27",
+      "inventoryIds": [
+        "RC27"
+      ],
+      "question": "Is there a coverage interruption you need help with now?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "human",
+          "I want human help"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC27.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC27",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC27",
+      "inventoryIds": [
+        "RC27"
+      ],
+      "question": "Is there a coverage interruption you need help with now?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "human",
+          "I want human help"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC27.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC27",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC28",
+      "inventoryIds": [
+        "RC28"
+      ],
+      "question": "What should I correct about the specific detail we were discussing?",
+      "why": "",
+      "choices": [
+        [
+          "original",
+          "Original Medicare is current"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage is current"
+        ],
+        [
+          "different",
+          "They apply at different times"
+        ],
+        [
+          "neither",
+          "Neither"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC28.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC28",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC28",
+      "inventoryIds": [
+        "RC28"
+      ],
+      "question": "What should I correct about the specific detail we were discussing?",
+      "why": "",
+      "choices": [
+        [
+          "original",
+          "Original Medicare is current"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage is current"
+        ],
+        [
+          "different",
+          "They apply at different times"
+        ],
+        [
+          "neither",
+          "Neither"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC28.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC28",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC11",
+      "inventoryIds": [
+        "RC11.C1"
+      ],
+      "question": "When did the job or coverage end?",
+      "why": "Your desired Medicare start, the job\u2019s end and the insurance\u2019s end can be different. We\u2019ll keep the dates you actually know separate.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC11.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC11.C1",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC11",
+      "inventoryIds": [
+        "RC11.C1"
+      ],
+      "question": "When did the job or coverage end?",
+      "why": "Your desired Medicare start, the job\u2019s end and the insurance\u2019s end can be different. We\u2019ll keep the dates you actually know separate.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "jobEnd",
+          "label": "When the job ends",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "coverageEnd",
+          "label": "When that health insurance ends",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC11.profile.jobEnd.coverageEnd",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC11.C1",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16.C1"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC16.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC16.C1",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16.C1"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "start",
+          "label": "When that Medicare Advantage coverage first started",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "priorMedigap",
+          "label": "Did you leave Medigap to join that Advantage plan?",
+          "type": "select",
+          "options": [
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No"
+            ],
+            [
+              "unknown",
+              "I don\u2019t know"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC16.profile.start.priorMedigap",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC16.C1",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16.C2"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "entity": "profile",
+      "fields": [],
+      "signature": "RC16.profile.choice",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC16.C2",
+      "auditVariant": "default"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16.C2"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "start",
+          "label": "When that Medicare Advantage coverage first started",
+          "type": "text",
+          "options": []
+        },
+        {
+          "key": "priorMedigap",
+          "label": "Did you leave Medigap to join that Advantage plan?",
+          "type": "select",
+          "options": [
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No"
+            ],
+            [
+              "unknown",
+              "I don\u2019t know"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC16.profile.start.priorMedigap",
+      "atomicRequests": 2,
+      "auditInventoryId": "RC16.C2",
+      "auditVariant": "all_fields"
+    },
+    {
+      "id": "RC02",
+      "inventoryIds": [
+        "RC02"
+      ],
+      "question": "Where is your permanent home?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "county",
+          "label": "County and state",
+          "type": "select",
+          "options": [
+            [
+              "72001",
+              "Adjuntas Municipio, PR"
+            ],
+            [
+              "72081",
+              "Lares Municipio, PR"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC02.profile.county",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC02",
+      "auditVariant": "county_select"
+    },
+    {
+      "id": "RC11",
+      "inventoryIds": [
+        "RC11"
+      ],
+      "question": "When does that job end?",
+      "why": "Your job and health insurance can end on different dates.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "jobEnd",
+          "label": "Month and year",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC11.profile.jobEnd",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC11",
+      "auditVariant": "jobEnd"
+    },
+    {
+      "id": "RC11",
+      "inventoryIds": [
+        "RC11"
+      ],
+      "question": "When does that work insurance end?",
+      "why": "Your job and health insurance can end on different dates.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "coverageEnd",
+          "label": "Month and year",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "RC11.profile.coverageEnd",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC11",
+      "auditVariant": "coverageEnd"
+    },
+    {
+      "id": "RC16",
+      "inventoryIds": [
+        "RC16"
+      ],
+      "question": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "priorMedigap",
+          "label": "Did you leave Medigap to join that Advantage plan?",
+          "type": "select",
+          "options": [
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No"
+            ],
+            [
+              "unknown",
+              "I don\u2019t know"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC16.profile.priorMedigap",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC16",
+      "auditVariant": "priorMedigap"
+    },
+    {
+      "id": "RC23",
+      "inventoryIds": [
+        "RC23"
+      ],
+      "question": "For each medicine, what quantity, days supply, exact pharmacy and retail or mail order should we use?",
+      "why": "These are the fill details still needed for the prescription price question you asked.",
+      "choices": [],
+      "multi": false,
+      "entity": "medicine-2",
+      "fields": [
+        {
+          "key": "daysSupply",
+          "label": "Days supply",
+          "type": "select",
+          "options": [
+            [
+              "30",
+              "30 days"
+            ],
+            [
+              "60",
+              "60 days"
+            ],
+            [
+              "90",
+              "90 days"
+            ],
+            [
+              "other",
+              "Another amount"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC23.medicine-2.daysSupply",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC23",
+      "auditVariant": "daysSupply"
+    },
+    {
+      "id": "RC23",
+      "inventoryIds": [
+        "RC23"
+      ],
+      "question": "For each medicine, what quantity, days supply, exact pharmacy and retail or mail order should we use?",
+      "why": "These are the fill details still needed for the prescription price question you asked.",
+      "choices": [],
+      "multi": false,
+      "entity": "medicine-2",
+      "fields": [
+        {
+          "key": "channel",
+          "label": "Retail or mail order",
+          "type": "select",
+          "options": [
+            [
+              "retail",
+              "Retail pharmacy"
+            ],
+            [
+              "mail",
+              "Mail order"
+            ]
+          ]
+        }
+      ],
+      "signature": "RC23.medicine-2.channel",
+      "atomicRequests": 1,
+      "auditInventoryId": "RC23",
+      "auditVariant": "channel"
+    }
+  ],
+  "baseline": [
+    {
+      "id": "T01",
+      "phase": 1,
+      "field": "intent.goal",
+      "question": "What would you like help with today?",
+      "why": "Your goal tells Daylight what to explain and what to emphasize. We will work through your situation, needs and priorities in ten questions.",
+      "teach": "Medicare is federal health insurance that helps pay for health care. We will build the coverage picture as each part becomes relevant.",
+      "options": [
+        [
+          "learn",
+          "Understand Medicare"
+        ],
+        [
+          "compare",
+          "Find coverage"
+        ],
+        [
+          "review",
+          "Review existing coverage"
+        ],
+        [
+          "unresolved",
+          "Something else"
+        ]
+      ],
+      "writes": [
+        "intent.goal",
+        "intent.goalDetail"
+      ]
+    },
+    {
+      "id": "T02",
+      "phase": 1,
+      "field": "knowledge.general",
+      "question": "How familiar are you with Medicare?",
+      "why": "This sets how much explanation you see. It changes the detail, not the questions or the facts we need.",
+      "teach": "The coverage map will grow one piece at a time. You can hide it and reopen it whenever you want.",
+      "options": [
+        [
+          "new",
+          "New to Medicare"
+        ],
+        [
+          "some",
+          "Know a little"
+        ],
+        [
+          "comfortable",
+          "Comfortable with the basics"
+        ],
+        [
+          "unknown",
+          "Not sure yet"
+        ]
+      ],
+      "writes": [
+        "knowledge.general"
+      ]
+    },
+    {
+      "id": "T03",
+      "phase": 2,
+      "field": "comparison.scope.zip",
+      "question": "What ZIP code do you live in?",
+      "why": "Plan availability and published prices can depend on the county. A ZIP lookup is a location reference, not proof of residency.",
+      "teach": "Use the home location of the person whose coverage you are researching. An unknown location stays open for checking.",
+      "options": [],
+      "writes": [
+        "comparison.scope.zip",
+        "comparison.scope.county",
+        "comparison.scope.locationEvidence"
+      ]
+    },
+    {
+      "id": "T04",
+      "phase": 2,
+      "field": "coverage.requestedStart",
+      "question": "When do you need Medicare coverage to start?",
+      "why": "The timing helps organize what to check next. Your requested month does not establish eligibility or an enrollment deadline.",
+      "teach": "Part A helps cover inpatient hospital care. Part B helps cover doctors\u2019 services and outpatient care. You can receive these benefits through Original Medicare or Medicare Advantage (Part C). Your requested start is not verified eligibility or enrollment.",
+      "options": [
+        [
+          "month",
+          "Choose a start month"
+        ],
+        [
+          "already",
+          "Already on Medicare"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "writes": [
+        "coverage.requestedStart",
+        "coverage.requestedStartMonth"
+      ]
+    },
+    {
+      "id": "T05",
+      "phase": 2,
+      "field": "coverage.current",
+      "question": "What health coverage do you have now?",
+      "why": "We need to understand what is already in place before considering a change. Your answers describe your coverage; they do not verify its benefits.",
+      "teach": "There are two main ways to get Medicare coverage: Original Medicare and Medicare Advantage (Part C). Medigap is optional extra insurance that helps pay your share of Original Medicare costs; it does not work with Advantage. A separate drug plan is Part D; most Advantage plans include it.",
+      "multi": true,
+      "options": [
+        [
+          "original",
+          "Original Medicare (Parts A and B)"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage (Part C)"
+        ],
+        [
+          "medigap",
+          "Medicare Supplement / Medigap"
+        ],
+        [
+          "drug",
+          "Separate prescription drug plan"
+        ],
+        [
+          "employer",
+          "Current-job coverage"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ],
+        [
+          "military",
+          "VA, TRICARE or military coverage"
+        ],
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "none",
+          "None"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "writes": [
+        "coverage.current"
+      ]
+    },
+    {
+      "id": "T06",
+      "phase": 2,
+      "field": "needs.providersStatus",
+      "question": "Which doctors or hospitals would you like to keep?",
+      "why": "Provider access is an important check before choosing coverage. A name alone does not establish participation or guarantee access.",
+      "teach": "We will keep these names as items to verify. No provider network check is connected yet.",
+      "options": [
+        [
+          "list",
+          "Add doctors or hospitals"
+        ],
+        [
+          "none",
+          "None to check"
+        ],
+        [
+          "later",
+          "Add later"
+        ]
+      ],
+      "writes": [
+        "needs.providersStatus",
+        "needs.providers"
+      ]
+    },
+    {
+      "id": "T07",
+      "phase": 2,
+      "field": "needs.medicinesStatus",
+      "question": "What prescriptions do you take?",
+      "why": "Drug coverage and costs depend on the exact medicine and plan. Dose and pharmacy details can help later; unknown details can stay open.",
+      "teach": "Part D is prescription drug coverage. You can add a separate Part D plan to Original Medicare; most Medicare Advantage plans include drug coverage. Exact plan rules still need checking.",
+      "options": [
+        [
+          "yes",
+          "Add prescriptions"
+        ],
+        [
+          "no",
+          "None"
+        ],
+        [
+          "unknown",
+          "Add later"
+        ]
+      ],
+      "writes": [
+        "needs.medicinesStatus",
+        "needs.medications",
+        "needs.medicationDetails",
+        "needs.pharmacies"
+      ]
+    },
+    {
+      "id": "T08",
+      "phase": 2,
+      "field": "needs.travel",
+      "question": "Will you need routine care away from home?",
+      "why": "Routine care away from home can have different coverage limits from emergency care. Tell us where you expect to need routine care.",
+      "teach": "Travel needs become a check on the exact coverage. Do not assume that emergency coverage means routine care is covered.",
+      "multi": true,
+      "options": [
+        [
+          "local",
+          "Local only"
+        ],
+        [
+          "another_state",
+          "Another state"
+        ],
+        [
+          "outside_us",
+          "Outside the US"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "writes": [
+        "needs.travel"
+      ]
+    },
+    {
+      "id": "T09",
+      "phase": 3,
+      "field": "needs.costPreference",
+      "question": "How would you prefer to balance monthly payments and costs when you get care?",
+      "why": "This helps us explain the tradeoffs you care about. It is not enough by itself to choose a coverage route or calculate your total costs.",
+      "teach": "Premiums are monthly payments. Deductibles, copays and coinsurance are costs when you get care. Medigap can help with certain Original Medicare costs; it does not pair with Medicare Advantage.",
+      "options": [
+        [
+          "lower_monthly",
+          "Lower monthly payments"
+        ],
+        [
+          "predictable",
+          "More predictable costs"
+        ],
+        [
+          "no_preference",
+          "No preference yet"
+        ]
+      ],
+      "writes": [
+        "needs.costPreference"
+      ]
+    },
+    {
+      "id": "T10",
+      "phase": 3,
+      "field": "needs.priorities",
+      "question": "What matters most when we compare your options?",
+      "why": "Your priorities should guide the comparison, independently of commissions or other commercial relationships. Choose up to three.",
+      "teach": "The map now shows the core arrangements. Personal fit, prices, doctor access and drug coverage remain unverified until the relevant sources are connected.",
+      "multi": true,
+      "max": 3,
+      "options": [
+        [
+          "doctors",
+          "Doctors and hospitals"
+        ],
+        [
+          "drugs",
+          "Prescriptions"
+        ],
+        [
+          "total_cost",
+          "Total cost"
+        ],
+        [
+          "bills",
+          "Predictable costs"
+        ],
+        [
+          "travel",
+          "Travel"
+        ],
+        [
+          "other",
+          "Something else"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "writes": [
+        "needs.priorities",
+        "needs.priorityOther"
+      ]
+    }
+  ],
+  "scope": {
+    "modelCalls": 0,
+    "browserActions": 0,
+    "descriptorVariants": 88,
+    "inventoryMeanings": 41,
+    "preciseChoiceIds": 98,
+    "finiteFieldOptions": 16,
+    "producer": "NaturalConversation.question with pinned contract and conditional service field variants",
+    "productionConsumer": "advisor.js renderForm, answerChoice, insuranceChoiceView, draftFor, submitForm"
+  }
+}

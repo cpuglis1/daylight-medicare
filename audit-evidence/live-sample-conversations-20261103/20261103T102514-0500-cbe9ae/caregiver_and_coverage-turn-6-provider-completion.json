@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 50062,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9635,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 604,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 10239
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Here’s the clean summary.\\n\\nWhat we know:\\n- This is for your mother, and you’re helping with rides and paperwork rather than making health decisions.\\n- She already has Original Medicare.\\n- She wants to keep her own doctor.\\n- You want to understand the coverage before choosing anything, and you do not want to assume she should change coverage.\\n- Transportation to appointments matters as a practical concern.\\n\\nWhat remains unverified:\\n- The exact doctor and office location.\\n- Whether that doctor takes Medicare for the specific place and time she would be seen.\\n- Whether any other coverage pieces are in place now, such as drug coverage or Medigap.\\n- Whether transportation would be covered, because that depends on the exact service and the benefit rules rather than on Medicare in general or her doctor preference alone.\\n- How important routine care away from home is, which can matter when comparing coverage paths.\\n- Personal costs. A monthly premium by itself would not tell you total cost.\\n- Coverage dates, enrollment timing, and any financial help status, which you asked to leave open for now.\\n\\nWho to ask, depending on the question:\\n- Your mother: what matters most to her in the comparison, especially how much travel access matters and whether she wants to compare staying with Original Medicare versus looking at Medicare Advantage.\\n- Her doctor’s office: the exact office details and whether they take Medicare for the care she wants there. That is separate from any future plan-participation check.\\n- Her current coverage documents: whether she already has separate drug coverage or Medigap, and the exact names of any current policies.\\n- The specific benefit terms for transportation: whether the exact ride service and situation meet the coverage conditions.\\n\\nThe practical line to\",\"question\":\"If you want, I can next turn this into a short comparison checklist you can use with your mother—still without making calls or assuming she needs to change coverage.\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.coverage.current\",\"guide.intent.goal\",\"guide.needs.providers\"],\"evidence_refs\":[\"original\",\"checks\",\"costs\"],\"agenda_update\":{\"current_concern\":\"summary of known facts, unknowns, and who to ask\",\"pause\":false},\"education\":{\"purpose\":\"recap\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"unverified_participation\"],\"evidence_refs\":[\"checks\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"total_cost\",\"premiums\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"provider_identity\",\"provider_participation\",\"service_benefit\",\"help_and_logistics\"],\"blocking_concepts\":[],\"next_step\":\"review\"}}"
+  },
+  "elapsed_seconds": 14.330621
+}

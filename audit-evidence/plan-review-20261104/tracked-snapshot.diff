@@ -1,0 +1,475 @@
+--- before/alternatives/advisor-first/natural_flow.py
++++ after/alternatives/advisor-first/natural_flow.py
+@@ -30,6 +30,7 @@
+                        attach_result as attach_task_work)
+ from natural_agent import NaturalAgent
+ from comparison_service import ComparisonService
++from plan_review import PlanReviewService, readiness as plan_readiness, OPEN_STATES
+ from conversation_output import generated_conversation
+ from turn_contract import question_binding, working_assessment, outcome
+ from contextual_capture import classify_situation
+@@ -49,6 +50,7 @@
+ FAMILIARITY_CONTEXT_REFS = frozenset({'guide.situation.age65', 'guide.situation.retirement',
+     'readiness.RC09.profile.choice'})
+ COMPOSITION_CODES = frozenset({'ungrounded_literal', 'ungrounded_entity', 'invalid_reference',
++    'missing_followup',
+     'unsupported_finding', 'missing_evidence', 'missing_report_reference', 'missing_coverage_reference',
+     'missing_worker_reference', 'missing_progress_reference', 'format_or_duplicate_question',
+     'unavailable', 'transport_or_format', 'provider_failure', 'composition_unavailable',
+@@ -107,12 +109,15 @@
+         self.visit_memory = self.memory._visits
+         self.composition_diagnostics = []
+         self.comparisons = ComparisonService()
++        self.plan_reviews = PlanReviewService()
+         self.understanding = UnderstandingRegistry()
+ 
+     def response(self, g, r, reply='', **extras):
+         # Derived comparison data stays outside the two saved profile records.
+         # Final turn attachment rebinds after provenance/composition bookkeeping.
+-        return self.comparisons.attach(super().response(g, r, reply, **extras))
++        out = self.comparisons.attach(super().response(g, r, reply, **extras))
++        out['planReadiness'] = plan_readiness(g, r)
++        return out
+ 
+     def recent_exchanges(self, owner, task, policy):
+         # v3 grants bounded visit continuity across topic changes. Older scoped
+@@ -150,6 +155,7 @@
+                 raise ProfileError('A message is still processing. Try deleting after it finishes.', 409)
+             self.revoked_owners[owner] = time.time() + VISIT_HISTORY_TTL
+             self.memory.forget_owner(owner)
++            self.plan_reviews.forget_owner(owner)
+             self.current_chain.pop(owner, None)
+             for collection in (self.turn_journal, self.state_heads, self.clarifications):
+                 for key in [key for key in collection if key[0] == owner]:
+@@ -284,7 +290,45 @@
+             a['unresolvedReportedInputs'].append({'id':'T05','label':'Which Medicare coverage is current','state':'needs clarification'})
+         a['narrative']['natural'] = True
+         a['nextQuestion'] = self.contextual_question(guide,record,a.get('nextQuestion'))
++        readiness = plan_readiness(guide, record)
++        if (readiness['active'] and not self.ambiguous_current_coverage(guide)
++                and not (edit or metadata(record).get('editing'))):
++            candidates = self.plan_questions(guide, record, readiness)
++            if readiness['canReview']:
++                a['nextQuestion'] = None
++            elif not a.get('nextQuestion'):
++                a['nextQuestion'] = candidates[0]['question'] if candidates else None
+         return a
++
++    def plan_questions(self, g, r, readiness):
++        """Missing meanings, not a prescribed sequence or question counter."""
++        candidates = []
++        for criterion in readiness['missing']:
++            if any(c['id'] == 'person' for c in readiness['missing']) and criterion['id'] != 'person':
++                continue
++            if criterion['state'] in OPEN_STATES:
++                continue  # An explicit deferral is never an automatic repeat.
++            identifier = criterion['question_id']
++            question = self.question(identifier, criterion['fields'])
++            if identifier == 'RC03':
++                question['question'] = 'Which coverage year would you like to compare?'
++            if identifier == 'RC02':
++                question['question'] = 'Which county and state is that home ZIP in?'
++                choices = self.reference['zips'].get(self.value(g, 'comparison.scope.zip'), [])
++                if len(choices) > 1:
++                    question['fields'][0].update(type='select', options=[[x[0], x[1]+', '+x[2]] for x in choices])
++            candidates.append({'id': identifier, 'question': question, 'priority': 1,
++                'required': criterion['state'] == 'needs_clarification',
++                'topic': QUESTION_TOPICS.get(identifier, ''),
++                'purpose': 'Needed to frame the requested plan comparison: '+criterion['label']+
++                    '. Reuse existing answers. An explicit unknown stays open; it is not verification.'})
++        if (candidates and not any(c['required'] for c in candidates)
++                and self.value(g, 'subject.role') and self.value(g, 'knowledge.general') is None
++                and 'T02' not in metadata(r)['baselineDispositions']):
++            candidates.append({'id': 'T02', 'question': self.question('T02'), 'priority': 2,
++                'required': False, 'topic': 'learning',
++                'purpose': 'Optional: calibrate an explanation if the person’s understanding is unclear. Not a review requirement.'})
++        return candidates
+ 
+     def contextual_question(self,guide,record,question):
+         if not question or question['id']!='RC11':
+@@ -594,6 +638,15 @@
+         if metadata(r)['task'] == 'timing' or self.value(g, 'situation.age65'):
+             for item in candidates:
+                 if item['id'] == 'T05': item['priority'] = 0
++        readiness = plan_readiness(g, r)
++        if readiness['active']:
++            needed = self.plan_questions(g, r, readiness)
++            if readiness['canReview']:
++                return []
++            # Preserve consequential timing/lookup/learning alternatives. The
++            # minimum is a closing condition, not a replacement dialogue script.
++            seen = {item['id'] for item in needed}
++            return (needed + [item for item in candidates if item['id'] not in seen])[:12]
+         # Eligibility is policy-neutral. The decision brief and its ranking are
+         # applied only inside an explicitly permitted v3 composition below.
+         return sorted(candidates, key=lambda item: item['priority'])[:12]
+@@ -893,6 +946,12 @@
+         context['task_work'] = task_work_context(context, work_before)
+         if policy == CONTEXT_POLICY:
+             context['working_assessment'] = working_assessment(context, capture_outcomes, answer_context)
++            readiness = plan_readiness(out['guide'], out['record'], pending=self.pending_for(owner))
++            # Status and meanings only; this adds no personal model values.
++            context['plan_review'] = {'can_offer_review': readiness['canReview'],
++                'missing': [{k: item[k] for k in ('question_id', 'label', 'state')} for item in readiness['missing']],
++                'action': 'review_plans', 'review_is_not_verification': True}
++        context['require_followup'] = not stop_questions
+         out['assessment']['conversationOpen'] = True
+         out['assessment']['intakePaused'] = False
+         try:
+@@ -1468,7 +1527,40 @@
+             self.state_heads.get((owner, chain)) != continuation))
+         cached = generated_conversation(
+             self.comparisons.attach(cached, historical=historical, replay=True))
++        cached['planReadiness'] = plan_readiness(cached['guide'], cached['record'],
++                                               pending=None if historical else self.pending_for(owner))
++        if historical:
++            cached.pop('plansHandoff', None)
++            if (cached.get('review') or {}).get('kind') == 'plan_profile':
++                cached.pop('review', None)
++            cached['planReadiness']['canReview'] = False
++        else:
++            try:
++                if cached.get('plansHandoff'):
++                    cached['plansHandoff'] = self.plan_reviews.resolve(cached['plansHandoff']['token'], owner, chain,
++                        cached['guide'], cached['record'], cached['planReadiness'])
++                if (cached.get('review') or {}).get('kind') == 'plan_profile':
++                    self.plan_reviews._check(self.plan_reviews.reviews, cached['review']['token'], owner, chain,
++                        cached['guide'], cached['record'])
++            except ProfileError:
++                cached.pop('plansHandoff', None)
++                cached.pop('review', None)
+         return attach_task_work(cached, historical=historical)
++
++    def resolve_plans_handoff(self, owner, token):
++        """Resolve a receipt against the current server head, never client facts."""
++        with self.lock:
++            if owner in self.natural_active or owner in self.revoked_owners:
++                raise ProfileError('Resume the current visit before opening plans.', 409)
++            chain = self.current_chain.get(owner)
++            head = self.state_heads.get((owner, chain))
++            current = next((entry['response'] for (entry_owner, _), entry in reversed(list(self.turn_journal.items()))
++                if entry_owner == owner and entry['expires'] > time.time()
++                and entry['response'].get('continuation') == head), None)
++            if not current:
++                raise ProfileError('Review your current information before opening plans.', 409)
++            status = plan_readiness(current['guide'], current['record'], pending=self.pending_for(owner))
++            return self.plan_reviews.resolve(token, owner, chain, current['guide'], current['record'], status)
+ 
+     def recover(self, owner, payload):
+         """Free, owner-bound recovery. Never executes the submitted action.
+@@ -1595,7 +1687,24 @@
+                 self.memory.clear(owner, chain)
+             if action.get('type') in {'run_preparation','accept_review','discard_review'} and self.action_chains.get(action.get('token')) != (owner,chain):
+                 raise ProfileError('This authorization belongs to an earlier conversation. Review the current action again.',409)
+-            if action.get('type') == 'message':
++            if action.get('type') in {'review_plans', 'confirm_plan_review', 'get_plan_handoff', 'cancel_plan_review'}:
++                kind = action['type']
++                expected = {'type'} if kind == 'review_plans' else {'type', 'token'}
++                if set(action) != expected:
++                    raise ProfileError('Use the current plan review action.')
++                status = plan_readiness(g, r, pending=self.pending_for(owner))
++                out = self.response(g, r)
++                self.retain_presentation(out, presentation)
++                if kind == 'review_plans':
++                    out['review'] = self.plan_reviews.begin(owner, chain, g, r, status, self.rows(g, r))
++                elif kind == 'confirm_plan_review':
++                    out['plansHandoff'] = self.plan_reviews.confirm(action['token'], owner, chain, g, r, status)
++                elif kind == 'get_plan_handoff':
++                    out['plansHandoff'] = self.plan_reviews.resolve(action['token'], owner, chain, g, r, status)
++                else:
++                    self.plan_reviews._check(self.plan_reviews.reviews, action['token'], owner, chain, g, r)
++                    self.plan_reviews.reviews.pop(action['token'], None)
++            elif action.get('type') == 'message':
+                 out = self.direct_disposition(owner,payload,g,r) or self.message(owner, payload, g, r)
+             elif action.get('type') == 'read_concept':
+                 # Older clients can still open sources without receiving a
+@@ -1673,6 +1782,10 @@
+                     if captured['id'] == 'T04' and captured.get('fields', {}).get('choice') in {'month', 'soonest'}:
+                         captured['scope'] = 'intended'
+                     record_capture(out['guide'], out['record'], g, r, captured, method='structured')
++                    # Capture provenance is now current. Recompute the local
++                    # checkpoint so the just-corrected field is not asked again.
++                    if not self.pending_for(owner):
++                        out['assessment'] = self.assess(out['guide'], out['record'])
+                     out['reportedRows'] = self.rows(out['guide'], out['record'])
+                 if action.get('type')=='refresh' and presentation is None and ensure_state(out['record'])['dialogue']['orientation']=='progress':
+                     out['assessment']['nextQuestion']=self.question('T02')
+@@ -1684,6 +1797,7 @@
+                 if action.get('type') in {'choice','stage','unknown','defer'}:
+                     out=self.compose_choice(owner,payload,out,g,r)
+             self.comparisons.attach(out)
++            out['planReadiness'] = plan_readiness(out['guide'], out['record'], pending=self.pending_for(owner))
+             out['continuation'] = self.bind(owner, out['guide'], out['record'], chain)
+             with self.lock:
+                 generated_conversation(out)
+--- before/alternatives/advisor-first/natural_agent.py
++++ after/alternatives/advisor-first/natural_agent.py
+@@ -250,7 +250,7 @@
+ Talk with the person in a calm, friendly back-and-forth. Use everyday words, natural
+ contractions and direct questions. Keep each reply connected to the thought they just shared.
+ A brief reply from them often needs only a brief continuation from you. Give them room
+-to respond; an answer or a question can stand on its own without an explanatory preamble.
++to respond; a question can stand on its own without an explanatory preamble.
+ 
+ Lead with what applies, how the information helps, or what the person can do next. Express
+ guidance affirmatively and concretely. When a caution matters, explain its practical
+@@ -275,10 +275,12 @@
+ Use working_assessment to connect the person's goal, tentative understanding, current
+ reports and available help. Answering the latest question is different from reaching a
+ useful stopping point in their broader goal. Consider what this exchange resolves and what
+-remains open, then choose a helpful continuation or ending. Explanation, clarification,
+-consequential intake, an available next action and a natural ending are all legitimate.
+-Let that judgment shape the response; do not narrate an internal assessment or add a
+-ritual follow-up. Candidate questions are available meanings, not a checklist or an order.
++remains open, then choose one helpful follow-up question. It can explore understanding,
++clarify a consequential report, gather needed information or offer the next available action.
++Every active turn ends with that question, including a turn answering an educational question.
++At a useful stopping point, ask whether they want the relevant next step or more help.
++Let that judgment shape the response; do not narrate an internal assessment. Candidate
++questions are available meanings, not a checklist or an order.
+ The curriculum is a reference for what would help this person understand, not a lesson queue.
+ 
+ The current_turn capture_outcomes describe what the backend actually accepted, already
+@@ -303,8 +305,12 @@
+ details only when they enable available help. Explain uncertainty in plain language where it matters
+ to the person's next step. Keep necessary qualifications attached to the point they qualify;
+ save background and exceptions for when they matter. Use each new detail to make the help
+-more relevant. End when the goal has reached a useful stopping point or the person pauses;
+-an open goal may benefit from one relevant continuation, chosen from their actual needs.
++more relevant. Honor an explicit wish to pause; otherwise end with one relevant question.
++When plan_review.can_offer_review is true, offer the available Review your info checkpoint
++before plans. The person can correct the consolidated profile, then choose See plans.
++Do not declare readiness from a question count or claim reviewing reports verifies coverage.
++When it is false, use the missing meanings to choose consequential intake as helpful;
++unknown/deferred answers stay open without repeatedly asking them. Keep teaching responsive.
+ Keeping existing coverage, deferring and no change are valid outcomes. Commissions, carrier
+ relationships and conversion goals never affect guidance or which options get attention.
+ 
+@@ -326,16 +332,19 @@
+   factual support; no prepared lesson or guide will be appended to your response.
+ 
+ Output contract:
+-- Ask at most one useful question. For personal intake choose its question_target from approved
++- Ask one useful follow-up question on every active turn. For personal intake choose its question_target from approved
+   candidates, retaining purpose, dependencies, qualifications and choice meanings. Actual
+   required clarification precedes other personal intake; supported education may still proceed.
+   Use the candidate's requested precision without inventing a year or asking for a full birth date.
+   Known/deferred answers stay answered unless corrected or reopened. Do not combine unrelated
+   questions or read the answer-choice list. question_target null means no personal intake
+-  target; an educational or goal-clarifying question can still go in question. An empty
+-  question is a deliberate answer-only turn. Never hide personal intake in a null target.
++  target; an educational, goal-clarifying or review-invitation question can still go in question.
++  An empty question is allowed only for an explicit user pause. Never hide personal intake in a null target.
+   Put the follow-up only in question, not also in reply.
+ - Respect a pause or request for no more questions: target null, question empty, pause true.
++  Pausing personal intake to keep learning is still an active conversation: ask a helpful
++  educational question. Set pause true only when the person wants the conversation to pause,
++  never just because their latest question was answered or a useful stopping point was reached.
+ - education describes what the reply actually explains, separately from learner understanding:
+   purpose advance/answer/teach/clarify/recap; updates [] for ordinary intake; visual is always none.
+   Each update has a supplied concept, exact supporting evidence_refs/aspect_ids, and depth
+@@ -1202,7 +1211,7 @@
+                 recovery_reason = error.code
+                 LOGGER.warning('Daylight composition validation code=%s retained=%s', error.code,
+                                partial[1] if partial else 'none')
+-                if partial and partial[1] == 'reply':
++                if partial and partial[1] == 'reply' and not resolved_context.get('require_followup'):
+                     return self._retain_component(owner, resolved_context, moves, request_id,
+                                                   partial, recovery_reason)
+                 if not attempt and reservation.stage('compose').repair():
+@@ -1233,7 +1242,18 @@
+ 
+     def _retain_component(self, owner, context, moves, request_id, partial, reason):
+         # Revalidate against exactly the same current context before publishing.
+-        answer = self.validate_composition(partial[0], context, _question_candidates(moves))
++        draft = partial[0]
++        if (context.get('require_followup') and not draft.get('question')
++                and not draft.get('agenda_update', {}).get('pause')):
++            # A retained answer may use only the actual pending/required approved
++            # question. Never pick an unrelated intake field to hide a failure.
++            pending = context.get('working_assessment', {}).get('current_turn', {}).get('answer_context') or {}
++            candidate = next((m for m in moves if m.get('required')), None)
++            if candidate is None:
++                candidate = next((m for m in moves if m['id'] == pending.get('id')), None)
++            if candidate:
++                draft = {**draft, 'question_target': candidate['id'], 'question': _question_text(candidate)}
++        answer = self.validate_composition(draft, context, _question_candidates(moves))
+         answer['validation_recovery'] = {'component': partial[1],
+             'replacement': 'independently_validated_component', 'reason': reason}
+         answer['continuation']['validation_changed_continuation'] = True
+@@ -1429,6 +1449,9 @@
+             raise ModelUnavailable('The conversational response could not be checked.')
+         core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work', 'conversation_assessment'}}
+         checked, recovery = validate_with_question_recovery(self._validate_composition_core, core, context, moves)
++        if (context.get('require_followup') and not checked['agenda_update']['pause']
++                and not checked['question']):
++            raise ModelUnavailable('An active conversational response needs a follow-up question.')
+         education = self._validate_education(value.get('education'), checked)
+         result = {**checked, 'education': education,
+                   'education_metadata_dropped': education != value.get('education'),
+--- before/alternatives/advisor-first/composition_recovery.py
++++ after/alternatives/advisor-first/composition_recovery.py
+@@ -5,6 +5,7 @@
+ 
+ 
+ VALIDATION_CODES = {
++    'An active conversational response needs a follow-up question.': 'missing_followup',
+     'The conversational response could not be checked.': 'invalid_structure',
+     'The provider reply did not match the response format.': 'invalid_structure',
+     'The response chose an unavailable question target.': 'invalid_question',
+--- before/alternatives/advisor-first/web/advisor.js
++++ after/alternatives/advisor-first/web/advisor.js
+@@ -393,7 +393,8 @@
+     if (words) { await turn({type:'message',message:words},words); return; }
+     if (review) {
+       const signature = q()?.signature;
+-      const ok = await turn({type:review.kind === 'preparation' ? 'run_preparation' : 'accept_review',token:review.token},review.label);
++      const action = review.kind === 'plan_profile' ? 'confirm_plan_review' : review.kind === 'preparation' ? 'run_preparation' : 'accept_review';
++      const ok = await turn({type:action,token:review.token},review.label);
+       if (ok && signature) drafts.delete(signature);
+     } else if (state.assessment.narrative.opener && selectedGoal && selectedGoal !== 'unresolved') {
+       const goal = selectedGoal;
+@@ -517,6 +518,17 @@
+     await turn({type:question.fields.length ? 'stage' : 'choice',id:question.id,entity:question.entity,fields},[...choiceLabels,...detailWords].join(' · '),true);
+   }
+   function renderReview(host) {
++    if (review.kind === 'plan_profile') {
++      host.append(el('h1','Review your info'),el('p','Does this reflect what you want to use to compare plans? You can edit a detail or tell Daylight what to change.'));
++      const sheet = el('div',undefined,'review-sheet plan-profile-review');rows(sheet,review.rows,true);host.append(sheet);
++      const checks = el('section',undefined,'plan-review-checks');checks.append(el('h2','Still to check'));
++      const list = el('ul');
++      for (const item of review.readiness.holds) list.append(el('li',item.label));
++      checks.append(list,el('p','These are your reported details. Reviewing them keeps the open checks visible when you see plans.','small'));host.append(checks);
++      selectionSlot(host);
++      host.append(button('Keep talking',() => turn({type:'cancel_plan_review',token:review.token})));
++      return;
++    }
+     host.append(el('h1',review.kind === 'preparation' ? 'Review your next steps' : 'Does this look right?'));
+     host.append(el('p',review.kind === 'interpretation' ? 'These are reports from your message, not verified coverage.' : review.kind === 'preparation' ? 'This will prepare an editable checklist. It will not contact anyone or change your coverage.' : 'These are the details you entered, not verified coverage.'));
+     const sheet = el('div',undefined,'review-sheet'); rows(sheet,review.rows); if (!review.rows.length) sheet.append(el('p','No personal details are needed to prepare a general starting checklist.')); host.append(sheet);
+@@ -578,6 +590,8 @@
+     else if (state.assessment.journey.samplesVisible) renderSamples(host);
+     else if (opening) {
+       openingPresentation = renderOpening(host);
++    } else if (state.planReadiness?.canReview && !q() && state.generated?.status !== 'complete') {
++      host.append(el('h1','Ready to review your info before we look at plans?'));
+     } else if (q() && state.assessment.narrative.focus !== 'prepare') {
+       const presentation = questionPresentation(q());
+       presentText(host,q().question,presentation,'h1');
+@@ -594,6 +608,14 @@
+       for (const [id,label] of [['basics','What Medicare is'],['parts','Parts A and B'],['routesintro','The two coverage paths'],['drugbasics','Prescription coverage'],['costs','How costs work']]) topics.append(presentControl(button(label,() => concept(id,label)),presentation));
+       host.append(topics,presentControl(button('Review your profile',reviewInformation),presentation),presentControl(button('Prepare my next steps',() => turn({type:'review_preparation'}),'primary'),presentation),presentControl(button('Browse sample plans',() => turn({type:'next',step:'samples'})),presentation));
+       if (state.comparison) host.append(presentControl(button('Review comparison preparation',reviewComparison),presentation));
++    }
++    if (state.planReadiness?.canReview && !review && !prepared && !state.comparisonViewOpen
++        && !state.identityViewOpen && !state.record.conversation.editing && !state.assessment.journey.samplesVisible) {
++      const action = button('Review your info',() => turn({type:'review_plans'}),'primary');
++      action.id = 'review-plan-info';host.append(action);
++      if (state.plansHandoff) host.append(button('See plans',async () => {
++        if (await turn({type:'get_plan_handoff',token:state.plansHandoff.token})) await openPlansWorkspace();
++      }));
+     }
+     if (config?.comparisonPreview && !review && !prepared && !state.comparisonViewOpen
+         && !state.identityViewOpen && !state.assessment.journey.samplesVisible) {
+@@ -743,6 +765,16 @@
+     }
+   }
+   function generationUnavailable(view) { return view.generated?.status === 'unavailable'; }
++  async function openPlansWorkspace() {
++    const handoff = state.plansHandoff;
++    if (!handoff) return;
++    try {
++      const opened = typeof DaylightPlansHandoff !== 'undefined' && await DaylightPlansHandoff.open(handoff);
++      if (!opened) note('Your information is ready. The plans workspace is not connected yet; you can keep talking or review your info.');
++    } catch {
++      note('Your reviewed information is kept. The plans workspace could not open; try See plans again.');
++    }
++  }
+   function generationNotice(view) { return generationUnavailable(view) ? view.notice || view.reply || '' : ''; }
+   function usableQuestion(view) {
+     const question = view.assessment.nextQuestion, text = question?.question;
+@@ -771,7 +803,7 @@
+   async function turn(action, userWords = '', deliberateAnswer = false) {
+     if (busy) return false;
+     if (state.sessionRebindRequired) {try {await refreshVisitAuthority();} catch(error) {note(error.message+' Your current visit and draft are preserved.');return false;}}
+-    if (['accept_review','review_preparation','run_preparation'].includes(action.type) && $('message').value.trim()) {note('Send or clear your unsent message before confirming this step. Your draft is still here.');return false;}
++    if (['accept_review','review_preparation','run_preparation','review_plans','confirm_plan_review','get_plan_handoff'].includes(action.type) && $('message').value.trim()) {note('Send or clear your unsent message before confirming this step. Your draft is still here.');return false;}
+     const before = state, previous = q(), fromReview = review, previousQuestion = visibleQuestion();
+     const candidate = turnCandidate(action,deliberateAnswer);
+     // After a lost response, checking the same request retrieves its resolved
+@@ -808,6 +840,7 @@
+       // Scroll the transcript only; the submitted answer stays in view above the reply.
+       if (target) reading.scrollTop += target.getBoundingClientRect().top - reading.getBoundingClientRect().top - 18;
+       target?.setAttribute('tabindex','-1');target?.focus({preventScroll:true});
++      if (action.type === 'confirm_plan_review' && result.plansHandoff) await openPlansWorkspace();
+       return true;
+     } catch (error) {
+       if (!error.code || error.checkAgain) failedRequest = payload;
+--- before/alternatives/advisor-first/web/index.html
++++ after/alternatives/advisor-first/web/index.html
+@@ -19,6 +19,7 @@
+   <script src="/identity-view.js" defer></script>
+   <script src="/visit-artifacts.js" defer></script>
+   <script src="/understanding-view.js" defer></script>
++  <script src="/plans-handoff.js" defer></script>
+   <script src="/advisor.js" defer></script>
+ </head>
+ <body>
+--- before/alternatives/advisor-first/web/advisor.css
++++ after/alternatives/advisor-first/web/advisor.css
+@@ -87,6 +87,15 @@
+ .review-sheet{padding:8px 0;margin:8px 0}.review-row{padding:12px 0;border-bottom:1px solid var(--line)}
+ .review-row h3{font:700 17px/1.5 'Atkinson Hyperlegible',Arial,sans-serif;margin:0 0 5px}
+ .review-row p{font-size:18px;line-height:1.5;margin:0 0 5px;white-space:pre-wrap;overflow-wrap:anywhere}
++.plan-profile-review{padding-right:16px;box-sizing:border-box}
++.plan-profile-review .review-row{display:grid;grid-template-columns:minmax(150px,1fr) minmax(0,3fr) auto;gap:4px 20px;align-items:start;padding:16px 0}
++.plan-profile-review .review-row h3,.plan-profile-review .review-row p{margin:0}
++.plan-profile-review .review-row .small{grid-column:2;font-size:15px}
++.plan-profile-review .review-row button{grid-column:3;grid-row:1 / span 2;margin:0;min-height:44px;min-width:44px;align-self:center}
++.plan-review-checks{margin:28px 0 20px}
++.plan-review-checks h2{font:700 18px/1.5 'Atkinson Hyperlegible',Arial,sans-serif;margin:0 0 8px}
++.plan-review-checks ul{padding-left:24px;margin:0 0 12px}
++@media(max-width:600px){.plan-profile-review .review-row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}.plan-profile-review .review-row h3,.plan-profile-review .review-row p,.plan-profile-review .review-row .small{grid-column:1}.plan-profile-review .review-row button{grid-column:2;grid-row:1 / span 3}}
+ .prepared{margin:0;max-width:86ch}.prepared>p{font-size:18px;line-height:1.5}.prepared textarea{min-height:320px;resize:vertical}
+ .sample{padding:20px 0;border-top:1px solid var(--line);max-width:86ch}.sample h3{font:450 27px/1.25 Fraunces,Georgia,serif;margin:0 0 10px}
+ .sample dl{display:grid;grid-template-columns:minmax(150px,1fr) 2fr;gap:8px 24px;margin:12px 0;font-size:17px;line-height:1.5}.sample dd{margin:0;overflow-wrap:anywhere}
+--- before/alternatives/advisor-first/AGENTS.md
++++ after/alternatives/advisor-first/AGENTS.md
+@@ -1,4 +1,6 @@
+ # Working on the advisor-first variant
++
++**D86/D73 active follow-ups and consolidated plan review · November 4, 2026.** Owner requires a follow-up question on each successful active turn, plus meaningful minimum information before **Review your info → See plans**. Use the [checkpoint and handoff contract](../../docs/product/plan-review-2026-11-04/HANDOFF.md). Reuse reports across eleven core meanings; person, ZIP/county and coverage year must be known, other core dimensions may be explicitly unknown/deferred with visible holds. Keep nuanced curriculum guidance and consequential conditional questions; no question counter or all-41 questionnaire. The editable summary and explicit confirmation produce an owner/visit/report-bound receipt for the separately owned Plans workspace. Preserve exact year/scope, factual/source/verification and recommendation gates, privacy, corrections, pause and protected variants. This authorizes the narrow closing UI and backend handoff; it supersedes answer-only active endings and earlier leave-UI-alone direction only for this checkpoint. No canned narrative, case script, live model evaluation or latency work is authorized.
+ 
+ **D86/D73 coherent turn framework · November 4, 2026.** Owner authorized contextual capture, capture-backed acknowledgments, a shared working assessment of understanding and decision preparation, and deliberate continuation without persona scripts or canned prose. Bind short answers to the actual server-owned displayed question; retain exact answer support, subject/scope, precision, conflict and evidence gates. Composition receives accepted/already-known/unresolved/rejected capture outcomes and existing permissioned reports, learner observations, teaching history and capability holds. Missing records/history never establish that someone did not answer. Tentative conversation progress cannot establish comprehension, external verification or recommendation readiness. Record validation-altered continuation separately from a model-chosen ending; no mandatory follow-up, additional model stage, expanded saved transcript, UI or latency work. Use offline checks only; conversational quality remains owner-assessed. [Implementation and technical evidence](../../audit-evidence/turn-framework-20261104/README.md).
+ 
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ after/DAYLIGHT_REQUIREMENTS.md
+@@ -1,4 +1,8 @@
+ # Daylight owner requirements
++
++**D86/D73 active follow-ups and consolidated plan review · November 4, 2026.** Owner requires a follow-up question on each successful active turn, plus meaningful minimum information before **Review your info → See plans**. Use the [checkpoint and handoff contract](docs/product/plan-review-2026-11-04/HANDOFF.md). Reuse reports across eleven core meanings; person, ZIP/county and coverage year must be known, other core dimensions may be explicitly unknown/deferred with visible holds. Keep nuanced curriculum guidance and consequential conditional questions; no question counter or all-41 questionnaire. The editable summary and explicit confirmation produce an owner/visit/report-bound receipt for the separately owned Plans workspace. Preserve exact year/scope, factual/source/verification and recommendation gates, privacy, corrections, pause and protected variants. This authorizes the narrow closing UI and backend handoff; it supersedes answer-only active endings and earlier leave-UI-alone direction only for this checkpoint. No canned narrative, case script, live model evaluation or latency work is authorized.
++
++**D92 Plans workspace design · November 4, 2026.** Owner requested a full Impeccable product specification and layout for navigating recommended policies using the retained Collier evidence, and confirmed an in-app Plans workspace within :8893. Use stacked detailed plan cards, the existing warm paper/olive design, and a closable right-third desktop chat that understands the viewed/selected plan and field. Reuse and confirm the chat profile before a simple explainable top-three recommendation; keep all 72 retained identities accessible, meaningful tradeoffs, local definitions and deliberate contextual chat prompts. The [design packet](docs/product/plans-workspace-2026-11-04-r1/README.md) includes a fictional layout study and executable fictional heuristic reference, with production integration and exact release work separate. This expands the requested design scope beyond the earlier offline-only catalog work; it does not accept r13 source use/methods, personal findings, ranking, AI context expansion or consumer deployment. Preserve D64/D73, the 41 conditional meanings, material holds, protected variants/stores and prior sealed evidence.
+ 
+ **D86/D73 coherent turn framework · November 4, 2026.** Owner authorized contextual capture, capture-backed acknowledgments, a shared working assessment of understanding and decision preparation, and deliberate continuation without persona scripts or canned prose. Bind short answers to the actual server-owned displayed question; retain exact answer support, subject/scope, precision, conflict and evidence gates. Composition receives accepted/already-known/unresolved/rejected capture outcomes and existing permissioned reports, learner observations, teaching history and capability holds. Missing records/history never establish that someone did not answer. Tentative conversation progress cannot establish comprehension, external verification or recommendation readiness. Record validation-altered continuation separately from a model-chosen ending; no mandatory follow-up, additional model stage, expanded saved transcript, UI or latency work. Use offline checks only; conversational quality remains owner-assessed. [Implementation and technical evidence](audit-evidence/turn-framework-20261104/README.md).
+ 
+@@ -230,6 +234,8 @@
+ 
+ ## Change log
+ 
++- **2026-11-04, D92 Plans workspace design.** Recorded the owner-confirmed in-app destination and created a full specification, responsive fictional layout study, profile-reuse assessment and executable fictional top-three heuristic. Consumer acceptance and live integration remain separate. [Design packet](docs/product/plans-workspace-2026-11-04-r1/README.md).
++
+ - **2026-11-04, D91 all-72 tool-access priority.** Owner requests preparation of all 72 retained 2026 Collier offerings for upload and access by the tool, assessed against the existing complete product plan. Keep core comparison coverage, conditional personal checks, field-level holds and exact-purpose acceptance explicit. The two case studies serve as tests within the full catalog scope. [Current delivery scope](docs/project/COLLIER_MVP.md).
+ 
+ - **2026-11-04, D86 goal and Medicare understanding feedback.** The owner asked how the advisor should use a caregiver’s goal and understanding to do useful teaching in a concise conversation. Assess the learner’s understanding early when relevant, teach one core concept at a time, and provide a useful continuation while the goal remains open. [Master design record](docs/product/MASTER_DESIGN.md)
+--- before/docs/product/MASTER_DESIGN.md
++++ after/docs/product/MASTER_DESIGN.md
+@@ -1,4 +1,8 @@
+ # Daylight master design and agent contract
++
++**D86/D73 active follow-ups and consolidated plan review · November 4, 2026.** Owner requires a follow-up question on each successful active turn, plus meaningful minimum information before **Review your info → See plans**. Use the [checkpoint and handoff contract](plan-review-2026-11-04/HANDOFF.md). Reuse reports across eleven core meanings; person, ZIP/county and coverage year must be known, other core dimensions may be explicitly unknown/deferred with visible holds. Keep nuanced curriculum guidance and consequential conditional questions; no question counter or all-41 questionnaire. The editable summary and explicit confirmation produce an owner/visit/report-bound receipt for the separately owned Plans workspace. Preserve exact year/scope, factual/source/verification and recommendation gates, privacy, corrections, pause and protected variants. This authorizes the narrow closing UI and backend handoff; it supersedes answer-only active endings and earlier leave-UI-alone direction only for this checkpoint. No canned narrative, case script, live model evaluation or latency work is authorized.
++
++**D92 Plans workspace · November 4, 2026.** Owner confirmed a new in-app Plans workspace on :8893: stacked plan cards, up to three supported recommendations after one editable profile confirmation, access to all 72 retained Collier identities, meaningful costs/access/restriction tradeoffs and a closable chat occupying approximately the desktop right third. Chat binds deliberate questions to viewed/selected plans and fields; local definitions and editable Ask-about prompts support learning. Follow the [full specification and layout study](plans-workspace-2026-11-04-r1/README.md). The new workspace preserves the established identity and Conversation surface; its scoped side-panel design supersedes the earlier Ask-overlay geometry only for this proposed Plans surface. The packet is design and a fictional heuristic reference, not active UI, exact source/method/recommendation acceptance or AI-context release. Preserve D64/D73, all 41 meanings, material holds, privacy/budget boundaries, sealed evidence and protected variants.
+ 
+ **D86/D73 coherent turn framework · November 4, 2026.** Owner authorized contextual capture, capture-backed acknowledgments, a shared working assessment of understanding and decision preparation, and deliberate continuation without persona scripts or canned prose. Bind short answers to the actual server-owned displayed question; retain exact answer support, subject/scope, precision, conflict and evidence gates. Composition receives accepted/already-known/unresolved/rejected capture outcomes and existing permissioned reports, learner observations, teaching history and capability holds. Missing records/history never establish that someone did not answer. Tentative conversation progress cannot establish comprehension, external verification or recommendation readiness. Record validation-altered continuation separately from a model-chosen ending; no mandatory follow-up, additional model stage, expanded saved transcript, UI or latency work. Use offline checks only; conversational quality remains owner-assessed. [Implementation and technical evidence](../../audit-evidence/turn-framework-20261104/README.md).
+ 

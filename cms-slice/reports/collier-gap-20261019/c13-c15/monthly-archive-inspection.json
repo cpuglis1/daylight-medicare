@@ -1,0 +1,192 @@
+{
+  "checked_at_utc": "2026-10-20T02:48:54.238098+00:00",
+  "source_sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+  "source_bytes": 2290695063,
+  "archive_members": [
+    "basic drugs formulary file 2027_20261031.zip",
+    "beneficiary cost file 2027_20261031.zip",
+    "excluded drugs formulary file 2027_20261031.zip",
+    "geographic locator file 2027_20261031.zip",
+    "indication based coverage formulary file 2027_20261031.zip",
+    "insulin beneficiary cost file 2027_20261031.zip",
+    "pharmacy networks file 2027_20261031 part 1.zip",
+    "pharmacy networks file 2027_20261031 part 2.zip",
+    "pharmacy networks file 2027_20261031 part 3.zip",
+    "pharmacy networks file 2027_20261031 part 4.zip",
+    "pharmacy networks file 2027_20261031 part 5.zip",
+    "pharmacy networks file 2027_20261031 part 6.zip",
+    "plan information 2027_20261031.zip",
+    "sample files 2027_20261031.zip"
+  ],
+  "headers": [
+    {
+      "kind": "formulary",
+      "outer_member": "basic drugs formulary file 2027_20261031.zip",
+      "inner_member": "basic drugs formulary file  20261031.txt",
+      "columns": [
+        "FORMULARY_ID",
+        "FORMULARY_VERSION",
+        "CONTRACT_YEAR",
+        "RXCUI",
+        "NDC",
+        "TIER_LEVEL_VALUE",
+        "QUANTITY_LIMIT_YN",
+        "QUANTITY_LIMIT_AMOUNT",
+        "QUANTITY_LIMIT_DAYS",
+        "PRIOR_AUTHORIZATION_YN",
+        "STEP_THERAPY_YN",
+        "SELECTED_DRUG_YN"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "beneficiary",
+      "outer_member": "beneficiary cost file 2027_20261031.zip",
+      "inner_member": "beneficiary cost file  20261031.txt",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "COVERAGE_LEVEL",
+        "TIER",
+        "DAYS_SUPPLY",
+        "COST_TYPE_PREF",
+        "COST_AMT_PREF",
+        "COST_MIN_AMT_PREF",
+        "COST_MAX_AMT_PREF",
+        "COST_TYPE_NONPREF",
+        "COST_AMT_NONPREF",
+        "COST_MIN_AMT_NONPREF",
+        "COST_MAX_AMT_NONPREF",
+        "COST_TYPE_MAIL_PREF",
+        "COST_AMT_MAIL_PREF",
+        "COST_MIN_AMT_MAIL_PREF",
+        "COST_MAX_AMT_MAIL_PREF",
+        "COST_TYPE_MAIL_NONPREF",
+        "COST_AMT_MAIL_NONPREF",
+        "COST_MIN_AMT_MAIL_NONPREF",
+        "COST_MAX_AMT_MAIL_NONPREF",
+        "TIER_SPECIALTY_YN",
+        "DED_APPLIES_YN"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "excluded",
+      "outer_member": "excluded drugs formulary file 2027_20261031.zip",
+      "inner_member": "excluded drugs formulary file  20261031.txt",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "RXCUI",
+        "TIER",
+        "QUANTITY_LIMIT_YN",
+        "QUANTITY_LIMIT_AMOUNT",
+        "QUANTITY_LIMIT_DAYS",
+        "PRIOR_AUTH_YN",
+        "STEP_THERAPY_YN",
+        "CAPPED_BENEFIT_YN"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "geography",
+      "outer_member": "geographic locator file 2027_20261031.zip",
+      "inner_member": "geographic locator file 20261031.txt",
+      "columns": [
+        "COUNTY_CODE",
+        "STATENAME",
+        "COUNTY",
+        "MA_REGION_CODE",
+        "MA_REGION",
+        "PDP_REGION_CODE",
+        "PDP_REGION"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "indication",
+      "outer_member": "indication based coverage formulary file 2027_20261031.zip",
+      "inner_member": "Indication Based Coverage Formulary File  20261031.txt",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "RXCUI",
+        "DISEASE"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "insulin",
+      "outer_member": "insulin beneficiary cost file 2027_20261031.zip",
+      "inner_member": "insulin beneficiary cost file  20261031.txt",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "TIER",
+        "DAYS_SUPPLY",
+        "copay_amt_pref_insln",
+        "copay_amt_nonpref_insln",
+        "copay_amt_mail_pref_insln",
+        "copay_amt_mail_nonpref_insln",
+        "coin_amt_pref_insln",
+        "coin_amt_nonpref_insln",
+        "coin_amt_mail_pref_insln",
+        "coin_amt_mail_nonpref_insln"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "pharmacy_1",
+      "outer_member": "pharmacy networks file 2027_20261031 part 1.zip",
+      "inner_member": "pharmacy networks file  20261031 part 1.txt",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "PHARMACY_NUMBER",
+        "PHARMACY_ZIPCODE",
+        "PREFERRED_STATUS_RETAIL",
+        "PREFERRED_STATUS_MAIL",
+        "PHARMACY_RETAIL",
+        "PHARMACY_MAIL",
+        "IN_AREA_FLAG",
+        "BRAND_DISPENSING_FEE_30",
+        "BRAND_DISPENSING_FEE_60",
+        "BRAND_DISPENSING_FEE_90",
+        "GENERIC_DISPENSING_FEE_30",
+        "GENERIC_DISPENSING_FEE_60",
+        "GENERIC_DISPENSING_FEE_90",
+        "SELECTED_DISPENSING_FEE_30",
+        "SELECTED_DISPENSING_FEE_60",
+        "SELECTED_DISPENSING_FEE_90"
+      ],
+      "has_drug_unit_price_column": false
+    },
+    {
+      "kind": "plan",
+      "outer_member": "plan information 2027_20261031.zip",
+      "inner_member": "plan information  20261031.txt",
+      "columns": [
+        "CONTRACT_ID",
+        "PLAN_ID",
+        "SEGMENT_ID",
+        "CONTRACT_NAME",
+        "PLAN_NAME",
+        "FORMULARY_ID",
+        "PREMIUM",
+        "DEDUCTIBLE",
+        "MA_REGION_CODE",
+        "PDP_REGION_CODE",
+        "STATE",
+        "COUNTY_CODE",
+        "SNP",
+        "PLAN_SUPPRESSED_YN"
+      ],
+      "has_drug_unit_price_column": false
+    }
+  ],
+  "pharmacy_parts": "Six partitions share the pinned verified pharmacy layout; first partition header read again here.",
+  "qualification": "Tier copays/coinsurance and pharmacy dispensing fees are not a complete negotiated drug unit-price feed. Inner October 31 tokens are not claimed publication or retrieval dates."
+}

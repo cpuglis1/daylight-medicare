@@ -1,0 +1,223 @@
+--- alternatives/advisor-first/natural_agent.py (before)
++++ alternatives/advisor-first/natural_agent.py
+@@ -26,6 +26,8 @@
+ from natural_state import AGENDA_TOPICS, PRIORITY_TOPICS
+ from education import catalog_context
+ import learner_state
++from turn_contract import bound_answer, PROGRESS, MOVES, continuation
++from situation import birthday_first_day
+ from request_limits import OUTPUT_TOKENS
+ from request_packing import compact_context, request_sizes
+ from transport_diagnostics import failure_details, recoverable_connection
+@@ -270,11 +272,23 @@
+ when their words support that interpretation, then help them use the clearer idea.
+ Let acknowledgment and reassurance fit the moment. Choose the response that helps here.
+ 
+-Work toward their question's resolution. If a missing fact would change the answer or the
+-next useful action, ask for it; otherwise help with what is already known. Candidate questions
+-are available meanings, not a checklist or an order to follow. An expressed goal or preference
+-stays part of the conversation. Use the curriculum as a reference for the understanding
+-this person needs now.
++Use working_assessment to connect the person's goal, tentative understanding, current
++reports and available help. Answering the latest question is different from reaching a
++useful stopping point in their broader goal. Consider what this exchange resolves and what
++remains open, then choose a helpful continuation or ending. Explanation, clarification,
++consequential intake, an available next action and a natural ending are all legitimate.
++Let that judgment shape the response; do not narrate an internal assessment or add a
++ritual follow-up. Candidate questions are available meanings, not a checklist or an order.
++The curriculum is a reference for what would help this person understand, not a lesson queue.
++
++The current_turn capture_outcomes describe what the backend actually accepted, already
++knew, could not capture or needs clarified. Acknowledge recorded facts from resolved reports,
++not merely from the raw message or a proposed extraction. For an unresolved report, address
++the specific ambiguity if consequential; do not claim it was recorded or externally checked.
++Reports and known presence/status markers outlive the bounded recent_exchanges. Missing
++history or a missing field never proves the person did not answer. If they challenge a repeat,
++reconcile the available question, outcomes, reports and recent exchange; acknowledge a gap
++without denying their account or guessing the lost value. Ask only for the detail still needed.
+ 
+ Before sending, check your proposed reply against recent_exchanges and education_context.learning.
+ Build on what has already been explained. Give the new information, implication or next step
+@@ -289,8 +303,8 @@
+ details only when they enable available help. Explain uncertainty in plain language where it matters
+ to the person's next step. Keep necessary qualifications attached to the point they qualify;
+ save background and exceptions for when they matter. Use each new detail to make the help
+-more relevant. Stop when the useful work is done or the person pauses;
+-a natural ending or a relevant invitation is enough.
++more relevant. End when the goal has reached a useful stopping point or the person pauses;
++an open goal may benefit from one relevant continuation, chosen from their actual needs.
+ Keeping existing coverage, deferring and no change are valid outcomes. Commissions, carrier
+ relationships and conversion goals never affect guidance or which options get attention.
+ 
+@@ -317,8 +331,10 @@
+   required clarification precedes other personal intake; supported education may still proceed.
+   Use the candidate's requested precision without inventing a year or asking for a full birth date.
+   Known/deferred answers stay answered unless corrected or reopened. Do not combine unrelated
+-  questions or read the answer-choice list. Use null for answer-only or educational conversation,
+-  never to hide personal intake. Put the follow-up only in question, not also in reply.
++  questions or read the answer-choice list. question_target null means no personal intake
++  target; an educational or goal-clarifying question can still go in question. An empty
++  question is a deliberate answer-only turn. Never hide personal intake in a null target.
++  Put the follow-up only in question, not also in reply.
+ - Respect a pause or request for no more questions: target null, question empty, pause true.
+ - education describes what the reply actually explains, separately from learner understanding:
+   purpose advance/answer/teach/clarify/recap; updates [] for ordinary intake; visual is always none.
+@@ -333,7 +349,12 @@
+   or current clarification concepts. Exact plan, office, participation, coverage and cost are
+   separate checks. Completion needs an actual operation receipt. Preserve unknown/deferred state.
+ - agenda_update contains the person's current concern and explicit pause, never new profile
+-  facts, verified understanding or changed permissions. Keep internal metadata out of prose.'''
++  facts, verified understanding or changed permissions.
++- conversation_assessment gives tentative goal_progress (open/useful_stopping_point/paused)
++  and next_move (explain/clarify/ask/next_step/finish). Consider both understanding and decision
++  preparation, including unresolved must-haves. A delivered explanation is not demonstrated
++  understanding; complete reported inputs are not verified suitability. This assessment grants
++  no permission, factual authority or completion receipt. Keep internal metadata out of prose.'''
+ COMPOSE_INSTRUCTIONS += f'''
+ Hard output bounds: reply at most {COMPOSITION_REPLY_BOUND} characters, question at most
+ {COMPOSITION_QUESTION_BOUND}, combined at most {COMPOSITION_TEXT_BOUND} including their
+@@ -585,12 +606,24 @@
+ bookkeeping. Birthday corrections use situation_proposals; other corrections use
+ their actual field with correction true.
+ 
++Interpret a short answer with answer_context: the exact server-owned question,
++its target, fields, entity and established subject. The question supplies meaning,
++not missing values. Bind only the answer actually given to that meaning. A detour,
++another person's detail or an ambiguous reference is not an answer to that question.
++Keep exact quotes from the latest message; never fabricate a standalone sentence
++to make a contextual answer pass validation. Uncertain interpretations stay uncertain.
++
+ Birthday and retirement circumstances use situation_proposals, separately from
+-coverage and enrollment. Age65 requires an explicit report of turning 65 or a 65th
+-birthday. Record only an explicitly supplied month/year; null means unstated. Never
++coverage and enrollment. Age65 needs a stated age-65 circumstance or a direct answer
++to that meaning in answer_context. Record only a supplied month/year; null means unstated. Never
+ infer a missing year, current age, coverage start or Medicare eligibility. Retirement
+ status is retired/retiring/working with an exact stated when phrase or empty string.
+-For age65 keep status/when empty and quote the complete birthday timing phrase when present. For retirement keep month/year null. Preserve
++For age65 keep status/when empty. first_day is the reported first-of-month exception,
++not a birth day; use null and first_day_quote '' when unanswered. A supplied boolean
++needs its own exact answer span in first_day_quote and the question or words that
++establish its meaning. Do not fill an unanswered subquestion. Quote the complete
++supported circumstance in quote. For retirement keep month/year/first_day null and
++first_day_quote empty. Preserve
+ person, time scope, uncertainty and correction. Do not turn the helper's circumstance
+ into the beneficiary's, or a hypothetical into a report.
+ T04 desired start is not a birthday. Use month only when an explicit month AND year
+@@ -872,6 +905,8 @@
+                 'uncertain':{'type':'boolean'}, 'correction':{'type':'boolean'},
+                 'month':{'type':['integer','null'],'minimum':1,'maximum':12},
+                 'year':{'type':['integer','null'],'minimum':1900,'maximum':2099},
++                'first_day':{'type':['boolean','null']},
++                'first_day_quote':{'type':'string','maxLength':600},
+                 'status':{'type':'string','enum':['','retired','retiring','working']},
+                 'when':{'type':'string','maxLength':160}})},
+             'goal_quote':{'type':'string','maxLength':200},
+@@ -973,10 +1008,13 @@
+                 if not role or proposed_role==role or update.get('correction'):
+                     role = proposed_role
+         for proposal in value['situation_proposals']:
+-            if self._valid_situation_proposal(proposal,message,role=role):
++            if self._valid_situation_proposal(proposal,message,role=role,
++                    answer_context=getattr(self.local, 'turn_context', {}).get('answer_context')):
+                 situations.append(copy.deepcopy(proposal))
+             else:
+-                rejected_situations.append({'reason':'unsupported_situation'})
++                kind = proposal.get('kind') if isinstance(proposal, dict) else None
++                rejected_situations.append({'reason':'unsupported_situation',
++                    **({'id': 'S_' + kind.upper()} if kind in {'age65','retirement'} else {})})
+         goal_quote = value['goal_quote'].strip()
+         if goal_quote and goal_quote.casefold() not in message.casefold():
+             goal_quote = ''
+@@ -1022,9 +1060,9 @@
+         return copy.deepcopy(value)
+ 
+     @staticmethod
+-    def _valid_situation_proposal(proposal, message, role=None):
++    def _valid_situation_proposal(proposal, message, role=None, answer_context=None):
+         required={'kind','subject','scope','quote','uncertain','correction','month','year','status','when'}
+-        if (not isinstance(proposal,dict) or set(proposal)!=required
++        if (not isinstance(proposal,dict) or not required <= set(proposal) <= required | {'first_day','first_day_quote'}
+                 or any(not isinstance(proposal[key],str) for key in ('kind','subject','scope','status'))
+                 or proposal['kind'] not in {'age65','retirement'}
+                 or proposal['subject'] not in {'beneficiary','learner','unclear'}
+@@ -1035,6 +1073,8 @@
+                 or not isinstance(proposal['when'],str) or len(proposal['when'])>160):
+             return False
+         quote=proposal['quote']
++        contextual = bound_answer(answer_context, 'S_' + proposal['kind'].upper(),
++                                  subject=proposal['subject'])
+         position=message.casefold().find(quote.casefold())
+         clause_start=max(message.rfind(mark,0,position) for mark in '.!?;\n')+1
+         support=message[clause_start:position]+quote
+@@ -1053,7 +1093,7 @@
+             if (month_value is not None and (type(month_value) is not int or not 1<=month_value<=12)
+                     or year_value is not None and (type(year_value) is not int or not 1900<=year_value<=2099)):
+                 return False
+-            if not re.search(r"\b65(?:th)?\b|\bsixty[ -]five\b",quote,re.I):
++            if not contextual and not re.search(r"\b65(?:th)?\b|\bsixty[ -]five\b",quote,re.I):
+                 return False
+             if re.search(r"\b(?:not|never|won't|will not|isn't|is not)\b.{0,25}\b(?:turn|65|sixty)",support,re.I):
+                 return False
+@@ -1062,8 +1102,18 @@
+             years={int(item) for item in re.findall(r'\b(?:19|20)\d{2}\b',quote)}
+             if year_value is not None and year_value not in years:
+                 return False
+-            return True
+-        if proposal['month'] is not None or proposal['year'] is not None:
++            flag, flag_quote = proposal.get('first_day'), proposal.get('first_day_quote', '')
++            if flag is None:
++                return flag_quote == ''
++            if (type(flag) is not bool or not isinstance(flag_quote, str) or not flag_quote.strip()
++                    or flag_quote.casefold() not in quote.casefold()):
++                return False
++            explicit_flag = birthday_first_day(quote, month_value)
++            if explicit_flag is not None:
++                return flag == explicit_flag
++            return bool(contextual and 'first_day' in answer_context.get('fields', []))
++        if (proposal['month'] is not None or proposal['year'] is not None
++                or proposal.get('first_day') is not None or proposal.get('first_day_quote', '')):
+             return False
+         if proposal['status'] not in {'retired','retiring','working'}:
+             return False
+@@ -1142,6 +1192,7 @@
+                 if feedback:
+                     answer['validation_recovery'] = {'component': 'composition',
+                         'replacement': 'validated_model_repair', 'reason': recovery_reason}
++                    answer['continuation']['validation_changed_continuation'] = True
+                     self._cache_composition(owner, resolved_context, moves, request_id, answer)
+                 return answer
+             except CompositionRejected as error:
+@@ -1185,6 +1236,7 @@
+         answer = self.validate_composition(partial[0], context, _question_candidates(moves))
+         answer['validation_recovery'] = {'component': partial[1],
+             'replacement': 'independently_validated_component', 'reason': reason}
++        answer['continuation']['validation_changed_continuation'] = True
+         self._cache_composition(owner, context, moves, request_id, answer)
+         return answer
+ 
+@@ -1217,6 +1269,10 @@
+             'evidence_refs': {'type': 'array', 'maxItems': 3, 'items': {'type': 'string', **({'enum': evidence_ids} if evidence_ids else {})}, **({'maxItems': 0} if not evidence_ids else {})},
+             'agenda_update': schema({'current_concern': {'type':'string','maxLength':160},
+                                      'pause': {'type':'boolean'}}),
++            'conversation_assessment': schema({
++                'goal_progress': {'type':'string','enum':list(PROGRESS)},
++                'next_move': {'type':'string','enum':list(MOVES)},
++            }),
+             'education': _education_schema(evidence_ids),
+             'task_work': schema({
+                 'check_ids': {'type':'array','maxItems':4,'items':{'type':'string','enum':list(CHECK_IDS)}},
+@@ -1371,11 +1427,12 @@
+         # never turn an otherwise useful, grounded response into a failed turn.
+         if not isinstance(value, dict):
+             raise ModelUnavailable('The conversational response could not be checked.')
+-        core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work'}}
++        core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work', 'conversation_assessment'}}
+         checked, recovery = validate_with_question_recovery(self._validate_composition_core, core, context, moves)
+         education = self._validate_education(value.get('education'), checked)
+         result = {**checked, 'education': education,
+                   'education_metadata_dropped': education != value.get('education'),
++                  'continuation': continuation(core, checked, value.get('conversation_assessment'), recovery=bool(recovery)),
+                   'education_followups': []}
+         if recovery:
+             result['validation_recovery'] = recovery

@@ -1,0 +1,286 @@
+{
+  "fields": [
+    {
+      "codes": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17398,
+        17399
+      ],
+      "field_title": "Does this plan have an In-Network plan deductible?",
+      "file": "pbp_Section_D",
+      "json_question": "Does this plan have an In-Network plan deductible?",
+      "length": 1,
+      "name": "pbp_d_inn_deduct_yn",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "In-Ntwk Plan Deductible YN"
+    },
+    {
+      "codes": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17400,
+        17401
+      ],
+      "field_title": "Does this plan charge the Medicare-defined Part B deductible amount?",
+      "file": "pbp_Section_D",
+      "json_question": "Does this plan charge the Medicare-defined Part B deductible amount?",
+      "length": 1,
+      "name": "pbp_d_inn_deduct_partb_yn",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "In-Ntwk Ded Mdcr PartB YN"
+    },
+    {
+      "codes": {},
+      "derived_category": null,
+      "dictionary_rows": [
+        17402
+      ],
+      "field_title": "In-Network Deductible Amount",
+      "file": "pbp_Section_D",
+      "json_question": "In-Network Deductible Amount",
+      "length": 8,
+      "name": "pbp_d_inn_deduct_amt",
+      "service_category": null,
+      "source_type": "NUM",
+      "title": "In-Ntwk Ded Amt"
+    },
+    {
+      "codes": {
+        "1 in 1": "In-Network Non-Medicare-covered benefits",
+        "1 in 2": "In-Network Medicare-covered benefits"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17403,
+        17404
+      ],
+      "field_title": "In-Network Non-Medicare-covered benefits",
+      "file": "pbp_Section_D",
+      "json_question": "In-Network Non-Medicare-covered benefits",
+      "length": 2,
+      "name": "pbp_d_inn_deduct_bens",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "In-Ntwk Ded benefit"
+    },
+    {
+      "codes": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17405,
+        17406
+      ],
+      "field_title": "Does the In-Network Deductible apply to all In-Network Medicare-covered plan services?",
+      "file": "pbp_Section_D",
+      "json_question": "Does the In-Network Deductible apply to all In-Network Medicare-covered plan services?",
+      "length": 1,
+      "name": "pbp_d_inn_deduct_m_yn",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "In-Ntwk Ded All Inn Mdcr YN"
+    },
+    {
+      "codes": {
+        "10a1": "10a1: Ground Ambulance Services",
+        "10a2": "10a2: Air Ambulance Services",
+        "11a": "11a: Durable Medical Equipment (DME)",
+        "11b1": "11b1: Prosthetic Devices",
+        "11b2": "11b2: Medical Supplies",
+        "11c1": "11c1: Diabetic Supplies",
+        "11c2": "11c2: Diabetic Therapeutic Shoes/Inserts",
+        "12": "12: Dialysis Services",
+        "14a": "14a: Medicare-covered Zero Dollar Preventive Services",
+        "14d": "14d: Kidney Disease Education Services",
+        "14e1": "14e1: Glaucoma Screening",
+        "14e2": "14e2: Diabetes Self-Management Training",
+        "14e4": "14e4: Digital Rectal Exams",
+        "14e5": "14e5: EKG following Welcome Visit",
+        "15-1-I": "15-1-I: Medicare Part B Insulin Drugs",
+        "15-2": "15-2: Medicare Part B Chemotherapy/Radiation Drugs",
+        "15-3": "15-3: Other Medicare Part B Drugs",
+        "16a": "16a: Medicare Dental Services",
+        "17a": "17a: Eye Exams",
+        "17b": "17b: Eyewear",
+        "18a": "18a: Hearing Exams",
+        "1a": "1a: Inpatient Hospital-Acute",
+        "1b": "1b: Inpatient Hospital Psychiatric",
+        "2": "2: Skilled Nursing Facility (SNF)",
+        "20": "20: Prescription Drugs (Cost Plans Only)",
+        "3-1": "3-1: Cardiac Rehabilitation Services",
+        "3-2": "3-2: Intensive Cardiac Rehabilitation Services",
+        "3-3": "3-3: Pulmonary Rehabilitation Services",
+        "3-4": "3-4: SET for PAD Services",
+        "4a": "4a: Emergency Services",
+        "4b": "4b: Urgently Needed Services",
+        "5a": "5a: Partial Hospitalization Program",
+        "5b": "5b: Intensive Outpatient Program Services",
+        "6": "6: Home Health Services",
+        "7a": "7a: Primary Care Physician Services",
+        "7b": "7b: Chiropractic Services",
+        "7c": "7c: Occupational Therapy Services",
+        "7d": "7d: Physician Specialist Services",
+        "7e1": "7e1: Individual Sessions for Mental Health Specialty Services",
+        "7e2": "7e2: Group Sessions for Mental Health Specialty Services",
+        "7f": "7f: Podiatry Services",
+        "7g": "7g: Other Health Care Professional",
+        "7h1": "7h1: Individual Sessions for Psychiatric Services",
+        "7h2": "7h2: Group Sessions for Psychiatric Services",
+        "7i": "7i: Physical Therapy and Speech-Language Pathology Services",
+        "7j": "7j: Additional Telehealth Benefits",
+        "7k": "7k: Opioid Treatment Program Services",
+        "8a1": "8a1: Diagnostic Procedures/Tests",
+        "8a2": "8a2: Lab Services",
+        "8b1": "8b1: Diagnostic Radiological Services",
+        "8b2": "8b2: Therapeutic Radiological Services",
+        "8b3": "8b3: Outpatient X-Ray Services",
+        "9a1": "9a1: Outpatient Hospital Services",
+        "9a2": "9a2: Observation Services",
+        "9b": "9b: Ambulatory Surgical Center (ASC) Services",
+        "9c1": "9c1: Individual Sessions for Outpatient Substance Abuse",
+        "9c2": "9c2: Group Sessions for Outpatient Substance Abuse",
+        "9d": "9d: Outpatient Blood Services"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17407,
+        17408,
+        17409,
+        17410,
+        17411,
+        17412,
+        17413,
+        17414,
+        17415,
+        17416,
+        17417,
+        17418,
+        17419,
+        17420,
+        17421,
+        17422,
+        17423,
+        17424,
+        17425,
+        17426,
+        17427,
+        17428,
+        17429,
+        17430,
+        17431,
+        17432,
+        17433,
+        17434,
+        17435,
+        17436,
+        17437,
+        17438,
+        17439,
+        17440,
+        17441,
+        17442,
+        17443,
+        17444,
+        17445,
+        17446,
+        17447,
+        17448,
+        17449,
+        17450,
+        17451,
+        17452,
+        17453,
+        17454,
+        17455,
+        17456,
+        17457,
+        17458,
+        17459,
+        17460,
+        17461,
+        17462,
+        17463,
+        17464
+      ],
+      "field_title": "Medicare service categories that are subject to each plan-level deductible type",
+      "file": "pbp_Section_D",
+      "json_question": "Medicare service categories that are subject to each plan-level deductible type",
+      "length": 4000,
+      "name": "pbp_d_inn_deduct_m_cats",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "In-Ntwk Ded Serv Cats Med-Cov"
+    },
+    {
+      "codes": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17465,
+        17466
+      ],
+      "field_title": "Does the In-Network Deductible apply to all In-Network Non-Medicare-covered plan services?",
+      "file": "pbp_Section_D",
+      "json_question": "Does the In-Network Deductible apply to all In-Network Non-Medicare-covered plan services?",
+      "length": 1,
+      "name": "pbp_d_inn_deduct_nm_yn",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "In-Ntwk Ded All Inn NM YN"
+    },
+    {
+      "codes": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17550,
+        17551
+      ],
+      "field_title": "Does this plan have a combined (In-Network and Out-of-Network) deductible?",
+      "file": "pbp_Section_D",
+      "json_question": "Does this plan have a combined (In-Network and Out-of-Network) deductible?",
+      "length": 1,
+      "name": "pbp_d_comb_deduct_yn",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "Comb Ded YN"
+    },
+    {
+      "codes": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "derived_category": null,
+      "dictionary_rows": [
+        17849,
+        17850
+      ],
+      "field_title": "Does this plan have an Out-of-Network Network plan deductible?",
+      "file": "pbp_Section_D",
+      "json_question": "Does this plan have an Out-of-Network Network plan deductible?",
+      "length": 1,
+      "name": "pbp_d_oon_deduct_yn",
+      "service_category": null,
+      "source_type": "CHAR",
+      "title": "OON Ded YN"
+    }
+  ],
+  "member": "PBP_Benefits_2026_dictionary.xlsx",
+  "sha256": "3630486e8f5275dec8f635a227a0058838dc352701fb03653f2570d437eb6b9e",
+  "source": "CMS-PBP-2026-TABLES"
+}

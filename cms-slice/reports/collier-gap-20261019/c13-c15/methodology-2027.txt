@@ -1,0 +1,63 @@
+PRESCRIPTION DRUG PLAN FORMULARY AND PHARMACY NETWORK
+PUBLIC USE FILE METHODOLOGY
+This monthly Public Use File (PUF) is comprised of 8 separate files. Each file is flat (ASCII) with pipe (|)
+delimiters and a header record that contains the field name. Sample files are included for the larger files
+so that users can examine the fields before processing.
+The PUF is built from data included in the first new posting for a given month on the Medicare Plan
+Finder (MPF) tool available at https://www.medicare.gov/1. Pharmacy network and drug pricing data
+are updated on the MPF tool every two weeks, thus the data in this PUF may not match exactly what
+currently appears on the MPF tool. Each PUF has a naming convention of YYYY_YYYYMMDD.zip. The first
+four digits of the zip file’s name corresponds to the contract year (CY) of the data included in the PUF.
+The final eight digits correspond to the date posted to the CMS website.
+Three types of Part D plans appear in the PUF. "Local Medicare Advantage" plans are identified by a
+CONTRACT_ID that begins with the letter H. "Regional Medicare Advantage" plans are identified by a
+CONTRACT_ID that begins with the letter R. Stand-alone "Prescription Drug Plans" are identified by a
+CONTRACT_ID that begins with the letter S. Each plan is uniquely identified by the combination of
+CONTRACT_ID, PLAN_ID, and SEGMENT_ID (note that SEGMENT_ID is always zero for R and S contracts).
+The following Plans are not included in this Public Use File:
+
+    •   Non-Part D Plans
+    •   National PACE Plans
+    •   Employer Sponsored Plans
+    •   Demonstration Plans
+
+Plans whose drug pricing, pharmacy network, and/or formulary data has been suppressed in MPF during
+the PUF reporting period appear in the Plan Information file with the PLAN_SUPPRESSED_YN field set to
+“Y”. They do not appear in any other files.
+
+As noted in the June 23, 2026 HPMS memo titled “Extended Part D Pricing Data Submission Calendar”,
+beginning in CY 2026, the MPF drug pricing data submission cycle will be extended through December,
+instead of concluding in September for the current CY. Starting in CY 2027, there will be concurrent PUFs
+produced for the current CY and the upcoming CY between October and December. The PUFs will be
+distinguished by the first component in the zip file title indicating the CY. For example:
+2028_20271015.zip would be the file name for a CY 2028 file posted on October 15, 2027.
+2027_20271015.zip would be the file name for a CY 2027 file posted on October 15, 2027.
+
+The PUF contains the following files:
+1. Plan Information File - Includes information for each plan (name, contract ID, plan ID, service area,
+   etc.).
+2. Geographic Locator File - Includes the Medicare Advantage (MA) and Prescription Drug Plan (PDP)
+   Region codes and county codes.
+
+
+1
+ Refer to the MPF posting schedule in the Pricing Data Guidelines and Calendar:
+https://www.cms.gov/medicare/coverage/prescription-drug-coverage/formulary-guidance
+3. Basic Drugs Formulary File - Includes formulary details for each plan including National Drug Codes
+   (NDCs), tier level, and indicators for step therapy, quantity limits, prior authorization, and a selected
+   drug flag.
+4. Excluded Drugs Formulary File - Enhanced alternative plans may elect to provide a supplemental
+   benefit and cover excluded drugs. File includes formulary details for excluded drugs that are covered
+   by the plan (for enhanced alternative plans only).
+5. Beneficiary Cost File - Plan level cost sharing details for preferred and standard retail and mail-order
+   network pharmacies.
+6. Pharmacy Network File - National Provider Identifier (NPI) numbers for each retail and mail-order
+   network pharmacy including preferred, retail, and mail-order indicators, and brand, generic, and
+   selected drug dispensing fees for 30/60/90 days supply, respectively.
+7. Indication Based Coverage Formulary File - Includes drugs covered based on FDA-approved
+   indication for each plan.
+8. Insulin Beneficiary Cost File - Plan level copay and coinsurance amounts for insulin at preferred and
+   standard retail and mail-order network pharmacies.
+
+Please refer to the Record Layout for file layouts and field values.
+

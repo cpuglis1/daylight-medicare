@@ -1,0 +1,885 @@
+--- a/alternatives/advisor-first/provider_transport.py
++++ b/alternatives/advisor-first/provider_transport.py
+@@ -2,6 +2,8 @@
+ 
+ Credentials and JSON travel through a private stdin pipe, never command arguments
+ or files. This performs one request, with no redirects or automatic retry.
++Before anything is sent, model_router checks the request against the static
++route list (AI-04); a request with no matching route is refused, never rerouted.
+ """
+ from contextlib import contextmanager, suppress
+ from email.parser import BytesHeaderParser
+@@ -15,14 +17,11 @@
+ from urllib.request import Request
+ 
+ from identifier_guard import find_transport_identifiers
+-
+-
+-ENDPOINTS = frozenset({
+-    'https://api.openai.com/v1/responses',
+-    'https://api.openai.com/v1/responses/input_tokens',
+-    'https://api.anthropic.com/v1/messages',
+-    'https://api.anthropic.com/v1/messages/count_tokens',
+-})
++import model_router
++
++
++# Canonical URLs callers may build; the matching route picks the endpoint.
++ENDPOINTS = frozenset(model_router.CANONICAL)
+ FAILURE = 'The verified AI connection could not complete.'
+ BODY_BOUND = 1_000_000
+ 
+@@ -63,7 +62,8 @@
+         raise ValueError('Use a bounded JSON object.')
+     try:
+         body = data.decode('utf-8')
+-        if not isinstance(json.loads(body), dict):
++        parsed = json.loads(body)
++        if not isinstance(parsed, dict):
+             raise ValueError('Use a JSON object.')
+     except (UnicodeError, json.JSONDecodeError) as error:
+         raise ValueError('Use a JSON object.') from error
+@@ -71,9 +71,17 @@
+     # earlier check was bypassed. Refuse to send; report only the category.
+     if find_transport_identifiers(body):
+         raise ProviderTransportError('identifier_blocked')
++    # AI-03/AI-04: the static route list decides whether this request may go,
++    # to which endpoint and with which project header. There is no fallback.
++    try:
++        route = model_router.authorize(request.full_url, request.header_items(), parsed)
++    except model_router.RouteBlocked as error:
++        raise ProviderTransportError(error.category) from None
++    if route.changed:
++        body = json.dumps(route.body, ensure_ascii=False, separators=(',', ':'))
+     # Object-only JSON also excludes curl's @filename data-binary syntax.
+-    fields = [('url', request.full_url), ('request', 'POST')]
+-    for name, value in request.header_items():
++    fields = [('url', route.url), ('request', 'POST')]
++    for name, value in route.headers:
+         if (not re.fullmatch(r'[A-Za-z0-9!#$%&\'*+.^_`|~-]+', name)
+                 or not isinstance(value, str) or '\r' in value or '\n' in value
+                 or '\x00' in value):
+--- a/alternatives/advisor-first/transport_diagnostics.py
++++ b/alternatives/advisor-first/transport_diagnostics.py
+@@ -1,6 +1,8 @@
+ """Fixed-category transport diagnostics; never retain bodies, messages or text."""
+ import json
+ from urllib.error import HTTPError
++
++from model_router import CATEGORIES as ROUTE_CATEGORIES
+ 
+ _KINDS = {'HTTPError', 'URLError', 'ProviderTransportError', 'TimeoutError', 'SSLError', 'ConnectionError',
+           'ConnectionResetError', 'JSONDecodeError', 'KeyError', 'TypeError'}
+@@ -34,7 +36,7 @@
+     category = getattr(error, 'transport_category', None)
+     if category in {'proxy','dns','connect','timeout','tls','certificate','empty_response',
+                     'send','receive','http2','invalid_headers','empty_headers','partial_response','process_exit',
+-                    'process_timeout','too_many_interim_responses','identifier_blocked'}:
++                    'process_timeout','too_many_interim_responses','identifier_blocked'} | ROUTE_CATEGORIES:
+         result['transport_category'] = category
+     if isinstance(error, HTTPError):
+         result['http_status'] = error.code if type(error.code) is int else 0
+--- a/alternatives/advisor-first/server.py
++++ b/alternatives/advisor-first/server.py
+@@ -19,6 +19,11 @@
+             raise RuntimeError('The pinned shared engine changed. Review and update engine-lock.json before starting: '+name)
+ 
+ verify_engine()
++import model_router
++# AI-03/AI-04: approved model calls leave only through provider_transport's curl
++# process after the route check. Refuse in-process lookups of provider hosts
++# before loading the pinned engine, which has its own direct provider calls.
++model_router.install_bypass_guard()
+ sys.path.insert(0, str(ENGINE))
+ from guide_server import make_server
+ from chat_conversation import ChatConversation
+@@ -118,9 +123,11 @@
+             agent.connection_retries = 1
+             agent.composition_recovery = True
+         config['connectionRecovery'] = {'maxRetriesPerStage': 1, 'countsTowardDailyCap': True}
++        routed = model_router.allowed_models()
+         config['models'] = [{'id': identifier, 'label': MODELS[identifier].label,
+                             'provider': MODELS[identifier].provider,
+-                            'available': provider_client.available and provider_client.model == identifier}
++                            'available': (provider_client.available and provider_client.model == identifier
++                                          and identifier in routed)}
+                            for identifier, provider_client in clients.items()]
+         config['defaultModel'] = DEFAULT_MODEL
+         parent_handler = service.RequestHandlerClass
+--- a/infrastructure/daylight-pilot/daylight-pilot.service
++++ b/infrastructure/daylight-pilot/daylight-pilot.service
+@@ -8,6 +8,8 @@
+ Group=daylight-pilot
+ WorkingDirectory=/opt/daylight-pilot
+ EnvironmentFile=/etc/daylight-pilot/origin.env
++# AI-04: pilot traffic may use only the pilot routes in model-routes.json.
++Environment=DAYLIGHT_MODEL_ENVIRONMENT=pilot
+ ExecStart=/usr/bin/python3.11 -B /opt/daylight-pilot/alternatives/advisor-first/server.py --fixture --port 8893 --pilot-state /var/lib/daylight-pilot/cohort --pilot-origin ${DAYLIGHT_PILOT_ORIGIN}
+ Restart=on-failure
+ StateDirectory=daylight-pilot
+--- a/alternatives/advisor-first/tests/test_provider_transport.py
++++ b/alternatives/advisor-first/tests/test_provider_transport.py
+@@ -44,7 +44,8 @@
+ 
+ class TransportTests(unittest.TestCase):
+     def request(self, url='https://api.openai.com/v1/responses/input_tokens', **kwargs):
+-        return Request(url, data=kwargs.get('data', b'{"input":"PRIVATE-TEXT"}'),
++        # AI-04: the fictional body names an allowlisted development model.
++        return Request(url, data=kwargs.get('data', b'{"model":"gpt-6.1-sol","input":"PRIVATE-TEXT"}'),
+             method=kwargs.get('method', 'POST'),
+             headers={'Authorization':'Bearer PRIVATE-KEY', 'Content-Type':'application/json'})
+ 
+--- a/alternatives/advisor-first/tests/test_identifier_guard.py
++++ b/alternatives/advisor-first/tests/test_identifier_guard.py
+@@ -67,7 +67,9 @@
+                        headers={'Content-Type': 'application/json'})
+ 
+     def test_clean_request_is_configured(self):
+-        self.assertIn(b'data-binary', _configuration(self.request({'input': 'ZIP 34102, turning 65'})))
++        # AI-04: a clean request still has to name an allowlisted model.
++        self.assertIn(b'data-binary', _configuration(self.request({'model': 'gpt-6.1-sol',
++                                                                   'input': 'ZIP 34102, turning 65'})))
+ 
+     def test_identifier_in_request_is_refused_with_category_only(self):
+         for text in ['1EG4-TE5-MK73', '123-45-6789', '4111 1111 1111 1111']:
+--- /dev/null
++++ b/alternatives/advisor-first/model_router.py
+@@ -0,0 +1,312 @@
++"""AI-04 fail-closed model router; the AI-03 enforcement point.
++
++Every live model request leaves Daylight through ``provider_transport.urlopen``,
++and that function asks this module to authorize the request before anything is
++sent. Authorization is a static allowlist checked in beside this file
++(``model-routes.json``). A request is sent only when one route for the active
++environment names its provider, its exact model and the endpoint, and the
++request uses only allowed features. Nothing here falls back to another
++provider, model, project or endpoint. A request that does not match is refused
++with a fixed category, and the caller's existing failure path runs without a
++retry; the deterministic plan tools are unaffected.
++
++Callers keep building requests against the canonical provider URL. The route
++chooses the physical endpoint (for example a US processing host) and the
++project header, so a deployment change is a reviewed edit to the allowlist,
++not to each caller.
++
++The active environment comes from ``DAYLIGHT_MODEL_ENVIRONMENT``: development
++when unset, and any unknown value blocks every request. Routes that carry real
++health information (``data: "health"``) stay blocked until their endpoints,
++project and US region are recorded.
++
++Model traffic that is allowed always runs in provider_transport's curl
++process. ``install_bypass_guard`` therefore refuses any in-process (Python)
++network lookup of a model provider host, which catches code that skips the
++router, including the hash-pinned shared engine that this variant cannot edit.
++
++Nothing here logs or keeps prompt text, keys or responses: only the block
++category, environment and endpoint kind.
++"""
++from dataclasses import dataclass
++import json
++import logging
++import os
++from pathlib import Path
++import re
++import sys
++from urllib.parse import urlsplit
++
++HERE = Path(__file__).resolve().parent
++ROUTES_PATH = HERE / 'model-routes.json'
++SCHEMA = 'daylight-model-routes/v1'
++ENVIRONMENT_VARIABLE = 'DAYLIGHT_MODEL_ENVIRONMENT'
++DEFAULT_ENVIRONMENT = 'development'
++# Each environment carries one class of data. Development uses fictional
++# people only; anything in the pilot is treated as real health information.
++ENVIRONMENT_DATA = {'development': 'fictional', 'pilot': 'health'}
++LOGGER = logging.getLogger(__name__)
++
++# The only URLs a caller may build. The route decides where each one goes.
++CANONICAL = {
++    'https://api.openai.com/v1/responses': ('openai', 'responses'),
++    'https://api.openai.com/v1/responses/input_tokens': ('openai', 'input_tokens'),
++    'https://api.anthropic.com/v1/messages': ('anthropic', 'messages'),
++    'https://api.anthropic.com/v1/messages/count_tokens': ('anthropic', 'count_tokens'),
++}
++PATHS = {'responses': '/v1/responses', 'input_tokens': '/v1/responses/input_tokens',
++         'messages': '/v1/messages', 'count_tokens': '/v1/messages/count_tokens'}
++KINDS = {'openai': ('responses', 'input_tokens'), 'anthropic': ('messages', 'count_tokens')}
++PROVIDER_DOMAINS = {'openai': 'openai.com', 'anthropic': 'anthropic.com'}
++OPENAI_PROJECT = re.compile(r'proj_[A-Za-z0-9]{8,64}')
++
++# Request fields that keep state at the provider or call provider-hosted tools.
++OPENAI_STATEFUL = ('previous_response_id', 'conversation', 'prompt', 'background')
++OPENAI_TOOL_CHOICES = frozenset({'none', 'auto', 'required'})
++OPENAI_INCLUDES = frozenset({'reasoning.encrypted_content', 'message.output_text.logprobs'})
++ANTHROPIC_SERVER_FEATURES = ('mcp_servers', 'container')
++ROUTING_HEADERS = frozenset({'openai-project', 'openai-organization'})
++
++CATEGORIES = frozenset({'environment_invalid', 'endpoint_not_allowed', 'provider_not_allowed',
++                        'model_not_allowed', 'route_not_configured', 'feature_not_allowed',
++                        'hosted_tool_blocked'})
++
++
++class RouteBlocked(Exception):
++    """A request that no route allows. Carries only a fixed category."""
++
++    def __init__(self, category):
++        if category not in CATEGORIES:
++            raise ValueError('Use a fixed route category.')
++        super().__init__('The model request is not on the approved route list.')
++        self.category = category
++
++
++@dataclass(frozen=True)
++class Route:
++    id: str
++    environment: str
++    provider: str
++    data: str
++    models: tuple
++    endpoints: tuple  # (kind, url or None) pairs
++    project: object  # str or None
++    region: str
++
++    def endpoint(self, kind):
++        return dict(self.endpoints).get(kind)
++
++    @property
++    def configured(self):
++        if any(url is None for _, url in self.endpoints):
++            return False
++        if self.data == 'health':
++            return self.project is not None and self.region == 'us'
++        return True
++
++
++@dataclass(frozen=True)
++class Authorized:
++    route: str
++    url: str
++    headers: tuple  # (name, value) pairs ready to send
++    body: dict
++    changed: bool
++
++
++def _endpoint(provider, kind, url):
++    if url is None:
++        return None
++    if not isinstance(url, str):
++        raise ValueError('Use a URL string or null for each endpoint.')
++    parts = urlsplit(url)
++    host = (parts.hostname or '').lower()
++    domain = PROVIDER_DOMAINS[provider]
++    if (parts.scheme != 'https' or parts.port is not None or parts.username or parts.password
++            or parts.query or parts.fragment or url != f'https://{host}{parts.path}'
++            or not (host == domain or host.endswith('.' + domain)) or parts.path != PATHS[kind]):
++        raise ValueError(f'Use an HTTPS {provider} endpoint ending in {PATHS[kind]}.')
++    return url
++
++
++def _route(item):
++    keys = {'id', 'environment', 'provider', 'data', 'models', 'endpoints', 'project', 'region'}
++    if not isinstance(item, dict) or set(item) - (keys | {'note'}) or keys - set(item):
++        raise ValueError('Each route needs exactly: ' + ', '.join(sorted(keys)) + ' (and an optional note).')
++    identifier, environment, provider, data = (item[key] for key in ('id', 'environment', 'provider', 'data'))
++    if not isinstance(identifier, str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{1,63}', identifier):
++        raise ValueError('Use a short lowercase route id.')
++    if environment not in ENVIRONMENT_DATA:
++        raise ValueError('Use a known environment.')
++    if provider not in KINDS:
++        raise ValueError('Use a supported provider.')
++    if data != ENVIRONMENT_DATA[environment]:
++        raise ValueError(f'The {environment} environment carries {ENVIRONMENT_DATA[environment]} data only.')
++    models = item['models']
++    if (not isinstance(models, list) or not models or len(set(models)) != len(models)
++            or not all(isinstance(model, str) and re.fullmatch(r'[a-z0-9][a-z0-9.\-]{1,63}', model)
++                       for model in models)):
++        raise ValueError('List exact model ids; wildcards and duplicates are not allowed.')
++    endpoints = item['endpoints']
++    if not isinstance(endpoints, dict) or set(endpoints) != set(KINDS[provider]):
++        raise ValueError(f'List exactly these {provider} endpoints: ' + ', '.join(KINDS[provider]) + '.')
++    project = item['project']
++    if project is not None:
++        if provider != 'openai' or not isinstance(project, str) or not OPENAI_PROJECT.fullmatch(project):
++            raise ValueError('Use an OpenAI project id (proj_…) or null. Never put a key here.')
++    region = item['region']
++    if not isinstance(region, str) or not region:
++        raise ValueError('Record the processing region.')
++    if data == 'health' and region != 'us':
++        raise ValueError('Routes that carry health information must process in the US.')
++    return Route(identifier, environment, provider, data, tuple(models),
++                 tuple((kind, _endpoint(provider, kind, endpoints[kind])) for kind in KINDS[provider]),
++                 project, region)
++
++
++def load_routes(path=ROUTES_PATH):
++    """Read and validate the allowlist. Any defect stops the service from starting."""
++    document = json.loads(Path(path).read_text(encoding='utf-8'))
++    if not isinstance(document, dict) or document.get('schema') != SCHEMA or not isinstance(document.get('routes'), list):
++        raise ValueError(f'Use the {SCHEMA} route file.')
++    routes = tuple(_route(item) for item in document['routes'])
++    if len({route.id for route in routes}) != len(routes):
++        raise ValueError('Route ids must be unique.')
++    seen = set()
++    for route in routes:
++        for model in route.models:
++            key = (route.environment, route.provider, model)
++            if key in seen:
++                raise ValueError('Each model may appear in one route per environment.')
++            seen.add(key)
++    return routes
++
++
++ROUTES = load_routes()
++
++
++def environment():
++    value = os.environ.get(ENVIRONMENT_VARIABLE, DEFAULT_ENVIRONMENT)
++    if value not in ENVIRONMENT_DATA:
++        raise RouteBlocked('environment_invalid')
++    return value
++
++
++def allowed_models(env=None, routes=None):
++    """Model ids that can be called right now in this environment."""
++    try:
++        env = env or environment()
++    except RouteBlocked:
++        return frozenset()
++    return frozenset(model for route in (ROUTES if routes is None else routes)
++                     if route.environment == env and route.configured for model in route.models)
++
++
++def _check_openai(kind, body):
++    for key in OPENAI_STATEFUL:
++        if body.get(key) not in (None, False):
++            raise RouteBlocked('feature_not_allowed')
++    tools = body.get('tools')
++    if tools is not None and (not isinstance(tools, list)
++                              or not all(isinstance(tool, dict) and tool.get('type') == 'function' for tool in tools)):
++        raise RouteBlocked('hosted_tool_blocked')
++    choice = body.get('tool_choice')
++    if choice is not None and not (isinstance(choice, str) and choice in OPENAI_TOOL_CHOICES
++                                   or isinstance(choice, dict) and choice.get('type') == 'function'):
++        raise RouteBlocked('hosted_tool_blocked')
++    include = body.get('include')
++    if include is not None and (not isinstance(include, list)
++                                or not all(isinstance(item, str) and item in OPENAI_INCLUDES for item in include)):
++        raise RouteBlocked('hosted_tool_blocked')
++    if kind == 'responses' and body.get('store') is not False:
++        return {**body, 'store': False}, True
++    return body, False
++
++
++def _check_anthropic(body):
++    for key in ANTHROPIC_SERVER_FEATURES:
++        if key in body:
++            raise RouteBlocked('feature_not_allowed')
++    tools = body.get('tools')
++    if tools is not None and (not isinstance(tools, list) or not all(
++            isinstance(tool, dict) and tool.get('type', 'custom') == 'custom' for tool in tools)):
++        raise RouteBlocked('hosted_tool_blocked')
++    return body, False
++
++
++def authorize(url, headers, body, routes=None):
++    """Return where and how to send this request, or raise RouteBlocked.
++
++    ``headers`` are (name, value) pairs from the caller; ``body`` is the parsed
++    JSON object. The returned body has ``store`` forced to false for OpenAI
++    Responses, and the returned headers carry only the route's own project.
++    """
++    env = environment()
++    try:
++        provider, kind = CANONICAL[url]
++        if not isinstance(body, dict):
++            raise RouteBlocked('feature_not_allowed')
++        candidates = [route for route in (ROUTES if routes is None else routes)
++                      if route.environment == env and route.provider == provider]
++        if not candidates:
++            raise RouteBlocked('provider_not_allowed')
++        model = body.get('model')
++        route = next((route for route in candidates if model in route.models), None)
++        if route is None:
++            raise RouteBlocked('model_not_allowed')
++        if not route.configured:
++            raise RouteBlocked('route_not_configured')
++        try:
++            body, changed = _check_openai(kind, body) if provider == 'openai' else _check_anthropic(body)
++        except (TypeError, ValueError, AttributeError):
++            # An unexpected request shape is refused, never passed through.
++            raise RouteBlocked('feature_not_allowed') from None
++    except KeyError:
++        error = RouteBlocked('endpoint_not_allowed')
++        LOGGER.warning('Daylight model route blocked %s', json.dumps(
++            {'category': error.category, 'environment': env}, sort_keys=True))
++        raise error from None
++    except RouteBlocked as error:
++        LOGGER.warning('Daylight model route blocked %s', json.dumps(
++            {'category': error.category, 'environment': env, 'endpoint': kind}, sort_keys=True))
++        raise
++    sent = tuple((name, value) for name, value in headers if name.lower() not in ROUTING_HEADERS)
++    if route.project is not None:
++        sent += (('OpenAI-Project', route.project),)
++    return Authorized(route.id, route.endpoint(kind), sent, body, changed)
++
++
++def is_provider_host(host):
++    """True for hosts that serve model inference."""
++    if isinstance(host, bytes):
++        host = host.decode('ascii', 'ignore')
++    if not isinstance(host, str):
++        return False
++    host = host.lower().rstrip('.')
++    for domain in ('openai.com', 'anthropic.com', 'openai.azure.com', 'generativelanguage.googleapis.com'):
++        if host == domain or host.endswith('.' + domain):
++            return True
++    # Vertex AI regional hosts look like us-central1-aiplatform.googleapis.com.
++    if host == 'aiplatform.googleapis.com' or host.endswith(('.aiplatform.googleapis.com', '-aiplatform.googleapis.com')):
++        return True
++    return host.startswith('bedrock') and host.endswith('.amazonaws.com')
++
++
++def bypass_hook(event, args):
++    if event == 'socket.getaddrinfo' and args and is_provider_host(args[0]):
++        raise PermissionError('MODEL_PROVIDER_BYPASS_BLOCKED')
++
++
++_GUARD = {'installed': False}
++
++
++def install_bypass_guard():
++    """Refuse in-process lookups of model provider hosts for this process.
++
++    Approved model traffic runs only in provider_transport's curl subprocess,
++    after authorize(). A Python-level lookup of a provider host means a caller
++    skipped the router. Audit hooks cannot be removed once installed.
++    """
++    if not _GUARD['installed']:
++        sys.addaudithook(bypass_hook)
++        _GUARD['installed'] = True
+--- /dev/null
++++ b/alternatives/advisor-first/model-routes.json
+@@ -0,0 +1,48 @@
++{
++  "schema": "daylight-model-routes/v1",
++  "note": "AI-04 static allowlist. Every live model request must match exactly one route for the active environment (DAYLIGHT_MODEL_ENVIRONMENT; development when unset). There is no fallback. Change this file only through founder-reviewed pull requests. Never put a key here.",
++  "routes": [
++    {
++      "id": "development-openai",
++      "environment": "development",
++      "provider": "openai",
++      "data": "fictional",
++      "models": ["gpt-6.1-sol", "gpt-5.4"],
++      "endpoints": {
++        "responses": "https://api.openai.com/v1/responses",
++        "input_tokens": "https://api.openai.com/v1/responses/input_tokens"
++      },
++      "project": null,
++      "region": "provider-default",
++      "note": "Fictional people only. gpt-6.1-sol is the model that ships to the pilot. Set project to the separate test project's id (proj_…) once it exists, so test traffic cannot use the production project."
++    },
++    {
++      "id": "development-anthropic",
++      "environment": "development",
++      "provider": "anthropic",
++      "data": "fictional",
++      "models": ["claude-opus-5-5"],
++      "endpoints": {
++        "messages": "https://api.anthropic.com/v1/messages",
++        "count_tokens": "https://api.anthropic.com/v1/messages/count_tokens"
++      },
++      "project": null,
++      "region": "provider-default",
++      "note": "Existing development option under D90. Not allowed in the pilot (D101)."
++    },
++    {
++      "id": "pilot-openai",
++      "environment": "pilot",
++      "provider": "openai",
++      "data": "health",
++      "models": ["gpt-6.1-sol"],
++      "endpoints": {
++        "responses": null,
++        "input_tokens": null
++      },
++      "project": null,
++      "region": "us",
++      "note": "Blocked until filled in from AI-02/AI-05: the production project id under the BAA with Modified Retention, and the exact endpoints confirmed for US processing. store is forced false and OpenAI-hosted tools are refused in code."
++    }
++  ]
++}
+--- /dev/null
++++ b/alternatives/advisor-first/tests/test_model_router.py
+@@ -0,0 +1,372 @@
++"""AI-03/AI-04: the fail-closed model router and the provider-bypass checks.
++
++Offline only. Provider calls are never made: curl is replaced by a fake
++process, and the route file under test is either the shipped one or a
++fictional copy written to a temporary folder.
++"""
++import ast
++import io
++import json
++import os
++from pathlib import Path
++import re
++import subprocess
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++from urllib.request import Request
++
++ADVISOR = Path(__file__).resolve().parents[1]
++REPO = ADVISOR.parents[1]
++sys.path.insert(0, str(ADVISOR))
++import model_router as router
++import provider_transport as transport
++from transport_diagnostics import failure_details, recoverable_connection
++
++RESPONSES = 'https://api.openai.com/v1/responses'
++COUNT = 'https://api.openai.com/v1/responses/input_tokens'
++MESSAGES = 'https://api.anthropic.com/v1/messages'
++US_RESPONSES = 'https://us.api.openai.com/v1/responses'
++PROJECT = 'proj_FictionalPilot0001'
++HEADERS = (('Authorization', 'Bearer FICTIONAL-KEY'), ('Content-type', 'application/json'))
++PILOT = {router.ENVIRONMENT_VARIABLE: 'pilot'}
++
++
++def route_file(routes, folder):
++    path = Path(folder) / 'routes.json'
++    path.write_text(json.dumps({'schema': router.SCHEMA, 'routes': routes}))
++    return path
++
++
++def openai_route(**changes):
++    route = {'id': 'pilot-openai', 'environment': 'pilot', 'provider': 'openai', 'data': 'health',
++             'models': ['gpt-6.1-sol'],
++             'endpoints': {'responses': US_RESPONSES,
++                           'input_tokens': 'https://us.api.openai.com/v1/responses/input_tokens'},
++             'project': PROJECT, 'region': 'us'}
++    route.update(changes)
++    return route
++
++
++def configured_pilot():
++    with tempfile.TemporaryDirectory() as folder:
++        return router.load_routes(route_file([openai_route()], folder))
++
++
++class Process:
++    def __init__(self, output):
++        self.stdin, self.stdout = io.BytesIO(), io.BytesIO(output)
++        self.sent = b''
++        original = self.stdin.close
++
++        def close():
++            if not self.stdin.closed:
++                self.sent = self.stdin.getvalue()
++            original()
++        self.stdin.close = close
++
++    def poll(self):
++        return 0
++
++    def wait(self, timeout=None):
++        return 0
++
++    def terminate(self):
++        pass
++
++    def kill(self):
++        pass
++
++
++class RouteFileTests(unittest.TestCase):
++    def test_shipped_file_loads_and_pilot_stays_blocked_until_filled_in(self):
++        routes = router.load_routes()
++        pilot = [route for route in routes if route.environment == 'pilot']
++        self.assertEqual([route.provider for route in pilot], ['openai'])
++        self.assertTrue(all(route.data == 'health' and route.region == 'us' for route in pilot))
++        self.assertFalse(any(route.configured for route in pilot))
++        self.assertEqual(router.allowed_models('pilot', routes), frozenset())
++        self.assertIn('gpt-6.1-sol', router.allowed_models('development', routes))
++
++    def test_pilot_is_openai_only(self):
++        for route in router.load_routes():
++            if route.environment == 'pilot':
++                self.assertEqual(route.provider, 'openai')
++
++    def test_completed_pilot_route_is_configured(self):
++        routes = configured_pilot()
++        self.assertTrue(routes[0].configured)
++        self.assertEqual(router.allowed_models('pilot', routes), frozenset({'gpt-6.1-sol'}))
++
++    def test_rejects_unsafe_route_files(self):
++        cases = {
++            'wildcard model': openai_route(models=['gpt-*']),
++            'plain http': openai_route(endpoints={'responses': 'http://us.api.openai.com/v1/responses',
++                                                  'input_tokens': None}),
++            'other host': openai_route(endpoints={'responses': 'https://api.example.com/v1/responses',
++                                                  'input_tokens': None}),
++            'look-alike host': openai_route(endpoints={'responses': 'https://api.openai.com.example.net/v1/responses',
++                                                       'input_tokens': None}),
++            'wrong path': openai_route(endpoints={'responses': 'https://api.openai.com/v1/chat/completions',
++                                                  'input_tokens': None}),
++            'query string': openai_route(endpoints={'responses': US_RESPONSES + '?x=1', 'input_tokens': None}),
++            'missing endpoint': openai_route(endpoints={'responses': US_RESPONSES}),
++            'key in project': openai_route(project='sk-proj-FICTIONAL0000000000'),
++            'health outside US': openai_route(region='eu'),
++            'pilot marked fictional': openai_route(data='fictional'),
++            'unknown environment': openai_route(environment='staging'),
++            'unknown provider': openai_route(provider='bedrock'),
++            'extra field': openai_route(fallback='development-openai'),
++        }
++        for name, route in cases.items():
++            with self.subTest(name), tempfile.TemporaryDirectory() as folder:
++                with self.assertRaises(ValueError):
++                    router.load_routes(route_file([route], folder))
++
++    def test_one_route_per_model_and_unique_ids(self):
++        with tempfile.TemporaryDirectory() as folder:
++            with self.assertRaises(ValueError):
++                router.load_routes(route_file([openai_route(), openai_route(id='pilot-two')], folder))
++            with self.assertRaises(ValueError):
++                router.load_routes(route_file([openai_route(), openai_route(models=['gpt-5.4'])], folder))
++
++
++class AuthorizeTests(unittest.TestCase):
++    def authorize(self, body, url=RESPONSES, headers=HEADERS, routes=None):
++        return router.authorize(url, headers, body, routes=routes)
++
++    def blocked(self, category, *args, **kwargs):
++        with self.assertRaises(router.RouteBlocked) as caught, self.assertLogs(router.LOGGER, 'WARNING') as logs:
++            self.authorize(*args, **kwargs)
++        self.assertEqual(caught.exception.category, category)
++        self.assertNotIn('FICTIONAL', ''.join(logs.output))
++        return caught.exception
++
++    def test_development_request_keeps_endpoint_and_forces_store_false(self):
++        result = self.authorize({'model': 'gpt-6.1-sol', 'input': 'FICTIONAL-TEXT', 'store': True})
++        self.assertEqual((result.route, result.url), ('development-openai', RESPONSES))
++        self.assertIs(result.body['store'], False)
++        self.assertTrue(result.changed)
++        unchanged = self.authorize({'model': 'gpt-6.1-sol', 'store': False})
++        self.assertFalse(unchanged.changed)
++        missing = self.authorize({'model': 'gpt-6.1-sol'})
++        self.assertIs(missing.body['store'], False)
++
++    def test_token_counting_has_no_store_field_added(self):
++        result = self.authorize({'model': 'gpt-6.1-sol', 'input': 'x'}, url=COUNT)
++        self.assertNotIn('store', result.body)
++        self.assertEqual(result.url, COUNT)
++
++    def test_unlisted_model_endpoint_and_missing_model_are_blocked(self):
++        self.blocked('model_not_allowed', {'model': 'gpt-4o'})
++        self.blocked('model_not_allowed', {'input': 'no model'})
++        self.blocked('endpoint_not_allowed', {'model': 'gpt-6.1-sol'},
++                     url='https://api.openai.com/v1/chat/completions')
++
++    def test_hosted_tools_and_provider_state_are_refused(self):
++        function = {'type': 'function', 'name': 'lookup', 'parameters': {'type': 'object'}}
++        self.authorize({'model': 'gpt-6.1-sol', 'tools': [function], 'tool_choice': 'auto'})
++        for tool in ({'type': 'web_search'}, {'type': 'file_search'}, {'type': 'code_interpreter'},
++                     {'type': 'mcp', 'server_url': 'https://example.com'}, 'web_search'):
++            with self.subTest(tool=tool):
++                self.blocked('hosted_tool_blocked', {'model': 'gpt-6.1-sol', 'tools': [tool]})
++        self.blocked('hosted_tool_blocked', {'model': 'gpt-6.1-sol', 'tool_choice': {'type': 'web_search'}})
++        self.blocked('hosted_tool_blocked', {'model': 'gpt-6.1-sol', 'include': ['file_search_call.results']})
++        for field, value in (('previous_response_id', 'resp_1'), ('conversation', 'conv_1'),
++                             ('background', True), ('prompt', {'id': 'pmpt_1'})):
++            with self.subTest(field=field):
++                self.blocked('feature_not_allowed', {'model': 'gpt-6.1-sol', field: value})
++        self.authorize({'model': 'gpt-6.1-sol', 'background': False,
++                        'include': ['reasoning.encrypted_content']})
++
++    def test_anthropic_server_tools_are_refused_in_development(self):
++        self.authorize({'model': 'claude-opus-5-5', 'messages': []}, url=MESSAGES)
++        self.blocked('hosted_tool_blocked', {'model': 'claude-opus-5-5', 'tools': [{'type': 'web_search_20250305'}]},
++                     url=MESSAGES)
++        self.blocked('feature_not_allowed', {'model': 'claude-opus-5-5', 'mcp_servers': []}, url=MESSAGES)
++
++    def test_pilot_refuses_development_routes_and_waits_for_configuration(self):
++        with patch.dict(os.environ, PILOT):
++            self.blocked('route_not_configured', {'model': 'gpt-6.1-sol'})
++            self.blocked('model_not_allowed', {'model': 'gpt-5.4'})
++            self.blocked('provider_not_allowed', {'model': 'claude-opus-5-5'}, url=MESSAGES)
++
++    def test_configured_pilot_rewrites_endpoint_and_sets_only_its_project(self):
++        caller = HEADERS + (('Openai-project', 'proj_SomethingElse001'), ('Openai-organization', 'org_x'))
++        with patch.dict(os.environ, PILOT):
++            result = self.authorize({'model': 'gpt-6.1-sol'}, headers=caller, routes=configured_pilot())
++        self.assertEqual(result.url, US_RESPONSES)
++        names = [name.lower() for name, _ in result.headers]
++        self.assertEqual(names.count('openai-project'), 1)
++        self.assertNotIn('openai-organization', names)
++        self.assertIn(('OpenAI-Project', PROJECT), result.headers)
++
++    def test_unknown_environment_blocks_everything(self):
++        with patch.dict(os.environ, {router.ENVIRONMENT_VARIABLE: 'production'}):
++            with self.assertRaises(router.RouteBlocked) as caught:
++                self.authorize({'model': 'gpt-6.1-sol'})
++            self.assertEqual(caught.exception.category, 'environment_invalid')
++            self.assertEqual(router.allowed_models(), frozenset())
++
++
++class TransportTests(unittest.TestCase):
++    def request(self, body, url=RESPONSES):
++        return Request(url, data=json.dumps(body).encode(), method='POST', headers=dict(HEADERS))
++
++    def test_blocked_route_never_starts_curl_and_is_not_retried(self):
++        with patch.object(transport.subprocess, 'Popen') as popen, self.assertLogs(router.LOGGER, 'WARNING'):
++            with self.assertRaises(transport.ProviderTransportError) as caught:
++                with transport.urlopen(self.request({'model': 'gpt-4o', 'input': 'FICTIONAL'})):
++                    self.fail('A blocked route cannot yield a response.')
++        popen.assert_not_called()
++        diagnostic = failure_details(caught.exception, 'preflight')
++        self.assertEqual(diagnostic['transport_category'], 'model_not_allowed')
++        self.assertFalse(recoverable_connection({**diagnostic, 'phase': 'stream'}))
++
++    def test_pilot_without_configuration_sends_nothing(self):
++        with patch.dict(os.environ, PILOT), patch.object(transport.subprocess, 'Popen') as popen, \
++                self.assertLogs(router.LOGGER, 'WARNING'):
++            with self.assertRaises(transport.ProviderTransportError) as caught:
++                with transport.urlopen(self.request({'model': 'gpt-6.1-sol', 'input': 'FICTIONAL'})):
++                    pass
++        popen.assert_not_called()
++        self.assertEqual(caught.exception.transport_category, 'route_not_configured')
++
++    def test_configured_pilot_sends_to_the_route_with_store_false(self):
++        process = Process(b'HTTP/2 200\r\nContent-Type: application/json\r\n\r\n{"ok":true}')
++        with patch.dict(os.environ, PILOT), patch.object(router, 'ROUTES', configured_pilot()), \
++                patch.object(transport.subprocess, 'Popen', return_value=process) as popen:
++            with transport.urlopen(self.request({'model': 'gpt-6.1-sol', 'input': 'FICTIONAL', 'store': True})) as stream:
++                self.assertEqual(json.loads(stream.read(100)), {'ok': True})
++        popen.assert_called_once()
++        sent = process.sent.decode()
++        self.assertIn('url = "' + US_RESPONSES + '"', sent)
++        self.assertIn('header = "OpenAI-Project: ' + PROJECT + '"', sent)
++        self.assertNotIn('api.openai.com/v1/responses"', sent.replace(US_RESPONSES, ''))
++        body = json.loads(json.loads(re.search(r'^data-binary = (".*")$', sent, re.M)[1]))
++        self.assertIs(body['store'], False)
++
++    def test_transport_accepts_only_canonical_urls(self):
++        self.assertEqual(transport.ENDPOINTS, frozenset(router.CANONICAL))
++
++
++class BypassGuardTests(unittest.TestCase):
++    def test_provider_hosts(self):
++        for host in ('api.openai.com', 'us.api.openai.com', 'API.OPENAI.COM.', b'api.anthropic.com',
++                     'example.openai.azure.com', 'generativelanguage.googleapis.com',
++                     'us-central1-aiplatform.googleapis.com', 'bedrock-runtime.us-east-1.amazonaws.com'):
++            with self.subTest(host=host):
++                self.assertTrue(router.is_provider_host(host))
++        for host in ('localhost', '127.0.0.1', 'notopenai.com', 'openai.com.example.net',
++                     's3.us-east-1.amazonaws.com', 'www.googleapis.com', None):
++            with self.subTest(host=host):
++                self.assertFalse(router.is_provider_host(host))
++
++    def test_hook_refuses_python_lookups_of_provider_hosts(self):
++        with self.assertRaises(PermissionError):
++            router.bypass_hook('socket.getaddrinfo', ('api.openai.com', 443, 0, 1, 6, 0))
++        router.bypass_hook('socket.getaddrinfo', ('localhost', 8893, 0, 1, 6, 0))
++        router.bypass_hook('open', ('api.openai.com', 'r', 0))
++
++
++SKIP_DIRS = {'tests', 'var', 'runtime', '__pycache__', 'web', 'web-8894', 'pilot-web', 'node_modules'}
++# Files that build model requests. They name only canonical URLs and send them
++# through provider_transport, which asks the router first.
++REQUEST_BUILDERS = {'natural_agent.py', 'narrative_agent.py', 'provider_tokens.py', 'claude_client.py'}
++PROVIDER_SDKS = ('openai', 'anthropic', 'google.generativeai', 'google.genai', 'vertexai',
++                 'litellm', 'mistralai', 'cohere')
++DIRECT_HTTP = ('http.client', 'requests', 'httpx', 'urllib3', 'aiohttp', 'socket', 'subprocess')
++HOST = re.compile(r'(?:https?://)?((?:[a-z0-9-]+\.)+[a-z]{2,})', re.I)
++
++
++def advisor_sources():
++    for root, folders, files in os.walk(ADVISOR):
++        folders[:] = [name for name in folders if name not in SKIP_DIRS and not name.startswith('.')]
++        for name in files:
++            if name.endswith('.py'):
++                path = Path(root) / name
++                yield path, ast.parse(path.read_text(encoding='utf-8'), str(path))
++
++
++def imported(tree):
++    for node in ast.walk(tree):
++        if isinstance(node, ast.Import):
++            for alias in node.names:
++                yield alias.name, None
++        elif isinstance(node, ast.ImportFrom) and node.module:
++            for alias in node.names:
++                yield node.module, alias.name
++
++
++def strings(tree):
++    for node in ast.walk(tree):
++        if isinstance(node, ast.Constant) and isinstance(node.value, str):
++            yield node.value
++
++
++class ProviderBypassSourceTests(unittest.TestCase):
++    """AI-03 CI check: the advisor reaches model providers only through the router."""
++
++    def test_no_provider_sdk_anywhere_in_the_advisor(self):
++        offenders = []
++        for path, tree in advisor_sources():
++            for module, _ in imported(tree):
++                if any(module == sdk or module.startswith(sdk + '.') for sdk in PROVIDER_SDKS):
++                    offenders.append(f'{path.relative_to(REPO)} imports {module}')
++            if any('bedrock-runtime' in value for value in strings(tree)):
++                offenders.append(f'{path.relative_to(REPO)} names bedrock-runtime')
++        self.assertEqual(offenders, [], 'Call models only through provider_transport and model_router.')
++
++    def test_provider_addresses_appear_only_in_request_builders(self):
++        offenders = []
++        for path, tree in advisor_sources():
++            if path.name == 'model_router.py':
++                continue
++            for value in strings(tree):
++                for host in HOST.findall(value):
++                    if router.is_provider_host(host) and path.name not in REQUEST_BUILDERS:
++                        offenders.append(f'{path.relative_to(REPO)} names {host}')
++                for url in re.findall(r'https?://[^\s\'"]+', value):
++                    if router.is_provider_host(re.sub(r'^https?://([^/]+).*', r'\1', url)) and url not in router.CANONICAL:
++                        offenders.append(f'{path.relative_to(REPO)} names non-canonical {url}')
++        self.assertEqual(offenders, [], 'Use a canonical URL in a request builder; routes choose the endpoint.')
++
++    def test_request_builders_send_only_through_provider_transport(self):
++        for name in sorted(REQUEST_BUILDERS):
++            with self.subTest(name):
++                tree = ast.parse((ADVISOR / name).read_text(encoding='utf-8'))
++                imports = list(imported(tree))
++                self.assertIn(('provider_transport', 'urlopen'), imports)
++                self.assertNotIn(('urllib.request', 'urlopen'), imports)
++                self.assertFalse([module for module, _ in imports
++                                  if any(module == lib or module.startswith(lib + '.') for lib in DIRECT_HTTP)])
++
++    def test_transport_asks_the_router_before_sending(self):
++        tree = ast.parse((ADVISOR / 'provider_transport.py').read_text(encoding='utf-8'))
++        calls = {f'{node.func.value.id}.{node.func.attr}' for node in ast.walk(tree)
++                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
++                 and isinstance(node.func.value, ast.Name)}
++        self.assertIn('model_router.authorize', calls)
++
++    def test_server_installs_the_bypass_guard_before_loading_the_pinned_engine(self):
++        tree = ast.parse((ADVISOR / 'server.py').read_text(encoding='utf-8'))
++        guard = engine = None
++        for node in tree.body:
++            if (isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)
++                    and isinstance(node.value.func, ast.Attribute)
++                    and node.value.func.attr == 'install_bypass_guard'):
++                guard = node.lineno
++            if isinstance(node, ast.ImportFrom) and node.module == 'guide_server' and engine is None:
++                engine = node.lineno
++        self.assertIsNotNone(guard, 'server.py must install the provider bypass guard.')
++        self.assertIsNotNone(engine)
++        self.assertLess(guard, engine)
++
++    def test_pilot_service_runs_in_the_pilot_route_environment(self):
++        service = (REPO / 'infrastructure/daylight-pilot/daylight-pilot.service').read_text(encoding='utf-8')
++        self.assertIn(f'Environment={router.ENVIRONMENT_VARIABLE}=pilot', service.splitlines())
++
++
++if __name__ == '__main__':
++    unittest.main()

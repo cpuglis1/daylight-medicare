@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47910,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9186,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 350,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9536
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"Medicare Advantage means you get your Medicare hospital and medical coverage through a Medicare-approved private plan instead of through Original Medicare. It still provides Parts A and B, and most Advantage plans also include drug coverage. The important tradeoff for your concern is that doctors, visit costs, and plan rules can vary by the exact plan.\\n\\nSo no—an office accepting Aetna does not prove it takes your particular Medicare Advantage plan. A carrier name alone is not enough. The exact plan has to be checked, and even then, that still would not by itself tell us your cardiology visit cost.\",\"question\":\"What ZIP code do you live in? That helps narrow the plans in your area before we sort out the exact plan and doctor check.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\"],\"evidence_refs\":[\"advantage\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"what Medicare Advantage means and whether accepting Aetna proves plan acceptance\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\",\"plan_specific_rules\"],\"evidence_refs\":[\"advantage\",\"routesintro\",\"options\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\",\"advantage\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_participation\"],\"blocking_concepts\":[],\"next_step\":\"answer\"}}"
+  },
+  "elapsed_seconds": 5.991095
+}

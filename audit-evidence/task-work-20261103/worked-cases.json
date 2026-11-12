@@ -1,0 +1,135 @@
+{
+  "version": "task-work-20261103-r1",
+  "fictional": true,
+  "cases": [
+    {
+      "scenario": "test_simple_opening_can_connect_checks_without_inventing_verified_results",
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "checks": [
+          {
+            "check_id": "coverage_identity",
+            "label": "Exact coverage",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+            "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+          },
+          {
+            "check_id": "provider_identity",
+            "label": "Clinician and office",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm the intended clinician and exact office location.",
+            "distinction": "A name or office report is not a source identity or a participation check."
+          },
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          }
+        ],
+        "next_step": "prepare",
+        "task_resolved": false,
+        "supported_findings": [],
+        "completed_external_actions": [],
+        "outcome": "open_check_with_next_step",
+        "task_focus": "plan_preparation",
+        "teaching": [],
+        "return_point": null
+      },
+      "model_stages": 2,
+      "transport": "injected_fictional_no_network"
+    },
+    {
+      "scenario": "test_current_confusion_teaches_in_context_and_keeps_the_return_point",
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "checks": [
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          }
+        ],
+        "next_step": "teach",
+        "task_resolved": false,
+        "supported_findings": [],
+        "completed_external_actions": [],
+        "outcome": "open_check_with_next_step",
+        "task_focus": "plan_preparation",
+        "teaching": [
+          {
+            "concept_id": "medicare_advantage",
+            "state": "explanation_delivered_not_comprehension"
+          }
+        ],
+        "return_point": "T05"
+      },
+      "model_stages": 4,
+      "transport": "injected_fictional_no_network"
+    },
+    {
+      "scenario": "test_existing_authorized_preparation_is_an_actual_local_receipt_only",
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "checks": [
+          {
+            "check_id": "coverage_identity",
+            "label": "Exact coverage",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+            "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+          },
+          {
+            "check_id": "provider_identity",
+            "label": "Clinician and office",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm the intended clinician and exact office location.",
+            "distinction": "A name or office report is not a source identity or a participation check."
+          },
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          }
+        ],
+        "next_step": "prepare",
+        "task_resolved": false,
+        "supported_findings": [],
+        "completed_external_actions": [],
+        "outcome": "preparation_completed",
+        "local_operation": {
+          "kind": "preparation",
+          "state": "completed",
+          "receipt_ref": "P0F2D0hmMov5Sf7GZLU7jdxX"
+        }
+      },
+      "model_stages": 2,
+      "transport": "injected_fictional_no_network"
+    }
+  ]
+}

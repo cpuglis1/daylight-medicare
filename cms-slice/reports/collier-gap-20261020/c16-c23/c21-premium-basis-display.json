@@ -1,0 +1,421 @@
+{
+  "status": "complete_display_both_alternative",
+  "source_explanation": "Unresolved; do not assert that PUF PREMIUM is LIS-adjusted merely because it equals the low-income beneficiary field.",
+  "historical_issues": [
+    "DQ-003",
+    "DQ-004"
+  ],
+  "issue_state": "retained_open_source_discrepancies_with_display_mitigation",
+  "records": [
+    {
+      "id": "H1889-026-000-2027",
+      "name": "UHC Dual Complete FL-Y7 (PPO D-SNP)",
+      "category": "SNP",
+      "plan_type": "PPO D-SNP",
+      "carrier": "UnitedHealthcare",
+      "year": "2027",
+      "county_fips": "12021",
+      "metrics": {
+        "monthly_premium": {
+          "raw": "$7.30 ",
+          "state": "value",
+          "evidence": {
+            "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+            "artifact": "landscape",
+            "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+            "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+            "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+            "record_ordinal": 11960,
+            "column": "Monthly Consolidated Premium (Part C + D)",
+            "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+            "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+            "freshness": "within_review_window",
+            "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+          },
+          "value_cents": 730
+        },
+        "medical_limit": {
+          "raw": "$9,850.00 ",
+          "state": "value",
+          "evidence": {
+            "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+            "artifact": "landscape",
+            "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+            "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+            "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+            "record_ordinal": 11960,
+            "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount",
+            "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+            "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+            "freshness": "within_review_window",
+            "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+          },
+          "value_cents": 985000
+        },
+        "drug_deductible": {
+          "raw": "$700.00 ",
+          "state": "value",
+          "evidence": {
+            "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+            "artifact": "landscape",
+            "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+            "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+            "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+            "record_ordinal": 11960,
+            "column": "Annual Part D Deductible Amount",
+            "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+            "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+            "freshness": "within_review_window",
+            "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+          },
+          "value_cents": 70000
+        }
+      },
+      "star_rating": {
+        "state": "rated",
+        "value": 3.5,
+        "reason": null,
+        "raw": "3.5",
+        "rating_year": "2027",
+        "published_on": "2026-10-08",
+        "contract": "H1889",
+        "rating_type": "overall",
+        "label": "Overall",
+        "evidence": {
+          "id": "cms-stars-2027-H1889-overall",
+          "url": "https://www.cms.gov/files/zip/2027-star-ratings-data-tables-oct-8-2026.zip",
+          "sha256": "2704032d3f72e71a763aac075a8449e382ca07834417b1da53995b70d54e9967",
+          "retrieved_at_utc": "2026-10-20T01:33:00.060988+00:00",
+          "review_after_utc": "2026-10-27T01:33:00.060988+00:00",
+          "member": "2027 Star Ratings Data Table - Summary Ratings (Oct 8 2026).csv",
+          "row": 118,
+          "column": "2027 Overall",
+          "independent_check": "CSV agrees with CMS workbook cells"
+        }
+      },
+      "premium_source_conflict": true,
+      "premium_cross_source_check": {
+        "status": "conflict",
+        "puf_raw": "0.00",
+        "landscape_field": "Part D Total Premium",
+        "landscape_raw": "$7.30 "
+      },
+      "premium_basis": {
+        "state": "unresolved_source_basis",
+        "observations": [
+          {
+            "label": "Published Part D total before the listed low-income subsidy",
+            "value": {
+              "raw": "$7.30 ",
+              "state": "value",
+              "evidence": {
+                "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+                "artifact": "landscape",
+                "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+                "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+                "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+                "record_ordinal": 11960,
+                "column": "Part D Total Premium",
+                "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+                "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+                "freshness": "within_review_window",
+                "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+              },
+              "value_cents": 730
+            }
+          },
+          {
+            "label": "Published Part D low-income premium subsidy (CMS pays)",
+            "value": {
+              "raw": "$7.30 ",
+              "state": "value",
+              "evidence": {
+                "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+                "artifact": "landscape",
+                "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+                "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+                "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+                "record_ordinal": 11960,
+                "column": "Part D LIPS (CMS Pays)",
+                "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+                "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+                "freshness": "within_review_window",
+                "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+              },
+              "value_cents": 730
+            }
+          },
+          {
+            "label": "Published low-income beneficiary premium field; eligibility not determined",
+            "value": {
+              "raw": "$0.00 ",
+              "state": "value",
+              "evidence": {
+                "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+                "artifact": "landscape",
+                "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+                "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+                "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+                "record_ordinal": 11960,
+                "column": "Part D Low Income Beneficiary Premium Amount",
+                "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+                "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+                "freshness": "within_review_window",
+                "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+              },
+              "value_cents": 0
+            }
+          },
+          {
+            "label": "Monthly Part D PUF PREMIUM; basis unresolved",
+            "value": {
+              "raw": "$0.00",
+              "state": "value",
+              "evidence": {
+                "artifact": "monthly_prescription_plan_information",
+                "url": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+                "archive_sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+                "outer_member": "plan information 2027_20261031.zip",
+                "inner_member": "plan information  20261031.txt",
+                "nested_sha256": "5aaee0331878160b3332a2a413f534661622be21aaca65e911f1dd208517e182",
+                "source_row": 15141,
+                "column": "PREMIUM"
+              },
+              "value_cents": 0
+            }
+          }
+        ],
+        "disposition": "Both amounts remain visible. Matching the low-income field does not prove that PUF PREMIUM is subsidy-adjusted. No personal eligibility or premium is determined; this conflict cannot drive premium ordering."
+      },
+      "eligibility": "restricted_unconfirmed",
+      "snp_type": "Dual-Eligible",
+      "benefit_validation": "landscape_only_pending_expanded_validation",
+      "notes": [
+        "Plan premium is not total Medicare cost. Personal adjustments and other Medicare obligations are separate.",
+        "Restricted eligibility: Dual-Eligible. Personal eligibility has not been determined.",
+        "Landscape fields are shown; expanded benefit and eligibility validation is still pending for this record.",
+        "Premium source disagreement remains unresolved. Landscape and Part D source values are preserved; premium ordering treats this record as unresolved.",
+        "Part D premium: landscape $7.30; Part D PUF 0.00. No source has silently replaced the other.",
+        "Premium bases: Published Part D total before the listed low-income subsidy: $7.30/month; Published Part D low-income premium subsidy (CMS pays): $7.30/month; Published low-income beneficiary premium field; eligibility not determined: $0.00/month; Monthly Part D PUF PREMIUM; basis unresolved: $0.00/month. Equal amounts do not establish a shared basis or anyone's subsidy eligibility."
+      ],
+      "source": {
+        "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+        "artifact": "landscape",
+        "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+        "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+        "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+        "record_ordinal": 11960,
+        "column": "Plan Name",
+        "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+        "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+        "freshness": "within_review_window",
+        "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+      }
+    },
+    {
+      "id": "H5594-017-000-2027",
+      "name": "Optimum Emerald Full (HMO D-SNP)",
+      "category": "SNP",
+      "plan_type": "HMO D-SNP",
+      "carrier": "Optimum HealthCare, Inc.",
+      "year": "2027",
+      "county_fips": "12021",
+      "metrics": {
+        "monthly_premium": {
+          "raw": "$7.30 ",
+          "state": "value",
+          "evidence": {
+            "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+            "artifact": "landscape",
+            "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+            "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+            "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+            "record_ordinal": 11980,
+            "column": "Monthly Consolidated Premium (Part C + D)",
+            "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+            "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+            "freshness": "within_review_window",
+            "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+          },
+          "value_cents": 730
+        },
+        "medical_limit": {
+          "raw": "$500.00 ",
+          "state": "value",
+          "evidence": {
+            "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+            "artifact": "landscape",
+            "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+            "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+            "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+            "record_ordinal": 11980,
+            "column": "In-Network Maximum Out-of-Pocket (MOOP) Amount",
+            "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+            "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+            "freshness": "within_review_window",
+            "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+          },
+          "value_cents": 50000
+        },
+        "drug_deductible": {
+          "raw": "$105.00 ",
+          "state": "value",
+          "evidence": {
+            "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+            "artifact": "landscape",
+            "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+            "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+            "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+            "record_ordinal": 11980,
+            "column": "Annual Part D Deductible Amount",
+            "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+            "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+            "freshness": "within_review_window",
+            "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+          },
+          "value_cents": 10500
+        }
+      },
+      "star_rating": {
+        "state": "rated",
+        "value": 4.5,
+        "reason": null,
+        "raw": "4.5",
+        "rating_year": "2027",
+        "published_on": "2026-10-08",
+        "contract": "H5594",
+        "rating_type": "overall",
+        "label": "Overall",
+        "evidence": {
+          "id": "cms-stars-2027-H5594-overall",
+          "url": "https://www.cms.gov/files/zip/2027-star-ratings-data-tables-oct-8-2026.zip",
+          "sha256": "2704032d3f72e71a763aac075a8449e382ca07834417b1da53995b70d54e9967",
+          "retrieved_at_utc": "2026-10-20T01:33:00.060988+00:00",
+          "review_after_utc": "2026-10-27T01:33:00.060988+00:00",
+          "member": "2027 Star Ratings Data Table - Summary Ratings (Oct 8 2026).csv",
+          "row": 437,
+          "column": "2027 Overall",
+          "independent_check": "CSV agrees with CMS workbook cells"
+        }
+      },
+      "premium_source_conflict": true,
+      "premium_cross_source_check": {
+        "status": "conflict",
+        "puf_raw": "0.00",
+        "landscape_field": "Part D Total Premium",
+        "landscape_raw": "$7.30 "
+      },
+      "premium_basis": {
+        "state": "unresolved_source_basis",
+        "observations": [
+          {
+            "label": "Published Part D total before the listed low-income subsidy",
+            "value": {
+              "raw": "$7.30 ",
+              "state": "value",
+              "evidence": {
+                "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+                "artifact": "landscape",
+                "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+                "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+                "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+                "record_ordinal": 11980,
+                "column": "Part D Total Premium",
+                "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+                "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+                "freshness": "within_review_window",
+                "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+              },
+              "value_cents": 730
+            }
+          },
+          {
+            "label": "Published Part D low-income premium subsidy (CMS pays)",
+            "value": {
+              "raw": "$7.30 ",
+              "state": "value",
+              "evidence": {
+                "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+                "artifact": "landscape",
+                "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+                "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+                "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+                "record_ordinal": 11980,
+                "column": "Part D LIPS (CMS Pays)",
+                "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+                "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+                "freshness": "within_review_window",
+                "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+              },
+              "value_cents": 730
+            }
+          },
+          {
+            "label": "Published low-income beneficiary premium field; eligibility not determined",
+            "value": {
+              "raw": "$0.00 ",
+              "state": "value",
+              "evidence": {
+                "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+                "artifact": "landscape",
+                "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+                "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+                "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+                "record_ordinal": 11980,
+                "column": "Part D Low Income Beneficiary Premium Amount",
+                "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+                "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+                "freshness": "within_review_window",
+                "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+              },
+              "value_cents": 0
+            }
+          },
+          {
+            "label": "Monthly Part D PUF PREMIUM; basis unresolved",
+            "value": {
+              "raw": "$0.00",
+              "state": "value",
+              "evidence": {
+                "artifact": "monthly_prescription_plan_information",
+                "url": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+                "archive_sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+                "outer_member": "plan information 2027_20261031.zip",
+                "inner_member": "plan information  20261031.txt",
+                "nested_sha256": "5aaee0331878160b3332a2a413f534661622be21aaca65e911f1dd208517e182",
+                "source_row": 76409,
+                "column": "PREMIUM"
+              },
+              "value_cents": 0
+            }
+          }
+        ],
+        "disposition": "Both amounts remain visible. Matching the low-income field does not prove that PUF PREMIUM is subsidy-adjusted. No personal eligibility or premium is determined; this conflict cannot drive premium ordering."
+      },
+      "eligibility": "restricted_unconfirmed",
+      "snp_type": "Dual-Eligible",
+      "benefit_validation": "landscape_only_pending_expanded_validation",
+      "notes": [
+        "Plan premium is not total Medicare cost. Personal adjustments and other Medicare obligations are separate.",
+        "Restricted eligibility: Dual-Eligible. Personal eligibility has not been determined.",
+        "Landscape fields are shown; expanded benefit and eligibility validation is still pending for this record.",
+        "Premium source disagreement remains unresolved. Landscape and Part D source values are preserved; premium ordering treats this record as unresolved.",
+        "Part D premium: landscape $7.30; Part D PUF 0.00. No source has silently replaced the other.",
+        "Premium bases: Published Part D total before the listed low-income subsidy: $7.30/month; Published Part D low-income premium subsidy (CMS pays): $7.30/month; Published low-income beneficiary premium field; eligibility not determined: $0.00/month; Monthly Part D PUF PREMIUM; basis unresolved: $0.00/month. Equal amounts do not establish a shared basis or anyone's subsidy eligibility."
+      ],
+      "source": {
+        "url": "https://www.cms.gov/files/zip/cy2027-landscape-202609-1.zip",
+        "artifact": "landscape",
+        "archive_sha256": "0cf545fc36dbb6be8594193c311005d9125ceedf579c24b811c2addcf8daeaab",
+        "member": "CY2027_Landscape_202609.1/CY2027_Landscape_202609.csv",
+        "member_sha256": "a9680a525fd77028844497eb6f2247b5d63374dc6f9ab6abf45dfe6b947605f0",
+        "record_ordinal": 11980,
+        "column": "Plan Name",
+        "engineering_checked_at_utc": "2026-10-20T02:19:10.810007+00:00",
+        "review_after_utc": "2026-10-21T01:33:00.069116+00:00",
+        "freshness": "within_review_window",
+        "review_scope": "Engineering checkpoint of pinned inputs and limited corroboration; source publication date and qualified domain sign-off are separate"
+      }
+    }
+  ]
+}

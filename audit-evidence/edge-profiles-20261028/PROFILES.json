@@ -1,0 +1,886 @@
+{
+  "fictional": true,
+  "customerRecords": false,
+  "profiles": [
+    {
+      "id": "P6",
+      "definition": {
+        "id": "P6",
+        "name": "Conflicting dates and explicit correction",
+        "goal": "Keep an uncertain replacement pending, preserve the old date on reject, update only the target on correction."
+      },
+      "submittedActions": [
+        {
+          "type": "message",
+          "message": "Help me prepare my Medicare transition. I have COBRA, want coverage in January 2027, and that insurance ends December 2026."
+        },
+        {
+          "type": "message",
+          "message": "I think that insurance ends January 2027, but I am not certain."
+        },
+        {
+          "type": "reject"
+        },
+        {
+          "type": "message",
+          "message": "I think that insurance ends January 2027, but I am not certain."
+        },
+        {
+          "type": "confirm"
+        },
+        {
+          "type": "message",
+          "message": "Correction: that insurance ends February 2027."
+        },
+        {
+          "type": "next",
+          "step": "samples"
+        },
+        {
+          "type": "next",
+          "step": "resume"
+        }
+      ],
+      "observedFinalGuide": {
+        "schemaVersion": 2,
+        "stateVersion": 5,
+        "fields": {
+          "intent.goal": {
+            "value": "compare",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 1
+          },
+          "coverage.requestedStartMonth": {
+            "value": "2027-01",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 2
+          },
+          "coverage.requestedStart": {
+            "value": "month",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 3
+          },
+          "coverage.current": {
+            "value": [
+              "cobra"
+            ],
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 4
+          },
+          "subject.role": {
+            "value": "self",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 5
+          }
+        },
+        "flow": {
+          "node": "R00",
+          "history": [],
+          "queue": [],
+          "lessonReturn": null,
+          "personalReview": false,
+          "guideOpen": true,
+          "origin": "T01",
+          "invalidations": [],
+          "scroll": 0
+        },
+        "topics": {},
+        "preferences": {
+          "saveGuide": false,
+          "saveSensitive": false,
+          "noticeVersion": "guest-notice-2026-10-21-v1"
+        }
+      },
+      "observedFinalRecord": {
+        "schemaVersion": 1,
+        "ruleVersion": "readiness-inputs-20261022-v1",
+        "stateVersion": 9,
+        "guideFingerprint": "",
+        "facts": {
+          "RC09": {
+            "value": {
+              "choice": "cobra"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 3,
+            "stale": false
+          },
+          "RC01": {
+            "value": {
+              "choice": "self"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 4,
+            "stale": false
+          },
+          "RC11": {
+            "value": {
+              "coverageEnd": "2027-02",
+              "choice": "dates"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 7,
+            "stale": false
+          }
+        },
+        "entityDispositions": {},
+        "requests": [],
+        "detailsRequested": false,
+        "completeness": {},
+        "dispositions": {},
+        "queue": [],
+        "index": 0,
+        "shown": [],
+        "pass": 0,
+        "history": [],
+        "mode": "summary",
+        "editNotice": false,
+        "reviewOnly": false,
+        "conversation": {
+          "version": 1,
+          "task": "timing",
+          "preparing": true,
+          "baselineDispositions": {},
+          "skippedDetails": {},
+          "details": {},
+          "editing": "",
+          "checks": [],
+          "itemRevisions": {},
+          "itemInvalidations": {},
+          "lastFactIds": [],
+          "journey": {
+            "learningSeen": [],
+            "samplesVisible": false
+          }
+        }
+      },
+      "result": "PASS",
+      "failedChecks": []
+    },
+    {
+      "id": "P7",
+      "definition": {
+        "id": "P7",
+        "name": "Mostly unknown answers",
+        "goal": "Stop repeated intake, retain unknowns as missing, and permit explicit samples without claiming readiness."
+      },
+      "submittedActions": [
+        {
+          "type": "choice",
+          "id": "T01",
+          "fields": {
+            "choice": "compare"
+          }
+        },
+        {
+          "type": "unknown",
+          "id": "RC01"
+        },
+        {
+          "type": "unknown",
+          "id": "T04"
+        },
+        {
+          "type": "unknown",
+          "id": "T05"
+        },
+        {
+          "type": "unknown",
+          "id": "T03"
+        },
+        {
+          "type": "unknown",
+          "id": "T06"
+        },
+        {
+          "type": "unknown",
+          "id": "T07"
+        },
+        {
+          "type": "unknown",
+          "id": "T08"
+        },
+        {
+          "type": "next",
+          "step": "samples"
+        },
+        {
+          "type": "next",
+          "step": "resume"
+        }
+      ],
+      "observedFinalGuide": {
+        "schemaVersion": 2,
+        "stateVersion": 1,
+        "fields": {
+          "intent.goal": {
+            "value": "compare",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 1
+          }
+        },
+        "flow": {
+          "node": "R00",
+          "history": [],
+          "queue": [],
+          "lessonReturn": null,
+          "personalReview": false,
+          "guideOpen": true,
+          "origin": "T01",
+          "invalidations": [],
+          "scroll": 0
+        },
+        "topics": {},
+        "preferences": {
+          "saveGuide": false,
+          "saveSensitive": false,
+          "noticeVersion": "guest-notice-2026-10-21-v1"
+        }
+      },
+      "observedFinalRecord": {
+        "schemaVersion": 1,
+        "ruleVersion": "readiness-inputs-20261022-v1",
+        "stateVersion": 9,
+        "guideFingerprint": "",
+        "facts": {},
+        "entityDispositions": {},
+        "requests": [],
+        "detailsRequested": false,
+        "completeness": {},
+        "dispositions": {
+          "RC01": {
+            "state": "explicit_unknown",
+            "automaticReopen": false
+          }
+        },
+        "queue": [],
+        "index": 0,
+        "shown": [],
+        "pass": 0,
+        "history": [],
+        "mode": "summary",
+        "editNotice": false,
+        "reviewOnly": false,
+        "conversation": {
+          "version": 1,
+          "task": "compare",
+          "preparing": true,
+          "baselineDispositions": {
+            "T04": "unknown",
+            "T05": "unknown",
+            "T03": "unknown",
+            "T06": "unknown",
+            "T07": "unknown",
+            "T08": "unknown"
+          },
+          "skippedDetails": {},
+          "details": {},
+          "editing": "",
+          "checks": [],
+          "itemRevisions": {},
+          "itemInvalidations": {},
+          "lastFactIds": [],
+          "journey": {
+            "learningSeen": [],
+            "samplesVisible": false
+          }
+        }
+      },
+      "result": "FAIL",
+      "failedChecks": [
+        {
+          "label": "required unknowns remain visible",
+          "passed": false,
+          "actual": 6,
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "id": "P8",
+      "definition": {
+        "id": "P8",
+        "name": "Side question and changing goals",
+        "goal": "Preserve the active task for education; switch only on an explicit goal change and reuse the original coverage/date facts on return."
+      },
+      "submittedActions": [
+        {
+          "type": "choice",
+          "id": "T01",
+          "fields": {
+            "choice": "compare"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "self"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T04",
+          "fields": {
+            "choice": "month",
+            "month": "12/26"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "cobra"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T03",
+          "fields": {
+            "zip": "34102"
+          }
+        },
+        {
+          "type": "message",
+          "message": "What is Medicare Advantage?"
+        },
+        {
+          "type": "message",
+          "message": "I want to just learn for now."
+        },
+        {
+          "type": "message",
+          "message": "Help me prepare my prescription cost."
+        },
+        {
+          "type": "message",
+          "message": "None"
+        },
+        {
+          "type": "message",
+          "message": "Help me compare my coverage."
+        },
+        {
+          "type": "choice",
+          "id": "T06",
+          "fields": {
+            "choice": "none"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T08",
+          "fields": {
+            "choice": "local"
+          }
+        },
+        {
+          "type": "next",
+          "step": "samples"
+        },
+        {
+          "type": "next",
+          "step": "resume"
+        }
+      ],
+      "observedFinalGuide": {
+        "schemaVersion": 2,
+        "stateVersion": 13,
+        "fields": {
+          "intent.goal": {
+            "value": "compare",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 10
+          },
+          "subject.role": {
+            "value": "self",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 2
+          },
+          "coverage.requestedStartMonth": {
+            "value": "2026-12",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 3
+          },
+          "coverage.requestedStart": {
+            "value": "month",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 4
+          },
+          "coverage.current": {
+            "value": [
+              "cobra"
+            ],
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 5
+          },
+          "comparison.scope.zip": {
+            "value": "34102",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 6
+          },
+          "comparison.scope.county": {
+            "value": {
+              "fips": "12021",
+              "name": "Collier County",
+              "state": "FL"
+            },
+            "status": "derived",
+            "source": "location_reference",
+            "confirmation": "confirmed_by_user",
+            "revision": 7
+          },
+          "comparison.scope.locationEvidence": {
+            "value": {
+              "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+              "period": "September 2025",
+              "method": "unique_zip_reference"
+            },
+            "status": "derived",
+            "source": "location_reference",
+            "confirmation": "confirmed_by_user",
+            "revision": 8
+          },
+          "needs.medicinesStatus": {
+            "value": "no",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 11
+          },
+          "needs.providersStatus": {
+            "value": "none",
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 12
+          },
+          "needs.travel": {
+            "value": [
+              "local"
+            ],
+            "status": "reported",
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 13
+          }
+        },
+        "flow": {
+          "node": "R00",
+          "history": [],
+          "queue": [],
+          "lessonReturn": null,
+          "personalReview": false,
+          "guideOpen": true,
+          "origin": "T01",
+          "invalidations": [],
+          "scroll": 0
+        },
+        "topics": {},
+        "preferences": {
+          "saveGuide": false,
+          "saveSensitive": false,
+          "noticeVersion": "guest-notice-2026-10-21-v1"
+        }
+      },
+      "observedFinalRecord": {
+        "schemaVersion": 1,
+        "ruleVersion": "readiness-inputs-20261022-v1",
+        "stateVersion": 10,
+        "guideFingerprint": "",
+        "facts": {
+          "RC01": {
+            "value": {
+              "choice": "self"
+            },
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 1,
+            "stale": false
+          },
+          "RC09": {
+            "value": {
+              "choice": "cobra"
+            },
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user",
+            "revision": 2,
+            "stale": false
+          }
+        },
+        "entityDispositions": {},
+        "requests": [],
+        "detailsRequested": false,
+        "completeness": {},
+        "dispositions": {},
+        "queue": [],
+        "index": 0,
+        "shown": [],
+        "pass": 0,
+        "history": [],
+        "mode": "summary",
+        "editNotice": false,
+        "reviewOnly": false,
+        "conversation": {
+          "version": 1,
+          "task": "compare",
+          "preparing": true,
+          "baselineDispositions": {},
+          "skippedDetails": {},
+          "details": {},
+          "editing": "",
+          "checks": [],
+          "itemRevisions": {},
+          "itemInvalidations": {},
+          "lastFactIds": [
+            "advantage"
+          ],
+          "journey": {
+            "learningSeen": [
+              "advantage"
+            ],
+            "samplesVisible": false
+          }
+        }
+      },
+      "result": "PASS",
+      "failedChecks": []
+    },
+    {
+      "id": "P9",
+      "definition": {
+        "id": "P9",
+        "name": "Mother and helper have different coverage",
+        "goal": "Keep the mother\u2019s records separate and reject helper/recipient changes that would merge two people."
+      },
+      "submittedActions": [
+        {
+          "type": "message",
+          "message": "I am helping my mother prepare a Medicare transition. She has COBRA, wants coverage in January 2027, and her insurance ends December 2026."
+        },
+        {
+          "type": "message",
+          "message": "I have current-job insurance, but that is my coverage; my mother still has COBRA."
+        },
+        {
+          "type": "message",
+          "message": "Switch to my coverage instead of my mother; I have current-job insurance."
+        },
+        {
+          "type": "next",
+          "step": "samples"
+        },
+        {
+          "type": "next",
+          "step": "resume"
+        }
+      ],
+      "observedFinalGuide": {
+        "schemaVersion": 2,
+        "stateVersion": 5,
+        "fields": {
+          "coverage.requestedStartMonth": {
+            "value": "2027-01",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 1
+          },
+          "coverage.requestedStart": {
+            "value": "month",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 2
+          },
+          "coverage.current": {
+            "value": [
+              "cobra"
+            ],
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 3
+          },
+          "subject.role": {
+            "value": "someone",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 4
+          },
+          "intent.goal": {
+            "value": "compare",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 5
+          }
+        },
+        "flow": {
+          "node": "R00",
+          "history": [],
+          "queue": [],
+          "lessonReturn": null,
+          "personalReview": false,
+          "guideOpen": true,
+          "origin": "T01",
+          "invalidations": [],
+          "scroll": 0
+        },
+        "topics": {},
+        "preferences": {
+          "saveGuide": false,
+          "saveSensitive": false,
+          "noticeVersion": "guest-notice-2026-10-21-v1"
+        }
+      },
+      "observedFinalRecord": {
+        "schemaVersion": 1,
+        "ruleVersion": "readiness-inputs-20261022-v1",
+        "stateVersion": 6,
+        "guideFingerprint": "",
+        "facts": {
+          "RC09": {
+            "value": {
+              "choice": "cobra"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 2,
+            "stale": false
+          },
+          "RC01": {
+            "value": {
+              "choice": "someone"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 3,
+            "stale": false
+          },
+          "RC11": {
+            "value": {
+              "coverageEnd": "2026-12",
+              "choice": "dates"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 4,
+            "stale": false
+          }
+        },
+        "entityDispositions": {},
+        "requests": [],
+        "detailsRequested": false,
+        "completeness": {},
+        "dispositions": {},
+        "queue": [],
+        "index": 0,
+        "shown": [],
+        "pass": 0,
+        "history": [],
+        "mode": "summary",
+        "editNotice": false,
+        "reviewOnly": false,
+        "conversation": {
+          "version": 1,
+          "task": "timing",
+          "preparing": true,
+          "baselineDispositions": {},
+          "skippedDetails": {},
+          "details": {},
+          "editing": "",
+          "checks": [],
+          "itemRevisions": {},
+          "itemInvalidations": {},
+          "lastFactIds": [],
+          "journey": {
+            "learningSeen": [],
+            "samplesVisible": false
+          }
+        }
+      },
+      "result": "PASS",
+      "failedChecks": []
+    },
+    {
+      "id": "P10",
+      "definition": {
+        "id": "P10",
+        "name": "Same medicine name, different strengths",
+        "goal": "Keep both medicines distinct and require an actual item binding for an ambiguous fill change."
+      },
+      "submittedActions": [
+        {
+          "type": "message",
+          "message": "Help me prepare my prescription cost. I take Example Med 5 mg tablets and Example Med 10 mg tablets."
+        },
+        {
+          "type": "next",
+          "step": "samples"
+        },
+        {
+          "type": "next",
+          "step": "resume"
+        }
+      ],
+      "observedFinalGuide": {
+        "schemaVersion": 2,
+        "stateVersion": 4,
+        "fields": {
+          "intent.goal": {
+            "value": "compare",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 1
+          },
+          "subject.role": {
+            "value": "self",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 2
+          },
+          "needs.medicinesStatus": {
+            "value": "yes",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 3
+          },
+          "needs.medications": {
+            "value": "Example Med",
+            "status": "reported",
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 4
+          }
+        },
+        "flow": {
+          "node": "R00",
+          "history": [],
+          "queue": [],
+          "lessonReturn": null,
+          "personalReview": false,
+          "guideOpen": true,
+          "origin": "T01",
+          "invalidations": [],
+          "scroll": 0
+        },
+        "topics": {},
+        "preferences": {
+          "saveGuide": false,
+          "saveSensitive": false,
+          "noticeVersion": "guest-notice-2026-10-21-v1"
+        }
+      },
+      "observedFinalRecord": {
+        "schemaVersion": 1,
+        "ruleVersion": "readiness-inputs-20261022-v1",
+        "stateVersion": 7,
+        "guideFingerprint": "",
+        "facts": {
+          "RC01": {
+            "value": {
+              "choice": "self"
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 3,
+            "stale": false
+          },
+          "RC22": {
+            "value": {
+              "choice": "details",
+              "items": [
+                {
+                  "entity": "medicine-1",
+                  "name": "Example Med",
+                  "strength": "10 mg",
+                  "form": "tablets",
+                  "choice": "details"
+                }
+              ]
+            },
+            "source": "confirmed_agent_interpretation",
+            "confirmation": "confirmed_by_user",
+            "revision": 5,
+            "stale": false
+          }
+        },
+        "entityDispositions": {},
+        "requests": [],
+        "detailsRequested": false,
+        "completeness": {},
+        "dispositions": {},
+        "queue": [],
+        "index": 0,
+        "shown": [],
+        "pass": 0,
+        "history": [],
+        "mode": "summary",
+        "editNotice": false,
+        "reviewOnly": false,
+        "conversation": {
+          "version": 1,
+          "task": "drug_pricing",
+          "preparing": true,
+          "baselineDispositions": {},
+          "skippedDetails": {},
+          "details": {},
+          "editing": "",
+          "checks": [],
+          "itemRevisions": {
+            "RC22.medicine-1": 5
+          },
+          "itemInvalidations": {
+            "RC23.medicine-1": 5
+          },
+          "lastFactIds": [],
+          "journey": {
+            "learningSeen": [],
+            "samplesVisible": false
+          }
+        }
+      },
+      "result": "FAIL",
+      "failedChecks": [
+        {
+          "label": "two explicitly reported medicines remain distinct",
+          "passed": false,
+          "actual": 1,
+          "expected": 2
+        }
+      ]
+    }
+  ]
+}

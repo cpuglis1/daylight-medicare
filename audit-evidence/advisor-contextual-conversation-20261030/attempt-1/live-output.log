@@ -1,0 +1,6 @@
+{"case": "turn-1", "message": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.", "seconds": 7.281, "reply": "Medicare drug coverage is usually handled through a Part D plan or some Medicare Advantage plans.", "question": "When would you like Medicare coverage to start?", "target": "T04", "generated": {"status": "complete", "move": "T04"}}
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/audit-evidence/advisor-contextual-conversation-20261030/verify_live.py", line 86, in <module>
+    assert state['guide']['fields']['situation.age65']['value']=={'month':11,'year':None}
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'situation.age65'

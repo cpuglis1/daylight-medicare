@@ -1,0 +1,409 @@
+{
+  "candidate_freeze": {
+    "bytes": 12491,
+    "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/FREEZE_R1.json",
+    "sha256": "82c591f0e80564c96d2809d9657a5bc7c4bc2428837300c352715297f65815bf"
+  },
+  "enumeration_scope": "All 36 source graphs read; these three effect-scope gaps require an additive revision. Two are covered by presealed expectations, one is a disclosed supplementary observation.",
+  "expected_seal": {
+    "bytes": 563,
+    "path": "audit-evidence/comparison-milestone-20261102/referral-independent-review-r1/EXPECTED_FREEZE_R1.json",
+    "sha256": "a1e66ba2af332399e806b89d77a6b88652535628133a0fea626a70c40e8e83f9"
+  },
+  "findings": [
+    {
+      "counterexample": "Unpaid bill, no member payment: retain a request route; do not derive the already-paid reimbursement effect.",
+      "frozen_rule": {
+        "complete_meaning_equivalence": false,
+        "effects": [
+          {
+            "modality": "best_practice",
+            "predicate": {
+              "op": "predicate",
+              "text": "ask OON provider to bill plan first"
+            }
+          },
+          {
+            "modality": "will_reimburse",
+            "predicate": {
+              "op": "predicate",
+              "text": "plan share of covered service cost"
+            }
+          },
+          {
+            "modality": "can",
+            "predicate": {
+              "op": "predicate",
+              "text": "send bill or ask plan to pay its share when billed full covered cost"
+            }
+          }
+        ],
+        "factual_acceptance": false,
+        "graph": "POS",
+        "id": "NR10",
+        "limits": [],
+        "scope": "covered-service payment procedure",
+        "source_only_candidate": true,
+        "source_parent_ids": [
+          "E32-BILLING",
+          "E34-BILLING"
+        ],
+        "source_reading": "Billing/reimbursement routes concern the plan share of covered services, not blanket payment of any OON bill.",
+        "when": {
+          "op": "predicate",
+          "text": "covered services already paid by member or bill sent"
+        }
+      },
+      "id": "RF-NR-R1-F01",
+      "presealed_expectation": "RF-EXP-10",
+      "priority": 2,
+      "problem": "A single paid-or-billed antecedent is shared by the reimbursement and payment-request effects, with no explicit branch bindings. The source permits a member who has an unpaid bill to ask the plan to pay its share; that is not reimbursement after member payment.",
+      "required_correction": "Bind each effect to its own printed route: provider-bill-plan recommendation; reimbursement only for already-paid covered services; unpaid-bill forwarding/request; the separate paid-over-share/full-bill request. Retain plan share, covered-service and request modalities. Do not force advance member payment.",
+      "rule": "NR10",
+      "source_bindings": [
+        {
+          "id": "E32-BILLING",
+          "image": {
+            "kind": "eoc",
+            "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/rendered/eoc-032.png",
+            "physical_page": 32,
+            "pixels": [
+              1750,
+              2250
+            ],
+            "render_dpi": 200,
+            "sha256": "62a16e86765a3e1c1777aed49bcbffbb677e34e5272cdf4b476073cb8d086dc7",
+            "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          },
+          "locator_text": "e It is best to ask an out-of-network provider to bill our plan first. But, if you have already paid for the covered services, we’ll reimburse you for our share of the cost for covered services. Or if an out-of-network provider sends you a bill that you think we should pay, you can send it to us for payment (go to Chapter 5).",
+          "original_pixels_control": true,
+          "regions": [
+            [
+              205,
+              990,
+              1580,
+              1148
+            ]
+          ],
+          "source": {
+            "bytes": 8392570,
+            "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/acquisition/raw/7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+            "sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          }
+        },
+        {
+          "id": "E34-BILLING",
+          "image": {
+            "kind": "eoc",
+            "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/rendered/eoc-034.png",
+            "physical_page": 34,
+            "pixels": [
+              1750,
+              2250
+            ],
+            "render_dpi": 200,
+            "sha256": "a513622405ef31380e26dff70bb5ebc4dc59398747216975789e6a8d6d93bc76",
+            "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          },
+          "locator_text": "If you paid more than our plan cost sharing for covered services, or if you get a bill for the full cost of covered medical services, you can ask us to pay our share of the cost of covered services. Go to Chapter 5 for information about what to do.",
+          "original_pixels_control": true,
+          "regions": [
+            [
+              170,
+              1090,
+              1580,
+              1220
+            ]
+          ],
+          "source": {
+            "bytes": 8392570,
+            "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/acquisition/raw/7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+            "sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          }
+        }
+      ],
+      "source_ids": [
+        "E32-BILLING",
+        "E34-BILLING"
+      ]
+    },
+    {
+      "counterexample": "A printed emergency, urgent or referral exception is met: the generic rule cannot independently emit full-cost liability merely because care is OON.",
+      "frozen_rule": {
+        "complete_meaning_equivalence": false,
+        "effects": [
+          {
+            "modality": "not_covered_unless",
+            "predicate": {
+              "args": [
+                {
+                  "op": "predicate",
+                  "text": "emergency care"
+                },
+                {
+                  "op": "predicate",
+                  "text": "urgent care"
+                },
+                {
+                  "op": "predicate",
+                  "text": "plan gave referral"
+                },
+                {
+                  "op": "predicate",
+                  "text": "network provider gave referral"
+                }
+              ],
+              "op": "OR"
+            }
+          },
+          {
+            "modality": "printed_consequence",
+            "predicate": {
+              "op": "predicate",
+              "text": "member pays OON provider in full"
+            }
+          }
+        ],
+        "factual_acceptance": false,
+        "graph": "GENERIC",
+        "id": "NR15",
+        "limits": [
+          "Exact relation to NR05/NR08 and authorization wording NR13/NR19 remains an applicability hold."
+        ],
+        "scope": "Chapter 4 generic network/referral rule",
+        "source_only_candidate": true,
+        "source_parent_ids": [
+          "E41-NETWORK-GATE"
+        ],
+        "source_reading": "Keep the generic text and its In most cases qualification. It is not rewritten as an absolute OON prohibition, nor silently replaced by POS text.",
+        "when": {
+          "op": "predicate",
+          "text": "OON care in most cases"
+        }
+      },
+      "id": "RF-NR-R1-F02",
+      "presealed_expectation": "RF-EXP-16",
+      "priority": 2,
+      "problem": "The separate printed full-cost consequence does not explicitly inherit the exception-failure condition of the generic not-covered-unless effect. The graph currently leaves that effect under only OON care in most cases.",
+      "required_correction": "Explicitly bind the full-cost consequence to the uncovered branch after the printed emergency/urgent/plan-or-network-referral exceptions fail, preserving In most cases and the unresolved POS applicability relationship. A prose qualifier alone is not the structured binding.",
+      "rule": "NR15",
+      "source_bindings": [
+        {
+          "id": "E41-NETWORK-GATE",
+          "image": {
+            "kind": "eoc",
+            "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/rendered/eoc-041.png",
+            "physical_page": 41,
+            "pixels": [
+              1750,
+              2250
+            ],
+            "render_dpi": 200,
+            "sha256": "c085c15c6ce39fb20dd03b790b7a643b33de77509012ce4605114315adee8611",
+            "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          },
+          "locator_text": "e You get your care from a network provider. In most cases, care you get from an out-of-network provider won’t be covered, unless it’s emergency or urgent care or unless our plan or a network provider gave you a referral. This means that you pay the provider in full for out-of-network services you get.",
+          "original_pixels_control": true,
+          "regions": [
+            [
+              205,
+              1488,
+              1580,
+              1647
+            ]
+          ],
+          "source": {
+            "bytes": 8392570,
+            "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/acquisition/raw/7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+            "sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          }
+        }
+      ],
+      "source_ids": [
+        "E41-NETWORK-GATE"
+      ]
+    },
+    {
+      "counterexample": "Optional advance participation notice is not a required participation permission; the published qualified-trial payment/notice/documentation route must still remain explicit.",
+      "frozen_rule": {
+        "branches": [
+          {
+            "effect_indexes": [
+              0,
+              1,
+              2
+            ],
+            "when": {
+              "op": "predicate",
+              "text": "Medicare-approved study covered services"
+            }
+          },
+          {
+            "effect_indexes": [
+              3
+            ],
+            "when": {
+              "op": "predicate",
+              "text": "study not approved by Medicare"
+            }
+          }
+        ],
+        "complete_meaning_equivalence": false,
+        "effects": [
+          {
+            "modality": "payment_order",
+            "predicate": {
+              "op": "predicate",
+              "text": "Original Medicare pays its share, plan pays differential to IN cost sharing"
+            }
+          },
+          {
+            "modality": "required_for_reimbursement",
+            "predicate": {
+              "op": "predicate",
+              "text": "documentation of cost sharing paid"
+            }
+          },
+          {
+            "modality": "examples",
+            "predicate": {
+              "op": "predicate",
+              "text": "otherwise-covered hospital room/board, trial operation/procedure, treatment side effects/complications"
+            }
+          },
+          {
+            "modality": "nonapproved_study",
+            "predicate": {
+              "op": "predicate",
+              "text": "member responsible for all participation costs"
+            }
+          }
+        ],
+        "factual_acceptance": false,
+        "graph": "TRIAL",
+        "id": "NR34",
+        "limits": [],
+        "scope": "trial payment and covered routine items",
+        "source_only_candidate": true,
+        "source_parent_ids": [
+          "E35-TRIAL-COST-A",
+          "E35-TRIAL-COST-B",
+          "E35-NONAPPROVED"
+        ],
+        "source_reading": "Notification/payment documentation have payment roles distinct from participation permission. Nonapproved-study costs are a separate branch, not an effect of approved-study status.",
+        "when": {
+          "op": "predicate",
+          "text": "clinical research study participation"
+        }
+      },
+      "id": "RF-NR-R1-F03",
+      "presealed_expectation": null,
+      "priority": 2,
+      "problem": "The approved-study payment branch omits the EOC35 top-paragraph qualified-trial notice condition for the published IN cost-sharing/payment route. Its separate documentation effect and prose do not encode that distinction from optional advance participation notice.",
+      "required_correction": "Separate Medicare payment for approved covered study services, the source-qualified plan notice/payment statement, payment documentation, nonapproved-study liability and optional advance participation notice. Preserve If you tell us without inventing a prior-notice deadline or making plan permission mandatory to participate.",
+      "rule": "NR34",
+      "source_bindings": [
+        {
+          "id": "E35-TRIAL-COST-A",
+          "image": {
+            "kind": "eoc",
+            "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/rendered/eoc-035.png",
+            "physical_page": 35,
+            "pixels": [
+              1750,
+              2250
+            ],
+            "render_dpi": 200,
+            "sha256": "a485702f604e8e9959ed41081e77d75c5c89a99d22f3496bd27a57488784e676",
+            "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          },
+          "locator_text": "If you participate in a Medicare-approved study, Original Medicare pays most of the costs for the covered services you get as part of the study. If you tell us that you are in a qualified clinical trial, you’re only responsible for in-network cost-sharing for the services in that trial. If you paid more - for example, if you already paid the Original Medicare cost-sharing amount we’ll reimburse the difference between what you paid and the in-network cost-sharing. You’ll need to provide documentation to show us how much you paid.",
+          "original_pixels_control": true,
+          "regions": [
+            [
+              170,
+              390,
+              1580,
+              635
+            ]
+          ],
+          "source": {
+            "bytes": 8392570,
+            "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/acquisition/raw/7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+            "sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          }
+        },
+        {
+          "id": "E35-TRIAL-COST-B",
+          "image": {
+            "kind": "eoc",
+            "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/rendered/eoc-035.png",
+            "physical_page": 35,
+            "pixels": [
+              1750,
+              2250
+            ],
+            "render_dpi": 200,
+            "sha256": "a485702f604e8e9959ed41081e77d75c5c89a99d22f3496bd27a57488784e676",
+            "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          },
+          "locator_text": "Once you join a Medicare-approved clinical research study, Original Medicare covers the routine items and services you get as part of the study, including: e Room and board for a hospital stay that Medicare would pay for even if you weren’t in a study. e An operation or other medical procedure if it’s part of the research study. e Treatment of side effects and complications of the new care. After Medicare pays its share of the cost for these services, our plan will pay the difference between the cost sharing in Original Medicare and your in-network cost sharing as a member of our plan. This means you’ll pay the same amount for services you get as part of the study as you would if you got these services from our plan. However, you must submit documentation showing how much cost sharing you paid. Go to Chapter 5 for more information on submitting requests for payments.",
+          "original_pixels_control": true,
+          "regions": [
+            [
+              170,
+              1150,
+              1580,
+              1608
+            ]
+          ],
+          "source": {
+            "bytes": 8392570,
+            "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/acquisition/raw/7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+            "sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          }
+        },
+        {
+          "id": "E35-TRIAL-NOTICE",
+          "image": {
+            "kind": "eoc",
+            "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/carrier-network-referral-reconciliation-r1/rendered/eoc-035.png",
+            "physical_page": 35,
+            "pixels": [
+              1750,
+              2250
+            ],
+            "render_dpi": 200,
+            "sha256": "a485702f604e8e9959ed41081e77d75c5c89a99d22f3496bd27a57488784e676",
+            "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          },
+          "locator_text": "While you don’t need our plan’s permission to be in a clinical research study, we encourage you to notify us in advance when you choose to participate in Medicare-qualified clinical trials.",
+          "original_pixels_control": true,
+          "regions": [
+            [
+              170,
+              875,
+              1580,
+              958
+            ]
+          ],
+          "source": {
+            "bytes": 8392570,
+            "path": "docs/data/l03-ma-benefits-2026-10-25/source-reconciliation-r7/acquisition/raw/7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba",
+            "sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+          }
+        }
+      ],
+      "source_ids": [
+        "E35-TRIAL-COST-A",
+        "E35-TRIAL-COST-B",
+        "E35-TRIAL-NOTICE"
+      ],
+      "supplemental_observation_after_candidate_read": true
+    }
+  ],
+  "no_runtime_or_consumer_impact_claimed": true,
+  "producer_confirmation": "Producer independently checked that no existing explicit branch binding resolves these three gaps; source prose is not a substitute.",
+  "source_acceptance": false,
+  "source_or_candidate_changed": false
+}

@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-11-05T20:13:59.582051+00:00",
+  "url": "http://127.0.0.1:8893",
+  "coverage": {
+    "retained_identities": 72,
+    "verified_availability": 0,
+    "prepared_fields": 720,
+    "published_fields": 0,
+    "usable_reference_fields": 568,
+    "not_applicable_fields": 11,
+    "material_held_fields": 141,
+    "usable_examples": 200,
+    "source_use": "local_review",
+    "recommendation_authority": "pending",
+    "app_access": "connected"
+  },
+  "publication": {
+    "state": "local_review",
+    "release_id": "plans-local-reference-20261105-r2",
+    "consumer_approved": false
+  },
+  "adapters": {
+    "chat_profile": "connected",
+    "typed_catalog_metrics": "connected",
+    "conditional_checks": "connected",
+    "verified_findings": "connected",
+    "automated_personal_verification": "unavailable",
+    "personal_finding_source": "exact_purpose_accepted_server_receipts"
+  },
+  "live_plan_check": {
+    "offering_id": "2026:H1036:217:000",
+    "premium": "$0",
+    "hospital_3": {
+      "type": "decimal",
+      "amount": "540.00",
+      "currency": "USD",
+      "unit": "admission"
+    },
+    "hospital_4": {
+      "type": "decimal",
+      "amount": "720.00",
+      "currency": "USD",
+      "unit": "admission"
+    }
+  },
+  "held_premium_check": {
+    "offering_id": "2026:H1032:241:000",
+    "field": {
+      "label": "Monthly plan premium",
+      "state": "held",
+      "value": null,
+      "conditions": [],
+      "reason_codes": [
+        "PREMIUM_BASIS_CONFLICT"
+      ],
+      "publication_state": "local_review",
+      "source_state": "held",
+      "evidence_ref": "r13:2026:H1032:241:000:plan_premium",
+      "catalog_sha256": "ba625a2968a53a46dc72dddf52a4e74064b56b0b14e55c9e8768d2b580fa3609"
+    }
+  },
+  "no_store_verified": true,
+  "consumer_ready": false,
+  "model_calls": 0
+}

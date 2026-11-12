@@ -1,0 +1,86 @@
+{
+  "fictionalInputs": true,
+  "oneUninterruptedFinalBuildJourney": false,
+  "automaticRetries": false,
+  "finalAdapterOfflineReplay": "offline-final-validation.json",
+  "acceptedTurns": [
+    {
+      "source": "attempt-4/live-results.json",
+      "turn": 1,
+      "message": "I am turning 65 years old in november and want to enroll in medicare soon. I don't know much about my options.",
+      "reply": "A simple way to start is that Medicare usually begins with Part A for hospital care and Part B for doctor and outpatient care. Then most people compare two main paths: Original Medicare, or a private Medicare Advantage plan that provides Parts A and B with different rules and costs.",
+      "question": "What health insurance do you have now? For example: current-job coverage, retiree coverage, VA or TRICARE, Medicaid, COBRA, none, or not sure.",
+      "target": "T05",
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "seconds": 6.595
+    },
+    {
+      "source": "attempt-4/live-results.json",
+      "turn": 2,
+      "message": "I'm not sure when coverage should start. What do you suggest?",
+      "reply": "A good general rule is to choose your Medicare start based on your real coverage situation, not just your birthday month. For many people first signing up at 65, there is a 7-month first enrollment window around the birthday month, but the actual start date can differ depending on when you enroll and whether you have other current insurance.",
+      "question": "What health insurance do you have now—for example current-job coverage, retiree coverage, VA or TRICARE, Medicaid, COBRA, none, or not sure?",
+      "target": "T05",
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "seconds": 5.636
+    },
+    {
+      "source": "attempt-4/live-results.json",
+      "turn": 3,
+      "message": "Before I answer, what does Part B mean?",
+      "reply": "Part B is the medical insurance part of Medicare. It helps cover doctor visits, outpatient care, lab tests, durable medical equipment, and many preventive services like screenings and vaccines.",
+      "question": "What health insurance do you have now—for example current-job coverage, retiree coverage, VA or TRICARE, Medicaid, COBRA, none, or not sure?",
+      "target": "T05",
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "seconds": 3.979
+    },
+    {
+      "source": "attempt-4/live-results.json",
+      "turn": 4,
+      "message": "Okay, let's continue. My health insurance is through my wife's current job.",
+      "reply": "Thanks — coverage through your wife’s current job is important because it can affect whether you should take Part B now or delay it. Part B is the part of Medicare for doctor and outpatient services, and the right start timing depends on details of that current job-based coverage, so I can explain the route but not give your exact start month yet.",
+      "question": "What ZIP code do you live in?",
+      "target": "T03",
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      },
+      "seconds": 5.647
+    },
+    {
+      "source": "attempt-5/live-results.json",
+      "turn": 5,
+      "message": "Her job ends in March 2027, and that health insurance ends in April 2027.",
+      "reply": "That helps. If your wife’s job ends in March 2027 and the job-based health insurance ends in April 2027, those are two different dates Medicare timing may look at, so I still can’t turn that into your exact Part B start month yet. In general, people with current job-based coverage often plan Medicare around when that coverage will actually end, and we can use these dates as part of that timeline.",
+      "question": "What ZIP code do you live in?",
+      "target": "T03",
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      },
+      "seconds": 6.598
+    },
+    {
+      "source": "live-results.json",
+      "turn": 6,
+      "message": "Actually, I turn 65 in December, not November.",
+      "reply": "Thanks for correcting that. With a December 65th birthday, the general timing explanation stays the same: your birthday month, your spouse’s current-job coverage, and when that coverage actually ends are all separate pieces, and they affect whether taking Part B now or later makes sense. If you want to start comparing plan options for your area while you sort out timing, we can do that next.\n\nWhat ZIP code do you live in?",
+      "question": null,
+      "target": null,
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "seconds": 6.29
+    }
+  ]
+}

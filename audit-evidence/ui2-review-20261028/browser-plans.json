@@ -1,0 +1,559 @@
+[
+  {
+    "id": "P1",
+    "name": "Current-job transition",
+    "actions": [
+      {
+        "action": {
+          "type": "message",
+          "message": "Help me prepare my Medicare transition."
+        },
+        "expectedNext": "T04"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "1226"
+        },
+        "expectedNext": "T05"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "employer"
+          }
+        },
+        "expectedNext": "RC09",
+        "buttons": [
+          "Current-job coverage"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC09",
+          "fields": {
+            "choice": "spouse_job"
+          }
+        },
+        "expectedNext": "RC11",
+        "buttons": [
+          "Spouse\u2019s current job"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "The job ends November 2026. I do not know when that insurance ends."
+        },
+        "expectedNext": null
+      }
+    ]
+  },
+  {
+    "id": "P2",
+    "name": "COBRA transition",
+    "actions": [
+      {
+        "action": {
+          "type": "message",
+          "message": "Help me prepare my Medicare transition. I have COBRA and want coverage in January 2027."
+        },
+        "expectedNext": "RC11"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "December 2026"
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Please check my drug gap and how switching could affect my spouse."
+        },
+        "expectedNext": "RC12"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC12",
+          "fields": {
+            "choice": "yes"
+          }
+        },
+        "expectedNext": "RC13",
+        "buttons": [
+          "Yes, according to its notice"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC13",
+          "fields": {
+            "choice": "unknown"
+          }
+        },
+        "expectedNext": null,
+        "buttons": [
+          "I don\u2019t know"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "I am moving in December 2026; that is the event I want checked."
+        },
+        "expectedNext": null
+      }
+    ]
+  },
+  {
+    "id": "P3",
+    "name": "Advantage member exploring Medigap",
+    "actions": [
+      {
+        "action": {
+          "type": "message",
+          "message": "I want to explore Medigap after leaving my Advantage plan."
+        },
+        "expectedNext": "RC01"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "self"
+          }
+        },
+        "expectedNext": "T03",
+        "buttons": [
+          "Me"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "34102"
+        },
+        "expectedNext": "T04"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T04",
+          "fields": {
+            "choice": "already"
+          }
+        },
+        "expectedNext": "T05",
+        "buttons": [
+          "I already have Medicare"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "advantage"
+          }
+        },
+        "expectedNext": "RC04",
+        "buttons": [
+          "Medicare Advantage (Part C)"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC04",
+          "fields": {
+            "choice": "both"
+          }
+        },
+        "expectedNext": "RC05",
+        "buttons": [
+          "A and B"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "October 2020"
+        },
+        "expectedNext": "RC16"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "That Advantage episode began January 2026."
+        },
+        "expectedNext": "RC16"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC16",
+          "fields": {
+            "priorMedigap": "no"
+          }
+        },
+        "expectedNext": null,
+        "buttons": [
+          "No"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "The plan-ending notice is the Medigap event I want checked."
+        },
+        "expectedNext": null
+      }
+    ]
+  },
+  {
+    "id": "P4",
+    "name": "Doctors and several prescriptions",
+    "actions": [
+      {
+        "action": {
+          "type": "message",
+          "message": "Help me check my doctors."
+        },
+        "expectedNext": "RC01"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "self"
+          }
+        },
+        "expectedNext": "T06",
+        "buttons": [
+          "Me"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital"
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Dr. Rivera is at Example Clinic in Naples, FL; Dr. Lee is at Example Hospital in Tampa, FL."
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Help me check my prescription coverage."
+        },
+        "expectedNext": "T07"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Example One 5 mg tablet; Example Two 10 mg capsule."
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Help me prepare my prescription costs, including adjusted costs."
+        },
+        "expectedNext": "RC23"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "For Example One: 30 tablets, 30 days, Example Pharmacy in Naples, retail."
+        },
+        "expectedNext": "RC23"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "For Example Two: 60, 30 days, Example Pharmacy in Naples, retail."
+        },
+        "expectedNext": "RC23"
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "capsules"
+        },
+        "expectedNext": "RC18"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC18",
+          "fields": {
+            "choice": "medicaid,extra_help"
+          }
+        },
+        "expectedNext": null,
+        "buttons": [
+          "Medicaid",
+          "Extra Help"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Correction: Example One is a 10 mg tablet."
+        },
+        "expectedNext": "RC23"
+      },
+      {
+        "action": {
+          "type": "defer",
+          "id": "RC23"
+        },
+        "expectedNext": null,
+        "buttons": [
+          "Check later"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Example Two is filled at a pharmacy, not a clinic."
+        },
+        "expectedNext": null
+      }
+    ]
+  },
+  {
+    "id": "P5",
+    "name": "Caregiver, military coverage, travel and budget",
+    "actions": [
+      {
+        "action": {
+          "type": "choice",
+          "id": "T01",
+          "fields": {
+            "choice": "compare"
+          }
+        },
+        "expectedNext": "RC01",
+        "buttons": [
+          "Find coverage"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "someone"
+          }
+        },
+        "expectedNext": "T04",
+        "buttons": [
+          "Someone I help"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T04",
+          "fields": {
+            "choice": "already"
+          }
+        },
+        "expectedNext": "T05",
+        "buttons": [
+          "I already have Medicare"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "military"
+          }
+        },
+        "expectedNext": "T03",
+        "buttons": [
+          "VA, TRICARE or military coverage"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "32008"
+        },
+        "expectedNext": "RC02"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC02",
+          "fields": {
+            "county": "12029"
+          }
+        },
+        "expectedNext": "T06",
+        "buttons": [
+          "Dixie County, FL"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T06",
+          "fields": {
+            "choice": "none"
+          }
+        },
+        "expectedNext": "T07",
+        "buttons": [
+          "No doctors to include"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T07",
+          "fields": {
+            "choice": "no"
+          }
+        },
+        "expectedNext": "T08",
+        "buttons": [
+          "No prescriptions to include"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "T08",
+          "fields": {
+            "choice": "elsewhere_us"
+          }
+        },
+        "expectedNext": "RC20",
+        "buttons": [
+          "Elsewhere in the U.S."
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "Routine care is needed in Tampa, Florida."
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "We want to organize payer-order questions for that military coverage."
+        },
+        "expectedNext": "RC04"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC04",
+          "fields": {
+            "choice": "both"
+          }
+        },
+        "expectedNext": "RC06",
+        "buttons": [
+          "A and B"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC06",
+          "fields": {
+            "choice": "age65"
+          }
+        },
+        "expectedNext": "RC26",
+        "buttons": [
+          "Age 65 or older"
+        ]
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC26",
+          "fields": {
+            "choice": "tfl"
+          }
+        },
+        "expectedNext": null,
+        "buttons": [
+          "TRICARE For Life"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "We want to explore a monthly budget of $200."
+        },
+        "expectedNext": "RC25"
+      },
+      {
+        "action": {
+          "type": "choice",
+          "id": "RC25",
+          "fields": {
+            "includes": "premiums_and_care"
+          }
+        },
+        "expectedNext": null,
+        "buttons": [
+          "Premiums and care costs"
+        ]
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "The person receives Medicaid and Extra Help benefits."
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "We want to understand Special Needs Plans. A plan letter says program confirmation is pending."
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "The person has a refill interruption and wants human help."
+        },
+        "expectedNext": null
+      },
+      {
+        "action": {
+          "type": "message",
+          "message": "I am new to Medicare and want more explanation."
+        },
+        "expectedNext": null
+      }
+    ]
+  }
+]

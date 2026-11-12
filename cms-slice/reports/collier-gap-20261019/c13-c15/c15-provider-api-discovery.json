@@ -1,0 +1,711 @@
+{
+  "task": "C15",
+  "status": "complete_discovery",
+  "assessed_at_utc": "2026-10-20T12:39:02.045666+00:00",
+  "catalog": {
+    "path": "cms-slice/reports/work-package-2/catalog.json",
+    "sha256": "446f04e66ededfca218bfc1c6b3c3568c210a10893eaf4f2fcaea85ac81d11b3",
+    "medical_plans": 59,
+    "parent_groups": 8,
+    "contracts": 18
+  },
+  "cms_registration_correction": {
+    "evidence": "cms-directory-api-faq",
+    "finding": "Public directory data must not require user/member authentication or authorization. CMS explicitly allows developer/app registration/API keys; the plan's earlier 'without registration' statement was too broad. No claim of zero implementation, licensing or vendor cost follows from the public API rule."
+  },
+  "method": "Primary documentation and bounded unauthenticated GETs for metadata, InsurancePlan and two network Organizations; one next-page check per available paginated service. No member resources, real beneficiary inputs, sign-up, credentials, production adapter or mass provider crawl.",
+  "scope": "Eight parents are discovery buckets. Two have representative exact 2027 plan/network evidence and may start bounded C28 adapter work; neither is an approved provider participation service. Six defer until listed blockers resolve. Negative probes never imply nonparticipation or lack of eligibility.",
+  "c28_build_candidates": [
+    "Humana Inc.",
+    "Devoted Health, Inc."
+  ],
+  "exact_2027_seed_plan_count": 2,
+  "runtime_provider_answers_added": false,
+  "assessments": [
+    {
+      "parent": "Centene Corporation",
+      "brands": [
+        "Wellcare"
+      ],
+      "primary_docs": [
+        "centene-partners",
+        "centene-documentation",
+        "centene-api-catalog",
+        "centene-directory-catalog-entry",
+        "centene-directory-openapi-link"
+      ],
+      "base_url": "https://iopc-pd.api.centene.com/iopc/pd/",
+      "capability_evidence": "centene-capability",
+      "capability_result": "HTTP 403; stop without retry or bypass.",
+      "schema": "centene-openapi.json: public OpenAPI 3.0.1, FHIR 4.0.1 resources, including InsurancePlan, OrganizationAffiliation, PractitionerRole and Location. Catalog says authentication None and separately identifies the production server. OpenAPI servers entry is dev-int; it was not treated as production.",
+      "pagination": "OpenAPI InsurancePlan and PractitionerRole searches document _next/_page parameters; no live page verified because production metadata was blocked.",
+      "mapping_2027": "Unverified; no production InsurancePlan rows obtained.",
+      "c28_disposition": "defer",
+      "blocker": "Production 403 despite public catalog; obtain functioning published route or app access without bypass.",
+      "evidence": [
+        "centene-capability",
+        "centene-directory-catalog-entry",
+        "centene-directory-openapi-link"
+      ],
+      "target_plans": [
+        {
+          "id": "H1032-198-000-2027",
+          "name": "Wellcare Giveback (HMO-POS)",
+          "contract": "H1032"
+        },
+        {
+          "id": "H1032-199-000-2027",
+          "name": "Wellcare Simple (HMO-POS)",
+          "contract": "H1032"
+        }
+      ],
+      "target_plan_count": 2,
+      "contracts": [
+        "H1032"
+      ],
+      "capability_url": "https://iopc-pd.api.centene.com/iopc/pd/metadata",
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "Guidewell Mutual Holding Corporation",
+      "brands": [
+        "Florida Blue",
+        "Florida Blue Medicare"
+      ],
+      "primary_docs": [
+        "floridablue-directory-doc",
+        "floridablue-product"
+      ],
+      "base_url": "https://apigw.bcbsfl.com/interop/interop-developer-portal/emr/api/v1/fhir/",
+      "capability_url": "https://apigw.bcbsfl.com/interop/interop-developer-portal/cms/iop/v1/pd/R4/metadata",
+      "capability_evidence": "floridablue-capability",
+      "capability_result": "HTTP 200 FHIR 4.0.1, but broad generic clinical metadata does not establish access to those clinical resources. No internal metadata/OAuth URLs were followed.",
+      "schema": "floridablue-openapi.json: embedded primary Swagger 2 directory schema, 15 path templates covering seven resource families plus root, security empty. Product-code InsurancePlan records are not an exact CMS plan crosswalk.",
+      "pagination": "Bounded _count=50 request returned all 27 InsurancePlans (total 27), no next link.",
+      "mapping_2027": "All 27 returned InsurancePlan periods are 2026-01-01 to 2026-12-31; no 2027 mapping established in this bounded table.",
+      "c28_disposition": "defer",
+      "blocker": "Need published 2027 rows and exact CMS contract/plan/segment to medical-network crosswalk.",
+      "evidence": [
+        "floridablue-capability",
+        "floridablue-all-plans",
+        "floridablue-directory-doc"
+      ],
+      "target_plans": [
+        {
+          "id": "H1035-019-000-2027",
+          "name": "BlueMedicare Classic (HMO)",
+          "contract": "H1035"
+        },
+        {
+          "id": "H1035-045-000-2027",
+          "name": "BlueMedicare Premier (HMO)",
+          "contract": "H1035"
+        },
+        {
+          "id": "H1035-056-000-2027",
+          "name": "BlueMedicare Focus (HMO C-SNP)",
+          "contract": "H1035"
+        },
+        {
+          "id": "H5434-002-000-2027",
+          "name": "BlueMedicare Select (PPO)",
+          "contract": "H5434"
+        },
+        {
+          "id": "H5434-042-000-2027",
+          "name": "BlueMedicare Patriot (PPO)",
+          "contract": "H5434"
+        },
+        {
+          "id": "H5434-045-000-2027",
+          "name": "BlueMedicare Select (PPO)",
+          "contract": "H5434"
+        },
+        {
+          "id": "H5434-048-000-2027",
+          "name": "BlueMedicare Patriot Plus (PPO)",
+          "contract": "H5434"
+        }
+      ],
+      "target_plan_count": 7,
+      "contracts": [
+        "H1035",
+        "H5434"
+      ],
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "Humana Inc.",
+      "brands": [
+        "Humana"
+      ],
+      "primary_docs": [
+        "humana-developers"
+      ],
+      "base_url": "https://fhir.humana.com/api/",
+      "capability_evidence": "humana-capability",
+      "capability_result": "HTTP 200 CapabilityStatement, FHIR 4.0.1.",
+      "schema": "InsurancePlan has exact CMS-style identifier, period and network references. PractitionerRole search supports practitioner, organization, location, specialty, active and date. Resolve network types explicitly; returned plan also references dental/LTC and older-named pharmacy networks.",
+      "pagination": "Server next link with _continuationToken followed once; second one-row page succeeded and differs from the first.",
+      "mapping_2027": "Exact H1036-217-000-2027 record, period begins 2027-01-01, five network references. FL Medicare HMO Organization reference resolves HTTP 200. Representative discovery only; remaining 16 plan mappings not yet validated.",
+      "mapped_seed": {
+        "evidence": "humana-collier-plan",
+        "resourceType": "InsurancePlan",
+        "id": "9ce4f07c1ea5e158de5509a0ec5aeab7f45edb72bff663509c45557a1f969fa5",
+        "identifier": [
+          {
+            "system": "https://fhir.humana.com/documentation/glossary/PlanId",
+            "value": "H1036-217-000-2027"
+          }
+        ],
+        "name": "Humana Gold Plus",
+        "period": {
+          "start": "2027-01-01"
+        },
+        "network": [
+          {
+            "reference": "https://fhir.humana.com/api/Organization/9e50c09b83691e1e151adce8e7255981154a3af8099fe25e1867518af5075fd6",
+            "display": "FL Medicare HMO"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/2eeb48f98dc2107843d831b978766d9c37af09ac26724a9987ed3f4337d4dda9",
+            "display": "CAREington Medicare"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/464ef8dd779a6f2e4cdf9372b3e21dba554f447fe22f65994fc1fc1e2fc9fe65",
+            "display": "Long Term Care Network"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/10ab332314a1a845b73bf0dd65c9dc8f06bee476a59be274ba08bce756e6cd4d",
+            "display": "Humana National Rx Plan (MAPD) Network - 2024"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/8272b8c7ecd4ddb7986924abfd544f3edc6ca8e50b8df9b30a3af7345c43e3db",
+            "display": "Humana Value Rx Plan (PDP) Network - 2025 & Humana Premier Rx Plan (PDP) Network - 2024"
+          }
+        ]
+      },
+      "c28_disposition": "eligible_for_bounded_adapter_build",
+      "blocker": "C28 must map every supported plan and validate exact provider/location/plan cases before user participation answers.",
+      "evidence": [
+        "humana-capability",
+        "humana-plan-sample",
+        "humana-pagination-next",
+        "humana-collier-plan",
+        "humana-medical-network"
+      ],
+      "target_plans": [
+        {
+          "id": "H1036-217-000-2027",
+          "name": "Humana Gold Plus H1036-217 (HMO)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-278-000-2027",
+          "name": "Humana Gold Plus Giveback H1036-278 (HMO)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-285-000-2027",
+          "name": "Humana Dual Select H1036-285 (HMO D-SNP)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-290-000-2027",
+          "name": "Humana USAA Honor Giveback (HMO)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-310-000-2027",
+          "name": "Humana Gold Plus Lung (HMO C-SNP)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-311-000-2027",
+          "name": "Humana Gold Plus - Diabetes and Heart (HMO C-SNP)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-314-000-2027",
+          "name": "Humana Dual Select H1036-314 (HMO D-SNP)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H1036-340-000-2027",
+          "name": "Humana Dual Integrated (HMO D-SNP)",
+          "contract": "H1036"
+        },
+        {
+          "id": "H5216-072-000-2027",
+          "name": "Humana Value Choice (PPO)",
+          "contract": "H5216"
+        },
+        {
+          "id": "H5216-257-000-2027",
+          "name": "Humana USAA Honor Giveback (PPO)",
+          "contract": "H5216"
+        },
+        {
+          "id": "H5216-394-000-2027",
+          "name": "Humana Dual Select H5216-394 (PPO D-SNP)",
+          "contract": "H5216"
+        },
+        {
+          "id": "H5216-480-000-2027",
+          "name": "Humana Dual Integrated (PPO D-SNP)",
+          "contract": "H5216"
+        },
+        {
+          "id": "H7617-108-000-2027",
+          "name": "Humana USAA Honor Giveback (PPO)",
+          "contract": "H7617"
+        },
+        {
+          "id": "H7617-126-000-2027",
+          "name": "Humana Essentials Plus Giveback (PPO)",
+          "contract": "H7617"
+        },
+        {
+          "id": "R5826-005-000-2027",
+          "name": "HumanaChoice R5826-005 (Regional PPO)",
+          "contract": "R5826"
+        },
+        {
+          "id": "R5826-018-000-2027",
+          "name": "HumanaChoice R5826-018 (Regional PPO)",
+          "contract": "R5826"
+        },
+        {
+          "id": "R5826-074-000-2027",
+          "name": "HumanaChoice R5826-074 (Regional PPO)",
+          "contract": "R5826"
+        }
+      ],
+      "target_plan_count": 17,
+      "contracts": [
+        "H1036",
+        "H5216",
+        "H7617",
+        "R5826"
+      ],
+      "capability_url": "https://fhir.humana.com/api/metadata",
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "UnitedHealth Group, Inc.",
+      "brands": [
+        "UnitedHealthcare",
+        "AARP"
+      ],
+      "primary_docs": [
+        "https://www.uhc.com/legal/interoperability-apis/patient-access-api"
+      ],
+      "base_url": "https://flex.optum.com/fhirpublic/R4/",
+      "capability_evidence": "uhc-capability",
+      "capability_result": "HTTP 200 CapabilityStatement, FHIR 4.0.1; public provider directory base, distinct from member/patient APIs.",
+      "schema": "InsurancePlan identifier is compact contract/PBP/segment without hyphens or year (e.g. H1045028000); metadata advertises period and identifier search. PractitionerRole and OrganizationAffiliation include network parameters.",
+      "pagination": "Server next link (_getpages/_getpagesoffset) followed once successfully; distinct second record.",
+      "mapping_2027": "Exact compact H1045028000 returns one record dated 2026, not 2027. A period=ge2027-01-01 sample still returned a 2026 record: do not trust that filter or use total 1395 as proof of 2027 coverage. An initial hyphenated/year-suffixed identifier returned zero and is retained as a negative probe, not absence evidence.",
+      "observed_plan": {
+        "evidence": "uhc-collier-contract-identifier",
+        "resourceType": "InsurancePlan",
+        "id": "4WQkENjbAawi9sFcgUxXtUQMW2J3Ol8jPcwHm021k84",
+        "identifier": [
+          {
+            "use": "official",
+            "type": {
+              "text": "CMS Medicare Advantage contract number"
+            },
+            "system": "urn:cms:medicare-advantage-contract",
+            "value": "H1045028000",
+            "assigner": {
+              "display": "Centers for Medicare & Medicaid Services"
+            }
+          }
+        ],
+        "name": "AARP Medicare Advantage from UHC FL-0006 (HMO-POS)",
+        "period": {
+          "start": "2026-01-01",
+          "end": "2026-12-31"
+        },
+        "network": [
+          {
+            "reference": "Organization/HhDjv663A4PU4Vv5hrnzSEHCqwFoKNrcOnUanGWJc02",
+            "display": "AARP Medicare Advantage from UHC FL-0006 (HMO-POS)"
+          },
+          {
+            "reference": "Organization/yfKUXdZlwUif9GQsC73JHSyNCVkCEIEM8IFXgRQb0f1",
+            "display": "AARP Medicare Advantage from UHC FL-0006 (HMO-POS)"
+          },
+          {
+            "reference": "Organization/dYGQ3t152QymYDWH1HilG6K9Xn56zRlzDMyUK2g7Yg8",
+            "display": "AARP Medicare Advantage from UHC FL-0006 (HMO-POS)"
+          }
+        ]
+      },
+      "c28_disposition": "defer",
+      "blocker": "Need actual 2027 period and exact medical-network mapping; validate filtering.",
+      "evidence": [
+        "uhc-capability",
+        "uhc-plan-sample",
+        "uhc-pagination-next",
+        "uhc-2027-plan-sample",
+        "uhc-collier-plan",
+        "uhc-collier-contract-identifier",
+        "uhc-directory-guide"
+      ],
+      "target_plans": [
+        {
+          "id": "H0710-010-000-2027",
+          "name": "UHC Nursing Home Plan FL-F001 (PPO I-SNP)",
+          "contract": "H0710"
+        },
+        {
+          "id": "H1045-028-000-2027",
+          "name": "AARP Medicare Advantage from UHC FL-0006 (HMO-POS)",
+          "contract": "H1045"
+        },
+        {
+          "id": "H1045-034-000-2027",
+          "name": "AARP Medicare Advantage from UHC FL-0010 (HMO-POS)",
+          "contract": "H1045"
+        },
+        {
+          "id": "H1045-039-000-2027",
+          "name": "UHC Dual Complete FL-QV2 (HMO-POS D-SNP)",
+          "contract": "H1045"
+        },
+        {
+          "id": "H1045-048-002-2027",
+          "name": "UHC Complete Care FL-14 (HMO-POS C-SNP)",
+          "contract": "H1045"
+        },
+        {
+          "id": "H1045-059-000-2027",
+          "name": "AARP Medicare Advantage CareFlex from UHC FL-34 (HMO-POS)",
+          "contract": "H1045"
+        },
+        {
+          "id": "H1045-073-000-2027",
+          "name": "UHC Dual Complete FL-Y5 (HMO-POS D-SNP)",
+          "contract": "H1045"
+        },
+        {
+          "id": "H1889-002-002-2027",
+          "name": "UHC Dual Complete FL-Q1 (PPO D-SNP)",
+          "contract": "H1889"
+        },
+        {
+          "id": "H1889-026-000-2027",
+          "name": "UHC Dual Complete FL-Y7 (PPO D-SNP)",
+          "contract": "H1889"
+        },
+        {
+          "id": "H2406-009-000-2027",
+          "name": "AARP Medicare Advantage from UHC FL-0017 (PPO)",
+          "contract": "H2406"
+        },
+        {
+          "id": "H2406-130-000-2027",
+          "name": "AARP Medicare Advantage Patriot No Rx FL-MA2 (PPO)",
+          "contract": "H2406"
+        },
+        {
+          "id": "R0759-001-000-2027",
+          "name": "AARP Medicare Advantage from UHC FL-0031 (Regional PPO)",
+          "contract": "R0759"
+        },
+        {
+          "id": "R0759-002-000-2027",
+          "name": "AARP Medicare Advantage Patriot No Rx FL-MA01 (Regional PPO)",
+          "contract": "R0759"
+        },
+        {
+          "id": "R0759-003-000-2027",
+          "name": "UHC Dual Complete FL-Q3 (Regional PPO D-SNP)",
+          "contract": "R0759"
+        }
+      ],
+      "target_plan_count": 14,
+      "contracts": [
+        "H0710",
+        "H1045",
+        "H1889",
+        "H2406",
+        "R0759"
+      ],
+      "capability_url": "https://flex.optum.com/fhirpublic/R4/metadata",
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "CVS Health Corporation",
+      "brands": [
+        "Aetna"
+      ],
+      "primary_docs": [
+        "aetna-developers",
+        "aetna-provider-token-guide"
+      ],
+      "base_url": "https://apif1.aetna.com/fhir/v1/providerdirectory/",
+      "capability_evidence": "aetna-provider-metadata",
+      "capability_result": "HTTP 200 CapabilityStatement, FHIR 4.0.1.",
+      "schema": "Practitioner, PractitionerRole, Organization, OrganizationAffiliation, InsurancePlan and Location. InsurancePlan advertises address-state; role search has specialty/location and page/_count.",
+      "pagination": "page/_count documented in metadata; data pagination not exercised because InsurancePlan request returned 401.",
+      "mapping_2027": "Unverified; official public non-PII token guide requires developer app credentials. No account/client was provisioned.",
+      "c28_disposition": "defer",
+      "blocker": "Obtain app registration/access under applicable developer terms, then verify 2027 mappings. CMS permits developer registration; this is not evidence of plan or provider absence.",
+      "evidence": [
+        "aetna-provider-metadata",
+        "aetna-provider-token-guide",
+        "aetna-plan-sample"
+      ],
+      "target_plans": [
+        {
+          "id": "H1609-027-000-2027",
+          "name": "Aetna Medicare Select (HMO)",
+          "contract": "H1609"
+        },
+        {
+          "id": "H1609-056-000-2027",
+          "name": "Aetna Medicare Partial Dual Select (HMO D-SNP)",
+          "contract": "H1609"
+        },
+        {
+          "id": "H1609-078-000-2027",
+          "name": "Aetna Medicare Full Dual Select (HMO D-SNP)",
+          "contract": "H1609"
+        },
+        {
+          "id": "H1609-099-000-2027",
+          "name": "Aetna Medicare Chronic Care (HMO C-SNP)",
+          "contract": "H1609"
+        },
+        {
+          "id": "H5521-272-000-2027",
+          "name": "Aetna Medicare Signature Legacy (PPO)",
+          "contract": "H5521"
+        },
+        {
+          "id": "H5521-306-000-2027",
+          "name": "Aetna Medicare Eagle Giveback (PPO)",
+          "contract": "H5521"
+        },
+        {
+          "id": "H5521-710-000-2027",
+          "name": "Aetna Medicare Signature (PPO)",
+          "contract": "H5521"
+        }
+      ],
+      "target_plan_count": 7,
+      "contracts": [
+        "H1609",
+        "H5521"
+      ],
+      "capability_url": "https://apif1.aetna.com/fhir/v1/providerdirectory/metadata",
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "Elevance Health, Inc.",
+      "brands": [
+        "Freedom Health",
+        "Optimum HealthCare"
+      ],
+      "primary_docs": [
+        "freedom-interoperability",
+        "optimum-interoperability",
+        "freedom-developer-portal"
+      ],
+      "base_url": "https://api.aaneelconnect.com/cms/r4/providerdirectory/",
+      "capability_url": "https://api.aaneelconnect.com/cms/r4/Metadata",
+      "capability_evidence": "freedom-capability",
+      "capability_result": "HTTP 500 without payer-id. Public portal documents a required payer-id selection; the payerCode query GUID was not guessed to be the header value.",
+      "schema": "Primary AaNeel portal script advertises FHIR R4 directory resources and public/no-member-auth access; no valid live CapabilityStatement captured. Public UI bundle config points at a sandbox configuration service; no sandbox settings were promoted to production.",
+      "tenant_links": {
+        "Freedom": "https://developers.aaneelconnect.com/?payerCode=58353272-7878-4bd2-a001-9521770858b6",
+        "Optimum": "https://developers.aaneelconnect.com/?payerCode=5d1757ff-cbd5-4679-b07c-f337267567fe"
+      },
+      "pagination": "Not verified; no usable live tenant-scoped response.",
+      "mapping_2027": "Unverified for both H5427 Freedom and H5594 Optimum; separate published payer tenants.",
+      "c28_disposition": "defer",
+      "blocker": "Resolve documented production payer-id configuration and valid metadata/plan responses for both tenants.",
+      "evidence": [
+        "freedom-capability",
+        "freedom-portal-js",
+        "freedom-interoperability",
+        "optimum-interoperability"
+      ],
+      "target_plans": [
+        {
+          "id": "H5427-078-000-2027",
+          "name": "Freedom Medi-Medi Partial (HMO D-SNP)",
+          "contract": "H5427"
+        },
+        {
+          "id": "H5427-082-000-2027",
+          "name": "Freedom VIP Savings (HMO C-SNP)",
+          "contract": "H5427"
+        },
+        {
+          "id": "H5427-083-000-2027",
+          "name": "Freedom VIP Savings COPD (HMO C-SNP)",
+          "contract": "H5427"
+        },
+        {
+          "id": "H5427-091-000-2027",
+          "name": "Freedom Platinum Plan Rx (HMO)",
+          "contract": "H5427"
+        },
+        {
+          "id": "H5427-105-000-2027",
+          "name": "Freedom Platinum Rewards Plan Rx (HMO)",
+          "contract": "H5427"
+        },
+        {
+          "id": "H5594-016-000-2027",
+          "name": "Optimum Emerald Partial (HMO D-SNP)",
+          "contract": "H5594"
+        },
+        {
+          "id": "H5594-017-000-2027",
+          "name": "Optimum Emerald Full (HMO D-SNP)",
+          "contract": "H5594"
+        },
+        {
+          "id": "H5594-030-000-2027",
+          "name": "Optimum Diamond Savings (HMO C-SNP)",
+          "contract": "H5594"
+        },
+        {
+          "id": "H5594-031-000-2027",
+          "name": "Optimum Diamond Savings COPD (HMO C-SNP)",
+          "contract": "H5594"
+        }
+      ],
+      "target_plan_count": 9,
+      "contracts": [
+        "H5427",
+        "H5594"
+      ],
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "Devoted Health, Inc.",
+      "brands": [
+        "Devoted"
+      ],
+      "primary_docs": [
+        "devoted-developers"
+      ],
+      "base_url": "https://fhir.devoted.com/fhir/",
+      "capability_evidence": "devoted-metadata-json",
+      "capability_result": "HTTP 200 CapabilityStatement, FHIR 4.0.1, requested with standard _format=json because the first metadata response was an HTML representation.",
+      "schema": "InsurancePlan identifier/period/network; OrganizationAffiliation supports network/location/participating-organization; PractitionerRole supports practitioner/location/organization. Directory has no member login in these probes.",
+      "pagination": "Server _getpages/_getpagesoffset next link followed once; distinct one-row page succeeded.",
+      "mapping_2027": "Exact H9884-016-000 plus period 2027-01-01 to 2027-12-31, FL PPO network Organization resolves HTTP 200 as JSON using _format=json (first representation was HTML). This is the sole pinned Devoted Collier plan.",
+      "mapped_seed": {
+        "evidence": "devoted-collier-plan",
+        "resourceType": "InsurancePlan",
+        "id": "insuranceplan-H9884-016-000",
+        "identifier": [
+          {
+            "use": "official",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PRN",
+                  "display": "Provider number"
+                }
+              ],
+              "text": "CMS MA Plan ID"
+            },
+            "system": "http://cms.gov/medicare/ma-plan-id",
+            "value": "H9884-016-000",
+            "assigner": {
+              "display": "Centers for Medicare and Medicaid Services"
+            }
+          }
+        ],
+        "name": "DEVOTED CHOICE GIVEBACK 016 FL (PPO)",
+        "period": {
+          "start": "2027-01-01",
+          "end": "2027-12-31"
+        },
+        "network": [
+          {
+            "reference": "Organization/organization-88c4bbb1-aa71-4567-be2d-89d069cb3562",
+            "display": "FL PPO"
+          }
+        ]
+      },
+      "c28_disposition": "eligible_for_bounded_adapter_build",
+      "blocker": "C28 must still validate provider/location/plan cases and network joins before user participation answers.",
+      "evidence": [
+        "devoted-metadata-json",
+        "devoted-plan-sample",
+        "devoted-pagination-next",
+        "devoted-collier-plan",
+        "devoted-medical-network",
+        "devoted-medical-network-json"
+      ],
+      "target_plans": [
+        {
+          "id": "H9884-016-000-2027",
+          "name": "DEVOTED CHOICE GIVEBACK 016 FL (PPO)",
+          "contract": "H9884"
+        }
+      ],
+      "target_plan_count": 1,
+      "contracts": [
+        "H9884"
+      ],
+      "capability_url": "https://fhir.devoted.com/fhir/metadata?_format=json",
+      "provider_participation_state": "unknown — call to confirm"
+    },
+    {
+      "parent": "Curana Health Holdings, LLC",
+      "brands": [
+        "Align Senior Care Florida"
+      ],
+      "primary_docs": [
+        "curana-interoperability",
+        "curana-current-api-guide",
+        "curana-usage-policy"
+      ],
+      "base_url": "https://fhir.curanahealth.com/v1/api/",
+      "capability_evidence": "curana-capability",
+      "capability_result": "Metadata candidate returned HTTP 404; a working CapabilityStatement was not found in the primary guide. Do not treat illustrative example URLs as endpoints.",
+      "schema": "Current primary guide, pages 35–41: InsurancePlan, Location, Organization, Practitioner and PractitionerRole; offset/limit pagination. Actual InsurancePlan embeds contract-only identifiers in plan[].identifier and has no period/network on the observed H9917 rows.",
+      "pagination": "Documented offset=0&limit=1 then returned next offset=1&limit=1 both succeeded; distinct records. Bounded limit=100 returned all 72 plans.",
+      "mapping_2027": "Five returned InsurancePlan records reference H9917 only; none has benefit-year period, exact PBP/segment or network reference. Cannot map the two pinned 2027 H9917 plans from these records.",
+      "c28_disposition": "defer",
+      "blocker": "Need current capability/schema confirmation and exact 2027 plan/segment-to-medical-network mapping.",
+      "evidence": [
+        "curana-capability",
+        "curana-plan-sample",
+        "curana-pagination-next",
+        "curana-all-plans",
+        "curana-current-api-guide"
+      ],
+      "target_plans": [
+        {
+          "id": "H9917-006-000-2027",
+          "name": "Senior Care (HMO I-SNP)",
+          "contract": "H9917"
+        },
+        {
+          "id": "H9917-007-000-2027",
+          "name": "Premier Care (HMO I-SNP)",
+          "contract": "H9917"
+        }
+      ],
+      "target_plan_count": 2,
+      "contracts": [
+        "H9917"
+      ],
+      "capability_url": "https://fhir.curanahealth.com/v1/api/metadata",
+      "provider_participation_state": "unknown — call to confirm"
+    }
+  ],
+  "next_validation": "C28: prove exact plan/segment/year and medical network (not dental/pharmacy), stable pagination/filtering, NPI+location+role joins, confidence states and as-of receipt; validate >=15 exact provider/location/plan cases across covered insurers as required by G6. C26 hospital table and C27 independent cross-check remain open."
+}

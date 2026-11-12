@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 36531,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7121,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 254,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7375
+    },
+    "text": "{\"question_target\":\"T08\",\"reply\":\"Not necessarily. Medicare Advantage is not simply free: you still pay the Part B premium, and a plan can also have its own costs, so a low or even $0 plan premium would not mean your Medicare coverage is free. And whether your doctor takes it depends on the exact plan’s network and rules, so we cannot assume your doctor will accept a Medicare Advantage plan just because it is Medicare Advantage.\",\"question\":\"Will you need routine care away from home?\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"advantage\",\"options\",\"checks\"],\"agenda_update\":{\"current_concern\":\"whether Medicare Advantage is free and accepted by their doctor\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"plan_specific_rules\",\"part_b_premium\"],\"evidence_refs\":[\"advantage\",\"options\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"clarify\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\",\"advantage\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 5.440255,
+  "turn": 5,
+  "event": "misconception_repair",
+  "fictional_inputs": true
+}

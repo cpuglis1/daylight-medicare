@@ -1,0 +1,976 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+    <link rel="shortcut icon" type="image/x-icon" href="/Tools/favicon.ico" />
+
+    <title>Plan Search Questionnaire - Tools</title>
+
+    <link rel="stylesheet" href="/Tools/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Tools/css/mvc-grid/mvc-grid.css" />
+    <link rel="stylesheet" href="/Tools/css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" async>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link href="https://kendo.cdn.telerik.com/themes/11.3.2/bootstrap/bootstrap-main.css" rel="stylesheet" type="text/css" />
+
+    <!-- jas added -->
+    <link rel="stylesheet" href="https://www.youroptimumhealthcare.com/themes/custom/OPT_2020/css/menu.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Mulish:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Tools/css/site.css" />
+
+
+
+    <link rel="stylesheet" media="all" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+
+    <style>
+
+    .requiredField:after {
+        content: " *";
+        color: #B94a48;
+    }
+
+    .requiredBeforeField:before {
+        content: "* ";
+        color: #B94a48;
+    }
+
+    </style>
+
+
+
+    <script src="/Tools/js/jquery-3.7.1.min.js"></script>
+    <script src="/Tools/js/mvc-grid/mvc-grid.js"></script>
+    <script src="/Tools/js/jquery-ui.js"></script>
+    <script src="//code.iconify.design/1/1.0.0-rc2/iconify.min.js"></script>
+
+    <script src="/Tools/js/inputmask/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="/Tools/js/moment.min.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-sliderAccess.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-timepicker-addon-i18n.js" type="text/javascript"></script>
+    <script src="/Tools/js/bootstrap.bundle.js"></script>
+
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2025.3.812/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2025.3.812/js/kendo.aspnetmvc.min.js"></script>
+
+    <script src="/Tools/js/kendo-ui-license.js"></script>
+
+
+
+    <script>
+        document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+    </script>
+
+
+
+        <style type="text/css">
+
+            /* aqua 2020 */
+
+            .btn-primary    
+            {
+                background-color: #005f68 !important;
+            }
+
+            .bg-primary {
+                background-color: #005f68 !important;
+            }
+
+
+            .popover {
+                border: 2px solid #005f68;
+            }
+
+            .popover-header {
+                background: #005f68;
+                color: white;
+            }
+
+            .popover-body {
+                color: #005f68;
+            }
+
+        </style>
+    <style>
+
+        #fontslider-box-vl {
+            position: absolute;
+            right: 278px;
+            bottom: 26px;
+            border-radius: 8px;
+        }
+
+        /* The slider itself */
+        .slider {
+            -webkit-appearance: none; /* Override default CSS styles */
+            appearance: none;
+            width: 70px;
+            height: 14px;
+            outline: none; /* Remove outline */
+            -webkit-transition: width 1s ease-in-out;
+            transition: width 1s ease-in-out;
+            border-radius: 8px; /* Makes the edges curved*/
+            cursor: pointer;
+            background: blue;
+            border: 1px solid black;
+            padding: 5px;
+            position: absolute;
+            bottom: 1px;
+        }
+
+            /* Mouse-over effects */
+            .slider:hover {
+                opacity: 1; /* Fully shown on mouse-over */
+            }
+            /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none; /*Override default look */
+                appearance: none;
+                width: 25px; /*Set a specific slider handle width */
+                height: 25px; /*Slider handle height */
+                cursor: pointer; /*Cursor on hover */
+                border-radius: 4px; /* Makes the edges curved*/
+                border: 1px solid #c5c5c5;
+                background: #f6f6f6;
+                font-weight: normal;
+                color: #454545;
+            }
+
+            .slider::-moz-range-thumb {
+                -webkit-appearance: none; /*Override default look */
+                appearance: none;
+                width: 25px; /*Set a specific slider handle width */
+                height: 25px; /*Slider handle height */
+                cursor: pointer; /*Cursor on hover */
+                border-radius: 4px; /* Makes the edges curved*/
+                border: 1px solid #c5c5c5;
+                background: #f6f6f6;
+                font-weight: normal;
+                color: #454545;
+            }
+    </style>
+
+</head>
+<body>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X2EC22RFLG"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-X2EC22RFLG');
+    </script>
+
+    <header id="header" class="masthead mb-auto sticky-top">
+        <div>
+            <div id="block-frh-2020togglermenuwide">
+
+
+
+                <div>
+                    <nav class="container-fluid bg-primary fs-6" id="top-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm order-1 text-light d-flex py-1 my-auto justify-content-start">
+                                    <a href="https://www.youroptimumhealthcare.com/latest-news" class="nav-link p-1 text-light mr-3" title="Important News / Updates, Hurricane Notification, Disaster Guides etc." aria-describedby="default"><i class="bi bi-hurricane mr-1"></i> Important News / Updates</a>
+                                    <a href="https://cwtools.globalmedicareapps.com/tools/ProviderSearch?payerid=OPT" class="nav-link p-1 text-light mr-3" title="Find Provider / Pharmacy " aria-describedby="default"><i class="bi bi-hospital mr-1"></i> Find Provider / Pharmacy</a>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end p-1 order-2">
+                                    <form action="https://www.youroptimumhealthcare.com/search/node" class="d-flex align-items-center justify-content-end w-100 m-0 p-0" method="get" target="_parent" id="frmSearch">
+                                        <div class="form-group d-flex">
+                                            <input type="search" name="keys" class="form-control form-control-sm border-0 rounded-0" placeholder="SEARCH" aria-label="Search Freedom Health" aria-describedby="search-addon">
+                                            <button class="btn btn-primary btn-sm border-0 rounded-0" type="submit" form="frmSearch">
+                                                <i>
+                                                    <span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+                                                </i>
+                                                <span class="visually-hidden">Search</span>
+                                            </button>
+                                                <a class="nav-link py-1 text-light ml-2 langLink spanish-link" data-href="https://espanol.youroptimumhealthcare.com" href="https://espanol.youroptimumhealthcare.com" data-lang="es" mporgnav="href">Espa&ntilde;ol</a>
+                                        </div>
+                                        <!-- Descriptive Element for Aria -->
+                                        <div id="search-addon" class="visually-hidden">
+                                            Enter your search term and press enter.
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+   
+
+                     
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container d-flex justify-content-between align-iteml-end">
+                            <!-- Logo -->
+                                <a class="navbar-brand py-auto" href="https://www.youroptimumhealthcare.com"><img src="https://www.youroptimumhealthcare.com/sites/all/images/OPT_logo.png" alt="https://www.youroptimumhealthcare.com Logo" style="height: 90px; width: auto;" /></a>
+
+                            <!-- Mobile Menu Toggle Button -->
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <!-- Menu Items -->
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul id="menu" class="navbar-nav nav-pills ml-auto mr-auto"></ul>
+                                <!--  MENo -->                            
+
+                            </div>
+                            <a id="member-login-link" href="https://memberportal.globalmedicareapps.com/User/OptimumLogin.aspx?PayerID=37053329-c9fb-4510-8d43-ba741ff351bd&amp;LoginFrom=1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" title="" data-bs-content="Click to go to the Member Portal Login. You can order Over-the-Counter medications and access account information here." style="text-decoration:none" data-original-title="Member Portal"><span class="btn btn-secondary white ml-auto text-nowrap border-0 rounded-0">Member Login</span></a>
+                        </div>
+                    </nav>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="container-fluid mb-3">
+
+        
+
+
+        <main>
+
+            
+<hr class="w-100 grey my-1" />
+
+<h2 class="text-black-50 my-1">Shop For Plans in your area</h2>
+
+<form id="FormQuestionaire" name="FormQuestionaire" method="post" class="my-1" action="/Tools/Plan/Questionaire">
+    
+    <input data-val="true" data-val-maxlength="The field PayerId must be a string or array type with a maximum length of &#x27;3&#x27;." data-val-maxlength-max="3" id="PayerId" name="PayerId" type="hidden" value="OPT" />
+    <input data-val="true" data-val-maxlength="The field Year must be a string or array type with a maximum length of &#x27;4&#x27;." data-val-maxlength-max="4" data-val-required="The Year field is required." id="Year" name="Year" type="hidden" value="2027" />
+    <input data-val="true" data-val-required="The Fb field is required." id="Fb" name="Fb" type="hidden" value="False" />
+    <div class="row">
+        <div class="col">
+            <div class="d-flex align-items-center flex-wrap">
+                <label id="ZipCodeValue" class="me-2 mb-0">34102 - Collier County</label>
+                <input id="ZipValue" type="hidden" data-val="true" data-val-maxlength="Zip cannot be greater than 5 digits in length" data-val-maxlength-max="5" data-val-minlength="Zip must be at least 5 digits in length" data-val-minlength-min="5" data-val-required="Enter a Zip Code" name="Zip" value="34102" />
+                <input id="CountyValue" type="hidden" value="Collier" data-val="true" data-val-maxlength="The field County must be a string or array type with a maximum length of &#x27;50&#x27;." data-val-maxlength-max="50" name="County" />
+                <button type="button" class="btn btn-primary btn-sm ms-2 mb-0" onclick="location.href='/Tools/Plan/PlanSearch?payerid=OPT'">Change Zip Code</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-start g-0">
+        <div class="col-8">
+            <ul class="list-group list-group-flush p-0 m-0">
+                <li class="list-group-item p-1">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="/Tools/Images/Medicaid.svg" alt="Medicaid" class="me-3">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-1"><label for="MedicareMedicaid">Do you have Florida Medicaid or Medicare Savings Program?</label></p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbMedicareMedicaidYes" name="MedicareMedicaid" value="True" data-val="true" data-val-required="The Do you have Florida Medicaid or Medicare Savings Program? field is required.">
+                                <label class="form-check-label" for="rbMedicareMedicaidYes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbMedicareMedicaidNo" name="MedicareMedicaid" value="False">
+                                <label class="form-check-label" for="rbMedicareMedicaidNo">No</label>
+                            </div>
+                            <label id="lblMedicareMedicaidError" class="text-danger" style="display:none">
+                                * Required
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item p-1">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="/Tools/Images/Diabetes.svg" alt="Diabetes" class="me-3">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-1"><label for="Diabetes">Have you been diagnosed with any type of diabetes?</label></p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbDiabetesYes" name="Diabetes" value="True" data-val="true" data-val-required="The Have you been diagnosed with any type of diabetes? field is required.">
+                                <label class="form-check-label" for="rbDiabetesYes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbDiabetesNo" name="Diabetes" value="False">
+                                <label class="form-check-label" for="rbDiabetesNo">No</label>
+                            </div>
+                            <label id="lblDiabetesError" class="text-danger" style="display:none">
+                                * Required
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item p-1">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="/Tools/Images/Heart.svg" alt="Heart" class="me-3">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-1"><label for="Cardiovascular">Have you been diagnosed with any type of Heart Condition (i.e. Irregular Heartbeat, Heart Attack, Congestive Heart Failure)? </label></p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbCardiovascularYes" name="Cardiovascular" value="True" data-val="true" data-val-required="The Have you been diagnosed with any type of Heart Condition (i.e. Irregular Heartbeat, Heart Attack, Congestive Heart Failure)?  field is required.">
+                                <label class="form-check-label" for="rbCardiovascularYes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbCardiovascularNo" name="Cardiovascular" value="False">
+                                <label class="form-check-label" for="rbCardiovascularNo">No</label>
+                            </div>
+                            <label id="lblCardiovascularError" class="text-danger" style="display:none">
+                                * Required
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item p-1">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="/Tools/Images/BreatheCondition.svg" alt="Breathing Condition" class="me-3">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-1"><label for="Asthma">Do you have a breathing disorder (i.e. Asthma, Emphysema, COPD)?</label></p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbAsthmaYes" name="Asthma" value="True" data-val="true" data-val-required="The Do you have a breathing disorder (i.e. Asthma, Emphysema, COPD)? field is required.">
+                                <label class="form-check-label" for="rbAsthmaYes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="rbAsthmaNo" name="Asthma" value="False">
+                                <label class="form-check-label" for="rbAsthmaNo">No</label>
+                            </div>
+                            <label id="lblAsthmaError" class="text-danger" style="display:none">
+                                * Required
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-2">
+            <div class="btn-group-vertical px-2" role="group" aria-label="Vertical button group">
+
+                <div class="btn d-flex align-items-center text-start" style="width:205px; background-color:white;color:#007bff; border:2px; border-style:solid">
+                    <img src="/Tools/Images/Help.svg" style="width: 30px; height:30px;" alt="help icon">
+                    <a title="Need Help" class="btn btn-sm text-start" href="https://www.youroptimumhealthcare.com/medicare/speak-to-agent-now">Need Help?<br><text style="color:#f59a23; font-size:12px">Chat with an Agent</text></a>
+                </div>
+                <div class="btn  d-flex align-items-center text-start" style="width:205px;  background-color:white;color:#007bff; border:2px; border-style:solid">
+                    <img src="/Tools/Images/HeartCondition.svg" style="width: 30px; height:auto;" alt="heart icon">
+                    <a title="Heart Condition" id="HeartModal" data-bs-toggle="modal" data-bs-target="#HeartCodeModal" class="btn btn-sm text-start" href="#">Heart Condition?</a>
+                </div>
+                <div class="btn  d-flex align-items-center text-start" style="width:205px; background-color:white;color:#007bff; border:2px; border-style:solid">
+                    <img src="/Tools/Images/BreatheCondition.svg" style="width: 30px; height:auto;" alt="breath icon">
+                    <a title="Breathing Disorder" id="BreatheModal" data-bs-toggle="modal" data-bs-target="#BreatheCodeModal" class="btn btn-sm text-start" href="#">Breathing Disorder?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-9 offset-3">
+            <button id="btnQuestionaireContinue" name="btnQuestionaireContinue" style="width:200px" type="submit"
+                    class="btn btn-success">
+                Find Plan(s)
+            </button>
+        </div>
+    </div>
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8KN6a2kZt_9KvA47owq8xtAOWxL3ZchSmF05nUMMR2hhGPgB2nqbXhwuoYT4Zi1pFrG8I3cjzmqUWGwNxLZEnhuKArYXs7jhYvT3-OYtQyts3TF98BcHABu2umgMbSS8bp8dRwu1c109Ues4HP8f41A" /><input name="MedicareMedicaid" type="hidden" value="false"><input name="MedicareMedicaid" type="hidden" value="false"><input name="Diabetes" type="hidden" value="false"><input name="Diabetes" type="hidden" value="false"><input name="Cardiovascular" type="hidden" value="false"><input name="Cardiovascular" type="hidden" value="false"><input name="Asthma" type="hidden" value="false"><input name="Asthma" type="hidden" value="false"></form>
+
+<div class="modal fade" id="HeartCodeModal" tabindex="-1" role="dialog" data-bs-dismiss="modal" aria-labelledby="HeartCodeModallabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="hearttitle">Do you experience one or more of the following heart conditions:</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Irregular Heart Beat
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Coronary Artery Disease
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Peripheral Vascular
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Disease Heart Attack
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Stents
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Bypass Surgery
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Congestive Heart Failure
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-12" style="padding-left:15%;">
+                            <div class="form-group" style="text-align:center">
+                                <button type="button" id="heartModalclose" data-bs-dismiss="modal" class="btn btn-danger text-white">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="BreatheCodeModal" tabindex="-1" role="dialog" data-bs-dismiss="modal" aria-labelledby="BreatheCodeModallabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="breathetitle">Do you experience any breathing disorders such as:</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Asthma
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Emphysema
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                COPD
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Chronic Bronchitis
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                Pulmonary Hypertension
+                            </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left:15%;">
+                            <div class="form-group">
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-12" style="padding-left:15%;">
+                            <div class="form-group" style="text-align:center">
+                                <button type="button" id="breatheModalclose" data-bs-dismiss="modal" class="btn btn-danger text-white">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="zipCodeModal" tabindex="-1"  role="dialog" data-bs-dismiss="modal" aria-labelledby="zipCodeModallabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="ziptitle">Change Zip Code</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                
+
+<div class="row">
+    <div class="row col-sm-12">
+        <div class="col-sm-3">
+            <div class="form-group">
+                Zip Code
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <input id="zipcode" class="form-control form-control-sm" placeholder="Zip code" type="text" data-val="true" data-val-maxlength="Zip cannot be greater than 5 digits in length" data-val-maxlength-max="5" data-val-minlength="Zip must be at least 5 digits in length" data-val-minlength-min="5" data-val-required="Enter a Zip Code" maxlength="5" name="Zip" value="34102" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Zip" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row col-sm-12" id="divCounties">
+        <div class="col-sm-3">
+            <div class="form-group">
+                County
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <select id="ddlCounties" class="form-control form-control-sm"></select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="row col-sm-12">
+        <div class="col-sm-3">
+            <div class="form-group">
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group" style="text-align:center">
+                <button type="button" id="zipModalclose" data-bs-dismiss="modal" class="btn btn-danger text-white">Cancel</button>
+                <button type="submit" id="btnZipUpdate" onclick="URLZipUpdate('OPT', '2027', 'False')" class="btn btn-success">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="divZipNotFound" style="display:none">
+    <div class="row col-sm-12">
+        <div class="col-sm-1">
+            <div class="form-group">
+
+            </div>
+        </div>
+        <div class="col-sm-11">
+            <div class="form-group">
+                    <label id="lblZipNotFound" style="color:red;">
+                        We do Not offer any plans in your zip code area, please contact
+                        us at 1-866-245-5360 for more information.
+                    </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    // function URLZipUpdate(payerId, year, fbvalue) {
+
+    //         var countiesvalue = $("#ddlCounties option:selected").text();
+    //         var zipcodevalue = $("#zipcode").val();
+
+    //         $.ajax({
+    //             url: '/Tools/Plan/LoadPlans',
+    //             data: { payerid: payerId, year: year, county: countiesvalue, zip: zipcodevalue, fb: fbvalue },
+    //             timeout: 0,
+    //             async: true,
+    //             success: function (result) {
+    //                 $("#zipCodeModal").modal('hide');
+    //                 window.open(result, '_parent');
+    //             },
+    //             error: function (err) {
+    //                 alert(err.statusText);
+    //             }
+
+    //         });
+
+    //     }
+
+    $(function () {
+        // $("#zipModal").click(function () {
+        //     $("#zipcode").val("");
+        //     $("#btnZipUpdate").attr("disabled", true);
+        //     $("#ddlCounties").empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+        //     $("#divZipNotFound").hide();
+        // });
+
+        //$("#btnZipUpdate").click(function () {
+        //    var zipcodevalue = $("#zipcode").val();
+        //    var countiesvalue = $("#ddlCounties option:selected").text();
+        //    var newcountyvalue =  zipcodevalue + " - " + countiesvalue + " " + "County";
+        //    $("#ZipCodeValue").text(newcountyvalue);
+        //    $("#ZipValue").val(zipcodevalue);
+        //    $("#CountyValue").val(countiesvalue);
+        //    $("#zipCodeModal").modal('hide');
+
+        //});
+
+        $("#ddlCounties").change(function () {
+            var countiesvalue = $("#ddlCounties").val();
+
+            if (countiesvalue != "0") {
+                $("#btnZipUpdate").attr("disabled", false);
+            }
+            else {
+                $("#btnZipUpdate").attr("disabled", true);
+            }
+        });
+
+        $("#zipcode").blur(function () {
+
+            var zipPopUpValue = $("#zipcode").val();
+            var payerIdVaue = 'OPT';
+            var yearVaue = '2027';
+
+            $("#divZipNotFound").hide();
+
+            if (zipPopUpValue.length == 5) {
+                $.ajax({
+                    url: '/Tools/Plan/ChangeZipCode',
+                    type: "POST",
+                    data: { zip: zipPopUpValue, year: yearVaue, payerid: payerIdVaue  },
+                    timeout: 0,
+                    async: true,
+                    success: function (result) {
+                        if (result.length == 1) {
+                            $("#ddlCounties").empty();
+                            $.each(result, function () {
+                                $("#ddlCounties").append($("<option></option>").val(this['value']).html(this['text']));
+                            });
+                            $("#btnZipUpdate").attr("disabled", false);
+                        }
+                        if (result.length > 1) {
+                            var ddlCounties = $("#ddlCounties");
+                            $("#ddlCounties").empty().append('<option selected="selected" value="0">Please Select</option>');
+                            $("#btnZipUpdate").attr("disabled", true);
+                            $.each(result, function () {
+                                ddlCounties.append($("<option></option>").val(this['value']).html(this['text']));
+                            });
+                        }
+                        else if (result.length == 0) {
+                            $("#ddlCounties").empty().append('<option selected="selected" value="0">Please Select</option>');
+                            $("#btnZipUpdate").attr("disabled", true);
+                            $("#divZipNotFound").show();
+                        }
+                    },
+                    error: function (err) {
+                        alert("Error occurred while loading the counties");
+                    }
+                });
+            }
+            else {
+                alert("Enter a valid zip code");
+                $(this).val("");
+                $("#ddlCounties").empty().append('<option selected="selected" value="0">Please Select</option>');
+                return false;
+            }
+        });
+
+        });
+</script>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	$("#btnQuestionaireContinue").click(function () {
+
+		if ($("#rbMedicareMedicaidYes").is(":checked") == false && $("#rbMedicareMedicaidNo").is(":checked") == false) {
+			$("#lblMedicareMedicaidError").show();
+			return false;
+		}
+		else {
+			$("#lblMedicareMedicaidError").hide();
+		}
+
+	});
+
+	$("#rbMedicareMedicaidYes").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbMedicareMedicaidNo").prop("checked", false);
+		} else {
+
+		}
+	});
+
+	$("#rbMedicareMedicaidNo").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbMedicareMedicaidYes").prop("checked", false);
+		} else {
+
+		}
+	});
+
+
+	$("#btnQuestionaireContinue").click(function () {
+
+		if ($("#rbDiabetesYes").is(":checked") == false && $("#rbDiabetesNo").is(":checked") == false) {
+			$("#lblDiabetesError").show();
+			return false;
+		}
+		else {
+			$("#lblDiabetesError").hide();
+		}
+
+	});
+
+	$("#rbDiabetesYes").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbDiabetesNo").prop("checked", false);
+		} else {
+
+		}
+	});
+
+	$("#rbDiabetesNo").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbDiabetesYes").prop("checked", false);
+		} else {
+
+		}
+	});
+
+	$("#btnQuestionaireContinue").click(function () {
+
+		if ($("#rbCardiovascularYes").is(":checked") == false && $("#rbCardiovascularNo").is(":checked") == false) {
+			$("#lblCardiovascularError").show();
+			return false;
+		}
+		else {
+			$("#lblCardiovascularError").hide();
+		}
+
+	});
+
+	$("#rbCardiovascularYes").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbCardiovascularNo").prop("checked", false);
+		} else {
+
+		}
+	});
+
+	$("#rbCardiovascularNo").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbCardiovascularYes").prop("checked", false);
+		} else {
+
+		}
+	});
+
+	$("#btnQuestionaireContinue").click(function () {
+
+		if ($("#rbAsthmaYes").is(":checked") == false && $("#rbAsthmaNo").is(":checked") == false) {
+			$("#lblAsthmaError").show();
+			return false;
+		}
+		else {
+			$("#lblAsthmaError").hide();
+		}
+
+	});
+
+	$("#rbAsthmaYes").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbAsthmaNo").prop("checked", false);
+		} else {
+
+		}
+	});
+
+	$("#rbAsthmaNo").click(function () {
+		if ($(this).is(":checked")) {
+			$("#rbAsthmaYes").prop("checked", false);
+		} else {
+
+		}
+	});
+
+
+</script>
+
+
+            <div class="custom-modal" id="confirmation-modal">
+                <div class="modal-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="d-flex justify-content-end">
+                                <span id="close-btn" data-bs-dismiss="modal">×</span>
+                            </div>
+                            <div class="col-sm-6 m-auto">
+                                <div class="modal-body" id="modal-message"><p class="lead">Would you like to leave our website and visit <strong class="primary">Member Login</strong>?</p><p><small>By clicking <strong>"Continue"</strong>, you will be directed to an <mark style="background-color: palegoldenrod; color: var(--bs-highlight-color, #212529); padding: .2em;">external website in a new window</mark>.<br>If you prefer to stay on <strong>YourOptimumHealthCare.com</strong>, please click <strong>"Cancel"</strong>.</small></p></div>
+                                <div class="modal-footer">
+                                    <button id="continue-btn" type="button" class="btn btn-primary me-2">Continue</button>
+                                    <button id="cancel-btn" type="button" class="btn btn-outline-secondary btn-sm">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <span class="AntiForge"> <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KN6a2kZt_9KvA47owq8xtAOWxL3ZchSmF05nUMMR2hhGPgB2nqbXhwuoYT4Zi1pFrG8I3cjzmqUWGwNxLZEnhuKArYXs7jhYvT3-OYtQyts3TF98BcHABu2umgMbSS8bp8dRwu1c109Ues4HP8f41A" /> </span>
+    </div>
+
+    <footer class="footer bg-dark text-white">
+
+        <!-- Copyright -->
+        <div class="container-fluid bg-black">
+            <div class="row align-items-center g-0 px-4 py-2">
+                <!-- Desc -->
+                <div class="col-12">                  
+                    <div>
+                       Y0114_27_3022215_0000_U_M
+                        &nbsp; | &nbsp; <span class="copyright">© 2026 Optimum Healthcare</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <div>
+        <div class="telbar2">
+                <span class="left">Toll Free 1-866-245-5360 TTY/TDD: 711</span>
+            <span class="right">
+
+            </span>
+        </div>
+    </div>
+
+
+
+    <script src="/Tools/js/jquery.validate.js"></script>
+    <script src="/Tools/js/jquery.validate.unobtrusive.js"></script>
+	<script src="/Tools/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive-bootstrap@2.2.0/dist/unobtrusive-bootstrap.min.js"></script>
+
+    <script src="/Tools/js/site.js?v=CPBnQZH9UZC7dEP1indrcI5OdokK4icPpJFQpEb19xc"></script>
+
+
+    <script src="/Tools/js/validate.js?v=5XuNAghsUZybhqrhZV4_S8yWX8WldFILTrrD8UC2S4k" type="text/javascript"></script>
+    <script src="/Tools/js/purify.js?v=z7PP2aVNrjjNmOqx7L8sN7c8gIHmbRpMjevD77k0D0k"></script>
+
+
+
+    <script src="https://www.youroptimumhealthcare.com/themes/custom/OPT_2020/js/menu.js"></script>
+
+
+    <script>
+        // Fetch and process JSON data
+        fetch("/Tools/OPTmenu.json")
+            .then(response => response.json())
+            .then(jsonData => {
+                buildMenu(jsonData);
+            })
+            .catch(error => {
+                console.error("Error fetching JSON data:", error);
+            });
+
+        (function () {
+            var memberLoginLink = document.getElementById("member-login-link");
+            var confirmationModal = document.getElementById("confirmation-modal");
+            var closeBtn = document.getElementById("close-btn");
+            var cancelBtn = document.getElementById("cancel-btn");
+            var continueBtn = document.getElementById("continue-btn");
+            var memberLoginUrl = "";
+
+            if (!memberLoginLink || !confirmationModal || !closeBtn || !cancelBtn || !continueBtn) {
+                return;
+            }
+
+            function closeModal() {
+                confirmationModal.style.display = "none";
+            }
+
+            memberLoginLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                memberLoginUrl = memberLoginLink.getAttribute("href") || "";
+                confirmationModal.style.display = "block";
+            });
+
+            closeBtn.addEventListener("click", closeModal);
+            cancelBtn.addEventListener("click", closeModal);
+
+            continueBtn.addEventListener("click", function () {
+                if (memberLoginUrl) {
+                    window.open(memberLoginUrl, "_blank", "noopener,noreferrer");
+                }
+                closeModal();
+            });
+
+            window.addEventListener("click", function (event) {
+                if (event.target === confirmationModal) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+
+
+    
+
+
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+--- DAYLIGHT_REQUIREMENTS.md (before)
++++ DAYLIGHT_REQUIREMENTS.md (D99)
+@@ -246,6 +246,8 @@
+ 
+ ## Change log
+ 
++- **2026-11-07, D99 Pilot budget simplification.** Owner directed: “dont bother with the per day, hour etc. lets just have a 100 dollar limit on the pilot and we track how much each user goes through.” Record one $100 cumulative model-spend limit for the whole pilot, with per-participant usage accounting; no hourly, daily, session, invitation or guest/saved pool dollar sublimits, no calendar reset, and no $90/$10 split. All pilot model stages, retries and unresolved charges count toward the same total. Conservative in-flight reservations protect that single cap; request/output bounds and kill switches remain. This replaces the D98 budget proposal for the pilot, not the existing D86/D90 local development configuration. Budget direction and participant accounting are approved; implementation, numeric-schema/retention details, pilot launch and other scope exceptions are not established by this decision. Owner also requested lower-cost alternatives to GitHub Pro; evaluate Free with compensating controls, without interpreting that question as approval of a security exception, purchase or PR merge. [Updated decisions](docs/reviews/pilot-security-stage1-2026-11-07/DECISIONS.md).
++
+ - **2026-11-07, D98 Pilot security stage 1.** Owner directed: “Go ahead with stage 1: draft the pilot scope amendment and budget/logging recommendations, and set up the development protections. Bring me concrete decisions to approve.” Authorizes drafting SA-27 and SPEC-D3/D4/D5 proposals and implementing/verifying SA-02 development protections with fictional data. Proposed scope deferrals, spending/retention changes, paid account upgrades and launch acceptance remain pending explicit decisions. Preserve D64/D73, existing D86/D90 local allowances, sealed sources, protected variants/stores and no agent-run paid/live conversation tests. Record actual local versus hosted enforcement and remaining reviewer/account dependencies. [Decision and execution packet](docs/reviews/pilot-security-stage1-2026-11-07/README.md).
+ 
+ - **2026-11-06, D97 Plans filters write the profile.** Owner directed that the :8894 Plans filters (ZIP, doctors, prescriptions, plan year and cost preference) save to the same profile the conversation uses, at a middle confidence: each is a structured answer labelled `plans_filter` (entered on the Plans page). The answers are usable immediately, so a person who never chats can still reach ranking by confirming their details through the existing plan-review checkpoint (“Check plans for me”, no AI call). If the person chats, composition sees the label and confirms each detail once. Premium, benefits, plan type, company and drug-coverage filters stay display only and never enter ranking (D64 unchanged). Pharmacy is held for the visit because the profile records pharmacy per prescription. Supplement and Part D tabs and 2027 show as “coming soon” until the approved data layer is ready. Owner also approved the backend fix letting a compared-plan reply cite every displayed plan field and plan type (up to eight facts). [Implementation and checks](audit-evidence/ui-refresh-8894-20261105/README.md).
+--- docs/project/DIRECTIVE_HISTORY.md (before)
++++ docs/project/DIRECTIVE_HISTORY.md (D99)
+@@ -37,3 +37,4 @@
+ | 2026-11-06 | D95 | Evaluate the database against the AI-native brokerage plan and prepare transition actions. Cloud migration is expected soon; off-machine/PITR work is lower priority than AI-native database readiness. Preserve source/history/MVP and recovery-before-retirement; keep actual-target cutover checks. Evaluation does not authorize deployment or consumer release. | [Database readiness assessment](../reviews/ai-native-database-readiness-2026-11-06/README.md) |
+ | 2026-11-06 | D96 | Implement the backend plan for Collier PDP and Medigap data. No UI changes; keep consumer display gated until data approval, and report what is done and remains open. Preserve existing source/history/privacy boundaries; implementation does not supply data approval. | [Backend plan](../reviews/collier-plan-type-backend-2026-11-06/README.md) |
+ | 2026-11-07 | D98 | Draft the pilot scope amendment and budget/logging recommendations, and set up the development protections; bring concrete decisions for owner approval. Proposal drafting and SA-02 controls are authorized; scope exceptions, spending/retention changes, purchases and pilot release remain pending. | [Pilot security stage 1](../reviews/pilot-security-stage1-2026-11-07/README.md) |
++| 2026-11-07 | D99 | Replace the proposed layered pilot budgets with one $100 total pilot model limit and track usage per participant. No hourly/daily/session/invitation/pool dollar sublimits or monthly reset. Evaluate alternatives to GitHub Pro to keep costs down. Budget direction is approved; runtime activation, retention details, pilot exceptions, paid upgrades and PR merge remain separate. Existing local development budgets remain unchanged. | [Updated pilot decisions](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md) |
+--- docs/project/CURRENT_STATE.md (before)
++++ docs/project/CURRENT_STATE.md (D99)
+@@ -69,15 +69,21 @@
+   separately, never as one "done".
+ - **Pilot backlog:** P01–P15 in [COLLIER_MVP.md](COLLIER_MVP.md). P06–P10 are
+   what stands between today and personal recommendations.
+-- **Pilot security stage 1 (D98):** draft invite-only scope and SPEC-D3/D4/D5
+-  budget/logging decisions are prepared in the [decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md).
++- **Pilot security stage 1 (D98/D99):** the owner approved one **$100 cumulative
++  pilot model budget**, with per-participant usage tracking and no hourly/daily,
++  session/invitation or pool dollar sublimits. This is recorded direction, not
++  installed runtime enforcement. Scope and numeric-schema/retention decisions
++  remain in the [decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md).
+   The SA-02 local pre-commit hook is active; both hosted checks, including
+   dependency audits/SBOMs, passed in
+   [draft PR #4](https://github.com/cpuglis1/daylight-medicare/pull/4), pending review/merge.
+   Actual local/hosted state is recorded in the
+   [execution record](../reviews/pilot-security-stage1-2026-11-07/README.md).
+-  Scope deferrals, new spending/retention and pilot release are not approved.
+-  GitHub is verified private; branch protection currently requires a paid plan.
++  Scope deferrals, new retention and pilot release are not approved.
++  GitHub is verified private; server-enforced branch protection requires a paid
++  plan. The revised recommendation is to stay on Free during solo development,
++  with recorded founder review and passing checks; a temporary pilot enforcement
++  exception still needs approval. No purchase or PR merge is authorized by D99.
+ - **Counts that are not interchangeable:** L03 r9 freezes 392,570 claim and
+   predicate obligations; the accepted r4 reference is 535 entries; the r12
+   whole-offering pilot covers 4,675 obligations and is unaccepted. L01's
+--- docs/product/MASTER_DESIGN.md (before)
++++ docs/product/MASTER_DESIGN.md (D99)
+@@ -1,4 +1,6 @@
+ # Daylight master design and agent contract
++
++**D99 pilot budget decision · November 7, 2026.** The pilot has one $100 cumulative model-spend ceiling and per-participant usage accounting. No hourly/daily, session/invitation or guest/saved pool dollar sublimits, calendar reset or $90/$10 split. Count every model stage, retry and unresolved charge; reserve in-flight costs within that single ceiling. This replaces the D98 pilot budget proposal only. Existing D86/D90 local development settings and protected variants remain unchanged. Budget direction is approved; deployed enforcement, detailed telemetry/retention and pilot release remain open. The owner requested cost-saving GitHub alternatives; Free with documented checks/review is the revised recommendation, not approval of a branch-enforcement exception or purchase. [Decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md).
+ 
+ **D95 AI-native database transition assessment · November 6, 2026.** Owner prioritized database readiness for the [AI-native brokerage plan](../company/AI_NATIVE_BROKERAGE_PLAN_2026-11-05.md) over further local off-machine/PITR work ahead of an expected cloud move. The [assessment and proposed actions](../reviews/ai-native-database-readiness-2026-11-06/README.md) focus on portable release bindings, verified tools, customer permissions and durable decision/review workflows. This is evaluation and sequencing, not deployment or release authorization. Preserve source/history/MVP, D64/D73 and recovery-before-retirement; actual-target checks remain part of cloud cutover.
+ 
+--- docs/project/REPOSITORY_CHECKS.md (before)
++++ docs/project/REPOSITORY_CHECKS.md (D99)
+@@ -1,4 +1,14 @@
+ # Repository checks and ownership
++
++**D99 cost review · November 7, 2026:** the revised recommendation is to keep
++the repository private on Free during solo development, use PRs and recorded
++founder review of the final commit, and inspect both checks before merging.
++The [pilot decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md#4-revised-recommendation-private-github-free-with-compensating-controls)
++details compensating controls and Actions billing limits. This procedure cannot
++block a write credential from bypassing it. Its temporary pilot exception still
++needs owner approval; server-enforced PR/check/review requirements and a second
++reviewer remain proposed prerequisites before public access. No Pro purchase,
++branch-policy change or PR merge has been made.
+ 
+ **Stage-1 security work · November 7, 2026 (D98/SA-02):** private visibility and
+ the HTTP 403 protection-plan limitation were rechecked. The
+--- docs/company/LAUNCH_SECURITY_SPEC_2026-11-06.md (before)
++++ docs/company/LAUNCH_SECURITY_SPEC_2026-11-06.md (D99)
+@@ -91,6 +91,15 @@
+ - no progress toward a decision (no ZIP, no coverage facts) after many turns.
+ 
+ ### 3.7 Global ceilings and kill switches
++
++**Invite-only pilot budget override, D99 · November 7, 2026:** one $100
++cumulative model-spend ceiling across the entire pilot, with per-participant
++usage reporting and no hourly/daily, session/invitation or pool dollar sublimits.
++No calendar reset. This supersedes the monetary sublimits in §3.3/§3.7/§4 for
++this pilot only; request/output bounds, accounting integrity and kill switches
++remain. Track conservative in-flight reservations within the same $100. Direction
++is approved; implementation and launch acceptance remain open. See the
++[recorded decision](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md#2-approved-one-100-total-pilot-model-budget).
+ 
+ This is the backstop that makes generosity safe. It is the one control a VPN cannot beat.
+ 
+@@ -306,8 +315,10 @@
+ 
+ **Draft for owner approval (SA-27), not effective.** The original Gate 1 above
+ continues to apply until the owner records acceptance of this exact amendment.
+-Stage-1 drafting and developer protections are authorized under D98; pilot
+-traffic, production spending, new retention and launch exceptions are not.
++Stage-1 drafting and developer protections are authorized under D98. D99 records
++the $100 total pilot model budget and per-participant usage tracking as approved
++direction; runtime activation, pilot traffic, new retention and launch exceptions
++remain unapproved.
+ The [decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md)
+ contains the proposed numbers and approval choices.
+ 
+@@ -323,7 +334,7 @@
+ 
+ **Keep before the first participant.** Signed invitation/session enforcement
+ on every protected request; basic request/body/concurrency limits; scope and
+-service-area checks; high safety allowances and durable total-spend accounting;
++service-area checks; the single D99 $100 pilot ceiling and durable accounting;
+ provider limits, alerts and tested kill switches; redaction, approved vendor
+ contracts/regions and fail-closed provider routing; content-free diagnostics;
+ accurate privacy/consent/terms; security program, risk analysis, incident runbook
+@@ -340,7 +351,7 @@
+ | Managed edge bot management and Turnstile (§3.1–3.2) | Defer these managed automation controls. Keep short-lived server sessions, invitation validation before any model call, request limits, origin access restrictions and spending limits. | Before the first public cohort or any open registration, whichever is earlier. Small founder-issued access permits a bounded trial; an invitation alone is not bot protection. A leaked/reused link or uncontrolled session creation pauses admissions until contained. |
+ | Behavioral trust scoring and the log-only friction ladder (§3.5–3.6, §4) | Defer construction and collection of trust/network-class signals. Retain fixed pacing and cost limits, with content-free denial counters. | Before public access. Twenty participants are insufficient to calibrate these signals without false confidence; no automated behavioral penalties during this pilot. |
+ | Two cohorts/50 completed decisions and p90/p99-derived allowance (§4) | Treat up to 20 participants as a provisional observation cohort; report all-session cost, median, observed maximum, incomplete-session cost and sample size. No claimed p99 or <1% false-positive proof. | Restore the two-cohort/50-completion measurement target before public access; retain conservative limits and disclose tail uncertainty even then. A measured cap and friction policy require separate approval before checkout. |
+-| Independent GitHub approval count (§6.7; SA-02) | Proposed temporary solo-founder procedure: founder reviews every agent-authored change and records review evidence; no author self-approval is labelled independent. Require PRs and passing checks when the plan supports enforcement. | A second qualified repository reviewer and enforced required review before public access. No second reviewer is currently assigned. A paid plan alone does not supply a reviewer. |
++| GitHub server enforcement and independent approval count (§6.7; SA-02) | Proposed temporary private/Free solo-founder procedure: PR-only work, founder review of every agent-authored change, passing checks and recorded review for the exact final commit; no direct main pushes, force-pushes or automatic production deployment under the procedure. GitHub cannot enforce these branch restrictions on the current plan; someone with write access can bypass them. No author self-approval is labelled independent. | Before public access, require server-enforced PR/check/review requirements and a second qualified reviewer; reassess sooner if write access or automated deployment expands. This new enforcement exception remains pending owner approval. A paid plan alone does not supply a reviewer. |
+ 
+ Pen testing and AI red-team assessment remain due before the first public cohort
+ **or** checkout/enrollment, whichever comes first. Checkout identity, separate
+@@ -374,8 +385,8 @@
+ |---|---|---|---|
+ | D1 | Cloud provider and region | AWS or Google Cloud (existing open decision) | BAAs, the edge choice, deployment |
+ | D2 | Edge and bot service for health-data paths | Cloudflare Enterprise with a BAA; or the cloud provider's own edge under its BAA, with Turnstile standalone | Gate 1 |
+-| D3 | Budget ceilings | Anonymous pool per hour and per day; total monthly model budget | Gate 1 |
+-| D4 | Safety cap multiple before shadow data | About 20× the persona-runner estimate of one completed decision, or another value | Gate 1 |
++| D3 | Pilot budget ceiling | D99 approved one $100 cumulative whole-pilot model limit; per-participant usage reporting; no monetary sublimits or calendar reset | Gate 1 implementation/verification remains |
++| D4 | Pilot safety cap before shadow data | D99 uses the shared $100 ceiling without a personal/session dollar cap; retain request bounds and in-flight reservations. Later public/checkout policy remains separate | Gate 1 implementation/verification remains |
+ | D5 | Extend the trace contract with numeric usage fields | Record as an amendment to the content-free trace rule | Shadow mode |
+ | D6 | Record Option B as a numbered decision | Existing open item | Gate 2 |
+ 
+--- docs/reviews/pilot-security-stage1-2026-11-07/DECISIONS.md (before)
++++ docs/reviews/pilot-security-stage1-2026-11-07/DECISIONS.md (D99)
+@@ -1,7 +1,8 @@
+ # Pilot security: decisions for Chris
+ 
+-November 7, 2026. **Recommendations awaiting approval.** D98 authorizes stage-1
+-drafting and developer protections only. This packet addresses SA-27, SA-02,
++November 7, 2026, updated under D99. **The $100 total pilot budget and
++per-participant tracking are approved direction; other decisions remain pending.**
++D98 authorizes stage-1 drafting and developer protections. This packet addresses SA-27, SA-02,
+ SPEC-D3/D4/D5 and preparation for SA-01/SA-06/SA-17; it preserves D64/D73,
+ the existing D86/D90 local budgets, source STOPs and release/acceptance gates.
+ 
+@@ -25,67 +26,49 @@
+ 
+ Decision: **Approve / amend / reject this exact scope and exception list.**
+ 
+-## 2. Approve a $100 model-spend envelope, not a cloud purchase
++## 2. Approved: one $100 total pilot model budget
+ 
+-These are deliberately small operating limits, **not measured cost forecasts**.
+-Twenty people × an illustrative $1 journey × three attempts = $60, leaving
+-contingency. The $1 assumption is unmeasured; do not claim it predicts completion
+-or authorizes paid testing. The controls need metering and reconciliation before
+-activation. A fixed provisional cap is the proposed SPEC-D4 alternative to the
+-spec's unmeasured 20× persona-runner estimate.
++**D99 owner decision:** “lets just have a 100 dollar limit on the pilot and we
++track how much each user goes through.” This replaces the earlier layered
++SPEC-D3/D4 budget proposal. The amount is an allowance, not a cost forecast.
+ 
+-| Control | Proposed setting | Meaning |
+-| --- | --- | --- |
+-| Provider organization ceiling | $100 per UTC calendar month | Backstop for pilot model calls only; retain a separate fictional-development organization/account and keys. |
+-| Application pilot ceiling | $90 across the entire pilot, without a month-boundary reset | Includes every classifier, summarizer, main call, retry and uncertain charge. Leaves $10 below the provider ceiling for reconciliation/in-flight differences. That $10 is not a discretionary extra allowance. |
+-| Guest/no-saved-profile pool | $60 for the pilot; provider workspace limit $65/month | Invited guests still need an invitation; “anonymous” means no saved identity, not public access. |
+-| Saved-profile pool | $30 for the pilot; provider workspace limit $35/month | Available only after saving permission and SA-12 pass. If saving stays disabled, this pool stays unavailable; a transfer needs a recorded budget configuration decision. |
+-| Checkout/enrollment pool | $0; server-disabled | No checkout, SMS, enrollment or paid third-party API usage in this scope. |
+-| Burst ceiling | $10 across all pilot model calls per rolling hour | An additional shared admission limit; not $10 per participant. |
+-| Daily ceiling | $25 across all pilot model calls per UTC day | Stop admitting new paid work at the limit. |
+-| Per-session allowance | $5 | Provisional safety allowance, not an observed p99 or a forecast. |
+-| Per-invitation allowance | $10 across sessions | A new window/session cannot reset a participant's cumulative allowance. A returning saved profile retains its original invitation/pool accounting. |
+-| Spend alerts | 50%, 80%, 100% of each configured ceiling | For the $90 usable cohort budget: $45 / $72 / $90. Also alert on provider/cloud thresholds. Alerts do not stop charges. |
++| Control | Setting / behavior |
++| --- | --- |
++| Whole-pilot limit | **$100 cumulative model spend**, shared across all participants and all pilot sessions, without a calendar-month reset. |
++| Individual usage | Track each participant's cumulative dollars, tokens and sessions using an opaque participant/invitation reference. Reporting only: no personal dollar cap. Returning sessions retain the same participant attribution. |
++| Sublimits | None per hour, day, session, invitation or guest/saved pool. Remove the $90/$10 split and fixed reserve bucket. Guest/saved labels may classify usage but do not allocate money. |
++| Included charges | Every pilot model stage, classifier, summarizer, retry and unresolved/in-flight charge. Failed or abandoned sessions still count. Shared/unattributable charges count against the total and appear separately in reports. |
++| Stop behavior | Admit paid work only when its conservative reservation fits within the remaining $100. Settle actual usage and release only known-unused reservations. Stop new paid calls when no room remains or accounting integrity fails. |
+ 
+-All applicable limits must have room for a conservative reservation **before**
+-each paid request, including bounded output and permitted recovery. Reserve and
+-settle atomically across session, invitation, pool and total budgets. Do not
+-interrupt an already admitted response just because an app threshold is reached;
+-the provider may still reject a call at its own cap. Keep tools/progress usable
+-with an honest chat-paused message. Existing and saved sessions may continue
+-within their reserved/separate funds; no group is promised service beyond the
+-global ceiling. Founder review can increase a person's allowance within the
+-unchanged cohort total; any increase to total spending is a new decision.
++Reservations are temporary accounting for calls already in progress, **not an
++extra quota or a withheld $10 allowance**. They prevent concurrent requests from
++each spending the same remaining dollars. Keep bounded output/retries and
++idempotent settlement; do not treat missing usage or ambiguous network failures
++as free. Preserve progress and explain when chat is paused. A new session,
++invitation replacement or calendar rollover must not replenish the pilot total.
++Because there is no personal quota, one participant could consume much of the
++shared allowance; the per-participant report makes that visible.
+ 
+-A missing ledger, unknown price, missing usage or ambiguous network failure
+-cannot become a zero-cost call. Keep its conservative reservation until
+-reconciled; if accounting integrity is unavailable, stop new paid admissions.
+-The current best-effort tracing wrapper is not this enforcement ledger.
+-No automatic failover to another provider or paid service is authorized.
++The next implementation must reconcile against provider usage, retain tested
++kill switches and use any verified provider limit as a backup. A provider's
++monthly limit alone does not enforce a whole-pilot limit spanning months.
++Optional alerts at $50/$80/$100 are notifications, not additional ceilings.
++The current best-effort traces do not yet enforce this budget.
+ 
+-**Separate cloud budget:** model limits do not cap hosting, database, storage,
+-email, GitHub Actions or other cloud bills. Prepare cloud alerts at 50/80/100%
+-of a **proposed $100/month planning threshold**, with an owner escalation before
+-provisioning; this is neither a hosting quote nor a hard cloud cap. Exact hosting
+-costs, region, contracts and provisioning still need their own reviewed plan.
+-The existing $5/provider/UTC-day local development allowances remain unchanged;
+-this proposal does not authorize any agent-run paid/live conversation test.
++This decision concerns model/API usage in the prior budget proposal. Hosting,
++database, storage, email and GitHub bills require separate cost control; this
++does not authorize purchases. Checkout/enrollment and other paid actions remain
++outside the proposed pilot scope. Existing local development allowances remain
++unchanged; no agent-run paid/live conversation test is authorized.
+ 
+-**Provider feasibility:** the current Anthropic documentation supports separate
+-workspace limits under an organization limit. Its Build tier's $1,000 monthly
+-cap is above this proposal; no tier upgrade is justified for this pilot. Actual
+-account/contract eligibility and supported features still require verification.
+-[Official limits](https://platform.claude.com/docs/en/api/rate-limits), checked
+-November 7, 2026. Billing alerts can lag and cannot substitute for admissions
+-controls and the three tested kill switches in spec §3.7.
+-
+-Decision: **Approve / amend / reject SPEC-D3 and SPEC-D4 above.** Approval records
+-the future configuration; it does not claim that the controls are installed or
+-permit pilot traffic before Gate 1 evidence is accepted.
++**Status: budget direction and per-participant tracking approved November 7,
++2026 (D99). Runtime enforcement is not installed.** Detailed logging fields and
++retention remain decision 3; pilot traffic still requires accepted launch gates.
+ 
+ ## 3. Approve only the numeric usage extension
+ 
+-**Recommend SPEC-D5:** add a versioned, fixed-schema usage record with strict
++**D99 approves tracking each participant's usage. Recommend SPEC-D5 details:**
++add a versioned, fixed-schema usage record with strict
+ types and retention, detailed in [LOGGING_PROPOSAL.md](LOGGING_PROPOSAL.md).
+ Existing trace fields already include tokens/model/stage/latency; reuse those
+ instead of adding arbitrary metadata. New fields supply dollar accounting,
+@@ -109,7 +92,7 @@
+ 
+ Decision: **Approve / amend / reject this numeric field and retention contract.**
+ 
+-## 4. Keep GitHub private and resolve enforcement/review
++## 4. Revised recommendation: private GitHub Free with compensating controls
+ 
+ **Observed November 7:** the repository is private, and the actual `main`
+ protection API returns HTTP 403: “Upgrade to GitHub Pro or make this repository
+@@ -117,12 +100,40 @@
+ native secret scanning/push protection cannot be claimed verified. Existing local
+ and CI checks work independently of that feature.
+ 
+-**Recommend:** keep the repository private and approve GitHub Pro for this
+-personal-account repository, at the price shown in your billing checkout. Do
+-not change visibility to get free controls. Then enforce PRs, up-to-date
+-`repository-checks` and `dependency-security`, resolved conversations, no
+-force-pushes/deletion, and application to administrators. No purchase or settings
+-change has been made by this packet. [Official protection availability](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
++**Recommend now:** keep the repository private on Free during solo development.
++Pro is not needed to finish the engineering work or run the checks. It adds
++server enforcement of protected branches/required reviews for this private
++personal repository. [GitHub plan comparison](https://docs.github.com/en/get-started/learning-about-github/githubs-plans),
++[protection availability](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
++
++| Free control | Actual status / next action |
++| --- | --- |
++| Local secret/publication checks | Hook active in this checkout; its older index still requires deliberate policy-file reconciliation. Install in each clean development checkout. Local hooks are bypassable. |
++| Automated tests and dependency scanning | Both checks passed in draft PR #4; merge is pending. Check the final commit's results before every merge, including after follow-up edits. |
++| Dependabot alerts and update proposals | Alerts/security updates verified enabled; expanded Python update configuration is in PR #4. Review updates; no automatic merging. |
++| PR-only work and founder review | Use branches, inspect the diff/outgoing history, record founder review and passing check links for the exact commit. No direct main pushes or force-pushes under the procedure; GitHub Free cannot enforce this private-branch rule. |
++| Small access surface | Retain founder-only write access and passkeys/recovery; review authorized apps/tokens and grant only needed scope. Personal authentication and permissions still need verification. |
++| Release control | Proposed next stage: founder approves an exact tested revision for deployment; no automatic production deploy on a main-branch change, and no production credentials in routine PR CI. Not installed by this packet. |
++| CI cost control | Use included Actions compute/storage, inspect account billing budgets and block paid overage where supported. Existing billing settings were not changed or verified. Retain release evidence before artifacts expire. |
++
++Dependabot and dependency inventories are available without a paid security
++product. Our local/CI scanners do not imply GitHub-native private secret push
++protection, and Pro alone does not supply that product.
++[Security feature availability](https://docs.github.com/en/code-security/getting-started/github-security-features).
++Private-repository Actions have included usage and separate storage allowances;
++they are not unlimited. If a payment method is present, verify spending budgets
++before relying on a no-overage assumption.
++[Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions).
++
++**Residual gap:** a credential with write permission can bypass the procedure
++and push/merge failing or unreviewed code. More CI, CODEOWNERS or local hooks
++cannot replace server-side rejection. Keep SA-02's enforcement item open unless
++the owner accepts the specific temporary exception in the scope amendment.
++This recommendation can support a small founder-operated invite-only pilot
++after that approval and the other launch gates; it is not itself pilot approval.
++Before public access, implement enforced PR/check/review requirements and a
++second qualified reviewer. Revisit earlier if write access or automated
++deployment expands. No purchase, visibility or settings change was made.
+ 
+ **Review is a separate decision:** @cpuglis1 is the sole assigned maintainer.
+ Recommend the temporary founder review procedure in decision 1 for agent-authored
+@@ -131,9 +142,10 @@
+ exception; never label author self-review independent. If you do not accept this
+ temporary procedure, assign a second reviewer before pilot code is accepted.
+ 
+-Decision: **Approve private + Pro; accept the temporary founder review procedure
+-or name a second reviewer now.** I can prepare/apply the exact protection once
+-the plan permits it. The purchase and personal authentication are your actions.
++Decision: **Accept private + Free and the temporary manual enforcement/review
++procedure for the bounded pilot, or retain server enforcement as a pre-pilot
++requirement.** This is still pending; the owner's question about alternatives
++does not approve the exception. PR #4 review/merge remains a separate action.
+ 
+ ## Your account-security actions (SA-01 preparation)
+ 
+@@ -149,9 +161,12 @@
+ | Decision | Status | Owner/date |
+ | --- | --- | --- |
+ | Pilot scope and exact exception list | Pending | — |
+-| SPEC-D3/D4 budgets and fixed provisional safety cap | Pending | — |
+-| SPEC-D5 numeric fields and retention | Pending | — |
+-| Private GitHub plan and reviewer procedure | Pending | — |
++| SPEC-D3/D4: one $100 whole-pilot model limit; no dollar sublimits | Approved direction; runtime pending | Chris / 2026-11-07 / D99 |
++| Track cumulative usage per participant | Approved direction; instrumentation pending | Chris / 2026-11-07 / D99 |
++| SPEC-D5 exact numeric fields and retention | Pending | — |
++| Private GitHub Free and temporary manual enforcement/reviewer procedure | Proposed; pilot exception pending | — |
++| PR #4 review and merge | Pending | — |
+ 
+-Approval must be recorded against this version in the owner requirements,
+-directive history and current-state document. No checkbox is pre-approved.
++The D99 budget/tracking decision is recorded in owner requirements, directive
++history, master design and current state. Record any remaining approvals against
++this revised version; do not infer blanket approval from decision 2.
+--- docs/reviews/pilot-security-stage1-2026-11-07/LOGGING_PROPOSAL.md (before)
++++ docs/reviews/pilot-security-stage1-2026-11-07/LOGGING_PROPOSAL.md (D99)
+@@ -1,7 +1,8 @@
+ # SPEC-D5: proposed content-free usage contract
+ 
+-November 7, 2026 · Draft, awaiting owner approval. SA-06/SA-17 preparation only;
+-no schema migration, new retention or instrumentation activated by this file.
++November 7, 2026 · D99 approves per-participant usage tracking against one $100
++whole-pilot limit. Exact schema and retention below remain proposed. SA-06/SA-17
++preparation only; no migration, new retention or instrumentation activated.
+ 
+ ## Existing contract
+ 
+@@ -21,7 +22,7 @@
+ 
+ | Field group | Allowed values | Purpose |
+ | --- | --- | --- |
+-| Linkage | Random opaque cohort/session/invitation references; no email/name hash or content-derived identifier | Relate calls and cumulative allowance without saving identity or conversation. A restricted mapping remains outside telemetry. |
++| Linkage | Random opaque cohort/participant/session/invitation references; no email/name hash or content-derived identifier | Relate calls and cumulative participant usage across sessions without a personal quota or conversation content. A restricted mapping remains outside telemetry. |
+ | Classification | Fixed pool (`guest`, `saved`, `checkout_disabled`), approved provider/model/pricing revision, fixed stage and event enums | Attribute cost, reproduce pricing and reject routing drift. Never accept a client-supplied model/pool label as authorization. |
+ | Timing | Server timestamp, duration milliseconds, active-duration milliseconds | Reconcile charges and session lengths. No location or raw network/device identifier. |
+ | Usage | Nonnegative integer input/output/cache-read/cache-write tokens, turn count, tool calls by approved tool-type enum, cache-hit count | Measure activity; never tool arguments/results, document titles or free-form tool names. |
+@@ -60,6 +61,14 @@
+ claim a stable p99 from 20 participants. Reconcile provider totals and retain
+ evidence that the budget/kill-switch tests worked.
+ 
++The founder's restricted report must also show each opaque participant's total
++settled cost, separate unresolved reservations, tokens, session count and
++completed/incomplete sessions across the whole pilot. Keep shared/unattributable
++cost separate but included in the $100 total. Guest/saved classifications do not
++create pool allowances. No hourly, daily, session or participant dollar ceiling;
++no calendar or return-visit reset. Do not double-count reservations as settled
++spend. User-level reports stay in the approved operations environment.
++
+ ## Acceptance work after approval
+ 
+ Fictional tests must prove strict field rejection/redaction, isolation, concurrent
+--- docs/reviews/pilot-security-stage1-2026-11-07/README.md (before)
++++ docs/reviews/pilot-security-stage1-2026-11-07/README.md (D99)
+@@ -1,13 +1,14 @@
+ # Pilot security stage 1: drafts and development protections
+ 
+-November 7, 2026 · D98 · SA-27 / SA-02 / SPEC-D3–D5; SA-01 preparation.
++November 7, 2026 · D98/D99 · SA-27 / SA-02 / SPEC-D3–D5; SA-01 preparation.
+ 
+ ## Ready for owner decisions
+ 
+-- [Concrete approval packet](DECISIONS.md): 20-person invite-only scope through
+-  December 23; exact temporary deferrals; $100 provider ceiling / $90 usable
+-  pilot model budget; numeric usage logging and retention; private GitHub plan
+-  and review procedure.
++- [Updated decision packet](DECISIONS.md): D99 approves one $100 whole-pilot
++  model limit with per-participant usage tracking and no dollar sublimits.
++  Runtime implementation remains open. The 20-person invite-only scope through
++  December 23, exact deferrals, logging schema/retention and temporary private
++  GitHub Free enforcement/review procedure still await approval.
+ - [Spec §8.1 draft amendment](../../company/LAUNCH_SECURITY_SPEC_2026-11-06.md#81-proposed-invite-only-gate-1-amendment--november-7-2026).
+ - [Typed logging proposal](LOGGING_PROPOSAL.md), including the separate unresolved
+   study-transcript decision. No logging or transcript retention was activated.
+@@ -101,10 +102,13 @@
+ 
+ ## Limits and remaining work
+ 
+-1. Owner approval of the exact scope, budget, logging contract and account/review
+-   choices; no exception or new spending/retention is effective yet.
++1. Owner approval of the exact scope, detailed logging/retention contract and
++   GitHub enforcement/review exception. D99 approves the $100 total budget and
++   participant tracking direction; enforcement is not yet implemented.
+ 2. Review/merge PR #4, then confirm default-branch Dependabot/schedule operation.
+-   Plan upgrade is needed for server-enforced required checks on this private repo.
++   Free supports the prepared checks; a paid plan is needed for server-enforced
++   required checks on this private repo. The proposed manual pilot exception is
++   pending, and SA-02 enforcement is not complete.
+ 3. SA-01 personal passkeys/recovery and founder access review; production access
+    roles/customer-access logging remain next-stage work.
+ 4. SA-11/26/12/06 implementation, deployed verification and SA-17 metering before

@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34582,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6749,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 259,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7008
+    },
+    "text": "{\"question_target\":\"T08\",\"reply\":\"Yes—those two priorities can push the choice in different directions. If keeping any U.S. doctor who takes Medicare matters most, Original Medicare is usually broader for provider access; with Medicare Advantage, doctor access depends on the specific plan, so you have to check whether your doctor participates. For travel, Original Medicare is often simpler within the U.S. because there is no plan network to match, while Medicare Advantage can have plan-specific rules and provider participation that vary by plan. Since you do not know what your doctor accepts yet, the key point is that doctor access under Advantage cannot be assumed—we would need to check the exact plan and doctor.\",\"question\":\"Will you need routine care away from home?\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"],\"agenda_update\":{\"current_concern\":\"travel and keeping doctor\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"original_provider_access\",\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 6.079921,
+  "turn": 3,
+  "event": "relevant_tradeoff",
+  "fictional_inputs": true
+}

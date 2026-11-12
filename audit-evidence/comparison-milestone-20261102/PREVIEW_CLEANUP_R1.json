@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-11-02T16:39:16.282512+00:00",
+  "obsolete_baseline_preview": {
+    "port": 8917,
+    "verified_pid": 81184,
+    "verified_command": "server.py --fixture --port8917 --database/private/tmp/daylight-milestone-20261102-before/guides.sqlite3",
+    "stop": "SIGTERM"
+  },
+  "merged_disposable_preview": {
+    "port": 8918,
+    "verified_pid": 20513,
+    "verified_command": "run_actual_journey.py --serve8918",
+    "stop": "SIGINT; normal finally closes server and exits TemporaryDirectory context",
+    "exit_code": 130,
+    "keyboard_interrupt_expected": true
+  },
+  "post_stop_lsof_both_ports_empty": true,
+  "owned_tab_closed": true,
+  "user_app8893_kept_running": true,
+  "customer_profiles_deleted_or_migrated": false
+}

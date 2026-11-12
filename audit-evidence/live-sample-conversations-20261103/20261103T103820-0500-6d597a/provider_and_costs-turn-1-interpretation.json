@@ -1,0 +1,279 @@
+{
+  "raw_proposal": {
+    "updates": [
+      {
+        "id": "RC01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "self"
+          }
+        ],
+        "quote": "for myself",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T03",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "county",
+            "value": "Collier County"
+          }
+        ],
+        "quote": "in Collier County",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "compare"
+          }
+        ],
+        "quote": "I'm checking Medicare coverage for myself in Collier County.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T06",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "list"
+          },
+          {
+            "key": "text",
+            "value": "cardiologist"
+          }
+        ],
+        "quote": "I'd like to keep my cardiologist",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T10",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "doctors"
+          }
+        ],
+        "quote": "I'd like to keep my cardiologist",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T10",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "total_cost"
+          }
+        ],
+        "quote": "understand what visits could cost",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "costs",
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "doctors",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "I'd like to keep my cardiologist"
+        },
+        {
+          "topic": "total_cost",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "understand what visits could cost"
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "situation_proposals": [],
+    "goal_quote": "I'm checking Medicare coverage for myself in Collier County. I'd like to keep my cardiologist and understand what visits could cost.",
+    "education_request": {
+      "kind": "explain",
+      "concept_ids": [
+        "coverage_paths"
+      ],
+      "quote": "Where should I start?"
+    }
+  },
+  "validated": {
+    "updates": [
+      {
+        "id": "RC01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "self"
+          }
+        ],
+        "quote": "for myself",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T03",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "county",
+            "value": "Collier County"
+          }
+        ],
+        "quote": "in Collier County",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "compare"
+          }
+        ],
+        "quote": "I'm checking Medicare coverage for myself in Collier County.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T06",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "list"
+          },
+          {
+            "key": "text",
+            "value": "cardiologist"
+          }
+        ],
+        "quote": "I'd like to keep my cardiologist",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T10",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "doctors"
+          }
+        ],
+        "quote": "I'd like to keep my cardiologist",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T10",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "total_cost"
+          }
+        ],
+        "quote": "understand what visits could cost",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "costs",
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "doctors",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "I'd like to keep my cardiologist"
+        },
+        {
+          "topic": "total_cost",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "understand what visits could cost"
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "goal_quote": "I'm checking Medicare coverage for myself in Collier County. I'd like to keep my cardiologist and understand what visits could cost.",
+    "education_request": {
+      "kind": "explain",
+      "concept_ids": [
+        "coverage_paths"
+      ],
+      "quote": "Where should I start?"
+    },
+    "situation_proposals": [],
+    "rejected_updates": [],
+    "rejected_situation_proposals": [],
+    "rejected_commands": []
+  }
+}

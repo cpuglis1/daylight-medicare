@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47816,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9163,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 332,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9495
+    },
+    "text": "{\"question_target\":\"T10\",\"reply\":\"They are not the same thing. Medigap is a supplement that works with Original Medicare and helps pay some of your share of Parts A and B costs. Drug coverage is separate on that route. Medicare Advantage is the other route: a private plan that provides Parts A and B instead of getting them through Original Medicare, and most Advantage plans include drug coverage. So if your mother stays with Original Medicare, Medigap is the one that fits with it, not Medicare Advantage.\",\"question\":\"When you compare her options, what matters most right now: keeping doctors, prescriptions, total cost, more predictable bills, travel, something else, or not sure yet?\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\",\"guide.intent.goal\"],\"evidence_refs\":[\"medigap\",\"advantage\",\"options\"],\"agenda_update\":{\"current_concern\":\"difference between Medigap and Medicare Advantage\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"medigap\",\"depth\":\"explored\",\"reason\":\"clarify\",\"aspect_ids\":[\"cost_sharing_role\",\"route_relationship\",\"separate_drugs\"],\"evidence_refs\":[\"medigap\",\"options\"]},{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\"],\"evidence_refs\":[\"advantage\",\"options\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\"],\"blocking_concepts\":[\"coverage_paths\",\"medigap\"],\"next_step\":\"answer\"}}"
+  },
+  "elapsed_seconds": 5.773164
+}

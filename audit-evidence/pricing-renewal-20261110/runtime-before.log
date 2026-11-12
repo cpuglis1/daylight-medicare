@@ -1,0 +1,89 @@
+{
+  "phase": "before",
+  "services": {
+    "8890": {
+      "pids": []
+    },
+    "8891": {
+      "pids": []
+    },
+    "8893": {
+      "pids": [
+        "45639"
+      ],
+      "process": "Tue Nov 10 22:04:42 2026     /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/cep4u/daylight/alternatives/advisor-first/server.py --port 8893 --local-research --identity-research",
+      "config": {
+        "advisorName": "MidMorning",
+        "variant": "D86",
+        "mockAI": false,
+        "modelPolicy": {
+          "version": "D86-ongoing-v3",
+          "reasoning_effort": "none",
+          "output_tokens": 900,
+          "composition_reasoning_effort": "none"
+        },
+        "responseReliabilityContract": "response-reliability-r1",
+        "defaultModel": "gpt-6.1-sol"
+      },
+      "provider_usage": {
+        "OpenAI": {
+          "requestCount": 32,
+          "accountedUsd": 1.5647,
+          "dailyLimitUsd": 15
+        },
+        "Anthropic": {
+          "requestCount": 5,
+          "accountedUsd": 0.55508,
+          "dailyLimitUsd": 15
+        }
+      }
+    },
+    "8894": {
+      "pids": [
+        "91391"
+      ],
+      "process": "Tue Nov 10 17:06:59 2026     /Users/cep4u/anaconda3/bin/python3.10 /Users/cep4u/daylight/alternatives/advisor-first/ui-8894/serve.py",
+      "config": {
+        "advisorName": "MidMorning",
+        "variant": "D86",
+        "mockAI": false,
+        "modelPolicy": {
+          "version": "D86-ongoing-v3",
+          "reasoning_effort": "none",
+          "output_tokens": 900,
+          "composition_reasoning_effort": "none"
+        },
+        "responseReliabilityContract": "response-reliability-r1",
+        "defaultModel": "gpt-6.1-sol"
+      },
+      "provider_usage": {
+        "OpenAI": {
+          "requestCount": 32,
+          "accountedUsd": 1.5647,
+          "dailyLimitUsd": 15
+        },
+        "Anthropic": {
+          "requestCount": 5,
+          "accountedUsd": 0.55508,
+          "dailyLimitUsd": 15
+        }
+      }
+    },
+    "8896": {
+      "pids": []
+    }
+  },
+  "store_tables": {
+    "alternatives/advisor-first/var/profiles/guides.sqlite3": {
+      "guests": 8,
+      "readiness": 0,
+      "readiness_requests": 0,
+      "requests": 0
+    },
+    "cms-slice/var/ai-budget/usage.sqlite3": {
+      "advisor_charge_models": 1234,
+      "ai_charges": 1234,
+      "ai_meta": 2
+    }
+  }
+}

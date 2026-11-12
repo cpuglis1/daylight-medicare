@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34591,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6741,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 3840
+      },
+      "output_tokens": 295,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7036
+    },
+    "text": "{\"question_target\":\"T10\",\"reply\":\"No—these are usually two different ways to get your Medicare coverage, not two policies you buy together. Original Medicare means Part A and Part B through the federal program; Medicare Advantage is a private plan that provides your Part A and Part B instead. If you choose Original Medicare, you can add a separate drug plan and maybe Medigap; Medigap does not go with Medicare Advantage, and you still pay the Part B premium either way.\",\"question\":\"What matters most when we compare your options first—doctors, prescriptions, total cost, predictable costs, travel, something else, or not sure yet?\",\"education_followups\":[\"How is Medigap different from Medicare Advantage?\",\"Do most Medicare Advantage plans include drug coverage?\"],\"report_refs\":[],\"evidence_refs\":[\"options\",\"routesintro\"],\"agenda_update\":{\"current_concern\":\"understanding Original Medicare vs Medicare Advantage\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"options\",\"routesintro\"]},{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"route_relationship\",\"separate_drugs\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 5.372728,
+  "turn": 2,
+  "event": "unknown_preference_and_misconception",
+  "fictional_inputs": true
+}

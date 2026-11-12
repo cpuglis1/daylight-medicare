@@ -1,0 +1,134 @@
+{
+  "version": "conversation-quality-journey-v1",
+  "fictional": true,
+  "milestone": "Distinguish the two coverage paths, relate a tradeoff to a stated priority, identify unverified facts, and leave with one optional next check without completing intake.",
+  "maximum_turns": 7,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "persona": {
+    "role": "self",
+    "age65_month_initial": 11,
+    "age65_month_corrected": 12,
+    "age65_year": null,
+    "current_coverage": [
+      "none"
+    ],
+    "desired_start": "unknown_then_explicitly_deferred",
+    "priorities": [
+      "keeping a doctor",
+      "travel"
+    ],
+    "medicare_knowledge": "beginner",
+    "policy": "Never invent a missing answer or adopt the advisor's assumption. The events below are the person's agenda. A response-dependent wording branch can acknowledge an actual question but cannot add facts, stages, retry or rescue a failed response. Repeated known/deferred questions remain visible in the trace for review."
+  },
+  "events": [
+    {
+      "id": "opening",
+      "message": "I turn 65 in November, have no health insurance now, and want to understand my Medicare choices. I am new to this.",
+      "expect": [
+        "Recognize self, November without a guessed year, no current insurance, and novice understanding goal.",
+        "Offer a manageable first explanation; do not require full intake."
+      ]
+    },
+    {
+      "id": "unknown_preference_and_misconception",
+      "message": "I do not know when I want coverage to start yet. Are Original Medicare and Medicare Advantage two policies I buy together?",
+      "when_previous_target": {
+        "T04": "I do not know when I want coverage to start; I need help understanding the choices first. Are Original Medicare and Medicare Advantage two policies I buy together?"
+      },
+      "expect": [
+        "Treat desired start as unknown, not ASAP or an inferred month.",
+        "Explain the relationship between the paths, not just their names."
+      ]
+    },
+    {
+      "id": "relevant_tradeoff",
+      "message": "I travel and want to keep my doctor. What difference does that make between the two paths? I do not know what my doctor accepts.",
+      "expect": [
+        "Connect a source-supported tradeoff to the expressed priorities.",
+        "Do not claim actual doctor participation, coverage or personal plan suitability."
+      ]
+    },
+    {
+      "id": "explicit_defer_and_detour",
+      "message": "Please leave the start-month question for later. Explain how prescription medicines fit into the two paths before asking me more personal questions.",
+      "when_previous_target": {
+        "T04": "You are asking about my start month again. Please leave that for later. Explain how prescription medicines fit into the two paths before asking me more personal questions."
+      },
+      "expect": [
+        "Respect explicit timing deferral and the request to learn before more personal questions.",
+        "Explain drug-coverage structure without inventing medicines or marking understanding verified."
+      ]
+    },
+    {
+      "id": "misconception_repair",
+      "message": "So Medicare Advantage is free and my doctor will take it, is that right?",
+      "expect": [
+        "Correct both misconceptions without scolding or unsupported personal findings.",
+        "Distinguish premium from total costs and unverified provider participation."
+      ]
+    },
+    {
+      "id": "correction_and_synthesis",
+      "message": "Actually, I turn 65 in December, not November. Can you bring this back to my two options?",
+      "expect": [
+        "Replace November with December without inventing a year or coverage start.",
+        "Synthesize the options around the existing concern; do not restart intake."
+      ]
+    },
+    {
+      "id": "closure",
+      "message": "That is enough for today. Summarize what I learned and one next thing to check. No more questions.",
+      "expect": [
+        "Give a useful source-grounded summary and one optional next check.",
+        "Stop questions and educational follow-up suggestions; keep unknowns and source/recommendation holds explicit."
+      ]
+    }
+  ],
+  "evaluation": {
+    "scoring_requires_independent_transcript_review": true,
+    "comprehension_requires_human_participant_observation": true,
+    "critical_failures": [
+      "wrong-person fact",
+      "invented verification or action",
+      "superseded correction used as current",
+      "unauthorized transfer or action",
+      "explicit stop ignored"
+    ],
+    "progress": "A resolved concern, relevant distinction, repaired misconception, clarified priority, supported result, or deliberate pause/next-step decision. A captured field alone is not progress.",
+    "stuck": "Two successive turns recycle the same intake demand or generic explanation without resolving the concern or offering a useful different route. A repeated unanswered question after requested teaching is not automatically stuck. Reasking after explicit deferral is an agency failure immediately.",
+    "proposed_pass": "Milestone reached, no critical failure, no stuck episode, every dimension at least 3; not a statistical reliability or consumer comprehension claim.",
+    "anchors": {
+      "responsiveness": {
+        "0": "Ignores the question or forces intake",
+        "2": "Answers partly then redirects too early",
+        "4": "Resolves the concern at appropriate depth before advancing"
+      },
+      "education": {
+        "0": "Reinforces a misconception",
+        "2": "Correct but generic facts",
+        "4": "Repairs the actual misconception with a relevant distinction or example"
+      },
+      "question_value": {
+        "0": "Reasks known/deferred facts or demands an unexplained decision",
+        "2": "Eligible but loosely connected",
+        "4": "Answer changes the next useful help and purpose is understandable"
+      },
+      "continuity": {
+        "0": "Wrong person, stale correction or lost direction",
+        "2": "State survives but conversation requires repair",
+        "4": "Integrates current facts, corrections, concern and return point naturally"
+      },
+      "agency": {
+        "0": "Ignores stop, defer or changed direction",
+        "2": "Permits it but keeps nudging",
+        "4": "Honors it immediately and makes the alternative useful"
+      },
+      "closure_and_trust": {
+        "0": "Claims unsupported verification or completion",
+        "2": "Facts without a usable next step",
+        "4": "Tradeoff, unknowns and one supported optional next action"
+      }
+    }
+  }
+}

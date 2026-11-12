@@ -1,0 +1,124 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "timestamp": "2026-10-20T02:48:06.947+00:00",
+  "meta": {
+    "lastUpdated": "2026-10-20T02:48:06.947+00:00",
+    "versionId": "d270cffb-5c38-4a51-b189-9151f7476115"
+  },
+  "entry": [
+    {
+      "fullUrl": "https://fhir.humana.com/api/InsurancePlan/9ce4f07c1ea5e158de5509a0ec5aeab7f45edb72bff663509c45557a1f969fa5",
+      "search": {
+        "mode": "match"
+      },
+      "resource": {
+        "resourceType": "InsurancePlan",
+        "id": "9ce4f07c1ea5e158de5509a0ec5aeab7f45edb72bff663509c45557a1f969fa5",
+        "identifier": [
+          {
+            "system": "https://fhir.humana.com/documentation/glossary/PlanId",
+            "value": "H1036-217-000-2027"
+          }
+        ],
+        "status": "unknown",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://fhir.humana.com/documentation/glossary/PlanType",
+                "code": "HMO"
+              }
+            ]
+          }
+        ],
+        "name": "Humana Gold Plus",
+        "alias": [
+          "Humana Gold Plus H1036-217 (HMO)"
+        ],
+        "period": {
+          "start": "2027-01-01"
+        },
+        "ownedBy": {
+          "reference": "https://fhir.humana.com/api/Organization/67c29814ee1eb20b1be2c2c692cfdd2cfb84e919a867998eccd1762b7b785780",
+          "display": "Humana"
+        },
+        "administeredBy": {
+          "reference": "https://fhir.humana.com/api/Organization/67c29814ee1eb20b1be2c2c692cfdd2cfb84e919a867998eccd1762b7b785780",
+          "display": "Humana"
+        },
+        "coverageArea": [
+          {
+            "reference": "https://fhir.humana.com/api/Location/233b4b418e2acf62ef39494e7972128876aeb6f32d895f80a9ab7d239a76ac91",
+            "display": "DeSoto, FL"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Location/828ed2c1f7a558c3d8115f8893d323e618a8ccff4772fd6a96967ccacb9daaac",
+            "display": "Charlotte, FL"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Location/23c398cec2df910cba7d52076372e3e603e2bc964d3ac06ed9286801587a28e0",
+            "display": "Collier, FL"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Location/3f0f19bb994905727cd0b5308135ea494710c778702a012152174bcdad7a89f2",
+            "display": "Lee, FL"
+          }
+        ],
+        "network": [
+          {
+            "reference": "https://fhir.humana.com/api/Organization/9e50c09b83691e1e151adce8e7255981154a3af8099fe25e1867518af5075fd6",
+            "display": "FL Medicare HMO"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/2eeb48f98dc2107843d831b978766d9c37af09ac26724a9987ed3f4337d4dda9",
+            "display": "CAREington Medicare"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/464ef8dd779a6f2e4cdf9372b3e21dba554f447fe22f65994fc1fc1e2fc9fe65",
+            "display": "Long Term Care Network"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/10ab332314a1a845b73bf0dd65c9dc8f06bee476a59be274ba08bce756e6cd4d",
+            "display": "Humana National Rx Plan (MAPD) Network - 2024"
+          },
+          {
+            "reference": "https://fhir.humana.com/api/Organization/8272b8c7ecd4ddb7986924abfd544f3edc6ca8e50b8df9b30a3af7345c43e3db",
+            "display": "Humana Value Rx Plan (PDP) Network - 2025 & Humana Premier Rx Plan (PDP) Network - 2024"
+          }
+        ],
+        "plan": [
+          {
+            "identifier": [
+              {
+                "system": "https://fhir.humana.com/documentation/glossary/PlanId",
+                "value": "H1036-217-000-2027"
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "https://fhir.humana.com/documentation/glossary/PlanType",
+                  "code": "MA-PD",
+                  "display": "Plan offers both medical and pharmacy benefits."
+                }
+              ]
+            }
+          }
+        ],
+        "meta": {
+          "versionId": "69dc8ae1-8d7b-439a-bbcf-500eaa4a10dc",
+          "lastUpdated": "2026-10-05T10:44:54.938+00:00"
+        }
+      }
+    }
+  ],
+  "total": 1,
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://fhir.humana.com/api/InsurancePlan?identifier=H1036-217-000-2027&_total=estimate&_count=2&_skip=0"
+    }
+  ],
+  "id": "99dbd183-a8a6-4310-a132-7e8c09486755"
+}

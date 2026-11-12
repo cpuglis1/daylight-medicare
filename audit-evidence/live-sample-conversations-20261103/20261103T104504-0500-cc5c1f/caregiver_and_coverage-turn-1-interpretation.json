@@ -1,0 +1,173 @@
+{
+  "raw_proposal": {
+    "updates": [
+      {
+        "id": "RC01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "someone"
+          }
+        ],
+        "quote": "I'm helping my mother understand Medicare.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "compare"
+          }
+        ],
+        "quote": "We need to work out coverage and practical help",
+        "scope": "current",
+        "subject": "learner",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "RC02",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "details"
+          },
+          {
+            "key": "city",
+            "value": "Naples"
+          }
+        ],
+        "quote": "She lives in Naples.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "coverage_paths",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "We need to work out coverage and practical help"
+        },
+        {
+          "topic": "learning",
+          "subject": "learner",
+          "scope": "current",
+          "status": "open",
+          "quote": "I'm not sure where to start."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "situation_proposals": [],
+    "goal_quote": "We need to work out coverage and practical help",
+    "education_request": {
+      "kind": "clarify",
+      "concept_ids": [
+        "coverage_paths"
+      ],
+      "quote": "I'm not sure where to start."
+    }
+  },
+  "validated": {
+    "updates": [
+      {
+        "id": "RC01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "someone"
+          }
+        ],
+        "quote": "I'm helping my mother understand Medicare.",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "compare"
+          }
+        ],
+        "quote": "We need to work out coverage and practical help",
+        "scope": "current",
+        "subject": "learner",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "coverage_paths",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "We need to work out coverage and practical help"
+        },
+        {
+          "topic": "learning",
+          "subject": "learner",
+          "scope": "current",
+          "status": "open",
+          "quote": "I'm not sure where to start."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "goal_quote": "We need to work out coverage and practical help",
+    "education_request": {
+      "kind": "clarify",
+      "concept_ids": [
+        "coverage_paths"
+      ],
+      "quote": "I'm not sure where to start."
+    },
+    "situation_proposals": [],
+    "rejected_updates": [
+      {
+        "id": "RC02",
+        "reason": "unsupported_report"
+      }
+    ],
+    "rejected_situation_proposals": [],
+    "rejected_commands": []
+  }
+}

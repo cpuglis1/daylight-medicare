@@ -1,0 +1,115 @@
+{
+  "maximumAdditionalReservationUsd": 0.1675,
+  "maxAdditionalGenerationStages": 5,
+  "fictionalInputs": true,
+  "automaticRetries": false,
+  "savedProfile": false,
+  "extractReasoning": "none",
+  "resume": "Prior accepted fictional reports refreshed into a new server visit; no extraction repeated.",
+  "checks": "failed",
+  "failure": "{'status': 'unavailable', 'retryable': False, 'reason': 'This conversation move does not ask a new question.'}",
+  "generationStageCount": 5,
+  "measuredEstimateUsd": 0.047563,
+  "heldUsd": 0.0,
+  "outputs": [
+    {
+      "case": "targeted-compose",
+      "message": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.",
+      "seconds": 3.258,
+      "reply": "Prescription coverage can be part of what you compare later, and your preferred Medicare start may be different from your wife\u2019s job coverage ending.",
+      "question": "When would you like Medicare coverage to start?",
+      "target": "T04",
+      "generated": {
+        "status": "complete",
+        "move": "T04"
+      }
+    },
+    {
+      "case": "asap",
+      "message": "ASAP!!",
+      "seconds": 4.63,
+      "reply": "Okay \u2014 we can look at the soonest option.",
+      "question": "What ZIP code do you live in?",
+      "target": "T03",
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      }
+    },
+    {
+      "case": "education",
+      "message": "I haven't applied yet. Before we keep going, what is Part B?",
+      "seconds": 4.14,
+      "reply": "Your details are here. I couldn\u2019t finish the response just now, but we can continue.",
+      "question": null,
+      "target": null,
+      "generated": {
+        "status": "unavailable",
+        "retryable": false,
+        "reason": "This conversation move does not ask a new question."
+      }
+    }
+  ],
+  "timings": [
+    {
+      "case": "targeted-compose",
+      "stage": "daylight_resolved_conversation",
+      "part": "count_tokens",
+      "seconds": 0.62
+    },
+    {
+      "case": "targeted-compose",
+      "stage": "compose",
+      "part": "whole_stage",
+      "seconds": 3.255
+    },
+    {
+      "case": "asap",
+      "stage": "daylight_guide_commands",
+      "part": "count_tokens",
+      "seconds": 0.28
+    },
+    {
+      "case": "asap",
+      "stage": "extract",
+      "part": "whole_stage",
+      "seconds": 2.492
+    },
+    {
+      "case": "asap",
+      "stage": "daylight_resolved_conversation",
+      "part": "count_tokens",
+      "seconds": 0.22
+    },
+    {
+      "case": "asap",
+      "stage": "compose",
+      "part": "whole_stage",
+      "seconds": 2.125
+    },
+    {
+      "case": "education",
+      "stage": "daylight_guide_commands",
+      "part": "count_tokens",
+      "seconds": 0.281
+    },
+    {
+      "case": "education",
+      "stage": "extract",
+      "part": "whole_stage",
+      "seconds": 1.794
+    },
+    {
+      "case": "education",
+      "stage": "daylight_resolved_conversation",
+      "part": "count_tokens",
+      "seconds": 0.225
+    },
+    {
+      "case": "education",
+      "stage": "compose",
+      "part": "whole_stage",
+      "seconds": 2.337
+    }
+  ]
+}

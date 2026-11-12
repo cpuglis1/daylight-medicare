@@ -1,0 +1,35 @@
+Daylight composition unavailable code=missing_coverage_reference question_available=True
+{"case": "self", "turn": 1, "generated": {"status": "unavailable", "retryable": false, "reason": "A personal insurance statement needs its resolved coverage report.", "code": "missing_coverage_reference"}, "reply": "", "question": "What health insurance do you have now?", "visual": "none", "seconds": 7.698}
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "token_checks": [
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6701,
+      "history_exchanges": 0
+    },
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5702,
+      "history_exchanges": 0
+    }
+  ],
+  "error": {
+    "type": "AssertionError",
+    "message": "Live composition did not complete; inspect trace before further calls."
+  },
+  "all_turns_complete": false,
+  "generation_stages_reserved": 2,
+  "measured_usd": 0.0330805,
+  "accounted_usd": 0.0330805
+}

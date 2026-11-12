@@ -1,0 +1,1110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+    <link rel="shortcut icon" type="image/x-icon" href="/Tools/favicon.ico" />
+
+    <title>Plan Details Page - Tools</title>
+
+    <link rel="stylesheet" href="/Tools/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Tools/css/mvc-grid/mvc-grid.css" />
+    <link rel="stylesheet" href="/Tools/css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" async>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link href="https://kendo.cdn.telerik.com/themes/11.3.2/bootstrap/bootstrap-main.css" rel="stylesheet" type="text/css" />
+
+    <!-- jas added -->
+    <link rel="stylesheet" href="https://www.youroptimumhealthcare.com/themes/custom/OPT_2020/css/menu.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Mulish:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Tools/css/site.css" />
+
+
+
+    <link rel="stylesheet" media="all" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+
+    <style>
+
+    .requiredField:after {
+        content: " *";
+        color: #B94a48;
+    }
+
+    .requiredBeforeField:before {
+        content: "* ";
+        color: #B94a48;
+    }
+
+    </style>
+
+
+
+    <script src="/Tools/js/jquery-3.7.1.min.js"></script>
+    <script src="/Tools/js/mvc-grid/mvc-grid.js"></script>
+    <script src="/Tools/js/jquery-ui.js"></script>
+    <script src="//code.iconify.design/1/1.0.0-rc2/iconify.min.js"></script>
+
+    <script src="/Tools/js/inputmask/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="/Tools/js/moment.min.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-sliderAccess.js" type="text/javascript"></script>
+    <script src="/Tools/js/jquery-ui-timepicker-addon-i18n.js" type="text/javascript"></script>
+    <script src="/Tools/js/bootstrap.bundle.js"></script>
+
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2025.3.812/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2025.3.812/js/kendo.aspnetmvc.min.js"></script>
+
+    <script src="/Tools/js/kendo-ui-license.js"></script>
+
+
+
+    <script>
+        document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+    </script>
+
+
+
+        <style type="text/css">
+
+            /* aqua 2020 */
+
+            .btn-primary    
+            {
+                background-color: #005f68 !important;
+            }
+
+            .bg-primary {
+                background-color: #005f68 !important;
+            }
+
+
+            .popover {
+                border: 2px solid #005f68;
+            }
+
+            .popover-header {
+                background: #005f68;
+                color: white;
+            }
+
+            .popover-body {
+                color: #005f68;
+            }
+
+        </style>
+    <style>
+
+        #fontslider-box-vl {
+            position: absolute;
+            right: 278px;
+            bottom: 26px;
+            border-radius: 8px;
+        }
+
+        /* The slider itself */
+        .slider {
+            -webkit-appearance: none; /* Override default CSS styles */
+            appearance: none;
+            width: 70px;
+            height: 14px;
+            outline: none; /* Remove outline */
+            -webkit-transition: width 1s ease-in-out;
+            transition: width 1s ease-in-out;
+            border-radius: 8px; /* Makes the edges curved*/
+            cursor: pointer;
+            background: blue;
+            border: 1px solid black;
+            padding: 5px;
+            position: absolute;
+            bottom: 1px;
+        }
+
+            /* Mouse-over effects */
+            .slider:hover {
+                opacity: 1; /* Fully shown on mouse-over */
+            }
+            /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none; /*Override default look */
+                appearance: none;
+                width: 25px; /*Set a specific slider handle width */
+                height: 25px; /*Slider handle height */
+                cursor: pointer; /*Cursor on hover */
+                border-radius: 4px; /* Makes the edges curved*/
+                border: 1px solid #c5c5c5;
+                background: #f6f6f6;
+                font-weight: normal;
+                color: #454545;
+            }
+
+            .slider::-moz-range-thumb {
+                -webkit-appearance: none; /*Override default look */
+                appearance: none;
+                width: 25px; /*Set a specific slider handle width */
+                height: 25px; /*Slider handle height */
+                cursor: pointer; /*Cursor on hover */
+                border-radius: 4px; /* Makes the edges curved*/
+                border: 1px solid #c5c5c5;
+                background: #f6f6f6;
+                font-weight: normal;
+                color: #454545;
+            }
+    </style>
+
+</head>
+<body>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X2EC22RFLG"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-X2EC22RFLG');
+    </script>
+
+    <header id="header" class="masthead mb-auto sticky-top">
+        <div>
+            <div id="block-frh-2020togglermenuwide">
+
+
+
+                <div>
+                    <nav class="container-fluid bg-primary fs-6" id="top-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm order-1 text-light d-flex py-1 my-auto justify-content-start">
+                                    <a href="https://www.youroptimumhealthcare.com/latest-news" class="nav-link p-1 text-light mr-3" title="Important News / Updates, Hurricane Notification, Disaster Guides etc." aria-describedby="default"><i class="bi bi-hurricane mr-1"></i> Important News / Updates</a>
+                                    <a href="https://cwtools.globalmedicareapps.com/tools/ProviderSearch?payerid=OPT" class="nav-link p-1 text-light mr-3" title="Find Provider / Pharmacy " aria-describedby="default"><i class="bi bi-hospital mr-1"></i> Find Provider / Pharmacy</a>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end p-1 order-2">
+                                    <form action="https://www.youroptimumhealthcare.com/search/node" class="d-flex align-items-center justify-content-end w-100 m-0 p-0" method="get" target="_parent" id="frmSearch">
+                                        <div class="form-group d-flex">
+                                            <input type="search" name="keys" class="form-control form-control-sm border-0 rounded-0" placeholder="SEARCH" aria-label="Search Freedom Health" aria-describedby="search-addon">
+                                            <button class="btn btn-primary btn-sm border-0 rounded-0" type="submit" form="frmSearch">
+                                                <i>
+                                                    <span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+                                                </i>
+                                                <span class="visually-hidden">Search</span>
+                                            </button>
+                                                <a class="nav-link py-1 text-light ml-2 langLink spanish-link" data-href="https://espanol.youroptimumhealthcare.com" href="https://espanol.youroptimumhealthcare.com" data-lang="es" mporgnav="href">Espa&ntilde;ol</a>
+                                        </div>
+                                        <!-- Descriptive Element for Aria -->
+                                        <div id="search-addon" class="visually-hidden">
+                                            Enter your search term and press enter.
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+   
+
+                     
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container d-flex justify-content-between align-iteml-end">
+                            <!-- Logo -->
+                                <a class="navbar-brand py-auto" href="https://www.youroptimumhealthcare.com"><img src="https://www.youroptimumhealthcare.com/sites/all/images/OPT_logo.png" alt="https://www.youroptimumhealthcare.com Logo" style="height: 90px; width: auto;" /></a>
+
+                            <!-- Mobile Menu Toggle Button -->
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <!-- Menu Items -->
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul id="menu" class="navbar-nav nav-pills ml-auto mr-auto"></ul>
+                                <!--  MENo -->                            
+
+                            </div>
+                            <a id="member-login-link" href="https://memberportal.globalmedicareapps.com/User/OptimumLogin.aspx?PayerID=37053329-c9fb-4510-8d43-ba741ff351bd&amp;LoginFrom=1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" title="" data-bs-content="Click to go to the Member Portal Login. You can order Over-the-Counter medications and access account information here." style="text-decoration:none" data-original-title="Member Portal"><span class="btn btn-secondary white ml-auto text-nowrap border-0 rounded-0">Member Login</span></a>
+                        </div>
+                    </nav>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="container-fluid mb-3">
+
+        
+
+
+        <main>
+
+            
+<script type="text/javascript">
+
+   // const sanitizer = new Sanitizer();  // Default sanitizer;
+
+    function gotoPopUp(planID, year, payerID) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "POST",
+            data: { planID: encodeURIComponent(planID), year: encodeURIComponent(year), payerID: encodeURIComponent(payerID) },
+            url: '/Tools/Plan/ImportantDocuemnstGrid',
+            success: function (result) {
+                let clean = DOMPurify.sanitize(result, { USE_PROFILES: { html: true } });
+                $("#myModalContentForDocuments").html(clean);
+
+                $('#myModalContentForDocuments').find('a').each(function () {
+                    // console.log($(this).attr('href'));
+                    $(this).attr("target", "_blank");
+                });
+
+                $('#impDocsGrid').modal(options);
+                $('#impDocsGrid').modal('show');
+            },
+            error: function () {
+                alert("Content load failed!");
+            }
+        })
+    }
+    $("#btnCloseForDocs").click(function () {
+        $('#impDocsGrid').modal('hide');
+    });
+
+    $(document).ready(function () {
+        $('[data-bs-toggle="popover"]').popover({ html: true });
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+
+    function RedirectSCHToOEC(buttonvalue, payerId, year, countyvalue, zipvalue, planID, enrollPeriodvalue, fbvalue) {
+        var enrollPeriod_val = '10/15/';
+        var year_val = '2027';
+        var currentDate = new Date();
+        var enrollmentDate = (enrollPeriod_val + (year_val - 1));
+        var enrollmentBeginDate = new Date(enrollmentDate);
+
+        if (currentDate >= enrollmentBeginDate) {
+            $.ajax({
+                url: '/Tools/Plan/RedirectToOECURL',
+                type: "POST",
+                data: { buttonValue: buttonvalue, payerid: payerId, year: year, county: countyvalue, zip: zipvalue, planId: planID, fbValue: fbvalue },
+                timeout: 0,
+                async: true,
+                success: function (result) {
+                    window.open(result, '_blank');
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+
+            });
+        }
+        else {
+            $('#dialog').html('Annual Enrollment Period begins on ' + enrollmentDate);
+            $('#dialog').dialog('open');
+            return false;
+        }
+
+    }
+
+    // $(document).ready(function () {
+    //     $(".aProductMsg").click(function (e) {
+    //         var aClicked = $(this);
+    //         var url = aClicked.attr("href");
+    //         var r = confirm("You will be leaving our website and directed to another site. Click OK to continue or click cancel to stay on the plan website");
+    //         if (r === true) {
+    //             window.location = url;
+    //         }
+    //         else {
+    //             e.preventDefault();
+    //         }
+    //     });
+    // });
+
+
+</script>
+
+<div class="row mb-4 mt-2">
+    <div class="col-md-1 mx-auto row align-items-baseline" style=" color: #d0d0d0;font-size: 25pt;display:block; ">
+        <p>2027</p>
+    </div>
+    <div class="col-md-10">
+        The benefit information provided is a summary of what we cover and what you pay.
+        It does not list every service that we cover or list every limitation, co-payment or restriction.
+        Benefits, premiums and/or co-payments/co-insurance may change on Jan 1 of each year.
+        To get a complete list of services we cover, please review the "Evidence of Coverage".
+    </div>
+    <div class="col-md-1 mx-auto row align-items-baseline" style=" color: #d0d0d0;font-size: 25pt;display:block; ">
+        <p>2027</p>
+    </div>
+
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <div id="SearchGrid">
+            <div id="PlanDetails" class="mt-3">
+                <table id="tblSearchResults" class="table table-striped table-bordered table-hover table-sm">
+                    <thead style="background-color:darkgrey;">
+                        <tr>
+                            <th scope="col" width="35%">
+                                Plan Name
+                                <button type="button" id="btnPlanName11" class="pull-right" style="background-color:darkgrey; color: black; border:none;" data-bs-toggle="popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-html="true" title="Plan Name" data-bs-content="Plan Name">
+                                    <span class="iconify" data-icon="mdi-help-circle"></span>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                Monthly Premium
+                                <button type="button" id="btnMPremium" class="pull-right" style="background-color:darkgrey; color: black; border:none;" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-html="true" title="Monthly Premium" data-bs-content="The monthly fee paid by you to the plan in exchange for prescription drug coverage. Premiums do not count toward your total drug costs">
+                                    <span class="iconify" data-icon="mdi-help-circle"></span>
+                                </button>
+                            </th>
+                                <th scope="col">
+                                    Part B Premium Reduction
+                                </th>
+                            <th scope="col">
+                                Doctor's Visit
+                                <button type="button" id="btnDocVisit" class="pull-right" style="background-color:darkgrey; color: black; border:none;" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-html="true" title="Doctor's Visit" data-bs-content="For each medicare covered visit <br />Authorization Rules may apply">
+                                    <span class="iconify" data-icon="mdi-help-circle"></span>
+                                </button>
+                            </th>
+                            <th scope="col">Part B Drug Coverage</th>
+                            <th scope="col">
+                                Out of Pocket <br /> Cost
+                                <button type="button" id="btnOutofPocketCost" class="pull-right" style="background-color:darkgrey; color: black; border:none;" data-bs-toggle="popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-html="true" title="Out of Pocket Cost<br /> (For Medicare covered services)" data-bs-content="This is the highest amount of money you have to pay out of your pocket for cost sharing (copayments and coinsurance) charged for certain covered services during a calendar year. Not all copayments or coinsurance amounts you pay apply toward the annual out-of-pocket maximum. See the plans Evidence of Coverage (EOC) for more information">
+                                    <span class="iconify" data-icon="mdi-help-circle"></span>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                Deductible
+                                <button type="button" id="btnDeductible" class="pull-right" style="background-color:darkgrey; color: black; border:none;" data-bs-toggle="popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-html="true" title="Deductible" data-bs-content="The pre-set, fixed amount you must pay for healthcare costs before the insurance company or Medicare begins to pay">
+                                    <span class="iconify" data-icon="mdi-help-circle"></span>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <html>
+<body>
+<p><b>Optimum Diamond Savings (HMO C-SNP)<br>
+</b>Plan Type: Chronic Special Needs Plans<br>
+Plan Number: 030</p>
+</body>
+</html>
+
+                                        <button type="button" id="PlanApplyOnlineModal" data-id="OP27030" class="btn btn-primary" value="OP27030">
+                                            Apply Online
+                                        </button>
+
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary" id="btnImportantDocuments" onclick="gotoPopUp('OP27030','2027','OPT')">
+                                    Important Documents
+                                </button>
+                            </td>
+                            <td><html>
+<body>
+<p>$0.00</p>
+</body>
+</html>
+</td>
+                                <td><html>
+<body>
+<p>Optimum HealthCare, Inc. will reduce your Medicare Part B premium by up to $65.00<br>
+You must continue to pay your Medicare Part B premium unless your Part B premium is paid for you by Medicaid or another third party.</p>
+</body>
+</html>
+</td>
+                            <td><html>
+<body>
+<p>Primary $0.00 copayment per visit. Your Primary Care Physician (PCP) will coordinate the covered services you receive as a member of our plan.<br>
+<br>
+$30.00 copayment per visit.<br>
+Referral may be required.<br>
+Prior authorization may be required.<br>
+<br>
+Specialists<br>
+Separate copay may apply for each additional service received at an office visit.<br>
+</p>
+</body>
+</html>
+</td>
+                            <td><html>
+<body>
+<p>20% coinsurance for chemotherapy drugs and for other Part B drugs.<br>
+Prior authorization may be required.<br>
+For Part B insulins, you pay $35.00 for a one-month supply.<br>
+You may pay less for certain rebatable drugs. This list and the cost of each rebatable drug changes every quarter.<br>
+Please refer to your Evidence of Coverage for more details.</p>
+</body>
+</html>
+</td>
+                            <td><html>
+<body>
+<p>$5,000.00 annually<br>
+(does not include Part D prescription drugs)<br>
+This is the most you pay for copays, coinsurance and other costs for medical services for the year.<br>
+Contact the Plan for details on what is covered in the maximum out-of-pocket.</p>
+</body>
+</html>
+</td>
+                            <td><html>
+<body>
+<p>$0.00 These plans do not have a deductible.</p>
+</body>
+</html>
+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <tr>
+                <td width="30%">
+                    <label id="InpatientHospitalCare" class="text-info">Inpatient Hospital Care</label>
+                </td>
+                <td>
+                    <html>
+<body>
+<p>$195.00 copayment each day for days 1 to 7 and $0.00 copayment each day for days 8 to 90 per admission.<br>
+Referral may be required.<br>
+Prior authorization may be required. <br>
+<br>
+</p>
+</body>
+</html>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <label id="SkilledNursingFacility" class="text-info">Skilled Nursing Facility</label>
+                </td>
+                <td>
+                    <html>
+<body>
+<p>$0.00 copayment each day for days 1 to 20.<br>
+$218.00 copayment each day for days 21 to 100.<br>
+Referral may be required.<br>
+Prior authorization may be required <br>
+Our plan covers up to 100 days in a SNF per benefit period.</p>
+</body>
+</html>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <label id="AmbulanceServices" class="text-info">Ambulance Services</label>
+                </td>
+                <td>
+                    <html>
+<body>
+<p>$200.00 copayment for Medicare-covered one-way ground ambulance services.<br>
+20% coinsurance for Medicare-covered one-way air ambulance services.<br>
+Prior authorization may be required.</p>
+</body>
+</html>
+
+                </td>
+            </tr>
+                <tr>
+                    <td width="30%">
+                        <label id="MedicalEquipmentSupplies" class="text-info">Medical Equipment/Supplies</label>
+                    </td>
+                    <td>
+                        <html>
+<body>
+<p>Durable medical equipment (e.g., wheelchairs, oxygen) 20% coinsurance<br>
+<br>
+Prosthetics (e.g., braces, artificial limbs) 20% coinsurance<br>
+Prior authorization may be required.<br>
+We cover all medically necessary durable medical equipment covered by Original Medicare.</p>
+</body>
+</html>
+
+                    </td>
+                </tr>
+            <tr>
+                <td width="30%">
+                    <label id="DiagnosticTests" class="text-info">Diagnostic Tests</label>
+                </td>
+                <td>
+                    <html>
+<body>
+<p>Diagnostic radiology services (e.g., ultrasound, MRI, CAT scan) $25.00-$195.00 copayment depending on the service and location.<br>
+<br>
+Lab services $0.00-$50.00 copayment depending on the location.<br>
+<br>
+Diagnostic tests and procedures $0.00-$195.00 copayment or a 20% coinsurance depending on the service and location.<br>
+<br>
+Outpatient X-rays $0.00-$195.00 copayment depending on the location.<br>
+<br>
+Therapeutic radiology 20% coinsurance for Medicare-covered therapeutic radiology services.<br>
+Referral may be required.<br>
+Prior authorization may be required.</p>
+</body>
+</html>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <label id="OverTheCounter" class="text-info">Over the Counter</label>
+                </td>
+                <td>
+                    <html>
+<body>
+<p>This plan covers certain approved, non-prescription, over-the-counter drugs and health-related items, up to $30.00 every month.
+<br>
+Please contact the plan or visit our website for specific instructions for using this benefit and our list of covered over-the-counter items.<br>
+Call Member Services at 1-866-245-5360, TTY users call 711, or visit our website at www.youroptimumhealthcare.com
+<br>
+Unused OTC amounts expire at the end of each month.Unused OTC amounts expire at the end of each month.
+</p>
+</body>
+</html>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <label id="PreventiveServices" class="text-info">Preventive Services</label>
+                </td>
+                <td>
+                    <html>
+<body>
+<p>$0.00 copayment<br>
+Referral may be required.<br>
+Prior authorization may be required.<br>
+Please refer to your Evidence of Coverage for a list of covered preventive care services. Any additional preventive services approved by Medicare during the contract year will be covered.</p>
+</body>
+</html>
+
+                </td>
+            </tr>
+                    <tr>
+                        <td width="30%">
+                            <label id="HealthyGroceries" class="text-info">Everyday Options Allowance</label>
+                        </td>
+                        <td>
+                            <html>
+<body>
+<p>Not covered</p>
+</body>
+</html>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            <label id="PERS" class="text-info">PERS</label>
+                        </td>
+                        <td>
+                            <html>
+<body>
+<p>Not covered</p>
+</body>
+</html>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            <label id="FlexAccountActiveFitness" class="text-info">Active Fitness/Flex Fitness</label>
+                        </td>
+                        <td>
+                            <html>
+<body>
+<p>Not covered</p>
+</body>
+</html>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            <label id="HealthClubWellnessFitness" class="text-info">Health Club/Wellness Fitness</label>
+                        </td>
+                        <td>
+                            <html>
+<body>
+<p>$0.00 copayment <br>
+SilverSneakers® Fitness Program<br>
+Health club memberships are limited to participating facilities.<br>
+<br>
+$0.00 copayment<br>
+24/7 Nurseline<br>
+Health advice from a nursing professional, available 24 hours a day, 7 days a week.</p>
+</body>
+</html>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td width="30%">
+                                <label id="HearingServices" class="text-info">Hearing Services</label>
+                            </td>
+                            <td>
+                                <html>
+<body>
+<p>Hearing exam/hearing aid fitting-evaluation $0.00 copayment for Medicare-covered diagnostic hearing exam.<br>
+$0.00 copayment for one routine hearing exam and one hearing aid fitting-evaluation every year.<br>
+<br>
+Hearing aids $0.00 copayment for two hearing aids (1 per ear) every year.<br>
+Our plan pays up to a maximum of $1,000.00 ($500.00 per hearing aid) for hearing aid benefit every year.<br>
+You are responsible for payment of any amount in excess of the maximum $1,000.00 ($500.00 per hearing aid).</p>
+</body>
+</html>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">
+                                <label id="DentalServices" class="text-info">Dental Services</label>
+                            </td>
+                            <td>
+                                <html>
+<body>
+<p>$0.00 copayment for Medicare-covered dental services.<br>
+Prior authorization may be required.<br>
+<br>
+Preventive dental services $0.00 copayment<br>
+This plan covers: 2 oral exams, 2 emergency exams, 2 prophylaxis cleanings, 2 fluoride treatments and dental X-rays every year.<br>
+<br>
+Comprehensive dental services $0.00 copayment<br>
+This plan covers up to: 2 resin or amalgam fillings, 2 simple or surgical extractions (in 1 or more visits), 2 periodontal maintenance procedures, 1 periodontal scaling and root planing per quadrant every year, and 1 full mouth debridement every 2 years.</p>
+</body>
+</html>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">
+                                <label id="VisionServices" class="text-info">Vision Services</label>
+                            </td>
+                            <td>
+                                <html>
+<body>
+<p>$0.00 copayment for Medicare-covered eye exam.<br>
+Eye exam $0.00 copayment for 1 routine eye exam every year by an optometrist.<br>
+Eye exams to diagnose and treat diseases and conditions of the eye by an Ophthalmologist are subject to the Specialist copay.<br>
+Services must be performed by a participating Vision provider.<br>
+You pay nothing for exams to diagnose and treat diseases and conditions of the eye by an Optometrist.<br>
+<br>
+Eyeglasses (lenses and frames) $0.00 copayment<br>
+for Medicare-covered eyewear (one pair of eyeglasses which includes frame and plastic lens or contact lenses) after cataract surgery.<br>
+$10.00 copayment for the plan coverage limit of 1 pair of eyeglasses or contact lenses every year.
+<br>
+$30.00 copayment for CR-39 lenses.<br>
+The plan coverage limit is $150.00 for 1 pair of eyeglasses or contact lenses every year.<br>
+You will be responsible for the $10.00 copayment and any amount over the plan benefit maximum of $150.00 for 1 pair of eyeglasses or contact lenses every year.</p>
+</body>
+</html>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">
+                                <label id="EmergencyCare" class="text-info">Emergency Care</label>
+                            </td>
+                            <td>
+                                <html>
+<body>
+<p>$130.00 copayment<br>
+$500.00 copayment for each emergency service, urgent service and emergency transportation outside the U.S. $100,000.00 plan coverage limit for emergency services, urgent services and emergency transportation outside the U.S. every year. Contact the plan for details.</p>
+</body>
+</html>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">
+                                <label id="UrgentlyneededServices" class="text-info">Urgently Needed Services</label>
+                            </td>
+                            <td>
+                                <html>
+<body>
+<p>$10.00 copayment <br>
+$500.00 copayment for each emergency service, urgent service and emergency transportation outside the U.S. $100,000.00 plan coverage limit for emergency services, urgent services and emergency transportation outside the U.S. every year. Contact the plan for details.</p>
+</body>
+</html>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">
+                                <label id="MentalHealthServices" class="text-info">Mental Health Services</label>
+                            </td>
+                            <td>
+                                <html>
+<body>
+<p>Inpatient visit $195.00 copayment each day for days 1 to 7 and $0.00 copayment each day for days 8 to 90 per admission.<br>
+<br>
+Outpatient group/individual therapy visit $30.00 copayment for outpatient group/individual therapy visit.<br>
+Referral may be required.<br>
+Prior authorization may be required.</p>
+</body>
+</html>
+
+                            </td>
+                        </tr>
+        </table>
+    </div>
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <label for="lblRefreshDate"> Last Updated: 10/13/2026</label>
+        <br />
+            <p>
+                <strong>Optimum HealthCare, Inc.</strong> is an HMO with a Medicare contract and a contract with the state of Florida Medicaid program. Enrollment depends on contract renewal. Optimum HealthCare complies with applicable federal civil rights laws and does not discriminate on the basis of race, color, national origin, age, disability, or sex.
+            </p>
+            <p>
+                Every year, Medicare evaluates plans based on a 5-star rating system.
+            </p>
+            <p>
+                <strong>Optimum HealthCare, Inc.</strong> has been approved by the National Committee for Quality Assurance (NCQA) to operate as a Chronic Condition Special Needs Plan (C-SNP) through 2027 and a Dual Special Needs Plan (D-SNP) through 2027 based on a review Optimum HealthCare, Inc.'s Model of Care.
+            </p>
+            <p>
+                <span lang="ht">Optimum HealthCare, Inc. cumple con las leyes federales de derechos civiles aplicables y no discrimina por motivos de raza, color, nacionalidad, edad, discapacidad o sexo. Optimum HealthCare, Inc. konfòm ak lwa sou dwa sivil Federal ki aplikab yo e li pa fè diskriminasyon sou baz ras, koulè, peyi orijin, laj, enfimite oswa sèks.</span>
+            </p>
+            <p>
+                <span lang="ht"><strong>Español (Spanish):</strong> ATENCIÓN: Si habla español, tiene a su disposición servicios gratuitos de asistencia lingüística. Llame al <strong>1-866-245-5360 (TTY: 711)</strong>.</span>
+            </p>
+            <p>
+                <span lang="ht"><strong>Kreyòl Ayisyen (French Creole):</strong> ATANSYON: Si w pale Kreyòl Ayisyen, gen sèvis èd pou lang ki disponib gratis pou ou. Rele <strong>1-866-245-5360 (TTY: 711)</strong>.</span>
+            </p>
+            <p>
+                These materials may be made available in alternate formats (e.g., large print, Braille) to individuals with disabilities, upon request.
+            </p>
+            <p>
+                The beneﬁts mentioned are Special Supplemental Beneﬁts for the Chronically Ill (SSBCI). You may qualify for SSBCI if you have a high risk for hospitalization and require intensive care coordination to manage chronic conditions such as Chronic Kidney Diseases, Chronic Lung Disorders, Cardiovascular Disorders, Chronic Heart Failure, or Diabetes. For a full list of chronic conditions or to learn more about other eligibility requirements needed to qualify for SSBCI beneﬁts, please refer to Chapter 4 in the plan’s Evidence of Coverage.
+            </p>
+            <p>
+                The SilverSneakers fitness program is provided by Tivity Health, an independent company. SilverSneakers and the SilverSneakers shoe logotype are registered trademarks of Tivity Health, Inc. SilverSneakers On-Demand and SilverSneakers GO are trademarks of Tivity Health, Inc. © 2025 Tivity Health, Inc. All rights reserved.
+            </p>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ApplyOnlineModal" tabindex="-1" role="dialog" data-bs-dismiss="modal" aria-labelledby="ApplyOnlineModallabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="PlanOnlinetitle">Member Question</h5> 
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="applyOnlineModalMessage">
+                            <p>
+                                Existing members can now change their plan by logging into the Member Portal website by clicking the <strong>&quot;Existing Member&quot;</strong> button below.
+                                Once inside the site you can click on the <strong>&quot;Request Plan Change&quot;</strong> link from the Member Portal home page.
+                                If you are <strong>NOT</strong> currently a registered Member Portal member, please click the <strong>&quot;New Enrollee&quot;</strong> link below.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-12" style="text-align:center;">
+                            <input type="hidden" name="planID" id="planID" value="" />
+                            <div id="applyOnlineDefaultActions">
+                                <button type="button" class="btn btn-primary" id="BtnYes" name="BtnYes" onclick="URLRedirectToOEC('Yes', 'OPT', '2027', 'Collier', '34102', 'False')">Existing Member</button>
+                                <button type="button" class="btn btn-secondary" id="BtnNo" name="BtnNo" onclick="URLRedirectToOEC('No', 'OPT', '2027', 'Collier', '34102', 'False')">New Enrollee</button>
+                            </div>
+                            <div id="applyOnlineSuppressedActions" style="display:none;">
+                                <button type="button" class="btn btn-primary" id="BtnContinueToMedicare" name="BtnContinueToMedicare">Continue</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="ApplyOnlineModalclose" data-bs-dismiss="modal" class="btn btn-danger text-white">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog" style="display: none">
+</div>
+
+<script>
+    var defaultApplyOnlineMessage = '';
+    var medicareGovUrl = 'https://www.medicare.gov/';
+
+    function setApplyOnlineModalMode(isSuppressed) {
+        if (!defaultApplyOnlineMessage) {
+            defaultApplyOnlineMessage = $('#applyOnlineModalMessage').html();
+        }
+
+        if (isSuppressed) {
+            $('#applyOnlineModalMessage').html('<p>You’ll be directed to Medicare.gov to continue exploring the Medicare plan you selected. On Medicare.gov, you’ll be able to review more information about the plan and continue with the next steps.</p><p>Click Continue to leave this website and visit Medicare.gov</p>');
+            $('#applyOnlineDefaultActions').hide();
+            $('#applyOnlineSuppressedActions').show();
+        }
+        else {
+            $('#applyOnlineModalMessage').html(defaultApplyOnlineMessage);
+            $('#applyOnlineSuppressedActions').hide();
+            $('#applyOnlineDefaultActions').show();
+        }
+    }
+
+    function configureApplyOnlineModal(planIdValue, yearValue) {
+        return $.ajax({
+            url: '/Tools/Plan/GetApplyOnlineModalMode',
+            type: 'GET',
+            data: { planId: planIdValue, year: yearValue },
+            timeout: 0,
+            async: true
+        }).done(function (result) {
+            setApplyOnlineModalMode(result && result.isSuppressed === true);
+        }).fail(function () {
+            setApplyOnlineModalMode(false);
+        });
+    }
+
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            title: '', // Leave title empty
+            width: 500,
+            open: function () {
+                // Set HTML title after dialog is opened
+                var htmlTitle = '<span>Enrollment Alert Message</span><button type="button" class="ui-dialog-titlebar-close custom-dialog-close" aria-label="Close" style="float:right;border:none;background:transparent;font-size:1.5rem;line-height:1;color:#000;cursor:pointer;">&times;</button>';
+                $('.ui-dialog-titlebar').html(htmlTitle);
+
+                // Attach close event to custom close button
+                $('.custom-dialog-close').off('click').on('click', function () {
+                    $("#dialog").dialog("close");
+                });
+            },
+            buttons: {
+                OK: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+    $(document).on("click", "#PlanApplyOnlineModal", function (e) {
+        e.preventDefault();
+
+        var enrollPeriod_val = '10/15/';
+        var year_val = '2027';
+        var currentdate = new Date();
+        var enrollmentBeginDate = (enrollPeriod_val + (year_val - 1));
+        var enrollmentDate = new Date(enrollmentBeginDate);
+
+        if (currentdate >= enrollmentDate) {
+            var _self = $(this);
+
+            var myplanId = _self.data('id');
+            $("#planID").val(myplanId);
+
+            configureApplyOnlineModal(myplanId, year_val).always(function () {
+                $('#ApplyOnlineModal').modal('show');
+            });
+        }
+        else
+        {
+            // PlanApplyOnlineModal would display here, so do not show ApplyOnlineModal
+            $('#ApplyOnlineModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            $('#dialog').html('Annual Enrollment Period begins on ' + enrollmentBeginDate);
+            $('#dialog').dialog('open');
+            return false;
+        }
+
+    });
+
+    function URLRedirectToOEC(buttonvalue, payerId, year, countyvalue, zipvalue ,fbvalue) {
+
+        var planIdValue = $("#planID").val();
+
+        $.ajax({
+            url: '/Tools/Plan/RedirectToOECURL',
+            type: "POST",
+            data: { buttonValue: buttonvalue, payerid: payerId, year: year, county: countyvalue, zip: zipvalue, planId: planIdValue,  fbValue: fbvalue },
+            timeout: 0,
+            async: true,
+            success: function (result) {
+                $("#ApplyOnlineModal").modal('hide');
+                window.open( result, '_blank');
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+
+        });
+
+    }
+
+    $(document).on('click', '#BtnContinueToMedicare', function () {
+        $('#ApplyOnlineModal').modal('hide');
+        window.open(medicareGovUrl, '_blank');
+    });
+
+</script>
+<div id="impDocsGrid" class="modal fade" tabindex="-1" role="dialog" style="display:none;" aria-labelledby="impDocsGridModalLabel">
+    <div class="modal-dialog modal-xl w-50">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title lead text-info" id="impDocsGridModalLabel"><b>Important Documents</b></div>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body" id='myModalContentForDocuments'></div>
+            <div class="modal-footer">
+                <input type="button" value="Close" id="btnCloseForDocs" data-bs-dismiss="modal" class="btn btn-primary text-white " />
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="custom-modal" id="confirmation-modal">
+                <div class="modal-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="d-flex justify-content-end">
+                                <span id="close-btn" data-bs-dismiss="modal">×</span>
+                            </div>
+                            <div class="col-sm-6 m-auto">
+                                <div class="modal-body" id="modal-message"><p class="lead">Would you like to leave our website and visit <strong class="primary">Member Login</strong>?</p><p><small>By clicking <strong>"Continue"</strong>, you will be directed to an <mark style="background-color: palegoldenrod; color: var(--bs-highlight-color, #212529); padding: .2em;">external website in a new window</mark>.<br>If you prefer to stay on <strong>YourOptimumHealthCare.com</strong>, please click <strong>"Cancel"</strong>.</small></p></div>
+                                <div class="modal-footer">
+                                    <button id="continue-btn" type="button" class="btn btn-primary me-2">Continue</button>
+                                    <button id="cancel-btn" type="button" class="btn btn-outline-secondary btn-sm">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <span class="AntiForge"> <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KN6a2kZt_9KvA47owq8xtDTRGByTEExHqDX41zkpXQesJXalJ7tXomTHhp-2myHKTm-mpcjf77oLIhPbzCqzbMMucfWsM6oFtNu3xbbCVi6YAMJAQ97Y1p17ieSCLwkECVzCb7-hZbUPeMeDM6mTv8" /> </span>
+    </div>
+
+    <footer class="footer bg-dark text-white">
+
+        <!-- Copyright -->
+        <div class="container-fluid bg-black">
+            <div class="row align-items-center g-0 px-4 py-2">
+                <!-- Desc -->
+                <div class="col-12">                  
+                    <div>
+                       Y0114_27_3022215_0000_U_M
+                        &nbsp; | &nbsp; <span class="copyright">© 2026 Optimum Healthcare</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <div>
+        <div class="telbar2">
+                <span class="left">Toll Free 1-866-245-5360 TTY/TDD: 711</span>
+            <span class="right">
+
+            </span>
+        </div>
+    </div>
+
+
+
+    <script src="/Tools/js/jquery.validate.js"></script>
+    <script src="/Tools/js/jquery.validate.unobtrusive.js"></script>
+	<script src="/Tools/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive-bootstrap@2.2.0/dist/unobtrusive-bootstrap.min.js"></script>
+
+    <script src="/Tools/js/site.js?v=CPBnQZH9UZC7dEP1indrcI5OdokK4icPpJFQpEb19xc"></script>
+
+
+    <script src="/Tools/js/validate.js?v=5XuNAghsUZybhqrhZV4_S8yWX8WldFILTrrD8UC2S4k" type="text/javascript"></script>
+    <script src="/Tools/js/purify.js?v=z7PP2aVNrjjNmOqx7L8sN7c8gIHmbRpMjevD77k0D0k"></script>
+
+
+
+    <script src="https://www.youroptimumhealthcare.com/themes/custom/OPT_2020/js/menu.js"></script>
+
+
+    <script>
+        // Fetch and process JSON data
+        fetch("/Tools/OPTmenu.json")
+            .then(response => response.json())
+            .then(jsonData => {
+                buildMenu(jsonData);
+            })
+            .catch(error => {
+                console.error("Error fetching JSON data:", error);
+            });
+
+        (function () {
+            var memberLoginLink = document.getElementById("member-login-link");
+            var confirmationModal = document.getElementById("confirmation-modal");
+            var closeBtn = document.getElementById("close-btn");
+            var cancelBtn = document.getElementById("cancel-btn");
+            var continueBtn = document.getElementById("continue-btn");
+            var memberLoginUrl = "";
+
+            if (!memberLoginLink || !confirmationModal || !closeBtn || !cancelBtn || !continueBtn) {
+                return;
+            }
+
+            function closeModal() {
+                confirmationModal.style.display = "none";
+            }
+
+            memberLoginLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                memberLoginUrl = memberLoginLink.getAttribute("href") || "";
+                confirmationModal.style.display = "block";
+            });
+
+            closeBtn.addEventListener("click", closeModal);
+            cancelBtn.addEventListener("click", closeModal);
+
+            continueBtn.addEventListener("click", function () {
+                if (memberLoginUrl) {
+                    window.open(memberLoginUrl, "_blank", "noopener,noreferrer");
+                }
+                closeModal();
+            });
+
+            window.addEventListener("click", function (event) {
+                if (event.target === confirmationModal) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+
+
+    
+
+
+
+</body>
+</html>

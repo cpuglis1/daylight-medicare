@@ -1,0 +1,56 @@
+# Directive history
+
+Until November 5, 2026, owner directives were prepended as dated paragraphs to
+the agent entry points. That made `AGENTS.md` 18,896 bytes and the advisor's
+`AGENTS.md` 39,201 bytes, with current and superseded direction interleaved.
+
+On November 5 the owner directed consolidating that history into one living
+document ([CURRENT_STATE.md](CURRENT_STATE.md)) and moving dated history out of
+the agent entry points. The two files below are **byte-exact copies** of the
+entry points as they stood before that change. Nothing was paraphrased or
+removed from them.
+
+| Copy | Original path | Bytes | SHA-256 |
+| --- | --- | --- | --- |
+| [AGENTS.root.2026-11-05.md](directive-history/AGENTS.root.2026-11-05.md) | `AGENTS.md` | 18,896 | `1bd7d2cd40ed36bee02b6737d3a694992d53658ee110c82938de27287c218fac` |
+| [AGENTS.advisor-first.2026-11-05.md](directive-history/AGENTS.advisor-first.2026-11-05.md) | `alternatives/advisor-first/AGENTS.md` | 39,201 | `c409d805d86807e9a0d40b6b25ff8de72116b969485acb8f8a1aec938e200600` |
+
+## How to use this history
+
+- Directives here remain binding where a later directive or
+  [CURRENT_STATE.md](CURRENT_STATE.md) has not superseded them.
+- Before changing an area, read its entries and the evidence packet each links.
+- If the consolidated documents and a directive here disagree, treat it as an
+  open question for the owner, not as permission to choose either one.
+
+## New directives
+
+Append below, newest last: date, decision ID, the owner's direction, and the
+evidence link. Then update [CURRENT_STATE.md](CURRENT_STATE.md) in place.
+
+| Date | ID | Direction | Evidence |
+| --- | --- | --- | --- |
+| 2026-11-05 | — | Consolidate governance: short `AGENTS.md` entry points, one living current-state document, dated history preserved here. | [Stack implementation record](STACK_IMPLEMENTATION_2026-11-05.md) |
+| 2026-11-05 | D94 | Proceed with inventory, recovery-first exact deduplication and compact MVP storage preparation within existing local capacity. Preserve every source, critical inference, all 41 meanings, fourteen feature families, holds and exact-purpose gates; report actual space observations and remaining review. | [Storage maintenance](../reviews/storage-maintenance-2026-11-05/README.md) |
+| 2026-11-05 | D94 | Proceed next with the database/index redesign within current space. Preserve every source and MVP feature; verify recovery before retiring anything. This extends the physical database scope while retaining source, privacy and purpose gates. | [Database/index redesign](../reviews/database-redesign-2026-11-05/README.md) |
+| 2026-11-06 | D94 | Reconcile the dependency-lock mismatch while preserving sealed history and current dependency work; rerun verification and explain what remains for review. | [Dependency reconciliation](../reviews/dependency-reconciliation-2026-11-06/README.md) |
+| 2026-11-06 | D95 | Evaluate the database against the AI-native brokerage plan and prepare transition actions. Cloud migration is expected soon; off-machine/PITR work is lower priority than AI-native database readiness. Preserve source/history/MVP and recovery-before-retirement; keep actual-target cutover checks. Evaluation does not authorize deployment or consumer release. | [Database readiness assessment](../reviews/ai-native-database-readiness-2026-11-06/README.md) |
+| 2026-11-06 | D96 | Implement the backend plan for Collier PDP and Medigap data. No UI changes; keep consumer display gated until data approval, and report what is done and remains open. Preserve existing source/history/privacy boundaries; implementation does not supply data approval. | [Backend plan](../reviews/collier-plan-type-backend-2026-11-06/README.md) |
+| 2026-11-07 | D98 | Draft the pilot scope amendment and budget/logging recommendations, and set up the development protections; bring concrete decisions for owner approval. Proposal drafting and SA-02 controls are authorized; scope exceptions, spending/retention changes, purchases and pilot release remain pending. | [Pilot security stage 1](../reviews/pilot-security-stage1-2026-11-07/README.md) |
+| 2026-11-07 | D99 | Replace the proposed layered pilot budgets with one $100 total pilot model limit and track usage per participant. No hourly/daily/session/invitation/pool dollar sublimits or monthly reset. Evaluate alternatives to GitHub Pro to keep costs down. Budget direction is approved; runtime activation, retention details, pilot exceptions, paid upgrades and PR merge remain separate. Existing local development budgets remain unchanged. | [Updated pilot decisions](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md) |
+| 2026-11-07 | D100 | Stay on private GitHub Free and accept the documented manual review process for the invite-only pilot. Proceed with free repository protections and P0 security and abuse engineering. Preserve launch, source and retention gates and record actual verification. | [P0 execution](../../audit-evidence/pilot-p0-security-20261107/README.md) |
+| 2026-11-08 | D101 | Accept the proposed pilot scope and numeric usage retention. Deploy on AWS `us-east-1` with the OpenAI GPT API. Owner reports signed agreements and account security set. Verify with fictional traffic and review the deployed pilot before admitting participants. Measure actual cost per completion in the pilot. | [Deployment record](../../audit-evidence/pilot-deployment-20261108/README.md) |
+| 2026-11-08 | D102 | Owner reports setting a $20/month AWS alert budget for the pilot. Verify the selected workload account and budget scope before provisioning. | [Deployment record](../../audit-evidence/pilot-deployment-20261108/README.md) |
+| 2026-11-08 | D109 | Redirect, don't deflect: state the applicable general rule, name the personal gap, ask the approved question; never show a blank turn; every active turn ends with an approved question; rolling discourse brief for bounded context; coverage year defaults to 2026 for the review checkpoint. Pilot-rule statements are pending owner acceptance. | [UX review baseline and run](../../audit-evidence/ux-review-baseline-20261108/README.md) |
+| 2026-11-08 | D110 | Owner: “I need to focus on getting the product in front of people legally. Getting licensed and getting user feedback on product should be the focus right now”. Deprioritize the accelerator scramble; advance licensing/operating readiness and legally scoped product-feedback preparation in parallel. Participant scope and existing release/privacy/evidence gates still require their own closure. | [Owner direction and scope](../../DAYLIGHT_REQUIREMENTS.md#change-log) |
+| 2026-11-08 | D111 | Live persona evaluation (P01–P09): raise the :8893 allowance to $15/provider/UTC day; a brevity demand is not a pause; the never-blank floor always ends with a question and never states a rule the reports rule out; keep a sound reply when only its question is missing; trial right resolved against the reported start; chip-label typed answers recorded server-side; Plans page derives the priority order from the conversation and drops the reason-code banner; pilot-rules r2 drafted pending acceptance. | [Run log and fixes](../../docs/evaluations/medicare-personas-2026-11-08/run-2026-11-08/RUN_LOG.md) |
+| 2026-11-09 | D112 | All-20 grading fixes without paid calls: 14 reviewed-statement drafts in pilot-rules r2 (inert until accepted) with rule triggers from resolved reports and stated money pressure; the person's own dates/figures/names are echoable; plans-chat context compaction before the request bound; clarification loops closed (consistent retirement clauses, phrase answers, affirmative confirms the pending value, “Yes, that's right” chip); “Part A only” records RC04; on-screen plan names and no boilerplate. | [Grading](../../docs/evaluations/medicare-personas-2026-11-08/run-2026-11-08/GRADING.md) · [Fixes](../../docs/evaluations/medicare-personas-2026-11-08/run-2026-11-08/FIXES_2026-11-09.md) |
+| 2026-11-09 | D113 | Amends D97: Plans-page entries are the person's own reports — saved quietly (no chat bubbles, no AI call, no “is that right?”), several medicines/doctors per Add, chat additions extend the list; the next chat reply acknowledges them once by name and asks for any others. Plus retest fixes R1–R5 and the Plans-chat memory fix. | [Retest](../../docs/evaluations/medicare-personas-2026-11-08/run-2026-11-08/RETEST_2026-11-09.md) · [Fixes](../../docs/evaluations/medicare-personas-2026-11-08/run-2026-11-08/FIXES_2026-11-09.md) |
+| 2026-11-09 | D113 | Owner authorized the full setup in the existing Obsidian vault: local Daylight sources, connected Drive and relevant ChatGPT history; shared skills for Codex and Claude Code; preserve originals and flag conflicts. Single-Mac, private, on-demand scope. Historical discussions, imports and agent agreement do not confer acceptance or alter governing decisions. | [Obsidian setup and maintenance](OBSIDIAN.md) |
+| 2026-11-10 | D114 | Pursue a public rebrand. Screen arbitrary wordmarks federally before deeper clearance, including Classes 035, 036, 042 and future 009. Advance Florida entity formation for December accelerator applications and FMO outreach, and advance agency licensing while the brand is under review. Both names remain open. | [Name screen and licensing path](../reviews/brand-screen-2026-11-10/README.md) |
+| 2026-11-10 | D115 | Replace the two-word candidate list with single words and closed compounds. Prioritize existing words. | [Second-round screen](../reviews/brand-screen-2026-11-10/README.md#single-word-and-closed-compound-screen) |
+| 2026-11-10 | D116 | Screen short single words and closed compounds that are easy to say like Daylight. Move away from botanical-sounding candidates and run USPTO searches before presenting the list. | [Third-round screen](../reviews/brand-screen-2026-11-10/README.md#short-plainspoken-name-screen) |
+| 2026-11-10 | D117 | Use familiar dictionary words and established closed compounds. Use Chapter as a benchmark for familiarity. Screen Classes 009, 035, 036 and 042 and distinguish zero records from inactive records. | [Familiar-word screen](../reviews/brand-screen-2026-11-10/README.md#familiar-dictionary-word-screen) |
+| 2026-11-10 | D118 | The owner favors Midmorning and asked for familiar alternatives that suit the existing daylight aesthetic. Tagline wording is open for review. | [Midmorning alternatives](../reviews/brand-screen-2026-11-10/README.md#midmorning-alternatives) |
+| 2026-11-10 | D119 | The owner identified Mid Morning as the working brand choice and requested a marketplace confusion check, brand story and slogan options. | [Marketplace screen and copy options](../reviews/brand-screen-2026-11-10/README.md#mid-morning-marketplace-and-copy-review) |
+| 2026-11-10 | D120 | Screen familiar alternatives whose meanings convey a reason to use the product, using Daylight and Chapter as examples. | [Meaning-led name screen](../reviews/brand-screen-2026-11-10/README.md#names-that-carry-the-product-story) |

@@ -1,0 +1,244 @@
+{
+  "version": "pilot-rules-2026-11-09-r2",
+  "scope": "Second set of general Medicare rules for the invite-only Collier pilot, drafted from the November 8–9 live run of 20 personas (grading in docs/evaluations/medicare-personas-2026-11-08/run-2026-11-08/GRADING.md). Each statement is a general rule with its conditions; none is a personal eligibility finding, date or amount for a specific person.",
+  "review_state": "pending_owner_review",
+  "loader_note": "This file is read only when review_state starts with 'owner_accepted'. To accept: review each fact's text against its source page, edit wording, set review_state to 'owner_accepted_<date>' and restart 8893.",
+  "owner_checks": [
+    "partd_cap_2026: the $2,100 figure for 2026 is widely published (Humana, GoodRx, NCOA, PAN Foundation, Nov 2026 searches) but the Medicare.gov costs page was not re-read tonight; confirm the figure and URL. P11 needs this fact: without it the model reaches for the number and the validator rejects the whole reply.",
+    "small_employer_pays_first: confirm the <20 wording against the Should I get Parts A & B page (fewer than 20 employees: sign up when first eligible; Medicare pays first).",
+    "group_coverage_and_individual_plans: the Medicare Advantage sentences were read from medicare.gov on Nov 9, 2026; the separate-drug-plan sentence is Medicare.gov's long-standing guidance but was not re-read tonight. Confirm or trim.",
+    "about_daylight: owner statement, not a Medicare.gov rule. Replace every [OWNER] bracket before accepting; the statement is what a skeptic hears when they ask who MidMorning is and how it makes money.",
+    "qmb_billing_protection / msp_extra_help_basics: Medicare.gov Medicare Savings Programs page (URL from memory; not fetched tonight). Confirm the QMB billing sentence and the resource exclusions (home, one car, household goods, burial plot).",
+    "partb_gep_penalty / partb_sep_coverage_ended: wording from the When-can-I-sign-up page; confirm 'coverage starts the month after you sign up' for the GEP (post-2023 rule).",
+    "partd_sep_lost_creditable / move_sep: the special-enrollment-period windows (2 full months) are Medicare.gov's; the joining-a-plan URL should be checked.",
+    "move_medigap_guaranteed_issue: plan letters as listed on the guaranteed-issue page; Florida sells A, B, D, G, K, L to new enrollees (C/F only if eligible before 2020).",
+    "va_and_medicare: Medicare.gov states VA drug coverage is creditable and that VA is not employer coverage; confirm the cited page carries both (the working-past-65 page covers 'other coverage').",
+    "medigap_open_enrollment: the age-65 second window for disability beneficiaries is Medicare.gov's rule; the 'when can I buy' URL is from the persona answer key.",
+    "ma_requires_a_and_b: confirm on the Medicare.gov \"Joining a plan\" page that Medicare Advantage requires Part A and Part B, and that Part A alone qualifies for a stand-alone Part D plan (R6, Nov 9 retest: a Part A-only person browsed Advantage plans without being told)."
+  ],
+  "facts": [
+    {
+      "id": "small_employer_pays_first",
+      "title": "Job coverage from a small employer (fewer than 20 employees)",
+      "question": "Does job insurance from a small employer let someone delay Part B?",
+      "text": "When current-job coverage comes from an employer with fewer than 20 employees, Medicare generally pays first and the group plan pays second once the person is eligible for Medicare. Medicare.gov's guidance for that case is to sign up for Part A and Part B when first eligible, because the group plan may pay little or nothing for care Medicare would have covered if the person does not have Part B. The rule that lets someone with job coverage delay Part B without a penalty is for employers with 20 or more employees. The employer's size, counted the way the plan's rules require, is what decides; the benefits administrator can confirm it.",
+      "summary": "With current-job coverage from an employer of fewer than 20 employees, Medicare generally pays first, so delaying Part B can leave gaps; the delay rule is for employers of 20 or more.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/should-i-get-parts-a-b",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/should-i-get-parts-a-b",
+          "label": "Medicare.gov: Should I get Parts A and B?"
+        },
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+          "label": "Medicare.gov: Working past 65"
+        }
+      ]
+    },
+    {
+      "id": "creditable_coverage_no_penalty",
+      "title": "Creditable drug coverage and the Part D penalty",
+      "question": "If my employer or retiree plan says my drug coverage is creditable, do I need a Part D plan now?",
+      "text": "Drug coverage that is creditable—similar in value to Medicare Part D—counts as drug coverage for Medicare's rules. Someone who keeps creditable coverage is not required to join a Medicare drug plan to avoid the Part D late-enrollment penalty; the penalty applies only after 63 or more days in a row without creditable coverage. Employer, union and retiree plans send a notice each year saying whether their coverage is creditable; that notice is the document to keep. When creditable coverage ends, joining a Medicare drug plan within 63 days avoids the penalty. Having creditable coverage does not by itself decide whether a separate Medicare drug plan would be cheaper or better; that is a separate comparison.",
+      "summary": "Creditable drug coverage (per the plan's annual notice) avoids the Part D penalty while it lasts; the penalty applies only after 63 or more days without creditable coverage.",
+      "source": "https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties",
+          "label": "Medicare.gov: How do I avoid the late enrollment penalty?"
+        },
+        {
+          "url": "https://www.medicare.gov/drug-coverage-part-d/costs-for-medicare-drug-coverage/part-d-late-enrollment-penalty",
+          "label": "Medicare.gov: Part D late enrollment penalty"
+        }
+      ]
+    },
+    {
+      "id": "partd_cap_2026",
+      "title": "The yearly cap on Part D out-of-pocket drug costs",
+      "question": "Does the new drug spending limit protect someone without a drug plan?",
+      "text": "Since 2025, Medicare drug coverage has a yearly cap on what a person pays out of pocket for covered Part D drugs; for 2026 the cap is $2,100. The cap applies only to someone enrolled in Medicare drug coverage—a stand-alone Part D plan or a Medicare Advantage plan with drug coverage—and only to drugs that plan covers. Someone with Original Medicare and no drug plan has no cap: they pay the pharmacy's price. Joining a drug plan during Open Enrollment (October 15–December 7) starts coverage on January 1; it does not change what is paid for a refill before then.",
+      "summary": "The 2026 Part D out-of-pocket cap is $2,100, and it applies only to people enrolled in Medicare drug coverage; without a drug plan there is no cap.",
+      "source": "https://www.medicare.gov/health-drug-plans/part-d/basics/costs",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/health-drug-plans/part-d/basics/costs",
+          "label": "Medicare.gov: Costs for Medicare drug coverage"
+        }
+      ]
+    },
+    {
+      "id": "group_coverage_and_individual_plans",
+      "title": "Employer, union and retiree coverage when joining a Medicare plan",
+      "question": "Could joining a Medicare Advantage or drug plan affect my employer or retiree coverage?",
+      "text": "Employer, union and retiree plans have their own rules about Medicare plans. Medicare.gov's guidance is to talk to the employer, union or other benefits administrator about their rules before joining a Medicare Advantage plan: in some cases joining one can cause the person to lose the employer or union coverage, that coverage may also end for a spouse and dependents who are on it, and it may not be possible to get the coverage back. The same check applies before joining a separate Medicare drug plan when the group plan includes drug coverage. The plan's own documents and its benefits administrator decide; a Medicare plan comparison cannot settle it.",
+      "summary": "Joining a Medicare Advantage or separate drug plan can end employer, union or retiree coverage—sometimes for a spouse too—and it may not come back; the plan's benefits administrator confirms the rules first.",
+      "source": "https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options",
+          "label": "Medicare.gov: Your health plan options — before joining a Medicare Advantage plan"
+        }
+      ]
+    },
+    {
+      "id": "about_daylight",
+      "title": "What MidMorning is and how it is paid",
+      "question": "Who is MidMorning, and how does it make money?",
+      "text": "MidMorning is an AI Medicare advisor made by [OWNER: company name], a [OWNER: Florida] Medicare brokerage in [OWNER: stage: 'preparing to be licensed' / 'licensed as …']. During this pilot MidMorning shows 2026 plan information for Collier County and explains Medicare rules; it does not enroll anyone, sell anything, or receive money from any plan, carrier or agent for this conversation. [OWNER: how the business will be paid once licensed, in one sentence — e.g., 'Once licensed, MidMorning expects to be paid the standard commission a Medicare plan pays any broker; that commission is set by Medicare and is the same regardless of which plan a person chooses, and keeping existing coverage is always a valid outcome.'] MidMorning does not ask for a Medicare number, Social Security number, card photo or payment details in conversation, and the pilot keeps conversation text out of saved profiles unless the person chooses to save it. [OWNER: one sentence on privacy policy location or contact.]",
+      "summary": "MidMorning is an AI Medicare advisor from [OWNER: company]; in this pilot it does not enroll, sell or get paid by any plan, never asks for identifiers, and keeping current coverage is a valid outcome.",
+      "source": "",
+      "sources": []
+    },
+    {
+      "id": "qmb_billing_protection",
+      "title": "Qualified Medicare Beneficiary (QMB) billing protection",
+      "question": "If I have QMB and the doctor's office doesn't take Medicaid, do I owe the Medicare coinsurance?",
+      "text": "People in the Qualified Medicare Beneficiary (QMB) program have their Medicare Part A and Part B premiums, deductibles, coinsurance and copayments paid by the program. Medicare providers are not allowed to bill a QMB enrollee for Medicare-covered deductibles, coinsurance or copayments—this applies whether or not the provider accepts Medicaid, and a provider who does so can be required to refund the money. The person can show the office their QMB status (it appears on the Medicare Summary Notice) and ask the provider to re-bill correctly; if that fails, Medicare's help line can intervene. QMB is an assistance status that works with Original Medicare or a Medicare Advantage plan; joining a special dual-eligible plan is not required to have the protection. People with QMB also automatically qualify for Extra Help with drug costs.",
+      "summary": "With QMB, Medicare providers may not bill you for Medicare-covered deductibles, coinsurance or copays—even if they do not take Medicaid; the protection does not depend on joining a dual plan.",
+      "source": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+          "label": "Medicare.gov: Medicare Savings Programs"
+        }
+      ]
+    },
+    {
+      "id": "msp_extra_help_basics",
+      "title": "Help paying for Medicare: Medicare Savings Programs and Extra Help",
+      "question": "I can't afford Medicare; is there help, and does owning my home disqualify me?",
+      "text": "Two kinds of help exist for people with limited income and resources. Medicare Savings Programs (QMB, SLMB and QI) are run by the state Medicaid office and pay the Part B premium—QMB also pays Part A and B deductibles, coinsurance and copays. Extra Help is a federal program through Social Security that lowers Part D premiums, deductibles and copays; people with Medicaid, an MSP or SSI get it automatically, and others apply. Both use yearly income and resource limits. Resources counted are things like money in bank accounts, stocks and bonds; the home you live in, one car, household goods, personal belongings and a burial plot are not counted. Owning a home therefore does not by itself disqualify someone. Income is counted before Medicare premiums are deducted from a Social Security check. Applying costs nothing and does not require changing Medicare plans. Eligibility is decided by the state (MSP) or Social Security (Extra Help), not by a plan or an advertisement.",
+      "summary": "Medicare Savings Programs (state) can pay the Part B premium and, with QMB, cost sharing; Extra Help (Social Security) lowers drug costs. The home you live in and one car are not counted; applying does not require a plan change.",
+      "source": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+          "label": "Medicare.gov: Medicare Savings Programs"
+        },
+        {
+          "url": "https://www.medicare.gov/basics/costs/help/drug-costs",
+          "label": "Medicare.gov: Help with drug costs (Extra Help)"
+        }
+      ]
+    },
+    {
+      "id": "partb_gep_penalty",
+      "title": "Missed Part B: the General Enrollment Period and the Part B late-enrollment penalty",
+      "question": "I missed signing up for Part B; when can I get it now and is there a penalty?",
+      "text": "Someone who did not sign up for Part B when first eligible and has no special enrollment period can sign up during the General Enrollment Period, January 1 through March 31 each year; coverage starts the month after the month they sign up. Medicare's fall Open Enrollment (October 15–December 7) is for changing Medicare Advantage and Part D plans and is not a way to add Part B. The Part B late-enrollment penalty adds 10% to the Part B premium for each full 12-month period the person could have had Part B but did not sign up, and it generally continues for as long as the person has Part B. The penalty does not apply to months covered by a special enrollment period, such as months with health coverage from a current job. Part A alone is enough to join a stand-alone Part D drug plan; a Medicare Advantage plan requires both Part A and Part B.",
+      "summary": "Without a special enrollment period, Part B can be added only in the General Enrollment Period (January 1–March 31, coverage the month after signing up); the Part B penalty is 10% per full 12 months of delay for as long as you have Part B. Fall Open Enrollment does not add Part B.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+          "label": "Medicare.gov: When can I sign up for Medicare?"
+        },
+        {
+          "url": "https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties",
+          "label": "Medicare.gov: How do I avoid the late enrollment penalty?"
+        }
+      ]
+    },
+    {
+      "id": "partb_sep_coverage_ended",
+      "title": "Job-based coverage has ended: the 8-month Part B special enrollment period",
+      "question": "My (or my spouse's) job coverage just ended; how long do I have to sign up for Part B?",
+      "text": "When health coverage based on current employment ends—because the job ends or the coverage ends, whichever comes first—the person has an 8-month special enrollment period to sign up for Part B without a late-enrollment penalty. The 8 months start the month after the job or the coverage ends. Electing COBRA or retiree coverage does not extend or restart that 8-month window, because neither is coverage based on current employment. Signing up during the special enrollment period means coverage generally starts the month after sign-up; waiting until the window closes means waiting for the General Enrollment Period and a possible penalty. Social Security processes the enrollment; the employer provides a form confirming the coverage dates.",
+      "summary": "After job-based coverage ends, there is an 8-month special enrollment period for Part B without penalty, starting the month after the job or coverage ends; COBRA does not extend it.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+          "label": "Medicare.gov: When can I sign up for Medicare?"
+        }
+      ]
+    },
+    {
+      "id": "partd_sep_lost_creditable",
+      "title": "Losing creditable drug coverage: the Part D special enrollment period",
+      "question": "My employer drug coverage ended; can I join a drug plan now or must I wait for January?",
+      "text": "Losing creditable drug coverage through no fault of your own—for example when job-based or COBRA coverage ends—opens a special enrollment period to join a Medicare drug plan (a stand-alone Part D plan, or a Medicare Advantage plan with drug coverage if you have Parts A and B). The window generally runs for 2 full months after the month the coverage ends or you are told it ended, whichever is later; coverage starts the first of the month after the plan gets the application. Joining within 63 days of losing creditable coverage avoids the Part D late-enrollment penalty. This is separate from the fall Open Enrollment window, whose changes start January 1.",
+      "summary": "Losing creditable drug coverage opens a 2-month special enrollment period to join a Medicare drug plan, with coverage starting the month after the application; joining within 63 days avoids the Part D penalty.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan",
+          "label": "Medicare.gov: Joining a plan (special enrollment periods)"
+        },
+        {
+          "url": "https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties",
+          "label": "Medicare.gov: How do I avoid the late enrollment penalty?"
+        }
+      ]
+    },
+    {
+      "id": "move_sep",
+      "title": "Moving out of a plan's service area",
+      "question": "I moved permanently and my Medicare Advantage plan doesn't serve my new county; do I have to wait until January?",
+      "text": "A permanent move to an address outside a Medicare Advantage or Part D plan's service area opens a special enrollment period to switch to a new plan or to return to Original Medicare. If the plan is told before the move, the window starts the month before the move and continues for 2 full months after it; if the plan is told after the move, the window starts the month the plan is told and continues for 2 full months after that. New coverage can start as early as the first of the month after the application. This does not depend on the fall Open Enrollment window, whose changes start January 1. The plan's written notice of the coverage end date and the exact dates of the move and the notification decide the window.",
+      "summary": "A permanent move outside a plan's service area opens a special enrollment period: the month before the move plus 2 full months after (if the plan was told first), or the month the plan is told plus 2 full months after; it does not wait for January.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan",
+          "label": "Medicare.gov: Joining a plan (special enrollment periods)"
+        }
+      ]
+    },
+    {
+      "id": "move_medigap_guaranteed_issue",
+      "title": "Medigap guaranteed issue after moving out of a Medicare Advantage service area",
+      "question": "If I leave my Medicare Advantage plan because I moved, do I have a right to buy a Medigap policy?",
+      "text": "Someone who leaves a Medicare Advantage plan because they moved out of its service area (or because the plan leaves Medicare or stops serving their area) and returns to Original Medicare has a guaranteed-issue right to buy certain Medigap policies—generally Plans A, B, D, G, K or L sold in their state by any insurer (Plans C and F for people eligible for Medicare before 2020). The insurer must sell the policy, cannot refuse because of health and cannot charge more for health conditions. The application generally must be made no later than 63 days after the Medicare Advantage coverage ends; it can be made as early as 60 days before. It is a right to those specific plan types, not to any policy at any price—premiums still vary by company.",
+      "summary": "Leaving Medicare Advantage because of a move out of its service area gives a guaranteed-issue right to buy specific Medigap plan types (A, B, D, G, K, L) within 63 days of the coverage ending—not any policy at any price.",
+      "source": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/guaranteed-issue",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/guaranteed-issue",
+          "label": "Medicare.gov: Guaranteed issue rights"
+        }
+      ]
+    },
+    {
+      "id": "va_and_medicare",
+      "title": "VA health care and Medicare",
+      "question": "I get care from the VA; does that mean I don't need Medicare, and does it protect me from penalties?",
+      "text": "VA health care and Medicare are separate programs that can be held at the same time. VA coverage is not coverage based on current employment, so it does not give a special enrollment period for Part B and does not prevent the Part B late-enrollment penalty for someone who delays Part B past the initial enrollment period. VA prescription coverage is considered creditable drug coverage, so a person with VA drug benefits does not pay a Part D late-enrollment penalty for the months they have it and can add a Part D plan later within 63 days of losing it. Medicare does not pay for care at VA facilities and the VA generally does not pay for care Medicare covers outside the VA, so having Medicare is what gives access to non-VA doctors and hospitals.",
+      "summary": "VA care and Medicare are separate: VA coverage is not job-based coverage, so it does not delay the Part B penalty; VA drug coverage is creditable for Part D. Medicare is what pays for care outside the VA.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+          "label": "Medicare.gov: Working past 65 (other coverage and Medicare)"
+        },
+        {
+          "url": "https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties",
+          "label": "Medicare.gov: How do I avoid the late enrollment penalty?"
+        }
+      ]
+    },
+    {
+      "id": "medigap_open_enrollment",
+      "title": "The six-month Medigap Open Enrollment Period",
+      "question": "When can I buy a Medigap policy without health questions?",
+      "text": "The Medigap Open Enrollment Period is a one-time six-month window that starts the first month a person is 65 or older and enrolled in Part B. During it, insurers must sell any Medigap policy they offer, cannot refuse because of health and cannot charge more for health conditions. Having Part A alone does not start the window—Part B does—so someone who delayed Part B gets the window when Part B begins, even years after 65. Someone who had Medicare before 65 because of a disability gets this age-65 window when they turn 65 and have Part B, regardless of any earlier Medigap opportunity. Outside this window, and outside a guaranteed-issue right, insurers can usually ask health questions and may decline or charge more.",
+      "summary": "The six-month Medigap Open Enrollment Period starts when you are 65 or older and enrolled in Part B—Part A alone does not start it—and people who had Medicare before 65 get it again at 65.",
+      "source": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when",
+      "sources": [
+        {
+          "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when",
+          "label": "Medicare.gov: When can I buy Medigap?"
+        }
+      ]
+    },
+    {
+      "id": "ma_requires_a_and_b",
+      "title": "Joining a Medicare Advantage plan requires Part A and Part B",
+      "question": "I only have Part A. Can I join one of these Medicare Advantage plans?",
+      "text": "To join a Medicare Advantage plan (Part C), a person must have both Medicare Part A and Part B and live in the plan’s service area. Someone with Part A only needs to sign up for Part B first, through Social Security, before an Advantage plan can be joined. Part A alone is enough to join a stand-alone Part D drug plan.",
+      "summary": "Joining a Medicare Advantage plan requires both Part A and Part B, so someone with Part A only signs up for Part B first (through Social Security); Part A alone is enough for a stand-alone Part D drug plan.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan"
+    }
+  ]
+}

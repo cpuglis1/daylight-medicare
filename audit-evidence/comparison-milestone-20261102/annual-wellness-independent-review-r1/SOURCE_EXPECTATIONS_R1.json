@@ -1,0 +1,177 @@
+{
+  "blind_source_study_claimed": false,
+  "candidate_content_read": false,
+  "cases": [
+    {
+      "dimension": "identity",
+      "id": "AW01",
+      "source_expected_meaning": "Exact 2026 H5652-002-000 plan; no broader provider availability, patient applicability or geography assumption."
+    },
+    {
+      "dimension": "service",
+      "id": "AW02",
+      "source_expected_meaning": "Annual wellness visit develops/updates personalized prevention plan using current health/riskfactors; distinct from annualroutine physical and Welcome visit."
+    },
+    {
+      "dimension": "network_cost",
+      "id": "AW03",
+      "source_expected_meaning": "EOC 48 IN column explicitly no coinsurance/copayment/deductible for annual wellness visit."
+    },
+    {
+      "dimension": "network_cost",
+      "id": "AW04",
+      "source_expected_meaning": "EOC 48 OON column40percentcoinsurance annual wellness visit, with printed outofpocketmaximum stopping rule."
+    },
+    {
+      "dimension": "eligibility",
+      "id": "AW05",
+      "source_expected_meaning": "EOC 48 literal Part B longer than 12 months; retain EOC 49 after 12 months wording without silently resolving the exact boundary."
+    },
+    {
+      "dimension": "frequency",
+      "id": "AW06",
+      "source_expected_meaning": "Annual wellness covered once every 12 months, not onceeachcalendaryear or routine physical interval."
+    },
+    {
+      "dimension": "visit_definition",
+      "id": "AW07",
+      "source_expected_meaning": "Lab tests/radiological? The exact source excludes radiological diagnostic and non-radiological diagnostic tests: those are excluded from the visit; do not call allsame-dayservices free."
+    },
+    {
+      "dimension": "additional_costs",
+      "id": "AW08",
+      "source_expected_meaning": "Separate lab/diagnostic testing may have additional service-specific sharing. Preserve EOC 48→49continuation."
+    },
+    {
+      "dimension": "first_wellness",
+      "id": "AW09",
+      "source_expected_meaning": "First annual wellness cannot occur within12 monthsof Welcome visit; not a mandatory Welcomeprecondition."
+    },
+    {
+      "dimension": "welcome_not_required",
+      "id": "AW10",
+      "source_expected_meaning": "Welcome visit not required before annual wellness after 12 monthsPart B; preserve independently from timing limitation."
+    },
+    {
+      "dimension": "routinephysical",
+      "id": "AW11",
+      "source_expected_meaning": "Adjacent routine physical has oneINorOONvisit percalendaryear and not necessarily12 monthsapart. Never import it to annual wellness."
+    },
+    {
+      "dimension": "welcome_scope",
+      "id": "AW12",
+      "source_expected_meaning": "Welcome visit is one-time withinfirst12 monthsPart B, healthreview/education/counsel/referrals; its conditional one-timeEKG is not annual wellness."
+    },
+    {
+      "dimension": "footnotes",
+      "id": "AW13",
+      "source_expected_meaning": "EOC 48/49 footer QMB OR fullMedicaid mayreduce sharing for OriginalMedicare-coveredservices; nominalschedule stays distinct and no personalqualification made."
+    },
+    {
+      "dimension": "PA_marker",
+      "id": "AW14",
+      "source_expected_meaning": "Apple preventive icon is not double-dagger PA marker. Absenceofmark alone cannot prove universal noPA/inapplicability."
+    },
+    {
+      "dimension": "SB_summary",
+      "id": "AW15",
+      "source_expected_meaning": "SB3 preventive Medicarecovered IN 0 copay/OON 0 copay to 40 percent depending on service includes annual wellness bylist; range is not a wellnessspecificzerocharge."
+    },
+    {
+      "dimension": "SB_continuation",
+      "id": "AW16",
+      "source_expected_meaning": "SB4 continues preventive list and covers Medicareapproved additional preventive servicesduringcontractyear. Keep as broader summary, not a newannual wellnessschedule."
+    },
+    {
+      "dimension": "referral",
+      "id": "AW17",
+      "source_expected_meaning": "GeneralPCPcoordination,scopednetwork-specialistno-referral and POSnoPA/referral statements retain scope and unresolved genericgate applicability; no service-specific universalNo inferred."
+    },
+    {
+      "dimension": "deductible",
+      "id": "AW18",
+      "source_expected_meaning": "INannual wellness explicit nodeductible distinct from genericmedicaldeductible; OONdeductible scope not inferred fromINwaiver."
+    },
+    {
+      "dimension": "coinsurance_base",
+      "id": "AW19",
+      "source_expected_meaning": "OON40percent base/participation/MOOPaccountrequire exactgeneral source linkage; no chargeestimate from percentagealone."
+    },
+    {
+      "dimension": "coverage_conditions",
+      "id": "AW20",
+      "source_expected_meaning": "Medicareguidelines, prevention/medicalnecessity, applicable exclusions/definitions/amendments remain separately dispositioned; personalfacts not needed to preparepublishedconditions."
+    },
+    {
+      "dimension": "originals",
+      "id": "AW21",
+      "source_expected_meaning": "Preserve malformed or mis-tagged originalservice/claim/condition payloads; new pixel-bound readings may correct meaning only additively with explicit role/lineage."
+    },
+    {
+      "dimension": "CMS_native",
+      "id": "AW22",
+      "source_expected_meaning": "Nativecategory13d coverage selection maycombine annual wellness andscreeningmammography. Wholeobject/control scope must bechecked; no flatcode transfer or narrowerannual wellnesscost fromselectionalone."
+    },
+    {
+      "dimension": "schema",
+      "id": "AW23",
+      "source_expected_meaning": "Allten conditionfamilies need individuallyevidenced dispositions; unresolved=unknown, neverzero/no or unsupportedemptyexception/footnotelists."
+    },
+    {
+      "dimension": "authority",
+      "id": "AW24",
+      "source_expected_meaning": "Shape/comparatorpass/sourceagreement doesnotaccept releasedsourceorcompleteoriginal. Evidencehashes/pointers/precisecolumn/header/continuationandreviewbindingsneeded."
+    },
+    {
+      "dimension": "counts",
+      "id": "AW25",
+      "source_expected_meaning": "Original4675andglobal392570unchanged; sourcecontextmemberships not completed originalcomparisons; allnewacceptancefalse."
+    }
+  ],
+  "exposure": "Root read the original source images and contract. Existing frozen canonical subject/predicate census was inspected for scope; it contains prior extraction artifacts, not expected CMS/carrier agreement. Producer sent page locators only; new producer wellness content and helper receipts were not opened. Prior general medical/referral/exclusion work disclosed.",
+  "input_bindings": [
+    {
+      "bytes": 324106,
+      "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/independent-carrier-dental/rendered/eoc-048.png",
+      "sha256": "02415be86407fb05e828e7396ba21b14b76d48bd010a53d5cdb1463f70859a1c"
+    },
+    {
+      "bytes": 308131,
+      "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/independent-carrier-dental/rendered/eoc-049.png",
+      "sha256": "ea0a585729d76fa6fd7bb1774ade2204d0581b9d2dbcda615a78edc9ae1a8a2e"
+    },
+    {
+      "bytes": 389163,
+      "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/independent-carrier-dental/rendered/eoc-111.png",
+      "sha256": "99e8a4861c0146f8869adf579f4ee3b270780f435695829875f5da69dcb27915"
+    },
+    {
+      "bytes": 327614,
+      "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/independent-carrier-dental/rendered/eoc-112.png",
+      "sha256": "fcd9b4e0ee2b348f919e40163dd9e7201dc0bbb31bbf6f90870988aff2f479b4"
+    },
+    {
+      "bytes": 280063,
+      "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/independent-carrier-dental/rendered/sb-03.png",
+      "sha256": "e5abd1100098877088bac6568aa418f18fa17100fe45b2a0a36cd75c29c3fa68"
+    },
+    {
+      "bytes": 293865,
+      "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/independent-carrier-dental/rendered/sb-04.png",
+      "sha256": "fd02009568bfda66137e90638cc95bbbc982abace221b8dec2cf2a7b8fdce797"
+    },
+    {
+      "bytes": 16366,
+      "path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9/COMPARISON_CONTRACT.md",
+      "sha256": "f38dfffce237a0fac89956d942dcf6aad6ee814ec6e03d3419e077d437ccdda2"
+    },
+    {
+      "bytes": 29510,
+      "path": "docs/data/l03-ma-benefits-2026-10-25/semantic-inventory-r9/comparison-record.schema.json",
+      "sha256": "37e66820165e819baf6113955c54e727615e440ad655ac8fbea1ef519740140d"
+    }
+  ],
+  "schema": "daylight.annual-wellness.independent-source-expectations.r1",
+  "sealed_at": "2026-11-03T00:47:44.922127+00:00",
+  "source_original_detail_pages_inspected": true
+}

@@ -1,0 +1,46 @@
+{
+  "fictionalInputs": true,
+  "savedProfile": false,
+  "automaticRetries": false,
+  "maximumGenerationStages": 4,
+  "maximumReservationUsd": 0.134,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "contextPolicy": "natural-context-v3",
+  "resumedAcceptedFictionalTurnsFrom": "audit-evidence/ongoing-advisor-20261101/attempt-4",
+  "resumedTurnCount": 4,
+  "checks": "failed",
+  "failure": "{'status': 'unavailable', 'retryable': False, 'reason': 'The response introduced a date or amount outside its sources.', 'code': 'ungrounded_literal'}",
+  "generationStageCount": 4,
+  "measuredEstimateUsd": 0.054293,
+  "accountedUsd": 0.054293,
+  "heldUsd": 0.0,
+  "turns": [
+    {
+      "turn": 5,
+      "message": "Her job ends in March 2027, and that health insurance ends in April 2027.",
+      "reply": "That helps. If your wife’s job ends in March 2027 and the job-based health insurance ends in April 2027, those are two different dates Medicare timing may look at, so I still can’t turn that into your exact Part B start month yet. In general, people with current job-based coverage often plan Medicare around when that coverage will actually end, and we can use these dates as part of that timeline.",
+      "question": "What ZIP code do you live in?",
+      "target": "T03",
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      },
+      "seconds": 6.598
+    },
+    {
+      "turn": 6,
+      "message": "Actually, I turn 65 in December, not November.",
+      "reply": "",
+      "question": "What should I correct about the specific detail we were discussing?",
+      "target": "RC28",
+      "generated": {
+        "status": "unavailable",
+        "retryable": false,
+        "reason": "The response introduced a date or amount outside its sources.",
+        "code": "ungrounded_literal"
+      },
+      "seconds": 5.361
+    }
+  ]
+}

@@ -1,0 +1,1680 @@
+TAP version 13
+# Subtest: Send carries current AI permission, relevant-context policy and the same visit state
+ok 1 - Send carries current AI permission, relevant-context policy and the same visit state
+  ---
+  duration_ms: 4.360167
+  ...
+# Subtest: non-message navigation does not acquire expanded AI permission
+ok 2 - non-message navigation does not acquire expanded AI permission
+  ---
+  duration_ms: 0.931666
+  ...
+# Subtest: one deliberate Send makes one request and clears only its submitted draft
+ok 3 - one deliberate Send makes one request and clears only its submitted draft
+  ---
+  duration_ms: 1.365292
+  ...
+# Subtest: an unexpected 428 preserves the draft without a modal or an automatic retry
+ok 4 - an unexpected 428 preserves the draft without a modal or an automatic retry
+  ---
+  duration_ms: 1.672958
+  ...
+# Subtest: a successful answer retains the exact question before its user answer and leaves the next question current
+ok 5 - a successful answer retains the exact question before its user answer and leaves the next question current
+  ---
+  duration_ms: 0.624417
+  ...
+# Subtest: the opening invitation is preserved from the same copy used on screen, after the greeting
+ok 6 - the opening invitation is preserved from the same copy used on screen, after the greeting
+  ---
+  duration_ms: 1.195125
+  ...
+# Subtest: a lost response keeps the unanswered question current, and exact replay archives it only once
+ok 7 - a lost response keeps the unanswered question current, and exact replay archives it only once
+  ---
+  duration_ms: 0.805083
+  ...
+# Subtest: an accepted turn with an unavailable provider response still preserves the question exactly once
+ok 8 - an accepted turn with an unavailable provider response still preserves the question exactly once
+  ---
+  duration_ms: 0.4825
+  ...
+# Subtest: an exact replay after a local presentation error cannot duplicate question, answer or reply
+ok 9 - an exact replay after a local presentation error cannot duplicate question, answer or reply
+  ---
+  duration_ms: 0.694583
+  ...
+# Subtest: an explanation that keeps the same unanswered question current does not add a historical duplicate
+ok 10 - an explanation that keeps the same unanswered question current does not add a historical duplicate
+  ---
+  duration_ms: 0.490333
+  ...
+# Subtest: repeated unavailable generations replace one notice without repeating it as conversational replies
+ok 11 - repeated unavailable generations replace one notice without repeating it as conversational replies
+  ---
+  duration_ms: 0.883333
+  ...
+# Subtest: a missing server question never resurrects the already answered previous question after a generation failure
+ok 12 - a missing server question never resurrects the already answered previous question after a generation failure
+  ---
+  duration_ms: 0.447209
+  ...
+# Subtest: an unavailable-generation notice cannot be preserved as though it were an actual question
+ok 13 - an unavailable-generation notice cannot be preserved as though it were an actual question
+  ---
+  duration_ms: 0.420375
+  ...
+# Subtest: only a deliberate answer Send grants the same scoped permission for contextual composition
+ok 14 - only a deliberate answer Send grants the same scoped permission for contextual composition
+  ---
+  duration_ms: 0.632
+  ...
+# Subtest: the actual answer submitter sends precise coverage only after refinement and deliberate Send
+ok 15 - the actual answer submitter sends precise coverage only after refinement and deliberate Send
+  ---
+  duration_ms: 1.170125
+  ...
+# Subtest: the actual goal Send grants composition permission without auto-sending a goal selection
+ok 16 - the actual goal Send grants composition permission without auto-sending a goal selection
+  ---
+  duration_ms: 0.524792
+  ...
+# Subtest: selected teaching citations are retained without adding a duplicate lesson body
+ok 17 - selected teaching citations are retained without adding a duplicate lesson body
+  ---
+  duration_ms: 0.610792
+  ...
+# Subtest: optional educational follow-ups stay with their accepted exchange and never survive failed generation
+ok 18 - optional educational follow-ups stay with their accepted exchange and never survive failed generation
+  ---
+  duration_ms: 0.444959
+  ...
+# Subtest: pending presentation is temporary while a Send is unresolved and preserves a newer typed draft
+ok 19 - pending presentation is temporary while a Send is unresolved and preserves a newer typed draft
+  ---
+  duration_ms: 0.54425
+  ...
+# Subtest: the composer clears before transport settles and restores the exact raw draft after a failed Send
+ok 20 - the composer clears before transport settles and restores the exact raw draft after a failed Send
+  ---
+  duration_ms: 0.508459
+  ...
+# Subtest: a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately
+ok 21 - a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately
+  ---
+  duration_ms: 0.363708
+  ...
+# Subtest: reading a concept leaves an unrelated typed draft in the composer during the request
+ok 22 - reading a concept leaves an unrelated typed draft in the composer during the request
+  ---
+  duration_ms: 0.368666
+  ...
+# Subtest: a successful response cannot clear a newly typed identical message
+ok 23 - a successful response cannot clear a newly typed identical message
+  ---
+  duration_ms: 0.352791
+  ...
+# Subtest: a failed Send removes pending presentation once without committing history or retrying
+ok 24 - a failed Send removes pending presentation once without committing history or retrying
+  ---
+  duration_ms: 0.3595
+  ...
+# Subtest: a guide stays with its teaching exchange and cannot migrate onto a later timing question
+ok 25 - a guide stays with its teaching exchange and cannot migrate onto a later timing question
+  ---
+  duration_ms: 0.420917
+  ...
+# Subtest: the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+ok 26 - the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+  ---
+  duration_ms: 5.328583
+  ...
+# Subtest: reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+ok 27 - reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+  ---
+  duration_ms: 2.053875
+  ...
+# Subtest: visual and accessible text each preserve every character, including spaces and HTML-like user content
+ok 28 - visual and accessible text each preserve every character, including spaces and HTML-like user content
+  ---
+  duration_ms: 0.46925
+  ...
+# Subtest: the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+ok 29 - the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+  ---
+  duration_ms: 1.328166
+  ...
+# Subtest: the reveal preserves the requested heading tag, class and sequential offset
+ok 30 - the reveal preserves the requested heading tag, class and sequential offset
+  ---
+  duration_ms: 0.811042
+  ...
+# Subtest: the complete opening question, example and reassurance reveal in sequence after the greeting
+ok 31 - the complete opening question, example and reassurance reveal in sequence after the greeting
+  ---
+  duration_ms: 1.3025
+  ...
+# Subtest: repainting the opening never replays its question, examples or reassurance
+ok 32 - repainting the opening never replays its question, examples or reassurance
+  ---
+  duration_ms: 0.624917
+  ...
+# Subtest: reduced motion leaves the complete opening readable immediately and does not replay later
+ok 33 - reduced motion leaves the complete opening readable immediately and does not replay later
+  ---
+  duration_ms: 0.569333
+  ...
+# Subtest: the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+ok 34 - the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+  ---
+  duration_ms: 0.808666
+  ...
+# Subtest: reduced motion renders complete plain text for greetings, replies and facts
+ok 35 - reduced motion renders complete plain text for greetings, replies and facts
+  ---
+  duration_ms: 0.680875
+  ...
+# Subtest: ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+ok 36 - ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+  ---
+  duration_ms: 0.485125
+  ...
+# Subtest: completed words retire the animation class so leaving and returning to chat cannot replay them
+ok 37 - completed words retire the animation class so leaving and returning to chat cannot replay them
+  ---
+  duration_ms: 0.428958
+  ...
+# Subtest: cancelled words also retire their animation class and remain readable on return
+ok 38 - cancelled words also retire their animation class and remain readable on return
+  ---
+  duration_ms: 0.406208
+  ...
+# Subtest: appending a reply preserves previous node identity and reveals only the new answer
+ok 39 - appending a reply preserves previous node identity and reveals only the new answer
+  ---
+  duration_ms: 0.474584
+  ...
+# Subtest: a history rebuild shows previously revealed objects immediately and reveals new objects once
+ok 40 - a history rebuild shows previously revealed objects immediately and reveals new objects once
+  ---
+  duration_ms: 1.477166
+  ...
+# Subtest: a reply first displayed with reduced motion never animates when the preference later changes
+ok 41 - a reply first displayed with reduced motion never animates when the preference later changes
+  ---
+  duration_ms: 0.493458
+  ...
+# Subtest: a user-only exchange stays immediate and an empty reply does not create an assistant message
+ok 42 - a user-only exchange stays immediate and an empty reply does not create an assistant message
+  ---
+  duration_ms: 0.394833
+  ...
+# Subtest: static explanations remain immediate and reveal does not weaken source URL filtering
+ok 43 - static explanations remain immediate and reveal does not weaken source URL filtering
+  ---
+  duration_ms: 0.525458
+  ...
+# Subtest: a new current question and its answer buttons follow the reply, while choosing does not replay them
+ok 44 - a new current question and its answer buttons follow the reply, while choosing does not replay them
+  ---
+  duration_ms: 1.107125
+  ...
+# Subtest: question text and finite answer buttons are immediately available with reduced motion
+ok 45 - question text and finite answer buttons are immediately available with reduced motion
+  ---
+  duration_ms: 0.465458
+  ...
+# Subtest: control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation
+ok 46 - control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation
+  ---
+  duration_ms: 0.351209
+  ...
+# Subtest: opening shortcut buttons continue the opening sequence and do not animate on rerender
+ok 47 - opening shortcut buttons continue the opening sequence and do not animate on rerender
+  ---
+  duration_ms: 0.382333
+  ...
+# Subtest: coverage timing uses one chat composer and genuine choices rather than another month input
+ok 48 - coverage timing uses one chat composer and genuine choices rather than another month input
+  ---
+  duration_ms: 0.661709
+  ...
+# Subtest: finite field options remain explicit buttons and preserve each field independently
+ok 49 - finite field options remain explicit buttons and preserve each field independently
+  ---
+  duration_ms: 1.142458
+  ...
+# Subtest: historical diagrams stay absent beneath intake while current teaching has an inline guide
+ok 50 - historical diagrams stay absent beneath intake while current teaching has an inline guide
+  ---
+  duration_ms: 0.567125
+  ...
+# Subtest: a final current-turn timing picture includes only known reports and keeps unknown fields out
+ok 51 - a final current-turn timing picture includes only known reports and keeps unknown fields out
+  ---
+  duration_ms: 0.36325
+  ...
+# Subtest: intake footer controls stay hidden and profile review is offered with the final conversation summary
+ok 52 - intake footer controls stay hidden and profile review is offered with the final conversation summary
+  ---
+  duration_ms: 0.391834
+  ...
+# Subtest: an educational intake pause leaves the generated answer and chat composer without a false final review
+ok 53 - an educational intake pause leaves the generated answer and chat composer without a false final review
+  ---
+  duration_ms: 0.940542
+  ...
+# Subtest: generated questions own their explanation, while a non-AI question retains its useful why
+ok 54 - generated questions own their explanation, while a non-AI question retains its useful why
+  ---
+  duration_ms: 0.966125
+  ...
+# Subtest: the real final summary reveals its text and optional actions once, including profile review
+ok 55 - the real final summary reveals its text and optional actions once, including profile review
+  ---
+  duration_ms: 0.424667
+  ...
+# Subtest: old free-text reports and stale records cannot activate Send as an invisible selected answer
+ok 56 - old free-text reports and stale records cannot activate Send as an invisible selected answer
+  ---
+  duration_ms: 0.464083
+  ...
+# Subtest: an answered question remains plain assistant history before the user answer without replaying its text
+ok 57 - an answered question remains plain assistant history before the user answer without replaying its text
+  ---
+  duration_ms: 0.413084
+  ...
+# Subtest: history rebuilds preserve answered questions exactly once as complete accessible plain text
+ok 58 - history rebuilds preserve answered questions exactly once as complete accessible plain text
+  ---
+  duration_ms: 0.4735
+  ...
+# Subtest: a reported date picture survives an empty reply and its review remains deliberate
+ok 59 - a reported date picture survives an empty reply and its review remains deliberate
+  ---
+  duration_ms: 1.567458
+  ...
+# Subtest: comparison starting point offers optional review and checklist only at its transition
+ok 60 - comparison starting point offers optional review and checklist only at its transition
+  ---
+  duration_ms: 0.605542
+  ...
+# Subtest: a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel
+ok 61 - a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel
+  ---
+  duration_ms: 0.437917
+  ...
+# Subtest: unavailable generation with no valid question cannot render a false completion or turn the notice into a heading
+ok 62 - unavailable generation with no valid question cannot render a false completion or turn the notice into a heading
+  ---
+  duration_ms: 0.446542
+  ...
+# Subtest: an open learning conversation cannot imply a final timing summary but can show current teaching
+ok 63 - an open learning conversation cannot imply a final timing summary but can show current teaching
+  ---
+  duration_ms: 0.3455
+  ...
+# Subtest: service notices update one live status instead of being announced by competing regions
+ok 64 - service notices update one live status instead of being announced by competing regions
+  ---
+  duration_ms: 0.468667
+  ...
+# Subtest: a novice sees six ordinary-language insurance families without new preselected reports
+ok 65 - a novice sees six ordinary-language insurance families without new preselected reports
+  ---
+  duration_ms: 0.90425
+  ...
+# Subtest: local insurance refinement preserves every approved distinction and sends no aggregate fact
+ok 66 - local insurance refinement preserves every approved distinction and sends no aggregate fact
+  ---
+  duration_ms: 1.300625
+  ...
+# Subtest: multiple precise insurance selections stay visible and correctable across local group changes
+ok 67 - multiple precise insurance selections stay visible and correctable across local group changes
+  ---
+  duration_ms: 1.175875
+  ...
+# Subtest: selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare
+ok 68 - selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare
+  ---
+  duration_ms: 0.740125
+  ...
+# Subtest: collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid
+ok 69 - collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid
+  ---
+  duration_ms: 0.821625
+  ...
+# Subtest: unknown and defer close the open insurance refinement and clear finite draft data
+ok 70 - unknown and defer close the open insurance refinement and clear finite draft data
+  ---
+  duration_ms: 1.964083
+  ...
+# Subtest: ambiguous current Medicare paths ask for clarification without changing a prior selection
+ok 71 - ambiguous current Medicare paths ask for clarification without changing a prior selection
+  ---
+  duration_ms: 2.783042
+  ...
+# Subtest: a longer spoken priority report can be reduced one button at a time without discarding the report
+ok 72 - a longer spoken priority report can be reduced one button at a time without discarding the report
+  ---
+  duration_ms: 0.515792
+  ...
+# Subtest: comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view
+ok 73 - comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view
+  ---
+  duration_ms: 0.669333
+  ...
+# Subtest: typed draft blocks conflicting insurance selections until it is sent or cleared
+ok 74 - typed draft blocks conflicting insurance selections until it is sent or cleared
+  ---
+  duration_ms: 1.234625
+  ...
+# Subtest: new service-owned insurance distinctions cannot disappear from the grouped view
+ok 75 - new service-owned insurance distinctions cannot disappear from the grouped view
+  ---
+  duration_ms: 0.484
+  ...
+# Subtest: the compact topic track follows actual questions and teaching rather than accumulated intake completion
+ok 76 - the compact topic track follows actual questions and teaching rather than accumulated intake completion
+  ---
+  duration_ms: 0.637709
+  ...
+# Subtest: generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson
+ok 77 - generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson
+  ---
+  duration_ms: 0.42425
+  ...
+# Subtest: current-turn route teaching appears inline once while Sources remains a separate disclosure
+ok 78 - current-turn route teaching appears inline once while Sources remains a separate disclosure
+  ---
+  duration_ms: 0.996084
+  ...
+# Subtest: current visual intent selects the existing guide independently of citations
+ok 79 - current visual intent selects the existing guide independently of citations
+  ---
+  duration_ms: 0.582875
+  ...
+# Subtest: explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline
+ok 80 - explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline
+  ---
+  duration_ms: 0.330708
+  ...
+# Subtest: two successful turns retain the first guide without making a second guide from citations
+ok 81 - two successful turns retain the first guide without making a second guide from citations
+  ---
+  duration_ms: 0.709166
+  ...
+# Subtest: a deliberate revisit may show the same guide again while failed generation never does
+ok 82 - a deliberate revisit may show the same guide again while failed generation never does
+  ---
+  duration_ms: 0.488
+  ...
+# Subtest: fact and generated citations merge into one deduplicated Sources footer after the inline guide
+ok 83 - fact and generated citations merge into one deduplicated Sources footer after the inline guide
+  ---
+  duration_ms: 0.45925
+  ...
+# Subtest: failed or unrelated turns cannot select a route graphic from historical learning
+ok 84 - failed or unrelated turns cannot select a route graphic from historical learning
+  ---
+  duration_ms: 0.277417
+  ...
+# Subtest: typed text blocks finite answers, field choices and unknown without changing the draft
+ok 85 - typed text blocks finite answers, field choices and unknown without changing the draft
+  ---
+  duration_ms: 0.402709
+  ...
+# Subtest: the real pending view shows the submitted message and three decorative dots without transcript writes
+ok 86 - the real pending view shows the submitted message and three decorative dots without transcript writes
+  ---
+  duration_ms: 0.442625
+  ...
+# Subtest: manual navigation has no AI typing indicator and reduced motion disables its animation
+ok 87 - manual navigation has no AI typing indicator and reduced motion disables its animation
+  ---
+  duration_ms: 0.666667
+  ...
+# Subtest: the typing wave overrides the loaded universal animation reset, while reduced motion still wins
+ok 88 - the typing wave overrides the loaded universal animation reset, while reduced motion still wins
+  ---
+  duration_ms: 2.197375
+  ...
+# Subtest: a down arrow appears only when more conversation is below and labels the current question when it is offscreen
+ok 89 - a down arrow appears only when more conversation is below and labels the current question when it is offscreen
+  ---
+  duration_ms: 0.487958
+  ...
+# Subtest: the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message
+ok 90 - the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message
+  ---
+  duration_ms: 0.361584
+  ...
+# Subtest: typing motion pauses in a hidden document or outside the visible reading pane
+ok 91 - typing motion pauses in a hidden document or outside the visible reading pane
+  ---
+  duration_ms: 0.309791
+  ...
+# Subtest: educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions
+ok 92 - educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions
+  ---
+  duration_ms: 0.473292
+  ...
+# Subtest: selecting an educational follow-up fills an editable draft without sending or overwriting another draft
+ok 93 - selecting an educational follow-up fills an editable draft without sending or overwriting another draft
+  ---
+  duration_ms: 0.341125
+  ...
+# Subtest: optional educational questions remain with their explanation before the unchanged Sources footer
+ok 94 - optional educational questions remain with their explanation before the unchanged Sources footer
+  ---
+  duration_ms: 0.334167
+  ...
+# Subtest: typing ASAP clears only unsent answer selections and typed submission wins
+ok 95 - typing ASAP clears only unsent answer selections and typed submission wins
+  ---
+  duration_ms: 0.611208
+  ...
+# Subtest: an empty draft preserves an intentional selection and typed submission still wins without an input event
+ok 96 - an empty draft preserves an intentional selection and typed submission still wins without an input event
+  ---
+  duration_ms: 0.308542
+  ...
+# Subtest: the composer grows, caps and shrinks while preserving a reader’s scroll position
+ok 97 - the composer grows, caps and shrinks while preserving a reader’s scroll position
+  ---
+  duration_ms: 0.278625
+  ...
+# Subtest: the composer respects the mobile visual viewport, its minimum and the viewport fallback
+ok 98 - the composer respects the mobile visual viewport, its minimum and the viewport fallback
+  ---
+  duration_ms: 0.276084
+  ...
+# Subtest: held plan values, research units and trace never enter the preparation model
+ok 99 - held plan values, research units and trace never enter the preparation model
+  ---
+  duration_ms: 2.761209
+  ...
+# Subtest: stale view suppresses baseline, priorities and connected markers
+ok 100 - stale view suppresses baseline, priorities and connected markers
+  ---
+  duration_ms: 0.13525
+  ...
+# Subtest: reported absence differs from missing or unaccepted source evidence
+ok 101 - reported absence differs from missing or unaccepted source evidence
+  ---
+  duration_ms: 0.094333
+  ...
+# Subtest: rendering source-like markup creates literal text and a working Return control
+ok 102 - rendering source-like markup creates literal text and a working Return control
+  ---
+  duration_ms: 0.2865
+  ...
+# Subtest: review replaces only derived data, preserving current privacy, presentation and pause
+ok 103 - review replaces only derived data, preserving current privacy, presentation and pause
+  ---
+  duration_ms: 0.170125
+  ...
+# Subtest: consumer and malformed authority never reveal source candidates or source selection counts
+ok 104 - consumer and malformed authority never reveal source candidates or source selection counts
+  ---
+  duration_ms: 2.183208
+  ...
+# Subtest: current reported facts remain separate from source labels and scope
+ok 105 - current reported facts remain separate from source labels and scope
+  ---
+  duration_ms: 0.507375
+  ...
+# Subtest: provider sites preserve structured name and distinct addresses without an automatic choice
+ok 106 - provider sites preserve structured name and distinct addresses without an automatic choice
+  ---
+  duration_ms: 0.379041
+  ...
+# Subtest: pack and unresolved source details cannot acquire an automatic selection action
+ok 107 - pack and unresolved source details cannot acquire an automatic selection action
+  ---
+  duration_ms: 0.1175
+  ...
+# Subtest: entity discovery and site identity selection have distinct explicit actions
+ok 108 - entity discovery and site identity selection have distinct explicit actions
+  ---
+  duration_ms: 0.35875
+  ...
+# Subtest: literal markup stays text and source selection occurs only after its named button
+ok 109 - literal markup stays text and source selection occurs only after its named button
+  ---
+  duration_ms: 1.682875
+  ...
+# Subtest: continuation and live recheck are explicit and source limits remain visible
+ok 110 - continuation and live recheck are explicit and source limits remain visible
+  ---
+  duration_ms: 0.243625
+  ...
+# Subtest: top-level source gaps and entity/role continuation never lose the partial warning
+ok 111 - top-level source gaps and entity/role continuation never lose the partial warning
+  ---
+  duration_ms: 0.188041
+  ...
+# Subtest: retained periods and source qualifications remain inspectable without currentness inference
+ok 112 - retained periods and source qualifications remain inspectable without currentness inference
+  ---
+  duration_ms: 0.366833
+  ...
+# Subtest: derived response preserves current reports, privacy, pause and drafts
+ok 113 - derived response preserves current reports, privacy, pause and drafts
+  ---
+  duration_ms: 0.271
+  ...
+# Subtest: an explicit selection is never described as a search with no matches
+ok 114 - an explicit selection is never described as a search with no matches
+  ---
+  duration_ms: 0.098834
+  ...
+# Subtest: all entry fields, exact units, conditions, qualifications and evidence remain inspectable
+ok 115 - all entry fields, exact units, conditions, qualifications and evidence remain inspectable
+  ---
+  duration_ms: 1.821542
+  ...
+# Subtest: single amount keeps related endpoints and native schedule ordering
+ok 116 - single amount keeps related endpoints and native schedule ordering
+  ---
+  duration_ms: 1.270042
+  ...
+# Subtest: restricted zero-entry offering retains historical status without implying noncoverage
+ok 117 - restricted zero-entry offering retains historical status without implying noncoverage
+  ---
+  duration_ms: 0.603625
+  ...
+# Subtest: masked holds, exact receipt and dispositions survive without disputed scalar values
+ok 118 - masked holds, exact receipt and dispositions survive without disputed scalar values
+  ---
+  duration_ms: 0.6625
+  ...
+# Subtest: mismatched scope or broader permission cannot replace a prior exact view
+ok 119 - mismatched scope or broader permission cannot replace a prior exact view
+  ---
+  duration_ms: 0.698208
+  ...
+# Subtest: unmasked disputed values fail closed before replacing an exact view
+ok 120 - unmasked disputed values fail closed before replacing an exact view
+  ---
+  duration_ms: 0.097375
+  ...
+# Subtest: source-like markup is literal text in summaries, qualifications and raw evidence
+ok 121 - source-like markup is literal text in summaries, qualifications and raw evidence
+  ---
+  duration_ms: 0.167625
+  ...
+# Subtest: pending-save reconciliation reads versions without resending the earlier snapshot
+ok 122 - pending-save reconciliation reads versions without resending the earlier snapshot
+  ---
+  duration_ms: 1.661375
+  ...
+# Subtest: read-only reconciliation failure retains uncertainty and does not claim a save
+ok 123 - read-only reconciliation failure retains uncertainty and does not claim a save
+  ---
+  duration_ms: 1.870916
+  ...
+# Subtest: completeSave cannot resend an old payload after sensitive permission withdrawal
+ok 124 - completeSave cannot resend an old payload after sensitive permission withdrawal
+  ---
+  duration_ms: 0.94775
+  ...
+# Subtest: completeSave cannot write when saving is now paused
+ok 125 - completeSave cannot write when saving is now paused
+  ---
+  duration_ms: 0.661417
+  ...
+# Subtest: Apply privacy choices reconciles uncertainty then saves current reduced permission
+ok 126 - Apply privacy choices reconciles uncertainty then saves current reduced permission
+  ---
+  duration_ms: 1.074708
+  ...
+# Subtest: pausing saving with a pending operation performs no new write
+ok 127 - pausing saving with a pending operation performs no new write
+  ---
+  duration_ms: 0.660291
+  ...
+# Subtest: Check the pending save is read-only even with newly unchecked privacy controls
+ok 128 - Check the pending save is read-only even with newly unchecked privacy controls
+  ---
+  duration_ms: 1.755625
+  ...
+# Subtest: deletion binds retained reports to the new owner without reusing any prior token
+ok 129 - deletion binds retained reports to the new owner without reusing any prior token
+  ---
+  duration_ms: 0.725
+  ...
+# Subtest: failed reconnect after deletion keeps draft and a retry marker, never old authority
+ok 130 - failed reconnect after deletion keeps draft and a retry marker, never old authority
+  ---
+  duration_ms: 0.58025
+  ...
+# Subtest: a rejected delete preserves active reports, permissions, authorization and pending save
+ok 131 - a rejected delete preserves active reports, permissions, authorization and pending save
+  ---
+  duration_ms: 0.517416
+  ...
+# Subtest: a lost deletion response remains uncertain and only reads/rebinds on recovery
+ok 132 - a lost deletion response remains uncertain and only reads/rebinds on recovery
+  ---
+  duration_ms: 0.5335
+  ...
+# Subtest: deletion retains a paused screen locally without copying pause into backend reports or authority
+ok 133 - deletion retains a paused screen locally without copying pause into backend reports or authority
+  ---
+  duration_ms: 0.437042
+  ...
+# Subtest: resuming a stored profile drops earlier failed-save and action bindings while preserving unsent text
+ok 134 - resuming a stored profile drops earlier failed-save and action bindings while preserving unsent text
+  ---
+  duration_ms: 0.473541
+  ...
+# Subtest: reported date picture preserves month-only precision and distinct end dates
+ok 135 - reported date picture preserves month-only precision and distinct end dates
+  ---
+  duration_ms: 2.352875
+  ...
+# Subtest: dates exclude unknown, stale, deferred, derived and non-calendar preferences
+ok 136 - dates exclude unknown, stale, deferred, derived and non-calendar preferences
+  ---
+  duration_ms: 0.102667
+  ...
+# Subtest: explicit start month wins duplicate preference and remains preferred
+ok 137 - explicit start month wins duplicate preference and remains preferred
+  ---
+  duration_ms: 0.139041
+  ...
+# Subtest: timeline appears for a changed report, not unchanged or failed turns
+ok 138 - timeline appears for a changed report, not unchanged or failed turns
+  ---
+  duration_ms: 0.277917
+  ...
+# Subtest: saved recap names actual categories without echoing sensitive values or old conversation
+ok 139 - saved recap names actual categories without echoing sensitive values or old conversation
+  ---
+  duration_ms: 0.195375
+  ...
+# Subtest: comparison milestone includes explicit unknown and none but never stale or missing
+ok 140 - comparison milestone includes explicit unknown and none but never stale or missing
+  ---
+  duration_ms: 0.1535
+  ...
+1..140
+# tests 140
+# suites 0
+# pass 140
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 147.7235
+TAP version 13
+# Subtest: the inventory covers all 41 approved meanings including child aliases and conditional finite fields
+ok 1 - the inventory covers all 41 approved meanings including child aliases and conditional finite fields
+  ---
+  duration_ms: 0.7165
+  ...
+# Subtest: T01:default every precise choice routes its exact meaning only after Send
+ok 2 - T01:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 3.040416
+  ...
+# Subtest: T01:default unknown/defer/clear do not invent an answer
+ok 3 - T01:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.173375
+  ...
+# Subtest: T01:all_fields every precise choice routes its exact meaning only after Send
+ok 4 - T01:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.708209
+  ...
+# Subtest: T01:all_fields unknown/defer/clear do not invent an answer
+ok 5 - T01:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.572708
+  ...
+# Subtest: T02:default every precise choice routes its exact meaning only after Send
+ok 6 - T02:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 2.152542
+  ...
+# Subtest: T02:default unknown/defer/clear do not invent an answer
+ok 7 - T02:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.965625
+  ...
+# Subtest: T02:all_fields every precise choice routes its exact meaning only after Send
+ok 8 - T02:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.167375
+  ...
+# Subtest: T02:all_fields unknown/defer/clear do not invent an answer
+ok 9 - T02:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.970584
+  ...
+# Subtest: T03:default every precise choice routes its exact meaning only after Send
+ok 10 - T03:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.595083
+  ...
+# Subtest: T03:default unknown/defer/clear do not invent an answer
+ok 11 - T03:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.864791
+  ...
+# Subtest: T03:all_fields every precise choice routes its exact meaning only after Send
+ok 12 - T03:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.071709
+  ...
+# Subtest: T03:all_fields unknown/defer/clear do not invent an answer
+ok 13 - T03:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.951708
+  ...
+# Subtest: T04:default every precise choice routes its exact meaning only after Send
+ok 14 - T04:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.156959
+  ...
+# Subtest: T04:default unknown/defer/clear do not invent an answer
+ok 15 - T04:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.840334
+  ...
+# Subtest: T04:all_fields every precise choice routes its exact meaning only after Send
+ok 16 - T04:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.9905
+  ...
+# Subtest: T04:all_fields unknown/defer/clear do not invent an answer
+ok 17 - T04:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 2.079292
+  ...
+# Subtest: T05:default every precise choice routes its exact meaning only after Send
+ok 18 - T05:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 6.233958
+  ...
+# Subtest: T05:default unknown/defer/clear do not invent an answer
+ok 19 - T05:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.375375
+  ...
+# Subtest: T05:all_fields every precise choice routes its exact meaning only after Send
+ok 20 - T05:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 5.714708
+  ...
+# Subtest: T05:all_fields unknown/defer/clear do not invent an answer
+ok 21 - T05:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.177333
+  ...
+# Subtest: T06:default every precise choice routes its exact meaning only after Send
+ok 22 - T06:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.330375
+  ...
+# Subtest: T06:default unknown/defer/clear do not invent an answer
+ok 23 - T06:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.941459
+  ...
+# Subtest: T06:all_fields every precise choice routes its exact meaning only after Send
+ok 24 - T06:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.456334
+  ...
+# Subtest: T06:all_fields unknown/defer/clear do not invent an answer
+ok 25 - T06:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.382791
+  ...
+# Subtest: T07:default every precise choice routes its exact meaning only after Send
+ok 26 - T07:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.342375
+  ...
+# Subtest: T07:default unknown/defer/clear do not invent an answer
+ok 27 - T07:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.878
+  ...
+# Subtest: T07:all_fields every precise choice routes its exact meaning only after Send
+ok 28 - T07:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.917625
+  ...
+# Subtest: T07:all_fields unknown/defer/clear do not invent an answer
+ok 29 - T07:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.884917
+  ...
+# Subtest: T08:default every precise choice routes its exact meaning only after Send
+ok 30 - T08:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.941958
+  ...
+# Subtest: T08:default unknown/defer/clear do not invent an answer
+ok 31 - T08:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.8225
+  ...
+# Subtest: T08:all_fields every precise choice routes its exact meaning only after Send
+ok 32 - T08:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.96
+  ...
+# Subtest: T08:all_fields unknown/defer/clear do not invent an answer
+ok 33 - T08:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.89325
+  ...
+# Subtest: T09:default every precise choice routes its exact meaning only after Send
+ok 34 - T09:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.90275
+  ...
+# Subtest: T09:default unknown/defer/clear do not invent an answer
+ok 35 - T09:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.849625
+  ...
+# Subtest: T09:all_fields every precise choice routes its exact meaning only after Send
+ok 36 - T09:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.874084
+  ...
+# Subtest: T09:all_fields unknown/defer/clear do not invent an answer
+ok 37 - T09:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.777375
+  ...
+# Subtest: T10:default every precise choice routes its exact meaning only after Send
+ok 38 - T10:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 9.047792
+  ...
+# Subtest: T10:default unknown/defer/clear do not invent an answer
+ok 39 - T10:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.085083
+  ...
+# Subtest: T10:all_fields every precise choice routes its exact meaning only after Send
+ok 40 - T10:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 2.219417
+  ...
+# Subtest: T10:all_fields unknown/defer/clear do not invent an answer
+ok 41 - T10:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.288166
+  ...
+# Subtest: RC01:default every precise choice routes its exact meaning only after Send
+ok 42 - RC01:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.013041
+  ...
+# Subtest: RC01:default unknown/defer/clear do not invent an answer
+ok 43 - RC01:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.087583
+  ...
+# Subtest: RC01:all_fields every precise choice routes its exact meaning only after Send
+ok 44 - RC01:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.932125
+  ...
+# Subtest: RC01:all_fields unknown/defer/clear do not invent an answer
+ok 45 - RC01:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.880042
+  ...
+# Subtest: RC02:default every precise choice routes its exact meaning only after Send
+ok 46 - RC02:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.02875
+  ...
+# Subtest: RC02:default unknown/defer/clear do not invent an answer
+ok 47 - RC02:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.888042
+  ...
+# Subtest: RC02:all_fields every precise choice routes its exact meaning only after Send
+ok 48 - RC02:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.040417
+  ...
+# Subtest: RC02:all_fields unknown/defer/clear do not invent an answer
+ok 49 - RC02:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.882375
+  ...
+# Subtest: RC03:default every precise choice routes its exact meaning only after Send
+ok 50 - RC03:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.031458
+  ...
+# Subtest: RC03:default unknown/defer/clear do not invent an answer
+ok 51 - RC03:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.754833
+  ...
+# Subtest: RC03:all_fields every precise choice routes its exact meaning only after Send
+ok 52 - RC03:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.027333
+  ...
+# Subtest: RC03:all_fields unknown/defer/clear do not invent an answer
+ok 53 - RC03:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.70875
+  ...
+# Subtest: RC04:default every precise choice routes its exact meaning only after Send
+ok 54 - RC04:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.58975
+  ...
+# Subtest: RC04:default unknown/defer/clear do not invent an answer
+ok 55 - RC04:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.73175
+  ...
+# Subtest: RC04:all_fields every precise choice routes its exact meaning only after Send
+ok 56 - RC04:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.920583
+  ...
+# Subtest: RC04:all_fields unknown/defer/clear do not invent an answer
+ok 57 - RC04:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.046375
+  ...
+# Subtest: RC05:default every precise choice routes its exact meaning only after Send
+ok 58 - RC05:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.031167
+  ...
+# Subtest: RC05:default unknown/defer/clear do not invent an answer
+ok 59 - RC05:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.768459
+  ...
+# Subtest: RC05:all_fields every precise choice routes its exact meaning only after Send
+ok 60 - RC05:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.022959
+  ...
+# Subtest: RC05:all_fields unknown/defer/clear do not invent an answer
+ok 61 - RC05:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.080875
+  ...
+# Subtest: RC06:default every precise choice routes its exact meaning only after Send
+ok 62 - RC06:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.757167
+  ...
+# Subtest: RC06:default unknown/defer/clear do not invent an answer
+ok 63 - RC06:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.891583
+  ...
+# Subtest: RC06:all_fields every precise choice routes its exact meaning only after Send
+ok 64 - RC06:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.49875
+  ...
+# Subtest: RC06:all_fields unknown/defer/clear do not invent an answer
+ok 65 - RC06:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.83175
+  ...
+# Subtest: RC07:default every precise choice routes its exact meaning only after Send
+ok 66 - RC07:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.887958
+  ...
+# Subtest: RC07:default unknown/defer/clear do not invent an answer
+ok 67 - RC07:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.825916
+  ...
+# Subtest: RC07:all_fields every precise choice routes its exact meaning only after Send
+ok 68 - RC07:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.960583
+  ...
+# Subtest: RC07:all_fields unknown/defer/clear do not invent an answer
+ok 69 - RC07:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.813167
+  ...
+# Subtest: RC08:default every precise choice routes its exact meaning only after Send
+ok 70 - RC08:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.860917
+  ...
+# Subtest: RC08:default unknown/defer/clear do not invent an answer
+ok 71 - RC08:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.142209
+  ...
+# Subtest: RC08:all_fields every precise choice routes its exact meaning only after Send
+ok 72 - RC08:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 2.195625
+  ...
+# Subtest: RC08:all_fields unknown/defer/clear do not invent an answer
+ok 73 - RC08:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.971542
+  ...
+# Subtest: RC09:default every precise choice routes its exact meaning only after Send
+ok 74 - RC09:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.776042
+  ...
+# Subtest: RC09:default unknown/defer/clear do not invent an answer
+ok 75 - RC09:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.859375
+  ...
+# Subtest: RC09:all_fields every precise choice routes its exact meaning only after Send
+ok 76 - RC09:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 2.979291
+  ...
+# Subtest: RC09:all_fields unknown/defer/clear do not invent an answer
+ok 77 - RC09:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.197334
+  ...
+# Subtest: RC10:default every precise choice routes its exact meaning only after Send
+ok 78 - RC10:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.645292
+  ...
+# Subtest: RC10:default unknown/defer/clear do not invent an answer
+ok 79 - RC10:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.852458
+  ...
+# Subtest: RC10:all_fields every precise choice routes its exact meaning only after Send
+ok 80 - RC10:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.626833
+  ...
+# Subtest: RC10:all_fields unknown/defer/clear do not invent an answer
+ok 81 - RC10:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.008666
+  ...
+# Subtest: RC11:default every precise choice routes its exact meaning only after Send
+ok 82 - RC11:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.029958
+  ...
+# Subtest: RC11:default unknown/defer/clear do not invent an answer
+ok 83 - RC11:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.9045
+  ...
+# Subtest: RC11:all_fields every precise choice routes its exact meaning only after Send
+ok 84 - RC11:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.027708
+  ...
+# Subtest: RC11:all_fields unknown/defer/clear do not invent an answer
+ok 85 - RC11:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.731167
+  ...
+# Subtest: RC12:default every precise choice routes its exact meaning only after Send
+ok 86 - RC12:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.919667
+  ...
+# Subtest: RC12:default unknown/defer/clear do not invent an answer
+ok 87 - RC12:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.832
+  ...
+# Subtest: RC12:all_fields every precise choice routes its exact meaning only after Send
+ok 88 - RC12:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.887708
+  ...
+# Subtest: RC12:all_fields unknown/defer/clear do not invent an answer
+ok 89 - RC12:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.795666
+  ...
+# Subtest: RC13:default every precise choice routes its exact meaning only after Send
+ok 90 - RC13:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.9235
+  ...
+# Subtest: RC13:default unknown/defer/clear do not invent an answer
+ok 91 - RC13:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.809417
+  ...
+# Subtest: RC13:all_fields every precise choice routes its exact meaning only after Send
+ok 92 - RC13:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.923208
+  ...
+# Subtest: RC13:all_fields unknown/defer/clear do not invent an answer
+ok 93 - RC13:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.922709
+  ...
+# Subtest: RC14:default every precise choice routes its exact meaning only after Send
+ok 94 - RC14:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.617416
+  ...
+# Subtest: RC14:default unknown/defer/clear do not invent an answer
+ok 95 - RC14:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.830375
+  ...
+# Subtest: RC14:all_fields every precise choice routes its exact meaning only after Send
+ok 96 - RC14:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.705375
+  ...
+# Subtest: RC14:all_fields unknown/defer/clear do not invent an answer
+ok 97 - RC14:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.886041
+  ...
+# Subtest: RC15:default every precise choice routes its exact meaning only after Send
+ok 98 - RC15:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.027375
+  ...
+# Subtest: RC15:default unknown/defer/clear do not invent an answer
+ok 99 - RC15:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.736583
+  ...
+# Subtest: RC15:all_fields every precise choice routes its exact meaning only after Send
+ok 100 - RC15:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.023875
+  ...
+# Subtest: RC15:all_fields unknown/defer/clear do not invent an answer
+ok 101 - RC15:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.816375
+  ...
+# Subtest: RC16:default every precise choice routes its exact meaning only after Send
+ok 102 - RC16:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.606375
+  ...
+# Subtest: RC16:default unknown/defer/clear do not invent an answer
+ok 103 - RC16:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.78675
+  ...
+# Subtest: RC16:all_fields every precise choice routes its exact meaning only after Send
+ok 104 - RC16:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.024542
+  ...
+# Subtest: RC16:all_fields unknown/defer/clear do not invent an answer
+ok 105 - RC16:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 2.517333
+  ...
+# Subtest: RC16:all_fields priorMedigap finite fields preserve exact field/entity
+ok 106 - RC16:all_fields priorMedigap finite fields preserve exact field/entity
+  ---
+  duration_ms: 1.138208
+  ...
+# Subtest: RC17:default every precise choice routes its exact meaning only after Send
+ok 107 - RC17:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.849625
+  ...
+# Subtest: RC17:default unknown/defer/clear do not invent an answer
+ok 108 - RC17:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.890334
+  ...
+# Subtest: RC17:all_fields every precise choice routes its exact meaning only after Send
+ok 109 - RC17:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.725
+  ...
+# Subtest: RC17:all_fields unknown/defer/clear do not invent an answer
+ok 110 - RC17:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.27875
+  ...
+# Subtest: RC18:default every precise choice routes its exact meaning only after Send
+ok 111 - RC18:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 2.229333
+  ...
+# Subtest: RC18:default unknown/defer/clear do not invent an answer
+ok 112 - RC18:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.04475
+  ...
+# Subtest: RC18:all_fields every precise choice routes its exact meaning only after Send
+ok 113 - RC18:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 2.420334
+  ...
+# Subtest: RC18:all_fields unknown/defer/clear do not invent an answer
+ok 114 - RC18:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.037
+  ...
+# Subtest: RC19:default every precise choice routes its exact meaning only after Send
+ok 115 - RC19:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.130375
+  ...
+# Subtest: RC19:default unknown/defer/clear do not invent an answer
+ok 116 - RC19:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.969333
+  ...
+# Subtest: RC19:all_fields every precise choice routes its exact meaning only after Send
+ok 117 - RC19:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.104959
+  ...
+# Subtest: RC19:all_fields unknown/defer/clear do not invent an answer
+ok 118 - RC19:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.005375
+  ...
+# Subtest: RC20:default every precise choice routes its exact meaning only after Send
+ok 119 - RC20:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.029041
+  ...
+# Subtest: RC20:default unknown/defer/clear do not invent an answer
+ok 120 - RC20:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.962666
+  ...
+# Subtest: RC20:all_fields every precise choice routes its exact meaning only after Send
+ok 121 - RC20:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.024375
+  ...
+# Subtest: RC20:all_fields unknown/defer/clear do not invent an answer
+ok 122 - RC20:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.776666
+  ...
+# Subtest: RC21:default every precise choice routes its exact meaning only after Send
+ok 123 - RC21:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.024792
+  ...
+# Subtest: RC21:default unknown/defer/clear do not invent an answer
+ok 124 - RC21:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.7825
+  ...
+# Subtest: RC21:all_fields every precise choice routes its exact meaning only after Send
+ok 125 - RC21:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.025083
+  ...
+# Subtest: RC21:all_fields unknown/defer/clear do not invent an answer
+ok 126 - RC21:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.755459
+  ...
+# Subtest: RC22:default every precise choice routes its exact meaning only after Send
+ok 127 - RC22:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.022958
+  ...
+# Subtest: RC22:default unknown/defer/clear do not invent an answer
+ok 128 - RC22:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.67425
+  ...
+# Subtest: RC22:all_fields every precise choice routes its exact meaning only after Send
+ok 129 - RC22:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.023
+  ...
+# Subtest: RC22:all_fields unknown/defer/clear do not invent an answer
+ok 130 - RC22:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.708208
+  ...
+# Subtest: RC23:default every precise choice routes its exact meaning only after Send
+ok 131 - RC23:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.020792
+  ...
+# Subtest: RC23:default unknown/defer/clear do not invent an answer
+ok 132 - RC23:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.695459
+  ...
+# Subtest: RC23:all_fields every precise choice routes its exact meaning only after Send
+ok 133 - RC23:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.021166
+  ...
+# Subtest: RC23:all_fields unknown/defer/clear do not invent an answer
+ok 134 - RC23:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 2.800792
+  ...
+# Subtest: RC23:all_fields daysSupply finite fields preserve exact field/entity
+ok 135 - RC23:all_fields daysSupply finite fields preserve exact field/entity
+  ---
+  duration_ms: 1.313417
+  ...
+# Subtest: RC23:all_fields channel finite fields preserve exact field/entity
+ok 136 - RC23:all_fields channel finite fields preserve exact field/entity
+  ---
+  duration_ms: 0.752209
+  ...
+# Subtest: RC24:default every precise choice routes its exact meaning only after Send
+ok 137 - RC24:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.055917
+  ...
+# Subtest: RC24:default unknown/defer/clear do not invent an answer
+ok 138 - RC24:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.935333
+  ...
+# Subtest: RC24:all_fields every precise choice routes its exact meaning only after Send
+ok 139 - RC24:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.961791
+  ...
+# Subtest: RC24:all_fields unknown/defer/clear do not invent an answer
+ok 140 - RC24:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.890708
+  ...
+# Subtest: RC25:default every precise choice routes its exact meaning only after Send
+ok 141 - RC25:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.040583
+  ...
+# Subtest: RC25:default unknown/defer/clear do not invent an answer
+ok 142 - RC25:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.75075
+  ...
+# Subtest: RC25:all_fields every precise choice routes its exact meaning only after Send
+ok 143 - RC25:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.027083
+  ...
+# Subtest: RC25:all_fields unknown/defer/clear do not invent an answer
+ok 144 - RC25:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.948708
+  ...
+# Subtest: RC25:all_fields includes finite fields preserve exact field/entity
+ok 145 - RC25:all_fields includes finite fields preserve exact field/entity
+  ---
+  duration_ms: 1.623583
+  ...
+# Subtest: RC26:default every precise choice routes its exact meaning only after Send
+ok 146 - RC26:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.661583
+  ...
+# Subtest: RC26:default unknown/defer/clear do not invent an answer
+ok 147 - RC26:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.801583
+  ...
+# Subtest: RC26:all_fields every precise choice routes its exact meaning only after Send
+ok 148 - RC26:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.453125
+  ...
+# Subtest: RC26:all_fields unknown/defer/clear do not invent an answer
+ok 149 - RC26:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.800916
+  ...
+# Subtest: RC27:default every precise choice routes its exact meaning only after Send
+ok 150 - RC27:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.8555
+  ...
+# Subtest: RC27:default unknown/defer/clear do not invent an answer
+ok 151 - RC27:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.775375
+  ...
+# Subtest: RC27:all_fields every precise choice routes its exact meaning only after Send
+ok 152 - RC27:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.83775
+  ...
+# Subtest: RC27:all_fields unknown/defer/clear do not invent an answer
+ok 153 - RC27:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.88525
+  ...
+# Subtest: RC28:default every precise choice routes its exact meaning only after Send
+ok 154 - RC28:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.172
+  ...
+# Subtest: RC28:default unknown/defer/clear do not invent an answer
+ok 155 - RC28:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.790125
+  ...
+# Subtest: RC28:all_fields every precise choice routes its exact meaning only after Send
+ok 156 - RC28:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 1.136
+  ...
+# Subtest: RC28:all_fields unknown/defer/clear do not invent an answer
+ok 157 - RC28:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.795583
+  ...
+# Subtest: RC11.C1:default every precise choice routes its exact meaning only after Send
+ok 158 - RC11.C1:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.023875
+  ...
+# Subtest: RC11.C1:default unknown/defer/clear do not invent an answer
+ok 159 - RC11.C1:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.69625
+  ...
+# Subtest: RC11.C1:all_fields every precise choice routes its exact meaning only after Send
+ok 160 - RC11.C1:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.023083
+  ...
+# Subtest: RC11.C1:all_fields unknown/defer/clear do not invent an answer
+ok 161 - RC11.C1:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.691083
+  ...
+# Subtest: RC16.C1:default every precise choice routes its exact meaning only after Send
+ok 162 - RC16.C1:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.598125
+  ...
+# Subtest: RC16.C1:default unknown/defer/clear do not invent an answer
+ok 163 - RC16.C1:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.759042
+  ...
+# Subtest: RC16.C1:all_fields every precise choice routes its exact meaning only after Send
+ok 164 - RC16.C1:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.026292
+  ...
+# Subtest: RC16.C1:all_fields unknown/defer/clear do not invent an answer
+ok 165 - RC16.C1:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.7335
+  ...
+# Subtest: RC16.C1:all_fields priorMedigap finite fields preserve exact field/entity
+ok 166 - RC16.C1:all_fields priorMedigap finite fields preserve exact field/entity
+  ---
+  duration_ms: 0.800916
+  ...
+# Subtest: RC16.C2:default every precise choice routes its exact meaning only after Send
+ok 167 - RC16.C2:default every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.606708
+  ...
+# Subtest: RC16.C2:default unknown/defer/clear do not invent an answer
+ok 168 - RC16.C2:default unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.974958
+  ...
+# Subtest: RC16.C2:all_fields every precise choice routes its exact meaning only after Send
+ok 169 - RC16.C2:all_fields every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.065959
+  ...
+# Subtest: RC16.C2:all_fields unknown/defer/clear do not invent an answer
+ok 170 - RC16.C2:all_fields unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.982833
+  ...
+# Subtest: RC16.C2:all_fields priorMedigap finite fields preserve exact field/entity
+ok 171 - RC16.C2:all_fields priorMedigap finite fields preserve exact field/entity
+  ---
+  duration_ms: 0.980791
+  ...
+# Subtest: RC02:county_select every precise choice routes its exact meaning only after Send
+ok 172 - RC02:county_select every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.050334
+  ...
+# Subtest: RC02:county_select unknown/defer/clear do not invent an answer
+ok 173 - RC02:county_select unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 1.297917
+  ...
+# Subtest: RC02:county_select county finite fields preserve exact field/entity
+ok 174 - RC02:county_select county finite fields preserve exact field/entity
+  ---
+  duration_ms: 0.795708
+  ...
+# Subtest: RC11:jobEnd every precise choice routes its exact meaning only after Send
+ok 175 - RC11:jobEnd every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.044375
+  ...
+# Subtest: RC11:jobEnd unknown/defer/clear do not invent an answer
+ok 176 - RC11:jobEnd unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.912375
+  ...
+# Subtest: RC11:coverageEnd every precise choice routes its exact meaning only after Send
+ok 177 - RC11:coverageEnd every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.036958
+  ...
+# Subtest: RC11:coverageEnd unknown/defer/clear do not invent an answer
+ok 178 - RC11:coverageEnd unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.778417
+  ...
+# Subtest: RC16:priorMedigap every precise choice routes its exact meaning only after Send
+ok 179 - RC16:priorMedigap every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.0365
+  ...
+# Subtest: RC16:priorMedigap unknown/defer/clear do not invent an answer
+ok 180 - RC16:priorMedigap unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.934917
+  ...
+# Subtest: RC16:priorMedigap priorMedigap finite fields preserve exact field/entity
+ok 181 - RC16:priorMedigap priorMedigap finite fields preserve exact field/entity
+  ---
+  duration_ms: 0.847542
+  ...
+# Subtest: RC23:daysSupply every precise choice routes its exact meaning only after Send
+ok 182 - RC23:daysSupply every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.028542
+  ...
+# Subtest: RC23:daysSupply unknown/defer/clear do not invent an answer
+ok 183 - RC23:daysSupply unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.761917
+  ...
+# Subtest: RC23:daysSupply daysSupply finite fields preserve exact field/entity
+ok 184 - RC23:daysSupply daysSupply finite fields preserve exact field/entity
+  ---
+  duration_ms: 1.062667
+  ...
+# Subtest: RC23:channel every precise choice routes its exact meaning only after Send
+ok 185 - RC23:channel every precise choice routes its exact meaning only after Send
+  ---
+  duration_ms: 0.196083
+  ...
+# Subtest: RC23:channel unknown/defer/clear do not invent an answer
+ok 186 - RC23:channel unknown/defer/clear do not invent an answer
+  ---
+  duration_ms: 0.714916
+  ...
+# Subtest: RC23:channel channel finite fields preserve exact field/entity
+ok 187 - RC23:channel channel finite fields preserve exact field/entity
+  ---
+  duration_ms: 0.531417
+  ...
+# Subtest: every multi-select exclusive choice clears incompatible values in either order
+ok 188 - every multi-select exclusive choice clears incompatible values in either order
+  ---
+  duration_ms: 14.169542
+  ...
+# Subtest: existing assistance-program reports seed the full selected collection
+ok 189 - existing assistance-program reports seed the full selected collection
+  ---
+  duration_ms: 0.344583
+  ...
+# Subtest: priorities cap is service-owned and prevents a fourth finite selection without losing the first three
+ok 190 - priorities cap is service-owned and prevents a fourth finite selection without losing the first three
+  ---
+  duration_ms: 0.390209
+  ...
+# Subtest: typed drafts block every finite answer and disclosure without silently replacing their text
+ok 191 - typed drafts block every finite answer and disclosure without silently replacing their text
+  ---
+  duration_ms: 12.687125
+  ...
+# Subtest: every direct current-insurance button closes an unrelated expansion without discarding a precise report
+ok 192 - every direct current-insurance button closes an unrelated expansion without discarding a precise report
+  ---
+  duration_ms: 2.865542
+  ...
+1..192
+# tests 192
+# suites 0
+# pass 192
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 242.9675

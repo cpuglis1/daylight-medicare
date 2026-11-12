@@ -1,0 +1,84 @@
+{
+  "model": "gpt-6.1-sol",
+  "fictional_only": true,
+  "saved_profiles": false,
+  "complete": false,
+  "quality_pass": null,
+  "human_comprehension": "unobserved",
+  "journeys": [
+    {
+      "id": "retirement_timing",
+      "complete": false,
+      "turns": []
+    }
+  ],
+  "receipts": [
+    {
+      "status": "cancelled",
+      "charged_nano": 0,
+      "measured_nano": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    {
+      "status": "uncertain",
+      "charged_nano": 64000000,
+      "measured_nano": null,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  ],
+  "run_cap_usd": 1.1,
+  "budget_before": {
+    "day": "2026-11-04",
+    "timezone": "UTC",
+    "resetAt": "2026-11-05T00:00:00+00:00",
+    "dailyLimitUsd": 5,
+    "estimatedUsd": 2.8405204,
+    "maxInputTokens": 16000,
+    "maxOutputTokens": 900,
+    "reservedOrUncertainUsd": 0.9195,
+    "accountedUsd": 3.7600204,
+    "remainingUsd": 1.2399796,
+    "requestCount": 141,
+    "canRequest": true,
+    "reason": "",
+    "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+    "pricingValidUntil": "2026-11-11T00:00:00Z",
+    "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+  },
+  "stopped": {
+    "case": "retirement_timing",
+    "turn": 1,
+    "exception": "ModelUnavailable"
+  },
+  "provider_diagnostic": {
+    "event": "error",
+    "incomplete_reason": "unknown",
+    "provider_code": "credit_balance_exhausted",
+    "usage": {}
+  },
+  "transport_diagnostic": null,
+  "budget_after": {
+    "day": "2026-11-04",
+    "timezone": "UTC",
+    "resetAt": "2026-11-05T00:00:00+00:00",
+    "dailyLimitUsd": 5,
+    "estimatedUsd": 2.8405204,
+    "maxInputTokens": 16000,
+    "maxOutputTokens": 900,
+    "reservedOrUncertainUsd": 0.9835,
+    "accountedUsd": 3.8240204,
+    "remainingUsd": 1.1759796,
+    "requestCount": 143,
+    "canRequest": true,
+    "reason": "",
+    "pricingVerifiedAt": "2026-11-04T15:26:46Z",
+    "pricingValidUntil": "2026-11-11T00:00:00Z",
+    "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+  },
+  "measured_usd": 0.0,
+  "held_usd": 0.064,
+  "source_unchanged": true,
+  "elapsed_seconds": 1.875
+}

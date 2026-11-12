@@ -1,0 +1,35 @@
+--- alternatives/advisor-first/advisor_memory.py (before)
++++ alternatives/advisor-first/advisor_memory.py
+@@ -13,6 +13,7 @@
+ from education import empty_record, validate_record
+ from learner_state import empty_record as empty_learner, validate_record as validate_learner
+ from task_work import empty_record as empty_work_record, validate_record as validate_work_record
++from turn_contract import checked_continuation
+ 
+ 
+ CONTEXT_POLICY = 'natural-context-v3'
+@@ -129,7 +130,7 @@
+     def remember(self, owner, chain, policy, user, reply, question,
+                  question_target=None, agenda_update=None, goal=None,
+                  candidate_ids=(), education_record=None, task_work_record=None,
+-                 learner_record=None):
++                 learner_record=None, continuation=None):
+         """Remember one completed exchange after the caller validates its reports.
+ 
+         ``goal`` is an optional explicit-user-report patch supplied by the caller;
+@@ -171,12 +172,15 @@
+             education = validate_record(education_record) if education_record is not None else None
+             task_work = validate_work_record(task_work_record) if task_work_record is not None else None
+             learner = validate_learner(learner_record) if learner_record is not None else None
++            continuation = checked_continuation(continuation) if continuation is not None else None
+ 
+             # Validation is complete before mutating any active visit.
+             memory = copy.deepcopy(self._visits.get(key, {
+                 'exchanges': [], 'brief': {}, 'expires': 0,
+             }))
+             brief = memory['brief']
++            if continuation is not None:
++                brief['continuation'] = continuation
+             if education is not None:
+                 memory['education'] = education
+             if task_work is not None:

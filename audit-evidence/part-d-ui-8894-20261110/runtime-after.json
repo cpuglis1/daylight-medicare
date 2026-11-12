@@ -1,0 +1,199 @@
+{
+  "captured_at": "2026-11-11T02:27:30.779442+00:00",
+  "services": {
+    "8890": {
+      "pids": []
+    },
+    "8891": {
+      "pids": []
+    },
+    "8893": {
+      "pids": [
+        "39225"
+      ],
+      "process": "Tue Nov 10 21:23:09 2026     /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/cep4u/daylight/alternatives/advisor-first/server.py --port 8893 --local-research --identity-research",
+      "config": {
+        "advisorName": "MidMorning",
+        "variant": "D86",
+        "mockAI": false,
+        "modelPolicy": {
+          "version": "D86-ongoing-v3",
+          "reasoning_effort": "none",
+          "output_tokens": 900,
+          "composition_reasoning_effort": "none"
+        },
+        "responseReliabilityContract": "response-reliability-r1",
+        "defaultModel": "gpt-6.1-sol"
+      },
+      "provider_usage": {
+        "OpenAI": {
+          "requestCount": 32,
+          "accountedUsd": 1.5647,
+          "dailyLimitUsd": 15
+        },
+        "Anthropic": {
+          "requestCount": 5,
+          "accountedUsd": 0.55508,
+          "dailyLimitUsd": 15
+        }
+      }
+    },
+    "8894": {
+      "pids": [
+        "91391"
+      ],
+      "process": "Tue Nov 10 17:06:59 2026     /Users/cep4u/anaconda3/bin/python3.10 /Users/cep4u/daylight/alternatives/advisor-first/ui-8894/serve.py",
+      "config": {
+        "advisorName": "MidMorning",
+        "variant": "D86",
+        "mockAI": false,
+        "modelPolicy": {
+          "version": "D86-ongoing-v3",
+          "reasoning_effort": "none",
+          "output_tokens": 900,
+          "composition_reasoning_effort": "none"
+        },
+        "responseReliabilityContract": "response-reliability-r1",
+        "defaultModel": "gpt-6.1-sol"
+      },
+      "provider_usage": {
+        "OpenAI": {
+          "requestCount": 32,
+          "accountedUsd": 1.5647,
+          "dailyLimitUsd": 15
+        },
+        "Anthropic": {
+          "requestCount": 5,
+          "accountedUsd": 0.55508,
+          "dailyLimitUsd": 15
+        }
+      }
+    },
+    "8896": {
+      "pids": []
+    }
+  },
+  "stores": {
+    "alternatives/advisor-first/var/profiles/guides.sqlite3": {
+      "guests": {
+        "rows": 8,
+        "sha256": "0bc3244ffb96df8858edf51eb5a85cca030bb0a820a86ef09790934c7049e032",
+        "schema_sha256": "02e7e53b15af60d2d197a5d1a1f7d0d289568d5a6d190140087c1a5e1737fb4c"
+      },
+      "readiness": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "schema_sha256": "7d345c0c762cde4855643f7f2c78cbcde54ecb7528f44423e972de7af39998de"
+      },
+      "readiness_requests": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "schema_sha256": "eec0bee8df2cfbfded819a2b12b9b933537e1bae5773b95df1f528f990dcd9a7"
+      },
+      "requests": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "schema_sha256": "bc65bfaec60f66678d852baa2cada3e4ec873718633981da2d5b17d2e0fb1660"
+      }
+    },
+    "cms-slice/var/ai-budget/usage.sqlite3": {
+      "advisor_charge_models": {
+        "rows": 1234,
+        "sha256": "f190734b250056bab5fde3e84f1e6560a494296746ac3fb8ebe96fe49e98a58d",
+        "schema_sha256": "cbf1736a7b970560682109377af75a04428d7432c9e7c9dc1ca3409e63160fbd"
+      },
+      "ai_charges": {
+        "rows": 1234,
+        "sha256": "024bcca0697d2e804f8b4a3ec228127425c01c3a3e6b71d53201f44e9d62b3ef",
+        "schema_sha256": "afa5582802b16dade639614d27ada0f9c89b789afbce9ab5bb201709d824e554"
+      },
+      "ai_meta": {
+        "rows": 2,
+        "sha256": "77af6d76e033d1350b191209fc9058f30565de7ddf21412a82b9ed43a2c534e3",
+        "schema_sha256": "274d6f0c579a86272acd5155ff15dde34a554bb42ea5035c059a6e2c58d436c5"
+      }
+    }
+  },
+  "source_hashes": {
+    "alternatives/advisor-first/comparison_methods.py": "a9653568332c0572ab43b35374822f51c8067b0383854479333076ec96d26f44",
+    "alternatives/advisor-first/situation.py": "882cdbd960bd915b01623518fb385cca0c2c83f16186ee4142df0ea37ed35695",
+    "alternatives/advisor-first/applicable_rules.py": "c9eddedc211e66cf710e80252feb158e9cc76b447b1d2fb68f13df2657e8d2d1",
+    "alternatives/advisor-first/catalog_research.py": "ff7cf0b630511d9bfbb3676760f40f11e42363ba712ab3db91fd5d837a797fc8",
+    "alternatives/advisor-first/comparison_case.py": "ac53bcc246f44a9109e0702f66ffdf51ff2c3f35fc6a5929b893fa32fb0e1331",
+    "alternatives/advisor-first/plan_review.py": "b64bc698879a47fb4ca22a9e2b115aed37c961a6c71150f9de51baf24c3b43ac",
+    "alternatives/advisor-first/decision_guidance.py": "c207d855a2f006237b29a97e199ac3e79a5262a204b1d337823f750b4ee1c256",
+    "alternatives/advisor-first/identity_resolution.py": "23cbfd87a7ac521073c30d8ebd5cd6adb47aa6d41bc356313450991f854bd14c",
+    "alternatives/advisor-first/pilot_budget.py": "446b39c995e4994b043fc77f8dcee98ea08094b7ef9b01eaae435c927f898ed7",
+    "alternatives/advisor-first/server.py": "25ca3ecd842cbd54541398717c64f25dbe4295718b3bbbf16b6cbc810b4c4de6",
+    "alternatives/advisor-first/understanding_reference.py": "dee8f49da230e8a9a0f39ccc2fbfc2b1b5fd7573a60530e544785002631b25e7",
+    "alternatives/advisor-first/understanding_examples.py": "886c14bc3039fc03109184a0e4afc37254102cda595018bf2dfdd024b5856263",
+    "alternatives/advisor-first/plan_review_http.py": "60d9b605d136da32e3182dc9de2d0df4335a2683352dc6fe5343d9541bb3e576",
+    "alternatives/advisor-first/contextual_capture.py": "fe30a755c7a116a729da50604530a96667cbbb6e4b442ffd56c68f9b45ec9cd0",
+    "alternatives/advisor-first/comparison_service.py": "9d26ceedc01d644d9d5a19b3b3682fbae0b5ad7c0827c5845114389c9747220b",
+    "alternatives/advisor-first/published_reference.py": "190220d988acf2310dffdb3cc47adb46b79d7eea84608a868d10bba0724d00c7",
+    "alternatives/advisor-first/identity_journey.py": "3a190575c66c496a5a79e3d9717ae4889b35f64e7727f7ec2c1854f735078a0b",
+    "alternatives/advisor-first/understanding.py": "a7a30cda1bc7ec82fa23869430001dea44d799c3df9e2e244c089bc1adb59d8a",
+    "alternatives/advisor-first/pilot_access.py": "4289f796d28b7bf8b47cacbbcd593571800bcf4d3b638931097c7e287ceb2940",
+    "alternatives/advisor-first/conversation_output.py": "546bbb34d72c0cac4df8f2a36015390254d2e9a966feb060cf0fa90578465794",
+    "alternatives/advisor-first/comparison_preview.py": "1d14f7eaf6920ca1757c0af1bf322afd0d1b756b1e0582ab93653f0544710447",
+    "alternatives/advisor-first/request_packing.py": "56147ff8600f56f386a67a6cc56318ec9738298a7749a17de05be787e7c36747",
+    "alternatives/advisor-first/transport_diagnostics.py": "0a264732d1413b16d8dcbbcaa0459215679ef572d7679cc687e83ed0079ba03e",
+    "alternatives/advisor-first/plans_ranking.py": "b1ccf9c1cc52ce2ebc935dd3ef4b3afdc564cf864d71a5437e1b03c1582d90f0",
+    "alternatives/advisor-first/composition_recovery.py": "a766029a7732b4cf3c9b228e97b4eb01e49d320b7a21813f2a2e2b4b11cfbac7",
+    "alternatives/advisor-first/plans_http.py": "128a73c7387a59157376d5467ca3c9864d69fc278a44acda3646e4d09c7fccd3",
+    "alternatives/advisor-first/task_work.py": "ffae0548a2eb22dcfb96ee4a3817d78e0aeebc48a8d37547643e5b39ba11132a",
+    "alternatives/advisor-first/comparison_research.py": "bde4f2246a570bd2b261d5a91fdf714439acb2429cad8c8a4aa4ed38737f6623",
+    "alternatives/advisor-first/log_guard.py": "142c711d74c2ab1eafd7aae43213cf1117662e52c2600ae9dd15bcd1dcc32199",
+    "alternatives/advisor-first/part_d_pilot.py": "6756ea9989da824440a88ba34e27a8d128d8c46a16ce8ff2cbb047ee06206afb",
+    "alternatives/advisor-first/request_limits.py": "10d7652a094f50918a3ab37e5ee596cc9b81ca3bba7acc49d15c2a4f933e7dd7",
+    "alternatives/advisor-first/comparison_profile.py": "133c41f6158f437d83436006defb2da40e84e15ce7bd3493d0e89bc4d6dc1180",
+    "alternatives/advisor-first/education.py": "7a56ff3d13e8ecbc7ba49266cef2cd09645e6934cb8762ac90720093721ab976",
+    "alternatives/advisor-first/plans_context.py": "30fe62b5c699c30bd27c24cb335b3912dc29e585a8d2c60d6adb14a19d662702",
+    "alternatives/advisor-first/turn_contract.py": "c3a48223295bb70a454a59be6a63ac2ddc81e8687eb9bcadd10a43670815776c",
+    "alternatives/advisor-first/research_http.py": "91a1d335f1d78eab73d891c9a93cda107498725904f9ca58c202cd207c4e0b26",
+    "alternatives/advisor-first/plans_adapters.py": "1cbac8fb1c6dabd719328e13e362bf9c6074bbbc9ce31b8a74be6781c0b5660a",
+    "alternatives/advisor-first/plans_publication.py": "d30954cae2b0ee4802aff3b32e64165bdcb0ee1edb722fbd859baf49a99cf4b1",
+    "alternatives/advisor-first/part_d_profile.py": "4523f74ee986da13b6d4a16260552f46a37d969097ee8268be2a2ac529eb2fdf",
+    "alternatives/advisor-first/provider_transport.py": "d1594ff32581aa44ca18d9c6687c321f045357fc29fe7068a5b8db04510d39b3",
+    "alternatives/advisor-first/session_recovery.py": "dc462daf367cf3e6dbe19282202b592dafb930147b8d7b8b613efe2f3fbc8653",
+    "alternatives/advisor-first/advisor_models.py": "ebe8d85196299981d5308d0739a75c031dbe06cb3e6107726e0d748ed9d4f012",
+    "alternatives/advisor-first/comparison_journey.py": "5c5a3f0e43a1decbd257e8b02edd418debbc0dd3c7790750c2f5322cfae56424",
+    "alternatives/advisor-first/advisor_memory.py": "07f8e76b294ad40dfb9ce6748b2d8b9873b044b4535b1b427f49941022e72935",
+    "alternatives/advisor-first/understanding_scenarios.py": "14f243bed4c7c12aa7948ef794223ac427ce01876dce753c0318e8ff5b428747",
+    "alternatives/advisor-first/natural_agent.py": "44872ec8bdf14676d52dfd075931784724230998722ed8eb5e48300b539921c8",
+    "alternatives/advisor-first/conversation_claims.py": "35aa21272d51f58969e0e4dcc0bb0f541225b6798688cbaa0a16f7001d585a59",
+    "alternatives/advisor-first/identifier_guard.py": "3cfd1ca42570e38ec65358fdafd6faca2ac4126a013e0daea505caa4c37dafdd",
+    "alternatives/advisor-first/identity_http.py": "36e782195e7f51f2a0bafd873ca8e7f38187a837f7decaf7d8d45eb58eb26ba6",
+    "alternatives/advisor-first/comparison_evidence.py": "9d0510a95083555b7942b23eff4831b910352bab4ada718d263ed270d6aa3452",
+    "alternatives/advisor-first/pilot_admin.py": "6a377dfe0793e2dfa08704cdb16d00729467dc4d2ca7c1b03fce14bf97fe55bc",
+    "alternatives/advisor-first/timing_language.py": "6f5f406e9a7e344c8d03cfaddfea56e45ec99e2ec07dcd8152299aa19f1c3705",
+    "alternatives/advisor-first/learner_state.py": "018032f6cc62dc4befa6ef065d36e953de5c76a0917437bbf22bd99f30050831",
+    "alternatives/advisor-first/advisor_flow.py": "dca80ca28289ba0919403be6b8771f893033ee06e6f376aed9f0fa31cd14bfd6",
+    "alternatives/advisor-first/natural_flow.py": "50e63722f6da43b98ae35234298de099fd2bcad3b2b8960b908ca8c2bcf8a7c0",
+    "alternatives/advisor-first/narrative_agent.py": "f25cc9b64c9b9cc6a0703d7262c976331f9de2e19ae981c4d8943b81da6874ea",
+    "alternatives/advisor-first/model_router.py": "eeb9cfd06811ccfbd5635322d40ebc1c4c55f32a510e52a9c930f6715f72d2d6",
+    "alternatives/advisor-first/comparison_engine.py": "3289facd7af222d86f65ce6fd183f1118f0c85e59f24684d4911d627582b7d05",
+    "alternatives/advisor-first/controller_diagnostics.py": "079aa52f46344e2936240ff0d818a4e6bcd800bee02faa7f4f6cb4437d7d0b29",
+    "alternatives/advisor-first/provider_tokens.py": "d382173f10d4b35991e8583a2a4cf33a1bbe2d0c56514e7e679d96785c321fc4",
+    "alternatives/advisor-first/medigap_profile.py": "668b00c96d600de208bfab9efd26971d276d870b4d916498a5f328b12d2b2083",
+    "alternatives/advisor-first/plans_service.py": "ca878efe8934f6897714074f88d9705b439760e7ebbadf6ce8b4b5995421080c",
+    "alternatives/advisor-first/advisor_budget.py": "c6827ed608ad952888bdf8d3500a7414c1594ca409a8ea81a3deb12820999bc8",
+    "alternatives/advisor-first/medigap_pilot.py": "a9df7be2e9a720b5a5f149c128477f394a4d959c82e078fece389b1ceb2e5fa3",
+    "alternatives/advisor-first/response_question_recovery.py": "d77ba4c0938aac462e3cc2bc10c99e4d55abf195ad437115050c3a9364b23fb5",
+    "alternatives/advisor-first/plans_catalog.py": "8be7e706462518f51a94335639d143b6c71946643fec0565cf30fbbec03bd50a",
+    "alternatives/advisor-first/plans_authority.py": "a02f6506aa433324f07043c9dea6819b70d5c6b51582ec24c6ec505b0622db21",
+    "alternatives/advisor-first/claude_client.py": "96e2c26ef28c0d0d5787bf4d0783bc5cc8f3199009358fd8c26ccda14ae6f41e",
+    "alternatives/advisor-first/natural_state.py": "19d9de87d417a0233001adddae72d4c81c86bf027d41ac0466a5f154d959995e",
+    "alternatives/advisor-first/pilot-rules.json": "3870c74bfbde3c16b4bdb229d6b2f407f5bc70bd5ac779f5fc7b6ffed9a7d4df",
+    "alternatives/advisor-first/advisor-evidence.json": "cb0cf2f72c65c67d8c373de4b0e8939c50381d1803d865f1079d5570076b0c43",
+    "alternatives/advisor-first/model-policy.json": "268d135701553f93b710492124c4fc152ba8dd4d9be5d0ee4a3f0255a72200f5",
+    "alternatives/advisor-first/engine-lock.json": "4e106adf2e9837a54e2b234a400c1cc83bc414f366f0c9f95eeef55a01634107",
+    "alternatives/advisor-first/budget-policy.json": "ff675c81a6f40d9962399acbc18b5b4317a04e5bc4dcb25c1b94e29216ee968b",
+    "alternatives/advisor-first/understanding-lock.json": "6c3e0ab79caffedd29dd4a3fc4326bd4faa8c7b698517a2191b113912d2043b8",
+    "alternatives/advisor-first/pilot-rules-r2.json": "28705c4b70da95478ec1b2205ac4617f2d8113ee1ee154752f71f45f60987329",
+    "alternatives/advisor-first/understanding-catalog.json": "0d7b60edba24693f1508caaee3bc7d8ef80e212d29c13af297e6826ed0783012",
+    "alternatives/advisor-first/pricing-review.json": "dda027327209787f823ff3caf5ab3d721ad5d5dd464c88ce824ac660b249f4b4",
+    "alternatives/advisor-first/model-routes.json": "f4d6ba90460bb773681bbf9be8956cc2a62e4537fbba3ec4a065a46a1826b2a7",
+    "alternatives/advisor-first/ui-8894/serve.py": "055ebcab0733912d6426b3fd229ce34f6fa2498789488372c9cfe1bb56035edf"
+  }
+}

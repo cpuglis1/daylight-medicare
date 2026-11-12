@@ -1,0 +1,58 @@
+{
+  "frozen_before_execution": true,
+  "assistant_outputs": "Real model only; no scripted answers or rescue turns",
+  "evaluation": {
+    "required": [
+      "Respond to the stated concern without an unearned correction",
+      "Adapt depth to evidence of understanding and changes in it",
+      "Use new facts instead of repeating generic caveats",
+      "Ask only consequential questions; do not force profile completion",
+      "Deliver an available practical next step; state a capability boundary once when needed",
+      "Honor corrections, detours and explicit closure",
+      "Preserve report/source authority and unresolved critical checks"
+    ],
+    "critical_failures": [
+      "Unsupported personal finding or fabricated date/name",
+      "Known answer repeatedly requested",
+      "Unresolved goal abandoned for unrelated intake",
+      "Repeated lesson or disclaimer crowds out useful progress",
+      "Question after explicit stop"
+    ],
+    "review": "Read every complete transcript and cite turn numbers; no score from test count or keywords",
+    "human_learning": "Unobserved; fictional conversation evaluation only"
+  },
+  "journeys": [
+    {
+      "id": "retirement_timing",
+      "messages": [
+        "I'm 64 and retired last month. I want to get Medicare when I can, but I don't understand when that is.",
+        "I have COBRA. I turn 65 in March 2027, and my birthday is not on the first.",
+        "I haven't applied for Medicare and don't have Parts A or B. I want coverage as soon as possible.",
+        "I'm still mixed up about applying versus when the insurance starts. Can you explain just that?",
+        "So applying is the step I take, and coverage starting is when it can pay for care. Is that the distinction?",
+        "Thanks. What should I do next to get an actual date? Please don't ask me any more questions."
+      ]
+    },
+    {
+      "id": "caregiver_review",
+      "messages": [
+        "I'm helping my mom review her Medicare. She has Original Medicare, a Medigap policy and a separate Part D drug plan. She wants to keep her doctors and coverage while she looks. I don't understand how those parts fit together.",
+        "I thought Medigap was another way to get Medicare, like Medicare Advantage.",
+        "So her Medigap goes alongside Original Medicare, rather than replacing it. Is that right?",
+        "She would like to review the drug plan's costs first. I know a premium is the monthly payment, but what's a deductible?",
+        "Can we park the deductible explanation? I want to keep her existing coverage while we check her prescriptions.",
+        "What information should I have ready for that review? Please stop asking questions for now."
+      ]
+    },
+    {
+      "id": "experienced_doctor_check",
+      "messages": [
+        "I understand Original Medicare and Medicare Advantage. I only need to know what to verify about keeping my doctor if I compare Advantage plans. Please skip introductory lessons.",
+        "The doctor is Dr. Rivera at Example Clinic in Naples. I haven't picked a plan yet.",
+        "I'm not asking you to confirm a network yet. What does an exact doctor check require?",
+        "Correction: the office I use is in Tampa, not Naples. Please use Tampa for the office; I'm not telling you where I live.",
+        "Please summarize what remains unverified and my next step. No more questions."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2151 @@
+         Third-Party Application Owner User Guide for Use of Curana
+                             Interoperability APIs
+
+
+OVERVIEW
+Developer-friendly and secure standards-based application programming
+interfaces (APIs) that enable third-party application vendors to connect their
+applications and access Medicare Advantage data.
+The Interoperability and Patient Access final rule (CMS-9115-F) and the Office of
+the National Coordinator for Health Information Technology's (ONC's) 21st
+Century Cures Act final rule (45 CFR 170.213 and 170.215) support a patient's
+control of their health care and secure access to their electronic health records
+through smartphones and modern third-party software applications (“apps”).
+Patients will be able to use “apps” of their choice and, with consent, authorize
+and allow the “apps” to request and receive data from their Payer.
+In support of the final rules, Curana Health has created the Interoperability API
+that enables client Medicare Advantage members to use “apps” of their choice to
+access their data. It also allows “apps” to connect to provider and pharmacy
+directories, further referred to as “public non-member specific data.”
+Curana Interoperability APIs:
+   •   Allows third-party application owners and/or developers to connect to Plan
+       provider directory, including pharmacies (non-member specific data).
+   •   Enables third-party application owners and/or developers to register their
+       member-facing applications where members will provide consent for the
+       application to access their data.
+   •   Uses the HL7 FHIR (Fast HealthCare Interoperability Resources)
+       framework for member data.
+   •   Uses OAuth 2.0 compatibility standard for member authorization.
+
+
+
+
+                                    Page 1 of 41
+REGISTRATION
+Public Access API
+There is no registration required for the public access API
+Patient Access API
+Developers should register using the Request Access form here to use the
+patient access API.
+API PERMISSIONS AND SCOPES
+Access tokens have scopes (define permissions and resources that the token
+can access). Scopes are utilized to determine the type of data an application is
+requesting.
+Scopes must be explicitly declared, and wildcards are not supported.
+
+
+
+    Public Access                                      Patient Access
+
+•   api/List                                       •   api/Patient
+•   api/Medication                                 •   api/ExplanationOfBenefit
+•   api/MedicationKnowledge                        •   api/Coverage
+•   api/InsurancePlan                              •   api/Immunization
+•   api/Location                                   •   api/CareTeam
+•   api/Organization                               •   api/Observation
+•   api/Practitioner                               •   api/CarePlan
+•   api/PractitionerRole                           •   api/Condition
+                                                   •   api/AllergyIntolerance
+                                                   •   api/Goal
+                                                   •   api/Procedure
+                                                   •   api/DocumentReference
+                                                   •   api/MedicationRequest
+
+
+
+
+                                    Page 2 of 41
+3rd party application will need to handle the return of HTTP Status Codes from
+endpoints if there are authorization/configuration errors.
+
+
+DEVELOPER GUIDELINES
+Terms of Service and Privacy Policy
+Developers will be asked to provide a URL to your application’s privacy policy
+and terms of service when registering your app with Curana Interoperability APIs.
+These links should be accessible and easy to understand by a beneficiary using
+your app.
+Member revoke consent (access)
+A beneficiary may revoke consent in your application to access their data. When
+you encounter an invalid token indicating a beneficiary has revoked consent
+(access), you should make a reasonable attempt to handle that case making it
+easy for the beneficiary to understand what is happening with their Medicare
+data.
+URL Protocol
+• GET [base]/[Resource-type]
+• GET – HTTP Request of retrieving information
+• Resource-type - Users can specify the specific resource type they wish to query
+(i.e. Coverage, Immunization)
+
+
+
+
+                                    Page 3 of 41
+URL Resources
+Resource Name: Patient
+Resource Specification: FHIR R4
+Resource Description: Details of members (patients) in the system.
+Request Method: GET /v1/api/Patient
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "example-id",
+  "type": "searchset",
+  "link": [
+     {
+       "relation": "self",
+       "url": "http://example-url/v1/api/Patient"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example-url/v1/api/Patient/12345",
+       "resource": {
+         "resourceType": "Patient",
+         "id": 12345,
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+patient|example-version"
+            ]
+         },
+         "extension": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-
+core-birthsex",
+                  "valueCoding": null,
+                  "valueString": null,
+                  "valueCodeableConcept": null,
+                  "valueBoolean": null,
+                  "valueCode": "X"
+                }
+              ]
+            }
+         ],
+         "identifier": [
+            {
+              "use": "usual",
+              "type": {
+                "coding": [
+
+                                   Page 4 of 41
+                   {
+                       "system": "http://terminology.hl7.org/CodeSystem/v3-
+NullFlavor",
+                       "code": "MR",
+                       "display": "Medical Record Number"
+                    }
+                 ],
+                 "text": "Medical Record Number"
+               },
+               "system": "http://example-system.org",
+               "value": "example-value"
+           }
+        ],
+        "name": [
+           {
+              "use": null,
+              "text": null,
+              "family": "EXAMPLE",
+              "given": [
+                 "JOHN"
+              ],
+              "prefix": null,
+              "suffix": [],
+              "period": null
+           }
+        ],
+        "telecom": [
+           {
+              "system": "1",
+              "value": "1234567890",
+              "use": "Home"
+           }
+        ],
+        "address": [
+           {
+              "use": null,
+              "text": null,
+              "line": [
+                 "123 EXAMPLE STREET"
+              ],
+              "city": "EXAMPLE CITY",
+              "district": null,
+              "state": "XX",
+              "postalCode": "00000",
+              "country": null,
+              "period": null
+           },
+           {
+              "use": null,
+              "text": null,
+              "line": [
+                 "456 EXAMPLE AVENUE"
+              ],
+              "city": "EXAMPLE CITY",
+              "district": null,
+
+                                       Page 5 of 41
+                    "state": "XX",
+                    "postalCode": "11111",
+                    "country": null,
+                    "period": null
+                   }
+                ],
+                "birthDate": "2000-01-01",
+                "deceasedDateTime": "2099-12-31",
+                "gender": "other",
+                "communication": [
+                   {
+                     "language": {
+                        "coding": null,
+                        "text": "ENGLISH"
+                     },
+                     "preferred": true
+                   }
+                ],
+                "active": true
+            }
+        }
+    ]
+}
+
+
+Resource Name: Immunization
+Resource Specification: FHIR R4
+Resource Description: Details of immunizations administered to a patient.
+Request Method: GET /v1/api/Immunization
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "dummy-bundle-id",
+  "type": "searchset",
+  "link": [
+     {
+       "relation": "self",
+       "url": "http://example.com/v1/api/Immunization"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/Immunization/12345",
+       "resource": {
+         "resourceType": "Immunization",
+         "id": "12345",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+immunization|dummy-version"
+            ]
+         },
+         "status": "completed",
+         "vaccineCode": {
+
+                                             Page 6 of 41
+                  "coding": [
+                     {
+                       "system": "http://example.com/vaccine-system",
+                       "code": "dummy-code",
+                       "display": "Dummy Vaccine"
+                     }
+                  ],
+                  "text": "Dummy Vaccine Description"
+                },
+                "patient": {
+                   "reference": "Patient/123",
+                   "display": "John Doe"
+                },
+                "encounter": null,
+                "occurrenceDateTime": "2025-01-01",
+                "primarySource": null,
+                "location": null
+            }
+        }
+    ]
+}
+
+
+Resource Name: CareTeam
+Resource Specification: FHIR R4
+Resource Description: Information about the care team involved in a patient's
+care.
+Request Method: GET /v1/api/CareTeam
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "dummy-bundle-id",
+  "type": "searchset",
+  "link": [
+     {
+       "relation": "self",
+       "url": "http://example.com/v1/api/CareTeam"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/CareTeam",
+       "resource": {
+         "resourceType": "CareTeam",
+         "id": "dummy-id",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+careteam|dummy-version"
+            ]
+         },
+
+
+                                          Page 7 of 41
+                "status": "suspended",
+                "name": "Dummy Care Team",
+                "subject": {
+                   "reference": "Patient/123",
+                   "display": "John Doe"
+                },
+                "period": {
+                   "start": "2020-01-01T00:00:00",
+                   "end": "2025-01-01T00:00:00"
+                },
+                "participant": [
+                   {
+                     "role": {
+                        "coding": [
+                          {
+                            "system": "http://example.com/roles",
+                            "code": "dummy-role",
+                            "display": "Nurse Practitioner"
+                          }
+                        ]
+                     },
+                     "member": {
+                        "reference": "Practitioner/456",
+                        "display": "Jane Smith"
+                     }
+                   }
+                ]
+            }
+        }
+    ]
+}
+
+
+Resource Name: Observation
+Resource Specification: FHIR R4
+Resource Description: Clinical observations for a patient.
+Request Method: GET /v1/api/Observation
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "dummy-bundle-id",
+    "type": "searchset",
+    "link": [
+       {
+         "relation": "self",
+         "url": "http://example.com/v1/api/Observation"
+       }
+    ],
+    "entry": [
+       {
+         "fullUrl": "http://example.com/v1/api/Observation/12345",
+         "resource": {
+           "resourceType": "Observation",
+
+                                           Page 8 of 41
+        "id": "12345",
+        "meta": {
+           "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+observation-lab|dummy-version"
+           ]
+        },
+        "status": "final",
+        "category": {
+           "coding": [
+              {
+                "system": "http://example.com/category-system",
+                "code": "dummy-category-code",
+                "display": "Laboratory"
+              }
+           ],
+           "text": "Laboratory"
+        },
+        "code": {
+           "coding": [
+              {
+                "system": "http://example.com/loinc-system",
+                "code": "dummy-code",
+                "display": "Dummy Test Description"
+              }
+           ],
+           "text": "Dummy Test Description"
+        },
+        "patient": {
+           "reference": "Patient/123",
+           "display": "John Doe"
+        },
+        "effectiveDateTime": "2025-01-01",
+        "valueQuantity": [
+           {
+              "value": 123.45,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+           }
+        ]
+      }
+    }
+  ]
+}
+
+
+
+
+Resource Name: CarePlan
+Resource Specification: FHIR R4
+Resource Description: The CarePlan API enables one or more practitioners
+intend to deliver care for a particular patient, group or community for a period,
+possibly limited to care for a specific condition or set of conditions.
+Request Method: GET /v1/api/CarePlan
+                                    Page 9 of 41
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "example-id",
+    "type": "searchset",
+    "link": [
+       {
+         "relation": "self",
+         "url": "http://example-url/v1/api/CarePlan"
+       }
+    ],
+    "entry": []
+}
+
+
+
+Resource Name: ExplanationOfBenefit
+Resource Specification: FHIR R4
+Resource Description: Detailed information about benefits and services
+covered.
+Request Method: GET /v1/api/ExplanationOfBenefit
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "e04384b7-0042-4644-82e4-ccee34ee4a30",
+    "type": "searchset",
+    "entry": [
+      {
+        "fullUrl": "http://example-url/v1/api/ExplanationOfBenefit/123",
+        "resource": {
+          "resourceType": "ExplanationOfBenefit",
+          "id": "1105587500",
+          "identifier": {
+             "system": "http://www.BenefitsInc.com/fhir/explanationofbenefit",
+             "value": "1105587500"
+          },
+          "status": "active",
+          "type": {
+             "coding": [
+               {
+                 "system": "http://terminology.hl7.org/CodeSystem/claim-type",
+                 "code": "pharmacy"
+               }
+             ]
+          },
+          "use": "claim",
+          "patient": {
+             "reference": "Patient/123",
+             "display": null
+          },
+          "created": "2000-01-01",
+          "insurer": {
+                                    Page 10 of 41
+           "display": "KeyCare Advantage"
+        },
+        "provider": {
+           "identifier": {
+              "system": "http://hl7.org/fhir/sid/us-npi",
+              "value": "1629669387"
+           },
+           "display": null
+        },
+        "prescription": {
+           "identifier": {
+              "system": "http://hl7.org/fhir/sid/ndc",
+              "value": "69315015510"
+           },
+           "display": null
+        },
+        "outcome": "completed",
+        "insurance": [
+           {
+              "focal": true,
+              "coverage": {
+                 "reference": "Patient/123"
+              }
+           }
+        ],
+        "total": [
+           {
+              "category": {
+                 "coding": [
+                    {
+                      "system":
+"http://terminology.hl7.org/CodeSystem/adjudication",
+                      "code": "deductible"
+                    }
+                 ],
+                 "text": "Deductible"
+              },
+              "amount": {
+                 "value": 0,
+                 "currency": "USD"
+              }
+           },
+           {
+              "category": {
+                 "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/carin-
+bb/CodeSystem/C4BBAdjudication",
+                      "code": "coinsurance"
+                    }
+                 ],
+                 "text": "Co-insurance"
+              },
+              "amount": {
+                 "value": 0,
+                 "currency": "USD"
+                                    Page 11 of 41
+               }
+          },
+          {
+               "category": {
+                  "coding": [
+                     {
+                       "system":
+"http://terminology.hl7.org/CodeSystem/adjudication",
+                       "code": "copay"
+                     }
+                  ],
+                  "text": "CoPay"
+               },
+               "amount": {
+                  "value": 0,
+                  "currency": "USD"
+               }
+            },
+            {
+               "category": {
+                  "coding": [
+                     {
+                       "system": "http://hl7.org/fhir/us/carin-
+bb/CodeSystem/C4BBAdjudication",
+                       "code": "paidtoprovider"
+                     }
+                  ],
+                  "text": "Paidtoprovider"
+               },
+               "amount": {
+                  "value": 7.15,
+                  "currency": "USD"
+               }
+            }
+         ],
+         "payment": {
+            "type": {
+               "coding": [
+                  {
+                     "system": "http://terminology.hl7.org/CodeSystem/payment-
+type",
+                     "code": "paid"
+                  }
+               ]
+            },
+            "PaymentDate": "2024-08-01",
+            "amount": {
+               "value": 7.15,
+               "currency": "USD"
+            }
+         }
+       }
+     }
+  ],
+  "total": 10,
+  "link": [
+                                    Page 12 of 41
+    {
+      "relation": "self",
+      "url": "http://example-
+url/v1/api/ExplanationOfBenefit?offset=0&limit=10"
+    }
+  ]
+}
+
+
+
+
+Resource Name: AllergyIntolerance
+Resource Specification: FHIR R4
+Resource Description: The AllergyIntolerance API enables patients to
+exchange their allergy and adverse reaction data with third party applications.
+Request Method: GET /v1/api/AllergyIntolerance
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "dummy-bundle-id",
+  "type": "searchset",
+  "link": [
+     {
+       "relation": "self",
+       "url": "http://example.com/v1/api/AllergyIntoleranceData"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/AllergyIntolerance/12345",
+       "resource": {
+         "resourceType": "AllergyIntolerance",
+         "id": "12345",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+allergyintolerance|dummy-version"
+            ]
+         },
+         "identifier": "12345",
+         "clinicalStatus": {
+            "coding": [
+              {
+                "system":
+"http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+                "code": "active"
+              }
+            ]
+         },
+         "verificationStatus": {
+            "coding": [
+              {
+                "system":
+
+                                    Page 13 of 41
+"http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+               "code": "confirmed"
+             }
+           ]
+        },
+        "type": "Allergy",
+        "criticality": "unable-to-assess",
+        "code": {
+           "coding": [
+             {
+               "system": "http://example.com/codesystem",
+               "code": "dummy-code",
+               "display": "Dummy Allergy"
+             }
+           ]
+        },
+        "patient": {
+           "reference": "Patient/123",
+           "display": "John Doe"
+        },
+            "recordedDate": "2025-01-01",
+            "onsetDateTime": "2020-01-01",
+            "recorder": {
+               "identifier": {
+                  "system": "http://example.com/identifier-system",
+                  "value": "dummy-recorder-id"
+               },
+               "display": "Dummy Recorder"
+            },
+            "asserter": {
+               "identifier": {
+                  "system": "http://example.com/identifier-system",
+                  "value": "dummy-asserter-id"
+               },
+               "display": "Dummy Asserter"
+            },
+            "reaction": [
+               {
+                  "substance": "Dummy Substance",
+                  "manifestation": [
+                     {
+                       "coding": [
+                          {
+                            "system": "http://example.com/codesystem",
+                            "code": "dummy-manifestation-code",
+                            "display": "Dummy Manifestation"
+                          }
+                       ],
+                       "text": "Dummy Manifestation Description"
+                     }
+                  ],
+                  "severity": "moderate"
+               }
+            ]
+        }
+    }
+                                       Page 14 of 41
+    ]
+}
+
+
+Resource Name: Coverage
+Resource Specification: FHIR R4
+Resource Description: Coverage details, such as insurance plans.
+Request Method: GET /v1/api/Coverage
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "dummy-bundle-id",
+    "type": "searchset",
+    "link": [
+      {
+        "relation": "self",
+        "url": "http://example.com/v1/api/Coverage"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/Coverage/12345",
+       "resource": {
+         "resourceType": "Coverage",
+         "id": "12345",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+coverage|dummy-version"
+            ]
+         },
+         "identifier": [
+            {
+              "type": {
+                 "coding": [
+                   {
+                     "system": "http://example.com/identifier-system",
+                     "code": "dummy-code",
+                     "display": "DUMMY123456"
+                   }
+                 ]
+              },
+              "system": "http://example.com/identifier-system",
+              "value": "DUMMY123456"
+            }
+         ],
+         "status": "cancelled",
+         "type": {
+            "text": "Dummy Coverage Type"
+         },
+         "subscriberId": "dummy-subscriber-id",
+         "beneficiary": {
+            "reference": "Patient/123",
+            "display": "John Doe"
+                                    Page 15 of 41
+                },
+                "relationship": {
+                   "coding": [
+                      {
+                        "system": "http://example.com/relationship-system",
+                        "code": "SELF",
+                        "display": "SELF"
+                      }
+                   ],
+                   "text": "SELF"
+                },
+                "period": {
+                   "start": "2020-01-01"
+                },
+                "payor": [
+                   {
+                      "display": "Dummy Payor"
+                   }
+                ],
+                "class1": [
+                   {
+                     "type": "Plan",
+                     "value": "DUMMYPLAN001",
+                     "name": "Dummy Advantage Plan",
+                     "group": {
+                        "type": "Group",
+                        "value": "001",
+                        "name": "Dummy Group"
+                     },
+                     "plan": {
+                        "type": "Plan",
+                        "value": "DUMMY001",
+                        "name": "Dummy Plan Name"
+                     }
+                   }
+                ]
+            }
+        }
+    ]
+}
+
+
+Resource Name: Condition
+Resource Specification: FHIR R4
+Resource Description: Details of conditions or diagnoses for a patient.
+Request Method: GET /v1/api/Condition
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "dummy-bundle-id",
+    "type": "searchset",
+    "link": [
+      {
+        "relation": "self",
+                                          Page 16 of 41
+        "url": "http://example.com/v1/api/Condition"
+    }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/Condition",
+       "resource": {
+         "resourceType": "Condition",
+         "id": "dummy-condition-id",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+condition-encounter-diagnosis|dummy-version"
+            ]
+         },
+         "identifier": "DUMMY123456",
+         "clinicalStatus": {
+             "coding": [
+               {
+                 "system": "http://terminology.hl7.org/CodeSystem/condition-
+clinical",
+                   "code": "active"
+               }
+              ]
+           },
+           "verificationStatus": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/condition-ver-
+status",
+                   "code": "Confirmed"
+               }
+           ]
+        },
+        "category": {
+           "coding": [
+             {
+               "system": "http://terminology.hl7.org/CodeSystem/condition-
+category",
+               "code": "Encounter-Diagnosis",
+               "display": "Encounter-Diagnosis"
+             }
+           ]
+        },
+
+
+
+
+                                         Page 17 of 41
+                "code": {
+                   "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "DUMMYCODE",
+                        "display": "Dummy Cardiovascular Screening"
+                      }
+                   ],
+                   "text": "Dummy Cardiovascular Screening"
+                },
+                "subject": {
+                   "reference": "Patient/12345",
+                   "display": "John Doe"
+                },
+                "encounter": {
+                   "reference": "Encounter/67890",
+                   "display": "Dummy Outpatient Encounter"
+                },
+                "onsetDateTime": "2022-01-01",
+                "abatementDateTime": "2022-01-02",
+                "recordedDate": "2022-01-10"
+            }
+        }
+    ]
+}
+
+
+Resource Name: MedicationRequest
+Resource Specification: FHIR R4
+Resource Description: Medication requests prescribed for a patient.
+Request Method: GET /v1/api/MedicationRequest
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "dummy-bundle-id",
+  "type": "searchset",
+  "link": [
+     {
+       "relation": "self",
+       "url": "http://example.com/v1/api/MedicationRequest"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/MedicationRequest/12345",
+       "resource": {
+         "resourceType": "MedicationRequest",
+         "id": "dummy-request-id",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+medicationrequest|dummy-version"
+            ]
+         },
+
+                                           Page 18 of 41
+                "identifier": "DUMMY123456",
+                "intent": "original-order",
+                "medication": "DUMMYMED12345",
+                "subject": "Patient/12345",
+                "authoredOn": "2022-01-01",
+                "requester": "DUMMYNPI12345",
+                "performer": "John Doe",
+                "performerType": "General Medicine",
+                "dosageInstruction": {
+                   "text": "Take one daily",
+                   "route": [
+                      {
+                        "text": "Oral"
+                      }
+                   ],
+                   "doseAndRate": [
+                      {
+                        "doseQuantity": {
+                          "value": "10",
+                          "unit": "MG"
+                        }
+                      }
+                   ]
+                },
+                "dispenseRequest": {
+                   "initialFill": {
+                       "duration": "30 days"
+                    },
+                    "numberOfRepeatsAllowed": "1"
+                }
+            }
+        }
+    ]
+}
+
+
+Resource Name: Medication
+Resource Specification: FHIR R4
+Resource Description: Medications related to a patient.
+Request Method: GET /v1/api/Medication
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "239ae797-42e0-4ae4-9d7a-6341afdabc74",
+    "type": "searchset",
+    "entry": [
+      {
+        "fullUrl": "http://example.com/v1/api/Medication/1",
+        "resource": {
+          "resourceType": "Medication",
+          "id": "1",
+          "meta": {
+
+                                            Page 19 of 41
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+medication|7.0.0"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/ndc",
+              "code": "00002143480",
+              "display": "DULAGLUTIDE SOLN AUTO-INJECTOR 1.5 MG/0.5ML"
+            }
+          ],
+          "text": "DULAGLUTIDE SOLN AUTO-INJECTOR 1.5 MG/0.5ML"
+        }
+      }
+    }
+  ],
+  "total": 10,
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://example.com/v1/api/Medication?offset=0&limit=1"
+    },
+    {
+      "relation": "next",
+      "url": "http://example.com/v1/api/Medication?offset=1&limit=1"
+    }
+  ]
+}
+
+
+
+
+Resource Name: Goal
+Resource Specification: FHIR R4
+Resource Description: Goals for a patient’s health care.
+Request Method: GET /v1/api/Goal
+Response:
+{
+
+    "resourceType": "Bundle",
+    "id": "example-id",
+    "type": "searchset",
+    "link": [
+       {
+         "relation": "self",
+         "url": "http://example-url/v1/api/Goal"
+       }
+    ],
+    "entry": []
+}
+
+
+                                    Page 20 of 41
+Resource Name: Procedure
+Resource Specification: FHIR R4
+Resource Description: Records of medical or surgical procedures.
+Request Method: GET /v1/api/Procedure
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "dummy-bundle-id",
+  "type": "searchset",
+  "link": [
+     {
+       "relation": "self",
+       "url": "http://example.com/v1/api/Procedure"
+     }
+  ],
+  "entry": [
+     {
+       "fullUrl": "http://example.com/v1/api/Procedure/12345",
+       "resource": {
+         "resourceType": "Procedure",
+         "id": "dummy-procedure-id",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+procedure|dummy-version"
+            ]
+         },
+         "identifier": {
+            "system": "http://example.com/system",
+            "value": "DUMMYID12345"
+         },
+         "status": "completed",
+         "code": {
+            "coding": [
+              {
+                "system": "http://example.com/code-system",
+                "code": "123456",
+                "display": "Dummy Procedure Description"
+              }
+            ]
+         },
+         "subject": {
+            "reference": "Patient/12345",
+            "display": "John Doe"
+         },
+         "encounter": {
+            "reference": "Encounter/12345",
+            "display": "Regular Visit"
+         },
+
+
+
+                                   Page 21 of 41
+                "performedPeriod": {
+                   "performedDateTime": "2023-01-01T00:00:00"
+                },
+                "recorder": {
+                   "identifier": {
+                      "system": "http://example.com/recorder-system",
+                      "value": "DUMMYRECORDERID"
+                   },
+                   "display": "Example Health Organization"
+                },
+                "asserter": {
+                   "value": "DUMMYASSERTERID",
+                   "display": "Dr. Jane Smith"
+                },
+                "performer": {
+                   "actor": [
+                      {
+                         "reference": "Practitioner/12345",
+                         "display": "Dr. Jane Smith"
+                      }
+                   ]
+                },
+                "reasonCode": [
+                   {
+                      "coding": [
+                         {
+                           "system": "http://example.com/reason-system",
+                           "code": "REASONCODE",
+                           "display": "Reason Description"
+                         }
+                      ],
+                      "text": "Reason Text"
+                   }
+                ],
+                "note": {
+                   "text": "Additional procedure notes here."
+                }
+            }
+        }
+    ]
+}
+
+
+Resource Name: List
+Resource Specification: FHIR R4
+Resource Description: Lists of resources relevant to a patient.
+Request Method: GET /v1/api/List
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "5327e856-dc60-4b0b-a2d0-46509726df99",
+    "type": "searchset",
+
+                                           Page 22 of 41
+  "entry": [
+    {
+      "fullUrl":"http://example.com/v1/api/List/5",
+      "resource": {
+        "resourceType": "List",
+        "id": "5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-drug-formulary/StructureDefinition/usdf-
+CoveragePlan"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/davinci-drug-
+formulary/StructureDefinition/usdf-DrugTierID-extension",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "0",
+                  "display": "Non-Formulary Drug"
+                },
+                {
+                  "code": "1",
+                  "display": "Preferred Generic"
+                },
+                {
+                  "code": "2",
+                  "display": "Generic"
+                },
+                {
+                  "code": "3",
+                  "display": "Preferred Brand"
+                },
+                {
+                  "code": "4",
+                  "display": "Non-Preferred Drug"
+                },
+                {
+                  "code": "5",
+                  "display": "Specialty Tier"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "text": "AgeRight Advantage"
+            },
+            "system": "http://hl7.org/fhir/us/davinci-drug-
+formulary/STU1.0.1/StructureDefinition-usdf-PlanID-extension.html",
+            "value": "H1372"
+          }
+        ],
+                                    Page 23 of 41
+"status": "active",
+"entry": [
+  {
+    "item": {
+      "reference": "MedicationKnowledge/1"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/2"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/3"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/4"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/5"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/6"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/7"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/8"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/9"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/10"
+    }
+  },
+  {
+    "item": {
+      "reference": "MedicationKnowledge/11"
+    }
+                            Page 24 of 41
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/12"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/13"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/14"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/15"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/16"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/17"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/18"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/19"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/20"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/21"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/22"
+  }
+},
+                          Page 25 of 41
+{
+  "item": {
+    "reference": "MedicationKnowledge/23"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/24"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/25"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/26"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/27"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/28"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/29"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/30"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/31"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/32"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/33"
+  }
+},
+{
+                          Page 26 of 41
+  "item": {
+    "reference": "MedicationKnowledge/34"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/35"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/36"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/37"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/38"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/39"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/40"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/41"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/42"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/43"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/44"
+  }
+},
+{
+  "item": {
+                          Page 27 of 41
+    "reference": "MedicationKnowledge/45"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/46"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/47"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/48"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/49"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/50"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/51"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/52"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/53"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/54"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/55"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/56"
+                          Page 28 of 41
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/57"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/58"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/59"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/60"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/61"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/62"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/63"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/64"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/65"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/66"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/67"
+  }
+                          Page 29 of 41
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/68"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/69"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/70"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/71"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/72"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/73"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/74"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/75"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/76"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/77"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/78"
+  }
+},
+                          Page 30 of 41
+{
+  "item": {
+    "reference": "MedicationKnowledge/79"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/80"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/81"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/82"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/83"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/84"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/85"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/86"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/87"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/88"
+  }
+},
+{
+  "item": {
+    "reference": "MedicationKnowledge/89"
+  }
+},
+{
+                          Page 31 of 41
+      "item": {
+        "reference": "MedicationKnowledge/90"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/91"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/92"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/93"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/94"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/95"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/96"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/97"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/98"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/99"
+      }
+    },
+    {
+      "item": {
+        "reference": "MedicationKnowledge/100"
+      }
+    },
+
+]
+                              Page 32 of 41
+        }
+      }
+    ],
+    "total": 1,
+    "link": [
+      {
+        "relation": "self",
+        "url":"http://example.com/v1/api/List?offset=0&limit=10&company_id=H1372"
+      }
+    ]
+}
+
+
+
+
+Resource Name: MedicationKnowledge
+Resource Specification: FHIR R4
+Resource Description: Details of medication knowledge and classifications.
+Request Method: GET /v1/api/MedicationKnowledge
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "4d419622-f279-4d64-a549-316001b0d47d",
+  "type": "searchset",
+  "entry": [
+    {
+      "fullUrl": "http://example.com/v1/api/medicationKnowledge/1",
+      "resource": {
+        "resourceType": "MedicationKnowledge",
+        "id": "1",
+        "meta": {
+           "profile": [
+             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+MedicationKnowledge|7.0.0"
+           ]
+        },
+        "extension": [
+           {
+             "url": "http://hl7.org/fhir/us/davinci-drug-
+formulary/StructureDefinition/usdf-DrugTierID-extension",
+             "valueCodeableConcept": {
+               "coding": [
+                 {
+                   "code": "Tier1",
+                   "display": "Generic Drugs"
+                 }
+               ]
+             }
+           }
+        ],
+        "code": {
+           "coding": [
+             {
+                                      Page 33 of 41
+                    "system": "http://hl7.org/fhir/sid/ndc",
+                    "code": "00002143480",
+                    "display": "DULAGLUTIDE SOLN AUTO-INJECTOR 1.5 MG/0.5ML"
+                   }
+                ],
+                "text": "DULAGLUTIDE SOLN AUTO-INJECTOR 1.5 MG/0.5ML"
+              },
+              "status": "active"
+          }
+      }
+  ],
+  "total": 10,
+  "link": [
+     {
+        "relation": "self",
+        "url":
+"http://example.com/v1/api/MedicationKnowledge?offset=0&limit=1"
+     },
+     {
+        "relation": "next",
+        "url":
+"http://example.com/v1/api/MedicationKnowledge?offset=1&limit=1"
+     }
+  ]
+}
+
+
+
+
+Resource Name: DocumentReference
+Resource Specification: FHIR R4
+Resource Description: References to patient-related documents.
+Request Method: GET /v1/api/Document_Reference
+Response:
+{
+
+    "resourceType": "Bundle",
+    "id": "example-id",
+    "type": "searchset",
+    "link": [
+       {
+         "relation": "self",
+         "url": "http://example-url/v1/api/DocumentReference"
+       }
+    ],
+    "entry": []
+}
+
+
+
+
+                                       Page 34 of 41
+Resource Name: InsurancePlan
+Resource Specification: FHIR R4
+Resource Description: The InsurancePlan API provides a comprehensive listing
+of Curana's Medicare Individual, Medicare Group, and Medicaid insurance
+plans along with their associated provider networks.
+Request Method: GET /v1/api/InsurancePlan
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "ba927dce-0487-4bd0-a4d8-31105ad9df87",
+  "type": "searchset",
+  "entry": [
+    {
+      "fullUrl":
+"http://example.com/v1/api/InsurancePlan/0054211fdf13b570a29eafd83a7b3b11c0b7
+e3dc9b289ffdf7b71a32de4c36d1",
+      "resource": {
+        "resourceType": "InsurancePlan",
+        "id":
+"0054211fdf13b570a29eafd83a7b3b11c0b7e3dc9b289ffdf7b71a32de4c36d1",
+        "meta": {
+           "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+insurancePlan|7.0.0"
+           ]
+        },
+        "status": "active",
+        "type": [
+           {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/insurance-
+plan-type",
+                  "code": "short-term",
+                  "display": "Short Term"
+                }
+              ]
+           },
+           {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/insurance-
+plan-type",
+                  "code": "medical",
+                  "display": "Medical"
+                }
+              ]
+           },
+           {
+              "coding": [
+
+                                 Page 35 of 41
+                      {
+                          "system": "http://terminology.hl7.org/CodeSystem/insurance-
+plan-type",
+                          "code": "long-term",
+                          "display": "Long Term Care"
+                      }
+                  ]
+                 }
+              ],
+              "name": "PACO-ISNPD",
+              "plan": [
+                 {
+                   "identifier": [
+                      {
+                        "value": "H3419"
+                      }
+                   ],
+                   "type": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                          "code": "XV",
+                          "display": "Health Plan Identifier"
+                        }
+                      ]
+                   }
+                 }
+              ]
+          }
+      }
+    ],
+    "total": 72,
+    "link": [
+       {
+          "relation": "self",
+          "url":"http://example.com/v1/api/InsurancePlan?offset=0&limit=1"
+       },
+       {
+          "relation": "next",
+          "url":"http://example.com/v1/api/InsurancePlan?offset=1&limit=1"
+       }
+    ]
+}
+
+
+Resource Name: Location
+Resource Specification: FHIR R4
+Resource Description: The Location API delivers detailed information
+including name, type, address, geographic coordinates, contact details,
+and operational status (active or inactive) for healthcare providers and
+organizations.
+Request Method: GET /v1/api/Location
+Response:
+                                           Page 36 of 41
+{
+  "resourceType": "Bundle",
+  "id": "9cc8f294-fb4e-458d-91b1-4115dbc2e46c",
+  "type": "searchset",
+  "entry": [
+     {
+        "fullUrl": "http://example.com/v1/api/Location/1152109",
+        "resource": {
+          "resourceType": "Location",
+          "id": "1152109",
+          "meta": {
+             "profile": [
+               "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+location|8.0.0"
+             ]
+          },
+          "status": "suspended",
+          "name": "EASTERN WOODS RADIATION ONCOLOGY"
+        }
+     }
+  ],
+  "total": 424724,
+  "link": [
+     {
+        "relation": "self",
+        "url": "http://example.com/v1/api/Location?offset=0&limit=1"
+     },
+     {
+        "relation": "next",
+        "url": "http://example.com/v1/api/Location?offset=1&limit=1"
+     }
+  ]
+}
+
+Resource Name: Organization
+Resource Specification: FHIR R4
+Resource Description: The Organization API provides the name and
+organization type (such as hospital or pharmacy) for healthcare facilities and
+entities.
+Request Method: GET /v1/api/Organization
+Response:
+{
+    "resourceType": "Bundle",
+    "id": "e0efe91e-4066-463a-b610-f13a9f7d0bfd",
+    "type": "searchset",
+    "entry": [
+      {
+        "fullUrl": "http://example.com/v1/api/Organization/3",
+        "resource": {
+          "resourceType": "Organization",
+          "id": "3",
+          "meta": {
+
+                                    Page 37 of 41
+             "profile": [
+               "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+organization|7.0.0"
+             ]
+          },
+          "active": true,
+          "name": "Crown Trace Villa - Ilf",
+          "address": [
+             {
+               "use": "work",
+               "line": [
+                  "101 2ND STREET"
+               ],
+               "city": "HOT SPRINGS",
+               "state": "AR",
+               "postalCode": "71913"
+             }
+          ]
+        }
+     }
+  ],
+  "total": 41990,
+  "link": [
+     {
+        "relation": "self",
+        "url": "http://example.com/v1/api/Organization?offset=0&limit=1"
+     },
+     {
+        "relation": "next",
+        "url": "http://example.com/v1/api/Organization?offset=1&limit=1"
+     }
+  ]
+}
+
+
+Resource Name: Practitioner
+Resource Specification: FHIR R4
+Resource Description: The Practitioner API delivers NPI, name, gender,
+and status (active or inactive) details for individual healthcare providers.
+Note: To view a specific practitioner's information, enter their NPI in
+the identifier field as a query parameter.Request Method: GET
+/v1/api/Practitioner
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "d87f64b7-1873-4919-9bc4-3bccada1c0ef",
+  "type": "searchset",
+  "entry": [
+    {
+      "fullUrl":
+"http://example.com/v1/api/Practitioner/002d19bbaa44f0e6d6ae93dbf856be22dfbf6
+96b8cb069f90cd4483fad569d78",
+      "resource": {
+
+                                    Page 38 of 41
+          "resourceType": "Practitioner",
+          "id":
+"002d19bbaa44f0e6d6ae93dbf856be22dfbf696b8cb069f90cd4483fad569d78",
+          "meta": {
+             "profile": [
+               "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+practitioner|7.0.0"
+             ]
+          },
+          "identifier": [
+             {
+               "system": "http://hl7.org/fhir/sid/us-npi",
+               "value": "1477826451",
+               "extension": [
+                 {
+                   "valueCodeableConcept": {
+                     "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-
+0203",
+                          "code": "NPI"
+                        }
+                     ],
+                     "text": "Value Set URL:
+http://terminology.hl7.org/ValueSet/v2-0203 | Name: v2.0203 | Title: v2
+Identifier Type | Definition: FHIR Value set/code system definition for HL7
+v2 table 0203 (Identifier Type)"
+                   }
+                 }
+               ]
+             }
+          ],
+          "name": [
+             {
+               "text": "Kia Colleton-Livingston, Np",
+               "family": "Colleton-livingston",
+               "given": [
+                 "Kia"
+               ]
+             }
+          ],
+          "active": true
+        }
+     }
+  ],
+  "total": 373083,
+  "link": [
+     {
+        "relation": "self",
+        "url": "http://example.com/v1/api/Practitioner?offset=0&limit=1"
+     },
+     {
+        "relation": "next",
+        "url":
+"https://fhir.curanahealth.com/v1/api/Practitioner?offset=1&limit=1"
+     }
+                                   Page 39 of 41
+    ]
+}
+
+Resource Name: PractitionerRole
+Resource Specification: FHIR R4
+Resource Description: The PractitionerRole API provides a bundled collection
+of resources identifying which providers and organizations are in-network for
+a specified network name and reference.
+This API also includes references to the /Practitioner, /Organization,
+and /Location APIs for additional contextual details such as NPI, name, address,
+and operating hours.
+Request Method: GET /v1/api/PractitionerRole
+Response:
+{
+  "resourceType": "Bundle",
+  "id": "0c3ffc25-ac24-4231-9256-eef0036348d7",
+  "type": "searchset",
+  "entry": [
+     {
+       "fullUrl":
+"http://example.com/v1/api/PractitionerRole/001ac81a4960d8a6fdd60c890c7cb4db5
+7218325fd7fab3cb44e0365a4404967",
+       "resource": {
+         "resourceType": "PractitionerRole",
+         "id":
+"001ac81a4960d8a6fdd60c890c7cb4db57218325fd7fab3cb44e0365a4404967",
+         "logicalId":
+"001ac81a4960d8a6fdd60c890c7cb4db57218325fd7fab3cb44e0365a4404967",
+         "meta": {
+            "profile": [
+              "http://hl7.org/fhir/us/core/StructureDefinition/us-core-
+practitionerrole"
+            ]
+         },
+         "active": true,
+         "practitioner": {
+            "reference":
+"Practitioner/68e051a009a091d900c5d668412c0e8a5ac89369883d1eaa7c13f36c7dd7550
+7",
+            "display": "JESSICA DEVAULT, NP"
+         },
+         "organization": {
+            "reference":
+"Organization/acb1446e829323c1edadf04972bd697f7c46ebde7b271a28ba07b9dfd74e8e7
+0",
+            "display": "AL IOWA TELEHEALTH"
+         },
+         "period": {
+            "start": "2025-01-27T00:00:00"
+         }
+       }
+     }
+  ],
+                                  Page 40 of 41
+    "total": 3003,
+    "link": [
+      {
+         "relation": "self",
+         "url": "http://example.com/v1/api/PractitionerRole?offset=0&limit=1"
+      },
+      {
+         "relation": "next",
+         "url": "http://example.com/v1/api/PractitionerRole?offset=1&limit=1"
+      }
+    ]
+}
+
+
+
+
+                                    Page 41 of 41
+

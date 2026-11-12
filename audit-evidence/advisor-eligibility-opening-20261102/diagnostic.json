@@ -1,0 +1,161 @@
+{
+  "fictional": true,
+  "maximum_generation_stages": 2,
+  "automatic_retry": false,
+  "proposed_composition": {
+    "question_target": "T05",
+    "reply": "For most people, Medicare eligibility starts at 65. A common first sign-up window is a 7-month period around your 65th birthday month: 3 months before, your birthday month, and 3 months after. That sign-up window and the date coverage actually starts are not always the same thing. Current health insurance can change which timing rules matter, so the most useful next step is to understand what coverage you have now.",
+    "question": "What health insurance do you have now?",
+    "education_followups": [],
+    "report_refs": [],
+    "evidence_refs": [
+      "basics",
+      "enrollment_intro",
+      "dates"
+    ],
+    "agenda_update": {
+      "current_concern": "when Medicare eligibility and sign-up timing begin",
+      "pause": false
+    },
+    "education": {
+      "purpose": "clarify",
+      "updates": [
+        {
+          "concept_id": "medicare_basics",
+          "depth": "introduced",
+          "reason": "new",
+          "aspect_ids": [
+            "general_eligibility",
+            "federal_health_insurance"
+          ],
+          "evidence_refs": [
+            "basics"
+          ]
+        },
+        {
+          "concept_id": "enrollment_timing",
+          "depth": "needs_clarification",
+          "reason": "clarify",
+          "aspect_ids": [
+            "initial_window",
+            "enrollment_vs_start"
+          ],
+          "evidence_refs": [
+            "enrollment_intro"
+          ]
+        },
+        {
+          "concept_id": "current_coverage_timing",
+          "depth": "introduced",
+          "reason": "new",
+          "aspect_ids": [
+            "insurance_kind"
+          ],
+          "evidence_refs": [
+            "enrollment_intro",
+            "dates"
+          ]
+        }
+      ],
+      "visual": "none"
+    }
+  },
+  "candidate_ids": [
+    "T03",
+    "T05",
+    "T06",
+    "T07",
+    "T10",
+    "T09",
+    "T08",
+    "T04",
+    "T02"
+  ],
+  "reply": "For most people, Medicare eligibility starts at 65. A common first sign-up window is a 7-month period around your 65th birthday month: 3 months before, your birthday month, and 3 months after. That sign-up window and the date coverage actually starts are not always the same thing. Current health insurance can change which timing rules matter, so the most useful next step is to understand what coverage you have now.",
+  "question": {
+    "id": "T05",
+    "inventoryIds": [
+      "T05"
+    ],
+    "question": "What health insurance do you have now?",
+    "why": "",
+    "choices": [
+      [
+        "original",
+        "Original Medicare (Parts A and B)"
+      ],
+      [
+        "advantage",
+        "Medicare Advantage (Part C)"
+      ],
+      [
+        "medigap",
+        "Medicare Supplement / Medigap"
+      ],
+      [
+        "drug",
+        "Separate prescription drug plan"
+      ],
+      [
+        "employer",
+        "Current-job coverage"
+      ],
+      [
+        "retiree",
+        "Retiree coverage"
+      ],
+      [
+        "cobra",
+        "COBRA"
+      ],
+      [
+        "military",
+        "VA, TRICARE or military coverage"
+      ],
+      [
+        "medicaid",
+        "Medicaid"
+      ],
+      [
+        "none",
+        "None"
+      ],
+      [
+        "unknown",
+        "Not sure"
+      ]
+    ],
+    "multi": true,
+    "entity": "profile",
+    "fields": [],
+    "signature": "T05.profile.choice",
+    "atomicRequests": 1
+  },
+  "generated": {
+    "status": "complete",
+    "move": "T05"
+  },
+  "notice": null,
+  "metrics": {
+    "llmCalls": 2,
+    "synthetic": false,
+    "stageMs": {
+      "extraction": 3830,
+      "composition": 5347
+    }
+  },
+  "task": "compare",
+  "receipts": [
+    {
+      "status": "settled",
+      "charged_nano_usd": 20422500,
+      "measured_nano_usd": 20422500
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 21637500,
+      "measured_nano_usd": 21637500
+    }
+  ],
+  "accounted_usd": 0.04206
+}

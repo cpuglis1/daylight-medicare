@@ -1,0 +1,3030 @@
+{
+  "guide": {
+    "schemaVersion": 2,
+    "stateVersion": 7,
+    "fields": {
+      "intent.goal": {
+        "value": "compare",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 1
+      },
+      "intent.goalDetail": {
+        "value": "want to enroll in medicare soon",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 2
+      },
+      "knowledge.general": {
+        "value": "new",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 3
+      },
+      "situation.age65": {
+        "value": {
+          "month": 12,
+          "year": null
+        },
+        "status": "reported",
+        "source": "user_text",
+        "confirmation": "reported_by_user",
+        "revision": 7
+      },
+      "subject.role": {
+        "value": "self",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 5
+      },
+      "coverage.current": {
+        "value": [
+          "employer"
+        ],
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 6
+      }
+    },
+    "flow": {
+      "node": "R00",
+      "history": [],
+      "queue": [],
+      "lessonReturn": null,
+      "personalReview": false,
+      "guideOpen": true,
+      "origin": "T01",
+      "invalidations": [],
+      "scroll": 0
+    },
+    "topics": {},
+    "preferences": {
+      "saveGuide": false,
+      "saveSensitive": false,
+      "noticeVersion": "guest-notice-2026-10-21-v1"
+    }
+  },
+  "record": {
+    "schemaVersion": 1,
+    "ruleVersion": "readiness-inputs-20261022-v1",
+    "stateVersion": 9,
+    "guideFingerprint": "",
+    "facts": {
+      "RC01": {
+        "value": {
+          "choice": "self"
+        },
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 1,
+        "stale": false
+      },
+      "RC09": {
+        "value": {
+          "choice": "spouse_job"
+        },
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 6,
+        "stale": false
+      },
+      "RC11": {
+        "value": {
+          "choice": "dates",
+          "jobEnd": "2027-03",
+          "coverageEnd": "2027-04"
+        },
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 8,
+        "stale": false
+      }
+    },
+    "entityDispositions": {},
+    "requests": [],
+    "detailsRequested": false,
+    "completeness": {},
+    "dispositions": {},
+    "queue": [],
+    "index": 0,
+    "shown": [],
+    "pass": 0,
+    "history": [],
+    "mode": "summary",
+    "editNotice": false,
+    "reviewOnly": false,
+    "conversation": {
+      "version": 1,
+      "task": "compare",
+      "preparing": true,
+      "baselineDispositions": {
+        "T04": "unknown"
+      },
+      "skippedDetails": {},
+      "details": {},
+      "editing": "",
+      "checks": [
+        "timing"
+      ],
+      "itemRevisions": {},
+      "itemInvalidations": {},
+      "lastFactIds": [
+        "dates"
+      ],
+      "journey": {
+        "learningSeen": [
+          "parts",
+          "routesintro",
+          "dates",
+          "partb"
+        ],
+        "samplesVisible": false
+      }
+    },
+    "natural": {
+      "version": 1,
+      "provenance": {
+        "guide.intent.goal": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.intent.goalDetail": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.knowledge.general": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "learner",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.situation.age65": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": 4
+        },
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC11": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.jobEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.coverageEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 8,
+          "supersedesRevision": null
+        }
+      },
+      "dialogue": {
+        "orientation": "",
+        "lastTarget": {
+          "id": "T03",
+          "entity": "profile",
+          "fields": [
+            "zip"
+          ]
+        },
+        "explainedTopics": [
+          "parts",
+          "routesintro",
+          "enrollment_intro",
+          "dates",
+          "partb"
+        ],
+        "deferredTargets": [],
+        "clarifications": []
+      },
+      "agenda": {
+        "version": 1,
+        "concerns": [],
+        "priorityReasons": [],
+        "lastMove": {
+          "kind": "teach",
+          "topic": "",
+          "reason": "user_question"
+        }
+      }
+    }
+  },
+  "assessment": {
+    "version": "D79-adaptive-20261028-r3",
+    "task": "compare",
+    "preparing": true,
+    "nextQuestion": {
+      "id": "T03",
+      "inventoryIds": [
+        "T03"
+      ],
+      "question": "What ZIP code do you live in?",
+      "why": "Plans differ by county. This helps identify the area you want to look into.",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "zip",
+          "label": "Home ZIP code",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "T03.profile.zip",
+      "atomicRequests": 1
+    },
+    "state": "missing_information",
+    "limitation": "A personal comparison is held for complete market data, accepted benefits and independent comparison review. A checklist can prepare your information; it cannot verify personal fit.",
+    "personalizedRecommendationAllowed": false,
+    "externalVerificationReady": false,
+    "unresolvedReportedInputs": [
+      {
+        "label": "When do you need Medicare coverage to start?",
+        "state": "unknown",
+        "id": "T04"
+      }
+    ],
+    "ruleDecisions": {
+      "T01": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "T02": {
+        "treatment": "optional",
+        "state": "reported_reused"
+      },
+      "T03": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T04": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "T05": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "T06": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T07": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T08": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T09": {
+        "treatment": "optional",
+        "state": "optional_not_blocking"
+      },
+      "T10": {
+        "treatment": "optional",
+        "state": "optional_not_blocking"
+      },
+      "RC01": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "RC02": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC03": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC04": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC05": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC06": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC07": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC08": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC09": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "RC10": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC11": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "RC12": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC13": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC14": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC15": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC16": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC17": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC18": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC19": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC20": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC21": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC22": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC23": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC24": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC25": {
+        "treatment": "optional",
+        "state": "optional_not_blocking"
+      },
+      "RC26": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC27": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC28": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC11.C1": {
+        "treatment": "within_parent_missing_only",
+        "state": "within_parent"
+      },
+      "RC16.C1": {
+        "treatment": "within_parent_missing_only",
+        "state": "within_parent"
+      },
+      "RC16.C2": {
+        "treatment": "within_parent_missing_only",
+        "state": "within_parent"
+      }
+    },
+    "gapIds": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G07",
+      "G08",
+      "G09",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14"
+    ],
+    "journey": {
+      "phase": 1,
+      "labels": [
+        "Your goal",
+        "Your situation",
+        "Your options",
+        "Your next step"
+      ],
+      "meaning": "Conversation milestones, not verified eligibility or a recommendation.",
+      "reportedGroups": 6,
+      "samplesVisible": false,
+      "summary": "",
+      "nextStep": null
+    },
+    "sampleBrowsing": {
+      "allowed": true,
+      "requiresExplicitAction": true,
+      "year": 2027,
+      "location": "Collier County, Florida",
+      "notRecommendation": true
+    },
+    "narrative": {
+      "opener": false,
+      "eligibleMoves": [
+        "ask",
+        "explain",
+        "prepare"
+      ],
+      "action": "prepare",
+      "actionLabel": "Prepare my next steps",
+      "capabilityVersion": "D86-preparation-v1",
+      "visual": {
+        "kind": "routes",
+        "title": "Two coverage paths"
+      },
+      "reason": "Let’s understand your current coverage before considering a change.",
+      "suggestedCheck": "timing",
+      "natural": true
+    },
+    "conversationOpen": true,
+    "intakePaused": false
+  },
+  "reply": "",
+  "facts": [],
+  "pendingId": null,
+  "pendingUpdates": [],
+  "metrics": {
+    "llmCalls": 2,
+    "synthetic": false,
+    "stageMs": {
+      "extraction": 2635,
+      "composition": 2904
+    }
+  },
+  "personalRecommendation": false,
+  "reportedRows": [
+    {
+      "id": "T01",
+      "label": "Your goal",
+      "value": "Find coverage",
+      "status": "reported"
+    },
+    {
+      "id": "T02",
+      "label": "Explanation preference",
+      "value": "New to Medicare",
+      "status": "reported"
+    },
+    {
+      "id": "T05",
+      "label": "Current health insurance",
+      "value": "Current-job coverage",
+      "status": "reported"
+    },
+    {
+      "id": "S_AGE65",
+      "label": "65th birthday",
+      "value": "Turning 65 in December (year not stated)",
+      "status": "reported"
+    },
+    {
+      "id": "RC01",
+      "label": "Who this is for",
+      "value": "Me",
+      "status": "reported"
+    },
+    {
+      "id": "RC09",
+      "label": "Work insurance",
+      "value": "Spouse’s current job",
+      "status": "reported"
+    },
+    {
+      "id": "RC11",
+      "label": "Work and insurance end dates",
+      "value": {
+        "jobEnd": "2027-03",
+        "coverageEnd": "2027-04"
+      },
+      "status": "reported"
+    },
+    {
+      "id": "T04",
+      "label": "When do you need Medicare coverage to start?",
+      "value": "unknown",
+      "status": "unknown"
+    }
+  ],
+  "expectedStateVersion": 6,
+  "expectedReadinessRevision": 9,
+  "comparison": {
+    "contract_id": "daylight-comparison-response-r1",
+    "comparison_id": "comparison:6365e419df120ef8c7b340d0789c3c09b244e8eee5b194ee18c5f17ef8503a5e",
+    "generated_at": "2026-11-01T16:04:24.395021+00:00",
+    "mode": "research_preparation",
+    "fictional": false,
+    "binding": {
+      "guide_revision": 7,
+      "readiness_revision": 9,
+      "subject_id": "beneficiary",
+      "adapter_version": "advisor-comparison-profile-20261101-r1",
+      "normalized_sha256": "eb2013d92ddcdfaa51e466bc191c97d13baeda1c2315d6c632260e72c852bf93",
+      "contract_sha256": "fc91d3f6df8e338b79fdbd6df909d76196c9ac59bca1d792666bb1f7b7387cbb",
+      "item_revisions": {},
+      "scope": {},
+      "rule_version": "daylight-comparison-structural-r1",
+      "method_version": "condition-aware-dimensions-r1",
+      "evidence_version": "comparison-evidence-held-r1",
+      "evidence_manifest": "comparison-evidence-held-r1",
+      "evidence_sha256": "f7634a13e8ecb7d856ba927df552705c8ffb2c75a596129661095fe7f3d89c7b",
+      "serving_build_id": null,
+      "research_build_id": null,
+      "accepted_release_id": null
+    },
+    "authority": {
+      "published_display": {
+        "state": "held",
+        "authority_refs": [],
+        "reason_codes": [
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED"
+        ],
+        "accepted_release_id": null
+      },
+      "personal_comparison": {
+        "state": "held",
+        "authority_refs": [],
+        "reason_codes": [
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED"
+        ],
+        "accepted_release_id": null
+      },
+      "ranking": {
+        "state": "held",
+        "authority_refs": [],
+        "reason_codes": [
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED"
+        ],
+        "accepted_release_id": null
+      },
+      "recommendation": {
+        "state": "held",
+        "authority_refs": [],
+        "reason_codes": [
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED"
+        ],
+        "accepted_release_id": null
+      },
+      "quote": {
+        "state": "held",
+        "authority_refs": [],
+        "reason_codes": [
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED"
+        ],
+        "accepted_release_id": null
+      },
+      "enrollment": {
+        "state": "held",
+        "authority_refs": [],
+        "reason_codes": [
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED"
+        ],
+        "accepted_release_id": null
+      }
+    },
+    "task": {
+      "key": "compare",
+      "preparing": true,
+      "requested_scope": {}
+    },
+    "capabilities": [
+      {
+        "key": "availability",
+        "report_sufficiency": "not_evaluated_by_accepted_method",
+        "report_states": {
+          "unanswered": 9
+        },
+        "external_evidence_state": "held",
+        "policy_state": "unreviewed",
+        "output_authority": "held"
+      },
+      {
+        "key": "route_comparison",
+        "report_sufficiency": "not_evaluated_by_accepted_method",
+        "report_states": {
+          "reported": 4,
+          "unanswered": 6
+        },
+        "external_evidence_state": "held",
+        "policy_state": "unreviewed",
+        "output_authority": "held"
+      },
+      {
+        "key": "provider_fit",
+        "report_sufficiency": "not_evaluated_by_accepted_method",
+        "report_states": {
+          "unanswered": 9
+        },
+        "external_evidence_state": "held",
+        "policy_state": "unreviewed",
+        "output_authority": "held"
+      },
+      {
+        "key": "drug_coverage",
+        "report_sufficiency": "not_evaluated_by_accepted_method",
+        "report_states": {
+          "unanswered": 13
+        },
+        "external_evidence_state": "held",
+        "policy_state": "unreviewed",
+        "output_authority": "held"
+      }
+    ],
+    "universe": {
+      "completeness": "unknown",
+      "discovered_count": null,
+      "evaluated_count": 0,
+      "candidate_set_ref": null,
+      "unsupported_categories": [
+        "consumer_release_not_implemented"
+      ],
+      "exclusions": [],
+      "ordering": "source_order",
+      "automatic_personal_order": null
+    },
+    "units": [
+      {
+        "unit_id": "current-arrangement",
+        "kind": "current_arrangement",
+        "identity_state": "reported_unbound",
+        "report_refs": [
+          {
+            "path": "guide.fields.coverage.current",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 7
+          }
+        ],
+        "external_binding_state": "unverified",
+        "period_state": "reported_or_unknown"
+      }
+    ],
+    "dimensions": [
+      {
+        "dimension_id": "coverage_structure",
+        "label": "Coverage structure",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      },
+      {
+        "dimension_id": "monthly_plan_premium",
+        "label": "Published plan premium",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      },
+      {
+        "dimension_id": "provider_access",
+        "label": "Doctors and hospitals",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      },
+      {
+        "dimension_id": "drug_coverage",
+        "label": "Medicine coverage and restrictions",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      },
+      {
+        "dimension_id": "fill_price",
+        "label": "Specified medicine fill cost",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      },
+      {
+        "dimension_id": "routine_away_access",
+        "label": "Routine care away from home",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      },
+      {
+        "dimension_id": "eligibility_transition",
+        "label": "Eligibility and transition checks",
+        "user_relevance": "requested_check_or_common_dimension",
+        "personal_suitability_score": null
+      }
+    ],
+    "preference_context": {
+      "ordering": "unordered_set",
+      "priority_topics": [],
+      "cost_preference": null,
+      "reports": [],
+      "current_priority_reasons": [],
+      "emphasized_dimensions": [],
+      "inferred_weights": null,
+      "hard_constraints_evaluated": false,
+      "constraint_evaluation": {
+        "state": "held_not_implemented",
+        "gap_ids": [
+          "G12"
+        ],
+        "reason_codes": [
+          "POLICY_NOT_ACCEPTED",
+          "SCOPED_CONSTRAINT_METHOD_REQUIRED"
+        ]
+      }
+    },
+    "findings": [
+      {
+        "finding_id": "finding:a6c246d01120f509e0fc",
+        "unit_id": "current-arrangement",
+        "dimension_id": "coverage_structure",
+        "subject_or_item_id": null,
+        "report_refs": [
+          {
+            "path": "guide.fields.coverage.current",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 7
+          }
+        ],
+        "question_ids": [
+          "T05",
+          "RC04",
+          "RC07",
+          "RC26"
+        ],
+        "gap_ids": [
+          "G01",
+          "G02",
+          "G04",
+          "G07",
+          "G08",
+          "G13",
+          "G14"
+        ],
+        "input_state": "partial",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R03",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [
+          {
+            "path": "guide.fields.coverage.current",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 7
+          }
+        ],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      },
+      {
+        "finding_id": "finding:805cde409d67872e664b",
+        "unit_id": "current-arrangement",
+        "dimension_id": "monthly_plan_premium",
+        "subject_or_item_id": null,
+        "report_refs": [],
+        "question_ids": [
+          "RC03"
+        ],
+        "gap_ids": [],
+        "input_state": "unanswered",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R11",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      },
+      {
+        "finding_id": "finding:a8c457ca181adad2b298",
+        "unit_id": "current-arrangement",
+        "dimension_id": "provider_access",
+        "subject_or_item_id": null,
+        "report_refs": [],
+        "question_ids": [
+          "T06",
+          "RC21"
+        ],
+        "gap_ids": [
+          "G05",
+          "G12",
+          "G14"
+        ],
+        "input_state": "unanswered",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R06",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      },
+      {
+        "finding_id": "finding:ab7547b2c0319da3b950",
+        "unit_id": "current-arrangement",
+        "dimension_id": "drug_coverage",
+        "subject_or_item_id": null,
+        "report_refs": [],
+        "question_ids": [
+          "T07",
+          "RC22",
+          "RC24"
+        ],
+        "gap_ids": [
+          "G05",
+          "G08",
+          "G11",
+          "G14"
+        ],
+        "input_state": "unanswered",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R07",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      },
+      {
+        "finding_id": "finding:81230cba4f5c1666bdad",
+        "unit_id": "current-arrangement",
+        "dimension_id": "fill_price",
+        "subject_or_item_id": null,
+        "report_refs": [],
+        "question_ids": [
+          "RC22",
+          "RC23",
+          "RC18"
+        ],
+        "gap_ids": [
+          "G03",
+          "G05",
+          "G08",
+          "G09",
+          "G11"
+        ],
+        "input_state": "unanswered",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R08",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      },
+      {
+        "finding_id": "finding:95d0352f0a833ff5f40c",
+        "unit_id": "current-arrangement",
+        "dimension_id": "routine_away_access",
+        "subject_or_item_id": null,
+        "report_refs": [],
+        "question_ids": [
+          "T08",
+          "RC20"
+        ],
+        "gap_ids": [
+          "G06",
+          "G14"
+        ],
+        "input_state": "unanswered",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R09",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      },
+      {
+        "finding_id": "finding:7878ef6c65e805702cf0",
+        "unit_id": "current-arrangement",
+        "dimension_id": "eligibility_transition",
+        "subject_or_item_id": null,
+        "report_refs": [
+          {
+            "path": "readiness.facts.RC09.value.choice",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.choice",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.jobEnd",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.coverageEnd",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          }
+        ],
+        "question_ids": [
+          "T04",
+          "RC02",
+          "RC03",
+          "RC04",
+          "RC05",
+          "RC06",
+          "RC07",
+          "RC08",
+          "RC09",
+          "RC10",
+          "RC11",
+          "RC12",
+          "RC13",
+          "RC14",
+          "RC15",
+          "RC16",
+          "RC17",
+          "RC18",
+          "RC19",
+          "RC26",
+          "RC27",
+          "RC11.C1",
+          "RC16.C1",
+          "RC16.C2"
+        ],
+        "gap_ids": [
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G06",
+          "G07",
+          "G09",
+          "G10",
+          "G13",
+          "G14"
+        ],
+        "input_state": "partial",
+        "evidence_state": "missing",
+        "applicability": "undetermined",
+        "policy_state": "unreviewed",
+        "output_state": "held",
+        "result": "unresolved",
+        "value": null,
+        "condition_set": {
+          "completeness": "unknown",
+          "predicates": [],
+          "missing_predicates": [
+            "exact_identity_period_conditions_and_authority"
+          ]
+        },
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "evidence_refs": [],
+        "rule_refs": [
+          "R04",
+          "R14",
+          "R18"
+        ],
+        "dependency_refs": [
+          {
+            "path": "readiness.facts.RC09.value.choice",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.choice",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.jobEnd",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.coverageEnd",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          }
+        ],
+        "invalidation_keys": [
+          "profile.item_revision",
+          "scope",
+          "evidence.manifest",
+          "rule.version"
+        ],
+        "fictional": false
+      }
+    ],
+    "tradeoffs": [],
+    "outcomes": [
+      {
+        "kind": "continue_checking",
+        "state": "available_preparation"
+      },
+      {
+        "kind": "keep_current",
+        "state": "consequences_unresolved"
+      },
+      {
+        "kind": "defer_decision",
+        "state": "consequences_unresolved"
+      }
+    ],
+    "next_question": {
+      "question_id": "T03",
+      "item_id": null,
+      "subject_id": "beneficiary",
+      "target_paths": [
+        "guide.fields.comparison.scope.zip"
+      ],
+      "question": "What ZIP code do you live in?",
+      "purpose": "Plans differ by county. This helps identify the area you want to look into.",
+      "source": "existing_controller_eligible_move",
+      "report_refs": [
+        {
+          "path": "guide.fields.comparison.scope.zip",
+          "item_id": null,
+          "subject_id": "beneficiary",
+          "scope": "unknown",
+          "report_revision": null,
+          "record_revision": 7
+        }
+      ],
+      "scheduling_key": [
+        1,
+        0,
+        1,
+        2,
+        "",
+        "guide.fields.comparison.scope.zip"
+      ],
+      "affected_findings": [],
+      "answer_cannot_verify_external_evidence": true
+    },
+    "work_items": [
+      {
+        "work_item_id": "work:a6c246d01120f509e0fc",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "coverage_structure",
+        "item_id": null,
+        "affected_findings": [
+          "finding:a6c246d01120f509e0fc"
+        ],
+        "gap_ids": [
+          "G01",
+          "G02",
+          "G04",
+          "G07",
+          "G08",
+          "G13",
+          "G14"
+        ],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      },
+      {
+        "work_item_id": "work:805cde409d67872e664b",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "monthly_plan_premium",
+        "item_id": null,
+        "affected_findings": [
+          "finding:805cde409d67872e664b"
+        ],
+        "gap_ids": [],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      },
+      {
+        "work_item_id": "work:a8c457ca181adad2b298",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "provider_access",
+        "item_id": null,
+        "affected_findings": [
+          "finding:a8c457ca181adad2b298"
+        ],
+        "gap_ids": [
+          "G05",
+          "G12",
+          "G14"
+        ],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      },
+      {
+        "work_item_id": "work:ab7547b2c0319da3b950",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "drug_coverage",
+        "item_id": null,
+        "affected_findings": [
+          "finding:ab7547b2c0319da3b950"
+        ],
+        "gap_ids": [
+          "G05",
+          "G08",
+          "G11",
+          "G14"
+        ],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      },
+      {
+        "work_item_id": "work:81230cba4f5c1666bdad",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "fill_price",
+        "item_id": null,
+        "affected_findings": [
+          "finding:81230cba4f5c1666bdad"
+        ],
+        "gap_ids": [
+          "G03",
+          "G05",
+          "G08",
+          "G09",
+          "G11"
+        ],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      },
+      {
+        "work_item_id": "work:95d0352f0a833ff5f40c",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "routine_away_access",
+        "item_id": null,
+        "affected_findings": [
+          "finding:95d0352f0a833ff5f40c"
+        ],
+        "gap_ids": [
+          "G06",
+          "G14"
+        ],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      },
+      {
+        "work_item_id": "work:7878ef6c65e805702cf0",
+        "type": "resolve_evidence_conditions_and_authority",
+        "status": "proposed_not_started",
+        "owner_role": "evidence_research",
+        "unit_id": "current-arrangement",
+        "dimension_id": "eligibility_transition",
+        "item_id": null,
+        "affected_findings": [
+          "finding:7878ef6c65e805702cf0"
+        ],
+        "gap_ids": [
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G06",
+          "G07",
+          "G09",
+          "G10",
+          "G13",
+          "G14"
+        ],
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ],
+        "closure_evidence": [
+          "exact_entity_and_effective_scope",
+          "complete_conditions",
+          "reviewed_method",
+          "source_use_and_original_release_authority"
+        ],
+        "external_action_completed": false
+      }
+    ],
+    "decision_record_ref": "decision:6365e419df120ef8c7b340d0789c3c09b244e8eee5b194ee18c5f17ef8503a5e",
+    "decision_record": {
+      "question_accounting": [
+        {
+          "question_id": "T01",
+          "accounting_state": "used",
+          "parent_alias_of": null,
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.intent.goal",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 1,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.intent.goalDetail",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 2,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [
+            {
+              "path": "guide.fields.intent.goal",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 1,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.intent.goalDetail",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 2,
+              "record_revision": 7
+            }
+          ],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T02",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.knowledge.general",
+              "item_id": null,
+              "subject_id": "learner",
+              "scope": "current",
+              "report_revision": 3,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T03",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.comparison.scope.zip",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.comparison.scope.county",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.comparison.scope.locationEvidence",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T04",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unknown"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.coverage.requestedStart",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.coverage.requestedStartMonth",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T05",
+          "accounting_state": "used",
+          "parent_alias_of": null,
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.coverage.current",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "current",
+              "report_revision": 6,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [
+            {
+              "path": "guide.fields.coverage.current",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "current",
+              "report_revision": 6,
+              "record_revision": 7
+            }
+          ],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T06",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.needs.providersStatus",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.needs.providers",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T07",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.needs.medicinesStatus",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.needs.medications",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.needs.medicationDetails",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.needs.pharmacies",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T08",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.needs.travel",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T09",
+          "accounting_state": "optional_unset",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.needs.costPreference",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "T10",
+          "accounting_state": "optional_unset",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "guide.fields.needs.priorities",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            },
+            {
+              "path": "guide.fields.needs.priorityOther",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 7
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC01",
+          "accounting_state": "used",
+          "parent_alias_of": null,
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC01.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "current",
+              "report_revision": 1,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [
+            {
+              "path": "readiness.facts.RC01.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "current",
+              "report_revision": 1,
+              "record_revision": 9
+            }
+          ],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC02",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC02.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC02.value.zip",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC02.value.county",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC02.value.homeStatus",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC03",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC03.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC03.value.year",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC04",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC04.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC05",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC05.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC05.value.month",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC06",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC06.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC06.value.ageBand",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC07",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC07.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC08",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC08.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC08.value.eventDate",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC09",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC09.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "current",
+              "report_revision": 6,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [
+            {
+              "path": "readiness.facts.RC09.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "current",
+              "report_revision": 6,
+              "record_revision": 9
+            }
+          ],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC10",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC10.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC11",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC11.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC11.value.jobEnd",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC11.value.coverageEnd",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [
+            {
+              "path": "readiness.facts.RC11.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC11.value.jobEnd",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC11.value.coverageEnd",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            }
+          ],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC12",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC12.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC12.value.gap",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC13",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC13.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC14",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC14.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC15",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC15.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC15.value.event",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC16",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC16.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC16.value.start",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC16.value.priorMedigap",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC17",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC17.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC18",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC18.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC19",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC19.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC19.value.qualification",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC20",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC20.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC20.value.location",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC21",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC21.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC21.value.items[].entity",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC21.value.items[].practice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC21.value.items[].city",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC22",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC22.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC22.value.items[].entity",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC22.value.items[].name",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC22.value.items[].strength",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC22.value.items[].form",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC22.value.items[].brand",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC23",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC23.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC23.value.items[].entity",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC23.value.items[].quantity",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC23.value.items[].daysSupply",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC23.value.items[].pharmacy",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC23.value.items[].channel",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC23.value.items[].supply",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC24",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC24.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC25",
+          "accounting_state": "optional_unset",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC25.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC25.value.amount",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            },
+            {
+              "path": "readiness.facts.RC25.value.includes",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC26",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC26.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC27",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC27.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC28",
+          "accounting_state": "missing_for_requested_finding",
+          "parent_alias_of": null,
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC28.value.choice",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": true,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC11.C1",
+          "accounting_state": "alias_reused",
+          "parent_alias_of": "RC11",
+          "report_states": [
+            "reported"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC11.value.coverageEnd",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [
+            {
+              "path": "readiness.facts.RC11.value.coverageEnd",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 8,
+              "record_revision": 9
+            }
+          ],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC16.C1",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": "RC16",
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC16.value.start",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        },
+        {
+          "question_id": "RC16.C2",
+          "accounting_state": "not_relevant",
+          "parent_alias_of": "RC16",
+          "report_states": [
+            "unanswered"
+          ],
+          "report_refs": [
+            {
+              "path": "readiness.facts.RC16.value.priorMedigap",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "unknown",
+              "report_revision": null,
+              "record_revision": 9
+            }
+          ],
+          "bound_subject_report_refs": [],
+          "relevant_to_requested_task": false,
+          "additional_alias_obligation": false
+        }
+      ],
+      "gap_accounting": [
+        {
+          "gap_id": "G01",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G02",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G03",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G04",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G05",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G06",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G07",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G08",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G09",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G10",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G11",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G12",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G13",
+          "gap_closed": false,
+          "report_refs": []
+        },
+        {
+          "gap_id": "G14",
+          "gap_closed": false,
+          "report_refs": []
+        }
+      ],
+      "source_order": [
+        "current-arrangement"
+      ],
+      "selection": {
+        "question_id": "T03",
+        "item_id": null,
+        "subject_id": "beneficiary",
+        "target_paths": [
+          "guide.fields.comparison.scope.zip"
+        ],
+        "question": "What ZIP code do you live in?",
+        "purpose": "Plans differ by county. This helps identify the area you want to look into.",
+        "source": "existing_controller_eligible_move",
+        "report_refs": [
+          {
+            "path": "guide.fields.comparison.scope.zip",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "unknown",
+            "report_revision": null,
+            "record_revision": 7
+          }
+        ],
+        "scheduling_key": [
+          1,
+          0,
+          1,
+          2,
+          "",
+          "guide.fields.comparison.scope.zip"
+        ],
+        "affected_findings": [],
+        "answer_cannot_verify_external_evidence": true
+      },
+      "integrity_issues": [],
+      "finding_dependencies": {
+        "finding:a6c246d01120f509e0fc": [
+          {
+            "path": "guide.fields.coverage.current",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 7
+          }
+        ],
+        "finding:805cde409d67872e664b": [],
+        "finding:a8c457ca181adad2b298": [],
+        "finding:ab7547b2c0319da3b950": [],
+        "finding:81230cba4f5c1666bdad": [],
+        "finding:95d0352f0a833ff5f40c": [],
+        "finding:7878ef6c65e805702cf0": [
+          {
+            "path": "readiness.facts.RC09.value.choice",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "current",
+            "report_revision": 6,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.choice",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.jobEnd",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          },
+          {
+            "path": "readiness.facts.RC11.value.coverageEnd",
+            "item_id": null,
+            "subject_id": "beneficiary",
+            "scope": "intended",
+            "report_revision": 8,
+            "record_revision": 9
+          }
+        ]
+      }
+    },
+    "validity": {
+      "bound_profile_sha256": "eb2013d92ddcdfaa51e466bc191c97d13baeda1c2315d6c632260e72c852bf93",
+      "bound_evidence_sha256": "f7634a13e8ecb7d856ba927df552705c8ffb2c75a596129661095fe7f3d89c7b",
+      "stale_action_replay_allowed": false,
+      "reassessment_required_on": [
+        "profile_revision",
+        "item_revision",
+        "scope",
+        "source_edition_or_revocation",
+        "rule_version"
+      ]
+    },
+    "personalized_recommendation_allowed": false,
+    "external_action_completed": false,
+    "service_version": "advisor-comparison-service-20261101-r1"
+  },
+  "continuation": "2f1a361b04cba095a04c595192f0d82d.f9735d7d4f3d6edde8b834d22d958eac6aee0cd9dd254d621b0a24cb13b1aff2",
+  "notice": "I couldn’t finish that reply. You can keep going.",
+  "generated": {
+    "status": "unavailable",
+    "retryable": false,
+    "reason": "The response introduced a date or amount outside its sources.",
+    "code": "ungrounded_literal"
+  }
+}

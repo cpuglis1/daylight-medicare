@@ -1,0 +1,161 @@
+{
+  "value": {
+    "move_id": "T03",
+    "reply": "Okay \u2014 we can look at the soonest option.",
+    "question": "What ZIP code do you live in?",
+    "report_refs": [],
+    "evidence_refs": []
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.knowledge.general",
+        "status": "reported",
+        "value": "new",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "employer"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [
+      {
+        "id": "guide.situation.retirement",
+        "status": "reported"
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported"
+      },
+      {
+        "id": "guide.coverage.requestedStart",
+        "status": "reported"
+      },
+      {
+        "id": "readiness.RC09.profile.choice",
+        "status": "reported"
+      },
+      {
+        "id": "readiness.RC06.profile.choice",
+        "status": "reported"
+      }
+    ],
+    "task": "compare",
+    "dialogue": {
+      "orientation": "",
+      "lastTarget": {
+        "id": "T04",
+        "entity": "profile",
+        "fields": [
+          "month"
+        ]
+      },
+      "explainedTopics": [],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      6,
+      4
+    ],
+    "activeQuestion": {
+      "id": "T03",
+      "entity": "profile",
+      "fields": [
+        "zip"
+      ]
+    },
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "A soonest-possible desired start is a preference, not an exact start month or actual enrollment.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "current_message": "ASAP!!",
+    "recent_exchanges": [
+      {
+        "user": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.",
+        "assistant": "Prescription coverage can be part of what you compare later, and your preferred Medicare start may be different from your wife\u2019s job coverage ending.",
+        "question": "When would you like Medicare coverage to start?"
+      }
+    ],
+    "evidence": [],
+    "uncertainties": []
+  },
+  "moves": [
+    {
+      "id": "T03",
+      "question": {
+        "id": "T03",
+        "inventoryIds": [
+          "T03"
+        ],
+        "question": "What ZIP code do you live in?",
+        "why": "Plans differ by county. This helps identify the area you want to look into.",
+        "choices": [],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "zip",
+            "label": "Home ZIP code",
+            "type": "text",
+            "options": []
+          }
+        ],
+        "signature": "T03.profile.zip",
+        "atomicRequests": 1
+      },
+      "purpose": "Plans differ by county. This helps identify the area you want to look into.",
+      "priority": 0
+    }
+  ],
+  "accepted": true
+}

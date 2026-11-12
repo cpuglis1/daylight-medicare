@@ -1,0 +1,31 @@
+{
+  "question": "What ZIP code do you live in?",
+  "synthetic_only": true,
+  "paid_model_calls": 0,
+  "results": [
+    {
+      "case": "no_terminal_period",
+      "reply": "I have these on the review list:\n- Dr. Rivera at Example Clinic in Naples\n- Dr. Lee at Example Hospital in Tampa",
+      "before": "The response introduced a named entity outside its sources.",
+      "after": "accepted"
+    },
+    {
+      "case": "with_terminal_period",
+      "reply": "I have these on the review list:\n- Dr. Rivera at Example Clinic in Naples\n- Dr. Lee at Example Hospital in Tampa.",
+      "before": "accepted",
+      "after": "accepted"
+    },
+    {
+      "case": "another_paragraph",
+      "reply": "I have these on the review list:\n- Dr. Rivera at Example Clinic in Naples\n- Dr. Lee at Example Hospital in Tampa\n\nThese are details for the review.",
+      "before": "The response introduced a named entity outside its sources.",
+      "after": "accepted"
+    },
+    {
+      "case": "invented_name",
+      "reply": "On the review list: Dr. Avery Invented",
+      "before": "The response introduced a named entity outside its sources.",
+      "after": "The response introduced a named entity outside its sources."
+    }
+  ]
+}

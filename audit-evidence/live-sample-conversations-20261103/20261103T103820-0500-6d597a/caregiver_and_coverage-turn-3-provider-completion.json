@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47865,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9171,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 454,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9625
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"They’re not the same. Medigap goes with Original Medicare. Medicare Advantage is the other route instead of getting Parts A and B through Original Medicare.\\n\\nA simple way to picture it:\\n- Original Medicare = Parts A and B through the federal program\\n- Medigap = separate private supplement that can help pay some of your share of A/B costs\\n- Medicare Advantage = a private plan that provides Parts A and B instead\\n\\nSo your mother would generally have either:\\n1) Original Medicare, possibly with Medigap, and separate drug coverage if needed, or\\n2) a Medicare Advantage plan, where drug coverage is included in most plans.\\n\\nThe Part B premium still applies either way.\",\"question\":\"What ZIP code does she live in? That helps keep any next comparison focused on the right area, since plans vary by county.\",\"education_followups\":[\"Do you want me to explain the practical tradeoff between keeping Original Medicare with Medigap versus switching to aMed\",\"Would it help if I explain where prescription drug coverage fits with each option?\"],\"report_refs\":[],\"evidence_refs\":[\"medigap\",\"options\",\"routesintro\"],\"agenda_update\":{\"current_concern\":\"difference between Medigap and Medicare Advantage\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"route_relationship\",\"cost_sharing_role\",\"separate_drugs\"],\"evidence_refs\":[\"medigap\",\"options\",\"original\"]},{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\",\"part_b_premium\"],\"evidence_refs\":[\"advantage\",\"options\",\"routesintro\"]},{\"concept_id\":\"original_medicare\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"federal_parts\",\"optional_additions\"],\"evidence_refs\":[\"original\",\"options\",\"parts\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\"],\"blocking_concepts\":[\"coverage_paths\",\"original_medicare\"],\"next_step\":\"teach\"}}"
+  },
+  "elapsed_seconds": 8.563423
+}

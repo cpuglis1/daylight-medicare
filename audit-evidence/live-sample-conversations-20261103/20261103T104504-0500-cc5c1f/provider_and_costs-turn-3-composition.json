@@ -1,0 +1,1363 @@
+{
+  "raw_proposal": {
+    "question_target": "T03",
+    "reply": "Medicare Advantage means you get your Part A and Part B coverage through a Medicare-approved private plan instead of through Original Medicare. Most Advantage plans also include drug coverage. The key difference for your concern is that doctors, costs, and rules can vary by the exact plan, even within the same company. So no—an office saying it “takes Aetna” does not prove it takes your particular Medicare Advantage plan. It also doesn’t prove what a cardiology visit would cost under that plan. Those checks depend on the exact plan, and sometimes on the specific service too.",
+    "question": "What ZIP code do you live in? That helps narrow the local Medicare options we’d be comparing around your doctor and likely visit costs.",
+    "education_followups": [],
+    "report_refs": [],
+    "evidence_refs": [
+      "advantage",
+      "checks",
+      "routesintro"
+    ],
+    "agenda_update": {
+      "current_concern": "what Medicare Advantage means and whether accepting Aetna proves plan acceptance",
+      "pause": false
+    },
+    "education": {
+      "purpose": "answer",
+      "updates": [
+        {
+          "concept_id": "medicare_advantage",
+          "depth": "introduced",
+          "reason": "new",
+          "aspect_ids": [
+            "private_delivery",
+            "included_drugs",
+            "plan_specific_rules"
+          ],
+          "evidence_refs": [
+            "advantage",
+            "routesintro"
+          ]
+        },
+        {
+          "concept_id": "provider_checks",
+          "depth": "explored",
+          "reason": "requested_revisit",
+          "aspect_ids": [
+            "plan_specific_participation",
+            "unverified_participation"
+          ],
+          "evidence_refs": [
+            "checks",
+            "advantage"
+          ]
+        }
+      ],
+      "visual": "none"
+    },
+    "task_work": {
+      "check_ids": [
+        "coverage_paths",
+        "provider_participation"
+      ],
+      "blocking_concepts": [],
+      "next_step": "answer"
+    }
+  },
+  "resolved_context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.intent.goal",
+        "status": "reported",
+        "value": "compare",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.needs.providersStatus",
+        "status": "reported",
+        "value": "list",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.needs.providers",
+        "status": "reported",
+        "value": "cardiologist; Dr. Maya Reed; Cypress Heart Clinic",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 9,
+          "supersedesRevision": 7
+        }
+      },
+      {
+        "id": "guide.needs.priorities",
+        "status": "reported",
+        "value": [
+          "doctors",
+          "total_cost"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 5,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "advantage"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC07.profile.choice",
+        "status": "reported",
+        "value": "advantage",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC21.profile.choice",
+        "status": "reported",
+        "value": "details",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC21.doctor-1.choice",
+        "status": "reported",
+        "value": "details",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC21.doctor-1.practice",
+        "status": "reported",
+        "value": "Cypress Heart Clinic",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC21.doctor-1.city",
+        "status": "reported",
+        "value": "Naples",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [],
+    "task": "compare",
+    "dialogue": {
+      "orientation": "",
+      "lastTarget": {
+        "id": "T03",
+        "entity": "profile",
+        "fields": [
+          "zip"
+        ]
+      },
+      "explainedTopics": [
+        "routesintro",
+        "options",
+        "costs",
+        "checks"
+      ],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      9,
+      5
+    ],
+    "activeQuestion": {
+      "id": "T03",
+      "entity": "profile",
+      "fields": [
+        "zip"
+      ]
+    },
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "A soonest-possible desired start is a preference, not an exact start month or actual enrollment.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "agenda": {
+      "version": 1,
+      "concerns": [],
+      "priorityReasons": [],
+      "lastMove": {
+        "kind": "teach",
+        "topic": "",
+        "reason": "user_question"
+      }
+    },
+    "education_context": {
+      "catalog": {
+        "version": "education-v1",
+        "concepts": [
+          {
+            "concept_id": "medicare_basics",
+            "title": "What Medicare is",
+            "section": "foundations",
+            "evidence_refs": [
+              "basics"
+            ],
+            "visuals": [],
+            "aspects": {
+              "federal_health_insurance": [
+                "basics"
+              ],
+              "general_eligibility": [
+                "basics"
+              ]
+            }
+          },
+          {
+            "concept_id": "part_a",
+            "title": "Part A",
+            "section": "foundations",
+            "evidence_refs": [
+              "parts",
+              "parta"
+            ],
+            "visuals": [
+              "parts",
+              "parta"
+            ],
+            "aspects": {
+              "inpatient_care": [
+                "parts",
+                "parta"
+              ],
+              "other_services": [
+                "parts",
+                "parta"
+              ],
+              "original_relationship": [
+                "parts",
+                "parta"
+              ]
+            }
+          },
+          {
+            "concept_id": "part_b",
+            "title": "Part B",
+            "section": "foundations",
+            "evidence_refs": [
+              "parts",
+              "partb"
+            ],
+            "visuals": [
+              "parts",
+              "partb"
+            ],
+            "aspects": {
+              "outpatient_care": [
+                "parts",
+                "partb"
+              ],
+              "preventive_services": [
+                "parts",
+                "partb"
+              ],
+              "original_relationship": [
+                "parts",
+                "partb"
+              ]
+            }
+          },
+          {
+            "concept_id": "coverage_paths",
+            "title": "The two coverage paths",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "routesintro",
+              "options"
+            ],
+            "visuals": [
+              "routes"
+            ],
+            "aspects": {
+              "public_private_delivery": [
+                "routesintro",
+                "options"
+              ],
+              "additional_coverage": [
+                "options"
+              ],
+              "part_b_premium": [
+                "options"
+              ]
+            }
+          },
+          {
+            "concept_id": "original_medicare",
+            "title": "Original Medicare",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "original",
+              "options",
+              "parts"
+            ],
+            "visuals": [
+              "original"
+            ],
+            "aspects": {
+              "federal_parts": [
+                "original",
+                "options",
+                "parts"
+              ],
+              "provider_access": [
+                "original",
+                "parts"
+              ],
+              "optional_additions": [
+                "original",
+                "options"
+              ]
+            }
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "title": "Medicare Advantage",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "advantage",
+              "options",
+              "routesintro"
+            ],
+            "visuals": [
+              "advantage"
+            ],
+            "aspects": {
+              "private_delivery": [
+                "advantage",
+                "options",
+                "routesintro"
+              ],
+              "plan_specific_rules": [
+                "advantage"
+              ],
+              "included_drugs": [
+                "advantage",
+                "options"
+              ],
+              "part_b_premium": [
+                "advantage",
+                "options"
+              ]
+            }
+          },
+          {
+            "concept_id": "prescription_coverage",
+            "title": "Where prescription coverage fits",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "drugbasics",
+              "drugs",
+              "options"
+            ],
+            "visuals": [],
+            "aspects": {
+              "part_d_role": [
+                "drugbasics",
+                "drugs"
+              ],
+              "route_relationship": [
+                "drugs",
+                "options"
+              ],
+              "exact_medicine_conditions": [
+                "drugbasics",
+                "drugs"
+              ]
+            }
+          },
+          {
+            "concept_id": "medigap",
+            "title": "Where Medigap fits",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "medigap",
+              "options",
+              "original"
+            ],
+            "visuals": [],
+            "aspects": {
+              "cost_sharing_role": [
+                "medigap",
+                "options",
+                "original"
+              ],
+              "route_relationship": [
+                "medigap",
+                "options"
+              ],
+              "separate_drugs": [
+                "medigap",
+                "options",
+                "original"
+              ],
+              "changing_coverage_rights": [
+                "medigap"
+              ]
+            }
+          },
+          {
+            "concept_id": "provider_checks",
+            "title": "Checking doctors and hospitals",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "checks",
+              "advantage",
+              "original"
+            ],
+            "visuals": [],
+            "aspects": {
+              "original_provider_access": [
+                "original"
+              ],
+              "plan_specific_participation": [
+                "checks",
+                "advantage"
+              ],
+              "unverified_participation": [
+                "checks"
+              ]
+            }
+          },
+          {
+            "concept_id": "medicine_checks",
+            "title": "Checking exact medicines and pharmacies",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "checks",
+              "drugbasics",
+              "drugs"
+            ],
+            "visuals": [],
+            "aspects": {
+              "medicine_list_is_start": [
+                "drugbasics"
+              ],
+              "exact_drug_restrictions": [
+                "drugs"
+              ],
+              "pharmacy_and_costs": [
+                "drugs"
+              ],
+              "unverified_medicine_coverage": [
+                "checks",
+                "drugbasics"
+              ]
+            }
+          },
+          {
+            "concept_id": "cost_components",
+            "title": "Monthly costs and costs when using care",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "costs"
+            ],
+            "visuals": [
+              "costs"
+            ],
+            "aspects": {
+              "premiums": [
+                "costs"
+              ],
+              "deductible": [
+                "costs"
+              ],
+              "cost_sharing": [
+                "costs"
+              ],
+              "total_cost": [
+                "costs"
+              ]
+            }
+          },
+          {
+            "concept_id": "medical_spending_limits",
+            "title": "Medical spending limits",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "medical_limit"
+            ],
+            "visuals": [
+              "costs"
+            ],
+            "aspects": {
+              "advantage_medical_cap": [
+                "medical_limit"
+              ],
+              "excluded_premiums_drugs": [
+                "medical_limit"
+              ],
+              "original_no_cap": [
+                "medical_limit"
+              ]
+            }
+          },
+          {
+            "concept_id": "routine_extra_benefits",
+            "title": "Dental, vision and hearing",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "extras"
+            ],
+            "visuals": [],
+            "aspects": {
+              "original_routine_exclusions": [
+                "extras"
+              ],
+              "plan_conditions_limits": [
+                "extras"
+              ],
+              "exact_service_provider_checks": [
+                "extras"
+              ]
+            }
+          },
+          {
+            "concept_id": "enrollment_timing",
+            "title": "Sign-up timing and coverage start",
+            "section": "enrollment",
+            "evidence_refs": [
+              "enrollment_intro",
+              "dates"
+            ],
+            "visuals": [
+              "transition"
+            ],
+            "aspects": {
+              "initial_window": [
+                "enrollment_intro"
+              ],
+              "enrollment_vs_start": [
+                "enrollment_intro"
+              ],
+              "first_day_exception": [
+                "enrollment_intro"
+              ],
+              "official_date_confirmation": [
+                "dates"
+              ]
+            }
+          },
+          {
+            "concept_id": "current_coverage_timing",
+            "title": "Why current insurance matters to timing",
+            "section": "enrollment",
+            "evidence_refs": [
+              "enrollment_intro",
+              "dates",
+              "cobra_timing"
+            ],
+            "visuals": [
+              "transition"
+            ],
+            "aspects": {
+              "insurance_kind": [
+                "enrollment_intro",
+                "cobra_timing"
+              ],
+              "current_employment": [
+                "enrollment_intro",
+                "cobra_timing"
+              ],
+              "employer_size": [
+                "enrollment_intro"
+              ],
+              "birthday_does_not_set_start": [
+                "dates"
+              ]
+            }
+          },
+          {
+            "concept_id": "medigap_switching",
+            "title": "Checking Medigap and switching rights",
+            "section": "enrollment",
+            "evidence_refs": [
+              "switching",
+              "medigap"
+            ],
+            "visuals": [],
+            "aspects": {
+              "age_part_b_conditions": [
+                "switching"
+              ],
+              "underwriting_period": [
+                "switching"
+              ],
+              "other_rights_conditions": [
+                "switching"
+              ],
+              "change_coverage_caution": [
+                "medigap"
+              ]
+            }
+          },
+          {
+            "concept_id": "research_checks",
+            "title": "What still needs checking before choosing",
+            "section": "decision",
+            "evidence_refs": [
+              "checks",
+              "next"
+            ],
+            "visuals": [],
+            "aspects": {
+              "unverified_fields": [
+                "checks"
+              ],
+              "exact_plan_requirements": [
+                "checks"
+              ],
+              "open_checklist": [
+                "next"
+              ],
+              "saving_not_enrollment": [
+                "next"
+              ]
+            }
+          }
+        ],
+        "delivery_is_not_comprehension": true,
+        "required_for_recommendations": false
+      },
+      "learning": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "additional_coverage",
+              "part_b_premium",
+              "public_private_delivery"
+            ]
+          },
+          {
+            "concept_id": "cost_components",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "cost_sharing",
+              "deductible",
+              "premiums"
+            ]
+          },
+          {
+            "concept_id": "provider_checks",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "plan_specific_participation",
+              "unverified_participation"
+            ]
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "provider_checks"
+        ]
+      },
+      "requested_revisit": true,
+      "revisit_concepts": [
+        "medicare_advantage",
+        "provider_checks"
+      ],
+      "turn_kind": "message",
+      "current_clarification": []
+    },
+    "resolved_changes": [],
+    "advisor_brief": {
+      "goal": "I'm checking Medicare coverage for myself in Collier County.",
+      "current_concern": "keeping cardiologist and understanding visit costs while comparing Medicare options",
+      "paused": false,
+      "pending_question": "T03",
+      "direction": "Help this person understand their coverage options and reach an informed decision.",
+      "reported_goal": "compare",
+      "research_only": false,
+      "explained_topics": [
+        "routesintro",
+        "options",
+        "costs",
+        "checks"
+      ],
+      "familiarity": {
+        "explicit_report": null,
+        "calibration": "Use topic-specific questions and dialogue tentatively; exposure is not comprehension."
+      },
+      "decision": {
+        "focus": "coverage_paths",
+        "practical_focus": "plan_preparation",
+        "objective": "Understand the coverage-path distinction relevant to the person’s concern.",
+        "obstacles": [
+          {
+            "question_id": "T03",
+            "state": "missing",
+            "help": "Ask only if its answer changes the useful help available now."
+          }
+        ],
+        "question_policy": "answer_first_return_when_useful",
+        "return_point_is_optional": true,
+        "personal_research": "held"
+      }
+    },
+    "recent_exchanges": [
+      {
+        "user": "I'm checking Medicare coverage for myself in Collier County. I'd like to keep my cardiologist and understand what visits could cost. Where should I start?",
+        "assistant": "Start with two things: the coverage route and your doctor/cost checks. Medicare has two main paths: Original Medicare is Parts A and B through the federal program; Medicare Advantage is a private plan that provides Parts A and B. With Original Medicare, you can add a separate drug plan and may be able to buy Medigap to help with your share of costs. With Advantage, most plans include drug coverage. You still pay the Part B premium either way. For visit costs, don’t look only at the monthly premium—total cost also includes deductibles, copays, and coinsurance when you use care. Since keeping your cardiologist matters, the next comparison is whether the exact doctor and office participate in the exact plan, because that isn’t established yet.",
+        "question": "What ZIP code do you live in? That helps narrow the local Medicare options in the county before we compare doctor access and likely visit costs."
+      },
+      {
+        "user": "I currently have Aetna Medicare Advantage. My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples. I don't know the exact plan name.",
+        "assistant": "That gives us a useful start. We know you’re on a Medicare Advantage plan, and you’ve named the cardiologist and office you want to keep. What we still do **not** know is the exact Aetna plan, so we can’t tell yet whether Dr. Maya Reed at Cypress Heart Clinic in Naples participates in **your specific plan** or what a cardiology visit would cost under it. A carrier name alone isn’t enough for that check. For visit costs, the pieces to compare are the monthly premium and what you pay when you use care, like deductibles, copays, or coinsurance.",
+        "question": "What ZIP code do you live in? That helps narrow the Medicare plans available in your area while we sort out doctor access and visit costs."
+      }
+    ],
+    "current_message": "Before we go further, what does Medicare Advantage mean? Does the office accepting Aetna prove it takes my particular plan?",
+    "evidence": [
+      {
+        "id": "advantage",
+        "title": "Medicare Advantage",
+        "text": "Medicare hospital and medical coverage through a private insurance company’s plan instead of Original Medicare. Most plans include drug coverage. Doctors, costs, and rules vary by plan. The Part B premium still applies; some plans help pay all or part of it. Check each plan's doctors, drug coverage, costs, and rules.",
+        "summary": "A private plan provides Parts A and B. Most plans also include drug coverage.",
+        "question": "What is Medicare Advantage?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "checks",
+        "title": "What to check for each plan",
+        "text": "Records are in source order or ordered by explicit published fields. Eligibility, doctor participation, exact medicines and personal total cost have not been established. Compare the exact plan's providers, drug coverage, costs, and enrollment requirements before making a decision.",
+        "summary": "A plan list is the starting point. Check doctors, medicines, and costs for your situation.",
+        "question": "What should I check before choosing a plan?",
+        "source": "https://www.medicare.gov/plan-compare/"
+      },
+      {
+        "id": "options",
+        "title": "How your options fit together",
+        "text": "There are two main routes. Original Medicare is Parts A and B; you can add a separate drug plan and may be able to buy Medigap to help with your share of costs. Medicare Advantage provides A and B through a private plan, and most plans include drug coverage. Medigap goes with Original Medicare, not Medicare Advantage. You still pay the Part B premium with either route.",
+        "summary": "Start with hospital and medical care. Then compare the two ways to get your coverage.",
+        "question": "How do my Medicare options fit together?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "routesintro",
+        "title": "The two coverage routes",
+        "text": "Original Medicare is Parts A and B through the federal program. Medicare Advantage is a private plan approved by Medicare that provides Parts A and B. Both routes provide Medicare coverage, with different rules and costs. We can add the other coverage pieces after this distinction is clear.",
+        "summary": "You can get Parts A and B through the federal program or through a private Medicare Advantage plan.",
+        "question": "What are the two ways to get Medicare?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "original",
+        "title": "Original Medicare",
+        "text": "Parts A and B together, run by the federal government and accepted by any U.S. doctor who takes Medicare. You can add separate drug coverage (Part D) and may be able to buy a Medigap policy for certain A/B costs.",
+        "summary": "Parts A and B are the foundation. Other coverage can help with drugs and some costs.",
+        "question": "What is Original Medicare?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "costs",
+        "title": "Monthly cost and care costs",
+        "text": "A premium is the amount you pay each month for coverage. A deductible is an amount you pay before coverage pays its share under the benefit's rules. Copays and coinsurance are costs when you use care. A plan's premium alone is not your total cost.",
+        "summary": "A monthly premium and what you pay when you use care are different costs.",
+        "question": "What costs should I compare?",
+        "source": "https://www.medicare.gov/basics/costs/medicare-costs"
+      }
+    ],
+    "understanding_guides": [
+      {
+        "capability": "coverage_paths",
+        "title": "How coverage fits together",
+        "blocks": [
+          {
+            "id": "original_base",
+            "route": "original",
+            "label": "Original Medicare",
+            "text": "Parts A and B through the federal program.",
+            "evidence_refs": [
+              "routesintro"
+            ]
+          },
+          {
+            "id": "advantage_base",
+            "route": "advantage",
+            "label": "Medicare Advantage",
+            "text": "Parts A and B through a Medicare-approved private plan.",
+            "evidence_refs": [
+              "routesintro"
+            ]
+          },
+          {
+            "id": "original_additions",
+            "route": "original",
+            "label": "Optional additions",
+            "text": "Separate Part D for drugs; Medigap may help with your share of costs.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "advantage_drugs",
+            "route": "advantage",
+            "label": "Drug coverage",
+            "text": "Most Medicare Advantage plans include Part D. Check the exact plan.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "combination",
+            "label": "Where Medigap belongs",
+            "text": "Medigap works with Original Medicare, not Medicare Advantage. Drug coverage is separate.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "original_access",
+            "route": "original",
+            "label": "Access to care",
+            "text": "You can use a U.S. doctor who takes Medicare.",
+            "evidence_refs": [
+              "original"
+            ]
+          },
+          {
+            "id": "advantage_access",
+            "route": "advantage",
+            "label": "Access and rules",
+            "text": "Doctors, costs and rules vary by plan and need checking.",
+            "evidence_refs": [
+              "advantage"
+            ]
+          },
+          {
+            "id": "part_b",
+            "label": "Part B premium",
+            "text": "The Part B premium still applies with either coverage route.",
+            "evidence_refs": [
+              "options"
+            ]
+          }
+        ]
+      },
+      {
+        "capability": "costs",
+        "title": "What makes up your costs",
+        "blocks": [
+          {
+            "id": "premiums",
+            "label": "Each month",
+            "text": "Premiums pay for coverage. A premium alone is not your total cost.",
+            "evidence_refs": [
+              "costs"
+            ]
+          },
+          {
+            "id": "care",
+            "label": "When you use care",
+            "text": "Deductibles, copays and coinsurance depend on the benefit's rules.",
+            "evidence_refs": [
+              "costs"
+            ]
+          }
+        ]
+      }
+    ],
+    "uncertainties": [],
+    "comparison_status": {
+      "version": "advisor-comparison-service-20261101-r2",
+      "state": "held",
+      "personal_findings_available": false,
+      "research_completed": false,
+      "reason_codes": [
+        "CONDITION_UNRESOLVED",
+        "EXACT_RELEASE_REQUIRED",
+        "POLICY_NOT_ACCEPTED",
+        "SOURCE_MISSING"
+      ]
+    },
+    "task_work": {
+      "version": "task-work-20261103-r1",
+      "task_source": "existing_user_goal_and_agenda",
+      "task_focus": "plan_preparation",
+      "active_checks": [
+        "coverage_paths",
+        "provider_identity",
+        "provider_participation",
+        "personal_cost",
+        "coverage_identity"
+      ],
+      "checks": [
+        {
+          "check_id": "coverage_identity",
+          "label": "Exact coverage",
+          "report_refs": [
+            "guide.coverage.current",
+            "readiness.RC07.profile.choice"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+          "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+        },
+        {
+          "check_id": "provider_identity",
+          "label": "Clinician and office",
+          "report_refs": [
+            "readiness.RC21.profile.choice",
+            "readiness.RC21.doctor-1.choice",
+            "readiness.RC21.doctor-1.practice",
+            "readiness.RC21.doctor-1.city"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Confirm the intended clinician and exact office location.",
+          "distinction": "A name or office report is not a source identity or a participation check."
+        },
+        {
+          "check_id": "provider_participation",
+          "label": "Plan participation",
+          "report_refs": [
+            "guide.coverage.current",
+            "readiness.RC21.profile.choice",
+            "readiness.RC21.doctor-1.choice",
+            "readiness.RC21.doctor-1.practice",
+            "readiness.RC21.doctor-1.city"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+          "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+        },
+        {
+          "check_id": "service_benefit",
+          "label": "Service and benefit conditions",
+          "report_refs": [
+            "guide.coverage.current"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Check the exact service against the published benefit terms and applicable conditions.",
+          "distinction": "Provider participation does not establish service coverage or required authorization."
+        },
+        {
+          "check_id": "personal_cost",
+          "label": "Personal payment",
+          "report_refs": [],
+          "input_states": [],
+          "input_state": "not_in_current_context",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Identify the cost basis, included components and missing prices before describing what someone may pay.",
+          "distinction": "A published amount or partial subtotal is not a personal total or quote."
+        },
+        {
+          "check_id": "enrollment_timing",
+          "label": "Enrollment steps and dates",
+          "report_refs": [
+            "guide.coverage.current"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Confirm applicable enrollment rules and actual dates with the appropriate official service.",
+          "distinction": "A desired start or birthday does not establish eligibility or an effective date."
+        },
+        {
+          "check_id": "coverage_paths",
+          "label": "Coverage choices",
+          "report_refs": [
+            "guide.needs.priorities",
+            "guide.coverage.current"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Explain the relevant coverage pieces and consequential tradeoffs before comparing policies.",
+          "distinction": "Understanding a path does not establish personal eligibility or plan fit."
+        },
+        {
+          "check_id": "help_and_logistics",
+          "label": "Practical help and coordination",
+          "report_refs": [
+            "guide.subject.role"
+          ],
+          "input_states": [],
+          "input_state": "reported_inputs_available",
+          "verification_state": "not_verified",
+          "execution_state": "not_started",
+          "next_step": "Identify the specific unresolved practical need and prepare questions for the appropriate service.",
+          "distinction": "Helping a relative does not establish permission, financial eligibility or available care."
+        }
+      ],
+      "blocking_concepts": [],
+      "return_point": "T03",
+      "personal_findings_available": false,
+      "external_actions_available": false
+    }
+  },
+  "candidates": [
+    {
+      "id": "T03",
+      "question": {
+        "id": "T03",
+        "inventoryIds": [
+          "T03"
+        ],
+        "question": "What ZIP code do you live in?",
+        "why": "Plans differ by county. This helps identify the area you want to look into.",
+        "choices": [],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "zip",
+            "label": "Home ZIP code",
+            "type": "text",
+            "options": []
+          }
+        ],
+        "signature": "T03.profile.zip",
+        "atomicRequests": 1
+      },
+      "topic": "",
+      "priority": 1,
+      "required": false,
+      "purpose": "Plans differ by county. This helps identify the area you want to look into.",
+      "decision_relevance": "current_decision"
+    },
+    {
+      "id": "T07",
+      "question": {
+        "id": "T07",
+        "inventoryIds": [
+          "T07"
+        ],
+        "question": "Which prescriptions should we include?",
+        "why": "You can list the medicines you want included, or leave this for later.",
+        "choices": [
+          [
+            "no",
+            "No prescriptions to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T07.profile.text",
+        "atomicRequests": 1
+      },
+      "topic": "drugs",
+      "priority": 1,
+      "required": false,
+      "purpose": "You can list the medicines you want included, or leave this for later.",
+      "decision_relevance": "current_decision"
+    },
+    {
+      "id": "T09",
+      "question": {
+        "id": "T09",
+        "inventoryIds": [
+          "T09"
+        ],
+        "question": "How would you prefer to balance monthly payments and costs when you get care?",
+        "why": "",
+        "choices": [
+          [
+            "lower_monthly",
+            "Lower monthly payments"
+          ],
+          [
+            "predictable",
+            "More predictable costs"
+          ],
+          [
+            "no_preference",
+            "No preference yet"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T09.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "total_cost",
+      "priority": 2,
+      "required": false,
+      "purpose": "optional_preference",
+      "decision_relevance": "current_decision"
+    },
+    {
+      "id": "T08",
+      "question": {
+        "id": "T08",
+        "inventoryIds": [
+          "T08"
+        ],
+        "question": "Will you need routine care away from home?",
+        "why": "This helps identify whether access to routine care in another place matters to you.",
+        "choices": [
+          [
+            "local",
+            "Local only"
+          ],
+          [
+            "elsewhere_us",
+            "Elsewhere in the U.S."
+          ],
+          [
+            "outside_us",
+            "Outside the U.S."
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T08.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "travel",
+      "priority": 1,
+      "required": false,
+      "purpose": "This helps identify whether access to routine care in another place matters to you.",
+      "decision_relevance": "current_decision"
+    },
+    {
+      "id": "T04",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would you like Medicare coverage to start?",
+        "why": "Your preferred start can differ from when your current insurance ends.",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "after_coverage",
+            "After my current coverage ends"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "topic": "timing",
+      "priority": 1,
+      "required": false,
+      "purpose": "Your preferred start can differ from when your current insurance ends.",
+      "decision_relevance": "available_if_useful"
+    },
+    {
+      "id": "RC06",
+      "question": {
+        "id": "RC06",
+        "inventoryIds": [
+          "RC06"
+        ],
+        "question": "How did you first qualify, or expect to qualify, for Medicare?",
+        "why": "",
+        "choices": [
+          [
+            "age65",
+            "Age 65 or older"
+          ],
+          [
+            "disability",
+            "Disability before 65"
+          ],
+          [
+            "esrd",
+            "Kidney failure / ESRD"
+          ],
+          [
+            "als",
+            "ALS"
+          ],
+          [
+            "other",
+            "Another reason"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC06.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "",
+      "priority": 1,
+      "required": false,
+      "purpose": "required_only_when_applicable_to_requested_check",
+      "decision_relevance": "available_if_useful"
+    },
+    {
+      "id": "T02",
+      "question": {
+        "id": "T02",
+        "inventoryIds": [
+          "T02"
+        ],
+        "question": "How familiar are you with Medicare?",
+        "why": "",
+        "choices": [
+          [
+            "new",
+            "New to Medicare"
+          ],
+          [
+            "some",
+            "Know a little"
+          ],
+          [
+            "comfortable",
+            "Comfortable with the basics"
+          ],
+          [
+            "unknown",
+            "Not sure yet"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T02.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "learning",
+      "priority": 2,
+      "required": false,
+      "purpose": "Optional familiarity question only if needed to calibrate explanations; do not make it a required intake step.",
+      "decision_relevance": "available_if_useful"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47049,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8998,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 392,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9390
+    },
+    "text": "{\"question_target\":\"T05\",\"reply\":\"Start with two things: which coverage route fits you, and then whether your cardiologist and visit costs work under the exact plan. Medicare has two main routes: Original Medicare, which is Parts A and B through the federal program, and Medicare Advantage, which is a private plan that provides Parts A and B. With Original Medicare, you can add a separate drug plan and may be able to add Medigap; with Medicare Advantage, most plans include drug coverage. For costs, the monthly premium is only one piece. What you pay when you use care can also include deductibles, copays, or coinsurance, so the lowest premium is not always the lowest total cost.\",\"question\":\"What health insurance do you have now? That helps narrow which coverage path and timing questions matter before comparing options.\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.intent.goal\",\"guide.needs.providersStatus\",\"guide.needs.providers\",\"guide.needs.priorities\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"routesintro\",\"options\",\"costs\"],\"agenda_update\":{\"current_concern\":\"where to start comparing coverage while keeping a cardiologist and understanding visit costs\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"premiums\",\"deductible\",\"cost_sharing\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"prepare\"}}"
+  },
+  "elapsed_seconds": 6.480707
+}

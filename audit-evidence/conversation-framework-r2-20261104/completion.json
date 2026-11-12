@@ -1,0 +1,82 @@
+{
+  "completed_at": "2026-11-04T21:32:09.822099+00:00",
+  "implementation": "complete",
+  "technical_regression_tests_passed": 952,
+  "regression_seconds": 169.104,
+  "ui_files_unchanged": true,
+  "live_quality_validation": "blocked_provider_credit_balance_exhausted",
+  "complete_live_journeys": 0,
+  "planned_journeys": 3,
+  "planned_user_turns": 17,
+  "quality_pass": null,
+  "activated": false,
+  "activation_reason": "Complete real-model conversation validation remains pending.",
+  "elapsed_minutes_since_implementation_checkpoint": 17.17,
+  "measured_api_usage_usd": 0.0,
+  "uncertain_hold_usd": 0.192,
+  "attempts": [
+    {
+      "path": "attempts/20261104T211915436049Z/result.json",
+      "complete": false,
+      "stopped": {
+        "case": "retirement_timing",
+        "turn": 1,
+        "exception": "ProfileError"
+      },
+      "provider_diagnostic": null,
+      "measured_usd": 0.0,
+      "held_usd": 0.0
+    },
+    {
+      "path": "attempts/20261104T211934741353Z/result.json",
+      "complete": false,
+      "stopped": {
+        "case": "retirement_timing",
+        "turn": 1,
+        "exception": "ModelUnavailable"
+      },
+      "provider_diagnostic": {
+        "event": "error",
+        "incomplete_reason": "unknown",
+        "provider_code": "credit_balance_exhausted",
+        "usage": {}
+      },
+      "measured_usd": 0.0,
+      "held_usd": 0.064
+    },
+    {
+      "path": "attempts/20261104T212808703433Z/result.json",
+      "complete": false,
+      "stopped": {
+        "case": "retirement_timing",
+        "turn": 1,
+        "exception": "ModelUnavailable"
+      },
+      "provider_diagnostic": {
+        "event": "error",
+        "incomplete_reason": "unknown",
+        "provider_code": "credit_balance_exhausted",
+        "usage": {}
+      },
+      "measured_usd": 0.0,
+      "held_usd": 0.064
+    },
+    {
+      "path": "attempts/20261104T213040975231Z/result.json",
+      "complete": false,
+      "stopped": {
+        "case": "retirement_timing",
+        "turn": 1,
+        "exception": "ModelUnavailable"
+      },
+      "provider_diagnostic": {
+        "event": "error",
+        "incomplete_reason": "unknown",
+        "provider_code": "credit_balance_exhausted",
+        "usage": {}
+      },
+      "measured_usd": 0.0,
+      "held_usd": 0.064
+    }
+  ]
+}

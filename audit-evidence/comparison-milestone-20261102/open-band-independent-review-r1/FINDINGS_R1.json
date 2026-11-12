@@ -1,0 +1,24 @@
+{
+  "schema": "daylight.open-band.independent-findings.v1",
+  "enumeration_complete": true,
+  "confirmed_findings": [
+    {
+      "id": "OB-R1-F01",
+      "title": "Large finite integers crash schema/readiness validation",
+      "severity": "medium",
+      "file": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/open-band-comparison-contract-r1/open_band_comparison.py",
+      "affected_functions": [
+        "_type",
+        "_schema_errors"
+      ],
+      "trigger": "Set an otherwise complete synthetic band begin, end, or amount to integer10**400.",
+      "observed": "All three paths raise OverflowError: int too large to convert to float.",
+      "reason": "math.isfinite implicitly converts Python arbitrary-precision integers to floats, although those integers are mathematically finite.",
+      "required_action": "Create a new additive revision that validates integers without floating conversion, retains explicit bool rejection, validates nonfinite floats separately, and returns a defined comparison/readiness outcome for these records. Do not add a lossy sentinel or alter the frozen r1.",
+      "probe_scope": "Three supplemental robustness probes selected after reading the code. Not part of the32 expectations sealed before candidate-code inspection."
+    }
+  ],
+  "all_32_pre_code_capability_cases": "45 independent scenarios pass",
+  "new_source_or_reference_acceptance": false,
+  "real_observation_migration": false
+}

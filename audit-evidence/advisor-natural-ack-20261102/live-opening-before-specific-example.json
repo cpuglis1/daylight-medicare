@@ -1,0 +1,95 @@
+{
+  "fictional_input": true,
+  "profile_saved": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 2,
+  "source_sha256": "120ae2f44a85f07991581181482ec2398dc55c8276034fbcc5c7ef7edf15e353",
+  "message": "I turn 65 in April and would like to get signed up for Medicare soon.",
+  "reply": "We can help you get oriented for signing up soon. In general, people first becoming eligible at 65 often have a 7-month Initial Enrollment Period around their birthday month, and the date coverage starts can depend on when you enroll. One key thing that affects timing is what health insurance you have now.",
+  "question": {
+    "id": "T05",
+    "inventoryIds": [
+      "T05"
+    ],
+    "question": "What health insurance do you have now?",
+    "why": "",
+    "choices": [
+      [
+        "original",
+        "Original Medicare (Parts A and B)"
+      ],
+      [
+        "advantage",
+        "Medicare Advantage (Part C)"
+      ],
+      [
+        "medigap",
+        "Medicare Supplement / Medigap"
+      ],
+      [
+        "drug",
+        "Separate prescription drug plan"
+      ],
+      [
+        "employer",
+        "Current-job coverage"
+      ],
+      [
+        "retiree",
+        "Retiree coverage"
+      ],
+      [
+        "cobra",
+        "COBRA"
+      ],
+      [
+        "military",
+        "VA, TRICARE or military coverage"
+      ],
+      [
+        "medicaid",
+        "Medicaid"
+      ],
+      [
+        "none",
+        "None"
+      ],
+      [
+        "unknown",
+        "Not sure"
+      ]
+    ],
+    "multi": true,
+    "entity": "profile",
+    "fields": [],
+    "signature": "T05.profile.choice",
+    "atomicRequests": 1
+  },
+  "generated": {
+    "status": "complete",
+    "move": "T05"
+  },
+  "metrics": {
+    "llmCalls": 2,
+    "synthetic": false,
+    "stageMs": {
+      "extraction": 4747,
+      "composition": 4241
+    }
+  },
+  "personal_outputs_held": true,
+  "receipts": [
+    {
+      "status": "settled",
+      "charged_nano_usd": 21467500,
+      "measured_nano_usd": 21467500
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 20505000,
+      "measured_nano_usd": 20505000
+    }
+  ],
+  "accounted_usd": 0.0419725,
+  "elapsed_seconds": 9.14
+}

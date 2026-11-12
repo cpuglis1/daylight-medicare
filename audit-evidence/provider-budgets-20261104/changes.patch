@@ -1,0 +1,511 @@
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ DAYLIGHT_REQUIREMENTS.md
+@@ -1,4 +1,6 @@
+ # Daylight owner requirements
++
++**D86/D90 provider-scoped allowances · November 4, 2026.** Owner requested provider-dependent cost limits after distinguishing local accounting from provider credits. The :8893 allowance is now $5 per UTC day for OpenAI and separately $5 for Anthropic; both GPT models share OpenAI's allowance and retain their exact model prices. Admit below the selected provider's threshold and let the bounded turn/recovery finish, preserving the preceding admission policy. New charge metadata records model/provider atomically; existing charges and holds are retained, with historical attribution only for unique stored pricing/reservation matches. Unknown attribution remains visible and blocks new paid work pending reconciliation; never silently reset or duplicate charges across providers. Preserve the original ledger schema, protected variants' aggregate policies, exact counting/settlement, integrity blocks, privacy and factual gates. Status includes both local provider budgets and explicitly distinguishes them from provider account credits. No UI or conversation-policy change and no paid/live conversation tests. [Implementation and activation](audit-evidence/provider-budgets-20261104/README.md).
+ 
+ **D86/D90 budget admission and conversational continuity · November 4, 2026.** Owner removed the anticipatory “complete turn could exceed” block and requested a check against repeating information. For :8893, admit a new turn while accounted daily usage is below $5, then let that bounded turn and its existing recovery allowance finish; the final total may exceed $5. Do not reject an admitted turn based on its forecast maximum. Reject new turns once the threshold is reached, including existing unsettled holds in accounting. Preserve exact counting/settlement, receipt verification, uncertainty holds, pricing and clock checks, request/output bounds, recovery-attempt limits, the shared ledger and protected variants. This supersedes the earlier worst-case $5 ceiling only for this advisor. The shared composer checks its draft against recent exchanges and learning history, adds the new implication or next step, and revisits only for a request, confusion, correction or changed guidance. Delivered teaching never proves understanding. No added model stage, case script, profile field or UI change; no agent-run live conversation tests. [Implementation and activation](audit-evidence/turn-budget-and-continuity-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/server.py
++++ alternatives/advisor-first/server.py
+@@ -104,6 +104,9 @@
+         parent_handler = service.RequestHandlerClass
+         class RecoveryStatusHandler(parent_handler):
+             def respond(self, code, value, mime='application/json; charset=utf-8', cookie=None):
++                if (code == 200 and isinstance(value, dict) and service.budget
++                        and self.path in {'/api/ai/usage', '/api/status'}):
++                    value = {**value, 'providerBudgets': service.budget.provider_summaries()}
+                 if isinstance(value, dict) and 'automatic_retries' in value:
+                     value = {**value, 'automatic_retries': True,
+                              'connection_recovery': config['connectionRecovery']}
+--- before/alternatives/advisor-first/budget-policy.json
++++ alternatives/advisor-first/budget-policy.json
+@@ -1,5 +1,6 @@
+ {
+-  "version": 1,
++  "version": 2,
++  "scope": "provider",
+   "daily_cap_nano_usd": 5000000000,
+   "reset_timezone": "UTC"
+ }
+--- before/alternatives/advisor-first/advisor_models.py
++++ alternatives/advisor-first/advisor_models.py
+@@ -1,4 +1,4 @@
+-"""Reviewed model choices for the local advisor, with one shared spending cap."""
++"""Reviewed model prices; local daily allowances are shared within each provider."""
+ from dataclasses import dataclass
+ import os
+ import re
+--- before/alternatives/advisor-first/natural_agent.py
++++ alternatives/advisor-first/natural_agent.py
+@@ -97,7 +97,10 @@
+                     if not row or row[2] != 'reserved':
+                         raise BudgetError('AI reservation could not be found or is already closed.')
+                     amount = count * max(spec.input_rate, spec.cache_write_rate) + row[1] * spec.output_rate
+-                    total, *_ = self.budget._amounts(db, day)
++                    if hasattr(self.budget, 'verify_model'):
++                        self.budget.verify_model(db, self.key, self.model)
++                    total, *_ = (self.budget.amounts_for_model(db, day, self.model)
++                        if hasattr(self.budget, 'amounts_for_model') else self.budget._amounts(db, day))
+                     if not getattr(self.budget, 'finish_admitted_turn', False) and total - row[0] + amount > cap:
+                         raise BudgetError(f'This request could exceed the shared ${cap / 1_000_000_000:g} daily AI limit. Try after 00:00 UTC or use manual guidance.')
+                     db.execute('UPDATE ai_charges SET reserved=?,charged=?,input_bound=? WHERE id=?',
+@@ -189,7 +192,8 @@
+                 budget._clock(db, day)
+                 if db.execute("SELECT value FROM ai_meta WHERE key='blocked'").fetchone():
+                     raise BudgetError('AI usage needs reconciliation. Manual guidance remains available.')
+-                total, *_ = budget._amounts(db, day)
++                total, *_ = (budget.amounts_for_model(db, day, model)
++                    if hasattr(budget, 'amounts_for_model') else budget._amounts(db, day))
+                 continuing = False
+                 if _recovery_of is not None:
+                     if (not isinstance(_recovery_of, ReservedStage) or _recovery_of.budget is not budget
+@@ -199,15 +203,19 @@
+                     receipt = db.execute('SELECT status FROM ai_charges WHERE id=?', (_recovery_of.key,)).fetchone()
+                     if not receipt or receipt[0] != _recovery_of.status:
+                         raise BudgetError('The recovery receipt could not be verified.')
++                    if hasattr(budget, 'verify_model'):
++                        budget.verify_model(db, _recovery_of.key, model)
+                     continuing = True
+                 if finish_admitted and not continuing and total >= cap:
+-                    raise BudgetError(f'The shared ${cap / 1_000_000_000:g} daily AI limit has been reached. It resets at 00:00 UTC.')
++                    raise BudgetError(budget.limit_message(model))
+                 if not finish_admitted and total + amount * len(stages) > cap:
+                     raise BudgetError(f'This complete turn could exceed the shared ${cap / 1_000_000_000:g} daily AI limit. Use the manual guide or try after 00:00 UTC.')
+                 for name in stages:
+                     key = secrets.token_hex(24)
+                     db.execute('INSERT INTO ai_charges VALUES(?,?,NULL,?,?,NULL,?,?,?,NULL,NULL,NULL)',
+                                (key, day, amount, amount, 'reserved', 0, spec.output_tokens))
++                    if hasattr(budget, 'record_model'):
++                        budget.record_model(db, key, model)
+                     self.stages[name] = ReservedStage(budget, key, model)
+         except sqlite3.Error as error:
+             raise BudgetError('The persistent AI budget is unavailable. No paid request was started.') from error
+--- before/alternatives/advisor-first/AGENTS.md
++++ alternatives/advisor-first/AGENTS.md
+@@ -1,4 +1,6 @@
+ # Working on the advisor-first variant
++
++**D86/D90 provider-scoped allowances · November 4, 2026.** Owner requested provider-dependent cost limits after distinguishing local accounting from provider credits. The :8893 allowance is now $5 per UTC day for OpenAI and separately $5 for Anthropic; both GPT models share OpenAI's allowance and retain their exact model prices. Admit below the selected provider's threshold and let the bounded turn/recovery finish, preserving the preceding admission policy. New charge metadata records model/provider atomically; existing charges and holds are retained, with historical attribution only for unique stored pricing/reservation matches. Unknown attribution remains visible and blocks new paid work pending reconciliation; never silently reset or duplicate charges across providers. Preserve the original ledger schema, protected variants' aggregate policies, exact counting/settlement, integrity blocks, privacy and factual gates. Status includes both local provider budgets and explicitly distinguishes them from provider account credits. No UI or conversation-policy change and no paid/live conversation tests. [Implementation and activation](../../audit-evidence/provider-budgets-20261104/README.md).
+ 
+ **D86/D90 budget admission and conversational continuity · November 4, 2026.** Owner removed the anticipatory “complete turn could exceed” block and requested a check against repeating information. For :8893, admit a new turn while accounted daily usage is below $5, then let that bounded turn and its existing recovery allowance finish; the final total may exceed $5. Do not reject an admitted turn based on its forecast maximum. Reject new turns once the threshold is reached, including existing unsettled holds in accounting. Preserve exact counting/settlement, receipt verification, uncertainty holds, pricing and clock checks, request/output bounds, recovery-attempt limits, the shared ledger and protected variants. This supersedes the earlier worst-case $5 ceiling only for this advisor. The shared composer checks its draft against recent exchanges and learning history, adds the new implication or next step, and revisits only for a request, confusion, correction or changed guidance. Delivered teaching never proves understanding. No added model stage, case script, profile field or UI change; no agent-run live conversation tests. [Implementation and activation](../../audit-evidence/turn-budget-and-continuity-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/advisor_budget.py
++++ alternatives/advisor-first/advisor_budget.py
+@@ -1,4 +1,4 @@
+-"""Owner-approved $5 UTC-day policy for the local advisor service only.
++"""Owner-approved $5 per-provider UTC-day allowance for the local advisor.
+ 
+ The pinned engine remains unchanged. ``adopt`` upgrades its existing budget
+ instance so every agent and the HTTP handler keep the same object and ledger.
+@@ -40,12 +40,13 @@
+         except (OSError, ValueError, TypeError):
+             raise BudgetError('The reviewed local advisor AI budget policy is unavailable.') from None
+         if (not isinstance(policy, dict)
+-                or set(policy) != {'version', 'daily_cap_nano_usd', 'reset_timezone'}
+-                or type(policy['version']) is not int or policy['version'] != 1
++                or set(policy) != {'version', 'daily_cap_nano_usd', 'reset_timezone', 'scope'}
++                or type(policy['version']) is not int or policy['version'] != 2
++                or policy['scope'] != 'provider'
+                 or type(policy['daily_cap_nano_usd']) is not int
+                 or policy['daily_cap_nano_usd'] != APPROVED_CAP
+                 or policy['reset_timezone'] != 'UTC'):
+-            raise BudgetError('Use the approved $5 UTC-day local advisor AI policy.')
++            raise BudgetError('Use the approved $5 per-provider UTC-day local advisor policy.')
+         if type(budget) not in {DailyBudget, cls}:
+             raise BudgetError('The local advisor policy requires the reviewed shared budget.')
+         if pricing_review_path is not None:
+@@ -61,7 +62,74 @@
+         # Both are ordinary Python classes with the same instance layout.
+         # Preserve object identity: guide_server also closes over this instance.
+         budget.__class__ = cls
++        with budget.db() as db:
++            # A side table preserves the pinned engine's exact ledger schema
++            # and every historical charge. New reservations get explicit tags.
++            db.execute('''CREATE TABLE IF NOT EXISTS advisor_charge_models(
++                charge_id TEXT PRIMARY KEY, model TEXT NOT NULL,
++                provider TEXT NOT NULL, attribution TEXT NOT NULL)''')
++            budget._attribute_legacy(db)
+         return budget
++
++    @staticmethod
++    def _attribute_legacy(db):
++        rows = db.execute('''SELECT c.id,c.reserved,c.measured,c.status,c.input_bound,c.output_bound,
++                              c.input_tokens,c.cached_tokens,c.output_tokens
++            FROM ai_charges c LEFT JOIN advisor_charge_models m ON m.charge_id=c.id
++            WHERE m.charge_id IS NULL''').fetchall()
++        for key, reserved, measured, status, ib, ob, i, c, o in rows:
++            matches = []
++            for model, spec in MODELS.items():
++                # Historical reservations used either ordinary input pricing
++                # or the later cache-write maximum. Both signatures are retained.
++                reservation = (ob == spec.output_tokens and reserved in {
++                    ib * spec.input_rate + ob * spec.output_rate,
++                    ib * max(spec.input_rate, spec.cache_write_rate) + ob * spec.output_rate})
++                imported = (status == 'settled' and i == ib and o == ob and c is not None
++                    and reserved == measured
++                    and measured == (i-c) * spec.input_rate + c * spec.cached_rate + o * spec.output_rate)
++                if reservation or imported:
++                    matches.append(model)
++            if len(matches) == 1:
++                model = matches[0]
++                db.execute('INSERT INTO advisor_charge_models VALUES(?,?,?,?)',
++                           (key, model, MODELS[model].provider, 'legacy_unique_rate_match'))
++        # Ambiguous records remain unassigned and visible; never guess a provider.
++
++    @staticmethod
++    def record_model(db, key, model):
++        db.execute('INSERT INTO advisor_charge_models VALUES(?,?,?,?)',
++                   (key, model, MODELS[model].provider, 'reserved_model'))
++
++    def verify_model(self, db, key, model):
++        self._attribute_legacy(db)
++        row = db.execute('SELECT model,provider FROM advisor_charge_models WHERE charge_id=?', (key,)).fetchone()
++        if row != (model, MODELS[model].provider):
++            raise BudgetError('The AI usage receipt belongs to a different or unknown model.')
++
++    @staticmethod
++    def _scoped_amounts(db, day, provider):
++        rows = db.execute('''SELECT c.charged,c.measured,c.status FROM ai_charges c
++            LEFT JOIN advisor_charge_models m ON m.charge_id=c.id
++            WHERE m.provider IS ? AND (c.day=? OR (c.day<? AND
++                (c.status IN ('reserved','uncertain') OR c.finished_day=?)))''',
++            (provider, day, day, day)).fetchall()
++        return (sum(row[0] for row in rows), sum(row[1] or 0 for row in rows),
++                sum(row[0] for row in rows if row[2] in {'reserved','uncertain'}), len(rows))
++
++    def amounts_for_model(self, db, day, model):
++        self._attribute_legacy(db)
++        if self._scoped_amounts(db, day, None)[0]:
++            raise BudgetError('Historical AI usage needs provider reconciliation before another paid request.')
++        return self._scoped_amounts(db, day, MODELS[model].provider)
++
++    @staticmethod
++    def limit_message(model):
++        return f"Daylight's $5 daily {MODELS[model].provider} allowance has been reached. It resets at 00:00 UTC."
++
++    def provider_summaries(self):
++        representatives = {spec.provider: model for model, spec in MODELS.items()}
++        return {provider: self.summary(model) for provider, model in representatives.items()}
+ 
+     def check_rates(self, model):
+         if model == 'gpt-5.4':
+@@ -72,6 +140,8 @@
+             raise BudgetError('Use a reviewed AI model.')
+ 
+     def settle_model(self, key, response, model):
++        with self.db() as db:
++            self.verify_model(db, key, model)
+         if model == 'gpt-5.4':
+             return self.settle(key, response)
+         spec = MODELS[model]
+@@ -117,14 +187,23 @@
+         raise BudgetError('AI usage could not be verified. The reservation remains held.')
+ 
+     def summary(self, model='gpt-5.4'):
++        if model not in MODELS:
++            raise BudgetError('Use a reviewed AI model.')
++        provider = MODELS[model].provider
+         day = self.day()
+         reason, ready = '', True
+         cap = self.daily_cap_nano_usd
++        unattributed = 0
+         try:
+             self.check_rates(model)
+             with self.db() as db:
+                 self._clock(db, day)
+-                total, measured, held, count = self._amounts(db, day)
++                self._attribute_legacy(db)
++                total, measured, held, count = self._scoped_amounts(db, day, provider)
++                unattributed = self._scoped_amounts(db, day, None)[0]
++                if unattributed:
++                    ready = False
++                    reason = 'Historical AI usage needs provider reconciliation before another paid request.'
+                 blocked = db.execute("SELECT value FROM ai_meta WHERE key='blocked'").fetchone()
+                 if blocked:
+                     reason = 'AI usage needs reconciliation. Paid requests are paused.'
+@@ -134,23 +213,24 @@
+             reason = 'AI pricing or the persistent budget could not be verified. Paid requests are paused.'
+             try:
+                 with self.db() as db:
+-                    total, measured, held, count = self._amounts(db, day)
++                    total, measured, held, count = self._scoped_amounts(db, day, provider)
+             except Exception:
+                 total, measured, held, count = cap, 0, cap, 0
+         remaining = max(0, cap - total)
+         if ready and remaining == 0:
+             ready = False
+-            reason = 'The shared $5 daily AI limit has been reached. It resets at 00:00 UTC.'
++            reason = self.limit_message(model)
+         return {
+-            'day': day, 'timezone': 'UTC',
++            'day': day, 'timezone': 'UTC', 'provider': provider, 'limitScope': 'provider',
+             'resetAt': (datetime.fromisoformat(day).replace(tzinfo=timezone.utc) + timedelta(days=1)).isoformat(),
+             'dailyLimitUsd': cap // NANO, 'estimatedUsd': measured / NANO,
+-            'maxInputTokens': INPUT_TOKENS, 'maxOutputTokens': OUTPUT_TOKENS,
++            'maxInputTokens': INPUT_TOKENS, 'maxOutputTokens': MODELS[model].output_tokens,
+             'reservedOrUncertainUsd': held / NANO, 'accountedUsd': total / NANO,
+             'remainingUsd': remaining / NANO, 'requestCount': count,
+             'canRequest': ready, 'reason': reason,
++            'unattributedUsd': unattributed / NANO,
+             'pricingVerifiedAt': self.rates['verified_at'], 'pricingValidUntil': self.rates['valid_until'],
+-            'label': 'USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice.',
++            'label': 'Local provider allowance, not provider account credits. USD estimates plus unresolved holds; not an invoice.',
+         }
+ 
+     def reserve(self, input_tokens, output_tokens, model):
+@@ -166,11 +246,12 @@
+                 self._clock(db, day)
+                 if db.execute("SELECT value FROM ai_meta WHERE key='blocked'").fetchone():
+                     raise BudgetError('AI usage needs reconciliation. Manual guidance remains available.')
+-                total, *_ = self._amounts(db, day)
++                total, *_ = self.amounts_for_model(db, day, model)
+                 if total >= self.daily_cap_nano_usd:
+-                    raise BudgetError('The shared $5 daily AI limit has been reached. It resets at 00:00 UTC.')
++                    raise BudgetError(self.limit_message(model))
+                 db.execute('INSERT INTO ai_charges VALUES(?,?,NULL,?,?,NULL,?,?,?,NULL,NULL,NULL)',
+                            (key, day, amount, amount, 'reserved', i, o))
++                self.record_model(db, key, model)
+             return key
+         except sqlite3.Error:
+             raise BudgetError('The persistent AI budget is unavailable. No paid request was started.') from None
+--- before/alternatives/advisor-first/tests/test_advisor_budget.py
++++ alternatives/advisor-first/tests/test_advisor_budget.py
+@@ -44,7 +44,15 @@
+         with sqlite3.connect(self.path) as db:
+             return db.execute('SELECT * FROM ai_charges ORDER BY id').fetchall()
+ 
+-    def seed_usd(self, cents, key='prior'):
++    def seed_usd(self, cents, key='prior', model='gpt-5.4'):
++        if model != 'gpt-5.4':
++            budget = self.local()
++            count = cents * 10_000_000 // MODELS[model].input_rate
++            key = budget.reserve(count, MODELS[model].output_tokens, model)
++            response = completed(i=count, o=0)
++            response.update(model=model, service_tier='standard' if model.startswith('claude') else 'default')
++            budget.settle_model(key, response, model)
++            return
+         # Verified input-only price: 4,000 tokens per cent.
+         self.base.seed([(key, self.base.day(), cents * 4000, 0, 0)])
+ 
+@@ -195,9 +203,9 @@
+             TurnReservation(local, 'gpt-5.4')
+ 
+     def test_policy_must_be_exact_reviewed_integer_five_and_utc(self):
+-        approved = {'version': 1, 'daily_cap_nano_usd': APPROVED_CAP, 'reset_timezone': 'UTC'}
++        approved = {'version': 2, 'scope': 'provider', 'daily_cap_nano_usd': APPROVED_CAP, 'reset_timezone': 'UTC'}
+         invalid = [
+-            {**approved, 'version': True}, {**approved, 'version': 2},
++            {**approved, 'version': True}, {**approved, 'version': 1}, {**approved, 'scope': 'shared'},
+             {**approved, 'daily_cap_nano_usd': NANO},
+             {**approved, 'daily_cap_nano_usd': 10 * NANO},
+             {**approved, 'daily_cap_nano_usd': float(APPROVED_CAP)},
+@@ -279,24 +287,24 @@
+             stage = reservation.stage('compose')
+             for count in (30000, 20000, 20000):
+                 stage.check_input(count)
+-                self.assertEqual(local.summary()['accountedUsd'], (count * 4000 + 48_000_000) / NANO)
++                self.assertEqual(local.summary('claude-opus-5-5')['accountedUsd'], (count * 4000 + 48_000_000) / NANO)
+             stage.issued()
+             with self.assertRaises(BudgetError):
+                 stage.check_input(1)
+-        self.assertEqual(local.summary()['reservedOrUncertainUsd'], .128)
++        self.assertEqual(local.summary('claude-opus-5-5')['reservedOrUncertainUsd'], .128)
+ 
+     def test_counting_admitted_opus_input_can_cross_threshold_without_changing_receipts(self):
+-        self.seed_usd(486)
++        self.seed_usd(486, model='claude-opus-5-5')
+         local = self.local()
+         with TurnReservation(local, 'claude-opus-5-5', stages=('compose',)) as reservation:
+             stage = reservation.stage('compose')
+             stage.check_input(23000)
+-            self.assertEqual(local.summary()['accountedUsd'], 5)
++            self.assertEqual(local.summary('claude-opus-5-5')['accountedUsd'], 5)
+             stage.check_input(23001)
+-            self.assertEqual(local.summary()['accountedUsd'], 5.000004)
++            self.assertEqual(local.summary('claude-opus-5-5')['accountedUsd'], 5.000004)
+             with self.assertRaisesRegex(BudgetError, 'has been reached'):
+                 TurnReservation(local, 'claude-opus-5-5')
+-        self.assertEqual(local.summary()['accountedUsd'], 4.86)
++        self.assertEqual(local.summary('claude-opus-5-5')['accountedUsd'], 4.86)
+ 
+     def test_later_stage_can_finish_crossing_threshold_with_exact_settled_receipts(self):
+         self.seed_usd(494)
+@@ -330,13 +338,13 @@
+             with self.assertRaisesRegex(BudgetError, 'counted and funded'):
+                 stage.issued()
+             stage.check_input(25000)
+-            self.assertEqual(local.summary()['reservedOrUncertainUsd'], .276)
+-        self.assertEqual(local.summary()['reservedOrUncertainUsd'], .128)
++            self.assertEqual(local.summary('claude-opus-5-5')['reservedOrUncertainUsd'], .276)
++        self.assertEqual(local.summary('claude-opus-5-5')['reservedOrUncertainUsd'], .128)
+         self.now[0] += 86400
+-        self.assertEqual(local.summary()['reservedOrUncertainUsd'], .128)
++        self.assertEqual(local.summary('claude-opus-5-5')['reservedOrUncertainUsd'], .128)
+ 
+     def test_concurrent_admitted_turns_record_full_counts_before_blocking_new_turns(self):
+-        self.seed_usd(480)
++        self.seed_usd(480, model='claude-opus-5-5')
+         local = self.local()
+         reservations = [TurnReservation(local, 'claude-opus-5-5', stages=('compose',)) for _ in range(4)]
+         barrier, results, errors = threading.Barrier(4), [], []
+@@ -362,13 +370,13 @@
+             self.assertFalse(errors)
+             self.assertFalse(any(worker.is_alive() for worker in workers))
+             self.assertEqual(results, ['funded'] * 4)
+-            self.assertEqual(local.summary()['accountedUsd'], 5.008)
++            self.assertEqual(local.summary('claude-opus-5-5')['accountedUsd'], 5.008)
+             with self.assertRaisesRegex(BudgetError, 'has been reached'):
+                 TurnReservation(local, 'claude-opus-5-5')
+         finally:
+             for reservation in reservations:
+                 reservation.close()
+-        self.assertEqual(local.summary()['accountedUsd'], 4.8)
++        self.assertEqual(local.summary('claude-opus-5-5')['accountedUsd'], 4.8)
+ 
+     def service_stub(self):
+         budget = self.base
+--- before/alternatives/advisor-first/tests/test_composition_recovery.py
++++ alternatives/advisor-first/tests/test_composition_recovery.py
+@@ -232,7 +232,13 @@
+         for model in MODELS:
+             with self.subTest(model=model):
+                 self.agent.budget = AdvisorDailyBudget.adopt(self.fixture.ledger())
+-                self.agent.budget.seed([('prior', self.agent.budget.day(), 1_999_999, 0, 0)])
++                spec = MODELS[model]
++                count = (5_000_000_000 - 1) // spec.input_rate
++                key = self.agent.budget.reserve(count, spec.output_tokens, model)
++                self.agent.budget.settle_model(key, {'model': model, 'status': 'completed',
++                    'service_tier': 'standard' if spec.provider == 'Anthropic' else 'default',
++                    'usage': {'input_tokens': count, 'output_tokens': 0, 'total_tokens': count,
++                              'input_tokens_details': {'cached_tokens': 0}}}, model)
+                 self.agent.client.model = model
+                 self.agent.max_output_tokens = MODELS[model].output_tokens
+                 self.request_id = str(uuid.uuid4())
+@@ -241,9 +247,9 @@
+                 answer = self.compose()
+                 self.assertEqual(answer['validation_recovery']['replacement'], 'validated_model_repair')
+                 self.assertEqual(len(self.calls) - start, 2)
+-                self.assertGreater(self.agent.budget.summary()['accountedUsd'], 5)
+-                self.assertEqual(self.agent.budget.summary()['reservedOrUncertainUsd'], 0)
+-                self.assertFalse(self.agent.budget.summary()['canRequest'])
++                self.assertGreater(self.agent.budget.summary(model)['accountedUsd'], 5)
++                self.assertEqual(self.agent.budget.summary(model)['reservedOrUncertainUsd'], 0)
++                self.assertFalse(self.agent.budget.summary(model)['canRequest'])
+                 with self.assertRaisesRegex(BudgetError, 'has been reached'):
+                     self.agent.reserve_turn()
+ 
+--- before/docs/product/MASTER_DESIGN.md
++++ docs/product/MASTER_DESIGN.md
+@@ -1,4 +1,6 @@
+ # Daylight master design and agent contract
++
++**D86/D90 provider-scoped allowances · November 4, 2026.** Owner requested provider-dependent cost limits after distinguishing local accounting from provider credits. The :8893 allowance is now $5 per UTC day for OpenAI and separately $5 for Anthropic; both GPT models share OpenAI's allowance and retain their exact model prices. Admit below the selected provider's threshold and let the bounded turn/recovery finish, preserving the preceding admission policy. New charge metadata records model/provider atomically; existing charges and holds are retained, with historical attribution only for unique stored pricing/reservation matches. Unknown attribution remains visible and blocks new paid work pending reconciliation; never silently reset or duplicate charges across providers. Preserve the original ledger schema, protected variants' aggregate policies, exact counting/settlement, integrity blocks, privacy and factual gates. Status includes both local provider budgets and explicitly distinguishes them from provider account credits. No UI or conversation-policy change and no paid/live conversation tests. [Implementation and activation](../../audit-evidence/provider-budgets-20261104/README.md).
+ 
+ **D86/D90 budget admission and conversational continuity · November 4, 2026.** Owner removed the anticipatory “complete turn could exceed” block and requested a check against repeating information. For :8893, admit a new turn while accounted daily usage is below $5, then let that bounded turn and its existing recovery allowance finish; the final total may exceed $5. Do not reject an admitted turn based on its forecast maximum. Reject new turns once the threshold is reached, including existing unsettled holds in accounting. Preserve exact counting/settlement, receipt verification, uncertainty holds, pricing and clock checks, request/output bounds, recovery-attempt limits, the shared ledger and protected variants. This supersedes the earlier worst-case $5 ceiling only for this advisor. The shared composer checks its draft against recent exchanges and learning history, adds the new implication or next step, and revisits only for a request, confusion, correction or changed guidance. Delivered teaching never proves understanding. No added model stage, case script, profile field or UI change; no agent-run live conversation tests. [Implementation and activation](../../audit-evidence/turn-budget-and-continuity-20261104/README.md).
+ 
+--- /dev/null
++++ alternatives/advisor-first/tests/test_provider_budget.py
+@@ -0,0 +1,101 @@
++"""Provider accounting tests; temporary ledgers only, no provider requests."""
++import unittest
++
++import test_advisor_budget as fixtures
++from advisor_budget import AdvisorDailyBudget
++from advisor_models import MODELS
++from ai_budget import BudgetError
++from natural_agent import ReservedStage, TurnReservation
++
++
++class ProviderBudgetTests(unittest.TestCase):
++    def setUp(self):
++        self.case = fixtures.AdvisorBudgetTests()
++        self.case.setUp()
++        self.addCleanup(self.case.doCleanups)
++        self.budget = self.case.local()
++
++    def test_exhausted_openai_blocks_both_gpt_models_and_allows_anthropic(self):
++        self.case.seed_usd(500)
++        for model in ('gpt-5.4', 'gpt-6.1-sol'):
++            self.assertFalse(self.budget.summary(model)['canRequest'])
++            with self.assertRaisesRegex(BudgetError, 'OpenAI allowance'):
++                TurnReservation(self.budget, model)
++        with TurnReservation(self.budget, 'claude-opus-5-5') as turn:
++            turn.stage('compose').check_input(1000)
++            self.assertEqual(self.budget.summary('gpt-5.4')['accountedUsd'], 5)
++            self.assertTrue(self.budget.summary('claude-opus-5-5')['canRequest'])
++
++    def test_exhausted_anthropic_does_not_consume_openai_allowance(self):
++        self.case.seed_usd(500, model='claude-opus-5-5')
++        self.assertFalse(self.budget.summary('claude-opus-5-5')['canRequest'])
++        with self.assertRaisesRegex(BudgetError, 'Anthropic allowance'):
++            self.budget.reserve(1000, 2400, 'claude-opus-5-5')
++        with TurnReservation(self.budget, 'gpt-6.1-sol') as turn:
++            turn.stage('extract').check_input(1000)
++            self.assertEqual(self.budget.summary('claude-opus-5-5')['accountedUsd'], 5)
++        self.assertEqual(self.budget.summary('gpt-6.1-sol')['remainingUsd'], 5)
++
++    def test_gpt_models_share_provider_but_keep_their_exact_prices(self):
++        for model in ('gpt-5.4', 'gpt-6.1-sol'):
++            key = self.budget.reserve(1000, MODELS[model].output_tokens, model)
++            self.budget.settle_model(key, {**fixtures.completed(), 'model': model}, model)
++        summaries = self.budget.provider_summaries()
++        self.assertEqual(summaries['OpenAI']['estimatedUsd'], .007)
++        self.assertEqual(summaries['Anthropic']['estimatedUsd'], 0)
++        self.assertEqual(self.budget.summary('gpt-5.4')['accountedUsd'],
++                         self.budget.summary('gpt-6.1-sol')['accountedUsd'])
++        self.assertEqual(summaries['Anthropic']['maxOutputTokens'], 2400)
++
++    def test_uncertain_holds_stay_with_provider_across_midnight(self):
++        for model, spec in MODELS.items():
++            key = self.budget.reserve(1000, spec.output_tokens, model)
++            self.budget.uncertain(key)
++        self.case.now[0] += 86400
++        self.assertEqual(self.budget.summary('gpt-6.1-sol')['reservedOrUncertainUsd'], .0425)
++        self.assertEqual(self.budget.summary('claude-opus-5-5')['reservedOrUncertainUsd'], .052)
++        with self.budget.db() as db:
++            self.assertEqual(self.budget._amounts(db, self.budget.day())[0], 94_500_000)
++
++    def test_legacy_attribution_is_additive_and_idempotent(self):
++        with self.budget.db() as db:
++            for key, reserved, output in [('old-sol', 64_000_000, 2400),
++                                           ('old-claude', 112_000_000, 2400),
++                                           ('old-gpt', 53_500_000, 900)]:
++                db.execute('INSERT INTO ai_charges VALUES(?,?,NULL,?,?,NULL,?,?,?,NULL,NULL,NULL)',
++                           (key, self.budget.day(), reserved, reserved, 'uncertain', 16000, output))
++        before = self.case.rows()
++        for _ in range(2):
++            AdvisorDailyBudget.adopt(self.budget)
++            self.assertEqual(self.case.rows(), before)
++        with self.budget.db() as db:
++            rows = db.execute('SELECT charge_id,model,provider,attribution FROM advisor_charge_models ORDER BY charge_id').fetchall()
++        self.assertEqual(rows, [
++            ('old-claude', 'claude-opus-5-5', 'Anthropic', 'legacy_unique_rate_match'),
++            ('old-gpt', 'gpt-5.4', 'OpenAI', 'legacy_unique_rate_match'),
++            ('old-sol', 'gpt-6.1-sol', 'OpenAI', 'legacy_unique_rate_match')])
++
++    def test_unattributable_cost_stays_visible_and_never_becomes_free_allowance(self):
++        with self.budget.db() as db:
++            db.execute('INSERT INTO ai_charges VALUES(?,?,NULL,?,?,NULL,?,?,?,NULL,NULL,NULL)',
++                       ('unknown', self.budget.day(), 10_000_000, 10_000_000, 'uncertain', 0, 0))
++        for model in MODELS:
++            summary = self.budget.summary(model)
++            self.assertEqual(summary['unattributedUsd'], .01)
++            self.assertFalse(summary['canRequest'])
++            with self.assertRaisesRegex(BudgetError, 'provider reconciliation'):
++                TurnReservation(self.budget, model)
++        self.assertEqual(len(self.case.rows()), 1)
++
++    def test_charge_cannot_be_recounted_or_settled_as_another_model(self):
++        key = self.budget.reserve(1000, 2400, 'claude-opus-5-5')
++        before = self.case.rows()
++        with self.assertRaisesRegex(BudgetError, 'different or unknown model'):
++            ReservedStage(self.budget, key, 'gpt-5.4').check_input(1000)
++        with self.assertRaisesRegex(BudgetError, 'different or unknown model'):
++            self.budget.settle_model(key, fixtures.completed(), 'gpt-5.4')
++        self.assertEqual(self.case.rows(), before)
++
++
++if __name__ == '__main__':
++    unittest.main()

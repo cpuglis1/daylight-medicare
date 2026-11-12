@@ -1,0 +1,1146 @@
+{
+  "version": "readiness-inputs-20261022-v1",
+  "legalPolicyReviewed": false,
+  "intro": "A few details can change which coverage fits. Let’s check what matters for you.",
+  "triggers": [
+    {
+      "id": "RC01",
+      "title": "One person and requested check",
+      "question": "Who is this coverage for?",
+      "why": "Why we ask: We need to keep one person’s details together.",
+      "sources": [
+        "S26",
+        "S27"
+      ],
+      "choices": [
+        [
+          "self",
+          "Me"
+        ],
+        [
+          "someone",
+          "Someone I help"
+        ],
+        [
+          "research",
+          "Research only"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC02",
+      "title": "Residence/service area",
+      "question": "Where is your permanent home?",
+      "why": "Why we ask: Plan availability depends on where you live.",
+      "sources": [
+        "S01",
+        "S17"
+      ],
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        [
+          "zip",
+          "Home ZIP",
+          "zip"
+        ],
+        [
+          "county",
+          "Home county and state",
+          "text"
+        ]
+      ]
+    },
+    {
+      "id": "RC03",
+      "title": "Benefit year and intended start",
+      "question": "Which year should we compare?",
+      "why": "Why we ask: Plan benefits and prices can change each year.",
+      "sources": [
+        "S01",
+        "S24"
+      ],
+      "choices": [
+        [
+          "2026",
+          "2026"
+        ],
+        [
+          "2027",
+          "2027"
+        ],
+        [
+          "other",
+          "Another year"
+        ]
+      ],
+      "fields": [
+        [
+          "year",
+          "Other benefit year",
+          "year"
+        ]
+      ]
+    },
+    {
+      "id": "RC04",
+      "title": "Actual A/B enrollment",
+      "question": "Which Medicare parts do you have now?",
+      "why": "Why we ask: Different plans require different Medicare parts.",
+      "sources": [
+        "S01",
+        "S02"
+      ],
+      "choices": [
+        [
+          "both",
+          "A and B"
+        ],
+        [
+          "a_only",
+          "A only"
+        ],
+        [
+          "b_only",
+          "B only"
+        ],
+        [
+          "neither",
+          "Neither"
+        ],
+        [
+          "pending",
+          "Applied; waiting"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC05",
+      "title": "Actual effective dates",
+      "question": "When did Part B start?",
+      "why": "Why we ask: This can affect your enrollment and Medigap options.",
+      "sources": [
+        "S03",
+        "S10"
+      ],
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        [
+          "month",
+          "Part B start month, if known",
+          "month"
+        ]
+      ]
+    },
+    {
+      "id": "RC06",
+      "title": "Age/eligibility basis",
+      "question": "How did you first qualify, or expect to qualify, for Medicare?",
+      "why": "Why we ask: Some enrollment rules depend on how you qualified.",
+      "sources": [
+        "S02",
+        "S03",
+        "S28"
+      ],
+      "choices": [
+        [
+          "age65",
+          "Age 65 or older"
+        ],
+        [
+          "disability",
+          "Disability before 65"
+        ],
+        [
+          "esrd",
+          "Kidney failure / ESRD"
+        ],
+        [
+          "als",
+          "ALS"
+        ],
+        [
+          "other",
+          "Another reason"
+        ]
+      ],
+      "fields": [
+        [
+          "ageBand",
+          "Current age range, if known",
+          "ageBand"
+        ]
+      ]
+    },
+    {
+      "id": "RC07",
+      "title": "Current arrangement vs planned change",
+      "question": "How do you get your A and B benefits now?",
+      "why": "Why we ask: We need to separate current coverage from a possible change.",
+      "sources": [
+        "S01",
+        "S09",
+        "S11"
+      ],
+      "choices": [
+        [
+          "original",
+          "Original Medicare"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage"
+        ],
+        [
+          "pending",
+          "A change is pending"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC08",
+      "title": "Enrollment event/window",
+      "question": "What changed about your coverage?",
+      "why": "Why we ask: This can affect when you can enroll.",
+      "sources": [
+        "S01",
+        "S17"
+      ],
+      "choices": [
+        [
+          "loss",
+          "Losing coverage"
+        ],
+        [
+          "move",
+          "Moving"
+        ],
+        [
+          "plan_change",
+          "Plan ending or changing service area"
+        ],
+        [
+          "assistance_change",
+          "Medicaid or Extra Help changed"
+        ],
+        [
+          "other",
+          "Another event"
+        ],
+        [
+          "none",
+          "Nothing changed"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC09",
+      "title": "Current employment vs continuation",
+      "question": "Is this coverage from someone who is still working?",
+      "why": "Why we ask: Current work can affect your Medicare sign-up window.",
+      "sources": [
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "choices": [
+        [
+          "my_job",
+          "My current job"
+        ],
+        [
+          "spouse_job",
+          "Spouse’s current job"
+        ],
+        [
+          "family_job",
+          "Family member’s current job"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC10",
+      "title": "Relevant employer size",
+      "question": "Does the employer have 20 or more employees?",
+      "why": "Why we ask: Employer size can change which coverage pays first.",
+      "sources": [
+        "S05",
+        "S28"
+      ],
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC11",
+      "title": "Separate loss/job dates",
+      "question": "When did the job or coverage end?",
+      "why": "Why we ask: Different end dates can change your sign-up window.",
+      "sources": [
+        "S03",
+        "S04",
+        "S06"
+      ],
+      "choices": [
+        [
+          "dates",
+          "Add the end dates I know"
+        ],
+        [
+          "working",
+          "Still working"
+        ]
+      ],
+      "fields": [
+        [
+          "jobEnd",
+          "Job end date, if known",
+          "date"
+        ],
+        [
+          "coverageEnd",
+          "Coverage end date, if known",
+          "date"
+        ]
+      ]
+    },
+    {
+      "id": "RC12",
+      "title": "Creditable drug coverage/gap",
+      "question": "Does your plan say its drug coverage is creditable?",
+      "why": "Why we ask: A gap in qualifying drug coverage can affect later costs.",
+      "sources": [
+        "S08",
+        "S14"
+      ],
+      "choices": [
+        [
+          "yes",
+          "Yes, according to its notice"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "none",
+          "I have no drug coverage"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC13",
+      "title": "Retiree/family benefit consequences",
+      "question": "Could a change affect anyone else’s coverage?",
+      "why": "Why we ask: Some changes can affect family or retiree benefits.",
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "choices": [
+        [
+          "yes",
+          "Administrator says yes"
+        ],
+        [
+          "no",
+          "Administrator says no"
+        ],
+        [
+          "unchecked",
+          "I have not checked"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC14",
+      "title": "HSA timing",
+      "question": "Are you or your employer adding money to an HSA?",
+      "why": "Why we ask: Medicare start dates can affect HSA contributions.",
+      "sources": [
+        "S03",
+        "S04"
+      ],
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC15",
+      "title": "Florida Medigap purchase window",
+      "question": "When did your Part B coverage begin?",
+      "why": "Why we ask: This can affect your Medigap purchase rights.",
+      "sources": [
+        "S10",
+        "S12",
+        "S13"
+      ],
+      "choices": [
+        [
+          "details",
+          "Add the details I know"
+        ]
+      ],
+      "fields": [
+        [
+          "month",
+          "Part B start month, if known",
+          "month"
+        ]
+      ]
+    },
+    {
+      "id": "RC16",
+      "title": "Trial/guaranteed-issue history",
+      "question": "Was this your first Medicare Advantage plan?",
+      "why": "Why we ask: Your coverage history may affect Medigap rights.",
+      "sources": [
+        "S09",
+        "S11",
+        "S12"
+      ],
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC17",
+      "title": "Existing Medigap replacement",
+      "question": "Are you replacing an existing Medigap policy?",
+      "why": "Why we ask: You may not have the same rights to buy it again.",
+      "sources": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "choices": [
+        [
+          "replace",
+          "Yes, replacing it"
+        ],
+        [
+          "keep",
+          "No, keeping it"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC18",
+      "title": "Assistance status without financial intake",
+      "question": "Do you get help with Medicare costs now?",
+      "why": "Why we ask: Assistance can change what you pay.",
+      "sources": [
+        "S14",
+        "S15",
+        "S29"
+      ],
+      "choices": [
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "extra_help",
+          "Extra Help"
+        ],
+        [
+          "part_b_help",
+          "Help paying Part B"
+        ],
+        [
+          "ssi",
+          "SSI"
+        ],
+        [
+          "none",
+          "None known"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC20",
+      "title": "Seasonal/routine travel",
+      "question": "Where will you need routine care away from home?",
+      "why": "Why we ask: Routine care and emergency care can have different coverage.",
+      "sources": [
+        "S18",
+        "S19"
+      ],
+      "choices": [
+        [
+          "us",
+          "Another U.S. state"
+        ],
+        [
+          "abroad",
+          "Outside the U.S."
+        ],
+        [
+          "emergency",
+          "Emergency travel cover only"
+        ]
+      ],
+      "fields": [
+        [
+          "location",
+          "State or country, if known",
+          "text"
+        ]
+      ]
+    },
+    {
+      "id": "RC21",
+      "title": "Exact provider identity/location",
+      "question": "Which doctor’s office should we prepare first?",
+      "why": "Why we ask: The office location can affect the network check.",
+      "sources": [
+        "S19"
+      ],
+      "choices": [
+        [
+          "details",
+          "Add practice and location"
+        ],
+        [
+          "none",
+          "No longer needed"
+        ]
+      ],
+      "fields": [
+        [
+          "practice",
+          "One doctor / hospital and practice",
+          "text"
+        ],
+        [
+          "city",
+          "Office city and state",
+          "text"
+        ]
+      ]
+    },
+    {
+      "id": "RC22",
+      "title": "Exact prescription identity",
+      "question": "Which prescription should we prepare first?",
+      "why": "Why we ask: Strength and form can change the coverage check.",
+      "sources": [
+        "S20",
+        "S21"
+      ],
+      "choices": [
+        [
+          "details",
+          "Add exact name, strength and form"
+        ],
+        [
+          "none",
+          "No longer taking"
+        ]
+      ],
+      "fields": [
+        [
+          "name",
+          "One prescription name",
+          "text"
+        ],
+        [
+          "strength",
+          "Strength, if known",
+          "text"
+        ],
+        [
+          "form",
+          "Form, such as tablet or inhaler",
+          "text"
+        ]
+      ]
+    },
+    {
+      "id": "RC23",
+      "title": "Supply and pharmacy",
+      "question": "How do you fill this prescription?",
+      "why": "Why we ask: Supply and pharmacy can change the price.",
+      "sources": [
+        "S21",
+        "S24"
+      ],
+      "choices": [
+        [
+          "details",
+          "Add supply and pharmacy"
+        ],
+        [
+          "mail",
+          "Mail order"
+        ]
+      ],
+      "fields": [
+        [
+          "supply",
+          "Quantity and days supply, if known",
+          "text"
+        ],
+        [
+          "pharmacy",
+          "Pharmacy and location, if known",
+          "text"
+        ]
+      ]
+    },
+    {
+      "id": "RC24",
+      "title": "Restrictions and Part B/D boundary",
+      "question": "Is this given at a clinic or filled at a pharmacy?",
+      "why": "Why we ask: Some medicines use different Medicare coverage rules.",
+      "sources": [
+        "S22",
+        "S23"
+      ],
+      "choices": [
+        [
+          "clinic",
+          "At a clinic"
+        ],
+        [
+          "pharmacy",
+          "At a pharmacy"
+        ],
+        [
+          "both",
+          "Both / Not sure"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC25",
+      "title": "Affordability vs preference",
+      "question": "Is there a monthly amount you want to stay under?",
+      "why": "Why we ask: A low plan premium is not the whole cost.",
+      "sources": [
+        "S24",
+        "S14",
+        "S15"
+      ],
+      "choices": [
+        [
+          "amount",
+          "Add an optional budget"
+        ],
+        [
+          "none",
+          "No fixed limit"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "fields": [
+        [
+          "amount",
+          "Monthly amount or range, if you want",
+          "text"
+        ],
+        [
+          "includes",
+          "What should that amount include?",
+          "text"
+        ]
+      ]
+    },
+    {
+      "id": "RC26",
+      "title": "Military/veterans coordination",
+      "question": "Which military or veterans’ coverage do you have?",
+      "why": "Why we ask: These programs work with Medicare in different ways.",
+      "sources": [
+        "S05",
+        "S25"
+      ],
+      "choices": [
+        [
+          "va",
+          "VA health care"
+        ],
+        [
+          "tfl",
+          "TRICARE For Life"
+        ],
+        [
+          "tricare",
+          "Other TRICARE"
+        ],
+        [
+          "champva",
+          "CHAMPVA"
+        ],
+        [
+          "other",
+          "Another program"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC27",
+      "title": "Material exception/continuity",
+      "question": "Is there a coverage interruption you need help with now?",
+      "why": "Why we ask: An immediate gap may need a different next step.",
+      "sources": [
+        "S17",
+        "S22",
+        "S28"
+      ],
+      "choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "human",
+          "I want human help"
+        ]
+      ],
+      "fields": []
+    },
+    {
+      "id": "RC28",
+      "title": "Conflicting or ambiguous proposed facts",
+      "question": "Which detail should we use?",
+      "why": "Why we ask: These answers lead to different checks.",
+      "sources": [
+        "S01",
+        "S26"
+      ],
+      "choices": [
+        [
+          "original",
+          "Original Medicare is current"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage is current"
+        ],
+        [
+          "different",
+          "They apply at different times"
+        ],
+        [
+          "neither",
+          "Neither"
+        ]
+      ],
+      "fields": []
+    }
+  ],
+  "sources": {
+    "S01": {
+      "id": "S01",
+      "title": "Joining a plan",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan",
+      "section": "Am I eligible?; Initial Enrollment Period; Other enrollment periods",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "MA requires A+B; standalone drug plans require A or B. Service area and enrollment periods matter. These are distinct from an application or verified eligibility.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S02": {
+      "id": "S02",
+      "title": "Plan for Medicare",
+      "url": "https://www.ssa.gov/medicare",
+      "section": "Plan for Medicare; When to sign up",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Age-based and non-age Medicare eligibility exist. An age or a coverage preference alone is not an enrollment determination.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S03": {
+      "id": "S03",
+      "title": "When coverage starts",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start",
+      "section": "Initial Enrollment Period; Signing up for premium-free Part A later; Special Enrollment Period",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Initial enrollment and start dates depend on circumstances. First-day birthdays and retroactive Part A are material. Do not treat requested coverage month as an effective date.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S04": {
+      "id": "S04",
+      "title": "Working past 65",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+      "section": "Health insurance from a job; COBRA; Before you sign up",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Current-employment group coverage can differ from retiree/individual coverage. Job and coverage end dates can differ. Employer confirmation matters; HSA contributions can be affected by Medicare start dates.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S05": {
+      "id": "S05",
+      "title": "Who pays first?",
+      "url": "https://www.medicare.gov/health-drug-plans/coordination/who-pays-first",
+      "section": "Current/former group coverage; employer-size paths; Federal Program/TRICARE paths",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "The age-65 coordination questions use 20 employees; the under-65 disability path uses 100. Multi-employer and ESRD circumstances need their own analysis. Do not apply one threshold to everyone.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S06": {
+      "id": "S06",
+      "title": "COBRA coverage",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65/cobra-coverage",
+      "section": "How does COBRA work with Medicare?",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "COBRA is continuation coverage and does not restart the Part B employment-based sign-up period. Possible gaps and payer coordination need review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S07": {
+      "id": "S07",
+      "title": "Retiree insurance",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65/retiree-insurance",
+      "section": "Drug coverage; check before making decisions",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Joining outside coverage can affect retiree/family benefits; obtain benefits-administrator confirmation. Do not infer creditable drug status merely from the word retiree.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S08": {
+      "id": "S08",
+      "title": "Creditable drug coverage",
+      "url": "https://www.medicare.gov/health-drug-plans/part-d/basics/creditable-coverage",
+      "section": "Why do I need creditable coverage?; What you should do",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "A creditable-coverage notice is relevant evidence. A gap of 63 days or more may create a Part D penalty; this is not the same clock as a Part B enrollment period.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S09": {
+      "id": "S09",
+      "title": "When can I buy Medigap?",
+      "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when",
+      "section": "Federal-rights notice; Advantage trial/history questions; situation-specific answers",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Trial/guaranteed-issue possibilities depend on the exact event and history. First Medicare Advantage use and prior Medigap matter. Do not generalize one event-specific 63-day result to all cases.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S10": {
+      "id": "S10",
+      "title": "Medigap basics",
+      "url": "https://www.medicare.gov/health-drug-plans/medigap/basics",
+      "section": "Get Medigap Basics; Open Enrollment",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Federal Medigap open enrollment and later purchase are different. State rights may add protection. Medigap belongs with Original Medicare, not as a new Advantage supplement.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S11": {
+      "id": "S11",
+      "title": "Change Medigap policy",
+      "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/change-policies",
+      "section": "Can I change my Medigap policy?",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Outside protected situations switching can be limited. Do not cancel existing coverage on a provisional match; replacement/free-look details need review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S12": {
+      "id": "S12",
+      "title": "Florida Statutes 627.6741",
+      "url": "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0600-0699/0627/Sections/0627.6741.html",
+      "section": "2026 edition, subsection (1)(a)1 and (1)(a)2; (1)(b)",
+      "jurisdiction": "Florida",
+      "retrieved": "2026-10-22",
+      "note": "Florida provides described six-month opportunities for qualifying residents including certain under-65 disability/ESRD beneficiaries, and a two-month opportunity after qualifying group-policy termination. Application to a particular event and future year requires expert review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S13": {
+      "id": "S13",
+      "title": "Florida Medicare Supplement oversight",
+      "url": "https://www.floir.gov/life-health/medicare-supplement",
+      "section": "Overview; CHOICES rate search; FAQs",
+      "jurisdiction": "Florida",
+      "retrieved": "2026-10-22",
+      "note": "OIR is the state oversight/source route. A sample-rate search is not a binding personal quote or evidence that a particular policy is available to a person.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S14": {
+      "id": "S14",
+      "title": "Help with drug costs",
+      "url": "https://www.medicare.gov/basics/costs/help/drug-costs",
+      "section": "Who gets Extra Help automatically?; applying; wrong amount",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Assistance affects drug costs. Certain Medicaid/MSP/SSI situations can lead to automatic Extra Help, but notice/current status still matters. Do not request bank records here.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S15": {
+      "id": "S15",
+      "title": "Medicare Savings Programs",
+      "url": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "section": "How to qualify; Qualified Medicare Beneficiary",
+      "jurisdiction": "federal/state",
+      "retrieved": "2026-10-22",
+      "note": "States determine MSP eligibility; annual thresholds and state treatment differ. Unknown assistance is not ineligibility; QMB-related cost-sharing protections need correct handling.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S16": {
+      "id": "S16",
+      "title": "Special Needs Plans",
+      "url": "https://www.medicare.gov/health-drug-plans/health-plans/your-health-plan-options/SNP",
+      "section": "Who can join an SNP?; eligibility requirements",
+      "jurisdiction": "federal/state/plan",
+      "retrieved": "2026-10-22",
+      "note": "SNPs have A/B, service-area and category-specific criteria. Being ill, having Extra Help, or wanting extra benefits does not by itself establish SNP eligibility.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S17": {
+      "id": "S17",
+      "title": "Special Enrollment Periods",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan/special-enrollment-periods",
+      "section": "Change where you live; lose coverage; Medicaid/Extra Help; special situations",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "An event can change enrollment opportunities. Allowed changes and dates are event-specific; Medicaid/Extra Help rules must not be reduced to an old quarterly rule.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S18": {
+      "id": "S18",
+      "title": "Travel outside the U.S.",
+      "url": "https://www.medicare.gov/coverage/travel-outside-the-u.s.",
+      "section": "Description; Coverage details",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Routine overseas care, rare Original Medicare exceptions and optional emergency benefits are different. A travel preference does not establish coverage.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S19": {
+      "id": "S19",
+      "title": "Advantage provider networks",
+      "url": "https://www.medicare.gov/publications/11941-Understanding-Your-Medicare-Advantage-Plan.pdf",
+      "section": "pp. 1–3, provider directories and checking with providers/plan",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Plan/provider confirmation and exact location matter. A directory identity or Medicare participation is not proof of participation in a particular Advantage contract.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S20": {
+      "id": "S20",
+      "title": "RxNorm overview",
+      "url": "https://www.nlm.nih.gov/research/umls/rxnorm/overview.html",
+      "section": "Normalized names: ingredient, strength and dose form",
+      "jurisdiction": "technical/federal",
+      "retrieved": "2026-10-22",
+      "note": "Drug identity includes strength and dose form. A normalized identifier alone does not establish a plan formulary match, clinical substitutability or coverage.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S21": {
+      "id": "S21",
+      "title": "How drug plans work",
+      "url": "https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover/how-drug-plans-work",
+      "section": "Formularies; pharmacy network",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Specific formulary and pharmacy information is required for coverage/cost checks. General drug coverage is not a promise about a named prescription.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S22": {
+      "id": "S22",
+      "title": "Drug plan rules",
+      "url": "https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover/plan-rules",
+      "section": "Prior authorization; step therapy; quantity limits",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Coverage may carry restrictions or require an exception supported by the prescriber. Do not assume approval or transfer an old plan authorization to a new plan.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S23": {
+      "id": "S23",
+      "title": "Outpatient prescription drugs",
+      "url": "https://www.medicare.gov/coverage/prescription-drugs-outpatient",
+      "section": "Description; Coverage details",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Some outpatient drugs can be paid under Part B under particular conditions. A Part-D-only estimator must not silently label such treatment uncovered.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S24": {
+      "id": "S24",
+      "title": "Medicare costs",
+      "url": "https://www.medicare.gov/basics/costs/medicare-costs",
+      "section": "Costs for Parts A/B/C/D and Medigap; year-specific tables",
+      "jurisdiction": "federal/plan",
+      "retrieved": "2026-10-22",
+      "note": "Plan premium is not total spending. Premiums, care use, deductibles, drug costs and possible income adjustments must be labeled by year and inclusion basis.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S25": {
+      "id": "S25",
+      "title": "VA and other insurance",
+      "url": "https://www.va.gov/resources/va-health-care-and-other-insurance/",
+      "section": "VA with Medicare; using each benefit",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "VA and Medicare are distinct care arrangements. VA drug coverage is relevant to Part D coordination; VA coverage is not a blanket reason to delay Part B.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S26": {
+      "id": "S26",
+      "title": "Caregiver permission",
+      "url": "https://www.medicare.gov/basics/get-started-with-medicare/using-medicare/5-tips-for-using-medicare",
+      "section": "Tip 2: permission to talk to someone trusted",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "Permission to research together is not authorization to retrieve Medicare account information or submit an application. Keep formal authorization outside an ordinary guest research chat.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S27": {
+      "id": "S27",
+      "title": "Florida SHINE",
+      "url": "https://www.floridashine.org/",
+      "section": "Who We Are",
+      "jurisdiction": "Florida",
+      "retrieved": "2026-10-22",
+      "note": "Official free, unbiased, confidential counseling option. A referral is optional and does not imply an operating Daylight advisor transfer or insurer endorsement.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S28": {
+      "id": "S28",
+      "title": "ESRD",
+      "url": "https://www.medicare.gov/basics/end-stage-renal-disease",
+      "section": "Group coverage and coordination period",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "ESRD changes some coordination facts, including a possible 30-month period. Do not run ordinary age/disability employer-size logic on this case without specialist review.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    },
+    "S29": {
+      "id": "S29",
+      "title": "Applying for Extra Help",
+      "url": "https://www.ssa.gov/medicare/part-d-extra-help",
+      "section": "Apply online; documents",
+      "jurisdiction": "federal",
+      "retrieved": "2026-10-22",
+      "note": "A formal assistance application requires financial information at SSA. This readiness check only records optional program status/interest and sends no application.",
+      "review_status": "research_only; not domain-approved",
+      "content_digest": null,
+      "effective_year": "must be established before implementation"
+    }
+  }
+}

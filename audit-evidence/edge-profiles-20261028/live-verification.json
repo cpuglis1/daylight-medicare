@@ -1,0 +1,138 @@
+{
+  "checkedAt": "2026-10-29T01:24:45.641950+00:00",
+  "services": {
+    "8890": {
+      "homeHttpStatus": 200,
+      "status": {
+        "consumer_ready": false,
+        "plan_validation_status": "pending",
+        "catalog_count": 0,
+        "agent_available": false,
+        "live_conversation_available": false,
+        "model_configured": true,
+        "model_id": "gpt-5.4",
+        "provider": "OpenAI",
+        "conversation_logging": false,
+        "guest_profiles": true,
+        "sample_count": 5,
+        "live_requests_remaining": null,
+        "ai_budget": {
+          "day": "2026-10-29",
+          "timezone": "UTC",
+          "resetAt": "2026-10-30T00:00:00+00:00",
+          "dailyLimitUsd": 1,
+          "estimatedUsd": 0.0645275,
+          "reservedOrUncertainUsd": 0.0,
+          "accountedUsd": 0.0645275,
+          "remainingUsd": 0.9354725,
+          "requestCount": 5,
+          "canRequest": false,
+          "reason": "AI pricing or the persistent budget could not be verified. Paid requests are paused.",
+          "pricingVerifiedAt": "2026-10-21T19:50:00Z",
+          "pricingValidUntil": "2026-10-28T00:00:00Z",
+          "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+        },
+        "automatic_retries": false
+      }
+    },
+    "8891": {
+      "homeHttpStatus": 200,
+      "status": {
+        "consumer_ready": false,
+        "plan_validation_status": "pending",
+        "catalog_count": 0,
+        "agent_available": true,
+        "live_conversation_available": true,
+        "model_configured": true,
+        "model_id": "gpt-5.4",
+        "provider": "OpenAI",
+        "conversation_logging": false,
+        "guest_profiles": true,
+        "sample_count": 5,
+        "live_requests_remaining": null,
+        "ai_budget": {
+          "day": "2026-10-29",
+          "timezone": "UTC",
+          "resetAt": "2026-10-30T00:00:00+00:00",
+          "dailyLimitUsd": 1,
+          "estimatedUsd": 0.0645275,
+          "reservedOrUncertainUsd": 0.0,
+          "accountedUsd": 0.0645275,
+          "remainingUsd": 0.9354725,
+          "requestCount": 5,
+          "canRequest": true,
+          "reason": "",
+          "pricingVerifiedAt": "2026-10-28T14:44:45Z",
+          "pricingValidUntil": "2026-11-04T00:00:00Z",
+          "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+        },
+        "automatic_retries": false
+      }
+    }
+  },
+  "currentUtcDay": "2026-10-29",
+  "generationCallsWholeUtcDay": 5,
+  "charges": [
+    {
+      "status": "settled",
+      "inputBound": 4394,
+      "outputBound": 900,
+      "inputTokens": 4394,
+      "cachedTokens": 0,
+      "outputTokens": 126,
+      "chargedNanoUsd": 12875000,
+      "measuredNanoUsd": 12875000
+    },
+    {
+      "status": "settled",
+      "inputBound": 4457,
+      "outputBound": 900,
+      "inputTokens": 4457,
+      "cachedTokens": 0,
+      "outputTokens": 49,
+      "chargedNanoUsd": 11877500,
+      "measuredNanoUsd": 11877500
+    },
+    {
+      "status": "settled",
+      "inputBound": 3637,
+      "outputBound": 900,
+      "inputTokens": 3637,
+      "cachedTokens": 0,
+      "outputTokens": 102,
+      "chargedNanoUsd": 10622500,
+      "measuredNanoUsd": 10622500
+    },
+    {
+      "status": "settled",
+      "inputBound": 4447,
+      "outputBound": 900,
+      "inputTokens": 4447,
+      "cachedTokens": 0,
+      "outputTokens": 192,
+      "chargedNanoUsd": 13997500,
+      "measuredNanoUsd": 13997500
+    },
+    {
+      "status": "settled",
+      "inputBound": 4370,
+      "outputBound": 900,
+      "inputTokens": 4370,
+      "cachedTokens": 0,
+      "outputTokens": 282,
+      "chargedNanoUsd": 15155000,
+      "measuredNanoUsd": 15155000
+    }
+  ],
+  "priorDayChargeRowsRetained": 24,
+  "ledgerReadOnlyVerification": true,
+  "scenarios": [
+    "Conflicting dates",
+    "Unknown answers",
+    "Goal changes",
+    "Separate people",
+    "Same-name medicines"
+  ],
+  "deterministicStepsAddedGenerationCalls": 0,
+  "notes": "This assessment made five bounded real AI generation attempts through 8891. Two were rejected by task/quote validation after generation; all usage remains charged. Fictional profile answers were not saved. One new expiring empty guest session was created. Runtime code was unchanged."
+}

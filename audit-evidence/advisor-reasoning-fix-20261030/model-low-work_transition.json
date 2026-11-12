@@ -1,0 +1,77 @@
+{
+  "case": "work_transition",
+  "effort": "low",
+  "model": "gpt-5.4",
+  "outputLimit": 900,
+  "saved": false,
+  "passed": true,
+  "checks": {
+    "noIrrelevantTeaching": true,
+    "noInventedInsuranceEnd": true,
+    "noRecommendation": true,
+    "actualEmployerRetained": true,
+    "intendedStartRetained": true,
+    "jobEndRetained": true
+  },
+  "reply": "You\u2019re planning to retire.",
+  "reviewRows": [
+    {
+      "id": "T01",
+      "label": "Focus for now",
+      "value": "Plan my Medicare timing",
+      "status": "reported"
+    },
+    {
+      "id": "T05",
+      "label": "Current health insurance",
+      "value": "Current-job coverage",
+      "status": "reported"
+    },
+    {
+      "id": "S_RETIREMENT",
+      "label": "Work status",
+      "value": "Planning to retire",
+      "status": "reported"
+    },
+    {
+      "id": "T04",
+      "label": "Preferred coverage start",
+      "value": "2027-04",
+      "status": "reported"
+    },
+    {
+      "id": "RC01",
+      "label": "Who this is for",
+      "value": "Me",
+      "status": "reported"
+    },
+    {
+      "id": "RC09",
+      "label": "Work insurance",
+      "value": "My current job",
+      "status": "reported"
+    },
+    {
+      "id": "RC11",
+      "label": "Work and insurance end dates",
+      "value": {
+        "jobEnd": "2027-03"
+      },
+      "status": "reported"
+    }
+  ],
+  "usage": {
+    "input_tokens": 6897,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 804,
+    "output_tokens_details": {
+      "reasoning_tokens": 421
+    },
+    "total_tokens": 7701
+  },
+  "semanticRejections": [],
+  "seconds": 12.99
+}

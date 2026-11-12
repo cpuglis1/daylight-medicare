@@ -1,0 +1,386 @@
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level       Validation Name                           Long Description                                 Additional Guidance                       Error Type
+   1   Invalid File Format              Your upload file is not in a zip format.             Compressed .zip file                                    Fatal
+
+                                                                                             Example: Z1234.zip
+  1     File Size Larger than Current   Your upload file is larger than the current size     Current threshold is configured at 200 MB. If          Fatal
+        Threshold                       threshold.                                           your file size exceeds this number, contact the
+                                                                                             HPMS Help Desk.
+  1     Invalid Contract Number         Your submission contains a contract number for       A user may only submit data for a contract             Fatal
+                                        which you do not have access in HPMS.                number assigned to the user’s account in
+                                                                                             HPMS.
+  1     Ineligible for Resubmission     Your contract is not eligible for resubmission.      See the “CY 2024 Drug Pricing Submission               Fatal
+                                                                                             Rules” section of the memo for details.
+
+  2     File is Unreadable              Your file cannot be read by HPMS.                                                                           Fatal
+  2     Unexpected File/Directory       Your upload contains an unexpected file or           Zip file may only contain: one PC file, one PF         Fatal
+        Found                           directory.                                           file, and if applicable, one CP file for the given
+                                                                                             contract number.
+  2     Missing Data Files              Your upload did not include the required             Zip file may only contain: one PC file, one PF         Fatal
+                                        pharmacy cost, pricing, and if applicable, ceiling   file, and if applicable, one CP file for the given
+                                        price files.                                         contract number.
+
+                                                                                             CMS contract number (e.g., Z1234 +
+                                                                                             abbreviated file name (i.e., PC, PF, or CP) in a
+                                                                                             text format (i.e., txt)
+
+                                                                                             Example: Z1234PF.txt
+  2     Virus Detected                  HPMS detected a virus in your upload.                                                                       Fatal
+  2     Invalid Record Format           Your upload contains one or more records that do     Each file must adhere to the file and field-level      Fatal
+                                        not adhere to the prescribed record format.          formats prescribed in the corresponding record
+                                                                                             layout. Any deviations will trigger this error.
+
+                                                                                             Some examples include special characters in
+                                                                                             the plan or segment IDs; missing characters in
+                                                                                             the plan or segment IDs; spaces or blanks in
+                                                                                             the plan or segment IDs; missing vaccine
+                                                                                             administration fee; and invalid days supply
+                                                                                             values (i.e., values other than 30, 60, or 90).
+ June 11, 2026                                                                                                                                              Page 1
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level       Validation Name                         Long Description                                   Additional Guidance                    Error Type
+   2   Invalid Header Record          Your upload contains file(s) with an invalid                                                                Fatal
+                                      header record.
+  2     Invalid Footer Record         Your upload contains file(s) with an invalid                                                                Fatal
+                                      footer record.
+  2     Invalid Plan ID(s)            Your upload contains a pharmacy cost file with        One or more of the plan IDs in your PC file(s)        Fatal
+                                      one or more invalid plans.                            do not match a valid plan ID for the selected
+                                                                                            contract number in HPMS.
+  2     Invalid Segment ID(s)         Your upload contains a pharmacy cost file with        One or more of the segment IDs in your PC             Fatal
+                                      one or more invalid segments.                         file(s) do not match a valid segment ID for the
+                                                                                            selected contract number/plan in HPMS.
+  2     Missing PC Information        Your pharmacy cost file does not contain data for                                                           Fatal
+                                      the plan(s) identified.
+  2     Record Count Mismatch         Your upload contains a record count that does not                                                           Fatal
+                                      match the corresponding header.
+
+  2     Non-Formulary and Non-        Your pricing file contains one or more NDCs that                                                        Non-Attestable
+        Excluded Drug File NDCs       are not present on your formulary or excluded                                                            Suppressible
+                                      drug file. Per the drug pricing submission
+                                      guidelines, sponsors may only submit NDCs from
+                                      their plan formulary or excluded drug file that
+                                      also appear on the CMS FRF or EDRF. Failure
+                                      to correct this issue will result in an MPF
+                                      suppression.
+  2     Exclusion of Standard         Your pharmacy cost file does not contain                                                                Non-Attestable
+        Network Pharmacies (Retail)   standard network retail pharmacies, but your PBP                                                         Suppressible
+                                      indicates that you have both preferred and
+                                      standard network retail pharmacies. Failure to
+                                      correct this issue will result in an MPF
+                                      suppression.
+  2     Inclusion of All Preferred    Your pharmacy cost file contains only preferred                                                         Non-Attestable
+        Pharmacies (Mail)             mail pharmacies, but your PBP indicates that you                                                         Suppressible
+                                      only have standard network mail pharmacies.
+                                      Failure to correct this issue will result in an MPF
+                                      suppression.
+
+
+ June 11, 2026                                                                                                                                            Page 2
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level      Validation Name                            Long Description                                Additional Guidance    Error Type
+   2   Inconsistent Preferred Flag   Your pharmacy cost file contains one or more                                            Non-Attestable
+                                     pharmacies with inconsistent pharmacy type and                                           Suppressible
+                                     preferred pharmacy status flags. Failure to
+                                     correct this issue will result in an MPF
+                                     suppression.
+   2    Inconsistent Duplicate       Your pharmacy cost file contains duplicate                                              Non-Attestable
+        Record                       pricing records for one pharmacy in one plan.                                            Suppressible
+                                     Failure to correct this issue will result in an MPF
+                                     suppression.
+   2    Pharmacies Marked as         Your pharmacy cost file contains records where            PHARMACY_RETAIL = 0 AND       Non-Attestable
+        Neither Retail nor Mail      pharmacies are marked as neither retail nor mail          PHARMACY_MAIL = 0              Suppressible
+                                     order for the plan(s) identified. Failure to correct
+                                     this issue will result in an MPF suppression.
+   2    PC and PF Mismatch           Your pharmacy cost file contains price IDs that                                         Non-Attestable
+                                     have not been included in the corresponding                                              Suppressible
+                                     pricing file. Failure to correct this issue will result
+                                     in an MPF suppression.
+   2    PF/CP Mismatch (CP           Your pricing and ceiling price files contain                                            Non-Attestable
+        Submitted)                   discrepancies. A ceiling price file was submitted,                                       Suppressible
+                                     even though the pricing file did not indicate
+                                     ceiling pricing. Failure to correct this issue will
+                                     result in an MPF suppression.
+   2    No Preferred Pharmacies      Your pharmacy cost file does not contain                                                Non-Attestable
+        (Mail)                       preferred mail pharmacies, but your PBP                                                  Suppressible
+                                     indicates that you have preferred mail
+                                     pharmacies. Failure to correct this issue will
+                                     result in an MPF suppression.
+   2    No Preferred Pharmacies      Your pharmacy cost file does not contain                                                Non-Attestable
+        (Retail)                     preferred retail pharmacies, but your PBP                                                Suppressible
+                                     indicates that you have preferred retail
+                                     pharmacies. Failure to correct this issue will
+                                     result in an MPF suppression.
+   2    Invalid Price IDs            The price ID does not exist in the corresponding                                        Non-Attestable
+                                     pharmacy cost file. Failure to correct this issue                                        Suppressible
+                                     will result in an MPF suppression.
+
+ June 11, 2026                                                                                                                         Page 3
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level      Validation Name                             Long Description                     Additional Guidance    Error Type
+   2   PF/PBP Discrepancy             Your pricing file does not contain pricing for                               Non-Attestable
+                                      benefits described in your organization's                                     Suppressible
+                                      uploaded PBP. Your organization's uploaded PBP
+                                      indicates that you offer benefits (i.e., days supply
+                                      and pharmacy type) that are not reflected by at
+                                      least one NDC in your most recent submission.
+                                      Failure to correct this issue will result in an MPF
+                                      suppression.
+  2     No Mail Order Pharmacies in   Your pharmacy cost file does not contain mail                                Non-Attestable
+        the PC File                   order pharmacies, but your PBP indicates that                                 Suppressible
+                                      you have mail order pharmacies. Failure to
+                                      correct this issue will result in an MPF
+                                      suppression.
+  2     Inclusion of Some Preferred   Your pharmacy cost file contains preferred mail                              Non-Attestable
+        Pharmacies (Mail)             pharmacies, but your PBP indicates that you only                              Suppressible
+                                      have standard network mail pharmacies. Failure
+                                      to correct this issue will result in an MPF
+                                      suppression.
+  2     Mail Order Pricing Data not   Your pharmacy cost file contains mail order                                  Non-Attestable
+        Indicated in PBP              pharmacies, but your PBP does not include mail                                Suppressible
+                                      order. Failure to correct this issue will result in
+                                      an MPF suppression.
+  2     Inclusion of Preferred        Your pharmacy cost file contains preferred retail                            Non-Attestable
+        Pharmacies (Retail)           pharmacies, but your PBP indicates that you only                              Suppressible
+                                      have standard network retail pharmacies. Failure
+                                      to correct this issue will result in an MPF
+                                      suppression.
+  2     Pricing File with Duplicate   Your pricing file contains duplicate NDC records                             Non-Attestable
+        NDC Records                   with different unit costs. Failure to correct this                            Suppressible
+                                      issue will result in an MPF suppression.
+  2     PF Unit Cost Discrepancy      Your pricing file is missing pricing for one or                              Non-Attestable
+                                      more price IDs. Failure to correct this issue will                            Suppressible
+                                      result in an MPF suppression.
+
+
+
+
+ June 11, 2026                                                                                                               Page 4
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level     Validation Name                              Long Description                                    Additional Guidance                   Error Type
+   2   PC Unit Cost Discrepancy        Your pharmacy cost file is missing expected                                                               Non-Attestable
+                                       retail and/or mail order pharmacies for one or                                                             Suppressible
+                                       more price IDs. Failure to correct this issue will
+                                       result in an MPF suppression.
+  2     Unit Cost Exceeds Maximum      Your pricing file contains one or more drugs             One or more drugs selected for negotiation       Non-Attestable
+        Fair Price                     where the unit cost exceeds the maximum fair             have a unit cost that exceeds the maximum fair    Suppressible
+                                       price. Failure to correct this issue will result in an   price.
+                                       MPF suppression.
+
+  2     Missing Pricing for Selected   Your pricing file does not contain pricing for one       One or more drugs selected for negotiation are     Attestable
+        Drugs                          or more drugs that have been selected for drug           not included in your submission.                  Suppressible
+                                       price negotiation. This is a suppressible error.
+  2     Zero or Blank Vaccine          Your pharmacy cost file contains a vaccine               VACCINE_ADMINISTRATION_FEE = 0                     Attestable
+        Administration Fees            administration fee outlier. The PC file's vaccine                                                          Suppressible
+                                       administration fee field is populated with a zero.
+                                       This is a suppressible error.
+  2     Vaccine Administration Fee     Your pharmacy cost file contains a different                                                                Attestable
+        Outlier                        vaccine administration fee for a given pharmacy                                                            Suppressible
+                                       within a price ID. The vaccine administration fee
+                                       must be the same for each pharmacy within a
+                                       given price ID. This is a suppressible error.
+  2     Potential Brand Priced at      Your pricing file contains brand drugs that are                                                             Attestable
+        Generic                        priced at or below generic for one or more price                                                           Suppressible
+                                       IDs. This is a suppressible error.
+  2     Ceiling Price - Below          Your ceiling price files includes ceiling costs that                                                        Attestable
+        Dispensing Fees                are below the maximum dispensing fee(s) for the                                                            Suppressible
+                                       respective pharmacies. This is a suppressible
+                                       error.
+  2     Ceiling Price - Below Floor    Your ceiling price files include ceiling costs that                                                         Attestable
+        Price                          are below the floor prices for the respective                                                              Suppressible
+                                       pharmacies. This is a suppressible error.
+  2     High Dispensing Fees           Your pharmacy cost file contains one or more             At least 1 pharmacy with a dispensing fee of       Attestable
+                                       pharmacies with a high brand and/or generic              $16 or higher.                                    Suppressible
+                                       dispensing fee. This is a suppressible error.
+
+
+ June 11, 2026                                                                                                                                             Page 5
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level       Validation Name                           Long Description                                    Additional Guidance                Error Type
+   2   High Proportion of Preferred    Your pharmacy cost file is a high outlier for the     If a plan’s network has preferred retail          Attestable
+       Retail Pharmacies               proportion of preferred retail pharmacies             pharmacies, the proportion of pharmacies that    Suppressible
+                                       submitted. This is a suppressible error.              are preferred must be below CMS’ high
+                                                                                             threshold and above CMS’ low threshold.
+   2    Low Proportion of Preferred    Your pharmacy cost file is a low outlier for the      If a plan’s network has preferred retail          Attestable
+        Retail Pharmacies              proportion of preferred retail pharmacies             pharmacies, the proportion of pharmacies that    Suppressible
+                                       submitted. This is a suppressible error.              are preferred must be below CMS’ high
+                                                                                             threshold and above CMS’ low threshold.
+   2    Floor Pricing/Dispensing Fee   Your pharmacy cost file contains a floor price                                                          Attestable
+                                       outlier where the floor price is less than the                                                         Suppressible
+                                       dispensing fee. This is a suppressible error.
+   2    Floor Price Amount             Your pharmacy cost file contains a floor price        FLOOR_PRICE ≥ $7                                  Attestable
+                                       outlier where the floor price exceeds or is equal                                                      Suppressible
+                                       to CMS' floor price threshold amount. This is a
+                                       suppressible error.
+   2    Change in PC Network Size -    Your pharmacy cost file has had a change in the        P2 – P1                                          Attestable
+                                                                                             �        � ≥ Threshold
+        Retail                         PC retail network size that exceeds or is equal to       P1                                            Suppressible
+                                       CMS' threshold amount. This is a suppressible
+                                                                                             Where:
+                                       error.
+                                                                                             P2 is the total number of retail pharmacies in
+                                                                                             the current submission
+                                                                                             P1 is the total number of retail pharmacies in
+                                                                                             the prior submission
+
+   2    Change in PC Network Size -    Your pharmacy cost file has had a change in the        P2 – P1                                          Attestable
+                                                                                             �        � ≥ Threshold
+        Retail Preferred               PC retail preferred network size that exceeds or is      P1                                            Suppressible
+                                       equal to CMS' threshold amount. This is a
+                                                                                             Where:
+                                       suppressible error.
+                                                                                             P2 is the total number of preferred retail
+                                                                                             pharmacies in the current submission
+                                                                                             P1 is the total number of preferred retail
+                                                                                             pharmacies in the prior submission
+
+
+
+
+ June 11, 2026                                                                                                                                         Page 6
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level       Validation Name                          Long Description                                    Additional Guidance           Error Type
+   2   Change in PC Network Size -    Your pharmacy cost file has had a change in the      |𝑃𝑃1 − 𝑃𝑃2 | ≥ Threshold                      Attestable
+       In Area Retail Pharmacies      PC in-area retail network size that exceeds or is                                                 Suppressible
+       (Last Submission)              equal to CMS' threshold amount. This is a            Where:
+                                      suppressible error.                                  P2 is the total number of in-area retail
+                                                                                           pharmacies in the current submission
+                                                                                           P1 is the total number of in-area retail
+                                                                                           pharmacies in the prior submission
+
+  2     Change in PC Network Size -   Your pharmacy cost file has had a change in the      |𝑃𝑃1 − 𝑃𝑃2 | ≥ Threshold                      Attestable
+        In Area Retail Pharmacies     PC in-area retail network size that exceeds or is    Where:                                       Suppressible
+        (Previous Window)             equal to CMS' threshold amount. This is a            P2 is the total number of in-area retail
+                                      suppressible error.                                  pharmacies in the current submission
+                                                                                           P1 is the total number of in-area retail
+                                                                                           pharmacies in the prior submission
+
+  2     Pharmacy Network Size All     Your pharmacy cost file has had at least a 1%                                                      Attestable
+        Retail (Last Submission       change in the PC all retail network compared to                                                   Suppressible
+        Posting)                      the last submission. This is a suppressible error.
+  2     Pharmacy Network Size         Your pharmacy cost file has had at least a 1%                                                      Attestable
+        Preferred Retail (Last        change in the PC preferred retail network                                                         Suppressible
+        Submission Posting)           compared to the last submission. This is a
+                                      suppressible error.
+  2     Difference in Brand and       Your pharmacy cost file has at least two retail      Difference in brand and generic dispensing    Attestable
+        Generic Dispensing Fees for   pharmacies or mail order pharmacies with a           fees ≥ $12                                   Suppressible
+        a 30 Day Supply               difference in the brand and generic dispensing
+                                      fees for a given 30 day supply that exceeds or is
+                                      equal to CMS’ threshold amount. This is a
+                                      suppressible error.
+  2     Difference in Brand and       Your pharmacy cost file has at least two retail      Difference in brand and generic dispensing    Attestable
+        Generic Dispensing Fees for   pharmacies or mail order pharmacies with a           fees ≥ $12                                   Suppressible
+        a 60 Day Supply               difference in the brand and generic dispensing
+                                      fees for a given 60 day supply that exceeds or is
+                                      equal to CMS’ threshold amount. This is a
+                                      suppressible error.
+
+
+ June 11, 2026                                                                                                                                   Page 7
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level       Validation Name                          Long Description                                    Additional Guidance             Error Type
+   2   Difference in Brand and       Your pharmacy cost file has at least two retail         Difference in brand and generic dispensing    Attestable
+       Generic Dispensing Fees for   pharmacies or mail order pharmacies with a              fees ≥ $12                                   Suppressible
+       a 90 Day Supply               difference in the brand and generic dispensing
+                                     fees for a given 90 day supply that exceeds or is
+                                     equal to CMS’ threshold amount. This is a
+                                     suppressible error.
+
+   2    NPIs Not Found in NCPDP      Your pharmacy cost file contains an NPI that                                                         Informational
+                                     cannot be found in the NCPDP data, exceeding or
+                                     equal to CMS' threshold amount.
+   2    Submitted Zero-Dollar Unit   Your pricing file contains one or more NDCs             UNIT_COST = 0                                Informational
+        Cost                         with a $0.00 unit cost. MPF will no longer use
+                                     this value to trigger the display of default pricing.
+                                     Instead, MPF will display these NDCs as having
+                                     a $0.00 unit cost.
+   2    PF/FF Mismatch               Your pricing file contains one or more price IDs                                                     Informational
+                                     that do not have prices for all drugs on your
+                                     formulary. MPF will display default pricing for
+                                     these formulary drugs.
+   2    PF/EDF Mismatch              Your pricing file contains one or more price IDs                                                     Informational
+                                     that do not have prices for all drugs on your
+                                     excluded drug file. MPF will display default
+                                     pricing for these formulary drugs.
+   2    PF/CP Mismatch (Missing      Your pricing file indicates that ceiling pricing is                                                  Informational
+        CP)                          being used, but a ceiling price file was not
+                                     submitted.
+   2    Exclusion of Standard        Your pharmacy cost file does not contain                                                             Informational
+        Network Pharmacies (Mail)    standard network mail pharmacies, but your PBP
+                                     indicates that you have preferred and standard
+                                     network mail pharmacies.
+
+
+
+
+ June 11, 2026                                                                                                                                     Page 8
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+ Level      Validation Name                             Long Description                               Additional Guidance         Error Type
+   3   High Unit Cost                   Your pricing file contains one or more NDCs           UNIT_COST ≥ 5*default_MAX and         Attestable
+                                        priced at 5 times greater than or equal to the        (UNIT_COST / UNIT_COST_MEDIAN ≥ 5)   Suppressible
+                                        highest default price and 5 times more than or
+                                        equal to the median for one or more price IDs.
+                                        This is a suppressible error.
+  3     Low Unit Cost                   Your pricing file contains one or more NDC(s)         UNIT_COST ≤ 1/10*default_MIN and      Attestable
+                                        priced at 10 times less than or equal to the lowest   (UNIT_COST / UNIT_COST_MEDIAN ≤      Suppressible
+                                        default price and 10 times less than or equal to      1/10)
+                                        the median for one or more price IDs. This is a
+                                        suppressible error.
+  3     Ceiling Price - High Quantity   Your ceiling price file contains one or more                                                Attestable
+                                        NDC(s) with ceiling quantities at least 5 times                                            Suppressible
+                                        higher than median. This is a suppressible error.
+  3     Ceiling Price - Low Quantity    Your ceiling price file contains one or more                                                Attestable
+                                        NDC(s) with ceiling quantities at least 5 times                                            Suppressible
+                                        lower than median. This is a suppressible error.
+
+
+
+
+ June 11, 2026                                                                                                                              Page 9
+Appendix C – CY 2027 Drug Pricing Validation Inventory
+
+Error Key:
+
+
+         Error Type                                                                     Description
+
+ Fatal (Level 1)               •   These errors are presented directly on the submission page in HPMS. They are not reflected in the module reports.
+                               •   If a submission receives one or more fatal errors during level 1 processing, the file will not be uploaded to HPMS.
+                               •   The plan must correct the fatal error(s) and resubmit the zip file to HPMS within the applicable submission window.
+                               •   If the last submission in week one has one or more fatal errors, the plan will not be permitted to resubmit in week two, and
+                                   the contract will be suppressed in Medicare Plan Finder (MPF).
+
+
+ Fatal (Level 2)               •   The plan must correct the fatal error(s) and resubmit the zip file to HPMS within the applicable submission window.
+                               •   If the last submission in week one has one or more fatal errors, the plan will not be permitted to resubmit in week two, and
+                                   the contract will be suppressed in MPF.
+                               •   If the last submission in week two has one or more fatal errors, the contract will be suppressed in MPF.
+
+
+ Non-Attestable Suppressible   •   The plan must correct the error(s) and resubmit the zip file to HPMS within the applicable submission window.
+                               •   If the data is not corrected and resubmitted within the applicable submission window, the contract will be suppressed in
+                                   MPF.
+
+
+ Attestable Suppressible       •   The plan may correct the finding(s) and resubmit the zip file to HPMS within the applicable submission window.
+                               •   Alternatively, the plan may attest to the finding(s) in HPMS prior to the attestation deadline.
+                               •   If the data is not corrected and resubmitted within the applicable submission window, or if an attestation is not submitted
+                                   for the finding(s) in HPMS, the contract will be suppressed in MPF.
+
+
+ Informational                 •   If desired, the plan may correct the finding(s) and resubmit the zip file to HPMS within the applicable submission window.
+                               •   Otherwise, the data will be displayed on MPF.
+
+
+
+
+June 11, 2026                                                                                                                                             Page 10
+

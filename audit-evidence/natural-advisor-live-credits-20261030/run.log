@@ -1,0 +1,10 @@
+{"turn": 1, "elapsedSeconds": 12.819, "reply": "Turning 65 in November is usually the point when people start sorting out Medicare timing, even if they\u2019ve been retired for a while.", "question": "Where are you with Medicare so far?", "generated": {"status": "complete", "move": "orientation"}}
+{"turn": 2, "elapsedSeconds": 11.38, "reply": "Your details are here. I couldn\u2019t finish the response just now, but we can continue.", "question": "When would you like Medicare coverage to start?", "generated": {"status": "unavailable", "retryable": false, "reason": "The response introduced a date or amount outside its sources."}}
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/audit-evidence/natural-advisor-live-credits-20261030/verify_live.py", line 85, in <module>
+    check(index,state)
+    ~~~~~^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/audit-evidence/natural-advisor-live-credits-20261030/verify_live.py", line 31, in check
+    assert state.get('generated',{}).get('status')=='complete',state.get('generated')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'status': 'unavailable', 'retryable': False, 'reason': 'The response introduced a date or amount outside its sources.'}

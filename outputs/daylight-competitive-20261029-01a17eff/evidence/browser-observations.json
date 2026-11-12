@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-29",
+  "scope": "Limited desktop guest-flow inspection, not consumer usability or coverage validation.",
+  "syntheticInputs": {"zip":"34102","dateOfBirth":"1959-06-15","gender":"Female","healthInformation":"No real person or real health facts used. Optional care fields skipped in Match Your Medicare. Fictional zero utilization used in Healthpilot."},
+  "actionsNotTaken": ["No account creation", "No contact information submitted", "No agent messages or calls", "No permission for microphone/camera", "No application or enrollment", "No transaction"],
+  "observations": [
+    {"service":"Match Your Medicare","observed":"ZIP, synthetic DOB and gender, optional care step, then 32 MA results without account or contact information. Premium ranking without care details; compare, change-answers and inline path explanation controls visible.","notEstablished":"Benefit/cost accuracy, full-market completeness, supplement/PDP results, dialogue quality, source citations within a personal answer or model neutrality.","screenshot":"match-results.png","state":"match-results.txt"},
+    {"service":"Healthpilot","observed":"ZIP, year, plan type, optional doctors/drugs, extra benefits, utilization and chronic-condition questions. No contact information requested before the stopping point.","notEstablished":"Results boundary, personalized cost accuracy, full completion, comparison usability or neutrality.","screenshot":"healthpilot-flow.png","state":"healthpilot-flow.txt"},
+    {"service":"CoverRight","observed":"ZIP led to a DOB/gender/tobacco basic-information page.","notEstablished":"No-contact results, comparison depth, any AI dialogue or enrollment experience.","screenshot":"coverright-entry.png","state":"coverright-entry.txt"},
+    {"service":"Chapter","observed":"Explore on Your Own opened a nine-step intake. ZIP, Medicare status, drug-coverage and hearing/vision-benefit questions were inspected.","notEstablished":"Contact boundary, downstream results, advisor service, personal source trace or search completeness.","screenshot":"chapter-intake.png","state":"chapter-intake.txt"},
+    {"service":"eHealth","observed":"Public homepage, ZIP entry, MatchFinder description, account/favorites and agent-chat contact disclosure.","notEstablished":"No plan-results page reached in this limited check; no inference of an absolute gate or product failure.","screenshot":"ehealth-entry.png","state":"ehealth-entry.txt"},
+    {"service":"Medicare.gov","observed":"Official Plan Finder guest entry, coverage year and ZIP; login is offered separately.","notEstablished":"Full comparison journey, provider/drug accuracy, actual enrollment or human ease.","screenshot":"medicare-guest.png","state":"medicare-guest.txt"}
+  ],
+  "cleanup":"All eight research-created tabs closed. Existing Daylight services and customer records untouched."
+}

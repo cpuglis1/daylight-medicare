@@ -1,0 +1,156 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "turns": [
+    {
+      "case": "self",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "Turning 65 in november and looking to understand my medicare options"
+      },
+      "elapsed_seconds": 9.731,
+      "reply": "",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "We’ll use this to understand what you have before looking at other options.",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "unavailable",
+        "retryable": false,
+        "reason": "A personal insurance statement needs its resolved coverage report.",
+        "code": "missing_coverage_reference"
+      },
+      "advisor": {
+        "visual": "none",
+        "teachingFactIds": [],
+        "sources": []
+      },
+      "education": null,
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 5369,
+          "composition": 4257
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "self",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "self"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "AssertionError",
+    "message": "Live composition did not complete; inspect trace before further calls."
+  },
+  "all_turns_complete": false,
+  "generation_stages_reserved": 2,
+  "receipts": [
+    {
+      "id": "94db9dc9b94ce8d7fd54f74ec1a891788b49a4a610705973",
+      "status": "settled",
+      "charged_nano_usd": 5128000,
+      "measured_nano_usd": 5128000,
+      "input_tokens": 7084,
+      "output_tokens": 198
+    },
+    {
+      "id": "7ac3ea88edacd54423c9ceeaceb24b072e05e0ca39b2a7d5",
+      "status": "settled",
+      "charged_nano_usd": 18860000,
+      "measured_nano_usd": 18860000,
+      "input_tokens": 6374,
+      "output_tokens": 195
+    }
+  ],
+  "measured_usd": 0.023988,
+  "accounted_usd": 0.023988
+}

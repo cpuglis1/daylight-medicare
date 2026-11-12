@@ -1,0 +1,13 @@
+# Working on the advisor-first variant
+
+This folder owns **:8893**. Read the root PRINCIPLES.md, PRODUCT.md, DAYLIGHT_REQUIREMENTS.md, DESIGN.md, MASTER_DESIGN and the [D86 plan](../../docs/product/LLM_FIRST_HYBRID_PLAN_2026-10-30.md), then [this variant's operations](README.md).
+
+**Latest D86 test budget authorization, October 30:** The owner raised this variant's local allowance to **$5 per UTC day**. `budget-policy.json` and the local `advisor_budget.py` adapter supersede the earlier $1 cap only for :8893. Retain the shared ledger and all existing charges/holds, token/pricing validation, consent and no automatic retry. The pinned engine and :8890/:8891 policies stay unchanged. This is not authority to buy provider credits.
+
+**Latest D86 flow direction, October 30:** Read the [natural advisor flow plan](../../docs/product/NATURAL_ADVISOR_FLOW_PLAN_2026-10-30.md). The owner authorized implementation after confirming that the flow must feel natural/conversational. Clear direct reports consolidate without per-message acceptance, generated language uses resolved context, and consequential uncertainty receives targeted clarification. Optional profile inspection and named-action authorization remain distinct. This supersedes blanket review of interpretations/forms below. Preserve the existing layout and styles. Versioned AI-context permission, sensitive saving and source/recommendation gates remain binding; existing AI consent cannot silently authorize expanded context.
+
+Preserve :8890 and :8891, their runtimes and guest records. The shared engine is read-only and pinned in engine-lock.json. Changes to this variant belong here; do not edit the retained Documents fallback or the chat-first engine to make a local shortcut. No customer-store migration or ledger reset.
+
+Keep the Medicare-specific open invitation, optional goal shortcuts, concise generated narrative, accurate report consolidation, targeted clarification, optional profile inspection, explicit named-action authorization, useful visual teaching, unknown/defer, entity/person/time scope and revision invalidation. Source holds remain independent of reported-input sufficiency. No commercial metadata in planning, retrieval or explanations. No invented findings or action receipts.
+
+Use synthetic temporary databases for development. Live verification uses fictional inputs and existing consent/budget guards. Saving, AI transfer and outside sharing remain separate permissions. New model context, source releases, personal recommendations and public hosting require their applicable authorization and review; the D86 local implementation does not waive them.

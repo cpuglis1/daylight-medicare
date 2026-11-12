@@ -1,0 +1,145 @@
+Appendix E – CY 2027 Pharmacy Cost File Alternative Layout
+
+
+   PHARMACY COST FILE
+   Note: For use only when a Part D sponsor opts to establish a different dispensing fee for selected drugs.
+   Unique record identifiers: CONTRACT_ID, PLAN_ID, SEGMENT_ID, and PHARMACY_NUMBER
+
+                  Field Name                      Type(Size)          NULL                               Field Description
+   CONTRACT_ID                                  Char(5)          NOT NULL          Organization’s contract number that is assigned by CMS.
+                                                                                   Example: H9999
+   PLAN_ID                                      Char(3)*         NOT NULL          Plan ID assigned by CMS that is associated with this
+                                                                                   pharmacy cost file. Include leading zeros. Example: 001
+   SEGMENT_ID                                   Char(3)*         NOT NULL          Segment ID associated with the plan ID that is associated
+                                                                                   with this pharmacy cost file. Include leading zeros.
+                                                                                   Example: 001
+
+                                                                                   Note: If the plan is not segmented, use 000 for this field.
+   PHARMACY_NUMBER                              Char(12)         NOT NULL          This is the 12-digit pharmacy number.
+                                                                                       • 10 digit NPI number with leading one and zero
+   PRICE_ID                                     Number(3)        NOT NULL          Price file grouping number to be used at this pharmacy.
+   BRAND_DISPENSING_FEE_30                      Currency(12)     NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                (Format:                           of sale for a 30 day supply.
+                                                $$$$$$$$cccc)
+   GENERIC_DISPENSING_FEE_30                    Currency(12)     NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                (Format:                           of sale for a 30 day supply.
+                                                $$$$$$$$cccc)
+   VACCINE_ADMINISTRATION_FEE                   Currency(12)     NOT NULL          For vaccines only: In addition to the ingredient cost
+                                                (Format:                           (product cost), the maximum fee associated with the
+                                                $$$$$$$$cccc)                      administration of any covered vaccines at the pharmacies in
+                                                                                   this price ID.
+
+
+
+
+June 11, 2026                                                                                                                                    Page 1
+Appendix E – CY 2027 Pharmacy Cost File Alternative Layout
+
+
+   PHARMACY COST FILE
+   Note: For use only when a Part D sponsor opts to establish a different dispensing fee for selected drugs.
+   Unique record identifiers: CONTRACT_ID, PLAN_ID, SEGMENT_ID, and PHARMACY_NUMBER
+
+                  Field Name                      Type(Size)          NULL                             Field Description
+   PREFERRED_STATUS_RETAIL                      Number(1)        DEFAULT 0,        Yes/No defines whether the contracted retail pharmacy is
+                                                                 NOT NULL          preferred, other network, or network.
+
+                                                                                   Acceptable values 0 or 1 (0=Other Network or Network
+                                                                                   Pharmacy; 1= Preferred Pharmacy)
+   PHARMACY_RETAIL                              NUMBER(1)        DEFAULT 1,        Yes/No defines whether the pharmacy is contracted as a
+                                                                 NOT NULL          network retail pharmacy and should be displayed in MPF’s
+                                                                                   retail search.
+
+                                                                                   Acceptable values 0 or 1 (0=Not Retail; 1=Retail)
+   PHARMACY_MAIL                                NUMBER(1)        DEFAULT 0,        Yes/No defines whether the pharmacy is contracted as a
+                                                                 NOT NULL          network mail order pharmacy and should be displayed in
+                                                                                   MPF’s mail order search.
+
+                                                                                   Acceptable values 0 or 1 (0=Not Mail Order; 1=Mail
+                                                                                   Order)
+   PHARMACY_LA_DRUGS                            NUMBER(1)        DEFAULT 0,        Yes/No defines whether the network contracted retail or
+                                                                 NOT NULL          mail order pharmacy is also authorized to dispense limited
+                                                                                   access (LA) drugs.
+
+                                                                                   Acceptable values 0 or 1 (0=Not Limited Access;
+                                                                                   1=Limited Access)
+
+
+
+
+June 11, 2026                                                                                                                               Page 2
+Appendix E – CY 2027 Pharmacy Cost File Alternative Layout
+
+
+   PHARMACY COST FILE
+   Note: For use only when a Part D sponsor opts to establish a different dispensing fee for selected drugs.
+   Unique record identifiers: CONTRACT_ID, PLAN_ID, SEGMENT_ID, and PHARMACY_NUMBER
+
+                  Field Name                      Type(Size)          NULL                               Field Description
+   PHARMACY_HI                                  NUMBER(1)        DEFAULT 0,        Yes/No defines whether the network contracted retail or
+                                                                 NOT NULL          mail order pharmacy is also contracted as a home infusion
+                                                                                   (HI) pharmacy.
+
+                                                                                   Acceptable values 0 or 1 (0=Not Home Infusion; 1=Home
+                                                                                   Infusion)
+   PHARMACY_LTC                                 NUMBER(1)        DEFAULT 0,        Yes/No defines whether the network contracted retail or
+                                                                 NOT NULL          mail order pharmacy is also contracted a Long Term Care
+                                                                                   (LTC) pharmacy.
+
+                                                                                   Acceptable values 0 or 1 (0=Not Long Term Care;
+                                                                                   1=Long Term Care)
+   PREFERRED_STATUS_MAIL                        Number(1)        DEFAULT 0,        Yes/No defines whether the contracted mail order pharmacy
+                                                                 NOT NULL          is preferred, other network, or network.
+
+                                                                                   Acceptable values 0 or 1 (0=Other Network or Network
+                                                                                   Pharmacy; 1=Preferred Mail Order Pharmacy)
+   FLOOR_PRICE                                  Currency(12)     NOT NULL          Negotiated minimum price that a given pharmacy will be
+                                                (Format:                           paid for filling a prescription.
+                                                $$$$$$$$cccc)
+                                                                                   If a plan has not negotiated floor pricing at a pharmacy,
+                                                                                   then FLOOR_PRICE should be 000000000000.
+   BRAND_DISPENSING_FEE_60                      Currency(12)     NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                (Format:                           of sale for a 60 day supply.
+                                                $$$$$$$$cccc)
+
+
+
+
+June 11, 2026                                                                                                                                  Page 3
+Appendix E – CY 2027 Pharmacy Cost File Alternative Layout
+
+
+   PHARMACY COST FILE
+   Note: For use only when a Part D sponsor opts to establish a different dispensing fee for selected drugs.
+   Unique record identifiers: CONTRACT_ID, PLAN_ID, SEGMENT_ID, and PHARMACY_NUMBER
+
+                   Field Name                       Type(Size)           NULL                               Field Description
+   GENERIC_DISPENSING_FEE_60                     Currency(12)       NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                 (Format:                             of sale for a 60 day supply.
+                                                 $$$$$$$$cccc)
+   BRAND_DISPENSING_FEE_90                       Currency(12)       NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                 (Format:                             of sale for a 90 day supply.
+                                                 $$$$$$$$cccc)
+   GENERIC_DISPENSING_FEE_90                     Currency(12)       NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                 (Format:                             of sale for a 90 day supply.
+                                                 $$$$$$$$cccc)
+   SELECTED_DRUG_DISPENSING_FEE_30               Currency(12)       NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                 (Format:                             of sale for a 30 day supply of a selected drug. See notes
+                                                 $$$$$$$$cccc)                        below for more information.
+   SELECTED_DRUG_DISPENSING_FEE_60               Currency(12)       NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                 (Format:                             of sale for a 60 day supply of a selected drug. See notes
+                                                 $$$$$$$$cccc)                        below for more information.
+   SELECTED_DRUG_DISPENSING_FEE_90               Currency(12)       NOT NULL          In addition to the ingredient cost (product cost) at the point
+                                                 (Format:                             of sale for a 90 day supply of a selected drug. See notes
+                                                 $$$$$$$$cccc)                        below for more information.
+
+Notes: When using the alternative layout, Part D sponsors must:
+
+   •   Include all three selected drug dispensing fee fields on all records in the file.
+
+   •   Record the brand dispensing fee in the selected drug dispensing fee field where the brand and selected drug dispensing fees are the
+       same for a certain day supply.
+
+
+June 11, 2026                                                                                                                                    Page 4
+

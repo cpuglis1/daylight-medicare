@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fbf9f4">
+  <title>Local plan research · MidMorning</title>
+  <link rel="icon" href="/daylight.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/approved.css">
+  <link rel="stylesheet" href="/advisor.css">
+  <link rel="stylesheet" href="/research.css">
+  <script src="/reference-view.js" defer></script>
+  <script src="/research.js" defer></script>
+</head>
+<body class="research-page">
+  <a class="skip-link" href="#research-main">Skip to research</a>
+  <header class="site-header"><a class="wordmark" href="/" aria-label="MidMorning home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">MidMorning<span class="brand-category">Medicare</span></span></a><a href="/">Return to the advisor</a></header>
+  <main id="research-main" class="research-main">
+    <h1>2026 Collier plan research</h1>
+    <p class="research-intro">Inspect the retained Medicare Advantage source records and their conditions. Select up to three offerings to review side by side.</p>
+    <p class="research-notice"><strong>Internal research review.</strong> These records are not released consumer plan results. Source observations and identity matches do not establish personal availability, benefits, doctor access, drug coverage or recommendations.</p>
+    <p id="research-status" role="status">Connecting to the local research database…</p>
+    <div class="research-toolbar"><label for="plan-filter">Find a retained offering<input id="plan-filter" type="search" placeholder="Plan name or CMS identity" disabled></label><button id="inspect-selected" class="primary" disabled>Inspect selected records</button></div>
+    <p id="selection-status" class="small">Nothing selected. Selection does not rank plans.</p>
+    <div id="catalog"></div>
+    <section id="research-comparison" aria-label="Selected source records" tabindex="-1" hidden></section>
+  </main>
+  <noscript><p>Enable JavaScript to inspect the local research records.</p></noscript>
+</body>
+</html>

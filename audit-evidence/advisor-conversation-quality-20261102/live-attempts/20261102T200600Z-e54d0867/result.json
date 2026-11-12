@@ -1,0 +1,802 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "fresh_uninterrupted_visit": true,
+  "prefix_replay": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "context_policy": "natural-context-v3",
+  "technical_complete": false,
+  "quality_pass": null,
+  "human_comprehension": "unobserved",
+  "review_status": "independent transcript review required",
+  "turns": [
+    {
+      "turn": 1,
+      "event": "opening",
+      "action": {
+        "type": "message",
+        "message": "I turn 65 in November, have no health insurance now, and want to understand my Medicare choices. I am new to this."
+      },
+      "persona_policy": {
+        "previous_target": "T01",
+        "wording_branch": "default",
+        "facts_added_to_rescue_route": false
+      },
+      "expected_outcome": [
+        "Recognize self, November without a guessed year, no current insurance, and novice understanding goal.",
+        "Offer a manageable first explanation; do not require full intake."
+      ],
+      "technical_checks": {
+        "generated_complete": true,
+        "no_recommendation_release": true,
+        "no_external_verification_release": true,
+        "two_existing_generation_calls": true,
+        "birthday_year_not_invented": true,
+        "no_exact_start_invented": true,
+        "self_report_retained": true,
+        "no_insurance_retained": true,
+        "birthday_month_retained": true
+      },
+      "reply": "Since you’re new to this, the big picture is: Medicare starts with Part A for hospital-type care and Part B for doctor and outpatient care. Then you usually choose one of two paths: Original Medicare, where you can add a separate drug plan and possibly Medigap, or a Medicare Advantage plan from a private company that provides Parts A and B and often includes drug coverage.",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would you like Medicare coverage to start?",
+        "why": "",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T04"
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 5330,
+          "composition": 6204
+        }
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "timing",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "parts",
+          "routesintro",
+          "options"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two parts to start with"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": [
+          "What’s the difference between Original Medicare and Medicare Advantage?",
+          "How do drug coverage and Medigap fit in?"
+        ]
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 1,
+        "covered": [
+          {
+            "concept_id": "part_a",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "inpatient_care"
+            ]
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "outpatient_care"
+            ]
+          },
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "additional_coverage",
+              "part_b_premium",
+              "public_private_delivery"
+            ]
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "part_a",
+          "part_b",
+          "coverage_paths"
+        ]
+      },
+      "elapsed_seconds": 11.61545
+    },
+    {
+      "turn": 2,
+      "event": "unknown_preference_and_misconception",
+      "action": {
+        "type": "message",
+        "message": "I do not know when I want coverage to start; I need help understanding the choices first. Are Original Medicare and Medicare Advantage two policies I buy together?"
+      },
+      "persona_policy": {
+        "previous_target": "T04",
+        "wording_branch": "T04",
+        "facts_added_to_rescue_route": false
+      },
+      "expected_outcome": [
+        "Treat desired start as unknown, not ASAP or an inferred month.",
+        "Explain the relationship between the paths, not just their names."
+      ],
+      "technical_checks": {
+        "generated_complete": true,
+        "no_recommendation_release": true,
+        "no_external_verification_release": true,
+        "two_existing_generation_calls": true,
+        "birthday_year_not_invented": true,
+        "no_exact_start_invented": true,
+        "no_start_preference_invented": true,
+        "requested_start_disposition_retained": true
+      },
+      "reply": "No—these are usually two different ways to get your Medicare coverage, not two policies you buy together. Original Medicare means Parts A and B through the federal program; Medicare Advantage is a private plan that provides your Part A and Part B instead. If you choose Original Medicare, you can add a separate drug plan and possibly Medigap; if you choose Medicare Advantage, you generally do not pair it with Medigap, and many Advantage plans include drug coverage.\n\nWould it help if I gave you a simple side-by-side of how Original Medicare and Medicare Advantage differ in everyday use?",
+      "question": null,
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3558,
+          "composition": 6696
+        }
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "coverage_paths",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "routesintro",
+          "options"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two coverage routes"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "part_a",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "inpatient_care"
+            ]
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "outpatient_care"
+            ]
+          },
+          {
+            "concept_id": "coverage_paths",
+            "depth": "explored",
+            "needs_clarification": false,
+            "deliveries": 2,
+            "aspects": [
+              "additional_coverage",
+              "part_b_premium",
+              "public_private_delivery"
+            ]
+          },
+          {
+            "concept_id": "original_medicare",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "federal_parts",
+              "optional_additions"
+            ]
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "included_drugs",
+              "part_b_premium",
+              "private_delivery"
+            ]
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "coverage_paths",
+          "original_medicare",
+          "medicare_advantage"
+        ]
+      },
+      "elapsed_seconds": 10.330377
+    },
+    {
+      "turn": 3,
+      "event": "relevant_tradeoff",
+      "action": {
+        "type": "message",
+        "message": "I travel and want to keep my doctor. What difference does that make between the two paths? I do not know what my doctor accepts."
+      },
+      "persona_policy": {
+        "previous_target": null,
+        "wording_branch": "default",
+        "facts_added_to_rescue_route": false
+      },
+      "expected_outcome": [
+        "Connect a source-supported tradeoff to the expressed priorities.",
+        "Do not claim actual doctor participation, coverage or personal plan suitability."
+      ],
+      "technical_checks": {
+        "generated_complete": true,
+        "no_recommendation_release": true,
+        "no_external_verification_release": true,
+        "two_existing_generation_calls": true,
+        "birthday_year_not_invented": true,
+        "no_exact_start_invented": true
+      },
+      "reply": "Yes—travel and keeping your doctor can matter a lot. With Original Medicare, you can generally see any U.S. doctor who accepts Medicare, so that can be simpler for travel and for keeping a doctor if they take Medicare. With Medicare Advantage, doctor access depends on the specific plan’s network and rules, so whether you can keep your doctor or get routine care while traveling can vary by plan.\n\nSince you do not know what your doctor accepts yet, the key point is this: Original Medicare uses the broader Medicare-acceptance question, while Medicare Advantage requires checking the exact plan.",
+      "question": {
+        "id": "T08",
+        "inventoryIds": [
+          "T08"
+        ],
+        "question": "Will you need routine care away from home?",
+        "why": "",
+        "choices": [
+          [
+            "local",
+            "Local only"
+          ],
+          [
+            "elsewhere_us",
+            "Elsewhere in the U.S."
+          ],
+          [
+            "outside_us",
+            "Outside the U.S."
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T08.profile.choice",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T08"
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 4695,
+          "composition": 5017
+        }
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "travel",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "original",
+          "advantage",
+          "checks"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: Original Medicare"
+          },
+          {
+            "url": "https://www.medicare.gov/plan-compare/",
+            "label": "Medicare.gov: What to check for each plan"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 3,
+        "covered": [
+          {
+            "concept_id": "part_a",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "inpatient_care"
+            ]
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "outpatient_care"
+            ]
+          },
+          {
+            "concept_id": "coverage_paths",
+            "depth": "explored",
+            "needs_clarification": false,
+            "deliveries": 2,
+            "aspects": [
+              "additional_coverage",
+              "part_b_premium",
+              "public_private_delivery"
+            ]
+          },
+          {
+            "concept_id": "original_medicare",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "federal_parts",
+              "optional_additions"
+            ]
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "included_drugs",
+              "part_b_premium",
+              "private_delivery"
+            ]
+          },
+          {
+            "concept_id": "provider_checks",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "original_provider_access",
+              "plan_specific_participation",
+              "unverified_participation"
+            ]
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "provider_checks"
+        ]
+      },
+      "elapsed_seconds": 9.786483
+    },
+    {
+      "turn": 4,
+      "event": "explicit_defer_and_detour",
+      "action": {
+        "type": "message",
+        "message": "Please leave the start-month question for later. Explain how prescription medicines fit into the two paths before asking me more personal questions."
+      },
+      "persona_policy": {
+        "previous_target": "T08",
+        "wording_branch": "default",
+        "facts_added_to_rescue_route": false
+      },
+      "expected_outcome": [
+        "Respect explicit timing deferral and the request to learn before more personal questions.",
+        "Explain drug-coverage structure without inventing medicines or marking understanding verified."
+      ],
+      "technical_checks": {
+        "generated_complete": true,
+        "no_recommendation_release": true,
+        "no_external_verification_release": true,
+        "two_existing_generation_calls": true,
+        "birthday_year_not_invented": true,
+        "no_exact_start_invented": true,
+        "no_start_preference_invented": true,
+        "requested_start_disposition_retained": false
+      },
+      "reply": "Prescription drug coverage is called Part D. With Original Medicare, drug coverage is separate—you would join a standalone Part D plan if you want help paying for medicines. With Medicare Advantage, most plans include drug coverage as part of the plan, but you still have to check the exact drug list, any restrictions, the pharmacy options, and your costs for each medicine.\n\nSo the practical difference is: Original Medicare lets you pair your medical coverage with a separate drug plan, while Medicare Advantage usually bundles medical and drug coverage together in one plan. In either path, a medicine list is the starting point for checking whether your specific prescriptions are covered well.\n\nWould it help if I next explain the pros and cons of separate drug coverage versus bundled drug coverage, without getting personal yet?",
+      "question": null,
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 4787,
+          "composition": 7467
+        }
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "drugs",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "drugbasics",
+          "drugs"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/health-drug-plans/part-d",
+            "label": "Medicare.gov: The piece for prescription medicines"
+          },
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: Original Medicare"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": [
+          "How do restrictions on a medicine work?",
+          "Why would someone prefer a separate drug plan instead of a bundled one?"
+        ]
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 4,
+        "covered": [
+          {
+            "concept_id": "part_a",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "inpatient_care"
+            ]
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "outpatient_care"
+            ]
+          },
+          {
+            "concept_id": "coverage_paths",
+            "depth": "explored",
+            "needs_clarification": false,
+            "deliveries": 2,
+            "aspects": [
+              "additional_coverage",
+              "part_b_premium",
+              "public_private_delivery"
+            ]
+          },
+          {
+            "concept_id": "original_medicare",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "federal_parts",
+              "optional_additions"
+            ]
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "included_drugs",
+              "part_b_premium",
+              "private_delivery"
+            ]
+          },
+          {
+            "concept_id": "provider_checks",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "original_provider_access",
+              "plan_specific_participation",
+              "unverified_participation"
+            ]
+          },
+          {
+            "concept_id": "prescription_coverage",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1,
+            "aspects": [
+              "exact_medicine_conditions",
+              "part_d_role",
+              "route_relationship"
+            ]
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "prescription_coverage"
+        ]
+      },
+      "elapsed_seconds": 12.326339
+    }
+  ],
+  "token_checks": [
+    {
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-1-daylight_guide_commands-count-1-request.json",
+      "input_tokens": 6906,
+      "seconds": 0.483776
+    },
+    {
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "request_file": "turn-1-daylight_resolved_conversation-count-2-request.json",
+      "input_tokens": 6706,
+      "seconds": 0.350892
+    },
+    {
+      "turn": 2,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-2-daylight_guide_commands-count-3-request.json",
+      "input_tokens": 7957,
+      "seconds": 0.383731
+    },
+    {
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "request_file": "turn-2-daylight_resolved_conversation-count-4-request.json",
+      "input_tokens": 6738,
+      "seconds": 0.373759
+    },
+    {
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-3-daylight_guide_commands-count-5-request.json",
+      "input_tokens": 7730,
+      "seconds": 0.310615
+    },
+    {
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "request_file": "turn-3-daylight_resolved_conversation-count-6-request.json",
+      "input_tokens": 6831,
+      "seconds": 0.448538
+    },
+    {
+      "turn": 4,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-4-daylight_guide_commands-count-7-request.json",
+      "input_tokens": 8308,
+      "seconds": 0.292223
+    },
+    {
+      "turn": 4,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-4-daylight_guide_commands-count-8-request.json",
+      "input_tokens": 8188,
+      "seconds": 0.318167
+    },
+    {
+      "turn": 4,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-4-daylight_guide_commands-count-9-request.json",
+      "input_tokens": 8028,
+      "seconds": 0.271986
+    },
+    {
+      "turn": 4,
+      "contract": "daylight_guide_commands",
+      "request_file": "turn-4-daylight_guide_commands-count-10-request.json",
+      "input_tokens": 7864,
+      "seconds": 0.489419
+    },
+    {
+      "turn": 4,
+      "contract": "daylight_resolved_conversation",
+      "request_file": "turn-4-daylight_resolved_conversation-count-11-request.json",
+      "input_tokens": 7191,
+      "seconds": 0.283294
+    }
+  ],
+  "receipts": [
+    {
+      "id": "5086de7f643d9ae5c3cb2b038751d4684478374b381d21dd",
+      "status": "settled",
+      "charged_nano_usd": 22410000,
+      "measured_nano_usd": 22410000,
+      "input_tokens": 6906,
+      "output_tokens": 343
+    },
+    {
+      "id": "210165aa3d4dae8873290c33ea012eea4701469a8a6e9aa9",
+      "status": "settled",
+      "charged_nano_usd": 21265000,
+      "measured_nano_usd": 21265000,
+      "input_tokens": 6706,
+      "output_tokens": 300
+    },
+    {
+      "id": "e9133f0e75922726ba6c88885e389ea70752892ce6e0a9c8",
+      "status": "settled",
+      "charged_nano_usd": 22532500,
+      "measured_nano_usd": 22532500,
+      "input_tokens": 7957,
+      "output_tokens": 176
+    },
+    {
+      "id": "5288ad5c21ba04fa4e108347eb472f6216ef3d3615c669e0",
+      "status": "settled",
+      "charged_nano_usd": 21570000,
+      "measured_nano_usd": 21570000,
+      "input_tokens": 6738,
+      "output_tokens": 315
+    },
+    {
+      "id": "e3146ebd776922757c3f3ed2c10105cc1185e9842d909787",
+      "status": "settled",
+      "charged_nano_usd": 23360000,
+      "measured_nano_usd": 23360000,
+      "input_tokens": 7730,
+      "output_tokens": 269
+    },
+    {
+      "id": "453b4e3374ef0f056f864f126278f745539b919aa9d0344a",
+      "status": "settled",
+      "charged_nano_usd": 21127500,
+      "measured_nano_usd": 21127500,
+      "input_tokens": 6831,
+      "output_tokens": 270
+    },
+    {
+      "id": "864049675772004db9861c77934b56b511556f5c7fd7afad",
+      "status": "settled",
+      "charged_nano_usd": 22645000,
+      "measured_nano_usd": 22645000,
+      "input_tokens": 7864,
+      "output_tokens": 199
+    },
+    {
+      "id": "57918959731cd8f6139eb876866dee5fe811497e22b6c883",
+      "status": "settled",
+      "charged_nano_usd": 22492500,
+      "measured_nano_usd": 22492500,
+      "input_tokens": 7191,
+      "output_tokens": 301
+    }
+  ],
+  "provider_diagnostics": [
+    {
+      "turn": 1,
+      "file": "turn-1-provider-completion-1.json",
+      "stage": "composition",
+      "completed": true,
+      "elapsed_seconds": 5.843004
+    },
+    {
+      "turn": 2,
+      "file": "turn-2-provider-completion-2.json",
+      "stage": "composition",
+      "completed": true,
+      "elapsed_seconds": 6.317037
+    },
+    {
+      "turn": 3,
+      "file": "turn-3-provider-completion-3.json",
+      "stage": "composition",
+      "completed": true,
+      "elapsed_seconds": 4.563856
+    },
+    {
+      "turn": 4,
+      "file": "turn-4-provider-completion-4.json",
+      "stage": "composition",
+      "completed": true,
+      "elapsed_seconds": 7.177729
+    }
+  ],
+  "budget_before": {
+    "day": "2026-11-02",
+    "timezone": "UTC",
+    "resetAt": "2026-11-03T00:00:00+00:00",
+    "dailyLimitUsd": 5,
+    "estimatedUsd": 0.8839855,
+    "reservedOrUncertainUsd": 0.3015,
+    "accountedUsd": 1.1854855,
+    "remainingUsd": 3.8145145,
+    "requestCount": 66,
+    "canRequest": true,
+    "reason": "",
+    "pricingVerifiedAt": "2026-10-28T14:44:45Z",
+    "pricingValidUntil": "2026-11-04T00:00:00Z",
+    "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+  },
+  "error": {
+    "type": "AssertionError",
+    "message": "Technical outcome failed; retain this complete prefix and stop without retry.",
+    "turn": 4,
+    "event": "explicit_defer_and_detour"
+  },
+  "budget_after": {
+    "day": "2026-11-02",
+    "timezone": "UTC",
+    "resetAt": "2026-11-03T00:00:00+00:00",
+    "dailyLimitUsd": 5,
+    "estimatedUsd": 1.061388,
+    "reservedOrUncertainUsd": 0.3015,
+    "accountedUsd": 1.362888,
+    "remainingUsd": 3.637112,
+    "requestCount": 74,
+    "canRequest": true,
+    "reason": "",
+    "pricingVerifiedAt": "2026-10-28T14:44:45Z",
+    "pricingValidUntil": "2026-11-04T00:00:00Z",
+    "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+  },
+  "generation_stages_reserved": 8,
+  "measured_usd": 0.1774025,
+  "accounted_usd": 0.1774025,
+  "held_usd": 0.0,
+  "source_unchanged": true
+}

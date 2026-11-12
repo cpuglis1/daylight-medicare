@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 34873,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6811,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 343,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7154
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Medicare is federal health insurance, and at a high level you have two main ways to get it. You can get Original Medicare, which is Parts A and B through the federal program, or Medicare Advantage, which is a private plan approved by Medicare that provides Parts A and B instead. With Original Medicare, you can add a separate drug plan and may be able to buy Medigap to help with your share of costs; with Medicare Advantage, most plans include drug coverage. You still pay the Part B premium either way.\",\"question\":\"Would it help if I next explain Original Medicare versus Medicare Advantage in plain English, or go over when people turning 65 usually sign up?\",\"education_followups\":[\"What is the difference between Original Medicare and Medicare Advantage?\",\"How does Medicare sign-up timing work when I turn 65?\"],\"report_refs\":[\"guide.subject.role\",\"guide.coverage.current\",\"guide.intent.goal\",\"guide.situation.age65\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"basics\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"understand Medicare choices\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"medicare_basics\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"federal_health_insurance\",\"general_eligibility\"],\"evidence_refs\":[\"basics\"]},{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 6.092352,
+  "turn": 1,
+  "event": "opening",
+  "fictional_inputs": true
+}

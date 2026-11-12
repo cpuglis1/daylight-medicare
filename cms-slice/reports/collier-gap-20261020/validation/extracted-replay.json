@@ -1,0 +1,71 @@
+{
+  "bundle": "/Users/cep4u/medicare_startup/cms-slice/releases/naples-98038a43549f438d8c38.tar.gz",
+  "isolated_replay": true,
+  "national_source_archives_available": false,
+  "pdf_tools_available": false,
+  "model_configured": false,
+  "source_records": 70,
+  "pharmacy_networks": 61,
+  "star_contracts": 24,
+  "consumer_ready": false,
+  "cli_cases": [
+    {
+      "synthetic_query": "H1889-026-000-2027 premium",
+      "blocked": true,
+      "fact_payload_returned": false
+    },
+    {
+      "synthetic_query": "RXCUI 1551300 for all plans",
+      "blocked": true,
+      "fact_payload_returned": false
+    },
+    {
+      "synthetic_query": "What changed at NCH for 2027?",
+      "blocked": true,
+      "fact_payload_returned": false
+    }
+  ],
+  "http_cases": [
+    {
+      "path": "/api/status",
+      "http_status": 200,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/",
+      "http_status": 200,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/api/catalog",
+      "http_status": 503,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/api/chat",
+      "http_status": 503,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/api/live-chat",
+      "http_status": 503,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/api/conversation",
+      "http_status": 503,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/api/local-resources",
+      "http_status": 503,
+      "consumer_fact_payload": false
+    },
+    {
+      "path": "/app.js",
+      "http_status": 503,
+      "consumer_fact_payload": false
+    }
+  ],
+  "domain_signoff": "pending"
+}

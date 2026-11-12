@@ -1,0 +1,86 @@
+{"case": "self", "turn": 1, "generated": {"status": "complete", "move": "T05"}, "reply": "The main choice is between Original Medicare and Medicare Advantage. Original Medicare is Parts A and B from the federal program; you can add a separate drug plan and may be able to add Medigap. Medicare Advantage is a private plan that provides Parts A and B, and many plans include drug coverage.", "question": "What health insurance do you have now?", "visual": "routes", "seconds": 0.087, "synthetic_replay": true}
+{"case": "self", "turn": 2, "generated": {"status": "complete", "move": "RC09"}, "reply": "That helps because current-job coverage can affect when it makes sense to start Medicare, especially Part B. I can’t tell from that alone whether you’d want to enroll right away or keep employer coverage for a while.", "question": "Whose job is this health insurance through?", "visual": "none", "seconds": 0.038, "synthetic_replay": true}
+{"case": "self", "turn": 3, "generated": {"status": "complete", "move": "RC09"}, "reply": "Yes. There are two main paths: Original Medicare and Medicare Advantage. Original Medicare is Part A and Part B through the federal program; you can usually add a separate drug plan, and Medigap may help with out-of-pocket costs. Medicare Advantage is a private plan approved by Medicare that provides Parts A and B, and many plans include drug coverage. With either path, you still pay the Part B premium.", "question": "Whose job is this health insurance through?", "visual": "routes", "seconds": 7.351}
+{"case": "caregiver", "turn": 1, "generated": {"status": "complete", "move": "RC01"}, "reply": "Your mother will usually start by choosing between two Medicare paths: Original Medicare, which is Part A and Part B through the federal program, or a Medicare Advantage plan, which is a private plan that provides Part A and Part B. With Original Medicare, drug coverage is separate and Medigap may help with out-of-pocket costs; with Medicare Advantage, drug coverage is often included, and doctors, medicines, and total costs are important to check before choosing.", "question": "Who is this for?", "visual": "none", "seconds": 9.496}
+{"case": "caregiver", "turn": 2, "generated": {"status": "complete", "move": "RC01"}, "reply": "Part B is the medical insurance part of Medicare. It covers doctor visits, outpatient care, tests, medical equipment, and many preventive services like certain screenings. Together, Part A and Part B make up Original Medicare.", "question": "Who is this for?", "visual": "none", "seconds": 5.36}
+{"case": "caregiver", "turn": 3, "generated": {"status": "complete", "move": "RC01"}, "reply": "Thanks for the correction. I’ll use December as her 65th birthday month; that matters for general enrollment timing, but it doesn’t by itself tell us her exact start date.", "question": "Who is this for?", "visual": "none", "seconds": 6.204}
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "token_checks": [
+    {
+      "case": "self",
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "tokens": 7627,
+      "history_exchanges": 2
+    },
+    {
+      "case": "self",
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5807,
+      "history_exchanges": 2
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6723,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 4433,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_guide_commands",
+      "tokens": 7427,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 4459,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "tokens": 7355,
+      "history_exchanges": 2
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 4795,
+      "history_exchanges": 2
+    }
+  ],
+  "replay_prefix": "/Users/cep4u/daylight/audit-evidence/advisor-curriculum-20261102/attempt-5",
+  "synthetic_prefix_replay": true,
+  "uninterrupted_final_live_run": false,
+  "evidence_note": "The first two turns replay accepted fictional captures; only subsequent stages use the provider.",
+  "self_reference_captured": true,
+  "birthday_precision_preserved": true,
+  "requested_revisit_recorded": true,
+  "caregiver_scope_preserved": false,
+  "caregiver_correction_preserved": true,
+  "all_turns_complete": true,
+  "generation_stages_reserved": 8,
+  "measured_usd": 0.143555,
+  "accounted_usd": 0.143555
+}

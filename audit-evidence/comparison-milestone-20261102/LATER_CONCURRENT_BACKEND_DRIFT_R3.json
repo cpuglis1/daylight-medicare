@@ -1,0 +1,36 @@
+{
+  "schema": "daylight.concurrent-test-source-drift.v1",
+  "observed_at": "2026-11-02T20:07:11.853793+00:00",
+  "captured_inputs_path": "audit-evidence/comparison-milestone-20261102/ADVISOR_TEST_INPUTS_R5.json",
+  "captured_input_count": 123,
+  "source_changes": [
+    {
+      "path": "alternatives/advisor-first/natural_agent.py",
+      "captured_sha256": "0a521f9fd26df21faffc5288afa893cf527748e5ff69cb3232ae5afc1ca26a3d",
+      "observed_after_sha256": "8019a25fe0fa7e03e923ac017ae0e0c0401054b57d9c0286b1d22baf504a053b"
+    },
+    {
+      "path": "alternatives/advisor-first/tests/test_conversation_claims.py",
+      "captured_sha256": "d1fe88f7651937ff4f0916a96a45e2e0cbd419c0a6f468cf30f49476c0a6524e",
+      "observed_after_sha256": "68299d29d454ac7b0289dd88c78ad7a16212fda6c1f44843b1e3cf25377807c8"
+    }
+  ],
+  "suite": {
+    "log": "audit-evidence/comparison-milestone-20261102/advisor-full-suite-r6.log",
+    "process_exit_code": 0,
+    "reported_tests": 764,
+    "reported_duration_seconds": 129.518,
+    "reported_status": "OK",
+    "coherent_captured_snapshot_certified": false
+  },
+  "http_journey": {
+    "log": "audit-evidence/comparison-milestone-20261102/actual-identity-http-journey-r8.log",
+    "process_exit_code": 1,
+    "failure": "Merged source changed during the journey.",
+    "successful_receipt_created": false,
+    "result": "failed_source_stability_guard"
+  },
+  "interpretation": "Suite process passed, but concurrent source edits prevent certifying the captured coherent snapshot. The HTTP driver intentionally withheld success. No source was reverted. Earlier stable R4 receipts retain their exact historical scope.",
+  "new_acceptance": false,
+  "consumer_release": false
+}

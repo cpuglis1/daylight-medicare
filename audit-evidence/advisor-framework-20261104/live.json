@@ -1,0 +1,852 @@
+{
+  "model": "gpt-6.1-sol",
+  "fictional": true,
+  "scope": "four independent first-turn probes; not complete journeys",
+  "cases": [
+    {
+      "name": "newcomer_self",
+      "message": "I'm turning 65 next year and this is all new to me. I don't understand what Medicare is. Where do I start?",
+      "expectation": "Small useful foundation, no assumption of coverage or eligibility, at most one consequential next question.",
+      "proposed": {
+        "question_target": null,
+        "reply": "Start with what Medicare is—not with choosing a plan. Medicare is health insurance from the federal government that helps pay for health care. It’s mainly for people 65 or older who meet its eligibility rules; some younger people qualify too.\n\nThe first two pieces to know are:\n• Part A: hospital insurance, including inpatient hospital care.\n• Part B: medical insurance, including doctor visits, outpatient care, tests and many preventive services.\n\nParts A and B together, run by the federal government, are called Original Medicare. You don’t need to learn every term at once; these two pieces give you a starting point.",
+        "question": "Would it help to look next at the difference between Original Medicare and Medicare Advantage?",
+        "education_followups": [],
+        "report_refs": [],
+        "evidence_refs": [
+          "basics",
+          "parts"
+        ],
+        "agenda_update": {
+          "current_concern": "Understand what Medicare is and where to start.",
+          "pause": false
+        },
+        "education": {
+          "purpose": "clarify",
+          "updates": [
+            {
+              "concept_id": "medicare_basics",
+              "depth": "introduced",
+              "reason": "clarify",
+              "aspect_ids": [
+                "federal_health_insurance",
+                "general_eligibility"
+              ],
+              "evidence_refs": [
+                "basics"
+              ]
+            },
+            {
+              "concept_id": "part_a",
+              "depth": "introduced",
+              "reason": "new",
+              "aspect_ids": [
+                "inpatient_care",
+                "original_relationship"
+              ],
+              "evidence_refs": [
+                "parts"
+              ]
+            },
+            {
+              "concept_id": "part_b",
+              "depth": "introduced",
+              "reason": "new",
+              "aspect_ids": [
+                "outpatient_care",
+                "preventive_services",
+                "original_relationship"
+              ],
+              "evidence_refs": [
+                "parts"
+              ]
+            }
+          ],
+          "visual": "none"
+        },
+        "task_work": {
+          "check_ids": [
+            "coverage_paths"
+          ],
+          "blocking_concepts": [
+            "medicare_basics"
+          ],
+          "next_step": "teach"
+        }
+      },
+      "learner_context": {
+        "version": "learner-observations-v1",
+        "observations": [
+          {
+            "concept_id": "medicare_basics",
+            "aspect_ids": [
+              "federal_health_insurance"
+            ],
+            "signal": "unfamiliar",
+            "subject": "learner",
+            "quote": "I don't understand what Medicare is.",
+            "interpretation": "The learner explicitly reports not yet understanding what Medicare is."
+          }
+        ],
+        "assessment_is_tentative": true,
+        "unobserved_is_unknown": true
+      },
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "task_source": "existing_user_goal_and_agenda",
+        "task_focus": "learning",
+        "active_checks": [],
+        "checks": [
+          {
+            "check_id": "coverage_identity",
+            "label": "Exact coverage",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+            "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+          },
+          {
+            "check_id": "provider_identity",
+            "label": "Clinician and office",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm the intended clinician and exact office location.",
+            "distinction": "A name or office report is not a source identity or a participation check."
+          },
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          },
+          {
+            "check_id": "service_benefit",
+            "label": "Service and benefit conditions",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Check the exact service against the published benefit terms and applicable conditions.",
+            "distinction": "Provider participation does not establish service coverage or required authorization."
+          },
+          {
+            "check_id": "personal_cost",
+            "label": "Personal payment",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the cost basis, included components and missing prices before describing what someone may pay.",
+            "distinction": "A published amount or partial subtotal is not a personal total or quote."
+          },
+          {
+            "check_id": "enrollment_timing",
+            "label": "Enrollment steps and dates",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm applicable enrollment rules and actual dates with the appropriate official service.",
+            "distinction": "A desired start or birthday does not establish eligibility or an effective date."
+          },
+          {
+            "check_id": "coverage_paths",
+            "label": "Coverage choices",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Explain the relevant coverage pieces and consequential tradeoffs before comparing policies.",
+            "distinction": "Understanding a path does not establish personal eligibility or plan fit."
+          },
+          {
+            "check_id": "help_and_logistics",
+            "label": "Practical help and coordination",
+            "report_refs": [
+              "guide.subject.role"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the specific unresolved practical need and prepare questions for the appropriate service.",
+            "distinction": "Helping a relative does not establish permission, financial eligibility or available care."
+          }
+        ],
+        "blocking_concepts": [
+          "medicare_basics"
+        ],
+        "return_point": null,
+        "personal_findings_available": false,
+        "external_actions_available": false
+      },
+      "comparison_status": {
+        "version": "advisor-comparison-service-20261101-r2",
+        "state": "held",
+        "personal_findings_available": false,
+        "research_completed": false,
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ]
+      },
+      "reply": "Start with what Medicare is—not with choosing a plan. Medicare is health insurance from the federal government that helps pay for health care. It’s mainly for people 65 or older who meet its eligibility rules; some younger people qualify too.\n\nThe first two pieces to know are:\n• Part A: hospital insurance, including inpatient hospital care.\n• Part B: medical insurance, including doctor visits, outpatient care, tests and many preventive services.\n\nParts A and B together, run by the federal government, are called Original Medicare. You don’t need to learn every term at once; these two pieces give you a starting point.\n\nWould it help to look next at the difference between Original Medicare and Medicare Advantage?",
+      "question": null,
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "notice": null,
+      "elapsed_seconds": 13.89
+    },
+    {
+      "name": "caregiver_mixed",
+      "message": "I'm reviewing Mom's Original Medicare and supplement. I understand the premium is the monthly payment, but I don't understand what a deductible does. Keeping her doctors matters. How should we think about this?",
+      "expectation": "Distinguish understood premium from uncertain deductible; explain the latter and connect it to the coverage review, retaining doctor uncertainty.",
+      "proposed": {
+        "question_target": "T06",
+        "reply": "For your mom’s review, separate two questions: what she could pay and whether she can keep her doctors.\n\nA deductible is an amount you pay for care before coverage pays its share under that benefit’s rules. Unlike a premium, it isn’t a monthly payment just to have coverage. Copays and coinsurance are other costs when you use care.\n\nTo evaluate her Original Medicare and supplement together, we’d need the exact coverage terms—not just a published deductible—to understand her possible payments. Monthly premiums alone won’t show the total cost.\n\nDoctor access needs its own check. Naming her doctors is a starting point, not confirmation that they participate under the coverage being considered. I haven’t verified her doctor access or personal costs.",
+        "question": "Which doctors or hospitals would your mom want to keep?",
+        "education_followups": [],
+        "report_refs": [
+          "guide.subject.role",
+          "guide.intent.goal",
+          "guide.coverage.current"
+        ],
+        "evidence_refs": [
+          "costs",
+          "checks"
+        ],
+        "agenda_update": {
+          "current_concern": "Understand deductibles and evaluate costs while preserving doctor access.",
+          "pause": false
+        },
+        "education": {
+          "purpose": "clarify",
+          "updates": [
+            {
+              "concept_id": "cost_components",
+              "depth": "needs_clarification",
+              "reason": "clarify",
+              "aspect_ids": [
+                "deductible",
+                "premiums",
+                "cost_sharing"
+              ],
+              "evidence_refs": [
+                "costs"
+              ]
+            },
+            {
+              "concept_id": "provider_checks",
+              "depth": "introduced",
+              "reason": "new",
+              "aspect_ids": [
+                "unverified_participation"
+              ],
+              "evidence_refs": [
+                "checks"
+              ]
+            }
+          ],
+          "visual": "none"
+        },
+        "task_work": {
+          "check_ids": [
+            "personal_cost",
+            "coverage_identity",
+            "provider_identity",
+            "provider_participation"
+          ],
+          "blocking_concepts": [
+            "cost_components"
+          ],
+          "next_step": "prepare"
+        }
+      },
+      "learner_context": {
+        "version": "learner-observations-v1",
+        "observations": [
+          {
+            "concept_id": "cost_components",
+            "aspect_ids": [
+              "premiums"
+            ],
+            "signal": "applied",
+            "subject": "learner",
+            "quote": "I understand the premium is the monthly payment",
+            "interpretation": "The learner correctly describes a premium as a monthly payment; this provides limited evidence about that specific cost component."
+          },
+          {
+            "concept_id": "cost_components",
+            "aspect_ids": [
+              "deductible"
+            ],
+            "signal": "uncertain",
+            "subject": "learner",
+            "quote": "I don't understand what a deductible does.",
+            "interpretation": "The learner explicitly reports uncertainty about how a deductible works."
+          }
+        ],
+        "assessment_is_tentative": true,
+        "unobserved_is_unknown": true
+      },
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "task_source": "existing_user_goal_and_agenda",
+        "task_focus": "plan_preparation",
+        "active_checks": [],
+        "checks": [
+          {
+            "check_id": "coverage_identity",
+            "label": "Exact coverage",
+            "report_refs": [
+              "guide.coverage.current",
+              "readiness.RC07.profile.choice"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+            "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+          },
+          {
+            "check_id": "provider_identity",
+            "label": "Clinician and office",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm the intended clinician and exact office location.",
+            "distinction": "A name or office report is not a source identity or a participation check."
+          },
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          },
+          {
+            "check_id": "service_benefit",
+            "label": "Service and benefit conditions",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Check the exact service against the published benefit terms and applicable conditions.",
+            "distinction": "Provider participation does not establish service coverage or required authorization."
+          },
+          {
+            "check_id": "personal_cost",
+            "label": "Personal payment",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the cost basis, included components and missing prices before describing what someone may pay.",
+            "distinction": "A published amount or partial subtotal is not a personal total or quote."
+          },
+          {
+            "check_id": "enrollment_timing",
+            "label": "Enrollment steps and dates",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm applicable enrollment rules and actual dates with the appropriate official service.",
+            "distinction": "A desired start or birthday does not establish eligibility or an effective date."
+          },
+          {
+            "check_id": "coverage_paths",
+            "label": "Coverage choices",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Explain the relevant coverage pieces and consequential tradeoffs before comparing policies.",
+            "distinction": "Understanding a path does not establish personal eligibility or plan fit."
+          },
+          {
+            "check_id": "help_and_logistics",
+            "label": "Practical help and coordination",
+            "report_refs": [
+              "guide.subject.role"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the specific unresolved practical need and prepare questions for the appropriate service.",
+            "distinction": "Helping a relative does not establish permission, financial eligibility or available care."
+          }
+        ],
+        "blocking_concepts": [
+          "cost_components"
+        ],
+        "return_point": null,
+        "personal_findings_available": false,
+        "external_actions_available": false
+      },
+      "comparison_status": {
+        "version": "advisor-comparison-service-20261101-r2",
+        "state": "held",
+        "personal_findings_available": false,
+        "research_completed": false,
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ]
+      },
+      "reply": "For your mom’s review, separate two questions: what she could pay and whether she can keep her doctors.\n\nA deductible is an amount you pay for care before coverage pays its share under that benefit’s rules. Unlike a premium, it isn’t a monthly payment just to have coverage. Copays and coinsurance are other costs when you use care.\n\nTo evaluate her Original Medicare and supplement together, we’d need the exact coverage terms—not just a published deductible—to understand her possible payments. Monthly premiums alone won’t show the total cost.\n\nDoctor access needs its own check. Naming her doctors is a starting point, not confirmation that they participate under the coverage being considered. I haven’t verified her doctor access or personal costs.",
+      "question": "Which doctors or hospitals would your mom want to keep?",
+      "generated": {
+        "status": "complete",
+        "move": "T06"
+      },
+      "notice": null,
+      "elapsed_seconds": 17.97
+    },
+    {
+      "name": "experienced_self",
+      "message": "I'm reviewing my Medicare Advantage plan. I know the premium is what I pay monthly and copays are what I pay for care. Please skip the basics. I want help finding out if my cardiologist is in network next year.",
+      "expectation": "Honor the requested depth; work toward exact plan, year and clinician checks without asserting network participation.",
+      "proposed": {
+        "question_target": "T06",
+        "reply": "We can skip the basics and focus on your cardiologist. I can help prepare a precise network check, but I can’t verify next year’s participation here because verified plan and provider sources aren’t available.\n\nThe check needs to match the exact plan, the cardiologist’s office location and next year—not just whether the office accepts the insurance company. Confirmation should come from both the plan and the office for that specific coverage period. A doctor’s name alone won’t establish network status.",
+        "question": "What is your cardiologist’s name and the office location where you see them?",
+        "education_followups": [],
+        "report_refs": [],
+        "evidence_refs": [
+          "checks"
+        ],
+        "agenda_update": {
+          "current_concern": "Confirm whether the cardiologist is in network next year.",
+          "pause": false
+        },
+        "education": {
+          "purpose": "answer",
+          "updates": [
+            {
+              "concept_id": "provider_checks",
+              "depth": "introduced",
+              "reason": "new",
+              "aspect_ids": [
+                "plan_specific_participation",
+                "unverified_participation"
+              ],
+              "evidence_refs": [
+                "checks"
+              ]
+            }
+          ],
+          "visual": "none"
+        },
+        "task_work": {
+          "check_ids": [
+            "coverage_identity",
+            "provider_identity",
+            "provider_participation"
+          ],
+          "blocking_concepts": [],
+          "next_step": "prepare"
+        }
+      },
+      "learner_context": {
+        "version": "learner-observations-v1",
+        "observations": [
+          {
+            "concept_id": "cost_components",
+            "aspect_ids": [
+              "premiums",
+              "cost_sharing"
+            ],
+            "signal": "applied",
+            "subject": "learner",
+            "quote": "I know the premium is what I pay monthly and copays are what I pay for care.",
+            "interpretation": "Distinguishes monthly premiums from copays when using care; does not establish understanding of other cost components."
+          },
+          {
+            "concept_id": "medicare_basics",
+            "aspect_ids": [],
+            "signal": "skip",
+            "subject": "learner",
+            "quote": "Please skip the basics.",
+            "interpretation": "Explicitly asks to skip basic education, without establishing broader Medicare knowledge."
+          }
+        ],
+        "assessment_is_tentative": true,
+        "unobserved_is_unknown": true
+      },
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "task_source": "existing_user_goal_and_agenda",
+        "task_focus": "plan_preparation",
+        "active_checks": [],
+        "checks": [
+          {
+            "check_id": "coverage_identity",
+            "label": "Exact coverage",
+            "report_refs": [
+              "guide.coverage.current",
+              "readiness.RC07.profile.choice"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+            "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+          },
+          {
+            "check_id": "provider_identity",
+            "label": "Clinician and office",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm the intended clinician and exact office location.",
+            "distinction": "A name or office report is not a source identity or a participation check."
+          },
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          },
+          {
+            "check_id": "service_benefit",
+            "label": "Service and benefit conditions",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Check the exact service against the published benefit terms and applicable conditions.",
+            "distinction": "Provider participation does not establish service coverage or required authorization."
+          },
+          {
+            "check_id": "personal_cost",
+            "label": "Personal payment",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the cost basis, included components and missing prices before describing what someone may pay.",
+            "distinction": "A published amount or partial subtotal is not a personal total or quote."
+          },
+          {
+            "check_id": "enrollment_timing",
+            "label": "Enrollment steps and dates",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm applicable enrollment rules and actual dates with the appropriate official service.",
+            "distinction": "A desired start or birthday does not establish eligibility or an effective date."
+          },
+          {
+            "check_id": "coverage_paths",
+            "label": "Coverage choices",
+            "report_refs": [
+              "guide.coverage.current"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Explain the relevant coverage pieces and consequential tradeoffs before comparing policies.",
+            "distinction": "Understanding a path does not establish personal eligibility or plan fit."
+          },
+          {
+            "check_id": "help_and_logistics",
+            "label": "Practical help and coordination",
+            "report_refs": [
+              "guide.subject.role"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the specific unresolved practical need and prepare questions for the appropriate service.",
+            "distinction": "Helping a relative does not establish permission, financial eligibility or available care."
+          }
+        ],
+        "blocking_concepts": [],
+        "return_point": null,
+        "personal_findings_available": false,
+        "external_actions_available": false
+      },
+      "comparison_status": {
+        "version": "advisor-comparison-service-20261101-r2",
+        "state": "held",
+        "personal_findings_available": false,
+        "research_completed": false,
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ]
+      },
+      "reply": "We can skip the basics and focus on your cardiologist. I can help prepare a precise network check, but I can’t verify next year’s participation here because verified plan and provider sources aren’t available.\n\nThe check needs to match the exact plan, the cardiologist’s office location and next year—not just whether the office accepts the insurance company. Confirmation should come from both the plan and the office for that specific coverage period. A doctor’s name alone won’t establish network status.",
+      "question": "What is your cardiologist’s name and the office location where you see them?",
+      "generated": {
+        "status": "complete",
+        "move": "T06"
+      },
+      "notice": null,
+      "elapsed_seconds": 15.14
+    },
+    {
+      "name": "confident_misconception",
+      "message": "I'm researching options for myself. I know a zero premium means all my medical care is free, so I just need a zero premium plan. Is that the right way to choose?",
+      "expectation": "Correct the cost misconception without shaming, explain a bounded distinction and avoid treating confidence as understanding or suggesting an unsupported plan.",
+      "proposed": {
+        "question_target": null,
+        "reply": "Not quite—a zero plan premium does not mean free medical care. Wanting a lower monthly payment makes sense, but the premium is only one part of the cost.\n\n• **Premium:** what you pay each month for coverage.\n• **Deductible:** what you pay before coverage pays its share under the benefit’s rules.\n• **Copays and coinsurance:** costs you pay when you use care.\n\nA zero-premium plan can still have those costs when you see a doctor or receive treatment. So premium alone isn’t a sound way to choose: compare monthly payments alongside what you would pay for care, and check the exact plan’s doctors and prescription coverage. A published premium is not your personal total cost.",
+        "question": "If a plan has no monthly premium but charges a copay for a doctor visit, would that visit necessarily be free?",
+        "education_followups": [],
+        "report_refs": [
+          "guide.needs.costPreference"
+        ],
+        "evidence_refs": [
+          "costs",
+          "checks"
+        ],
+        "agenda_update": {
+          "current_concern": "Whether a zero-premium plan means free medical care and is enough to choose coverage.",
+          "pause": false
+        },
+        "education": {
+          "purpose": "clarify",
+          "updates": [
+            {
+              "concept_id": "cost_components",
+              "depth": "needs_clarification",
+              "reason": "clarify",
+              "aspect_ids": [
+                "premiums",
+                "deductible",
+                "cost_sharing_role"
+              ],
+              "evidence_refs": [
+                "costs"
+              ]
+            }
+          ],
+          "visual": "none"
+        },
+        "task_work": {
+          "check_ids": [
+            "personal_cost"
+          ],
+          "blocking_concepts": [
+            "cost_components"
+          ],
+          "next_step": "clarify"
+        }
+      },
+      "learner_context": {
+        "version": "learner-observations-v1",
+        "observations": [
+          {
+            "concept_id": "cost_components",
+            "aspect_ids": [
+              "premiums",
+              "cost_sharing",
+              "total_cost"
+            ],
+            "signal": "misconception",
+            "subject": "learner",
+            "quote": "I know a zero premium means all my medical care is free, so I just need a zero premium plan.",
+            "interpretation": "The learner appears to equate a zero monthly premium with having no costs when receiving care."
+          }
+        ],
+        "assessment_is_tentative": true,
+        "unobserved_is_unknown": true
+      },
+      "task_work": {
+        "version": "task-work-20261103-r1",
+        "task_source": "existing_user_goal_and_agenda",
+        "task_focus": "plan_preparation",
+        "active_checks": [],
+        "checks": [
+          {
+            "check_id": "coverage_identity",
+            "label": "Exact coverage",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Use the exact plan name, identifier and year from the coverage documents.",
+            "distinction": "A reported carrier or coverage type is not an independently identified exact plan."
+          },
+          {
+            "check_id": "provider_identity",
+            "label": "Clinician and office",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm the intended clinician and exact office location.",
+            "distinction": "A name or office report is not a source identity or a participation check."
+          },
+          {
+            "check_id": "provider_participation",
+            "label": "Plan participation",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Ask the intended office and plan to confirm participation for the exact plan, location and period.",
+            "distinction": "An office accepting a carrier does not establish participation in an exact plan."
+          },
+          {
+            "check_id": "service_benefit",
+            "label": "Service and benefit conditions",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Check the exact service against the published benefit terms and applicable conditions.",
+            "distinction": "Provider participation does not establish service coverage or required authorization."
+          },
+          {
+            "check_id": "personal_cost",
+            "label": "Personal payment",
+            "report_refs": [
+              "guide.needs.costPreference"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the cost basis, included components and missing prices before describing what someone may pay.",
+            "distinction": "A published amount or partial subtotal is not a personal total or quote."
+          },
+          {
+            "check_id": "enrollment_timing",
+            "label": "Enrollment steps and dates",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Confirm applicable enrollment rules and actual dates with the appropriate official service.",
+            "distinction": "A desired start or birthday does not establish eligibility or an effective date."
+          },
+          {
+            "check_id": "coverage_paths",
+            "label": "Coverage choices",
+            "report_refs": [],
+            "input_states": [],
+            "input_state": "not_in_current_context",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Explain the relevant coverage pieces and consequential tradeoffs before comparing policies.",
+            "distinction": "Understanding a path does not establish personal eligibility or plan fit."
+          },
+          {
+            "check_id": "help_and_logistics",
+            "label": "Practical help and coordination",
+            "report_refs": [
+              "guide.subject.role"
+            ],
+            "input_states": [],
+            "input_state": "reported_inputs_available",
+            "verification_state": "not_verified",
+            "execution_state": "not_started",
+            "next_step": "Identify the specific unresolved practical need and prepare questions for the appropriate service.",
+            "distinction": "Helping a relative does not establish permission, financial eligibility or available care."
+          }
+        ],
+        "blocking_concepts": [
+          "cost_components"
+        ],
+        "return_point": null,
+        "personal_findings_available": false,
+        "external_actions_available": false
+      },
+      "comparison_status": {
+        "version": "advisor-comparison-service-20261101-r2",
+        "state": "held",
+        "personal_findings_available": false,
+        "research_completed": false,
+        "reason_codes": [
+          "CONDITION_UNRESOLVED",
+          "EXACT_RELEASE_REQUIRED",
+          "POLICY_NOT_ACCEPTED",
+          "SOURCE_MISSING"
+        ]
+      },
+      "reply": "Not quite—a zero plan premium does not mean free medical care. Wanting a lower monthly payment makes sense, but the premium is only one part of the cost.\n\n• **Premium:** what you pay each month for coverage.\n• **Deductible:** what you pay before coverage pays its share under the benefit’s rules.\n• **Copays and coinsurance:** costs you pay when you use care.\n\nA zero-premium plan can still have those costs when you see a doctor or receive treatment. So premium alone isn’t a sound way to choose: compare monthly payments alongside what you would pay for care, and check the exact plan’s doctors and prescription coverage. A published premium is not your personal total cost.\n\nIf a plan has no monthly premium but charges a copay for a doctor visit, would that visit necessarily be free?",
+      "question": null,
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "notice": null,
+      "elapsed_seconds": 14.7
+    }
+  ],
+  "stage_limit": 8,
+  "elapsed_seconds": 61.89,
+  "accounted_usd": 0.201268,
+  "measured_usd": 0.201268
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "daylight.provider-discovery-independent-review.v1",
+  "recorded_at": "2026-11-02T15:09:20.020872+00:00",
+  "disposition": "P2_guard_gap_corrected_and_independently_reproduced_closed",
+  "code_sha256": {
+    "infrastructure/daylight-data/src/daylight_data/serving/provider_candidates.py": "87fe699f9efc3f801abfc7f639dbc9ad6b2f6f2673423a5522d463993559cdc1",
+    "infrastructure/daylight-data/tests/test_research_provider_candidates.py": "21089e566ed272d24a08090bc9c6ccf67f2125c8f7c1e7463f753a4595e527a4",
+    "infrastructure/daylight-data/tools/check_provider_candidates.py": "3c00b92b2a96067cee12e3838d6a47677525b50ef15509d87ea5ba1578a76d79",
+    "infrastructure/daylight-data/src/daylight_data/serving/provider_identity.py": "6450a7a0127f96c17b7fd4d78895e7d155dcc46dac848738b890934635c9ced0"
+  },
+  "isolated_tests": {
+    "before_fix": {
+      "passed": 202,
+      "new_discovery": 47,
+      "existing": 155,
+      "log": "provider-discovery-independent-tests-r1.log",
+      "sha256": "76ae1d17c428083e35d674f4f085b4c408b5fb1abf8d420d47d6803185d3f153"
+    },
+    "after_fix": {
+      "passed": 207,
+      "new_discovery": 52,
+      "existing": 155,
+      "log": "provider-discovery-independent-tests-r2.log",
+      "sha256": "6cfcaee0d0602effb12c09298e62480d7d286e41813fbf2c74bab6da5a95b775"
+    }
+  },
+  "finding": {
+    "priority": "P2",
+    "location": "provider_candidates._selected_record",
+    "description": "An impossible source ordinal with self-consistent synthetic IDs, or altered entity/source ordinal_basis, was accepted as complete retained lineage.",
+    "affected_original_sha256": "cd468bb7b753107932fec81f5ae90f326910a4e097cfcd6de8928000335bad11",
+    "live_source_corruption_observed": false,
+    "synthetic_probes": [
+      {
+        "case": "source ordinal TABLE_ROWS[sources]+1, recomputed record_id=digest([snapshot_id,sources,ordinal]) and entity_id",
+        "before": "accepted source_entity_observed",
+        "after": "PROVIDER_DISCOVERY_LINEAGE_MISMATCH"
+      },
+      {
+        "case": "source ordinal_basis=untrusted_order",
+        "before": "accepted source_entity_observed",
+        "after": "PROVIDER_DISCOVERY_LINEAGE_MISMATCH"
+      },
+      {
+        "case": "entity ordinal_basis=untrusted_order",
+        "before": "accepted source_entity_observed",
+        "after": "PROVIDER_DISCOVERY_LINEAGE_MISMATCH"
+      }
+    ],
+    "correction_owner": "root",
+    "reviewer_implementation_edits": 0
+  },
+  "reviewed_safeguards": [
+    "All tokens must match name-bearing strings in one source alias; no alias splicing or metadata-use match.",
+    "Escaped bound literal percent/underscore/exclamation, bounded request/page/response and source-order cursor.",
+    "Raw row hash, projection/native values, selected derivation/file/adapter keys and native locator parent/hash/claimant checks.",
+    "Exact source population control; missing observation/source stays partial.",
+    "Source permission registration is explicit and absence is not permission; every consumer purpose stays held.",
+    "Names/entities/roles/sites remain separate; no reported-city exclusion, clinical identity, current practice or network inference."
+  ],
+  "existing_actual_audit": {
+    "path": "audit-evidence/comparison-milestone-20261102/actual-provider-discovery-r1.json",
+    "sha256": "140b700e8199e583d1d3096bfaf2927e0c0df9bed70cf32af796bb797a1ef8d0",
+    "checks_passed": 31,
+    "queries": 8,
+    "scope": "Historical pre-correction exact code binding; no current-code actual PostgreSQL replay by this reviewer."
+  },
+  "limitations": [
+    "Unit fixtures exercise Python guards and SQL binding, not PostgreSQL JSONPath/ILIKE evaluation. The existing eight-query actual audit covers its declared cases; root will issue a new code-bound replay after freeze.",
+    "SQL uses PostgreSQL ILIKE/collation while defensive Python matching uses casefold; this is not a claim of complete Unicode-normalized name discovery. No-result remains scoped unknown.",
+    "No customer identity, office selection, network or source-release acceptance is established."
+  ],
+  "actions": {
+    "implementation_edits": 0,
+    "live_postgres_queries": 0,
+    "customer_store_reads": false,
+    "model_calls": 0,
+    "source_schema_or_runtime_writes": 0,
+    "provider_incident_packet_changes": 0
+  }
+}

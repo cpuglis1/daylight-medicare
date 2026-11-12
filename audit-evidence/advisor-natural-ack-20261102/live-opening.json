@@ -1,0 +1,94 @@
+{
+  "fictional_input": true,
+  "profile_saved": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 2,
+  "source_sha256": "12ba85a11a5d32e36d0d8180116638d67e2dcb6eae84c27ba4704b1f19b65e7b",
+  "message": "I turn 65 in April and would like to get signed up for Medicare soon.",
+  "reply": "I can help you get started. Since sign-up timing can depend on whether you have other health coverage now, the key first step is to understand what insurance you have today.",
+  "question": {
+    "id": "T05",
+    "inventoryIds": [
+      "T05"
+    ],
+    "question": "What health insurance do you have now?",
+    "why": "",
+    "choices": [
+      [
+        "original",
+        "Original Medicare (Parts A and B)"
+      ],
+      [
+        "advantage",
+        "Medicare Advantage (Part C)"
+      ],
+      [
+        "medigap",
+        "Medicare Supplement / Medigap"
+      ],
+      [
+        "drug",
+        "Separate prescription drug plan"
+      ],
+      [
+        "employer",
+        "Current-job coverage"
+      ],
+      [
+        "retiree",
+        "Retiree coverage"
+      ],
+      [
+        "cobra",
+        "COBRA"
+      ],
+      [
+        "military",
+        "VA, TRICARE or military coverage"
+      ],
+      [
+        "medicaid",
+        "Medicaid"
+      ],
+      [
+        "none",
+        "None"
+      ],
+      [
+        "unknown",
+        "Not sure"
+      ]
+    ],
+    "multi": true,
+    "entity": "profile",
+    "fields": [],
+    "signature": "T05.profile.choice",
+    "atomicRequests": 1
+  },
+  "generated": {
+    "status": "complete",
+    "move": "T05"
+  },
+  "metrics": {
+    "llmCalls": 2,
+    "synthetic": false,
+    "stageMs": {
+      "extraction": 3967,
+      "composition": 3484
+    }
+  },
+  "personal_outputs_held": true,
+  "receipts": [
+    {
+      "status": "settled",
+      "charged_nano_usd": 7679500,
+      "measured_nano_usd": 7679500
+    },
+    {
+      "status": "settled",
+      "charged_nano_usd": 20035000,
+      "measured_nano_usd": 20035000
+    }
+  ],
+  "accounted_usd": 0.0277145
+}

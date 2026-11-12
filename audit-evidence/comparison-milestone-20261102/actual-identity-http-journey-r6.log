@@ -1,0 +1,14 @@
+Daylight extraction unavailable code=invalid_structure
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/audit-evidence/comparison-milestone-20261102/run_actual_journey.py", line 292, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/Users/cep4u/daylight/audit-evidence/comparison-milestone-20261102/run_actual_journey.py", line 288, in main
+    try: run(server, transport, args.output.resolve(), args.input_manifest)
+         ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/audit-evidence/comparison-milestone-20261102/run_actual_journey.py", line 132, in run
+    first = journey.turn({'type': 'message', 'message': CARE}, ai=True)
+  File "/Users/cep4u/daylight/audit-evidence/comparison-milestone-20261102/run_actual_journey.py", line 109, in turn
+    if status != 200: raise AssertionError(('turn', status, out))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('turn', 503, {'error': 'The reply could not be checked. Your information is unchanged.'})

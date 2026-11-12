@@ -1,0 +1,35 @@
+--- audit-evidence/comparison-milestone-20261102/run_actual_journey.py
++++ audit-evidence/comparison-milestone-20261102/isolated-compatibility-r1/run_isolated_actual_journey.py
+@@ -17,13 +17,22 @@
+ import time
+ import uuid
+ 
+-ROOT = Path(__file__).resolve().parents[2]
++ROOT = Path(__file__).resolve().parents[3]
++REAL_RESEARCH_ROOT = Path('/Users/cep4u/daylight')
+ APP = ROOT / 'alternatives/advisor-first'
+ sys.path.insert(0, str(APP))
+ from server import build
+ from chat import ResponsesClient
+ from identity_journey import local_identity_journey
+ from natural_flow import CONTEXT_POLICY
++
++# Preload every serving dependency from the captured code before the factory
++# inserts its real repository path for checked immutable controls/socket.
++sys.path.insert(0, str(ROOT / 'infrastructure/daylight-data/src'))
++import daylight_data.serving.drug_candidates
++import daylight_data.serving.identity
++import daylight_data.serving.provider_identity
++import daylight_data.serving.provider_candidates
+ 
+ CARE = ('I want to compare coverage for myself. I understand the basics. '
+         'I want to keep Pacific Nephrology Medical Grp in Inglewood. '
+@@ -273,7 +282,7 @@
+     args = parser.parse_args()
+     transport = ScriptedTransport()
+     with tempfile.TemporaryDirectory(prefix='daylight-milestone-fictional-') as temporary:
+-        service = local_identity_journey(internal_research=True)
++        service = local_identity_journey(repository_root=REAL_RESEARCH_ROOT, internal_research=True)
+         server = build(args.serve or 0, fixture=True, database=Path(temporary)/'fictional.sqlite3',
+             identity_service=service, client=ResponsesClient(key='synthetic', model='gpt-5.4', transport=transport))
+         # Only the transport is simulated: use the current two-stage flow and

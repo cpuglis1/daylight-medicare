@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47870,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9130,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 290,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9420
+    },
+    "text": "{\"question_target\":\"T10\",\"reply\":\"That helps. Since she already has Original Medicare, the main comparison is usually what to add to it, or whether to compare that route with Medicare Advantage later. With Original Medicare, the key moving pieces are separate drug coverage and whether a Medigap policy would help with out-of-pocket medical costs. Medigap works with Original Medicare, not with Medicare Advantage. We can keep this practical and go one step at a time based on what matters for her care and budget.\",\"question\":\"What matters most when comparing her options right now: doctors and hospitals, prescriptions, total cost, more predictable costs, travel, something else, or not sure yet?\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.intent.goal\",\"guide.coverage.current\",\"readiness.RC01.profile.choice\"],\"evidence_refs\":[\"options\"],\"agenda_update\":{\"current_concern\":\"understanding how to compare coverage options for mother with Original Medicare\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"medigap\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"cost_sharing_role\",\"route_relationship\",\"separate_drugs\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\"],\"blocking_concepts\":[],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 5.407124
+}

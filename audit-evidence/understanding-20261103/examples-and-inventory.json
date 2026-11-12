@@ -1,0 +1,1185 @@
+{
+  "inventory": {
+    "version": "understanding-20261103-r1",
+    "registry_binding": "8823a8b974ea311eac625df7be43fb97074253217c9358748b19d989686ad750",
+    "coverage_year": 2026,
+    "source_kind": "retained_project_educational_statements",
+    "official_quotation_verified_by_this_registry": false,
+    "capabilities": {
+      "transition": {
+        "title": "Your coverage transition",
+        "fact_ids": [
+          "enrollment_intro",
+          "cobra_timing",
+          "dates"
+        ],
+        "layers": [
+          "L13",
+          "L11",
+          "L14"
+        ],
+        "personal_state": "held",
+        "dependencies": [
+          "current insurance type",
+          "current employment and whose job supplies coverage",
+          "employer size where relevant",
+          "actual Medicare enrollment",
+          "relevant event dates and their precision",
+          "accepted applicable rules and exact release"
+        ],
+        "gaps": [
+          "L13 R18 review and exact personal timing authority",
+          "applicable personal case evidence",
+          "separate Medigap rights review"
+        ],
+        "blocks": [
+          {
+            "id": "insurance_kind",
+            "label": "Start with the coverage you have",
+            "text": "The kind of insurance, current employment and employer size can matter to enrollment timing.",
+            "evidence_refs": [
+              "enrollment_intro"
+            ]
+          },
+          {
+            "id": "cobra",
+            "label": "COBRA has different timing rules",
+            "text": "COBRA is not coverage based on current employment and does not extend the time to enroll in Part B.",
+            "evidence_refs": [
+              "cobra_timing"
+            ]
+          },
+          {
+            "id": "window",
+            "label": "Signing up and coverage starting are different",
+            "text": "For most people first eligible at 65, the initial sign-up window spans seven months. Coverage start also depends on when and how enrollment happens; first-of-month birthdays have special rules.",
+            "evidence_refs": [
+              "enrollment_intro"
+            ]
+          },
+          {
+            "id": "confirm_dates",
+            "label": "Confirm the actual start",
+            "text": "A birthday or preferred start is not an actual Medicare effective date. Social Security confirms the enrollment route and effective date.",
+            "evidence_refs": [
+              "dates"
+            ]
+          }
+        ],
+        "required_case_families": [
+          "current employment versus COBRA versus retiree coverage",
+          "self versus spouse employment",
+          "unknown employer size",
+          "first-of-month birthday",
+          "unknown and partial dates",
+          "job and insurance end on different dates",
+          "desired versus actual start",
+          "correction invalidates dependent dates",
+          "no rule authority preserves preparation"
+        ]
+      },
+      "coverage_paths": {
+        "title": "How coverage fits together",
+        "fact_ids": [
+          "routesintro",
+          "options",
+          "original",
+          "advantage",
+          "drugs",
+          "medigap",
+          "switching",
+          "parts"
+        ],
+        "layers": [
+          "L01",
+          "L03",
+          "L04",
+          "L10",
+          "L11",
+          "L13",
+          "L14"
+        ],
+        "personal_state": "held",
+        "dependencies": [
+          "accepted path-specific applicability",
+          "exact products, period and geography for personal findings"
+        ],
+        "gaps": [
+          "personal path eligibility and timing",
+          "plan-specific access and benefit checks",
+          "state-specific buying and switching rights"
+        ],
+        "blocks": [
+          {
+            "id": "original_base",
+            "route": "original",
+            "label": "Original Medicare",
+            "text": "Parts A and B through the federal program.",
+            "evidence_refs": [
+              "routesintro"
+            ],
+            "alternative_support": [
+              [
+                "original"
+              ],
+              [
+                "options"
+              ],
+              [
+                "parts"
+              ]
+            ]
+          },
+          {
+            "id": "advantage_base",
+            "route": "advantage",
+            "label": "Medicare Advantage",
+            "text": "Parts A and B through a Medicare-approved private plan.",
+            "evidence_refs": [
+              "routesintro"
+            ],
+            "alternative_support": [
+              [
+                "advantage"
+              ],
+              [
+                "options"
+              ]
+            ]
+          },
+          {
+            "id": "original_additions",
+            "route": "original",
+            "label": "Optional additions",
+            "text": "Separate Part D for drugs; Medigap may help with your share of costs.",
+            "evidence_refs": [
+              "options"
+            ],
+            "alternative_support": [
+              [
+                "original"
+              ]
+            ]
+          },
+          {
+            "id": "advantage_drugs",
+            "route": "advantage",
+            "label": "Drug coverage",
+            "text": "Most Medicare Advantage plans include Part D. Check the exact plan.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "combination",
+            "label": "Where Medigap belongs",
+            "text": "Medigap works with Original Medicare, not Medicare Advantage. Drug coverage is separate.",
+            "evidence_refs": [
+              "medigap"
+            ],
+            "alternative_support": [
+              [
+                "options"
+              ]
+            ]
+          },
+          {
+            "id": "original_access",
+            "route": "original",
+            "label": "Access to care",
+            "text": "You can use a U.S. doctor who takes Medicare.",
+            "evidence_refs": [
+              "original"
+            ],
+            "alternative_support": [
+              [
+                "parts"
+              ]
+            ]
+          },
+          {
+            "id": "advantage_access",
+            "route": "advantage",
+            "label": "Access and rules",
+            "text": "Doctors, costs and rules vary by plan and need checking.",
+            "evidence_refs": [
+              "advantage"
+            ]
+          },
+          {
+            "id": "part_b",
+            "label": "Part B premium",
+            "text": "The Part B premium still applies with either coverage route.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "switching",
+            "label": "Future flexibility",
+            "text": "Medigap buying rights need a separate check. The federal six-month period depends on both age and Part B enrollment; other conditions and rights may matter.",
+            "evidence_refs": [
+              "switching"
+            ]
+          }
+        ],
+        "required_case_families": [
+          "beginner sees only explained pieces",
+          "Medigap versus Advantage compatibility",
+          "optional separate drug coverage",
+          "plan-specific restrictions remain unknown",
+          "switching rights do not follow from product benefits",
+          "same evidence regardless of commercial arrangements"
+        ]
+      },
+      "costs": {
+        "title": "What makes up your costs",
+        "fact_ids": [
+          "costs",
+          "medical_limit"
+        ],
+        "layers": [
+          "L01",
+          "L03",
+          "L05",
+          "L06",
+          "L10",
+          "L12"
+        ],
+        "personal_state": "held",
+        "dependencies": [
+          "accepted exact components and methods",
+          "explicit period, units and scenario quantities",
+          "included and excluded services",
+          "network and drug phase",
+          "separate assistance and premium qualifications"
+        ],
+        "gaps": [
+          "complete accepted plan benefit meaning and conditions",
+          "accepted benefit accumulation and cap methods",
+          "personal pharmacy prices and Medigap quotes",
+          "personal assistance applicability"
+        ],
+        "blocks": [
+          {
+            "id": "premiums",
+            "label": "Each month",
+            "text": "Premiums pay for coverage. A premium alone is not your total cost.",
+            "evidence_refs": [
+              "costs"
+            ]
+          },
+          {
+            "id": "care",
+            "label": "When you use care",
+            "text": "Deductibles, copays and coinsurance depend on the benefit's rules.",
+            "evidence_refs": [
+              "costs"
+            ]
+          },
+          {
+            "id": "medical_cap",
+            "label": "What a limit covers",
+            "text": "A Medicare Advantage limit applies to covered medical cost sharing. Premiums and drug costs are separate.",
+            "evidence_refs": [
+              "medical_limit"
+            ]
+          },
+          {
+            "id": "original_limit",
+            "label": "Original Medicare on its own",
+            "text": "Parts A and B have no yearly medical spending cap on their own.",
+            "evidence_refs": [
+              "medical_limit"
+            ]
+          }
+        ],
+        "required_case_families": [
+          "monthly versus annual versus benefit period",
+          "explicit scenario quantities",
+          "unknown is not zero",
+          "overlapping components cannot be added",
+          "medical caps exclude premiums and drugs",
+          "partial subtotal is not total cost",
+          "changed inputs or expired review invalidate output",
+          "published amounts are not personal quotes"
+        ]
+      }
+    },
+    "claims": [
+      {
+        "claim_id": "advantage",
+        "retained_statement": "Medicare hospital and medical coverage through a private insurance company’s plan instead of Original Medicare. Most plans include drug coverage. Doctors, costs, and rules vary by plan. The Part B premium still applies; some plans help pay all or part of it. Check each plan's doctors, drug coverage, costs, and rules.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=advantage].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "cobra_timing",
+        "retained_statement": "COBRA continues a former employer group health plan for a limited time after employment or dependent coverage ends. For Medicare enrollment, COBRA is not coverage based on current employment. For people turning 65 who have not signed up for Medicare, Medicare.gov warns not to wait until COBRA ends to sign up for Part B; COBRA does not extend the time to enroll. A preferred start after COBRA ends is a preference, not a finding that waiting is safe. Use actual Medicare enrollment status and the applicable official enrollment rules to establish a personal next step; do not calculate a personal deadline or effective date from the COBRA end alone.",
+        "local_evidence": {
+          "path": "advisor-evidence.json",
+          "locator": "facts[id=cobra_timing].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+          "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65/cobra-coverage"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "costs",
+        "retained_statement": "A premium is the amount you pay each month for coverage. A deductible is an amount you pay before coverage pays its share under the benefit's rules. Copays and coinsurance are costs when you use care. A plan's premium alone is not your total cost.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=costs].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/costs/medicare-costs"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "dates",
+        "retained_statement": "A birthday and current work coverage do not establish when Part B actually starts. Social Security confirms the enrollment route and effective date. Unknown dates stay unknown. The timeline uses the facts entered in this tab. An unknown date stays an open check; special enrollment rights may need separate confirmation.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=dates].text"
+        },
+        "official_source_urls": [
+          "https://www.ssa.gov/medicare/sign-up"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "drugs",
+        "retained_statement": "Part D helps pay for prescription medicines. With Original Medicare, you can join a separate Medicare drug plan. Most Medicare Advantage plans include Part D. Check the exact drug list, restrictions, pharmacy, and costs before relying on coverage for a particular medicine.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=drugs].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/health-drug-plans/part-d"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "enrollment_intro",
+        "retained_statement": "For most people first becoming eligible at 65, the Initial Enrollment Period is a 7-month window: the 3 months before the birthday month, that month, and the 3 months after. The date coverage begins also depends on when enrollment happens and which enrollment period applies. Current health insurance matters: Medicare.gov checks the kind of insurance, whether job-based coverage comes from current employment, and employer size before giving timing guidance. Do not turn this general explanation into a personal start date, deadline, eligibility decision or permission to delay Part B. A first-of-month birthday has special start-date rules.",
+        "local_evidence": {
+          "path": "advisor-evidence.json",
+          "locator": "facts[id=enrollment_intro].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+          "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "medical_limit",
+        "retained_statement": "A Medicare Advantage limit applies to covered medical cost sharing. Premiums and drug costs are separate. Original Medicare Parts A and B have no yearly medical spending cap on their own.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=medical_limit].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/costs/medicare-costs"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "medigap",
+        "retained_statement": "Medicare Supplement Insurance, a private policy that helps pay your share of costs under Original Medicare. Same thing as a Supplement. It works with Original Medicare, not Medicare Advantage. Drug coverage is separate. Check your enrollment rights before changing existing coverage.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=medigap].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "options",
+        "retained_statement": "There are two main routes. Original Medicare is Parts A and B; you can add a separate drug plan and may be able to buy Medigap to help with your share of costs. Medicare Advantage provides A and B through a private plan, and most plans include drug coverage. Medigap goes with Original Medicare, not Medicare Advantage. You still pay the Part B premium with either route.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=options].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "original",
+        "retained_statement": "Parts A and B together, run by the federal government and accepted by any U.S. doctor who takes Medicare. You can add separate drug coverage (Part D) and may be able to buy a Medigap policy for certain A/B costs.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=original].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "parts",
+        "retained_statement": "Part A: Hospital insurance: inpatient hospital care, skilled nursing facility care, hospice and some home health care.\n\nPart B: Medical insurance: doctors, outpatient care, tests, equipment and many preventive services.\n\nParts A and B together, run by the federal government and accepted by any U.S. doctor who takes Medicare.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=parts].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "routesintro",
+        "retained_statement": "Original Medicare is Parts A and B through the federal program. Medicare Advantage is a private plan approved by Medicare that provides Parts A and B. Both routes provide Medicare coverage, with different rules and costs. We can add the other coverage pieces after this distinction is clear.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=routesintro].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      },
+      {
+        "claim_id": "switching",
+        "retained_statement": "The federal six-month age-65 Medigap period depends on both age and Part B enrollment. Insurers cannot use medical underwriting to refuse a policy or charge more because of health during this period; other conditions and special rights may still matter.",
+        "local_evidence": {
+          "path": "web/teaching-facts.json",
+          "locator": "facts[id=switching].text"
+        },
+        "official_source_urls": [
+          "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy"
+        ],
+        "scope": "general_education",
+        "exceptions_and_conditions": "preserved_in_retained_statement",
+        "review_state": "incumbent_project_teaching_not_new_independent_review",
+        "permitted_uses": [
+          "general_education"
+        ],
+        "personal_use": "held",
+        "effective_period": "general_teaching_in_2026_pilot_not_a_personal_rule_release",
+        "review_due": "2026-11-24"
+      }
+    ],
+    "fact_count": 13,
+    "personal_purposes": "held"
+  },
+  "examples": {
+    "fictional_reports": true,
+    "guides": [
+      {
+        "version": "understanding-20261103-r1",
+        "registry_binding": "8823a8b974ea311eac625df7be43fb97074253217c9358748b19d989686ad750",
+        "capability": "transition",
+        "title": "Your coverage transition",
+        "coverage_year": 2026,
+        "purpose": "general_education",
+        "state": "educational",
+        "evidence_refs": [
+          "enrollment_intro",
+          "cobra_timing",
+          "dates"
+        ],
+        "blocks": [
+          {
+            "id": "insurance_kind",
+            "label": "Start with the coverage you have",
+            "text": "The kind of insurance, current employment and employer size can matter to enrollment timing.",
+            "evidence_refs": [
+              "enrollment_intro"
+            ]
+          },
+          {
+            "id": "cobra",
+            "label": "COBRA has different timing rules",
+            "text": "COBRA is not coverage based on current employment and does not extend the time to enroll in Part B.",
+            "evidence_refs": [
+              "cobra_timing"
+            ]
+          },
+          {
+            "id": "window",
+            "label": "Signing up and coverage starting are different",
+            "text": "For most people first eligible at 65, the initial sign-up window spans seven months. Coverage start also depends on when and how enrollment happens; first-of-month birthdays have special rules.",
+            "evidence_refs": [
+              "enrollment_intro"
+            ]
+          },
+          {
+            "id": "confirm_dates",
+            "label": "Confirm the actual start",
+            "text": "A birthday or preferred start is not an actual Medicare effective date. Social Security confirms the enrollment route and effective date.",
+            "evidence_refs": [
+              "dates"
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+            "label": "Getting started with enrollment timing"
+          },
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start",
+            "label": "Medicare.gov: When coverage starts"
+          },
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65",
+            "label": "COBRA and Medicare timing"
+          },
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65/cobra-coverage",
+            "label": "Medicare.gov: COBRA coverage"
+          },
+          {
+            "url": "https://www.ssa.gov/medicare/sign-up",
+            "label": "Dates depend on your situation"
+          }
+        ],
+        "personal_result": null,
+        "personal_authority": "held",
+        "review_due": "2026-11-24",
+        "visual": "transition",
+        "reported_dates": [
+          {
+            "label": "65th birthday",
+            "value": "November (year not given)",
+            "state": "reported",
+            "report_ref": "S_AGE65"
+          },
+          {
+            "label": "Preferred coverage start",
+            "value": "January 2027",
+            "state": "reported",
+            "report_ref": "T04"
+          },
+          {
+            "label": "Job end",
+            "value": "October 2026",
+            "state": "reported",
+            "report_ref": "RC11.jobEnd"
+          },
+          {
+            "label": "Insurance end",
+            "value": "December 2026",
+            "state": "reported",
+            "report_ref": "RC11.coverageEnd"
+          }
+        ],
+        "date_basis": "reported_only_no_personal_window_calculated",
+        "open_checks": [
+          "Confirm which enrollment rules apply to your existing coverage.",
+          "Confirm enrollment and the actual Medicare coverage start with Social Security."
+        ],
+        "snapshot_binding": "4036c861b9d13ddd19de3fbc7bba832ae736de3752c49e0ad56fa704f3e75eba"
+      },
+      {
+        "version": "understanding-20261103-r1",
+        "registry_binding": "8823a8b974ea311eac625df7be43fb97074253217c9358748b19d989686ad750",
+        "capability": "coverage_paths",
+        "title": "How coverage fits together",
+        "coverage_year": 2026,
+        "purpose": "general_education",
+        "state": "educational",
+        "evidence_refs": [
+          "routesintro",
+          "options",
+          "medigap",
+          "switching"
+        ],
+        "blocks": [
+          {
+            "id": "original_base",
+            "route": "original",
+            "label": "Original Medicare",
+            "text": "Parts A and B through the federal program.",
+            "evidence_refs": [
+              "routesintro"
+            ]
+          },
+          {
+            "id": "advantage_base",
+            "route": "advantage",
+            "label": "Medicare Advantage",
+            "text": "Parts A and B through a Medicare-approved private plan.",
+            "evidence_refs": [
+              "routesintro"
+            ]
+          },
+          {
+            "id": "original_additions",
+            "route": "original",
+            "label": "Optional additions",
+            "text": "Separate Part D for drugs; Medigap may help with your share of costs.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "advantage_drugs",
+            "route": "advantage",
+            "label": "Drug coverage",
+            "text": "Most Medicare Advantage plans include Part D. Check the exact plan.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "combination",
+            "label": "Where Medigap belongs",
+            "text": "Medigap works with Original Medicare, not Medicare Advantage. Drug coverage is separate.",
+            "evidence_refs": [
+              "medigap"
+            ]
+          },
+          {
+            "id": "part_b",
+            "label": "Part B premium",
+            "text": "The Part B premium still applies with either coverage route.",
+            "evidence_refs": [
+              "options"
+            ]
+          },
+          {
+            "id": "switching",
+            "label": "Future flexibility",
+            "text": "Medigap buying rights need a separate check. The federal six-month period depends on both age and Part B enrollment; other conditions and rights may matter.",
+            "evidence_refs": [
+              "switching"
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "The two coverage routes"
+          },
+          {
+            "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy",
+            "label": "What a supplement does"
+          }
+        ],
+        "personal_result": null,
+        "personal_authority": "held",
+        "review_due": "2026-11-24",
+        "visual": "routes",
+        "snapshot_binding": "4cb2ed7f71a04c0c2df4041251c973e4637b5e34ccbe8573d24573ebd0b63708"
+      },
+      {
+        "version": "understanding-20261103-r1",
+        "registry_binding": "8823a8b974ea311eac625df7be43fb97074253217c9358748b19d989686ad750",
+        "capability": "costs",
+        "title": "What makes up your costs",
+        "coverage_year": 2026,
+        "purpose": "general_education",
+        "state": "educational",
+        "evidence_refs": [
+          "costs",
+          "medical_limit"
+        ],
+        "blocks": [
+          {
+            "id": "premiums",
+            "label": "Each month",
+            "text": "Premiums pay for coverage. A premium alone is not your total cost.",
+            "evidence_refs": [
+              "costs"
+            ]
+          },
+          {
+            "id": "care",
+            "label": "When you use care",
+            "text": "Deductibles, copays and coinsurance depend on the benefit's rules.",
+            "evidence_refs": [
+              "costs"
+            ]
+          },
+          {
+            "id": "medical_cap",
+            "label": "What a limit covers",
+            "text": "A Medicare Advantage limit applies to covered medical cost sharing. Premiums and drug costs are separate.",
+            "evidence_refs": [
+              "medical_limit"
+            ]
+          },
+          {
+            "id": "original_limit",
+            "label": "Original Medicare on its own",
+            "text": "Parts A and B have no yearly medical spending cap on their own.",
+            "evidence_refs": [
+              "medical_limit"
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/costs/medicare-costs",
+            "label": "Monthly cost and care costs"
+          }
+        ],
+        "personal_result": null,
+        "personal_authority": "held",
+        "review_due": "2026-11-24",
+        "visual": "costs",
+        "fictional_examples": [
+          {
+            "label": "Fictional arithmetic example — invented prices, not Medicare costs",
+            "fictional": true,
+            "components": [
+              {
+                "label": "Each month",
+                "amount": "100.00",
+                "quantity": "12",
+                "priced_period": "month"
+              },
+              {
+                "label": "Visits in this example",
+                "amount": "25.00",
+                "quantity": "2",
+                "priced_period": "visit"
+              }
+            ],
+            "unknown_components": [
+              "unpriced_services",
+              "drug_costs"
+            ],
+            "receipt": {
+              "method": "declared_cost_scenario_subtotal",
+              "method_version": "comparison-mechanics-20261101-r1",
+              "policy_state": "unreviewed",
+              "output_state": "fictional_fixture_only",
+              "personalized_recommendation_allowed": false,
+              "scenario_id": "fixture:example",
+              "unit_id": "fixture:example",
+              "subject_id": "beneficiary",
+              "scope_key": "fixture:2026",
+              "arithmetic_state": "computed",
+              "subtotal": {
+                "amount": "1250.00",
+                "currency": "USD",
+                "period": "2026",
+                "cost_type": "scenario_estimate"
+              },
+              "claim_kind": "declared_scenario_subtotal",
+              "complete_total": null,
+              "quote": null,
+              "lines": [
+                {
+                  "component_id": "fixture:premium",
+                  "quantity": "12",
+                  "priced_unit": "premium",
+                  "priced_period": "month",
+                  "state": "ready",
+                  "reason_codes": []
+                },
+                {
+                  "component_id": "fixture:visits",
+                  "quantity": "2",
+                  "priced_unit": "visits",
+                  "priced_period": "visit",
+                  "state": "ready",
+                  "reason_codes": []
+                }
+              ],
+              "included_components": [
+                "fixture:premium",
+                "fixture:visits"
+              ],
+              "excluded_components": [
+                "unpriced_services",
+                "drug_costs"
+              ],
+              "assumptions": [
+                "12 explicitly declared monthly payments; invented prices and visit counts."
+              ],
+              "dependency_refs": [
+                {
+                  "path": "fixture:declared-scenario",
+                  "item_id": null,
+                  "subject_id": "beneficiary",
+                  "scope": "intended",
+                  "report_revision": 1,
+                  "record_revision": 1
+                }
+              ],
+              "reason_codes": [],
+              "inferred_utilization": false,
+              "automatic_annualization": false,
+              "receipt_sha256": "9977cf8dbe7a341e5d5ad61b580f132d5fe1518cb917d250447f14813859c4b1"
+            }
+          },
+          {
+            "label": "Fictional arithmetic example — invented prices, not Medicare costs",
+            "fictional": true,
+            "components": [
+              {
+                "label": "Each month",
+                "amount": "100.00",
+                "quantity": "12",
+                "priced_period": "month"
+              },
+              {
+                "label": "Visits in this example",
+                "amount": "25.00",
+                "quantity": "12",
+                "priced_period": "visit"
+              }
+            ],
+            "unknown_components": [
+              "unpriced_services",
+              "drug_costs"
+            ],
+            "receipt": {
+              "method": "declared_cost_scenario_subtotal",
+              "method_version": "comparison-mechanics-20261101-r1",
+              "policy_state": "unreviewed",
+              "output_state": "fictional_fixture_only",
+              "personalized_recommendation_allowed": false,
+              "scenario_id": "fixture:example",
+              "unit_id": "fixture:example",
+              "subject_id": "beneficiary",
+              "scope_key": "fixture:2026",
+              "arithmetic_state": "computed",
+              "subtotal": {
+                "amount": "1500.00",
+                "currency": "USD",
+                "period": "2026",
+                "cost_type": "scenario_estimate"
+              },
+              "claim_kind": "declared_scenario_subtotal",
+              "complete_total": null,
+              "quote": null,
+              "lines": [
+                {
+                  "component_id": "fixture:premium",
+                  "quantity": "12",
+                  "priced_unit": "premium",
+                  "priced_period": "month",
+                  "state": "ready",
+                  "reason_codes": []
+                },
+                {
+                  "component_id": "fixture:visits",
+                  "quantity": "12",
+                  "priced_unit": "visits",
+                  "priced_period": "visit",
+                  "state": "ready",
+                  "reason_codes": []
+                }
+              ],
+              "included_components": [
+                "fixture:premium",
+                "fixture:visits"
+              ],
+              "excluded_components": [
+                "unpriced_services",
+                "drug_costs"
+              ],
+              "assumptions": [
+                "12 explicitly declared monthly payments; invented prices and visit counts."
+              ],
+              "dependency_refs": [
+                {
+                  "path": "fixture:declared-scenario",
+                  "item_id": null,
+                  "subject_id": "beneficiary",
+                  "scope": "intended",
+                  "report_revision": 1,
+                  "record_revision": 1
+                }
+              ],
+              "reason_codes": [],
+              "inferred_utilization": false,
+              "automatic_annualization": false,
+              "receipt_sha256": "c3a7b1fbe8491b6156800db07150902058448f0f359f1eb28be3d63e31f8f072"
+            }
+          }
+        ],
+        "snapshot_binding": "4cb2ed7f71a04c0c2df4041251c973e4637b5e34ccbe8573d24573ebd0b63708"
+      }
+    ],
+    "scenarios": [
+      {
+        "label": "Fictional arithmetic example — invented prices, not Medicare costs",
+        "fictional": true,
+        "components": [
+          {
+            "label": "Each month",
+            "amount": "100.00",
+            "quantity": "12",
+            "priced_period": "month"
+          },
+          {
+            "label": "Visits in this example",
+            "amount": "25.00",
+            "quantity": "2",
+            "priced_period": "visit"
+          }
+        ],
+        "unknown_components": [
+          "unpriced_services",
+          "drug_costs"
+        ],
+        "receipt": {
+          "method": "declared_cost_scenario_subtotal",
+          "method_version": "comparison-mechanics-20261101-r1",
+          "policy_state": "unreviewed",
+          "output_state": "fictional_fixture_only",
+          "personalized_recommendation_allowed": false,
+          "scenario_id": "fixture:example",
+          "unit_id": "fixture:example",
+          "subject_id": "beneficiary",
+          "scope_key": "fixture:2026",
+          "arithmetic_state": "computed",
+          "subtotal": {
+            "amount": "1250.00",
+            "currency": "USD",
+            "period": "2026",
+            "cost_type": "scenario_estimate"
+          },
+          "claim_kind": "declared_scenario_subtotal",
+          "complete_total": null,
+          "quote": null,
+          "lines": [
+            {
+              "component_id": "fixture:premium",
+              "quantity": "12",
+              "priced_unit": "premium",
+              "priced_period": "month",
+              "state": "ready",
+              "reason_codes": []
+            },
+            {
+              "component_id": "fixture:visits",
+              "quantity": "2",
+              "priced_unit": "visits",
+              "priced_period": "visit",
+              "state": "ready",
+              "reason_codes": []
+            }
+          ],
+          "included_components": [
+            "fixture:premium",
+            "fixture:visits"
+          ],
+          "excluded_components": [
+            "unpriced_services",
+            "drug_costs"
+          ],
+          "assumptions": [
+            "12 explicitly declared monthly payments; invented prices and visit counts."
+          ],
+          "dependency_refs": [
+            {
+              "path": "fixture:declared-scenario",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 1,
+              "record_revision": 1
+            }
+          ],
+          "reason_codes": [],
+          "inferred_utilization": false,
+          "automatic_annualization": false,
+          "receipt_sha256": "9977cf8dbe7a341e5d5ad61b580f132d5fe1518cb917d250447f14813859c4b1"
+        }
+      },
+      {
+        "label": "Fictional arithmetic example — invented prices, not Medicare costs",
+        "fictional": true,
+        "components": [
+          {
+            "label": "Each month",
+            "amount": "100.00",
+            "quantity": "12",
+            "priced_period": "month"
+          },
+          {
+            "label": "Visits in this example",
+            "amount": "25.00",
+            "quantity": "12",
+            "priced_period": "visit"
+          }
+        ],
+        "unknown_components": [
+          "unpriced_services",
+          "drug_costs"
+        ],
+        "receipt": {
+          "method": "declared_cost_scenario_subtotal",
+          "method_version": "comparison-mechanics-20261101-r1",
+          "policy_state": "unreviewed",
+          "output_state": "fictional_fixture_only",
+          "personalized_recommendation_allowed": false,
+          "scenario_id": "fixture:example",
+          "unit_id": "fixture:example",
+          "subject_id": "beneficiary",
+          "scope_key": "fixture:2026",
+          "arithmetic_state": "computed",
+          "subtotal": {
+            "amount": "1500.00",
+            "currency": "USD",
+            "period": "2026",
+            "cost_type": "scenario_estimate"
+          },
+          "claim_kind": "declared_scenario_subtotal",
+          "complete_total": null,
+          "quote": null,
+          "lines": [
+            {
+              "component_id": "fixture:premium",
+              "quantity": "12",
+              "priced_unit": "premium",
+              "priced_period": "month",
+              "state": "ready",
+              "reason_codes": []
+            },
+            {
+              "component_id": "fixture:visits",
+              "quantity": "12",
+              "priced_unit": "visits",
+              "priced_period": "visit",
+              "state": "ready",
+              "reason_codes": []
+            }
+          ],
+          "included_components": [
+            "fixture:premium",
+            "fixture:visits"
+          ],
+          "excluded_components": [
+            "unpriced_services",
+            "drug_costs"
+          ],
+          "assumptions": [
+            "12 explicitly declared monthly payments; invented prices and visit counts."
+          ],
+          "dependency_refs": [
+            {
+              "path": "fixture:declared-scenario",
+              "item_id": null,
+              "subject_id": "beneficiary",
+              "scope": "intended",
+              "report_revision": 1,
+              "record_revision": 1
+            }
+          ],
+          "reason_codes": [],
+          "inferred_utilization": false,
+          "automatic_annualization": false,
+          "receipt_sha256": "c3a7b1fbe8491b6156800db07150902058448f0f359f1eb28be3d63e31f8f072"
+        }
+      }
+    ]
+  }
+}

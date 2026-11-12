@@ -160,3 +160,24 @@ tool remains login-free. Apply the established guest, saving, privacy, source
 and pilot admission boundaries. Record implemented checks and unresolved
 deployment work in the [launch checklist](../../infrastructure/daylight-pilot/README.md)
 and [evidence packet](../../audit-evidence/guest-resume-security-20261111/README.md).
+
+## D142 · November 11, 2026 · Retire the repo vault; use the Daylight Brain
+
+The owner retires the `daylight_obsidian/` vault and its D113 refresh tooling.
+Do not run `tools/obsidian/sync.py` or the `daylight-knowledge` skill. Business
+context now lives in the Daylight Brain in the owner's Google Drive (Daylight /
+Daylight Brain), synced to this Mac at
+`~/Library/CloudStorage/GoogleDrive-chris@daylightmedicare.com/My Drive/Daylight/Daylight Brain/`.
+Its `AGENTS.md` is the entry point. The old vault remains on disk as reference
+only. This repository's authority order, numbered decisions and engineering
+rules are unchanged.
+
+## D143 · November 11, 2026 · Option A; CSquared; Spark
+
+The owner chooses Option A over the earlier Option B indication. As the licensed
+agent in charge, the owner approves the deterministic decision methods in
+advance; recommendation and enrollment are fully self-guided with no per-case
+licensed review. Counsel's written answer on required licensed involvement
+remains an open dependency before any real recommendation or enrollment. The
+legal entity is CSquared, a Delaware C-corp (Clerky; filing planned January 1,
+2027); Daylight remains the public brand. Spark Advisors is the FMO in talks.

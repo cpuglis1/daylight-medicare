@@ -1,0 +1,521 @@
+{
+  "output": {
+    "question_target": "T03",
+    "reply": "Thanks — that means your current coverage is through a spouse’s active employer plan, which can affect when Part B makes sense to start. I still can’t give a personal start-date recommendation from that alone, but this is the kind of coverage detail that matters for timing.",
+    "question": "What ZIP code do you live in?",
+    "report_refs": [
+      "guide.coverage.current",
+      "guide.subject.role",
+      "guide.intent.goal",
+      "guide.knowledge.general",
+      "readiness.RC01.profile.choice"
+    ],
+    "evidence_refs": [
+      "dates",
+      "enrollment_intro"
+    ],
+    "agenda_update": {
+      "current_concern": "when Medicare should start with spouse job coverage",
+      "pause": false
+    }
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.intent.goal",
+        "status": "reported",
+        "value": "compare",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.knowledge.general",
+        "status": "reported",
+        "value": "new",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "learner",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "employer"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [
+      {
+        "id": "guide.intent.goalDetail",
+        "status": "reported"
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported"
+      }
+    ],
+    "task": "compare",
+    "dialogue": {
+      "orientation": "",
+      "lastTarget": {
+        "id": "T05",
+        "entity": "profile",
+        "fields": []
+      },
+      "explainedTopics": [
+        "parts",
+        "routesintro",
+        "enrollment_intro",
+        "dates",
+        "partb"
+      ],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      6,
+      5
+    ],
+    "activeQuestion": {
+      "id": "T03",
+      "entity": "profile",
+      "fields": [
+        "zip"
+      ]
+    },
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "A soonest-possible desired start is a preference, not an exact start month or actual enrollment.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "agenda": {
+      "version": 1,
+      "concerns": [],
+      "priorityReasons": [],
+      "lastMove": {
+        "kind": "teach",
+        "topic": "current_coverage",
+        "reason": "user_question"
+      }
+    },
+    "advisor_brief": {
+      "goal": "want to enroll in medicare soon",
+      "current_concern": "what Part B means",
+      "paused": false,
+      "direction": "Help this person understand their coverage options and reach an informed decision.",
+      "reported_goal": "compare",
+      "explained_topics": [
+        "parts",
+        "routesintro",
+        "enrollment_intro",
+        "dates",
+        "partb"
+      ],
+      "familiarity": {
+        "explicit_report": "new",
+        "calibration": "Use topic-specific questions and dialogue tentatively; exposure is not comprehension."
+      }
+    },
+    "recent_exchanges": [
+      {
+        "user": "I am turning 65 years old in november and want to enroll in medicare soon. I don't know much about my options.",
+        "assistant": "A simple place to start is this: Medicare usually begins with Part A for hospital care and Part B for doctor and outpatient care, and then most people choose one of two routes—Original Medicare or a Medicare Advantage plan. The timing can depend on your birthday month and whether you have other insurance now, so let’s start there.",
+        "question": "What health insurance do you have now?"
+      },
+      {
+        "user": "I'm not sure when coverage should start. What do you suggest?",
+        "assistant": "A common goal is to have Medicare start when you first become eligible, but the right timing depends on whether you have other coverage now and what kind it is. Since you turn 65 in November, your first sign-up window generally spans the 3 months before November, November itself, and the 3 months after, but I can’t suggest a personal start month without knowing your current coverage.",
+        "question": "What health insurance do you have now?"
+      },
+      {
+        "user": "Before I answer, what does Part B mean?",
+        "assistant": "Part B is the medical insurance part of Medicare. It generally covers doctor visits, outpatient care, lab tests, durable medical equipment, and many preventive services; together, Part A and Part B make up Original Medicare.",
+        "question": "What health insurance do you have now?"
+      }
+    ],
+    "current_message": "Okay, let's continue. My health insurance is through my wife's current job.",
+    "evidence": [
+      {
+        "id": "dates",
+        "title": "Dates depend on your situation",
+        "text": "A birthday and current work coverage do not establish when Part B actually starts. Social Security confirms the enrollment route and effective date. Unknown dates stay unknown. The timeline uses the facts entered in this tab. An unknown date stays an open check; special enrollment rights may need separate confirmation.",
+        "summary": "Your birth date, actual coverage, and job insurance can affect which dates need checking.",
+        "question": "Why do these dates matter?",
+        "source": "https://www.ssa.gov/medicare/sign-up"
+      },
+      {
+        "id": "routesintro",
+        "title": "The two coverage routes",
+        "text": "Original Medicare is Parts A and B through the federal program. Medicare Advantage is a private plan approved by Medicare that provides Parts A and B. Both routes provide Medicare coverage, with different rules and costs. We can add the other coverage pieces after this distinction is clear.",
+        "summary": "You can get Parts A and B through the federal program or through a private Medicare Advantage plan.",
+        "question": "What are the two ways to get Medicare?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "checks",
+        "title": "What to check for each plan",
+        "text": "Records are in source order or ordered by explicit published fields. Eligibility, doctor participation, exact medicines and personal total cost have not been established. Compare the exact plan's providers, drug coverage, costs, and enrollment requirements before making a decision.",
+        "summary": "A plan list is the starting point. Check doctors, medicines, and costs for your situation.",
+        "question": "What should I check before choosing a plan?",
+        "source": "https://www.medicare.gov/plan-compare/"
+      },
+      {
+        "id": "costs",
+        "title": "Monthly cost and care costs",
+        "text": "A premium is the amount you pay each month for coverage. A deductible is an amount you pay before coverage pays its share under the benefit's rules. Copays and coinsurance are costs when you use care. A plan's premium alone is not your total cost.",
+        "summary": "A monthly premium and what you pay when you use care are different costs.",
+        "question": "What costs should I compare?",
+        "source": "https://www.medicare.gov/basics/costs/medicare-costs"
+      },
+      {
+        "id": "basics",
+        "title": "What Medicare is",
+        "text": "Medicare is health insurance from the federal government. It helps pay for health care. It is mainly for people 65 or older who meet the program’s eligibility rules. Some younger people qualify because of a disability, End-Stage Renal Disease, or ALS. You can learn the coverage pieces one at a time.",
+        "summary": "Medicare is federal health insurance. We’ll build the rest of the picture one piece at a time.",
+        "question": "What is Medicare?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare"
+      },
+      {
+        "id": "enrollment_intro",
+        "title": "Getting started with enrollment timing",
+        "question": "How does first Medicare enrollment timing work?",
+        "text": "For most people first becoming eligible at 65, the Initial Enrollment Period is a 7-month window: the 3 months before the birthday month, that month, and the 3 months after. The date coverage begins also depends on when enrollment happens and which enrollment period applies. Current health insurance matters: Medicare.gov checks the kind of insurance, whether job-based coverage comes from current employment, and employer size before giving timing guidance. Do not turn this general explanation into a personal start date, deadline, eligibility decision or permission to delay Part B. A first-of-month birthday has special start-date rules.",
+        "summary": "The sign-up window and coverage start are different; current insurance helps identify the relevant timing questions.",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare",
+            "label": "Medicare.gov: When can I sign up?"
+          },
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start",
+            "label": "Medicare.gov: When coverage starts"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [],
+    "comparison_status": {
+      "version": "advisor-comparison-service-20261101-r1",
+      "state": "held",
+      "personal_findings_available": false,
+      "research_completed": false,
+      "reason_codes": [
+        "CONDITION_UNRESOLVED",
+        "EXACT_RELEASE_REQUIRED",
+        "POLICY_NOT_ACCEPTED",
+        "SOURCE_MISSING"
+      ]
+    }
+  },
+  "question_candidates": [
+    {
+      "id": "T03",
+      "question": {
+        "id": "T03",
+        "inventoryIds": [
+          "T03"
+        ],
+        "question": "What ZIP code do you live in?",
+        "why": "Plans differ by county. This helps identify the area you want to look into.",
+        "choices": [],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "zip",
+            "label": "Home ZIP code",
+            "type": "text",
+            "options": []
+          }
+        ],
+        "signature": "T03.profile.zip",
+        "atomicRequests": 1
+      },
+      "topic": "",
+      "priority": 1,
+      "required": false,
+      "purpose": "Plans differ by county. This helps identify the area you want to look into."
+    },
+    {
+      "id": "T06",
+      "question": {
+        "id": "T06",
+        "inventoryIds": [
+          "T06"
+        ],
+        "question": "Are there doctors or hospitals you want to keep?",
+        "why": "You can name the doctors or hospitals you want to keep, or leave this for later.",
+        "choices": [
+          [
+            "none",
+            "No doctors to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T06.profile.text",
+        "atomicRequests": 1
+      },
+      "topic": "doctors",
+      "priority": 1,
+      "required": false,
+      "purpose": "You can name the doctors or hospitals you want to keep, or leave this for later."
+    },
+    {
+      "id": "T07",
+      "question": {
+        "id": "T07",
+        "inventoryIds": [
+          "T07"
+        ],
+        "question": "Which prescriptions should we include?",
+        "why": "You can list the medicines you want included, or leave this for later.",
+        "choices": [
+          [
+            "no",
+            "No prescriptions to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T07.profile.text",
+        "atomicRequests": 1
+      },
+      "topic": "drugs",
+      "priority": 1,
+      "required": false,
+      "purpose": "You can list the medicines you want included, or leave this for later."
+    },
+    {
+      "id": "T08",
+      "question": {
+        "id": "T08",
+        "inventoryIds": [
+          "T08"
+        ],
+        "question": "Will you need routine care away from home?",
+        "why": "This helps identify whether access to routine care in another place matters to you.",
+        "choices": [
+          [
+            "local",
+            "Local only"
+          ],
+          [
+            "elsewhere_us",
+            "Elsewhere in the U.S."
+          ],
+          [
+            "outside_us",
+            "Outside the U.S."
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T08.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "travel",
+      "priority": 1,
+      "required": false,
+      "purpose": "This helps identify whether access to routine care in another place matters to you."
+    },
+    {
+      "id": "RC09",
+      "question": {
+        "id": "RC09",
+        "inventoryIds": [
+          "RC09"
+        ],
+        "question": "Whose job is this health insurance through?",
+        "why": "",
+        "choices": [
+          [
+            "my_job",
+            "My current job"
+          ],
+          [
+            "spouse_job",
+            "Spouse’s current job"
+          ],
+          [
+            "family_job",
+            "Family member’s current job"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "RC09.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "current_coverage",
+      "priority": 2,
+      "required": false,
+      "purpose": "required_only_when_applicable_to_requested_check"
+    },
+    {
+      "id": "T09",
+      "question": {
+        "id": "T09",
+        "inventoryIds": [
+          "T09"
+        ],
+        "question": "How would you prefer to balance monthly payments and costs when you get care?",
+        "why": "",
+        "choices": [
+          [
+            "lower_monthly",
+            "Lower monthly payments"
+          ],
+          [
+            "predictable",
+            "More predictable costs"
+          ],
+          [
+            "no_preference",
+            "No preference yet"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T09.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "total_cost",
+      "priority": 2,
+      "required": false,
+      "purpose": "optional_preference"
+    },
+    {
+      "id": "T10",
+      "question": {
+        "id": "T10",
+        "inventoryIds": [
+          "T10"
+        ],
+        "question": "What matters most when we compare your options?",
+        "why": "",
+        "choices": [
+          [
+            "doctors",
+            "Doctors and hospitals"
+          ],
+          [
+            "drugs",
+            "Prescriptions"
+          ],
+          [
+            "total_cost",
+            "Total cost"
+          ],
+          [
+            "bills",
+            "Predictable costs"
+          ],
+          [
+            "travel",
+            "Travel"
+          ],
+          [
+            "other",
+            "Something else"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T10.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "other",
+      "priority": 2,
+      "required": false,
+      "purpose": "optional_preference"
+    }
+  ],
+  "accepted": false,
+  "error": "A spouse-job statement needs its resolved worker relationship."
+}

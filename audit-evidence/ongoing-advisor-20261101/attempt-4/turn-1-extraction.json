@@ -1,0 +1,184 @@
+{
+  "message": "I am turning 65 years old in november and want to enroll in medicare soon. I don't know much about my options.",
+  "raw": {
+    "updates": [
+      {
+        "id": "T01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "compare"
+          },
+          {
+            "key": "text",
+            "value": "want to enroll in medicare soon"
+          }
+        ],
+        "quote": "want to enroll in medicare soon",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T02",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "new"
+          }
+        ],
+        "quote": "I don't know much about my options.",
+        "scope": "current",
+        "subject": "learner",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [
+      {
+        "id": "timing",
+        "quote": "I am turning 65 years old in november and want to enroll in medicare soon."
+      }
+    ],
+    "fact_ids": [
+      "basics",
+      "parts",
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "learning",
+          "subject": "learner",
+          "scope": "current",
+          "status": "open",
+          "quote": "I don't know much about my options."
+        },
+        {
+          "topic": "timing",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "want to enroll in medicare soon"
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "situation_proposals": [
+      {
+        "kind": "age65",
+        "subject": "beneficiary",
+        "scope": "intended",
+        "quote": "I am turning 65 years old in november",
+        "uncertain": false,
+        "correction": false,
+        "month": 11,
+        "year": null,
+        "status": "",
+        "when": ""
+      }
+    ],
+    "goal_quote": "want to enroll in medicare soon"
+  },
+  "validated": {
+    "updates": [
+      {
+        "id": "T01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "compare"
+          },
+          {
+            "key": "text",
+            "value": "want to enroll in medicare soon"
+          }
+        ],
+        "quote": "want to enroll in medicare soon",
+        "scope": "intended",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T02",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "new"
+          }
+        ],
+        "quote": "I don't know much about my options.",
+        "scope": "current",
+        "subject": "learner",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [
+      {
+        "id": "timing",
+        "quote": "I am turning 65 years old in november and want to enroll in medicare soon."
+      }
+    ],
+    "fact_ids": [
+      "basics",
+      "parts",
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "learning",
+          "subject": "learner",
+          "scope": "current",
+          "status": "open",
+          "quote": "I don't know much about my options."
+        },
+        {
+          "topic": "timing",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "want to enroll in medicare soon"
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "goal_quote": "want to enroll in medicare soon",
+    "situation_proposals": [
+      {
+        "kind": "age65",
+        "subject": "beneficiary",
+        "scope": "intended",
+        "quote": "I am turning 65 years old in november",
+        "uncertain": false,
+        "correction": false,
+        "month": 11,
+        "year": null,
+        "status": "",
+        "when": ""
+      }
+    ],
+    "rejected_updates": [],
+    "rejected_situation_proposals": [],
+    "rejected_commands": []
+  }
+}

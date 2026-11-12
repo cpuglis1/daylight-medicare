@@ -1,0 +1,20 @@
+{
+	log {
+		exclude http.log
+	}
+	servers {
+		timeouts {
+			read_header 5s
+			read_body 15s
+		}
+	}
+}
+
+{$DAYLIGHT_PILOT_HOST} {
+	request_body {
+		max_size 80000
+	}
+
+	# The app emits its own fixed-field access events.
+	reverse_proxy 127.0.0.1:8893
+}

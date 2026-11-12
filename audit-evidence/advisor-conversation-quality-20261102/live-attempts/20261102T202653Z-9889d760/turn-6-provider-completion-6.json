@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 38468,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7524,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 318,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7842
+    },
+    "text": "{\"question_target\":\"T06\",\"reply\":\"Yes. Your two main options are:\\n\\n1. Original Medicare: Parts A and B through the federal program. You can add a separate drug plan, and you may be able to add Medigap.\\n2. Medicare Advantage: a private plan that provides your Part A and Part B instead. Most plans include drug coverage, and doctors, costs, and rules vary by plan.\\n\\nFor your travel-and-doctor concern, the plain difference is that Original Medicare is accepted by any U.S. doctor who takes Medicare, while with Medicare Advantage you have to check whether your doctor participates in that specific plan.\",\"question\":\"Are there doctors or hospitals you want to keep?\",\"education_followups\":[],\"report_refs\":[\"guide.subject.role\",\"guide.coverage.current\",\"guide.intent.goal\",\"guide.needs.travel\",\"guide.situation.age65\"],\"evidence_refs\":[\"routesintro\",\"options\",\"original\"],\"agenda_update\":{\"current_concern\":\"two Medicare options and doctor access\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"original_medicare\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"federal_parts\",\"optional_additions\",\"provider_access\"],\"evidence_refs\":[\"original\",\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 4.917477,
+  "turn": 6,
+  "event": "correction_and_synthesis",
+  "fictional_inputs": true
+}

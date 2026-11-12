@@ -1,0 +1,126 @@
+{
+  "fictional": true,
+  "reviewer": "implementation agent; not an independent consumer/domain review",
+  "same_revision_two_case_live_run": false,
+  "consumer_comprehension": "unobserved",
+  "cases": [
+    {
+      "case": "provider_and_costs",
+      "attempt": "20261103T104728-0500-9e99a3",
+      "delivery_completed": 6,
+      "planned_turns": 6,
+      "wall_seconds": {
+        "mean": 10.869,
+        "median": 10.635,
+        "minimum": 9.086,
+        "maximum": 13.493
+      },
+      "measured_estimated_usd": 0.2807235,
+      "input_tokens": 104805,
+      "output_tokens": 3321,
+      "own_uncertain_hold_usd": 0,
+      "automatic_retries": false
+    },
+    {
+      "case": "caregiver_and_coverage",
+      "attempt": "20261103T104504-0500-cc5c1f",
+      "delivery_completed": 6,
+      "planned_turns": 6,
+      "wall_seconds": {
+        "mean": 10.063,
+        "median": 9.808,
+        "minimum": 8.172,
+        "maximum": 13.123
+      },
+      "measured_estimated_usd": 0.286737,
+      "input_tokens": 103050,
+      "output_tokens": 2824,
+      "own_uncertain_hold_usd": 0,
+      "automatic_retries": false
+    }
+  ],
+  "quality_findings": [
+    {
+      "case": "provider_and_costs",
+      "finding": "Office correction and ZIP retained; provider/carrier/plan participation and price kept separate; useful final checklist; no outside action completed. Unanswered ZIP was repeated, and other intake still appeared while the user was asking what could be established."
+    },
+    {
+      "case": "caregiver_and_coverage",
+      "finding": "Original Medicare/Medigap/Advantage distinction and unresolved ride coverage explained; unknown dates/assistance left open; final stop respected. Transportation to appointments drifted into routine travel away from home, then that travel question repeated and entered the recap. This is a material task-understanding gap, not evidence of successful comprehension."
+    }
+  ],
+  "all_attempts": [
+    {
+      "attempt": "20261103T095724-0500-91c196",
+      "measured_estimated_usd": 0.049605,
+      "accounted_usd": 0.049605,
+      "held_usd": 0.0,
+      "completed_two_conversations": false,
+      "source_unchanged": true,
+      "completed_by_case": {
+        "provider_and_costs": false,
+        "caregiver_and_coverage": false
+      }
+    },
+    {
+      "attempt": "20261103T102514-0500-cbe9ae",
+      "measured_estimated_usd": 0.327875,
+      "accounted_usd": 0.327875,
+      "held_usd": 0.0,
+      "completed_two_conversations": false,
+      "source_unchanged": true,
+      "completed_by_case": {
+        "provider_and_costs": false,
+        "caregiver_and_coverage": false
+      }
+    },
+    {
+      "attempt": "20261103T103012-0500-a7b59b",
+      "measured_estimated_usd": 0.4701115,
+      "accounted_usd": 0.4701115,
+      "held_usd": 0.0,
+      "completed_two_conversations": false,
+      "source_unchanged": true,
+      "completed_by_case": {
+        "provider_and_costs": false,
+        "caregiver_and_coverage": true
+      }
+    },
+    {
+      "attempt": "20261103T103820-0500-6d597a",
+      "measured_estimated_usd": 0.355992,
+      "accounted_usd": 0.355992,
+      "held_usd": 0.0,
+      "completed_two_conversations": false,
+      "source_unchanged": true,
+      "completed_by_case": {
+        "provider_and_costs": false,
+        "caregiver_and_coverage": true
+      }
+    },
+    {
+      "attempt": "20261103T104504-0500-cc5c1f",
+      "measured_estimated_usd": 0.4328265,
+      "accounted_usd": 0.4328265,
+      "held_usd": 0.0,
+      "completed_two_conversations": false,
+      "source_unchanged": true,
+      "completed_by_case": {
+        "provider_and_costs": false,
+        "caregiver_and_coverage": true
+      }
+    },
+    {
+      "attempt": "20261103T104728-0500-9e99a3",
+      "measured_estimated_usd": 0.2807235,
+      "accounted_usd": 0.2807235,
+      "held_usd": 0.0,
+      "completed_two_conversations": false,
+      "source_unchanged": true,
+      "completed_by_case": {
+        "provider_and_costs": true
+      }
+    }
+  ],
+  "investigation_measured_estimated_usd": 1.8675285000000001
+}

@@ -1,0 +1,25 @@
+{
+  "executed_downloaded_code": false,
+  "file": {
+    "bytes": 109857,
+    "path": "docs/data/l03-ma-benefits-2026-11-02-whole-offering-r12/native-format-authority-research-r1/extracted-cms-code/JSON_IMPORT_PBPB1.SAS",
+    "sha256": "3a596bbc028d472b714bdc67a529ced8799888672a388035b7ab495ec25be213"
+  },
+  "spans": [
+    {
+      "begin": 222,
+      "end": 226,
+      "text": "\t\t\tCASE\n\t\t\t\tWHEN benefitDetails_benefDetaiInfo.categoryCode IN('1a')\n\t\t\t\tAND benefitDetails_benefDetaiInfo.categoryTypeId = 1 THEN CATS(benefitDetails_TieCopCom.bdCopaymentTier1YesNo)\n\t\t\t\tELSE ''\n\t\t\tEND AS PBP_B1A_MC_COPAY_CSTSHR_YN__7"
+    },
+    {
+      "begin": 448,
+      "end": 452,
+      "text": "\t\t\tCASE\n\t\t\t\tWHEN benefitDetails_benefDetaiInfo.categoryCode IN('1a')\n\t\t\t\t\tAND benefitDetails_benefDetaiInfo.categoryTypeId = 1 THEN CATS(benefitDetails_InHoAcBePeCom.bdMedInpaHospAcutBenePeri)\n\t\t\t\t\tELSE ''\n\t\t\t\tEND AS PBP_B1A_HOSP_BEN_PERIOD_24,"
+    },
+    {
+      "begin": 1508,
+      "end": 1512,
+      "text": "\t\t\t\t\t\t\tCASE\n\t\t\t\t\t\t\t\tWHEN benefitDetails_benefDetaiInfo.categoryCode IN('1a1')\n\t\t\t\t\t\t\t\t\tAND benefitDetails_benefDetaiInfo.categoryTypeId = 2 THEN CATS(AdDa1a1Com_bdUnlAddDay2.bdBenefitUnlimitedYesNo)\n\t\t\t\t\t\t\t\t\tELSE ''\n\t\t\t\t\t\t\t\tEND AS PBP_B1A_BENDESC_LIM_AD_124,"
+    }
+  ]
+}

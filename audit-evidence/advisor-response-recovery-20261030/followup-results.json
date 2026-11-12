@@ -1,0 +1,49 @@
+{
+  "fictionalInputs": true,
+  "automaticRetries": false,
+  "maximumGenerationStages": 2,
+  "maximumReservationUsd": 0.067,
+  "openingExtractionRepeated": false,
+  "seconds": 6.124,
+  "reply": "Thanks\u2014that helps separate your current coverage from when you want Medicare to begin.",
+  "generated": {
+    "status": "complete",
+    "move": "T04"
+  },
+  "nextQuestion": {
+    "id": "T04",
+    "inventoryIds": [
+      "T04"
+    ],
+    "question": "When would you like Medicare coverage to start?",
+    "why": "",
+    "choices": [
+      [
+        "soonest",
+        "As soon as possible"
+      ],
+      [
+        "already",
+        "I already have Medicare"
+      ]
+    ],
+    "multi": false,
+    "entity": "profile",
+    "fields": [
+      {
+        "key": "month",
+        "label": "Month and year",
+        "type": "text",
+        "options": [],
+        "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+      }
+    ],
+    "signature": "T04.profile.month",
+    "atomicRequests": 1
+  },
+  "checks": "passed",
+  "freeChoiceAdvanced": true,
+  "generationStages": 2,
+  "measuredEstimateUsd": 0.0117195,
+  "heldUsd": 0.0
+}

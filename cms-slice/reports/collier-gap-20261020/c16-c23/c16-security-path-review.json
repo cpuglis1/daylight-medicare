@@ -1,0 +1,10 @@
+{
+  "reviewed_at_utc": "2026-10-20T14:36:19.376930+00:00",
+  "prior_stop": {
+    "at_utc": "2026-10-20T14:28:33.664555+00:00",
+    "reason": "Unreviewed request path/query: https://www.medicare.gov/_bm/get_params?type=get-akid&v=lZ66baXo/RoM4Ohs8cXMODgGfLsRRw9eIP8OELL/Dk4=",
+    "parser_version": "medicare-collector/1"
+  },
+  "scope": "Allow only the anonymous page browser to send its ordinary GET /_bm/get_params with fixed type=get-akid and one bounded browser-generated v value. No token derivation, challenge solving, login, proxy/IP change, spoofing or origin-block retry. Unknown methods/paths and origin blocks still stop. This is a local manifest review, not a reset of an origin denial.",
+  "source_evidence": "First-party script execution on the approved entry page generated this path; request was intercepted before transmission. Exact current first-party script bodies are retained in cycle cache."
+}

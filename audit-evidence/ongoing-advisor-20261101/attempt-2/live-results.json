@@ -1,0 +1,42 @@
+{
+  "fictionalInputs": true,
+  "savedProfile": false,
+  "automaticRetries": false,
+  "maximumGenerationStages": 12,
+  "maximumReservationUsd": 0.402,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "contextPolicy": "natural-context-v3",
+  "checks": "failed",
+  "failure": "Current insurance is the unresolved timing dependency.",
+  "generationStageCount": 4,
+  "measuredEstimateUsd": 0.0586875,
+  "accountedUsd": 0.0586875,
+  "heldUsd": 0.0,
+  "turns": [
+    {
+      "turn": 1,
+      "message": "I am turning 65 years old in november and want to enroll in medicare soon. I don't know much about my options.",
+      "reply": "You’re right on time to start learning this. The big first choice is whether you want to understand how Medicare works first, or jump into looking at coverage options like Original Medicare versus Medicare Advantage.",
+      "question": "What would you like help with: understand Medicare, find coverage, review my coverage, or something else?",
+      "target": "T01",
+      "generated": {
+        "status": "complete",
+        "move": "T01"
+      },
+      "seconds": 8.649
+    },
+    {
+      "turn": 2,
+      "message": "I'm not sure when coverage should start. What do you suggest?",
+      "reply": "A good rule is to aim for coverage to start when you first become eligible, but the exact start date depends on when you enroll and whether you have current job-based insurance. Since timing can change based on your situation, I can help you think through the best start month rather than guess one.\n\nDo you have health insurance now from your current job or a spouse’s current job?",
+      "question": null,
+      "target": null,
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "seconds": 5.682
+    }
+  ]
+}

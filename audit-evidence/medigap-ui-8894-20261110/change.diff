@@ -1,0 +1,622 @@
+--- before/alternatives/advisor-first/server.py
++++ after/alternatives/advisor-first/server.py
+@@ -45,10 +45,12 @@
+ from session_recovery import install_session_recovery
+ from plan_review_http import install_plan_review
+ from plans_http import install_plans
++from medigap_pilot import install_medigap
+ 
+ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=None,
+           research_repository=None, reference_adapter=None, identity_service=None,
+-          comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None):
++          comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None,
++          medigap_repository=None):
+     if port in {8890,8891,8896}:
+         raise ValueError('That port belongs to a preserved Daylight surface.')
+     if pilot_origin is not None:
+@@ -62,7 +64,7 @@
+     if pilot_state is not None:
+         if (not fixture or comparison_preview or any(option is not None for option in (
+                 database, client, count_tokens, research_repository, reference_adapter,
+-                identity_service, research_catalog))):
++                identity_service, research_catalog, medigap_repository))):
+             raise ValueError('Pilot rehearsal requires fixture mode and its isolated stores.')
+         from pilot_access import GUEST_COOKIE, PilotAccess, install_pilot_gate
+         from pilot_budget import PilotBudget
+@@ -77,7 +79,7 @@
+         if (not fixture or not database or db.exists()
+                 or not any(db.is_relative_to(root) for root in temporary_roots)
+                 or any(service is not None for service in (research_repository, reference_adapter,
+-                                                           identity_service, research_catalog))):
++                                                           identity_service, research_catalog, medigap_repository))):
+             raise ValueError('The D91 preview needs fixture mode and a fresh temporary database.')
+         from comparison_preview import load_preview
+         previews = load_preview()
+@@ -188,6 +190,7 @@
+                                     previews=previews, catalog=research_catalog)
+     service = install_plans(install_plan_review(install_session_recovery(install_identity_routes(service, identity_service))),
+                             local_review=research_catalog is not None)
++    service = install_medigap(service, medigap_repository)
+     if pilot:
+         service.adaptive.agent.budget = pilot_budget
+         # Owner direction (DQ-01 pilot scope): replies say this is a pilot on 2026 sample data.
+@@ -221,6 +224,7 @@
+     reference_adapter = None
+     identity_service = None
+     research_catalog = None
++    medigap_repository = None
+     if args.local_research:
+         from catalog_research import CatalogResearch, CRITICAL_BENEFITS_PATH
+         from comparison_research import local_repository
+@@ -228,13 +232,16 @@
+         repository = local_repository()
+         reference_adapter = PublishedReferenceAdapter()
+         research_catalog = CatalogResearch(critical_benefits_path=CRITICAL_BENEFITS_PATH)
++        from medigap_pilot import local_repository as local_medigap_repository
++        medigap_repository = local_medigap_repository()
+     if args.identity_research:
+         from identity_journey import local_identity_journey
+         identity_service=local_identity_journey(internal_research=True)
+     service=build(args.port,fixture=args.fixture,database=args.database,
+                   research_repository=repository,reference_adapter=reference_adapter,identity_service=identity_service,
+                   comparison_preview=args.comparison_preview,research_catalog=research_catalog,
+-                  pilot_state=args.pilot_state,pilot_origin=args.pilot_origin)
++                  pilot_state=args.pilot_state,pilot_origin=args.pilot_origin,
++                  medigap_repository=medigap_repository)
+     try:
+         if args.pilot_origin:
+             import logging
+--- /dev/null
++++ after/alternatives/advisor-first/medigap_pilot.py
+@@ -0,0 +1,116 @@
++"""D129 exact-profile source-price display. No profile storage or model context."""
++import getpass
++from pathlib import Path
++import re
++import sys
++from urllib.parse import urlsplit
++
++from guest_profiles import ProfileError
++
++BUILD = '7be76407ca94d33223ec0144bac16f2e220fba0205496bdf05577a42ab32831f'
++DATE = '2026-11-10'
++ZIPS = tuple(str(n) for n in range(34101, 34109))
++KEYS = {'zipcode', 'age', 'gender', 'tobacco', 'effective_date'}
++VARIANTS = ('A', 'B', 'C', 'D', 'F', 'HDF', 'G', 'HDG', 'K', 'L', 'M', 'N')
++NOTICE = ('Prices match your ZIP, age, sex and tobacco inputs for November 10, 2026. '
++          'These are listed premiums, not a guaranteed quote or a recommendation. '
++          'Your eligibility and qualification for a rating class or discount still need checking.')
++
++
++def local_repository():
++    package = Path(__file__).resolve().parents[2] / 'infrastructure/daylight-data'
++    sys.path.insert(0, str(package / 'src'))
++    from daylight_data.csg_medigap.store import Repository, connect
++    dsn = (f'host={package / ".state/socket"} port=55485 '
++           f'dbname=daylight_research_2026_r2 user={getpass.getuser()}')
++    return Repository(lambda: connect(dsn, 'daylight_research_2026_r2', readonly=True), BUILD)
++
++
++def validate(body):
++    if (set(body) != KEYS or not isinstance(body.get('zipcode'), str)
++            or not re.fullmatch(r'\d{5}', body['zipcode'])
++            or type(body.get('age')) is not int or not 0 <= body['age'] <= 120
++            or body.get('gender') not in ('Female', 'Male')
++            or body.get('tobacco') not in ('Non-Tobacco', 'Tobacco User')
++            or not isinstance(body.get('effective_date'), str)):
++        raise ProfileError('Enter an exact ZIP, age, sex and tobacco status for these prices.', 422)
++
++
++def prices(repository, body):
++    validate(body)
++    base = {'display_authorization': 'D129', 'display_scope': 'profile_matched_source_prices',
++            'source_build': BUILD, 'requested_effective_date': DATE,
++            'personal_quote': False, 'eligibility': 'not_determined',
++            'recommendation': 'not_provided', 'all_market_complete': False,
++            'notice': NOTICE, 'plans': []}
++    if not 65 <= body['age'] <= 74:
++        return {**base, 'status': 'unsupported_pilot_age', 'message': (
++            'Medigap pricing for ages 75+ is not supported in this pilot.' if body['age'] >= 75 else
++            'Medigap pricing in this pilot supports ages 65–74; under-65 pricing is not supported.')}
++    if body['zipcode'] not in ZIPS:
++        return {**base, 'status': 'unsupported_pilot_zip',
++                'message': 'Medigap pricing in this pilot covers ZIPs 34101–34108. Your ZIP is not supported yet.'}
++    if body['effective_date'] != DATE:
++        return {**base, 'status': 'unsupported_price_date',
++                'message': 'These Medigap prices were requested for November 10, 2026. Prices for another date are not available yet.'}
++    if repository is None:
++        raise RuntimeError('MEDIGAP_SOURCE_UNAVAILABLE')
++    source = repository.query(**body)
++    if (source.get('build_id') != BUILD or source.get('personal_quote') is not False
++            or source.get('status') != 'matched_source_observations'):
++        raise RuntimeError('MEDIGAP_SOURCE_UNAVAILABLE')
++    issues = {x['record_id'] for x in source.get('field_issues', [])}
++    expected = {k: body[v] for k, v in (('zip', 'zipcode'), ('age', 'age'), ('gender', 'gender'),
++                                      ('tobacco', 'tobacco'), ('requested_effective_date', 'effective_date'))}
++    rows = source['records']
++    if not rows or len(rows) > 1000:
++        raise RuntimeError('MEDIGAP_SOURCE_UNAVAILABLE')
++    plans = []
++    for row in rows:
++        if (any(row['scenario'].get(k) != v for k, v in expected.items())
++                or row['variant'] not in VARIANTS or row['source_sha256'] != source['source_sha256']):
++            raise RuntimeError('MEDIGAP_PROFILE_MISMATCH')
++        plans.append({
++            'id': row['id'], 'company': row['company_name_raw'], 'variant': row['variant'],
++            'naic': row['naic'], 'rating_class': row['rating_class_raw'],
++            'rating_type': row['rating_type_raw'], 'select_observed': row['select_observed'],
++            **{k: row[k] for k in ('monthly_cents', 'annual_cents', 'monthly_with_discounts_cents',
++                                   'annual_with_discounts_cents')},
++            'household_discount': row['raw']['HH Discount'], 'policy_fee': row['raw']['Policy Fee'],
++            'policy_fee_timing': row['policy_fee_timing'], 'discount_eligibility': row['discount_eligibility'],
++            'source_effective_date': row['source_effective_date'], 'effective_end': row['effective_end'],
++            'policy_form': row['policy_form'], 'policy_edition': row['policy_edition'],
++            'source_sha256': row['source_sha256'], 'source_locator': row['source_locator'],
++            'source_fields': row['raw'], 'rating_labels_need_review': row['id'] in issues,
++        })
++    return {**base, 'status': 'matched_source_prices', 'profile': expected,
++            'plans': plans, 'source_review_holds': source['holds']}
++
++
++def install_medigap(server, repository=None):
++    """Same-origin POST only, with the existing guest/CSRF boundary and no AI calls."""
++    base = server.RequestHandlerClass
++
++    class Handler(base):
++        def do_POST(self):
++            url = urlsplit(self.path)
++            if url.path != '/api/plans/medigap':
++                return super().do_POST()
++            try:
++                if not self.safe():
++                    raise ProfileError('Request origin rejected.', 403)
++                self.csrf()
++                if url.query:
++                    raise ProfileError('Keep personal details out of URLs.', 422)
++                body = self.body()
++                value = prices(repository, body)
++                return self.respond(200, value)
++            except ProfileError as error:
++                return self.respond(error.code, {'error': str(error)})
++            except Exception:
++                # No source rows, personal inputs, credentials or query text in errors/logs.
++                return self.respond(503, {'error': 'Medigap prices are temporarily unavailable. Your entries are still here; try again.',
++                                          'code': 'MEDIGAP_UNAVAILABLE'})
++
++    server.RequestHandlerClass = Handler
++    return server
+--- before/alternatives/advisor-first/web-8894/index.html
++++ after/alternatives/advisor-first/web-8894/index.html
+@@ -16,6 +16,7 @@
+   <link rel="stylesheet" href="/identity-view.css">
+   <link rel="stylesheet" href="/understanding.css">
+   <link rel="stylesheet" href="/plans-workspace.css">
++  <link rel="stylesheet" href="/medigap-plans.css">
+   <link rel="stylesheet" href="/finish.css">
+   <script src="/ten-state.js" defer></script>
+   <script src="/comparison-view.js" defer></script>
+@@ -23,6 +24,7 @@
+   <script src="/visit-artifacts.js" defer></script>
+   <script src="/understanding-view.js" defer></script>
+   <script src="/plans-handoff.js" defer></script>
++  <script src="/medigap-plans.js" defer></script>
+   <script src="/plans-workspace.js" defer></script>
+   <script src="/advisor.js" defer></script>
+ </head>
+--- before/alternatives/advisor-first/web-8894/plans-workspace.js
++++ after/alternatives/advisor-first/web-8894/plans-workspace.js
+@@ -265,9 +265,7 @@
+   }
+   function renderSupplement(host) {
+     host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
+-    const h = el('h1', 'Medigap and Part D', 'plans-title'); h.tabIndex = -1; host.append(h);
+-    host.append(el('p', 'Medigap and Part D plan details are still being reviewed and aren’t shown yet.', 'plans-lede'));
+-    const row = el('div', undefined, 'plans-row'); row.append(button('Back to the two paths', () => showView('paths'), 'btn-secondary'), button('Continue my conversation', close, 'btn-quiet')); host.append(row);
++    window.DaylightMedigap.render(host, {request:api, zip:fieldValue('comparison.scope.zip'), context:JSON.stringify(prof().fields)});
+     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+   }
+ 
+@@ -344,8 +342,11 @@
+ 
+   function kinds() {
+     const nav = el('nav', undefined, 'plan-kinds'); nav.setAttribute('aria-label', 'Plan types');
+-    const current = el('span', 'Medicare Advantage', view === 'advantage' ? 'plan-kind current' : 'plan-kind'); if (view === 'advantage') current.setAttribute('aria-current', 'page'); nav.append(current);
+-    for (const t of ['Medicare Supplement (Medigap)', 'Part D drug plans']) {
++    for (const [label,target] of [['Medicare Advantage','advantage'],['Medicare Supplement (Medigap)','supplement']]) {
++      const tab = button(label,()=>showView(target),view === target ? 'plan-kind current' : 'plan-kind');
++      if (view === target) tab.setAttribute('aria-current','page'); nav.append(tab);
++    }
++    for (const t of ['Part D drug plans']) {
+       const k = el('span', undefined, 'plan-kind soon'); k.append(el('span', t), el('span', 'Coming soon', 'soon-tag')); nav.append(k);
+     }
+     return nav;
+@@ -837,7 +838,7 @@
+     $('plans-panel').hidden = true; $('plans-backdrop').hidden = true; $('plans-fab').hidden = true; document.body.classList.remove('plans-chat-open', 'plans-has-tray'); $('plans-tab').removeAttribute('aria-current'); $('message').focus();
+   }
+   function snapshot() {
+-    if (!opened || !data) return null;
++    if (!opened || !data || view === 'supplement') return null;
+     const visible = [...document.querySelectorAll('[data-plan-id]')].filter(n => {const r = n.getBoundingClientRect(); return r.height && r.bottom > 0 && r.top < innerHeight;}).map(n => n.dataset.planId).slice(0, 12);
+     return {version: 'plans-context-v1', reviewToken: token, viewDigest: data.view_digest, visibleIds: visible, comparedIds: [...compared], selectedId: selected, field, mode};
+   }
+--- /dev/null
++++ after/alternatives/advisor-first/web-8894/medigap-plans.js
+@@ -0,0 +1,163 @@
++/* D129: exact-source Medigap prices in the incumbent Plans visual system.
++   Inputs and prices are visit-only; never save them or add them to AI context. */
++(() => {
++  'use strict';
++  const DATE = '2026-11-10', VARIANTS = ['A','B','C','D','F','HDF','G','HDG','K','L','M','N'];
++  const chosen = new Set();
++  let input = {zipcode:'',age:'',gender:'',tobacco:''}, result = null, error = '', pending = false, revision = 0;
++  let host, request, context = null, search = '', variant = 'all', order = 'premium', compare = false;
++  const el = (tag, text, cls) => {const n = document.createElement(tag); if (text != null) n.textContent = text; if (cls) n.className = cls; return n;};
++  const money = cents => cents == null ? 'Not supplied' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents / 100);
++  const planName = v => v === 'HDG' ? 'High-deductible Plan G' : v === 'HDF' ? 'High-deductible Plan F' : `Plan ${v}`;
++  const name = p => `${p.company} · ${planName(p.variant)}`;
++  const sourceClass = p => p.rating_class && p.rating_class !== 'None' ? p.rating_class : 'Not specified';
++  const text = v => v == null || v === '' ? 'Not supplied' : String(v);
++  function button(label, run, cls = 'btn-quiet') {const b = el('button',label,cls); b.type = 'button'; b.onclick = run; return b;}
++  function clearResult() {revision++; result = null; error = ''; pending = false; chosen.clear(); compare = false;}
++  function ageMessage() {
++    if (!/^\d+$/.test(input.age)) return '';
++    if (Number(input.age) >= 75) return 'Medigap pricing for ages 75+ is not supported in this pilot.';
++    if (Number(input.age) < 65) return 'Medigap pricing in this pilot supports ages 65–74; under-65 pricing is not supported.';
++    return '';
++  }
++  function syncProfile(key, zip) {
++    if (context !== key) {context = key; clearResult(); input = {zipcode:zip || '',age:'',gender:'',tobacco:''};}
++  }
++  function field(label, key, options) {
++    const wrap = el('label',label,'plans-field');
++    const control = el(options ? 'select' : 'input'); control.name = key; control.required = true;
++    if (options) {control.append(new Option('Choose…','')); for (const [value,label] of options) control.append(new Option(label,value));}
++    else {
++      control.type = key === 'age' ? 'number' : 'text'; control.inputMode = 'numeric';
++      if (key === 'age') {control.min = '0'; control.max = '120'; control.step = '1';}
++      else {control.pattern = '[0-9]{5}'; control.maxLength = 5; control.autocomplete = 'off';}
++    }
++    control.value = input[key];
++    control.addEventListener('input', () => {input[key] = control.value; clearResult(); renderResults();});
++    wrap.append(control);
++    if (key === 'age') {
++      const box = el('div'), note = el('p','','plans-help'); note.id = 'medigap-age-note'; note.setAttribute('role','status');
++      control.setAttribute('aria-describedby',note.id); box.append(wrap,note); return box;
++    }
++    return wrap;
++  }
++  async function load() {
++    if (pending || ageMessage()) return;
++    const body = {...input, age:Number(input.age), effective_date:DATE}, current = ++revision;
++    pending = true; result = null; error = ''; chosen.clear(); compare = false; renderResults();
++    try {
++      const value = await request('/api/plans/medigap',body);
++      if (current !== revision) return;
++      if (!Array.isArray(value.plans)) throw new Error('Medigap prices could not be read. Try again.');
++      result = value;
++    } catch (e) {if (current === revision) error = e.message || 'Medigap prices are temporarily unavailable. Try again.';}
++    finally {if (current === revision) {pending = false; renderResults(); (document.getElementById('medigap-count') || document.getElementById('medigap-status'))?.focus();}}
++  }
++  function render(target, options) {
++    host = target; request = options.request; syncProfile(options.context, options.zip);
++    const top = el('div',null,'plans-top'), title = el('h1','Medicare Supplement (Medigap)','plans-title'); title.tabIndex = -1;
++    top.append(title); host.append(top,el('p','Listed premiums for your exact profile, for November 10, 2026.','plans-lede'),
++      el('p','Pilot coverage: ZIPs 34101–34108, ages 65–74. Enter details for the person receiving coverage.','plans-help'));
++    const form = el('form',null,'medigap-profile'), fields = el('div',null,'medigap-fields');
++    fields.append(field('ZIP code','zipcode'), field('Age on November 10, 2026','age'),
++      field('Sex used for pricing','gender',[['Female','Female'],['Male','Male']]),
++      field('Tobacco status','tobacco',[['Non-Tobacco','Non-tobacco user'],['Tobacco User','Tobacco user']]));
++    const actions = el('div',null,'plans-row'), submit = el('button','Show matched prices','primary-button');
++    submit.type = 'submit'; submit.id = 'medigap-submit'; actions.append(submit); form.append(fields,actions);
++    form.addEventListener('submit', e => {e.preventDefault(); load();});
++    form.append(el('p','These entries are used for this price lookup only and stay out of your saved profile and AI conversation.','plans-help'));
++    const editor = el('details',null,'medigap-editor'), summary = el('summary','Your pricing details');
++    editor.id = 'medigap-editor'; summary.id = 'medigap-editor-label'; editor.open = true; editor.append(summary,form); host.append(editor);
++    const notice = el('p','', 'plans-notice'); notice.id = 'medigap-status'; notice.tabIndex = -1; notice.setAttribute('role','status'); notice.setAttribute('aria-live','polite');
++    const output = el('div'); output.id = 'medigap-results'; host.append(notice,output); renderResults();
++  }
++  function select(label, values, current, change) {
++    const wrap = el('label',label,'plans-field'), s = el('select');
++    for (const [v,t] of values) s.append(new Option(t,v)); s.value = current; s.onchange = () => change(s.value); wrap.append(s); return wrap;
++  }
++  function renderResults() {
++    const output = document.getElementById('medigap-results'), notice = document.getElementById('medigap-status');
++    if (!output || !notice) return; output.replaceChildren();
++    const unsupported = ageMessage(); document.getElementById('medigap-age-note').textContent = unsupported;
++    notice.textContent = error || (pending ? 'Finding your matched prices…' : result?.message || '');
++    const submit = document.getElementById('medigap-submit'); submit.disabled = pending || !!unsupported; submit.textContent = pending ? 'Finding prices…' : 'Show matched prices';
++    if (unsupported || !result || result.status !== 'matched_source_prices') return;
++    document.getElementById('medigap-editor').open = false;
++    document.getElementById('medigap-editor-label').textContent = 'Edit pricing details';
++    const p = result.profile;
++    output.append(el('p',`ZIP ${p.zip} · Age ${p.age} · ${p.gender} · ${p.tobacco} · November 10, 2026`,'plans-count'),el('p',result.notice,'plans-help'));
++    const filters = el('div',null,'plans-filters medigap-filters');
++    const searchLabel = el('label','Company name','plans-field'), searchBox = el('input'); searchBox.type = 'search'; searchBox.value = search;
++    searchBox.oninput = () => {search = searchBox.value; renderList();}; searchLabel.append(searchBox);
++    filters.append(searchLabel, select('Plan letter',[['all','All plan letters'],...VARIANTS.map(v=>[v,planName(v)])],variant,v=>{variant=v;renderList();}),
++      select('Sort by',[['premium','Lowest monthly premium'],['name','Company name']],order,v=>{order=v;renderList();})); output.append(filters);
++    const controls = el('div',null,'plans-row medigap-actions'); controls.id = 'medigap-actions'; output.append(controls);
++    const count = el('p','', 'plans-count'); count.id = 'medigap-count'; count.tabIndex = -1; count.setAttribute('aria-live','polite');
++    const list = el('div'); list.id = 'medigap-list'; output.append(count,list);
++    const about = el('details',null,'plans-about'); about.append(el('summary','About these Medigap prices'),
++      el('p','Source: CSG Actuarial exports requested for November 10, 2026. Each listed rate retains its rating class, fees and discount conditions. This is a captured subset; complete market coverage is not established.'),
++      el('p','Sorting changes the display order only. Monthly and annual amounts are separate source values. Eligibility, policy form, discount qualification and future rates are not confirmed. Part D prices are not included.'));
++    output.append(about); renderList();
++  }
++  function toggle(p) {
++    if (chosen.has(p.id)) chosen.delete(p.id);
++    else if (chosen.size < 3) chosen.add(p.id);
++    else {document.getElementById('medigap-status').textContent = 'You can compare up to three listed rates. Remove one to add another.'; return;}
++    if (!chosen.size) compare = false; document.getElementById('medigap-status').textContent = ''; renderList();
++  }
++  function renderList() {
++    const list = document.getElementById('medigap-list'); if (!list || !result) return;
++    const controls = document.getElementById('medigap-actions'); controls.replaceChildren();
++    controls.append(button('All listed rates',()=>{compare=false;renderList();},compare?'btn-quiet':'btn-secondary'));
++    if (chosen.size) controls.append(button(`Compare selected (${chosen.size})`,()=>{compare=true;renderList();},compare?'btn-secondary':'btn-quiet'));
++    list.replaceChildren();
++    const rows = result.plans.filter(p => compare ? chosen.has(p.id) : (variant === 'all' || p.variant === variant) && p.company.toLowerCase().includes(search.toLowerCase().trim()));
++    rows.sort((a,b) => (order === 'premium' ? (a.monthly_cents ?? Infinity) - (b.monthly_cents ?? Infinity) : 0) || a.company.localeCompare(b.company) || a.variant.localeCompare(b.variant) || sourceClass(a).localeCompare(sourceClass(b)) || a.id.localeCompare(b.id));
++    document.getElementById('medigap-count').textContent = `${rows.length} of ${result.plans.length} listed rates${compare?' selected for comparison':''}`;
++    if (!rows.length) {list.append(el('p','No listed rates match these filters. Try all plan letters or clear the company name.','plans-help'));return;}
++    if (compare) return comparison(list,rows); for (const p of rows) list.append(card(p));
++  }
++  function addAmount(dl,label,value) {const box = el('div',null,'amount'); box.append(el('dt',label,'amount-label'),el('dd',value,'amount-value')); dl.append(box);}
++  function card(p) {
++    const c = el('article',null,'plan-card'); c.dataset.medigapId = p.id;
++    c.append(el('h3',name(p),'plan-name'),el('p',`Rating class: ${sourceClass(p)}`,'plan-facts'));
++    if (p.select_observed === true) c.append(el('p','Medicare SELECT is marked in this source. Check its network conditions.','plan-rule'));
++    const amounts = el('dl',null,'plan-amounts');
++    addAmount(amounts,'Listed monthly premium',money(p.monthly_cents)); addAmount(amounts,'Listed annual premium',money(p.annual_cents));
++    addAmount(amounts,'Listed policy fee',text(p.policy_fee)); c.append(amounts);
++    const actions = el('div',null,'plan-actions'), add = button(chosen.has(p.id)?'Added to compare':'Add to compare',()=>toggle(p),'btn-secondary');
++    add.setAttribute('aria-pressed',String(chosen.has(p.id))); actions.append(add,button('See full details',e=>details(p,e))); c.append(actions); return c;
++  }
++  const DETAILS = [
++    ['Listed monthly premium',p=>money(p.monthly_cents)], ['Listed annual premium',p=>money(p.annual_cents)],
++    ['Monthly premium if discount applies',p=>money(p.monthly_with_discounts_cents)], ['Annual premium if discount applies',p=>money(p.annual_with_discounts_cents)],
++    ['Household discount in source',p=>text(p.household_discount)], ['Listed policy fee',p=>text(p.policy_fee)],
++    ['Rating class',sourceClass], ['Rating method in source',p=>text(p.rating_type)],
++    ['Medicare SELECT in source',p=>p.select_observed === true ? 'Yes; network conditions need checking' : p.select_observed === false ? 'No' : 'Not specified'],
++    ['Source rate effective date',p=>text(p.source_effective_date)], ['Rate end date',p=>text(p.effective_end)],
++    ['Policy form',p=>text(p.policy_form)], ['Policy edition',p=>text(p.policy_edition)]
++  ];
++  function comparison(list,rows) {
++    list.append(el('p','Scroll sideways in the comparison to see each selected rate.','plans-help medigap-scroll-help'));
++    const wrap=el('div',null,'plans-compare'), table=el('table'), head=el('tr');
++    wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Medigap rate comparison');
++    table.append(el('caption','Compare listed Medigap rates')); head.append(el('th','Source term'));
++    for(const p of rows) {const th=el('th'); th.scope='col'; th.append(el('p',name(p)),el('p',`Class: ${sourceClass(p)}`),button('Remove',()=>toggle(p)));head.append(th);}
++    const thead=el('thead');thead.append(head);table.append(thead);const body=el('tbody');
++    for(const [label,get] of DETAILS) {const row=el('tr'),th=el('th',label);th.scope='row';row.append(th);for(const p of rows)row.append(el('td',get(p)));body.append(row);}
++    table.append(body);wrap.append(table);list.append(wrap,el('p','Discount qualification, fee timing and eligibility have not been verified. This comparison does not recommend a policy.','plans-help'));
++  }
++  function details(p,event) {
++    const opener=event.currentTarget, dialog=el('dialog',null,'plan-sheet');dialog.setAttribute('aria-labelledby','medigap-detail-title');
++    const head=el('div',null,'sheet-head'), title=el('h2',name(p));title.id='medigap-detail-title';
++    const close=button('Close',()=>dialog.close(),'btn-quiet sheet-close');head.append(title,close);dialog.append(head);
++    dialog.append(el('p','Listed premiums, not a guaranteed quote. Eligibility, discount qualification and fee timing still need checking.','sheet-note'));
++    const section=el('section',null,'sheet-section');
++    for(const [label,get] of DETAILS) {const row=el('div',null,'sheet-row'),top=el('div',null,'sheet-row-top');top.append(el('p',label,'sheet-label'),el('p',get(p),'sheet-value'));row.append(top);section.append(row);}
++    dialog.append(section); const source=el('details',null,'sheet-more');source.append(el('summary','Source details'),el('p',`CSG Actuarial · requested November 10, 2026 · NAIC ${p.naic}`,'sheet-note'));
++    if(p.rating_labels_need_review)source.append(el('p','The source rating/outlook labels need review and are not used to compare insurer quality.','sheet-note'));
++    const dl=el('dl');for(const [key,value] of Object.entries(p.source_fields)){dl.append(el('dt',key),el('dd',text(value)));} source.append(dl,el('p',p.source_locator,'sheet-note'));dialog.append(source);
++    dialog.addEventListener('close',()=>{dialog.remove();if(opener.isConnected)opener.focus();},{once:true}); document.body.append(dialog);dialog.showModal();close.focus();
++  }
++  window.DaylightMedigap = Object.freeze({render,syncProfile});
++})();
+--- /dev/null
++++ after/alternatives/advisor-first/web-8894/medigap-plans.css
+@@ -0,0 +1,22 @@
++/* D129 extension of the existing MA controls/cards, scoped to Medigap. */
++.plan-kinds button.plan-kind { font-family:inherit; font-size:inherit; cursor:pointer; background-color:transparent; border:0; }
++.plan-kinds button.plan-kind.current { background-color:var(--sage); }
++.plan-kinds button.plan-kind:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
++.medigap-editor { margin:20px 0 12px; border-block:1px solid var(--line); }
++.medigap-editor > summary { padding:14px 0; cursor:pointer; font-weight:700; font-size:var(--text-label); }
++.medigap-profile { padding:8px 0 12px; }
++.medigap-fields { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:20px; }
++.medigap-actions { margin:16px 0; }
++.medigap-scroll-help { display:none; }
++.medigap-filters { grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:20px; }
++#medigap-results .plan-card .plan-facts { display:block; }
++#medigap-results .plans-compare th { min-width:190px; }
++#medigap-results .plans-compare caption { text-align:left; padding:12px 0; font-weight:700; }
++@container plans (max-width:800px) { .medigap-fields { grid-template-columns:repeat(2,minmax(0,1fr)); } }
++@container plans (max-width:560px) {
++  .medigap-fields, .medigap-filters { grid-template-columns:1fr; }
++  .medigap-scroll-help { display:block; }
++  .medigap-profile .primary-button { width:100%; }
++  .plan-kinds button.plan-kind { font-size:var(--text-help); border:1px solid var(--line); }
++  .plan-kinds button.plan-kind.current { border-color:var(--olive); }
++}
+--- /dev/null
++++ after/alternatives/advisor-first/tests/test_medigap_pilot.py
+@@ -0,0 +1,128 @@
++"""D129: fictional HTTP inputs, no model calls, no source/guest writes."""
++import copy
++from pathlib import Path
++import tempfile
++import threading
++import unittest
++from unittest.mock import patch
++
++import test_http as support
++from medigap_pilot import BUILD, DATE, prices
++
++PROFILE = dict(zipcode='34101', age=65, gender='Female', tobacco='Non-Tobacco', effective_date=DATE)
++
++
++class FictionalRepository:
++    def __init__(self):
++        self.calls = []
++
++    def query(self, **body):
++        self.calls.append(copy.deepcopy(body))
++        scenario = dict(zip=body['zipcode'], age=body['age'], gender=body['gender'],
++                        tobacco=body['tobacco'], requested_effective_date=body['effective_date'])
++        rows = []
++        for i, rating in enumerate(('Standard', 'Household')):
++            rows.append(dict(id=str(i), company_name_raw='Fictional Company', variant='G', naic='12345',
++                rating_class_raw=rating, rating_type_raw='Issue Age', select_observed=None,
++                monthly_cents=12345+i, annual_cents=None, monthly_with_discounts_cents=11728,
++                annual_with_discounts_cents=140000, scenario=scenario, source_sha256='a'*64,
++                raw={'HH Discount':'5%', 'Policy Fee':'$20 fixed', 'AM Best Rating':'Stable', 'AM Best Outlook':'A-'},
++                policy_fee_timing='not_determined', discount_eligibility='not_determined',
++                source_effective_date='2026-07-01', effective_end=None, policy_form=None, policy_edition=None,
++                source_locator=f'Plan G Rates!A{11+i}:Q{11+i}'))
++        return dict(build_id=BUILD, personal_quote=False, status='matched_source_observations',
++                    source_sha256='a'*64, records=rows, holds=['PERSONAL_ELIGIBILITY_NOT_DETERMINED'],
++                    field_issues=[{'record_id':'0'}])
++
++
++class MedigapHttpTests(unittest.TestCase):
++    request = support.HttpTests.request
++
++    @classmethod
++    def setUpClass(cls):
++        cls.tmp = tempfile.TemporaryDirectory()
++        cls.repository = FictionalRepository()
++        cls.server = support.build(0, fixture=True, database=Path(cls.tmp.name)/'profiles.sqlite3',
++                                   medigap_repository=cls.repository)
++        cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
++        cls.thread.start()
++
++    @classmethod
++    def tearDownClass(cls):
++        cls.server.shutdown(); cls.server.server_close(); cls.thread.join(); cls.tmp.cleanup()
++
++    def setUp(self):
++        self.cookie = None
++        code, self.session = self.request('/api/guest/session')
++        self.assertEqual(code, 200)
++        self.repository.calls.clear()
++
++    def test_exact_prices_preserve_classes_and_independent_unknown_amounts(self):
++        before = self.request('/api/guest/session')[1]
++        code, value = self.request('/api/plans/medigap', PROFILE)
++        self.assertEqual(code, 200)
++        self.assertEqual(value['status'], 'matched_source_prices')
++        self.assertEqual(self.repository.calls, [PROFILE])
++        self.assertEqual(len(value['plans']), 2)
++        self.assertEqual(value['plans'][0]['monthly_cents'], 12345)
++        self.assertIsNone(value['plans'][0]['annual_cents'])
++        self.assertEqual(value['plans'][0]['annual_with_discounts_cents'], 140000)
++        self.assertTrue(value['plans'][0]['rating_labels_need_review'])
++        self.assertFalse(value['personal_quote'])
++        self.assertEqual(value['eligibility'], 'not_determined')
++        self.assertEqual(self.request('/api/guest/session')[1], before)
++
++    def test_pilot_boundaries_and_date_never_query_another_profile(self):
++        for change, status in [({'age':75},'unsupported_pilot_age'), ({'age':64},'unsupported_pilot_age'),
++                               ({'zipcode':'34109'},'unsupported_pilot_zip'),
++                               ({'effective_date':'2027-01-01'},'unsupported_price_date')]:
++            code, value = self.request('/api/plans/medigap', {**PROFILE, **change})
++            self.assertEqual(code, 200)
++            self.assertEqual(value['status'], status)
++            self.assertEqual(value['plans'], [])
++        self.assertEqual(self.repository.calls, [])
++        code, value = self.request('/api/plans/medigap', {**PROFILE, 'age':74, 'zipcode':'34108', 'gender':'Male', 'tobacco':'Tobacco User'})
++        self.assertEqual(code, 200)
++        self.assertEqual(value['profile']['age'], 74)
++
++    def test_explicit_inputs_no_defaults_or_client_authority(self):
++        for body in ({k:v for k,v in PROFILE.items() if k!='gender'}, {**PROFILE,'age':True},
++                     {**PROFILE,'age':'65'}, {**PROFILE,'gender':'unknown'},
++                     {**PROFILE,'commission':100}, {**PROFILE,'consumer_release':'accepted'},
++                     {**PROFILE,'zipcode':'3410'}, {**PROFILE,'effective_date':None}):
++            self.assertEqual(self.request('/api/plans/medigap',body)[0],422)
++        self.assertEqual(self.repository.calls, [])
++
++    def test_existing_origin_csrf_cookie_and_no_url_profile_boundary(self):
++        self.assertEqual(self.request('/api/plans/medigap',PROFILE,csrf=False)[0],403)
++        self.assertEqual(self.request('/api/plans/medigap',PROFILE,origin='https://untrusted.example')[0],403)
++        self.assertEqual(self.request('/api/plans/medigap?age=65',PROFILE)[0],422)
++        self.cookie = None
++        self.assertIn(self.request('/api/plans/medigap',PROFILE)[0],(401,403))
++        self.assertEqual(self.repository.calls, [])
++
++    def test_source_stop_or_database_failure_fails_without_data_or_details(self):
++        with patch.object(self.repository,'query',side_effect=RuntimeError('SOURCE_STOP secret fictional-input')):
++            code, value = self.request('/api/plans/medigap',PROFILE)
++        self.assertEqual(code,503)
++        self.assertNotIn('secret',str(value))
++        self.assertNotIn('plans',value)
++
++    def test_wrong_build_or_wrong_profile_is_never_displayed(self):
++        original = self.repository.query(**PROFILE)
++        for tamper in ('build','age'):
++            changed = copy.deepcopy(original)
++            if tamper == 'build': changed['build_id'] = 'b'*64
++            else: changed['records'][0]['scenario']['age'] = 66
++            with patch.object(self.repository,'query',return_value=changed):
++                self.assertEqual(self.request('/api/plans/medigap',PROFILE)[0],503)
++
++    def test_no_repository_and_ordinary_ma_catalog(self):
++        with self.assertRaises(RuntimeError): prices(None,PROFILE)
++        code, value = self.request('/api/plans/catalog',{})
++        self.assertEqual(code,200)
++        self.assertEqual(len(value['plans']),72)
++        self.assertNotIn('display_authorization',value)
++
++
++if __name__ == '__main__': unittest.main()
+--- /dev/null
++++ after/alternatives/advisor-first/tests/test_medigap_view.js
+@@ -0,0 +1,56 @@
++'use strict';
++const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),test=require('node:test'),assert=require('node:assert/strict');
++const source=fs.readFileSync(path.join(__dirname,'../web-8894/medigap-plans.js'),'utf8');
++function fixture(request){
++  const ids=new Map();let document;
++  class Node {
++    constructor(tag){this.tagName=tag;this.children=[];this.listeners={};this.dataset={};this.attributes={};this.value='';this.isConnected=true;this.text='';}
++    set id(v){this._id=v;ids.set(v,this);}get id(){return this._id;}
++    set textContent(v){this.text=String(v);this.children=[];}get textContent(){return this.text+this.children.map(x=>x.textContent??x).join('');}
++    append(...nodes){this.children.push(...nodes);for(const n of nodes)if(typeof n==='object')n.parent=this;}
++    replaceChildren(...nodes){const remove=n=>{if(n.id)ids.delete(n.id);for(const c of n.children||[])remove(c);};for(const n of this.children)remove(n);this.children=[];this.append(...nodes);}
++    setAttribute(k,v){this.attributes[k]=v;}addEventListener(k,v){this.listeners[k]=v;}
++    focus(){document.activeElement=this;}showModal(){this.open=true;}close(){this.open=false;this.listeners.close?.();}
++    remove(){this.isConnected=false;this.parent.children=this.parent.children.filter(x=>x!==this);}
++  }
++  document={createElement:tag=>new Node(tag),getElementById:id=>ids.get(id),body:new Node('body')};
++  class Option extends Node {constructor(label,value){super('option');this.textContent=label;this.value=value;}}
++  const window={};vm.runInNewContext(source,{window,document,Option,Intl,Number,Set,Object,Array,Infinity,Error,String});
++  const host=new Node('main');document.body.append(host);const calls=[];
++  const options={context:'fictional-profile',zip:'34101',request:async(url,body)=>{calls.push({url,body});return request(body);}};
++  const all=(node=host)=>[node,...node.children.filter(x=>typeof x==='object').flatMap(all)];
++  const find=predicate=>all().find(predicate);
++  function change(key,value){const input=find(n=>n.name===key);input.value=value;input.listeners.input();}
++  const tick=()=>new Promise(resolve=>setImmediate(resolve));
++  const submit=async()=>{find(n=>n.tagName==='form').listeners.submit({preventDefault(){}});await tick();};
++  const mount=(context=options.context)=>{options.context=context;host.replaceChildren();window.DaylightMedigap.render(host,options);};
++  mount();return {document,host,all,find,change,submit,mount,calls,tick,ids};
++}
++const rows=Array.from({length:4},(_,i)=>({id:String(i),company:'Fictional Company '+i,variant:'G',rating_class:i?'Household':'Standard',monthly_cents:12345+i,annual_cents:null,monthly_with_discounts_cents:11728,annual_with_discounts_cents:140000,policy_fee:'$20 fixed',household_discount:'5%',source_fields:{'AM Best Rating':'Stable'},rating_labels_need_review:true}));
++const response=body=>({status:'matched_source_prices',profile:{zip:body.zipcode,age:body.age,gender:body.gender,tobacco:body.tobacco},notice:'Listed premiums; qualifications unknown.',plans:rows});
++function fill(f){f.change('age','65');f.change('gender','Female');f.change('tobacco','Non-Tobacco');}
++test('explicit answers, bounded POST, exact cents, null annual and all classes',async()=>{
++  const f=fixture(response);assert.equal(f.find(n=>n.name==='age').value,'');assert.equal(f.find(n=>n.name==='gender').value,'');assert.equal(f.calls.length,0);
++  fill(f);await f.submit();assert.equal(f.calls[0].url,'/api/plans/medigap');assert.equal(f.calls[0].body.age,65);assert.equal(f.calls[0].body.effective_date,'2026-11-10');
++  assert.equal(f.all().filter(n=>n.dataset.medigapId).length,4);assert.match(f.host.textContent,/\$123\.45/);assert.match(f.host.textContent,/Not supplied/);assert.match(f.host.textContent,/Standard/);assert.match(f.host.textContent,/Household/);
++});
++test('an edited profile discards delayed old prices and comparison',async()=>{
++  let resolve;const f=fixture(body=>new Promise(r=>{resolve=()=>r(response(body));}));fill(f);await f.submit();
++  f.change('zipcode','34108');resolve();await f.tick();assert.equal(f.all().filter(n=>n.dataset.medigapId).length,0);assert.equal(f.ids.get('medigap-submit').disabled,false);
++});
++test('75+ immediately removes prices without another request; correcting restores lookup',async()=>{
++  const f=fixture(response);fill(f);await f.submit();f.change('age','75');assert.match(f.host.textContent,/75\+ is not supported in this pilot/);assert.equal(f.all().filter(n=>n.dataset.medigapId).length,0);assert.equal(f.ids.get('medigap-submit').disabled,true);assert.equal(f.calls.length,1);
++  f.change('age','74');await f.submit();assert.equal(f.calls.length,2);assert.equal(f.calls[1].body.age,74);
++});
++test('failed lookup retains inputs and retry works; profile replacement clears local answers',async()=>{
++  let fail=true;const f=fixture(body=>{if(fail)throw Error('Temporarily unavailable. Try again.');return response(body);});fill(f);await f.submit();
++  assert.match(f.host.textContent,/Temporarily unavailable/);assert.equal(f.find(n=>n.name==='gender').value,'Female');fail=false;await f.submit();assert.equal(f.all().filter(n=>n.dataset.medigapId).length,4);
++  f.mount('another-person');assert.equal(f.find(n=>n.name==='age').value,'');assert.equal(f.all().filter(n=>n.dataset.medigapId).length,0);
++});
++test('compare three source rates, remove and return to the full list',async()=>{
++  const f=fixture(response);fill(f);await f.submit();
++  for(let i=0;i<4;i++)f.find(n=>n.tagName==='button'&&n.textContent==='Add to compare').onclick();
++  assert.match(f.host.textContent,/up to three/);f.find(n=>n.tagName==='button'&&n.textContent==='Compare selected (3)').onclick();assert.equal(f.all().filter(n=>n.tagName==='table').length,1);assert.match(f.host.textContent,/\$1,400\.00/);
++  f.find(n=>n.tagName==='button'&&n.textContent==='Remove').onclick();assert.match(f.host.textContent,/Compare selected \(2\)/);
++  f.find(n=>n.tagName==='button'&&n.textContent==='All listed rates').onclick();assert.equal(f.all().filter(n=>n.dataset.medigapId).length,4);
++});

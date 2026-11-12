@@ -1,0 +1,40 @@
+Daylight composition context compacted steps=recent_exchanges:3,plan_fields:slim,plan_evidence:not_applicable,plan_evidence:shorten,recent_exchanges:1,plan_context:fields_to_refs,catalog:slim,evidence:general_cap
+Daylight extraction transport model=gpt-5.4 {"exception": "ConnectionResetError", "phase": "stream"}
+Daylight composition transport {"exception": "ConnectionResetError", "phase": "stream"}
+Daylight extraction unavailable code=extraction_unavailable
+Daylight extraction unavailable code=provider_failure
+Daylight composition transport {"exception": "SSLError", "phase": "stream"}
+Daylight extraction transport model=gpt-5.4 {"exception": "TimeoutError", "phase": "stream"}
+Daylight extraction unavailable code=extraction_unavailable
+Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=False
+Daylight extraction transport model=gpt-5.4 {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=composition_unavailable question_available=False
+Daylight composition unavailable code=unavailable question_available=True
+Daylight composition unavailable code=unavailable question_available=True
+======================================================================
+FAIL: test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions (test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 375, in test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions
+    self.assertEqual([self.g['stateVersion'], self.r['stateVersion']],
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     [visit_a[0]['stateVersion'], visit_a[1]['stateVersion']])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [0, 0] != [0, 2]
+
+First differing element 1:
+0
+2
+
+- [0, 0]
+?     ^
+
++ [0, 2]
+?     ^
+
+
+----------------------------------------------------------------------
+Ran 215 tests in 23.377s
+
+FAILED (failures=1)

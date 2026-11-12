@@ -1,0 +1,954 @@
+--- a/alternatives/advisor-first/server.py
++++ b/alternatives/advisor-first/server.py
+@@ -47,11 +47,13 @@
+ from plans_http import install_plans
+ from medigap_pilot import install_medigap
+ from medigap_profile import FIELDS as MEDIGAP_FIELDS, profile as medigap_profile_view
++from part_d_pilot import install_part_d
++from part_d_profile import profile as part_d_profile_view
+ 
+ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=None,
+           research_repository=None, reference_adapter=None, identity_service=None,
+           comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None,
+-          medigap_repository=None):
++          medigap_repository=None, part_d_repository=None):
+     if port in {8890,8891,8896}:
+         raise ValueError('That port belongs to a preserved Daylight surface.')
+     if pilot_origin is not None:
+@@ -65,7 +67,7 @@
+     if pilot_state is not None:
+         if (not fixture or comparison_preview or any(option is not None for option in (
+                 database, client, count_tokens, research_repository, reference_adapter,
+-                identity_service, research_catalog, medigap_repository))):
++                identity_service, research_catalog, medigap_repository, part_d_repository))):
+             raise ValueError('Pilot rehearsal requires fixture mode and its isolated stores.')
+         from pilot_access import GUEST_COOKIE, PilotAccess, install_pilot_gate
+         from pilot_budget import PilotBudget
+@@ -80,7 +82,7 @@
+         if (not fixture or not database or db.exists()
+                 or not any(db.is_relative_to(root) for root in temporary_roots)
+                 or any(service is not None for service in (research_repository, reference_adapter,
+-                                                           identity_service, research_catalog, medigap_repository))):
++                                                           identity_service, research_catalog, medigap_repository, part_d_repository))):
+             raise ValueError('The D91 preview needs fixture mode and a fresh temporary database.')
+         from comparison_preview import load_preview
+         previews = load_preview()
+@@ -114,6 +116,7 @@
+         def respond(self, code, value, mime='application/json; charset=utf-8', cookie=None):
+             if code == 200 and self.path == '/api/conversation/initial' and isinstance(value, dict) and 'guide' in value:
+                 value = {**value, 'medigapProfile': medigap_profile_view(value['guide'])}
++                value['partDProfile'] = part_d_profile_view(value['guide'], value['record'])
+             if (code == 429 and isinstance(value, dict)
+                     and isinstance(value.get('error'), str) and value['error'] in busy_messages):
+                 value = {**value, 'error': busy_messages[value['error']]}
+@@ -195,6 +198,7 @@
+     service = install_plans(install_plan_review(install_session_recovery(install_identity_routes(service, identity_service))),
+                             local_review=research_catalog is not None)
+     service = install_medigap(service, medigap_repository)
++    service = install_part_d(service, part_d_repository)
+     if pilot:
+         service.adaptive.agent.budget = pilot_budget
+         # Owner direction (DQ-01 pilot scope): replies say this is a pilot on 2026 sample data.
+@@ -229,6 +233,7 @@
+     identity_service = None
+     research_catalog = None
+     medigap_repository = None
++    part_d_repository = None
+     if args.local_research:
+         from catalog_research import CatalogResearch, CRITICAL_BENEFITS_PATH
+         from comparison_research import local_repository
+@@ -238,6 +243,8 @@
+         research_catalog = CatalogResearch(critical_benefits_path=CRITICAL_BENEFITS_PATH)
+         from medigap_pilot import local_repository as local_medigap_repository
+         medigap_repository = local_medigap_repository()
++        from part_d_pilot import local_repository as local_part_d_repository
++        part_d_repository = local_part_d_repository()
+     if args.identity_research:
+         from identity_journey import local_identity_journey
+         identity_service=local_identity_journey(internal_research=True)
+@@ -245,7 +252,7 @@
+                   research_repository=repository,reference_adapter=reference_adapter,identity_service=identity_service,
+                   comparison_preview=args.comparison_preview,research_catalog=research_catalog,
+                   pilot_state=args.pilot_state,pilot_origin=args.pilot_origin,
+-                  medigap_repository=medigap_repository)
++                  medigap_repository=medigap_repository,part_d_repository=part_d_repository)
+     try:
+         if args.pilot_origin:
+             import logging
+--- a/alternatives/advisor-first/natural_flow.py
++++ b/alternatives/advisor-first/natural_flow.py
+@@ -34,6 +34,7 @@
+                        attach_result as attach_task_work)
+ from natural_agent import NaturalAgent
+ import medigap_profile
++import part_d_profile
+ # Local additions only: never mutate the imported 41-question engine catalogs.
+ Q = {**Q, **medigap_profile.CATALOG}
+ FIELD = {**FIELD, **medigap_profile.FIELDS}
+@@ -183,6 +184,7 @@
+         out = self.comparisons.attach(super().response(g, r, reply, **extras))
+         out['planReadiness'] = plan_readiness(g, r)
+         out['medigapProfile'] = medigap_profile.profile(g)
++        out['partDProfile'] = part_d_profile.profile(g, r)
+         return out
+ 
+     def recent_exchanges(self, owner, task, policy):
+@@ -385,10 +387,36 @@
+             elif not a.get('nextQuestion'):
+                 a['nextQuestion'] = candidates[0]['question'] if candidates else None
+         if not self.ambiguous_current_coverage(guide) and not (edit or metadata(record).get('editing')):
+-            pricing = self.medigap_questions(guide, record)
++            pricing = self.medigap_questions(guide, record) or self.part_d_questions(guide, record)
+             if pricing:
+                 a['nextQuestion'] = pricing[0]['question']
+         return a
++
++    def part_d_questions(self, guide, record):
++        # Reuse existing meanings for the drug-price task; no second intake.
++        if metadata(record)['task'] != 'drug_pricing':
++            return []
++        view = part_d_profile.profile(guide, record)
++        missing = [key for key in view['missing'] if key not in view['held']]
++        if view['status'] == 'unsupported' or not missing:
++            return []
++        identifier = missing[0]
++        if identifier == 'RC02' and not view['inputs']['zipcode']:
++            return []  # A ZIP left open does not justify a county follow-up.
++        fields = ['county'] if identifier == 'RC02' else ['year'] if identifier == 'RC03' else None
++        question = self.question(identifier, fields)
++        if identifier == 'T03':
++            question['why'] = 'Your home ZIP and county identify which Part D plan information applies to your area.'
++        elif identifier == 'RC02':
++            question['question'] = 'Which county and state is that home ZIP in?'
++            choices = self.reference['zips'].get(view['inputs']['zipcode'], [])
++            if choices:
++                question['fields'][0].update(type='select', options=[[x[0], x[1]+', '+x[2]] for x in choices])
++        elif identifier == 'RC03':
++            question['question'] = 'Which coverage year should we use for Part D plans?'
++            question['why'] = 'Plans and their costs can change each year. This pilot has 2026 plan information.'
++        return [{'id': identifier, 'question': question, 'topic': 'drugs', 'priority': 0, 'required': False,
++                 'purpose': 'Ask only this missing detail to locate dated Part D plan information. Reuse reported facts and explain why. Published premiums do not establish personal prescription costs.'}]
+ 
+     def medigap_questions(self, guide, record):
+         if metadata(record)['task'] != 'medigap':
+@@ -741,7 +769,7 @@
+             return [{'id': question['id'], 'question': question, 'topic': QUESTION_TOPICS.get(question['id'], ''),
+                 'purpose': 'Clarify this unresolved report before using it. Do not assert either candidate.',
+                 'priority': 0, 'required': True}]
+-        pricing = self.medigap_questions(g, r)
++        pricing = self.medigap_questions(g, r) or self.part_d_questions(g, r)
+         if pricing:
+             return pricing
+         candidates = []
+@@ -2597,6 +2625,7 @@
+                     out['notice'] = 'Plan evidence changed during this reply. Refresh Plans and send again.'
+             out['planReadiness'] = plan_readiness(out['guide'], out['record'], pending=self.pending_for(owner))
+             out['medigapProfile'] = medigap_profile.profile(out['guide'])
++            out['partDProfile'] = part_d_profile.profile(out['guide'], out['record'])
+             out['continuation'] = self.bind(owner, out['guide'], out['record'], chain)
+             with self.lock:
+                 generated_conversation(out)
+--- a/alternatives/advisor-first/web-8894/advisor.js
++++ b/alternatives/advisor-first/web-8894/advisor.js
+@@ -686,7 +686,8 @@
+     } else if (q() && state.assessment.narrative.focus !== 'prepare') {
+       const presentation = questionPresentation(q());
+       presentText(host,q().question,presentation,'h1');
+-      if (q().why && (state.generated?.status !== 'complete' || q().id.startsWith('MG_'))) presentText(host,q().why,presentation,'p','why');
++      if (q().why && (state.generated?.status !== 'complete' || q().id.startsWith('MG_')
++          || state.record?.conversation?.task === 'drug_pricing' && ['RC01','T03','RC02','RC03'].includes(q().id))) presentText(host,q().why,presentation,'p','why');
+       renderForm(host,q(),presentation);
+       if (state.record.conversation.editing) host.append(button('Return to my current task',() => turn({type:'resume'})));
+     } else if (!conversationPaused()) {
+@@ -1142,8 +1143,13 @@
+       selectedGoal = '';
+       return id ? turn({type:'edit',id},'',false,{silent:true}) : true;
+     },
++    partDConversation:async id => {
++      if (!await turn({type:'task',task:'drug_pricing',preparing:true},'',false,{silent:true})) return false;
++      selectedGoal = '';
++      return id ? turn({type:'edit',id},'',false,{silent:true}) : true;
++    },
+     profile:() => ({fields:clone(state.guide.fields),facts:clone(state.record.facts || {}),provenance:clone(state.record.natural?.provenance || {}),
+-      readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),medigap:clone(state.medigapProfile || null),visit:state.continuation?.split('.')[0] || '',busy}),
++      readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),medigap:clone(state.medigapProfile || null),partD:clone(state.partDProfile || null),visit:state.continuation?.split('.')[0] || '',busy}),
+     review:() => turn({type:'review_plans'}),
+     privacy});
+   }).catch(error => {note(error.message);$('landing').append(el('p','MidMorning could not load. Reload to try again. Existing saved information is unchanged.','notice'));});
+--- a/alternatives/advisor-first/web-8894/plans-workspace.js
++++ b/alternatives/advisor-first/web-8894/plans-workspace.js
+@@ -128,9 +128,14 @@
+     const sticky = el('div', undefined, 'plans-sticky');
+     sticky.append(kinds(), withIcon(button('Back to my conversation', close, 'btn-quiet plans-crumb'), 'back', false));
+     host.append(sticky); headerOffset();
++    if (view === 'part-d') {
++      const nav = sticky.querySelector('.plan-kinds');
++      nav.scrollLeft = nav.scrollWidth - nav.clientWidth;
++    }
+     if (view !== 'advantage') document.body.classList.remove('plans-has-tray');
+     if (view === 'paths') {renderPaths(host); return;}
+     if (view === 'supplement') {renderSupplement(host); return;}
++    if (view === 'part-d') {renderPartD(host); return;}
+     // Medicare Advantage list: way back to the two paths, title with ZIP / save / chat, one banner, filters, plans.
+     host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
+     const top = el('div', undefined, 'plans-top');
+@@ -281,6 +286,22 @@
+     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+   }
+ 
++  function renderPartD(host) {
++    host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
++    const partD = el('section',undefined,'part-d-workspace'); host.append(partD);
++    window.DaylightPartD.render(partD, {request:api, profile:prof().partD, context:prof().visit,
++      conversation:async id => {
++        if (!await opts.partDConversation(id)) {
++          status('The conversation could not open. Your details and draft are kept; try again.'); return;
++        }
++        $('current').setAttribute('tabindex','-1'); close('current');
++        const current = $('current'), reading = $('reading');
++        reading.scrollTop += current.getBoundingClientRect().top - reading.getBoundingClientRect().top - 18;
++        scrollTo({top:0});
++      }});
++    const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
++  }
++
+   function rail() {
+     const aside = el('aside', undefined, 'plans-rail'); aside.setAttribute('aria-label', 'Filter plans');
+     const box = el('details', undefined, 'rail-box');
+@@ -354,12 +375,9 @@
+ 
+   function kinds() {
+     const nav = el('nav', undefined, 'plan-kinds'); nav.setAttribute('aria-label', 'Plan types');
+-    for (const [label,target] of [['Medicare Advantage','advantage'],['Medicare Supplement (Medigap)','supplement']]) {
++    for (const [label,target] of [['Medicare Advantage','advantage'],['Medicare Supplement (Medigap)','supplement'],['Part D drug plans','part-d']]) {
+       const tab = button(label,()=>showView(target),view === target ? 'plan-kind current' : 'plan-kind');
+       if (view === target) tab.setAttribute('aria-current','page'); nav.append(tab);
+-    }
+-    for (const t of ['Part D drug plans']) {
+-      const k = el('span', undefined, 'plan-kind soon'); k.append(el('span', t), el('span', 'Coming soon', 'soon-tag')); nav.append(k);
+     }
+     return nav;
+   }
+@@ -851,7 +869,7 @@
+     if (focusId === 'current') $('current').focus({preventScroll:true}); else $('message').focus();
+   }
+   function snapshot() {
+-    if (!opened || !data || view === 'supplement') return null;
++    if (!opened || !data || ['supplement','part-d'].includes(view)) return null;
+     const visible = [...document.querySelectorAll('[data-plan-id]')].filter(n => {const r = n.getBoundingClientRect(); return r.height && r.bottom > 0 && r.top < innerHeight;}).map(n => n.dataset.planId).slice(0, 12);
+     return {version: 'plans-context-v1', reviewToken: token, viewDigest: data.view_digest, visibleIds: visible, comparedIds: [...compared], selectedId: selected, field, mode};
+   }
+@@ -882,7 +900,7 @@
+   }, snapshot,
+   afterTurn(result) {
+     if (!opened) return;
+-    if (view === 'supplement' && !saving) {render(); return;}
++    if (['supplement','part-d'].includes(view) && !saving) {render(); return;}
+     if (result.plansContext?.profile_changed) invalidate('Your information changed. Return to the conversation and review it before continuing.');
+     else if (result.generated?.code === 'plans_evidence_changed') invalidate('The plan data changed. Try again to load the latest.');
+     else if (data && result.plansContext && (result.plansContext.view_digest !== data.view_digest || result.plansContext.selected_id !== selected || result.plansContext.focused_field !== field)) status('This reply is about the plans you were viewing when you pressed Send.');
+--- a/alternatives/advisor-first/web-8894/index.html
++++ b/alternatives/advisor-first/web-8894/index.html
+@@ -17,6 +17,7 @@
+   <link rel="stylesheet" href="/understanding.css">
+   <link rel="stylesheet" href="/plans-workspace.css">
+   <link rel="stylesheet" href="/medigap-plans.css">
++  <link rel="stylesheet" href="/part-d-plans.css">
+   <link rel="stylesheet" href="/finish.css">
+   <script src="/ten-state.js" defer></script>
+   <script src="/comparison-view.js" defer></script>
+@@ -25,6 +26,7 @@
+   <script src="/understanding-view.js" defer></script>
+   <script src="/plans-handoff.js" defer></script>
+   <script src="/medigap-plans.js" defer></script>
++  <script src="/part-d-plans.js" defer></script>
+   <script src="/plans-workspace.js" defer></script>
+   <script src="/advisor.js" defer></script>
+ </head>
+--- a/DAYLIGHT_REQUIREMENTS.md
++++ b/DAYLIGHT_REQUIREMENTS.md
+@@ -246,6 +246,8 @@
+ 
+ ## Change log
+ 
++- **2026-11-10, D134 Connect Part D using the Medigap conversation pattern.** The owner requests incorporating Part D in a very similar way to the completed Medigap integration. Activate the existing Part D tab with the retained 2026 Collier published PDP reference, automatic shared-profile scope, chat-first missing details/corrections, familiar cards/details and comparison. This authorizes bounded local display of the ten dated published offerings, standard premiums, deductibles and conditions; it does not authorize invented personal drug/pharmacy costs, subsidy amounts, eligibility, live enrollment availability, source/method acceptance or recommendations. Reuse the original person/location/year/medicine meanings, sensitive-save and AI permissions. Keep Medigap’s age limit confined to Medigap, preserve source STOPs and sealed data, and leave MA logic and protected variants unchanged. [Implementation and checks](audit-evidence/part-d-ui-8894-20261110/README.md).
++
+ - **2026-11-10, D133 Prioritize shorter names.** The owner prefers familiar words of one or two syllables and accepts federal records in other classes. Screen the actual goods and services, including related uses across classes. [One- and two-syllable screen](docs/reviews/brand-screen-2026-11-10/README.md#one--and-two-syllable-names).
+ 
+ - **2026-11-10, D132 Reopen the consumer name search.** The owner says MidMorning is close and asks for a better option. Screen familiar single words and established closed compounds with an immediate connection to the Medicare experience. [Follow-up name screen](docs/reviews/brand-screen-2026-11-10/README.md#follow-up-after-midmorning).
+--- a/docs/project/CURRENT_STATE.md
++++ b/docs/project/CURRENT_STATE.md
+@@ -1,6 +1,6 @@
+ # Daylight: current state
+ 
+-Living document · last updated November 10, 2026 (America/New_York), D133 added. Edit this
++Living document · last updated November 10, 2026 (America/New_York), D134 added. Edit this
+ file in place when direction changes. Do not prepend dated directives here or
+ to any `AGENTS.md`; record them as described in "Changing direction" below.
+ 
+@@ -76,7 +76,7 @@
+ | Port | Source | Status |
+ | --- | --- | --- |
+ | :8893 | `alternatives/advisor-first/` | Active MidMorning advisor backend (D122). The reference `web/` frontend retains Daylight branding. Scoped rules in its [AGENTS.md](../../alternatives/advisor-first/AGENTS.md). |
+-| :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | MidMorning consumer interface (D121), with “Medicare, on your terms.” and the approved support sentence. Retains D93/D109 layout and behavior. Forwards API requests to :8893; D122 activates MidMorning model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile and refreshes prices automatically. D131 replaces duplicate Medigap-page intake with “Talk to MidMorning”; missing questions and corrections use the existing chat buttons/free text, preserving known reports and drafts. [Conversation entry](../../audit-evidence/medigap-conversation-entry-20261110/README.md). [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). Internal identifiers, saved data, MA logic and Part D remain unchanged. |
++| :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | MidMorning consumer interface (D121), with “Medicare, on your terms.” and the approved support sentence. Retains D93/D109 layout and behavior. Forwards API requests to :8893; D122 activates MidMorning model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile and refreshes prices automatically. D131 replaces duplicate Medigap-page intake with “Talk to MidMorning”; missing questions and corrections use the existing chat buttons/free text, preserving known reports and drafts. [Conversation entry](../../audit-evidence/medigap-conversation-entry-20261110/README.md). [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). D134 connects the Part D tab to the ten dated 2026 Collier PDP offerings, using the shared chat profile and the same conversation-first entry, cards/details/comparison. Published premiums/deductibles are available; personal drug costs and enrollment checks remain held. [Part D verification](../../audit-evidence/part-d-ui-8894-20261110/README.md). Internal identifiers, saved data and MA logic remain unchanged. |
+ | :8890 | `cms-slice/apps/ten-question/` | Protected original ten-question journey. |
+ | :8891 | `alternatives/chat-first/` | Protected alternative; also supplies pinned engine dependencies to :8893. |
+ | :8896 | `cms-slice/apps/chat/` | Protected previous guide. |
+@@ -142,7 +142,10 @@
+   table files. All loaded values/conditions passed parity; 17 new backend tests
+   and 29 reference regressions passed. The authenticated research API/CLI and
+   version/role/STOP controls are implemented; no UI, daemon or advisor integration
+-  was activated. Consumer display remains held with zero genuine approvals.
++  was activated by D96. D134 now connects a separate bounded published-PDP display
++  adapter to :8893/:8894; the original research API and its zero-review state
++  remain unchanged. Personal drug/pharmacy cost calculations and recommendations
++  remain held. [Part D integration](../../audit-evidence/part-d-ui-8894-20261110/README.md).
+   D123 authorizes native CSG workbook acquisition with fictional profiles; the owner
+   specifically authorized downloading and reported permission after the displayed
+   license restriction was explained. Its private candidate remains separate from
+@@ -178,7 +181,8 @@
+   profile/HTTP/UI checks and desktop/tablet/phone inspection; an unrelated old
+   visit-history test failure is reproduced on the baseline and remains open.
+   [Shared-profile verification](../../audit-evidence/medigap-chat-profile-20261110/README.md).
+-  75+ is explicitly unsupported for this pilot. Part D and MA logic are unchanged.
++  75+ is explicitly unsupported for Medigap in this pilot. This age limit does not
++  apply to D134’s Part D reference. MA logic is unchanged.
+   Independent source/method acceptance, binding quotes, eligibility and
+   recommendations remain separate; no hosted deployment occurred.
+   [App integration](../../audit-evidence/medigap-ui-8894-20261110/README.md).
+--- a/docs/project/DIRECTIVE_HISTORY.md
++++ b/docs/project/DIRECTIVE_HISTORY.md
+@@ -66,6 +66,7 @@
+ | 2026-11-10 | D130 | Connect chat age, pricing sex and tobacco reports to automatic Medigap prices; ask only missing details with clear purpose. Preserve the eight-ZIP, 65–74 scope, 75+ limit, shared privacy controls and all other tool behavior. | [Implementation and checks](../../audit-evidence/medigap-chat-profile-20261110/README.md) |
+ | 2026-11-10 | D129 | Wire the eight-ZIP Medigap cache into the existing app tab for immediate matched prices, ages 65–74, with 75+ unsupported for the pilot. Reuse the MA UI; no other tool changes. Authorizes bounded local source-price display with exact profile/date matching, retained conditions and STOPs; no binding quote, eligibility inference, recommendation, general source acceptance or hosted deployment. | [Implementation and checks](../../audit-evidence/medigap-ui-8894-20261110/README.md) |
+ | 2026-11-10 | D132 | “i dont love mid morning. close but not it. anything better?” Reopen the consumer name search and screen familiar candidates with a product story in the four target USPTO classes. | [Follow-up name screen](../reviews/brand-screen-2026-11-10/README.md#follow-up-after-midmorning) |
++| 2026-11-10 | D134 | Connect Part D like Medigap: existing shared chat profile, missing-only conversation entry, published plan cards/details/comparison, exact 2026 Collier scope and explicit personal-cost limits. | [Implementation and checks](../../audit-evidence/part-d-ui-8894-20261110/README.md) |
+ | 2026-11-10 | D133 | Favor normal one- or two-syllable words. Records in other classes are acceptable for the shortlist, with actual related goods and services considered in screening. | [Shorter name screen](../reviews/brand-screen-2026-11-10/README.md#one--and-two-syllable-names) |
+ 
+ 
+@@ -81,3 +82,22 @@
+ Owner: “I dont like the click enter, it should be buttons in form mode but in the conversation. like we shouldnt just be a form. does that makes sense. that really shouldn't be there if the convo gets that information out. and we should direct people to engage with the tool in order to get that information, like if people skip to that page, there is just a button and prompt, think medigap is right for you, talk to midmorning to give more info and we can get the right plans for you blah. that needs to be the case”
+ 
+ The Medigap page invites people with missing details to “Talk to MidMorning.” Its button opens the existing chat at the appropriate question without sending a message or replacing a draft. Reuse shared reports; preserve the existing conversational buttons, free text, unknown/defer choices and reasons. Corrections return to the same conversation instead of opening a second form. Ready profiles still load exact source prices automatically. Retain the pilot bounds, source/eligibility limits, sensitive-save controls and MA/Part D behavior. [Implementation and checks](../../audit-evidence/medigap-conversation-entry-20261110/README.md).
++
++
++## D134 · November 10, 2026 · Part D conversation and published-plan integration
++
++Owner: “incorporate part d in a very similar way to what we just pulled off, great job”
++
++Extend D129–D131’s interaction pattern to the existing Part D tab. Use the ten
++retained 2026 Collier PDP offerings, with dated published premiums/deductibles,
++all source fields and conditions. Reuse the existing shared profile for person,
++ZIP/county, year and medicines; do not introduce another intake form or ask for
++Medigap age/sex/tobacco categories. Missing details and edits open the existing
++conversation without sending a message or replacing drafts. Keep the 2026 pilot
++year default explicit; reported other years, unknowns and conflicts retain their
++limits. Personal medicine/pharmacy cost calculations, subsidies, eligibility,
++current enrollment availability and recommendations remain unresolved. This is
++bounded local display authority, not a fabricated source/method review receipt,
++research release promotion or hosted deployment. Preserve the immutable D96
++build and its source STOPs, optional sensitive saving and other app behavior.
++[Implementation and checks](../../audit-evidence/part-d-ui-8894-20261110/README.md).
+--- a/docs/product/MASTER_DESIGN.md
++++ b/docs/product/MASTER_DESIGN.md
+@@ -705,6 +705,22 @@
+ 
+ ### D84 Collier Medigap MVP data collection
+ 
++**D134 Part D conversation and published plans · November 10, 2026:** Activate
++the existing Part D tab with the dated ten-plan 2026 Collier PDP reference.
++Reuse the same conversation invitation, profile-based automatic reads, inspectable
++details, correction route, cards and up-to-three comparison. Reuse existing
++person, ZIP/county, year and medicine reports; no new profile meanings or separate
++form. The unreported year defaults visibly to 2026; explicit other years,
++unknown/stale/conflicting reports never silently select 2026. Source queries
++receive only the supported geographic/year scope, never medicines or demographics.
++Standard premiums and deductibles are published plan terms, not personal drug
++costs, subsidy-adjusted payments, enrollment confirmation or recommendations.
++Keep all ten offerings and source qualifications; source/runtime/STOP failures
++show unavailable rather than a partial or substitute market. The sealed D96
++research release and genuine review records remain unchanged. D134 authorizes
++this bounded local display only; no live model tests or hosted deployment.
++[Verification](../../audit-evidence/part-d-ui-8894-20261110/README.md).
++
+ **D131 Medigap conversation entry · November 10, 2026:** When the shared profile
+ lacks pricing details, the Medigap tab shows “Considering Medigap?” and a single
+ prominent “Talk to MidMorning” invitation. Open the existing conversation at the
+--- a/daylight_obsidian/02 Product/Features/CAP-01 User experience and education.md
++++ b/daylight_obsidian/02 Product/Features/CAP-01 User experience and education.md
+@@ -44,3 +44,19 @@
+ Offline checks and desktop/tablet/phone inspection verify navigation, fresh and
+ partial profiles, corrections and draft preservation. No live model tests,
+ source acceptance or participant comprehension claim. [Exact checks and limits](../../../audit-evidence/medigap-conversation-entry-20261110/README.md).
++
++
++## November 10, 2026: D134 Part D conversation and published plans
++
++The Part D tab now uses the shared reported person/location/year scope to load
++the ten retained 2026 Collier PDP offerings. Missing details and corrections
++stay in the existing chat; known medicines are reused without sending them to
++the source repository. Cards, full published fields and a three-plan comparison
++retain standard-premium/deductible meanings, dated restrictions and source holds.
++Personal prescription/pharmacy costs, subsidies, eligibility and recommendations
++remain unavailable. No Medigap age limit is applied to Part D.
++
++Offline HTTP/profile/UI checks, all-ten-plan/310-field source parity and desktop,
++tablet and phone inspection provide technical evidence. Live conversational
++quality, participant comprehension and independent source/method acceptance are
++separate. [Exact checks and limits](../../../audit-evidence/part-d-ui-8894-20261110/README.md).
+--- a/daylight_obsidian/02 Product/Features/CAP-02 Customer understanding and profile.md
++++ b/daylight_obsidian/02 Product/Features/CAP-02 Customer understanding and profile.md
+@@ -62,3 +62,19 @@
+ Offline checks and desktop/tablet/phone inspection verify navigation, fresh and
+ partial profiles, corrections and draft preservation. No live model tests,
+ source acceptance or participant comprehension claim. [Exact checks and limits](../../../audit-evidence/medigap-conversation-entry-20261110/README.md).
++
++
++## November 10, 2026: D134 Part D conversation and published plans
++
++The Part D tab now uses the shared reported person/location/year scope to load
++the ten retained 2026 Collier PDP offerings. Missing details and corrections
++stay in the existing chat; known medicines are reused without sending them to
++the source repository. Cards, full published fields and a three-plan comparison
++retain standard-premium/deductible meanings, dated restrictions and source holds.
++Personal prescription/pharmacy costs, subsidies, eligibility and recommendations
++remain unavailable. No Medigap age limit is applied to Part D.
++
++Offline HTTP/profile/UI checks, all-ten-plan/310-field source parity and desktop,
++tablet and phone inspection provide technical evidence. Live conversational
++quality, participant comprehension and independent source/method acceptance are
++separate. [Exact checks and limits](../../../audit-evidence/part-d-ui-8894-20261110/README.md).
+--- a/daylight_obsidian/02 Product/Features/CAP-06 Data integration and verification.md
++++ b/daylight_obsidian/02 Product/Features/CAP-06 Data integration and verification.md
+@@ -78,3 +78,19 @@
+ Offline checks and desktop/tablet/phone inspection verify navigation, fresh and
+ partial profiles, corrections and draft preservation. No live model tests,
+ source acceptance or participant comprehension claim. [Exact checks and limits](../../../audit-evidence/medigap-conversation-entry-20261110/README.md).
++
++
++## November 10, 2026: D134 Part D conversation and published plans
++
++The Part D tab now uses the shared reported person/location/year scope to load
++the ten retained 2026 Collier PDP offerings. Missing details and corrections
++stay in the existing chat; known medicines are reused without sending them to
++the source repository. Cards, full published fields and a three-plan comparison
++retain standard-premium/deductible meanings, dated restrictions and source holds.
++Personal prescription/pharmacy costs, subsidies, eligibility and recommendations
++remain unavailable. No Medigap age limit is applied to Part D.
++
++Offline HTTP/profile/UI checks, all-ten-plan/310-field source parity and desktop,
++tablet and phone inspection provide technical evidence. Live conversational
++quality, participant comprehension and independent source/method acceptance are
++separate. [Exact checks and limits](../../../audit-evidence/part-d-ui-8894-20261110/README.md).
+--- /dev/null
++++ b/alternatives/advisor-first/part_d_pilot.py
+@@ -0,0 +1,101 @@
++"""D134 bounded local published PDP display; sealed research authority is retained."""
++import getpass
++from pathlib import Path
++import re
++import sys
++from urllib.parse import urlsplit
++from guest_profiles import ProfileError
++
++BUILD = 'b6992365031d7e3bc3253651b21d924e9d160d7a2c6511e1cab96eb9d782c15c'
++NOTICE = ('Published 2026 plan premiums and deductibles from the September CMS snapshot. '
++          'These are not your prescription costs or a recommendation. Drug coverage, pharmacy costs, '
++          'subsidies, eligibility and current enrollment availability still need checking.')
++
++
++def local_repository():
++    package = Path(__file__).resolve().parents[2] / 'infrastructure/daylight-data'
++    sys.path.insert(0, str(package / 'src'))
++    from daylight_data.plan_types.store import Repository, connect
++    dsn = (f'host={package / ".state/socket"} port=55485 '
++           f'dbname=daylight_research_2026_r2 user={getpass.getuser()}')
++    return Repository(lambda: connect(dsn, readonly=True), BUILD)
++
++
++def published_plans(repository, body, zip_reference):
++    if (not isinstance(body, dict) or set(body) != {'zipcode', 'county_fips', 'year'}
++            or not isinstance(body.get('zipcode'), str) or not re.fullmatch(r'\d{5}', body['zipcode'])
++            or not isinstance(body.get('county_fips'), str) or not re.fullmatch(r'\d{5}', body['county_fips'])
++            or type(body.get('year')) is not int):
++        raise ProfileError('Use the home ZIP, county and coverage year from your conversation.', 422)
++    base = {'display_authorization': 'D134', 'display_scope': 'published_pdp_reference',
++            'source_build': BUILD, 'personal_costs_available': False,
++            'personal_recommendation_available': False, 'all_market_complete': False,
++            'notice': NOTICE, 'plans': []}
++    if body['year'] != 2026:
++        return {**base, 'status': 'unsupported_year', 'message': 'This pilot has 2026 Part D plan information. Plans for another coverage year are not supported yet.'}
++    if body['county_fips'] != '12021':
++        return {**base, 'status': 'unsupported_county', 'message': 'Part D plan information in this pilot covers Collier County, Florida.'}
++    if not any(row[0] == body['county_fips'] for row in zip_reference.get(body['zipcode'], [])):
++        raise ProfileError('Confirm the home ZIP and county in the conversation before viewing Part D plans.', 422)
++    if repository is None:
++        raise RuntimeError('PART_D_SOURCE_UNAVAILABLE')
++    collected = {}
++    for kind in ('pdp_offering', 'pdp_county', 'pdp_restriction'):
++        # Inspect the exact sealed source revision; D134 authorizes this separate
++        # bounded display adapter. No fabricated receipt or source promotion.
++        source = repository.query({'reference_year': 2026, 'county_fips': '12021',
++            'intended_use': 'developer_source_inspection', 'kind': kind, 'page_size': 100})
++        if (source.get('build_id') != BUILD or source.get('next_after')
++                or source.get('source_review_due') is not False or source.get('personal_quote') is not False):
++            raise RuntimeError('PART_D_SOURCE_BINDING')
++        collected[kind] = source
++    offerings = collected['pdp_offering']['records']
++    counties = collected['pdp_county']['records']
++    restrictions = {r['cms_offering_id']: r['payload'] for r in collected['pdp_restriction']['records']}
++    if (len(offerings) != 10 or len({r['cms_offering_id'] for r in offerings}) != 10
++            or len(restrictions) != 10 or len(counties) != 1
++            or counties[0]['county_fips'] != '12021' or counties[0]['region'] != '11'):
++        raise RuntimeError('PART_D_POPULATION_BINDING')
++    plans = []
++    for row in offerings:
++        raw = row['payload']; fields = raw['fields']; identifier = row['cms_offering_id']
++        if (row['holds'] or row['region'] != '11' or raw['offering_id'] != identifier
++                or raw['region'] != '11' or raw['state'] != 'FL' or identifier not in restrictions
++                or fields['year']['value'] != 2026 or fields['plan_type']['value'] != 'PDP'):
++            raise RuntimeError('PART_D_SCOPE_BINDING')
++        plans.append({'id': identifier, 'name': fields['plan_name']['value'],
++            'company': fields['marketing_name']['value'], 'fields': fields,
++            'source': raw['source'], 'restriction': restrictions[identifier],
++            'restriction_summary': ('No applicable published restriction was found in the retained check through October 25, 2026. This is a dated notice check, not live enrollment confirmation.'
++                if any(check.get('as_of') == '2026-10-25'
++                    and check.get('result') == 'no_applicable_published_restriction_found'
++                    and not check.get('applicable_restriction_notices')
++                    and not check.get('unresolved_restriction_questions')
++                    for check in restrictions[identifier].get('checks', []))
++                else 'Published restriction evidence needs checking. Current enrollment availability is not confirmed.'),
++            'source_sha256': row['artifact_sha256']})
++    return {**base, 'status': 'published_plans', 'profile': body, 'plans': plans,
++            'source_review_holds': collected['pdp_offering']['unresolved_checks'],
++            'source_policy': collected['pdp_offering']['source_policy']}
++
++
++def install_part_d(server, repository=None):
++    base = server.RequestHandlerClass
++    class Handler(base):
++        def do_POST(self):
++            url = urlsplit(self.path)
++            if url.path != '/api/plans/part-d':
++                return super().do_POST()
++            try:
++                if not self.safe():
++                    raise ProfileError('Request origin rejected.', 403)
++                self.csrf()
++                if url.query:
++                    raise ProfileError('Keep personal details out of URLs.', 422)
++                return self.respond(200, published_plans(repository, self.body(), server.adaptive.reference['zips']))
++            except ProfileError as error:
++                return self.respond(error.code, {'error': str(error)})
++            except Exception:
++                return self.respond(503, {'error': 'Part D plan information is temporarily unavailable. Your details are still here; try again.', 'code': 'PART_D_UNAVAILABLE'})
++    server.RequestHandlerClass = Handler
++    return server
+--- /dev/null
++++ b/alternatives/advisor-first/part_d_profile.py
+@@ -0,0 +1,60 @@
++"""D134: a view of existing reports for the dated Collier PDP reference.
++
++No new profile fields, persistence or drug-cost inference. Medicines and pharmacy
++reports stay in the existing permissioned conversation, never in source queries.
++"""
++import re
++from comparison_profile import build_comparison_profile
++from plan_review import BAD_STATES, OPEN_STATES
++
++
++def profile(guide, record):
++    normalized = build_comparison_profile(guide, record)
++    facts = {item['ref']['path']: item for item in normalized['facts']}
++    def fact(path):
++        return facts[path]
++    def known(item):
++        return item['usable_as_report'] and (item['usable_for_bound_subject']
++                or item['capture_method'] == 'location_reference')
++    def value(path):
++        item = fact(path)
++        return item['value'] if known(item) else None
++    role = value('guide.fields.subject.role')
++    zipcode = value('guide.fields.comparison.scope.zip')
++    county = value('guide.fields.comparison.scope.county')
++    county_fips = county.get('fips') if isinstance(county, dict) else None
++    year_facts = [fact('readiness.facts.RC03.value.year'), fact('guide.fields.coverage.requestedStartMonth')]
++    years = {int(match[0]) for f in year_facts if known(f)
++             if (match := re.findall(r'\b(?:19|20)\d{2}\b', str(f['value']))) and len(match) == 1}
++    blocked_year = (any(f['report_state'] in BAD_STATES for f in year_facts)
++                    or not years and year_facts[0]['report_state'] in OPEN_STATES)
++    year = next(iter(years)) if len(years) == 1 and not blocked_year else (2026 if not years and not blocked_year else None)
++    defaulted = year == 2026 and not years
++    missing, held = [], []
++    for identifier, present, paths in [
++        ('RC01', role in {'self', 'someone'}, ['guide.fields.subject.role', 'readiness.facts.RC01.value.choice']),
++        ('T03', bool(zipcode), ['guide.fields.comparison.scope.zip']),
++        ('RC02', bool(county_fips), ['guide.fields.comparison.scope.county']),
++        ('RC03', year is not None, ['readiness.facts.RC03.value.year', 'guide.fields.coverage.requestedStartMonth'])]:
++        if not present:
++            missing.append(identifier)
++            if any(fact(path)['report_state'] in OPEN_STATES for path in paths):
++                held.append(identifier)
++    message = ''
++    if year is not None and year != 2026:
++        message = 'This pilot has 2026 Part D plan information. Plans for another coverage year are not supported yet.'
++    elif county_fips and county_fips != '12021':
++        message = 'Part D plan information in this pilot covers Collier County, Florida.'
++    status = 'unsupported' if message else 'missing' if missing else 'ready'
++    medicine_status = value('guide.fields.needs.medicinesStatus')
++    medicines = value('guide.fields.needs.medications')
++    return {'status': status, 'message': message, 'missing': missing, 'held': held,
++            'inputs': {'zipcode': zipcode, 'county_fips': county_fips, 'year': year},
++            'year_defaulted': defaulted,
++            'medicines': medicines, 'medicine_status': medicine_status,
++            'personal_costs_available': False,
++            'details': [
++                {'id': 'T03', 'label': 'Home ZIP code', 'value': zipcode},
++                {'id': 'RC02', 'label': 'County', 'value': county.get('name') if isinstance(county, dict) else None},
++                {'id': 'RC03', 'label': 'Coverage year', 'value': f'{year} (pilot data)' if defaulted else year},
++                {'id': 'T07', 'label': 'Medicines shared in chat', 'value': 'None reported' if medicine_status == 'no' else medicines}]}
+--- /dev/null
++++ b/alternatives/advisor-first/web-8894/part-d-plans.js
+@@ -0,0 +1,109 @@
++/* D134: published PDP terms for the shared conversation profile. No personal
++   drug-cost calculation, saved source rows or automatic AI calls. */
++(() => {
++  'use strict';
++  const chosen = new Set();
++  let host, options, profile, context, result = null, error = '', pending = false, attempt = null, revision = 0;
++  let query = '', sort = 'premium', compare = false, activeDialog = null;
++  const el = (tag,text,cls) => {const n=document.createElement(tag);if(text!=null)n.textContent=text;if(cls)n.className=cls;return n;};
++  const button = (text,run,cls='btn-quiet') => {const n=el('button',text,cls);n.type='button';n.onclick=run;return n;};
++  const value = (p,key) => p.fields[key]?.state === 'published' ? p.fields[key].value : null;
++  const money = cents => cents == null ? 'Not supplied' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents/100);
++  const fieldText = (p,key) => {const f=p.fields[key];return !f ? 'Not supplied' : f.state==='not_applicable' ? 'Not applicable in source' : f.state!=='published' ? 'Not supplied' : f.value_encoding==='integer_cents' ? money(f.value) : String(f.value ?? 'Not supplied');};
++  const TERMS = [['total_premium','Standard monthly premium'],['annual_deductible','Annual drug deductible'],
++    ['has_tier_without_deductible','Drug tiers without a deductible'],['drug_benefit_type','Drug benefit type'],
++    ['basic_premium','Basic monthly premium component'],['supplemental_premium','Supplemental monthly premium component']];
++  function sync(value,visit) {
++    profile=value;
++    const key=JSON.stringify([visit,value?.status,value?.inputs]);
++    if(key!==context){context=key;revision++;result=null;error='';pending=false;attempt=null;chosen.clear();compare=false;activeDialog?.close();}
++  }
++  async function load() {
++    if(pending||profile?.status!=='ready')return;
++    const current=++revision;attempt=context;pending=true;error='';result=null;renderResults();
++    try {
++      const response=await options.request('/api/plans/part-d',{...profile.inputs});
++      if(current!==revision)return;
++      if(!Array.isArray(response.plans))throw Error('Part D plan information could not be read. Try again.');
++      result=response;
++    } catch(e){if(current===revision)error=e.message||'Part D plan information is temporarily unavailable. Try again.';}
++    finally{if(current===revision){pending=false;renderResults();}}
++  }
++  function render(target,settings) {
++    host=target;options=settings;sync(settings.profile,settings.context);
++    const title=el('h1','Part D drug plans','plans-title');title.tabIndex=-1;
++    host.append(title,el('p','Stand-alone prescription drug plans for Collier County, Florida.','plans-lede'),
++      el('p','2026 pilot data · Published plan premiums and deductibles. Personal prescription costs and current enrollment availability still need checking.','plans-help'));
++    if(!profile||profile.status==='missing'){
++      const intro=el('section',null,'medigap-invitation');intro.append(el('h2','Looking for Part D coverage?'),
++        el('p','Talk with MidMorning so we can show plan information for your area and coverage year. We’ll use what you’ve already shared and ask only for what’s missing.','plans-lede'),
++        button('Talk to MidMorning',()=>options.conversation(),'primary-button'));
++      if(profile?.held.length)intro.append(el('p','Details you left unknown or chose to check later stay open. You can update them in the conversation whenever you’re ready.','plans-help'));
++      host.append(intro);
++    }
++    if(profile){
++      const details=el('details',null,'medigap-editor');details.append(el('summary','Your Part D details'));
++      for(const item of profile.details){const row=el('div',null,'plans-row medigap-profile-row');row.append(el('p',`${item.label}: ${item.value ?? 'Not yet provided'}`),button('Edit '+item.label+' in conversation',()=>options.conversation(item.id)));details.append(row);}
++      details.append(el('p','These are the details you shared in chat. Sensitive details are saved only if you choose to save them. Plan data is not saved in your profile.','plans-help'));host.append(details);
++      if(profile.status==='ready')host.append(el('p','Your medicines and pharmacy can affect which plan works for you. Personal drug-cost estimates are not available in this pilot yet.','plans-help'),button('Talk about Part D',()=>options.conversation()));
++    }
++    const notice=el('p','', 'plans-notice');notice.id='part-d-status';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');
++    const output=el('div');output.id='part-d-results';host.append(notice,output);renderResults();
++    if(profile?.status==='ready'&&attempt!==context)void load();
++  }
++  function renderResults(){
++    const output=document.getElementById('part-d-results'),notice=document.getElementById('part-d-status');if(!output||!notice)return;
++    output.replaceChildren();notice.textContent=profile?.message||error||(pending?'Finding Part D plan information…':result?.message||'');
++    if(error&&profile?.status==='ready')output.append(button('Try Part D plans again',load));
++    if(profile?.status!=='ready'||!result||result.status!=='published_plans')return;
++    output.append(el('p',`2026 · Collier County · ZIP ${result.profile.zipcode}`,'plans-count'),el('p',result.notice,'plans-help'));
++    const filters=el('div',null,'plans-filters');
++    const label=el('label','Plan or company name','plans-field'),search=el('input');search.type='search';search.value=query;search.oninput=()=>{query=search.value;renderList();};label.append(search);
++    const orderLabel=el('label','Sort by','plans-field'),order=el('select');order.append(new Option('Lowest standard monthly premium','premium'),new Option('Plan name','name'));order.value=sort;order.onchange=()=>{sort=order.value;renderList();};orderLabel.append(order);filters.append(label,orderLabel);output.append(filters);
++    const actions=el('div',null,'plans-row');actions.id='part-d-actions';const count=el('p','', 'plans-count');count.id='part-d-count';count.setAttribute('aria-live','polite');
++    const list=el('div');list.id='part-d-list';output.append(actions,count,list);
++    const about=el('details',null,'plans-about');about.append(el('summary','About this Part D information'),
++      el('p','Source: CMS September 2026 published plan snapshot, with a restriction check through October 25, 2026. This dated reference contains ten Florida stand-alone PDP offerings mapped to Collier County; it does not confirm today’s enrollment availability.'),
++      el('p','All listed plans are included regardless of commercial relationships. Sorting changes display order only. Standard premiums do not include your medicine costs or establish your subsidy-adjusted payment. A Part D premium is not the total cost of Original Medicare and Medigap.'),
++      el('p','Drug coverage, prior authorization, step therapy, quantity limits, pharmacy participation and personal costs have not been checked for you.'));
++    const link=el('a','Check current plans at Medicare.gov');link.href='https://www.medicare.gov/plan-compare/';link.target='_blank';link.rel='noopener noreferrer';about.append(link);output.append(about);renderList();
++  }
++  function toggle(p){
++    if(chosen.has(p.id))chosen.delete(p.id);else if(chosen.size<3)chosen.add(p.id);else{document.getElementById('part-d-status').textContent='You can compare up to three plans. Remove one to add another.';return;}
++    if(!chosen.size)compare=false;document.getElementById('part-d-status').textContent='';renderList();
++  }
++  function renderList(){
++    const list=document.getElementById('part-d-list');if(!list||!result)return;
++    const actions=document.getElementById('part-d-actions');actions.replaceChildren(button('All listed plans',()=>{compare=false;renderList();},compare?'btn-quiet':'btn-secondary'));
++    if(chosen.size)actions.append(button(`Compare selected (${chosen.size})`,()=>{compare=true;renderList();},compare?'btn-secondary':'btn-quiet'));
++    const rows=result.plans.filter(p=>compare?chosen.has(p.id):`${p.name} ${p.company}`.toLowerCase().includes(query.trim().toLowerCase()));
++    rows.sort((a,b)=>(sort==='premium'?(value(a,'total_premium')??Infinity)-(value(b,'total_premium')??Infinity):0)||a.name.localeCompare(b.name)||a.id.localeCompare(b.id));
++    document.getElementById('part-d-count').textContent=`${rows.length} of ${result.plans.length} published plans${compare?' selected for comparison':''}`;
++    list.replaceChildren();if(!rows.length){list.append(el('p','No plans match this search. Clear the plan or company name to see all published plans.','plans-help'));return;}
++    if(compare)return comparison(list,rows);
++    for(const p of rows){
++      const card=el('article',null,'plan-card');card.dataset.partDId=p.id;card.append(el('h3',p.name,'plan-name'),el('p',`${p.company} · ${p.id}`,'plans-help'));
++      const amounts=el('dl',null,'plan-amounts');for(const [key,label] of TERMS.slice(0,2)){const box=el('div',null,'amount');box.append(el('dt',label,'amount-label'),el('dd',fieldText(p,key),'amount-value'));amounts.append(box);}card.append(amounts);
++      card.append(el('p','Personal medicine and pharmacy costs: not checked. Deductible exceptions may apply by drug tier.','plans-help'));
++      const controls=el('div',null,'plan-actions'),add=button(chosen.has(p.id)?'Added to compare':'Add to compare',()=>toggle(p),'btn-secondary');add.setAttribute('aria-pressed',String(chosen.has(p.id)));controls.append(add,button('See full details',event=>details(p,event)));card.append(controls);list.append(card);
++    }
++  }
++  function comparison(list,rows){
++    list.append(el('p','Scroll sideways to see each selected plan. These are published terms, not personal cost estimates.','plans-help'));
++    const wrap=el('div',null,'plans-compare');wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Part D plan comparison');
++    const table=el('table'),head=el('tr');table.append(el('caption','Compare published Part D terms'));head.append(el('th','Published term'));
++    for(const p of rows){const th=el('th');th.scope='col';th.append(el('p',p.name),button('Remove',()=>toggle(p)));head.append(th);}const thead=el('thead');thead.append(head);table.append(thead);
++    const body=el('tbody');for(const [key,label] of TERMS){const row=el('tr'),th=el('th',label);th.scope='row';row.append(th);for(const p of rows)row.append(el('td',fieldText(p,key)));body.append(row);}table.append(body);wrap.append(table);list.append(wrap);
++  }
++  function details(p,event){
++    const opener=event.currentTarget,dialog=el('dialog',null,'plan-sheet');activeDialog=dialog;dialog.setAttribute('aria-labelledby','part-d-detail-title');
++    const head=el('div',null,'sheet-head'),title=el('h2',p.name);title.id='part-d-detail-title';const close=button('Close',()=>dialog.close(),'btn-quiet sheet-close');head.append(title,close);dialog.append(head);
++    dialog.append(el('p','Published 2026 terms. Your prescription costs, subsidy eligibility and enrollment availability are not determined.','sheet-note'));
++    const section=el('section',null,'sheet-section');for(const [key,label] of TERMS){const row=el('div',null,'sheet-row'),top=el('div',null,'sheet-row-top');top.append(el('p',label,'sheet-label'),el('p',fieldText(p,key),'sheet-value'));row.append(top);section.append(row);}dialog.append(section);
++    dialog.append(el('p',p.restriction_summary,'sheet-note'));
++    const source=el('details',null,'sheet-more');source.append(el('summary','All published fields and source'),el('p','Subsidy-related amounts below are separate published figures, not amounts assigned to you.','sheet-note'));
++    const dl=el('dl');for(const [key,f] of Object.entries(p.fields))dl.append(el('dt',f.basis),el('dd',fieldText(p,key)));source.append(dl,el('p',`CMS · ${p.source.member} · record ${p.source.record_ordinal}`,'sheet-note'));dialog.append(source);
++    dialog.addEventListener('close',()=>{activeDialog=null;dialog.remove();if(opener.isConnected)opener.focus();},{once:true});document.body.append(dialog);dialog.showModal();close.focus();
++  }
++  window.DaylightPartD=Object.freeze({render});
++})();
+--- /dev/null
++++ b/alternatives/advisor-first/web-8894/part-d-plans.css
+@@ -0,0 +1,5 @@
++/* D134: same cards, controls and conversation invitation as the existing tabs. */
++#part-d-results .plans-filters { grid-template-columns:repeat(2,minmax(0,1fr)); margin:20px 0; }
++#part-d-results .plans-compare th { min-width:190px; }
++#part-d-results .plans-compare caption { text-align:left; padding:12px 0; font-weight:700; }
++@container plans (max-width:560px) { #part-d-results .plans-filters { grid-template-columns:1fr; } }
+--- /dev/null
++++ b/alternatives/advisor-first/tests/test_part_d_pilot.py
+@@ -0,0 +1,149 @@
++"""D134 fictional source, profile and HTTP checks; no network model transport."""
++import copy
++from pathlib import Path
++import tempfile
++import threading
++import unittest
++from unittest.mock import patch
++import test_http as support
++import test_natural_flow as harness
++from part_d_pilot import BUILD, published_plans
++from part_d_profile import profile
++from guest_profiles import ProfileError
++
++SCOPE = {'zipcode':'34101','county_fips':'12021','year':2026}
++ZIPS = {'34101':[['12021','Collier County','FL']]}
++
++
++def field(value,basis='',money=False):
++    return {'value':value,'state':'published','value_encoding':'integer_cents' if money else 'literal',
++            'basis':basis,'raw':str(value),'unit':'USD/month' if money else None}
++
++
++class FictionalRepository:
++    def __init__(self):
++        self.calls=[];self.fail=False;self.mutate=lambda x:x
++    def query(self,body):
++        self.calls.append(copy.deepcopy(body))
++        if self.fail:raise RuntimeError('SOURCE_STOP')
++        rows=[]
++        for i in range(10):
++            identifier=f'2026:S9000:{i:03d}:000'
++            if body['kind']=='pdp_offering':
++                fields={k:field(v,k) for k,v in {'year':2026,'plan_type':'PDP','plan_name':f'Fictional Drug Plan {i}','marketing_name':'Fictional Company','has_tier_without_deductible':'Yes','drug_benefit_type':'Basic'}.items()}
++                fields.update({k:field(v,k,True) for k,v in {'total_premium':i*100,'annual_deductible':61500,'basic_premium':-2150,'supplemental_premium':2150+i*100}.items()})
++                rows.append({'cms_offering_id':identifier,'region':'11','holds':[], 'artifact_sha256':'a'*64,
++                    'payload':{'offering_id':identifier,'region':'11','state':'FL','fields':fields,
++                    'source':{'member':'fictional.csv','record_ordinal':i+1}}})
++            elif body['kind']=='pdp_restriction':
++                rows.append({'cms_offering_id':identifier,'payload':{'checks':[{'as_of':'2026-10-25','result':'no_applicable_published_restriction_found','applicable_restriction_notices':[],'unresolved_restriction_questions':[]}]}})
++        if body['kind']=='pdp_county':rows=[{'county_fips':'12021','region':'11'}]
++        result={'build_id':BUILD,'next_after':None,'source_review_due':False,'personal_quote':False,
++                'records':rows,'unresolved_checks':['SOURCE_USE_REVIEW_REQUIRED','METHOD_REVIEW_REQUIRED'],
++                'source_policy':{'consumer_release':'held'}}
++        return self.mutate(result)
++
++
++class PartDSourceTests(unittest.TestCase):
++    def test_all_plans_preserve_zero_negative_and_unknown_terms(self):
++        repo=FictionalRepository();out=published_plans(repo,SCOPE,ZIPS)
++        self.assertEqual(len(out['plans']),10);self.assertEqual(out['plans'][0]['fields']['total_premium']['value'],0)
++        self.assertEqual(out['plans'][0]['fields']['basic_premium']['value'],-2150)
++        self.assertFalse(out['personal_costs_available']);self.assertEqual(out['display_authorization'],'D134')
++        self.assertIn('METHOD_REVIEW_REQUIRED',out['source_review_holds'])
++        self.assertTrue(all(set(call)=={'reference_year','county_fips','intended_use','kind','page_size'} for call in repo.calls))
++    def test_wrong_scope_and_personal_inputs_do_not_query_source(self):
++        repo=FictionalRepository()
++        for body in [{**SCOPE,'year':2027},{**SCOPE,'county_fips':'12099'}]:
++            self.assertNotEqual(published_plans(repo,body,ZIPS)['status'],'published_plans')
++        for body in [{**SCOPE,'age':75},{**SCOPE,'year':True},{**SCOPE,'zipcode':'00000'}, {**SCOPE,'medicines':'private'}]:
++            with self.assertRaises(ProfileError):published_plans(repo,body,ZIPS)
++        self.assertEqual(repo.calls,[])
++    def test_partial_stopped_stale_wrong_build_and_population_fail_closed(self):
++        for change in [lambda x:{**x,'build_id':'b'*64},lambda x:{**x,'source_review_due':True},
++                       lambda x:{**x,'next_after':'cursor'},lambda x:{**x,'records':x['records'][:-1]}]:
++            repo=FictionalRepository();repo.mutate=change
++            with self.assertRaises(RuntimeError):published_plans(repo,SCOPE,ZIPS)
++        repo=FictionalRepository();repo.fail=True
++        with self.assertRaises(RuntimeError):published_plans(repo,SCOPE,ZIPS)
++    def test_dated_restriction_claim_requires_its_actual_check(self):
++        repo=FictionalRepository()
++        def mutate(x):
++            for row in x['records']:
++                if 'checks' in row.get('payload',{}):row['payload']['checks']=[]
++            return x
++        repo.mutate=mutate
++        out=published_plans(repo,SCOPE,ZIPS)
++        self.assertIn('needs checking',out['plans'][0]['restriction_summary'])
++
++
++class PartDProfileTests(unittest.TestCase):
++    setUp=harness.NaturalFlowTests.setUp
++    for name in ('payload','take','turn','choice'):
++        locals()[name]=getattr(harness.NaturalFlowTests,name)
++    def test_entry_asks_only_missing_location_then_reuses_medicines(self):
++        out=self.turn({'type':'task','task':'drug_pricing','preparing':True},aiConsent=False)
++        self.assertEqual(out['assessment']['nextQuestion']['id'],'RC01')
++        self.choice('RC01',choice='self')
++        self.assertEqual(self.flow.assess(self.g,self.r)['nextQuestion']['id'],'T03')
++        self.choice('T03',zip='34101');self.choice('T07',text='Fictional medicine')
++        out=profile(self.g,self.r);self.assertEqual(out['status'],'ready');self.assertEqual(out['inputs'],SCOPE)
++        self.assertEqual(out['medicines'],'Fictional medicine');self.assertEqual(self.calls,[])
++    def test_no_medigap_age_limit_and_reported_year_wins(self):
++        self.choice('RC01',choice='self');self.choice('T03',zip='34101');self.choice('MG_AGE',choice='80')
++        self.assertEqual(profile(self.g,self.r)['status'],'ready')
++        self.choice('RC03',year='2027');self.assertEqual(profile(self.g,self.r)['status'],'unsupported')
++        self.choice('RC03',year='2026');self.assertEqual(profile(self.g,self.r)['status'],'ready')
++    def test_unknown_zip_is_not_reasked_or_used_for_prices(self):
++        self.choice('RC01',choice='self')
++        self.turn({'type':'task','task':'drug_pricing','preparing':True},aiConsent=False)
++        self.turn({'type':'unknown','id':'T03'},aiConsent=False)
++        out=self.turn({'type':'task','task':'drug_pricing','preparing':True},aiConsent=False)
++        self.assertEqual(out['partDProfile']['status'],'missing');self.assertIn('T03',out['partDProfile']['held'])
++        self.assertNotEqual((out['assessment']['nextQuestion'] or {}).get('id'),'T03')
++    def test_conflicting_year_does_not_substitute_2026(self):
++        self.choice('RC01',choice='self');self.choice('T03',zip='34101');self.choice('RC03',year='2026')
++        self.choice('T04',choice='month',month='2027-01')
++        self.assertIsNone(profile(self.g,self.r)['inputs']['year']);self.assertEqual(profile(self.g,self.r)['status'],'missing')
++    def test_start_date_change_keeps_invalidated_year_open_until_reconfirmed(self):
++        self.choice('RC01',choice='self');self.choice('T03',zip='34101');self.choice('RC03',year='2026')
++        self.turn({'type':'edit','id':'T04'},aiConsent=False)
++        self.turn({'type':'unknown','id':'T04'},aiConsent=False)
++        self.assertIsNone(profile(self.g,self.r)['inputs']['year'])
++        self.choice('RC03',year='2026')
++        self.assertEqual(profile(self.g,self.r)['inputs']['year'],2026)
++        self.assertEqual(profile(self.g,self.r)['status'],'ready')
++
++
++class PartDHttpTests(unittest.TestCase):
++    request=support.HttpTests.request
++    turn=support.HttpTests.turn
++    setUp=support.HttpTests.setUp
++    @classmethod
++    def setUpClass(cls):
++        cls.tmp=tempfile.TemporaryDirectory();cls.repository=FictionalRepository()
++        cls.server=support.build(0,fixture=True,database=Path(cls.tmp.name)/'profiles.sqlite3',part_d_repository=cls.repository)
++        cls.thread=threading.Thread(target=cls.server.serve_forever,daemon=True);cls.thread.start()
++    @classmethod
++    def tearDownClass(cls):
++        cls.server.shutdown();cls.server.server_close();cls.thread.join();cls.tmp.cleanup()
++    def test_initial_profile_answers_and_scope_correction(self):
++        self.assertEqual(self.state['partDProfile']['status'],'missing')
++        self.turn({'type':'choice','id':'RC01','fields':{'choice':'self'}})
++        self.turn({'type':'choice','id':'T03','fields':{'zip':'34101'}})
++        code,out=self.request('/api/plans/part-d',self.state['partDProfile']['inputs'])
++        self.assertEqual(code,200);self.assertEqual(len(out['plans']),10)
++        self.assertNotIn('partDProfile',self.state['guide']);self.assertNotIn('plans',self.state['record'])
++        self.turn({'type':'choice','id':'RC03','fields':{'year':'2027'}})
++        self.assertEqual(self.state['partDProfile']['status'],'unsupported')
++    def test_url_csrf_extra_input_and_unavailable_keep_fixed_errors(self):
++        for url,body in [('/api/plans/part-d?zipcode=34101',SCOPE),('/api/plans/part-d',{**SCOPE,'medicines':'private'})]:
++            self.assertEqual(self.request(url,body)[0],422)
++        self.repository.fail=True
++        try:
++            code,out=self.request('/api/plans/part-d',SCOPE);self.assertEqual(code,503);self.assertNotIn('SOURCE_STOP',str(out))
++        finally:self.repository.fail=False
++        self.cookie=None
++        self.assertIn(self.request('/api/plans/part-d',SCOPE)[0],(401,403))
++
++if __name__=='__main__':unittest.main()
+--- /dev/null
++++ b/alternatives/advisor-first/tests/test_part_d_view.js
+@@ -0,0 +1,69 @@
++'use strict';
++const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),test=require('node:test'),assert=require('node:assert/strict');
++const source=fs.readFileSync(path.join(__dirname,'../web-8894/part-d-plans.js'),'utf8');
++function fixture(request, initial=profile()){
++  const ids=new Map();let document;
++  class Node {
++    constructor(tag){this.tagName=tag;this.children=[];this.listeners={};this.dataset={};this.attributes={};this.value='';this.isConnected=true;this.text='';}
++    set id(v){this._id=v;ids.set(v,this);}get id(){return this._id;}
++    set textContent(v){this.text=String(v);this.children=[];}get textContent(){return this.text+this.children.map(x=>x.textContent??x).join('');}
++    append(...nodes){this.children.push(...nodes);for(const n of nodes)if(typeof n==='object')n.parent=this;}
++    replaceChildren(...nodes){const remove=n=>{if(n.id)ids.delete(n.id);for(const c of n.children||[])remove(c);};for(const n of this.children)remove(n);this.children=[];this.append(...nodes);}
++    setAttribute(k,v){this.attributes[k]=v;}addEventListener(k,v){this.listeners[k]=v;}
++    focus(){document.activeElement=this;}showModal(){this.open=true;}close(){this.open=false;this.listeners.close?.();}
++    remove(){this.isConnected=false;this.parent.children=this.parent.children.filter(x=>x!==this);}
++  }
++  document={createElement:tag=>new Node(tag),getElementById:id=>ids.get(id),body:new Node('body')};
++  class Option extends Node {constructor(label,value){super('option');this.textContent=label;this.value=value;}}
++  const window={};vm.runInNewContext(source,{window,document,Option,Intl,Number,Set,Object,Array,Infinity,Error,String});
++  const host=new Node('main');document.body.append(host);const calls=[];
++  let current=initial;const conversations=[];
++  const options={context:'fictional-visit',profile:current,request:async(url,body)=>{calls.push({url,body});return request(body);},
++    conversation:id=>conversations.push(id)};
++  const all=(node=host)=>[node,...node.children.filter(x=>typeof x==='object').flatMap(all)];
++  const find=predicate=>all().find(predicate);
++  const tick=()=>new Promise(resolve=>setImmediate(resolve));
++  const mount=(value=current,visit=options.context)=>{current=value;options.profile=value;options.context=visit;host.replaceChildren();window.DaylightPartD.render(host,options);};
++  mount();return {document,host,all,find,mount,calls,tick,ids,conversations,options};
++}
++const field=(value,basis,money=false)=>({value,basis,state:'published',value_encoding:money?'integer_cents':'literal'});
++const rows=Array.from({length:4},(_,i)=>({id:String(i),name:'Fictional Drug Plan '+i,company:'Fictional Company',fields:{total_premium:field(i*100,'Total premium',true),annual_deductible:field(null,'Deductible',true),basic_premium:field(-2150,'Basic premium',true),supplemental_premium:field(2150+i*100,'Supplemental premium',true),has_tier_without_deductible:field('Yes','Tier exception'),drug_benefit_type:field('Basic','Benefit type')},restriction_summary:'Dated check; enrollment not confirmed.',source:{member:'fictional.csv',record_ordinal:i+1}}));
++const response=body=>({status:'published_plans',profile:body,notice:'Published terms; personal costs unverified.',plans:rows});
++function profile(changes={},held=[]) {
++  const inputs={zipcode:'34101',county_fips:'12021',year:2026,...changes};
++  const missing=inputs.zipcode?[]:['T03'];const unsupported=inputs.year!==2026;
++  return {inputs,held,missing,status:unsupported?'unsupported':missing.length?'missing':'ready',message:unsupported?'Plans for another coverage year are not supported yet.':'',details:[{id:'T03',label:'Home ZIP code',value:inputs.zipcode},{id:'T07',label:'Medicines shared in chat',value:null}]};
++}
++test('ready shared profile automatically loads all published plans without demographic inputs',async()=>{
++  const f=fixture(response);await f.tick();assert.equal(f.calls.length,1);assert.deepEqual(Object.keys(f.calls[0].body).sort(),['county_fips','year','zipcode']);
++  assert.equal(f.all().filter(n=>n.dataset.partDId).length,4);assert.match(f.host.textContent,/\$0.00/);assert.match(f.host.textContent,/Not supplied/);
++  f.mount();await f.tick();assert.equal(f.calls.length,1);assert.equal(f.all().filter(n=>n.tagName==='form').length,0);
++});
++test('missing scope invites chat without a duplicate form or price request',async()=>{
++  const f=fixture(response,profile({zipcode:null}));assert.equal(f.calls.length,0);assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
++  f.find(n=>n.tagName==='button'&&n.textContent==='Talk to MidMorning').onclick();assert.deepEqual(f.conversations,[undefined]);
++  f.mount(profile());await f.tick();assert.equal(f.calls.length,1);
++});
++test('chat corrections discard delayed old results and unsupported years clear prices',async()=>{
++  const waiting=[];const f=fixture(body=>new Promise(resolve=>waiting.push(()=>resolve(response(body)))));
++  f.mount(profile({year:2027}));waiting[0]();await f.tick();assert.equal(f.all().filter(n=>n.dataset.partDId).length,0);assert.equal(f.calls.length,1);
++  assert.match(f.host.textContent,/another coverage year/);f.mount(profile({zipcode:'34108'}));waiting[1]();await f.tick();assert.match(f.host.textContent,/ZIP 34108/);
++});
++test('unknown answers remain open and corrections return to the specific chat question',async()=>{
++  const f=fixture(response,profile({zipcode:null},['T03']));assert.match(f.host.textContent,/Details you left unknown/);
++  f.find(n=>n.tagName==='button'&&n.textContent==='Edit Home ZIP code in conversation').onclick();assert.deepEqual(f.conversations,['T03']);assert.equal(f.calls.length,0);
++});
++test('source details preserve negative components and do not assign personal costs',async()=>{
++  const f=fixture(response);await f.tick();const b=f.find(n=>n.tagName==='button'&&n.textContent==='See full details');b.onclick({currentTarget:b});
++  assert.match(f.document.body.textContent,/-\$21.50/);assert.match(f.document.body.textContent,/not amounts assigned to you/);
++});
++test('three-plan comparison and removal retain all plans',async()=>{
++  const f=fixture(response);await f.tick();for(let i=0;i<4;i++)f.find(n=>n.tagName==='button'&&n.textContent==='Add to compare').onclick();
++  assert.match(f.host.textContent,/up to three/);f.find(n=>n.tagName==='button'&&n.textContent==='Compare selected (3)').onclick();assert.equal(f.all().filter(n=>n.tagName==='table').length,1);
++  f.find(n=>n.tagName==='button'&&n.textContent==='Remove').onclick();assert.match(f.host.textContent,/Compare selected \(2\)/);
++  f.find(n=>n.tagName==='button'&&n.textContent==='All listed plans').onclick();assert.equal(f.all().filter(n=>n.dataset.partDId).length,4);
++});
++test('failed reads keep profile and retry only deliberately',async()=>{
++  let fail=true;const f=fixture(body=>{if(fail)throw Error('Unavailable');return response(body);});await f.tick();f.mount();await f.tick();assert.equal(f.calls.length,1);
++  fail=false;f.find(n=>n.tagName==='button'&&n.textContent==='Try Part D plans again').onclick();await f.tick();assert.equal(f.calls.length,2);assert.equal(f.all().filter(n=>n.dataset.partDId).length,4);
++});

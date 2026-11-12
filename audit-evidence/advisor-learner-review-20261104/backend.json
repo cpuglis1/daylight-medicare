@@ -1,0 +1,158 @@
+{
+  "arm": "backend",
+  "model": "gpt-6.1-sol",
+  "fictional": true,
+  "send_limit": 8,
+  "turns": [
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense."
+      },
+      "reply": "A useful coverage review starts with what’s in place—not with assuming a switch is needed. We can use the current coverage as the baseline, then check doctors, prescription coverage and costs before weighing alternatives. A lower monthly premium alone doesn’t mean lower total costs; what someone pays when using care matters too.\n\nThe current insurance card or latest coverage statement is a good place to look for the coverage name.",
+      "notice": null,
+      "question": "What health insurance does the person you’re helping have now? If you’re unsure of the type, you can share the coverage name shown on the card, without any member ID.",
+      "target": "T05",
+      "learner_signal": "none",
+      "source_ids": [
+        "costs"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "elapsed_seconds": 10.89
+    },
+    {
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "original,medigap"
+        }
+      },
+      "reply": "That gives us a starting point for reviewing the current coverage.\n\nWhat’s your understanding of what the supplement does? It’s fine if you’re starting from scratch.",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 3.55
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm new to this. I don't know what the supplement does."
+      },
+      "reply": "A Medicare supplement helps pay some of the share left after Original Medicare pays for covered care. To review the policy, look at the monthly price and what the policy helps pay when the person gets care.\n\nIf you were explaining this to the person you’re helping, what would you look at besides the monthly price?",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "unfamiliar",
+      "source_ids": [
+        "medigap"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 9.99
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "I would check which bills she would have to pay a share of if she did not have it."
+      },
+      "reply": "Yes—that’s the right idea: look at what the supplement helps pay, not just what it costs each month.\n\nFor the review, use the current Original Medicare and supplement coverage as the baseline; there’s no need to assume a change is better. The supplement’s policy documents or latest statement are good places to find its exact policy name and monthly premium. Those details will help make the comparison concrete.",
+      "notice": null,
+      "question": "What is the home ZIP code of the person you’re helping?",
+      "target": "T03",
+      "learner_signal": "applied",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T03"
+      },
+      "elapsed_seconds": 10.99
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "Her home ZIP is 34102."
+      },
+      "reply": "We’ll use her current Original Medicare and supplement as the baseline for the review, without assuming she needs to switch. Her supplement’s policy documents or latest statement are good places to find the exact policy name and monthly premium for a concrete comparison. Next, we can identify the doctors and hospitals to include; naming them is preparation, not confirmation of coverage.",
+      "notice": null,
+      "question": "Which doctors or hospitals would you like included in her coverage review? You can leave this for later if you don’t have the names handy.",
+      "target": "T06",
+      "learner_signal": "applied",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T06"
+      },
+      "elapsed_seconds": 7.85
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "She wants to keep Dr. Rivera at Example Clinic in Naples and Dr. Lee at Example Hospital in Tampa."
+      },
+      "reply": "Keeping both doctors is an important part of her review. We’ll include Dr. Rivera at Example Clinic in Naples and Dr. Lee at Example Hospital in Tampa, using her current Original Medicare and supplement as the baseline. Their names identify whom to check; they don’t yet confirm participation or coverage.\n\nPrescriptions are the next useful piece because drug coverage is separate from Medigap. Including her medicines will help prepare a comparison that looks beyond the supplement’s monthly price.",
+      "notice": null,
+      "question": "Which prescriptions would you like included in her review? You can leave this for later if you don’t have the list handy.",
+      "target": "T07",
+      "learner_signal": "applied",
+      "source_ids": [
+        "medigap",
+        "checks"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "T07"
+      },
+      "elapsed_seconds": 12.38
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "She takes Example Med 5 mg tablets and Example Med 10 mg tablets, as separate entries."
+      },
+      "reply": "I’ll keep Example Med 5 mg tablets and Example Med 10 mg tablets as separate entries for her review, rather than combining them. That records what needs checking; it does not yet establish coverage or cost.\n\nHer current Original Medicare and supplement remain the baseline for comparison. For the supplement’s value review, the policy documents or latest statement are useful places to find its exact policy name and monthly premium.",
+      "notice": null,
+      "question": "Besides keeping the doctors you named, what matters most to her in this review? You can name more than one priority.",
+      "target": "T10",
+      "learner_signal": "applied",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "T10"
+      },
+      "elapsed_seconds": 12.83
+    },
+    {
+      "action": {
+        "type": "message",
+        "message": "Keeping both doctors and having predictable costs matter equally. She hasn't chosen one over the other."
+      },
+      "reply": "Keeping both doctors and having predictable costs can stay equally important—there’s no need to choose one over the other.\n\nThe next useful step is to identify what her current supplement costs and what it helps pay, using her Original Medicare and supplement as the baseline. Look for the supplement’s exact policy name and monthly premium on its policy documents or latest premium notice. Its benefit summary can help show which costs remain hers when she gets care.\n\nThat gives the review a concrete starting point without assuming switching would be better. Whether both doctors participate and what her personal costs would be still need confirmation; neither has been verified here.\n\nWould it help to know where to find a recent premium notice for the supplement?",
+      "notice": null,
+      "question": null,
+      "target": null,
+      "learner_signal": "applied",
+      "source_ids": [],
+      "generated": {
+        "status": "complete",
+        "move": "answer"
+      },
+      "elapsed_seconds": 12.54
+    }
+  ],
+  "stop": "send ceiling",
+  "elapsed_seconds": 81.12,
+  "accounted_usd": 0.2598271,
+  "measured_usd": 0.2598271
+}

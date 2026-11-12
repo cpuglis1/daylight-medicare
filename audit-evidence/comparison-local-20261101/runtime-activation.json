@@ -1,0 +1,29 @@
+{
+  "job": "gui/501/com.daylight.advisor-first.8893",
+  "observed_at": "2026-11-01T17:39:51.766898+00:00",
+  "program_arguments": [
+    "/Users/cep4u/daylight/infrastructure/daylight-data/.venv/bin/python",
+    "/Users/cep4u/daylight/alternatives/advisor-first/server.py",
+    "--port",
+    "8893",
+    "--local-research"
+  ],
+  "plist_sha256": "f57ccb02292e0e8aa2e1715f2476d30f0d90dc411f09a9336ac0b0afb963d75f",
+  "actions": [
+    {
+      "action": "bootout_exact_advisor_job",
+      "returncode": 0
+    },
+    {
+      "action": "bootstrap_updated_exact_advisor_job",
+      "returncode": 5
+    },
+    {
+      "action": "restore_original_plist_and_bootstrap",
+      "returncode": 5
+    }
+  ],
+  "other_jobs_touched": false,
+  "postgres_started_or_stopped": false,
+  "activated": false
+}

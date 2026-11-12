@@ -1,0 +1,354 @@
+✔ generated conversation omits prepared blocks while keeping reply, question and sources (3.861875ms)
+✔ the new greeting and subsequent assistant replies reveal, while user messages remain immediate (0.624917ms)
+✖ reviewed fact bodies reveal but their headings, Sources control and source links are immediate (0.765292ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'children')
+      at all (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:81:25)
+      at byClass (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:83:33)
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:242:16)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7)
+
+✔ visual and accessible text each preserve every character, including spaces and HTML-like user content (0.409958ms)
+✔ the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay (1.075125ms)
+✔ the reveal preserves the requested heading tag, class and sequential offset (0.383625ms)
+✔ the complete opening question, example and reassurance reveal in sequence after the greeting (0.511917ms)
+✔ repainting the opening never replays its question, examples or reassurance (0.392875ms)
+✔ reduced motion leaves the complete opening readable immediately and does not replay later (0.428917ms)
+✔ the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion (0.642958ms)
+✖ reduced motion renders complete plain text for greetings, replies and facts (11.321583ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.host.textContent.includes(response.facts[0].text))
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:352:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '=='
+  }
+
+✔ ordinary repaint preserves existing history nodes and never restarts an earlier reveal (0.518459ms)
+✔ completed words retire the animation class so leaving and returning to chat cannot replay them (0.484ms)
+✔ cancelled words also retire their animation class and remain readable on return (0.507042ms)
+✔ appending a reply preserves previous node identity and reveals only the new answer (0.364042ms)
+✔ a history rebuild shows previously revealed objects immediately and reveals new objects once (0.609917ms)
+✔ a reply first displayed with reduced motion never animates when the preference later changes (0.555333ms)
+✔ a user-only exchange stays immediate and an empty reply does not create an assistant message (0.444584ms)
+✔ static explanations remain immediate and reveal does not weaken source URL filtering (0.8575ms)
+✔ a new current question and its answer buttons follow the reply, while choosing does not replay them (1.180416ms)
+✔ question text and finite answer buttons are immediately available with reduced motion (0.472208ms)
+✔ control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation (0.728542ms)
+✔ opening shortcut buttons continue the opening sequence and do not animate on rerender (0.431166ms)
+✔ coverage timing uses one chat composer and genuine choices rather than another month input (0.8795ms)
+✔ finite field options remain explicit buttons and preserve each field independently (0.511125ms)
+✔ historical diagrams stay absent beneath intake while current teaching has an inline guide (0.545416ms)
+✔ a final current-turn timing picture includes only known reports and keeps unknown fields out (0.355625ms)
+✔ intake footer controls stay hidden and profile review is offered with the final conversation summary (0.355792ms)
+✔ an educational intake pause leaves the generated answer and chat composer without a false final review (0.957708ms)
+✔ generated questions own their explanation, while a non-AI question retains its useful why (0.923917ms)
+✔ the real final summary reveals its text and optional actions once, including profile review (0.812458ms)
+✔ old free-text reports and stale records cannot activate Send as an invisible selected answer (0.453ms)
+✔ an answered question remains plain assistant history before the user answer without replaying its text (0.499959ms)
+✔ history rebuilds preserve answered questions exactly once as complete accessible plain text (0.336542ms)
+✖ a reported date picture survives an empty reply and its review remains deliberate (3.490917ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Dates you’ve shared/. Input:
+  
+  'When does coverage end?December'
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:703:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'When does coverage end?December',
+    expected: /Dates you’ve shared/,
+    operator: 'match'
+  }
+
+✖ comparison starting point offers optional review and checklist only at its transition (0.495042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /review what you’ve shared and see which details are still open/. Input:
+  
+  'Which prescriptions?I don’t know yetWe can leave that open.'
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:728:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Which prescriptions?I don’t know yetWe can leave that open.',
+    expected: /review what you’ve shared and see which details are still open/,
+    operator: 'match'
+  }
+
+✔ a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel (0.424084ms)
+✔ unavailable generation with no valid question cannot render a false completion or turn the notice into a heading (0.383791ms)
+✔ an open learning conversation cannot imply a final timing summary but can show current teaching (0.373292ms)
+✔ service notices update one live status instead of being announced by competing regions (0.490667ms)
+✔ a novice sees six ordinary-language insurance families without new preselected reports (0.866125ms)
+✔ local insurance refinement preserves every approved distinction and sends no aggregate fact (1.191125ms)
+✔ multiple precise insurance selections stay visible and correctable across local group changes (1.214375ms)
+✔ selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare (0.655875ms)
+✔ collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid (0.655209ms)
+✔ unknown and defer close the open insurance refinement and clear finite draft data (1.667ms)
+✔ ambiguous current Medicare paths ask for clarification without changing a prior selection (2.601666ms)
+✔ a longer spoken priority report can be reduced one button at a time without discarding the report (0.479917ms)
+✔ comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view (0.645041ms)
+✔ typed draft blocks conflicting insurance selections until it is sent or cleared (1.235791ms)
+✔ new service-owned insurance distinctions cannot disappear from the grouped view (0.638834ms)
+✔ the compact topic track follows actual questions and teaching rather than accumulated intake completion (1.396708ms)
+✔ generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson (0.432792ms)
+✖ current-turn route teaching appears inline once while Sources remains a separate disclosure (0.59025ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:995:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual'
+  }
+
+✔ current visual intent selects the existing guide independently of citations (0.449209ms)
+✔ explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline (0.287625ms)
+✖ two successful turns retain the first guide without making a second guide from citations (0.609333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:1049:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual'
+  }
+
+✖ a deliberate revisit may show the same guide again while failed generation never does (0.390416ms)
+  AssertionError [ERR_ASSERTION]: Frontend honors the validated revisit decision.
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:1075:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual'
+  }
+
+✖ fact and generated citations merge into one deduplicated Sources footer after the inline guide (0.609208ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'children')
+      at all (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:81:25)
+      at byClass (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:83:33)
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:1092:16)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7)
+
+✔ failed or unrelated turns cannot select a route graphic from historical learning (0.336042ms)
+✔ typed text blocks finite answers, field choices and unknown without changing the draft (0.438333ms)
+✔ the real pending view shows the submitted message and three decorative dots without transcript writes (0.454291ms)
+✔ manual navigation has no AI typing indicator and reduced motion disables its animation (0.62375ms)
+✔ the typing wave overrides the loaded universal animation reset, while reduced motion still wins (2.42875ms)
+✔ a down arrow appears only when more conversation is below and labels the current question when it is offscreen (0.503167ms)
+✔ the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message (0.432792ms)
+✔ typing motion pauses in a hidden document or outside the visible reading pane (0.390917ms)
+✔ educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions (0.39775ms)
+✔ selecting an educational follow-up fills an editable draft without sending or overwriting another draft (0.341542ms)
+✔ optional educational questions remain with their explanation before the unchanged Sources footer (0.353292ms)
+✔ typing ASAP clears only unsent answer selections and typed submission wins (0.692042ms)
+✔ an empty draft preserves an intentional selection and typed submission still wins without an input event (0.3875ms)
+✔ the composer grows, caps and shrinks while preserving a reader’s scroll position (0.292958ms)
+✔ the composer respects the mobile visual viewport, its minimum and the viewport fallback (0.312959ms)
+ℹ tests 74
+ℹ suites 0
+ℹ pass 66
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 139.960166
+
+✖ failing tests:
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:235:1
+✖ reviewed fact bodies reveal but their headings, Sources control and source links are immediate (0.765292ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'children')
+      at all (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:81:25)
+      at byClass (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:83:33)
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:242:16)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7)
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:342:1
+✖ reduced motion renders complete plain text for greetings, replies and facts (11.321583ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.host.textContent.includes(response.facts[0].text))
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:352:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '=='
+  }
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:696:1
+✖ a reported date picture survives an empty reply and its review remains deliberate (3.490917ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Dates you’ve shared/. Input:
+  
+  'When does coverage end?December'
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:703:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'When does coverage end?December',
+    expected: /Dates you’ve shared/,
+    operator: 'match'
+  }
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:720:1
+✖ comparison starting point offers optional review and checklist only at its transition (0.495042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /review what you’ve shared and see which details are still open/. Input:
+  
+  'Which prescriptions?I don’t know yetWe can leave that open.'
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:728:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Which prescriptions?I don’t know yetWe can leave that open.',
+    expected: /review what you’ve shared and see which details are still open/,
+    operator: 'match'
+  }
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:987:1
+✖ current-turn route teaching appears inline once while Sources remains a separate disclosure (0.59025ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:995:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual'
+  }
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:1037:1
+✖ two successful turns retain the first guide without making a second guide from citations (0.609333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:1049:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual'
+  }
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:1067:1
+✖ a deliberate revisit may show the same guide again while failed generation never does (0.390416ms)
+  AssertionError [ERR_ASSERTION]: Frontend honors the validated revisit decision.
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:1075:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual'
+  }
+
+test at alternatives/advisor-first/tests/test_assistant_reveal.js:1080:1
+✖ fact and generated citations merge into one deduplicated Sources footer after the inline guide (0.609208ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'children')
+      at all (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:81:25)
+      at byClass (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:83:33)
+      at TestContext.<anonymous> (/Users/cep4u/daylight/alternatives/advisor-first/tests/test_assistant_reveal.js:1092:16)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:789:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:517:18)
+      at Test.postRun (node:internal/test_runner/test:885:19)
+      at Test.run (node:internal/test_runner/test:831:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:517:7)

@@ -1,0 +1,27 @@
+[Unit]
+Description=Daylight fictional pilot rehearsal
+After=network.target
+
+[Service]
+Type=simple
+User=daylight-pilot
+Group=daylight-pilot
+WorkingDirectory=/opt/daylight-pilot
+EnvironmentFile=/etc/daylight-pilot/origin.env
+# AI-04: pilot traffic may use only the pilot routes in model-routes.json.
+Environment=DAYLIGHT_MODEL_ENVIRONMENT=pilot
+ExecStart=/usr/bin/python3.11 -B /opt/daylight-pilot/alternatives/advisor-first/server.py --fixture --port 8893 --pilot-state /var/lib/daylight-pilot/cohort --pilot-origin ${DAYLIGHT_PILOT_ORIGIN}
+Restart=on-failure
+StateDirectory=daylight-pilot
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=multi-user.target

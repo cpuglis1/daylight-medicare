@@ -12,6 +12,10 @@ Read these, in order, before changing anything:
 4. Before app changes: `PRODUCT.md`, `DAYLIGHT_REQUIREMENTS.md`, `DESIGN.md` and
    `docs/product/MASTER_DESIGN.md`. Name the requirement IDs a change addresses.
 
+For company context (strategy, licensing, pilot, partners, business decisions),
+read the Daylight Brain's `AGENTS.md`; its path is in CURRENT_STATE under
+"How work runs".
+
 Older dated directives are in [docs/project/DIRECTIVE_HISTORY.md](docs/project/DIRECTIVE_HISTORY.md).
 They remain binding where not superseded. Read the entries covering an area
 before changing it.

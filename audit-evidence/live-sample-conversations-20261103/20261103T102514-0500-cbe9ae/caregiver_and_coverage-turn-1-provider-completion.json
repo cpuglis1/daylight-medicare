@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 45215,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8625,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 415,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9040
+    },
+    "text": "{\"question_target\":\"T05\",\"reply\":\"A good place to start is with the big picture. Medicare is federal health insurance, and there are two main ways your mother can get her hospital and medical coverage.\\n\\nOne route is Original Medicare, which is Parts A and B through the federal program. With that route, drug coverage is separate, and she may be able to add Medigap to help with her share of costs.\\n\\nThe other route is Medicare Advantage, which provides Parts A and B through a private plan approved by Medicare. Most of those plans include drug coverage. Medigap goes with Original Medicare, not with Medicare Advantage. And the Part B premium still applies with either route.\\n\\nSince you’re trying to work out both coverage and practical help, the most useful next step is to figure out what coverage she has now so we know whether we’re comparing from scratch or building around existing coverage.\",\"question\":\"What health insurance does your mother have now?\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"basics\",\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"where to start understanding Medicare and practical help for mother in Naples\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"medicare_basics\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"federal_health_insurance\"],\"evidence_refs\":[\"basics\"]},{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"route_relationship\",\"cost_sharing_role\",\"separate_drugs\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"help_and_logistics\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"prepare\"}}"
+  },
+  "elapsed_seconds": 7.2744
+}

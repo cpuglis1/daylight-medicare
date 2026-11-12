@@ -1,0 +1,35 @@
+test_P10_same_name_different_strength (test_edge_personas.EdgeProfiles.test_P10_same_name_different_strength) ... FAIL
+test_P6_conflict_and_correction (test_edge_personas.EdgeProfiles.test_P6_conflict_and_correction) ... ok
+test_P7_unknown_answers (test_edge_personas.EdgeProfiles.test_P7_unknown_answers) ... FAIL
+test_P8_goal_changes (test_edge_personas.EdgeProfiles.test_P8_goal_changes) ... ok
+test_P9_multiple_people (test_edge_personas.EdgeProfiles.test_P9_multiple_people) ... ok
+test_ambiguous_fill_cannot_choose_an_arbitrary_medicine (test_edge_personas.ItemBindingGuard.test_ambiguous_fill_cannot_choose_an_arbitrary_medicine) ... ok
+
+======================================================================
+FAIL: test_P10_same_name_different_strength (test_edge_personas.EdgeProfiles.test_P10_same_name_different_strength)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_edge_personas.py", line 86, in test_P10_same_name_different_strength
+    self.check('two explicitly reported medicines remain distinct',len(items),2)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_edge_personas.py", line 25, in check
+    self.checks.append({'label':label,'passed':actual==expected,'actual':actual,'expected':expected});self.assertEqual(actual,expected,label)
+                                                                                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2 : two explicitly reported medicines remain distinct
+
+======================================================================
+FAIL: test_P7_unknown_answers (test_edge_personas.EdgeProfiles.test_P7_unknown_answers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_edge_personas.py", line 63, in test_P7_unknown_answers
+    self.check('required unknowns remain visible',open_count,7)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/test_edge_personas.py", line 25, in check
+    self.checks.append({'label':label,'passed':actual==expected,'actual':actual,'expected':expected});self.assertEqual(actual,expected,label)
+                                                                                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 6 != 7 : required unknowns remain visible
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.085s
+
+FAILED (failures=2)

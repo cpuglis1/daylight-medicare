@@ -1,0 +1,25 @@
+--- run_guarded.py
++++ run_reference_guarded.py
+@@ -12,8 +12,8 @@
+ OUT = Path(__file__).resolve().parent
+ REPO = OUT.parents[2]
+ SNAP = OUT/'snapshot'
+-mode = sys.argv[1]
+-if mode not in {'suite', 'journey'}:
++mode = 'reference'
++if mode not in {'reference'}:
+     raise ValueError('Use one explicit bounded mode.')
+ receipt = OUT / (mode + '-execution-guard.json')
+ if receipt.exists():
+@@ -65,8 +65,9 @@
+     receipt.write_text(json.dumps(data, indent=2) + '\n')
+ atexit.register(finish)
+ 
+-if mode == 'suite':
+-    sys.argv = ['unittest', 'discover', '-s', str(SNAP/'alternatives/advisor-first/tests'), '-v']
++if mode == 'reference':
++    sys.path.insert(0, str(SNAP/'alternatives/advisor-first/tests'))
++    sys.argv = ['unittest', 'test_published_reference', '-v']
+     runpy.run_module('unittest', run_name='__main__')
+ else:
+     sys.argv = ['run_isolated_actual_journey.py', '--output', str(OUT/'actual-identity-http-journey.json'),

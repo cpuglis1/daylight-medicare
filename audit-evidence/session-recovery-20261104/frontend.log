@@ -1,0 +1,180 @@
+TAP version 13
+# Subtest: a lost completed reply is recovered automatically without another model request
+ok 1 - a lost completed reply is recovered automatically without another model request
+  ---
+  duration_ms: 2.43875
+  ...
+# Subtest: reset session installs current state and preserves the unsent draft
+ok 2 - reset session installs current state and preserves the unsent draft
+  ---
+  duration_ms: 0.739666
+  ...
+# Subtest: resumed session installs current state and preserves the unsent draft
+ok 3 - resumed session installs current state and preserves the unsent draft
+  ---
+  duration_ms: 0.548542
+  ...
+# Subtest: reconnection leaves a newer draft intact and parks the original
+ok 4 - reconnection leaves a newer draft intact and parks the original
+  ---
+  duration_ms: 1.011375
+  ...
+# Subtest: bounded working checks keep the original request key for the next Send
+ok 5 - bounded working checks keep the original request key for the next Send
+  ---
+  duration_ms: 0.788459
+  ...
+# Subtest: a still-processing request is automatically picked up when its receipt arrives
+ok 6 - a still-processing request is automatically picked up when its receipt arrives
+  ---
+  duration_ms: 0.441125
+  ...
+# Subtest: non-session conflicts cannot invoke session recovery
+ok 7 - non-session conflicts cannot invoke session recovery
+  ---
+  duration_ms: 0.348792
+  ...
+# Subtest: expired guest authority reconnects freely with saving paused and draft retained
+ok 8 - expired guest authority reconnects freely with saving paused and draft retained
+  ---
+  duration_ms: 0.409875
+  ...
+# Subtest: a recovered unavailable generation never becomes an assistant history message
+ok 9 - a recovered unavailable generation never becomes an assistant history message
+  ---
+  duration_ms: 0.560709
+  ...
+# Subtest: Send carries current AI permission, relevant-context policy and the same visit state
+ok 10 - Send carries current AI permission, relevant-context policy and the same visit state
+  ---
+  duration_ms: 0.496542
+  ...
+# Subtest: non-message navigation does not acquire expanded AI permission
+ok 11 - non-message navigation does not acquire expanded AI permission
+  ---
+  duration_ms: 0.720584
+  ...
+# Subtest: one deliberate Send makes one request and clears only its submitted draft
+ok 12 - one deliberate Send makes one request and clears only its submitted draft
+  ---
+  duration_ms: 0.461041
+  ...
+# Subtest: an unexpected 428 preserves the draft without a modal or an automatic retry
+ok 13 - an unexpected 428 preserves the draft without a modal or an automatic retry
+  ---
+  duration_ms: 0.437833
+  ...
+# Subtest: a successful answer retains the exact question before its user answer and leaves the next question current
+ok 14 - a successful answer retains the exact question before its user answer and leaves the next question current
+  ---
+  duration_ms: 0.44975
+  ...
+# Subtest: the opening invitation is preserved from the same copy used on screen, after the greeting
+ok 15 - the opening invitation is preserved from the same copy used on screen, after the greeting
+  ---
+  duration_ms: 0.38825
+  ...
+# Subtest: a lost response keeps the unanswered question current, and exact replay archives it only once
+ok 16 - a lost response keeps the unanswered question current, and exact replay archives it only once
+  ---
+  duration_ms: 0.504459
+  ...
+# Subtest: an accepted turn with an unavailable provider response still preserves the question exactly once
+ok 17 - an accepted turn with an unavailable provider response still preserves the question exactly once
+  ---
+  duration_ms: 0.41225
+  ...
+# Subtest: an exact replay after a local presentation error cannot duplicate question, answer or reply
+ok 18 - an exact replay after a local presentation error cannot duplicate question, answer or reply
+  ---
+  duration_ms: 0.43475
+  ...
+# Subtest: an explanation that keeps the same unanswered question current does not add a historical duplicate
+ok 19 - an explanation that keeps the same unanswered question current does not add a historical duplicate
+  ---
+  duration_ms: 0.709208
+  ...
+# Subtest: repeated unavailable generations replace one notice without repeating it as conversational replies
+ok 20 - repeated unavailable generations replace one notice without repeating it as conversational replies
+  ---
+  duration_ms: 0.544167
+  ...
+# Subtest: a missing server question never resurrects the already answered previous question after a generation failure
+ok 21 - a missing server question never resurrects the already answered previous question after a generation failure
+  ---
+  duration_ms: 0.48025
+  ...
+# Subtest: an unavailable-generation notice cannot be preserved as though it were an actual question
+ok 22 - an unavailable-generation notice cannot be preserved as though it were an actual question
+  ---
+  duration_ms: 0.517042
+  ...
+# Subtest: only a deliberate answer Send grants the same scoped permission for contextual composition
+ok 23 - only a deliberate answer Send grants the same scoped permission for contextual composition
+  ---
+  duration_ms: 0.618666
+  ...
+# Subtest: the actual answer submitter sends precise coverage only after refinement and deliberate Send
+ok 24 - the actual answer submitter sends precise coverage only after refinement and deliberate Send
+  ---
+  duration_ms: 0.569125
+  ...
+# Subtest: the actual goal Send grants composition permission without auto-sending a goal selection
+ok 25 - the actual goal Send grants composition permission without auto-sending a goal selection
+  ---
+  duration_ms: 0.465791
+  ...
+# Subtest: selected teaching citations are retained without adding a duplicate lesson body
+ok 26 - selected teaching citations are retained without adding a duplicate lesson body
+  ---
+  duration_ms: 0.4625
+  ...
+# Subtest: optional educational follow-ups stay with their accepted exchange and never survive failed generation
+ok 27 - optional educational follow-ups stay with their accepted exchange and never survive failed generation
+  ---
+  duration_ms: 0.867542
+  ...
+# Subtest: pending presentation is temporary while a Send is unresolved and preserves a newer typed draft
+ok 28 - pending presentation is temporary while a Send is unresolved and preserves a newer typed draft
+  ---
+  duration_ms: 0.4765
+  ...
+# Subtest: the composer clears before transport settles and restores the exact raw draft after a failed Send
+ok 29 - the composer clears before transport settles and restores the exact raw draft after a failed Send
+  ---
+  duration_ms: 0.416125
+  ...
+# Subtest: a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately
+ok 30 - a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately
+  ---
+  duration_ms: 0.407541
+  ...
+# Subtest: reading a concept leaves an unrelated typed draft in the composer during the request
+ok 31 - reading a concept leaves an unrelated typed draft in the composer during the request
+  ---
+  duration_ms: 0.358542
+  ...
+# Subtest: a successful response cannot clear a newly typed identical message
+ok 32 - a successful response cannot clear a newly typed identical message
+  ---
+  duration_ms: 0.442709
+  ...
+# Subtest: a failed Send removes pending presentation once without committing history or retrying
+ok 33 - a failed Send removes pending presentation once without committing history or retrying
+  ---
+  duration_ms: 0.472459
+  ...
+# Subtest: a guide stays with its teaching exchange and cannot migrate onto a later timing question
+ok 34 - a guide stays with its teaching exchange and cannot migrate onto a later timing question
+  ---
+  duration_ms: 0.415
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 67.563834

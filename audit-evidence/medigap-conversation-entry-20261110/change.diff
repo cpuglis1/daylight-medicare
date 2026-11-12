@@ -1,0 +1,424 @@
+--- before/alternatives/advisor-first/web-8894/advisor.js
++++ after/alternatives/advisor-first/web-8894/advisor.js
+@@ -1135,6 +1135,13 @@
+     // D97: Plans-page filters write the same free structured answers as the
+     // conversation, labelled plans_filter; never an AI call.
+     answer:(id,fields) => turn({type:'choice',id,fields,source:'plans_filter'},'',false,{silent:true}),
++    // D131: route to the existing conversation without sending a message,
++    // inventing an answer or consuming the person's unsent draft.
++    medigapConversation:async id => {
++      if (!await turn({type:'task',task:'medigap',preparing:true},'',false,{silent:true})) return false;
++      selectedGoal = '';
++      return id ? turn({type:'edit',id},'',false,{silent:true}) : true;
++    },
+     profile:() => ({fields:clone(state.guide.fields),facts:clone(state.record.facts || {}),provenance:clone(state.record.natural?.provenance || {}),
+       readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),medigap:clone(state.medigapProfile || null),visit:state.continuation?.split('.')[0] || '',busy}),
+     review:() => turn({type:'review_plans'}),
+--- before/alternatives/advisor-first/web-8894/plans-workspace.js
++++ after/alternatives/advisor-first/web-8894/plans-workspace.js
+@@ -267,7 +267,17 @@
+     host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
+     const medigap = el('section',undefined,'medigap-workspace'); host.append(medigap);
+     window.DaylightMedigap.render(medigap, {request:api, profile:prof().medigap, context:prof().visit,
+-      answer:(id,fields) => save(id,fields,'',true)});
++      conversation:async id => {
++        if (!await opts.medigapConversation(id)) {
++          status('The conversation could not open. Your details and draft are kept; try Talk to MidMorning again.');
++          return;
++        }
++        $('current').setAttribute('tabindex','-1');
++        close('current');
++        const current = $('current'), reading = $('reading');
++        reading.scrollTop += current.getBoundingClientRect().top - reading.getBoundingClientRect().top - 18;
++        scrollTo({top:0});
++      }});
+     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+   }
+ 
+@@ -835,9 +845,10 @@
+     const notice = el('p'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); $('plans-panel').append(notice);
+     await refresh(); scrollTo({top: 0}); return !!data;
+   }
+-  function close() {
++  function close(focusId = 'message') {
+     opened = false; openDialog()?.close(); $('workspace').classList.remove('plans-open', 'chat-closed'); document.body.classList.remove('plans-page');
+-    $('plans-panel').hidden = true; $('plans-backdrop').hidden = true; $('plans-fab').hidden = true; document.body.classList.remove('plans-chat-open', 'plans-has-tray'); $('plans-tab').removeAttribute('aria-current'); $('message').focus();
++    $('plans-panel').hidden = true; $('plans-backdrop').hidden = true; $('plans-fab').hidden = true; document.body.classList.remove('plans-chat-open', 'plans-has-tray'); $('plans-tab').removeAttribute('aria-current');
++    if (focusId === 'current') $('current').focus({preventScroll:true}); else $('message').focus();
+   }
+   function snapshot() {
+     if (!opened || !data || view === 'supplement') return null;
+--- before/alternatives/advisor-first/web-8894/medigap-plans.js
++++ after/alternatives/advisor-first/web-8894/medigap-plans.js
+@@ -1,12 +1,12 @@
+-/* D129/D130: shared reported profile, exact-source Medigap prices.
+-   Profile answers use the existing permissioned flow. Rates remain visit-only. */
++/* D129–D131: shared reported profile, exact-source Medigap prices.
++   Missing details and corrections belong in the conversation. Rates remain visit-only. */
+ (() => {
+   'use strict';
+   const DATE = '2026-11-10', VARIANTS = ['A','B','C','D','F','HDF','G','HDG','K','L','M','N'];
+   const chosen = new Set();
+   let input = {zipcode:'',age:'',gender:'',tobacco:''}, result = null, error = '', pending = false, revision = 0;
+   let host, request, context = null, search = '', variant = 'all', order = 'premium', compare = false;
+-  let profile, answer, settings, attempt = null, editing = null, saving = false, activeDialog = null;
++  let profile, conversation, attempt = null, activeDialog = null;
+   const el = (tag, text, cls) => {const n = document.createElement(tag); if (text != null) n.textContent = text; if (cls) n.className = cls; return n;};
+   const money = cents => cents == null ? 'Not supplied' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents / 100);
+   const planName = v => v === 'HDG' ? 'High-deductible Plan G' : v === 'HDF' ? 'High-deductible Plan F' : `Plan ${v}`;
+@@ -25,48 +25,10 @@
+     profile = value;
+     const key = JSON.stringify([visit, value?.status, value?.inputs, value?.held]);
+     if (context !== key) {
+-      context = key; clearResult(); attempt = null; editing = null;
++      context = key; clearResult(); attempt = null;
+       if (activeDialog) activeDialog.close();
+       input = {...value?.inputs};
+     }
+-  }
+-  const definitions = {
+-    RC01:{question:'Who receives the coverage?',why:'We’ll use that person’s details to match prices.',choices:[['self','Me'],['someone','Someone I’m helping']]},
+-    T03:{question:'What is the home ZIP code of the person receiving coverage?',why:'The pilot has Medigap prices for ZIP codes 34101–34108.',choices:[]},
+-    MG_AGE:{question:'How old were you on November 10, 2026?',why:'The pilot prices are dated November 10, 2026 and cover ages 65–74. Age on that date helps us match the listed prices.',choices:[]},
+-    MG_SEX:{question:'Which sex category should we use for Medigap prices?',why:'The price source uses Female and Male categories. Choose the category to use for this lookup, or leave it unknown.',choices:[['Female','Female'],['Male','Male']]},
+-    MG_TOBACCO:{question:'Which tobacco category should we use for Medigap prices?',why:'The source lists separate tobacco and non-tobacco prices. If you stopped recently or are unsure which category applies, choose I don’t know. Insurer requirements still need checking.',choices:[['Non-Tobacco','Non-tobacco user'],['Tobacco User','Tobacco user']]}
+-  };
+-  async function saveAnswer(id, value) {
+-    if (saving) return;
+-    saving = true; const fields = {[id === 'T03' ? 'zip' : 'choice']:value};
+-    try {
+-      if (!await answer(id,fields)) throw Error('That answer was not saved. Your entry is still here; try again.');
+-      editing = null;
+-    } catch(e) {error = e.message; renderResults();}
+-    finally {saving = false;}
+-  }
+-  function questionForm(id) {
+-    const q = profile?.questions?.find(item=>item.id===id) || profile?.edit_questions?.find(item=>item.id===id) || definitions[id];
+-    const form = el('form',null,'medigap-profile'), label = el('label',q.question,'plans-field');
+-    const control = el(q.choices.length ? 'select' : 'input'); control.name = id; control.id = 'medigap-answer'; control.required = true;
+-    if (q.choices.length) {control.append(new Option('Choose…','')); for(const [value,text] of q.choices) control.append(new Option(text,value));}
+-    else {
+-      control.type = id === 'MG_AGE' ? 'number' : 'text'; control.inputMode = 'numeric';
+-      if (id === 'MG_AGE') {control.min = '0';control.max = '120';control.step = '1';}
+-      else {control.pattern = '[0-9]{5}';control.maxLength = 5;}
+-    }
+-    control.value = '';
+-    control.disabled = false;
+-    const why = el('p',q.why,'plans-help');why.id = 'medigap-question-why';control.setAttribute('aria-describedby',why.id);
+-    label.append(control);form.append(label,why);
+-    const actions = el('div',null,'plans-row'), submit = el('button','Continue','primary-button');submit.type = 'submit';submit.disabled = control.disabled;
+-    actions.append(submit);
+-    if(id.startsWith('MG_')) for(const [value,text] of [['unknown','I don’t know'],['deferred','Check later']]) {
+-      const b = button(text,()=>saveAnswer(id,value));b.disabled = control.disabled;actions.append(b);
+-    }
+-    form.append(actions);form.addEventListener('submit',e=>{e.preventDefault();void saveAnswer(id,control.value);});
+-    return form;
+   }
+   async function load() {
+     if (pending || profile?.status !== 'ready') return;
+@@ -82,24 +44,27 @@
+     finally {if (current === revision) {pending = false; renderResults();}}
+   }
+   function render(target, options) {
+-    host = target; settings = options; request = options.request; answer = options.answer; syncProfile(options.profile, options.context);
++    host = target; request = options.request; conversation = options.conversation; syncProfile(options.profile, options.context);
+     const top = el('div',null,'plans-top'), title = el('h1','Medicare Supplement (Medigap)','plans-title'); title.tabIndex = -1;
+     top.append(title); host.append(top,el('p','Listed premiums for your exact profile, for November 10, 2026.','plans-lede'),
+       el('p','Pilot coverage: ZIPs 34101–34108, ages 65–74. Prices use the details in your chat profile and update when those details change.','plans-help'));
+-    if (!profile) host.append(el('p','Your chat profile is still loading. Return to the conversation and reopen Medigap.','plans-notice'));
+-    else {
++    if (!profile || profile.status === 'missing') {
++      const invitation = el('section',null,'medigap-invitation');
++      invitation.append(el('h2','Considering Medigap?'),
++        el('p','Talk with MidMorning about your situation so we can show prices that match your details. We’ll use what you’ve already shared and ask only for what’s missing.','plans-lede'),
++        button('Talk to MidMorning',()=>conversation(),'primary-button'));
++      if (profile?.held.length) invitation.append(el('p','Details you left unknown or chose to check later stay open. You can update them in the conversation whenever you’re ready.','plans-help'));
++      host.append(invitation);
++    }
++    if (profile) {
+       const editor = el('details',null,'medigap-editor');editor.append(el('summary','Your pricing details'));
+       const rows = [{id:'T03',label:'Home ZIP code',value:input.zipcode},...profile.details];
+       for(const item of rows) {
+         const row = el('div',null,'plans-row medigap-profile-row');
+         row.append(el('p',`${item.label}: ${item.value ?? (item.status === 'unknown' ? 'Unknown' : item.status === 'skipped' ? 'Check later' : 'Not yet provided')}`),
+-          button('Edit '+item.label,()=>{editing=item.id;host.replaceChildren();render(host,settings);document.getElementById('medigap-answer')?.focus();}));editor.append(row);
++          button('Edit '+item.label+' in conversation',()=>conversation(item.id)));editor.append(row);
+       }
+       editor.append(el('p','These answers are part of your chat profile. They are saved only if you choose to save sensitive details. Listed prices are not saved in your profile.','plans-help'));host.append(editor);
+-      const missing = profile.status === 'unsupported' ? [] : profile.missing.filter(id=>!profile.held.includes(id));
+-      const next = editing || missing[0];
+-      if (next) host.append(questionForm(next));
+-      else if (profile.status === 'missing') host.append(el('p','Matched prices need the details you left open. You can add them under “Your pricing details” whenever you’re ready.','plans-help'));
+     }
+     const notice = el('p','', 'plans-notice'); notice.id = 'medigap-status'; notice.tabIndex = -1; notice.setAttribute('role','status'); notice.setAttribute('aria-live','polite');
+     const output = el('div'); output.id = 'medigap-results'; host.append(notice,output); renderResults();
+--- before/alternatives/advisor-first/web-8894/medigap-plans.css
++++ after/alternatives/advisor-first/web-8894/medigap-plans.css
+@@ -4,21 +4,21 @@
+ .plan-kinds button.plan-kind:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+ .medigap-editor { margin:20px 0 12px; border-block:1px solid var(--line); }
+ .medigap-editor > summary { padding:14px 0; cursor:pointer; font-weight:700; font-size:var(--text-label); }
+-.medigap-profile { padding:8px 0 12px; max-width:42rem; }
++.medigap-invitation { margin:28px 0; max-width:42rem; }
++.medigap-invitation h2 { margin:0 0 12px; }
++.medigap-invitation .primary-button { margin-top:8px; }
+ .medigap-profile-row { justify-content:space-between; padding:8px 0; }
+ .medigap-profile-row p { margin:0; }
+-.medigap-fields { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:20px; }
+ .medigap-actions { margin:16px 0; }
+ .medigap-scroll-help { display:none; }
+ .medigap-filters { grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:20px; }
+ #medigap-results .plan-card .plan-facts { display:block; }
+ #medigap-results .plans-compare th { min-width:190px; }
+ #medigap-results .plans-compare caption { text-align:left; padding:12px 0; font-weight:700; }
+-@container plans (max-width:800px) { .medigap-fields { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+ @container plans (max-width:560px) {
+-  .medigap-fields, .medigap-filters { grid-template-columns:1fr; }
++  .medigap-filters { grid-template-columns:1fr; }
+   .medigap-scroll-help { display:block; }
+-  .medigap-profile .primary-button { width:100%; }
++  .medigap-invitation .primary-button { width:100%; }
+   .plan-kinds button.plan-kind { font-size:var(--text-help); border:1px solid var(--line); }
+   .plan-kinds button.plan-kind.current { border-color:var(--olive); }
+ }
+--- before/alternatives/advisor-first/tests/test_medigap_view.js
++++ after/alternatives/advisor-first/tests/test_medigap_view.js
+@@ -17,19 +17,14 @@
+   class Option extends Node {constructor(label,value){super('option');this.textContent=label;this.value=value;}}
+   const window={};vm.runInNewContext(source,{window,document,Option,Intl,Number,Set,Object,Array,Infinity,Error,String});
+   const host=new Node('main');document.body.append(host);const calls=[];
+-  let current=initial;const answers=[];
+-  const options={context:'fictional-visit',profile:current,request:async(url,body)=>{calls.push({url,body});return request(body);},answer:async(id,fields)=>{
+-    answers.push({id,fields});const key={MG_AGE:'age',MG_SEX:'gender',MG_TOBACCO:'tobacco',T03:'zipcode'}[id];
+-    const value=fields.choice??fields.zip, held=['unknown','deferred'].includes(value);
+-    current=profile({...current.inputs,[key]:held?null:id==='MG_AGE'?Number(value):value},held?[id]:[]);mount(current);return true;
+-  }};
++  let current=initial;const conversations=[];
++  const options={context:'fictional-visit',profile:current,request:async(url,body)=>{calls.push({url,body});return request(body);},
++    conversation:id=>conversations.push(id)};
+   const all=(node=host)=>[node,...node.children.filter(x=>typeof x==='object').flatMap(all)];
+   const find=predicate=>all().find(predicate);
+-  function change(key,value){const input=find(n=>n.name===key);input.value=value;input.listeners.input?.();}
+   const tick=()=>new Promise(resolve=>setImmediate(resolve));
+-  const submit=async()=>{find(n=>n.tagName==='form').listeners.submit({preventDefault(){}});await tick();};
+   const mount=(value=current,visit=options.context)=>{current=value;options.profile=value;options.context=visit;host.replaceChildren();window.DaylightMedigap.render(host,options);};
+-  mount();return {document,host,all,find,change,submit,mount,calls,tick,ids,answers,options};
++  mount();return {document,host,all,find,mount,calls,tick,ids,conversations,options};
+ }
+ const rows=Array.from({length:4},(_,i)=>({id:String(i),company:'Fictional Company '+i,variant:'G',rating_class:i?'Household':'Standard',monthly_cents:12345+i,annual_cents:null,monthly_with_discounts_cents:11728,annual_with_discounts_cents:140000,policy_fee:'$20 fixed',household_discount:'5%',source_fields:{'AM Best Rating':'Stable'},rating_labels_need_review:true}));
+ const response=body=>({status:'matched_source_prices',profile:{zip:body.zipcode,age:body.age,gender:body.gender,tobacco:body.tobacco},notice:'Listed premiums; qualifications unknown.',plans:rows});
+@@ -47,12 +42,15 @@
+   assert.equal(f.all().filter(n=>n.dataset.medigapId).length,4);assert.match(f.host.textContent,/\$123\.45/);assert.match(f.host.textContent,/Not supplied/);assert.match(f.host.textContent,/Standard/);assert.match(f.host.textContent,/Household/);
+   assert.equal(f.all().filter(n=>n.tagName==='form').length,0);f.mount();await f.tick();assert.equal(f.calls.length,1);
+ });
+-test('asks only the missing category, explains why, saves to shared profile and loads prices',async()=>{
++test('missing profile invites conversation without a second intake or price request',async()=>{
+   const f=fixture(response,profile({tobacco:null}));assert.equal(f.calls.length,0);
+-  assert.equal(f.all().filter(n=>n.tagName==='form').length,1);assert.match(f.host.textContent,/separate tobacco and non-tobacco prices/);
+-  assert.equal(f.find(n=>n.name==='MG_TOBACCO').value,'');assert.equal(f.find(n=>n.name==='MG_AGE'),undefined);
+-  f.change('MG_TOBACCO','Tobacco User');await f.submit();assert.deepEqual(JSON.parse(JSON.stringify(f.answers[0])),{id:'MG_TOBACCO',fields:{choice:'Tobacco User'}});
++  assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
++  assert.match(f.host.textContent,/Considering Medigap/);assert.match(f.host.textContent,/use what you’ve already shared/);
++  f.find(n=>n.tagName==='button'&&n.textContent==='Talk to MidMorning').onclick();
++  assert.deepEqual(f.conversations,[undefined]);assert.equal(f.calls.length,0);
++  f.mount(profile({tobacco:'Tobacco User'}));await f.tick();
+   assert.equal(f.calls.length,1);assert.equal(f.calls[0].body.age,68);assert.equal(f.calls[0].body.tobacco,'Tobacco User');
++  assert.equal(f.find(n=>n.textContent==='Talk to MidMorning'),undefined);
+ });
+ test('delayed old prices are discarded after a chat correction',async()=>{
+   const waits=[];const f=fixture(body=>new Promise(resolve=>waits.push(()=>resolve(response(body)))));
+@@ -64,10 +62,12 @@
+   assert.match(f.host.textContent,/75\+ is not supported in this pilot/);assert.equal(f.calls.length,1);assert.equal(f.all().filter(n=>n.tagName==='form').length,0);assert.equal(f.all().filter(n=>n.dataset.medigapId).length,0);
+   f.mount(profile({age:74}));await f.tick();assert.equal(f.calls.length,2);assert.equal(f.calls[1].body.age,74);
+ });
+-test('unknown stays open without repeating the question or using an old rate',async()=>{
+-  const f=fixture(response,profile({tobacco:null}));f.find(n=>n.tagName==='button'&&n.textContent==='I don’t know').onclick();await f.tick();
+-  assert.equal(f.calls.length,0);assert.equal(f.all().filter(n=>n.tagName==='form').length,0);assert.match(f.host.textContent,/details you left open/);
+-  f.find(n=>n.tagName==='button'&&n.textContent==='Edit tobacco').onclick();assert.equal(f.find(n=>n.name==='MG_TOBACCO').value,'');
++test('unknown stays open and deliberate editing routes to its chat question',async()=>{
++  const f=fixture(response,profile({tobacco:null},['MG_TOBACCO']));await f.tick();
++  assert.equal(f.calls.length,0);assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
++  assert.match(f.host.textContent,/Details you left unknown/);
++  f.find(n=>n.tagName==='button'&&n.textContent==='Edit tobacco in conversation').onclick();
++  assert.deepEqual(f.conversations,['MG_TOBACCO']);assert.equal(f.calls.length,0);
+ });
+ test('failed lookup keeps shared answers and retries only deliberately',async()=>{
+   let fail=true;const f=fixture(body=>{if(fail)throw Error('Temporarily unavailable. Try again.');return response(body);});await f.tick();
+--- before/alternatives/advisor-first/tests/test_medigap_profile.py
++++ after/alternatives/advisor-first/tests/test_medigap_profile.py
+@@ -19,6 +19,33 @@
+     def seed(self, role='self'):
+         self.choice('RC01', choice=role)
+         self.choice('T03', zip='34101')
++
++    def test_direct_entry_with_no_profile_starts_with_the_coverage_recipient(self):
++        result = self.turn({'type': 'task', 'task': 'medigap', 'preparing': True},
++                           aiConsent=False, contextPolicy=None)
++        self.assertEqual(result['assessment']['nextQuestion']['id'], 'RC01')
++        self.assertEqual(result['medigapProfile']['status'], 'missing')
++        self.assertEqual(self.calls, [])
++
++    def test_medigap_entry_reuses_reports_and_opens_missing_chat_buttons_without_ai(self):
++        self.seed();self.choice('MG_AGE', choice='68');self.choice('MG_SEX', choice='Female')
++        before = copy.deepcopy(self.g['fields'])
++        result = self.turn({'type': 'task', 'task': 'medigap', 'preparing': True},
++                           aiConsent=False, contextPolicy=None)
++        question = result['assessment']['nextQuestion']
++        self.assertEqual(question['id'], 'MG_TOBACCO')
++        self.assertEqual([item[0] for item in question['choices']], ['Non-Tobacco', 'Tobacco User'])
++        self.assertIn('separate tobacco and non-tobacco prices', question['why'])
++        for field, item in before.items():
++            self.assertEqual(self.g['fields'][field], item)
++        self.assertEqual(self.calls, [])
++        self.assertFalse(result['assessment']['narrative']['opener'])
++        self.turn({'type': 'unknown', 'id': 'MG_TOBACCO'}, aiConsent=False)
++        result = self.turn({'type': 'task', 'task': 'medigap', 'preparing': True}, aiConsent=False)
++        self.assertNotEqual((result['assessment']['nextQuestion'] or {}).get('id'), 'MG_TOBACCO')
++        result = self.turn({'type': 'edit', 'id': 'MG_TOBACCO'}, aiConsent=False)
++        self.assertEqual(result['assessment']['nextQuestion']['id'], 'MG_TOBACCO')
++        self.assertEqual(self.calls, [])
+ 
+     def test_structured_profile_shared_private_and_no_model_call(self):
+         self.seed()
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ after/DAYLIGHT_REQUIREMENTS.md
+@@ -246,6 +246,8 @@
+ 
+ ## Change log
+ 
++- **2026-11-10, D131 Medigap intake stays in the conversation.** The owner rejects a duplicate form on the Medigap page. Show an invitation and “Talk to MidMorning” when pricing details are missing; open the existing conversation, reusing known reports and asking only for missing details with clear reasons and the existing answer buttons/free text. Do not send a message on the person’s behalf or consume an unsent draft. Profile corrections also return to chat. Complete profiles still show prices immediately; unknown/deferred answers, the 34101–34108/65–74 scope, 75+ unsupported message, privacy and source boundaries remain. No other tool changes. This refines D130’s presentation, not its capture or pricing rules. [Implementation and checks](audit-evidence/medigap-conversation-entry-20261110/README.md).
++
+ - **2026-11-10, D130 Shared chat profile for Medigap pricing.** The owner requests automatically filling age, sex and tobacco status from the chat profile, updating prices when answers change, asking only for missing information, and adding clear profile questions with an explanation of why each detail is needed. Implement three local pricing meanings beside the unchanged 41-question inventory. Reuse exact age on November 10, 2026, including supported birthday arithmetic; never infer pricing sex from names/pronouns or a tobacco category from smoking history or silence. Keep beneficiary/helper scope, unknown/deferred/conflicting reports, corrections and existing sensitive-save/AI-context permissions. The existing Medigap tab automatically reads matched source prices for ZIPs 34101–34108 and ages 65–74; 75+ is unsupported. No other tool changes, new acquisition, paid model tests, source acceptance, ranking or hosted deployment are authorized. This supersedes D129’s separate visit-only lookup-input boundary only for these shared reported details; prices remain outside saved profiles/model context. [Implementation and verification](audit-evidence/medigap-chat-profile-20261110/README.md).
+ 
+ - **2026-11-10, D129 Matched Medigap prices in the existing :8894 Plans UI.** The owner explicitly requests wiring the 34101–34108 cache into the app for immediate participant-matched Medigap prices, ages 65–74, with 75+ unsupported for this pilot. Reuse the MA cards/detail/comparison presentation in the existing Medigap tab. Keep Part D, the MA logic, conversation, protected apps and saved-data behavior unchanged. This authorizes the bounded local pilot display of exact source premiums, retaining the November 10, 2026 requested date, all classes, unknown qualifications and source STOPs; it is not authority for binding quotes, eligibility, recommendations, full-market completeness or hosted deployment. Keep the prior research build and its historical holds immutable; record this display scope separately. [Implementation and checks](audit-evidence/medigap-ui-8894-20261110/README.md).
+--- before/docs/project/CURRENT_STATE.md
++++ after/docs/project/CURRENT_STATE.md
+@@ -1,6 +1,6 @@
+ # Daylight: current state
+ 
+-Living document · last updated November 10, 2026 (America/New_York), D130 added. Edit this
++Living document · last updated November 10, 2026 (America/New_York), D131 added. Edit this
+ file in place when direction changes. Do not prepend dated directives here or
+ to any `AGENTS.md`; record them as described in "Changing direction" below.
+ 
+@@ -76,7 +76,7 @@
+ | Port | Source | Status |
+ | --- | --- | --- |
+ | :8893 | `alternatives/advisor-first/` | Active MidMorning advisor backend (D122). The reference `web/` frontend retains Daylight branding. Scoped rules in its [AGENTS.md](../../alternatives/advisor-first/AGENTS.md). |
+-| :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | MidMorning consumer interface (D121), with “Medicare, on your terms.” and the approved support sentence. Retains D93/D109 layout and behavior. Forwards API requests to :8893; D122 activates MidMorning model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile, asks only missing pricing details with a purpose, and refreshes prices automatically. [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). Internal identifiers, saved data, MA logic and Part D remain unchanged. |
++| :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | MidMorning consumer interface (D121), with “Medicare, on your terms.” and the approved support sentence. Retains D93/D109 layout and behavior. Forwards API requests to :8893; D122 activates MidMorning model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile and refreshes prices automatically. D131 replaces duplicate Medigap-page intake with “Talk to MidMorning”; missing questions and corrections use the existing chat buttons/free text, preserving known reports and drafts. [Conversation entry](../../audit-evidence/medigap-conversation-entry-20261110/README.md). [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). Internal identifiers, saved data, MA logic and Part D remain unchanged. |
+ | :8890 | `cms-slice/apps/ten-question/` | Protected original ten-question journey. |
+ | :8891 | `alternatives/chat-first/` | Protected alternative; also supplies pinned engine dependencies to :8893. |
+ | :8896 | `cms-slice/apps/chat/` | Protected previous guide. |
+@@ -166,7 +166,11 @@
+   endpoint preserves all source classes/conditions and exact date matching;
+   D130 now reuses the shared chat profile for ZIP, exact dated age, pricing sex
+   and tobacco category. Three local questions ask only missing details and
+-  explain why. Corrections refresh prices automatically; unknowns are not guessed.
++  explain why. D131 keeps those questions and corrections in the conversation;
++  the Medigap page shows an invitation instead of a duplicate form. Its free
++  navigation preserves drafts and does not send a message. Corrections refresh
++  prices automatically; unknowns are not guessed.
++  [Conversation-entry checks](../../audit-evidence/medigap-conversation-entry-20261110/README.md).
+   Existing sensitive-save and scoped AI-context permission govern these reports;
+   rate rows remain outside saved profiles and model context. The original 41
+   meanings, pinned engine, data build and source STOPs are unchanged.
+--- before/docs/project/DIRECTIVE_HISTORY.md
++++ after/docs/project/DIRECTIVE_HISTORY.md
+@@ -62,6 +62,7 @@
+ | 2026-11-10 | D126 | “Prices matched to each participant.” Match exact ZIP, age, sex/gender category, tobacco and date; do not substitute age-65 examples or nearby profiles. Prepare native-export requests for uncaptured profiles and preserve class/eligibility/source/output distinctions. | [Pilot continuation](../data/l10-medigap-2026-10-28/csg-pilot-2026-11-10/README.md) |
+ | 2026-11-10 | D127 | “prices should appear immediately, but stop after we cover 65-74. thats okay for the pilot :) just say 75+ is not supported for medigap if we get ther”. Precollect exact supported profiles; make the age restriction a pilot pricing limit, never an insurance eligibility finding. Operator-assisted collection is preparation, not the participant workflow. | [Pilot continuation](../data/l10-medigap-2026-10-28/csg-pilot-2026-11-10/README.md) |
+ | 2026-11-10 | D128 | “read through/scan through: 34101–34108 and get them integrated into the back end db!!” Review the 320-profile complete subset and load an additive private PostgreSQL revision with verified exact-profile reads. The owner explicitly approved the NOLOGIN loader/reader permissions for the new private CSG schema, with public access denied and no memberships added. Further collection remains paused; preserve original sources, public-evidence history and consumer/source gates. | [Backend import](../data/l10-medigap-2026-10-28/csg-backend-2026-11-10/README.md) |
++| 2026-11-10 | D131 | Replace duplicate Medigap-page intake with an invitation to the existing conversation; retain chat answer buttons, known reports, drafts and immediate matched prices. | [Implementation and checks](../../audit-evidence/medigap-conversation-entry-20261110/README.md) |
+ | 2026-11-10 | D130 | Connect chat age, pricing sex and tobacco reports to automatic Medigap prices; ask only missing details with clear purpose. Preserve the eight-ZIP, 65–74 scope, 75+ limit, shared privacy controls and all other tool behavior. | [Implementation and checks](../../audit-evidence/medigap-chat-profile-20261110/README.md) |
+ | 2026-11-10 | D129 | Wire the eight-ZIP Medigap cache into the existing app tab for immediate matched prices, ages 65–74, with 75+ unsupported for the pilot. Reuse the MA UI; no other tool changes. Authorizes bounded local source-price display with exact profile/date matching, retained conditions and STOPs; no binding quote, eligibility inference, recommendation, general source acceptance or hosted deployment. | [Implementation and checks](../../audit-evidence/medigap-ui-8894-20261110/README.md) |
+ 
+@@ -71,3 +72,10 @@
+ Owner: “yes, wire the full chat profile into medigap so age, sex, and tobacco status fill automatically and prices update. only ask for missing info, and don’t change anything else. please be mindful however. This means that we need to introduce a few more questions into the profile as well. and we should ensure to keep language clear, and explain why we are asking certain questions when we do. please read the current way we ask questions just to be sure!”
+ 
+ Add three conditional, purpose-explained local pricing questions; retain the original 41 meanings. Reuse resolved beneficiary reports, preserve unknowns and corrections, and automatically refresh the existing eight-ZIP, age-65–74 cache display. The age is explicitly for November 10, 2026. A helper’s details, gender identity, smoking-only history or a coarse age band must not be silently converted into pricing facts. Existing optional sensitive saving and scoped AI permission apply to the new fields; rates stay outside saved/model data. The 75+ unsupported limit, source conditions/STOPs, D64 independence, original UI and protected variants remain. [Implementation and checks](../../audit-evidence/medigap-chat-profile-20261110/README.md).
++
++
++## D131 · November 10, 2026 · Medigap intake belongs in the conversation
++
++Owner: “I dont like the click enter, it should be buttons in form mode but in the conversation. like we shouldnt just be a form. does that makes sense. that really shouldn't be there if the convo gets that information out. and we should direct people to engage with the tool in order to get that information, like if people skip to that page, there is just a button and prompt, think medigap is right for you, talk to midmorning to give more info and we can get the right plans for you blah. that needs to be the case”
++
++The Medigap page invites people with missing details to “Talk to MidMorning.” Its button opens the existing chat at the appropriate question without sending a message or replacing a draft. Reuse shared reports; preserve the existing conversational buttons, free text, unknown/defer choices and reasons. Corrections return to the same conversation instead of opening a second form. Ready profiles still load exact source prices automatically. Retain the pilot bounds, source/eligibility limits, sensitive-save controls and MA/Part D behavior. [Implementation and checks](../../audit-evidence/medigap-conversation-entry-20261110/README.md).
+--- before/docs/product/MASTER_DESIGN.md
++++ after/docs/product/MASTER_DESIGN.md
+@@ -705,6 +705,18 @@
+ 
+ ### D84 Collier Medigap MVP data collection
+ 
++**D131 Medigap conversation entry · November 10, 2026:** When the shared profile
++lacks pricing details, the Medigap tab shows “Considering Medigap?” and a single
++prominent “Talk to MidMorning” invitation. Open the existing conversation at the
++missing detail, preserving the unsent message, prior reports and unknown/deferred
++answers. Navigation is a free local task action, not a submitted chat message.
++Use the existing conversational answer buttons/free text and purpose explanations.
++Keep pricing details inspectable; their edit actions open the corresponding chat
++question. Do not recreate the intake on Plans. Complete profiles still load
++matched prices automatically. This refines D130’s input presentation only;
++all pilot, privacy, source and other-tool limits remain.
++[Verification](../../audit-evidence/medigap-conversation-entry-20261110/README.md).
++
+ **D130 Shared Medigap pricing profile · November 10, 2026:** Use the chat profile
+ for ZIP, exact age on November 10, pricing sex and tobacco category. Ask one
+ missing detail at a time with its purpose; leave unknown/deferred answers open.
+--- before/daylight_obsidian/02 Product/Features/CAP-01 User experience and education.md
++++ after/daylight_obsidian/02 Product/Features/CAP-01 User experience and education.md
+@@ -31,3 +31,16 @@
+ Use the original linked evidence in [[90 Sources/Local/docs - project - CAPABILITIES.md--64bdca75cb84|CAPABILITIES.md]]. Identify the feature's actual entry points, expected outcome, unknown/error/correction paths, exact revision and existing permitted offline checks. Record executed checks in a separate evidence note. This import does not claim fresh feature verification.
+ 
+ [[02 Product/Feature map]] · [[02 Product/Requirements]] · [[00 Start/Source authority]]
++
++
++## November 10, 2026: D131 Medigap conversation entry
++
++The Medigap tab now invites people with missing details into the existing chat
++instead of repeating the intake form. Known reports and unsent drafts are kept;
++answer buttons and explanations remain in chat. Detail corrections also open
++chat, and complete profiles still fetch matched prices immediately. Unknowns,
++sensitive-save permission, 75+ limits and source conditions remain unchanged.
++
++Offline checks and desktop/tablet/phone inspection verify navigation, fresh and
++partial profiles, corrections and draft preservation. No live model tests,
++source acceptance or participant comprehension claim. [Exact checks and limits](../../../audit-evidence/medigap-conversation-entry-20261110/README.md).
+--- before/daylight_obsidian/02 Product/Features/CAP-02 Customer understanding and profile.md
++++ after/daylight_obsidian/02 Product/Features/CAP-02 Customer understanding and profile.md
+@@ -49,3 +49,16 @@
+ both the original and changed code and is recorded, not waived. No paid calls;
+ no claim of model conversational quality, independent source acceptance, quote
+ eligibility or user-proven comprehension. [Exact checks and limits](../../../audit-evidence/medigap-chat-profile-20261110/README.md).
++
++
++## November 10, 2026: D131 Medigap conversation entry
++
++The Medigap tab now invites people with missing details into the existing chat
++instead of repeating the intake form. Known reports and unsent drafts are kept;
++answer buttons and explanations remain in chat. Detail corrections also open
++chat, and complete profiles still fetch matched prices immediately. Unknowns,
++sensitive-save permission, 75+ limits and source conditions remain unchanged.
++
++Offline checks and desktop/tablet/phone inspection verify navigation, fresh and
++partial profiles, corrections and draft preservation. No live model tests,
++source acceptance or participant comprehension claim. [Exact checks and limits](../../../audit-evidence/medigap-conversation-entry-20261110/README.md).
+--- before/daylight_obsidian/02 Product/Features/CAP-06 Data integration and verification.md
++++ after/daylight_obsidian/02 Product/Features/CAP-06 Data integration and verification.md
+@@ -65,3 +65,16 @@
+ both the original and changed code and is recorded, not waived. No paid calls;
+ no claim of model conversational quality, independent source acceptance, quote
+ eligibility or user-proven comprehension. [Exact checks and limits](../../../audit-evidence/medigap-chat-profile-20261110/README.md).
++
++
++## November 10, 2026: D131 Medigap conversation entry
++
++The Medigap tab now invites people with missing details into the existing chat
++instead of repeating the intake form. Known reports and unsent drafts are kept;
++answer buttons and explanations remain in chat. Detail corrections also open
++chat, and complete profiles still fetch matched prices immediately. Unknowns,
++sensitive-save permission, 75+ limits and source conditions remain unchanged.
++
++Offline checks and desktop/tablet/phone inspection verify navigation, fresh and
++partial profiles, corrections and draft preservation. No live model tests,
++source acceptance or participant comprehension claim. [Exact checks and limits](../../../audit-evidence/medigap-conversation-entry-20261110/README.md).

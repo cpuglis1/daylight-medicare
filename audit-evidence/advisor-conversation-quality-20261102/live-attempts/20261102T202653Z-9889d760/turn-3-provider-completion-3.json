@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 35583,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6947,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 263,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7210
+    },
+    "text": "{\"question_target\":\"T06\",\"reply\":\"That can matter a lot. With Original Medicare, any U.S. doctor who takes Medicare can accept you as a patient; with Medicare Advantage, doctor participation varies by plan, so whether you can keep a doctor depends on that specific plan. Since you don’t know what your doctor accepts yet, the practical next step is to identify the doctor or hospital you want to keep so that can be checked later.\",\"question\":\"Are there doctors or hospitals you want to keep?\",\"education_followups\":[\"If I travel in the U.S., how is Original Medicare different from Medicare Advantage for seeing doctors?\",\"What would I need to check to find out whether my doctor takes a Medicare Advantage plan?\"],\"report_refs\":[\"guide.needs.travel\",\"guide.needs.priorities\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"],\"agenda_update\":{\"current_concern\":\"travel and keeping doctor\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"original_provider_access\",\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 5.884322,
+  "turn": 3,
+  "event": "relevant_tradeoff",
+  "fictional_inputs": true
+}

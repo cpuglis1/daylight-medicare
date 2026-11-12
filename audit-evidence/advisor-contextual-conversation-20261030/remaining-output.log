@@ -1,0 +1,11 @@
+{"case": "targeted-compose", "message": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.", "seconds": 3.258, "reply": "Prescription coverage can be part of what you compare later, and your preferred Medicare start may be different from your wife\u2019s job coverage ending.", "question": "When would you like Medicare coverage to start?", "target": "T04", "generated": {"status": "complete", "move": "T04"}}
+{"case": "asap", "message": "ASAP!!", "seconds": 4.63, "reply": "Okay \u2014 we can look at the soonest option.", "question": "What ZIP code do you live in?", "target": "T03", "generated": {"status": "complete", "move": "T03"}}
+{"case": "education", "message": "I haven't applied yet. Before we keep going, what is Part B?", "seconds": 4.14, "reply": "Your details are here. I couldn\u2019t finish the response just now, but we can continue.", "question": null, "target": null, "generated": {"status": "unavailable", "retryable": false, "reason": "This conversation move does not ask a new question."}}
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/audit-evidence/advisor-contextual-conversation-20261030/verify_remaining.py", line 82, in <module>
+    record(state,message,time.monotonic()-start)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/audit-evidence/advisor-contextual-conversation-20261030/verify_remaining.py", line 62, in record
+    assert state.get('generated',{}).get('status')=='complete',state.get('generated')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'status': 'unavailable', 'retryable': False, 'reason': 'This conversation move does not ask a new question.'}

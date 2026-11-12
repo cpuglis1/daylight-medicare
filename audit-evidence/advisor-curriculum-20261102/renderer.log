@@ -1,0 +1,365 @@
+TAP version 13
+# Subtest: the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+ok 1 - the new greeting and subsequent assistant replies reveal, while user messages remain immediate
+  ---
+  duration_ms: 3.57525
+  ...
+# Subtest: reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+ok 2 - reviewed fact bodies reveal but their headings, Sources control and source links are immediate
+  ---
+  duration_ms: 1.381541
+  ...
+# Subtest: visual and accessible text each preserve every character, including spaces and HTML-like user content
+ok 3 - visual and accessible text each preserve every character, including spaces and HTML-like user content
+  ---
+  duration_ms: 0.409959
+  ...
+# Subtest: the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+ok 4 - the slower word timing stays bounded at 40ms per word and a 2000ms maximum relative delay
+  ---
+  duration_ms: 0.852042
+  ...
+# Subtest: the reveal preserves the requested heading tag, class and sequential offset
+ok 5 - the reveal preserves the requested heading tag, class and sequential offset
+  ---
+  duration_ms: 0.341042
+  ...
+# Subtest: the complete opening question, example and reassurance reveal in sequence after the greeting
+ok 6 - the complete opening question, example and reassurance reveal in sequence after the greeting
+  ---
+  duration_ms: 0.547125
+  ...
+# Subtest: repainting the opening never replays its question, examples or reassurance
+ok 7 - repainting the opening never replays its question, examples or reassurance
+  ---
+  duration_ms: 0.378417
+  ...
+# Subtest: reduced motion leaves the complete opening readable immediately and does not replay later
+ok 8 - reduced motion leaves the complete opening readable immediately and does not replay later
+  ---
+  duration_ms: 0.324458
+  ...
+# Subtest: the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+ok 9 - the actual loaded stylesheet retains the 120ms fade and disables animation for reduced motion
+  ---
+  duration_ms: 0.802708
+  ...
+# Subtest: reduced motion renders complete plain text for greetings, replies and facts
+ok 10 - reduced motion renders complete plain text for greetings, replies and facts
+  ---
+  duration_ms: 0.583542
+  ...
+# Subtest: ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+ok 11 - ordinary repaint preserves existing history nodes and never restarts an earlier reveal
+  ---
+  duration_ms: 0.436959
+  ...
+# Subtest: completed words retire the animation class so leaving and returning to chat cannot replay them
+ok 12 - completed words retire the animation class so leaving and returning to chat cannot replay them
+  ---
+  duration_ms: 0.384167
+  ...
+# Subtest: cancelled words also retire their animation class and remain readable on return
+ok 13 - cancelled words also retire their animation class and remain readable on return
+  ---
+  duration_ms: 0.373333
+  ...
+# Subtest: appending a reply preserves previous node identity and reveals only the new answer
+ok 14 - appending a reply preserves previous node identity and reveals only the new answer
+  ---
+  duration_ms: 0.405625
+  ...
+# Subtest: a history rebuild shows previously revealed objects immediately and reveals new objects once
+ok 15 - a history rebuild shows previously revealed objects immediately and reveals new objects once
+  ---
+  duration_ms: 0.696958
+  ...
+# Subtest: a reply first displayed with reduced motion never animates when the preference later changes
+ok 16 - a reply first displayed with reduced motion never animates when the preference later changes
+  ---
+  duration_ms: 0.408458
+  ...
+# Subtest: a user-only exchange stays immediate and an empty reply does not create an assistant message
+ok 17 - a user-only exchange stays immediate and an empty reply does not create an assistant message
+  ---
+  duration_ms: 0.335709
+  ...
+# Subtest: static explanations remain immediate and reveal does not weaken source URL filtering
+ok 18 - static explanations remain immediate and reveal does not weaken source URL filtering
+  ---
+  duration_ms: 0.697292
+  ...
+# Subtest: a new current question and its answer buttons follow the reply, while choosing does not replay them
+ok 19 - a new current question and its answer buttons follow the reply, while choosing does not replay them
+  ---
+  duration_ms: 1.243334
+  ...
+# Subtest: question text and finite answer buttons are immediately available with reduced motion
+ok 20 - question text and finite answer buttons are immediately available with reduced motion
+  ---
+  duration_ms: 0.807167
+  ...
+# Subtest: control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation
+ok 21 - control reveal preserves its accessible name, classes and keyboard visibility after completion or cancellation
+  ---
+  duration_ms: 0.416167
+  ...
+# Subtest: opening shortcut buttons continue the opening sequence and do not animate on rerender
+ok 22 - opening shortcut buttons continue the opening sequence and do not animate on rerender
+  ---
+  duration_ms: 0.430875
+  ...
+# Subtest: coverage timing uses one chat composer and genuine choices rather than another month input
+ok 23 - coverage timing uses one chat composer and genuine choices rather than another month input
+  ---
+  duration_ms: 1.034
+  ...
+# Subtest: finite field options remain explicit buttons and preserve each field independently
+ok 24 - finite field options remain explicit buttons and preserve each field independently
+  ---
+  duration_ms: 0.979917
+  ...
+# Subtest: historical diagrams stay absent beneath intake while current teaching has an inline guide
+ok 25 - historical diagrams stay absent beneath intake while current teaching has an inline guide
+  ---
+  duration_ms: 0.474833
+  ...
+# Subtest: a final current-turn timing picture includes only known reports and keeps unknown fields out
+ok 26 - a final current-turn timing picture includes only known reports and keeps unknown fields out
+  ---
+  duration_ms: 0.32375
+  ...
+# Subtest: intake footer controls stay hidden and profile review is offered with the final conversation summary
+ok 27 - intake footer controls stay hidden and profile review is offered with the final conversation summary
+  ---
+  duration_ms: 0.512208
+  ...
+# Subtest: an educational intake pause leaves the generated answer and chat composer without a false final review
+ok 28 - an educational intake pause leaves the generated answer and chat composer without a false final review
+  ---
+  duration_ms: 0.943458
+  ...
+# Subtest: generated questions own their explanation, while a non-AI question retains its useful why
+ok 29 - generated questions own their explanation, while a non-AI question retains its useful why
+  ---
+  duration_ms: 0.901708
+  ...
+# Subtest: the real final summary reveals its text and optional actions once, including profile review
+ok 30 - the real final summary reveals its text and optional actions once, including profile review
+  ---
+  duration_ms: 0.394083
+  ...
+# Subtest: old free-text reports and stale records cannot activate Send as an invisible selected answer
+ok 31 - old free-text reports and stale records cannot activate Send as an invisible selected answer
+  ---
+  duration_ms: 0.433333
+  ...
+# Subtest: an answered question remains plain assistant history before the user answer without replaying its text
+ok 32 - an answered question remains plain assistant history before the user answer without replaying its text
+  ---
+  duration_ms: 0.366875
+  ...
+# Subtest: history rebuilds preserve answered questions exactly once as complete accessible plain text
+ok 33 - history rebuilds preserve answered questions exactly once as complete accessible plain text
+  ---
+  duration_ms: 0.441542
+  ...
+# Subtest: a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel
+ok 34 - a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel
+  ---
+  duration_ms: 0.726834
+  ...
+# Subtest: unavailable generation with no valid question cannot render a false completion or turn the notice into a heading
+ok 35 - unavailable generation with no valid question cannot render a false completion or turn the notice into a heading
+  ---
+  duration_ms: 0.32025
+  ...
+# Subtest: an open learning conversation cannot imply a final timing summary but can show current teaching
+ok 36 - an open learning conversation cannot imply a final timing summary but can show current teaching
+  ---
+  duration_ms: 0.308
+  ...
+# Subtest: service notices update one live status instead of being announced by competing regions
+ok 37 - service notices update one live status instead of being announced by competing regions
+  ---
+  duration_ms: 0.405
+  ...
+# Subtest: a novice sees six ordinary-language insurance families without new preselected reports
+ok 38 - a novice sees six ordinary-language insurance families without new preselected reports
+  ---
+  duration_ms: 4.830583
+  ...
+# Subtest: local insurance refinement preserves every approved distinction and sends no aggregate fact
+ok 39 - local insurance refinement preserves every approved distinction and sends no aggregate fact
+  ---
+  duration_ms: 1.548375
+  ...
+# Subtest: multiple precise insurance selections stay visible and correctable across local group changes
+ok 40 - multiple precise insurance selections stay visible and correctable across local group changes
+  ---
+  duration_ms: 1.758125
+  ...
+# Subtest: selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare
+ok 41 - selecting Medicaid closes an unrelated open Medicare refinement without asserting Medicare
+  ---
+  duration_ms: 0.706834
+  ...
+# Subtest: collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid
+ok 42 - collapsing unrelated insurance details preserves explicitly selected Medicare plus Medicaid
+  ---
+  duration_ms: 0.661958
+  ...
+# Subtest: unknown and defer close the open insurance refinement and clear finite draft data
+ok 43 - unknown and defer close the open insurance refinement and clear finite draft data
+  ---
+  duration_ms: 1.129958
+  ...
+# Subtest: ambiguous current Medicare paths ask for clarification without changing a prior selection
+ok 44 - ambiguous current Medicare paths ask for clarification without changing a prior selection
+  ---
+  duration_ms: 2.856417
+  ...
+# Subtest: a longer spoken priority report can be reduced one button at a time without discarding the report
+ok 45 - a longer spoken priority report can be reduced one button at a time without discarding the report
+  ---
+  duration_ms: 0.625416
+  ...
+# Subtest: comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view
+ok 46 - comfortable users can see the complete exact list, while unresolved familiarity keeps the simple view
+  ---
+  duration_ms: 0.772833
+  ...
+# Subtest: typed draft blocks conflicting insurance selections until it is sent or cleared
+ok 47 - typed draft blocks conflicting insurance selections until it is sent or cleared
+  ---
+  duration_ms: 2.847583
+  ...
+# Subtest: new service-owned insurance distinctions cannot disappear from the grouped view
+ok 48 - new service-owned insurance distinctions cannot disappear from the grouped view
+  ---
+  duration_ms: 0.497
+  ...
+# Subtest: the compact topic track follows actual questions and teaching rather than accumulated intake completion
+ok 49 - the compact topic track follows actual questions and teaching rather than accumulated intake completion
+  ---
+  duration_ms: 0.679834
+  ...
+# Subtest: generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson
+ok 50 - generated teaching keeps one compact inspectable Sources disclosure without duplicating a lesson
+  ---
+  duration_ms: 0.481833
+  ...
+# Subtest: current-turn route teaching appears inline once while Sources remains a separate disclosure
+ok 51 - current-turn route teaching appears inline once while Sources remains a separate disclosure
+  ---
+  duration_ms: 0.435459
+  ...
+# Subtest: current visual intent selects the existing guide independently of citations
+ok 52 - current visual intent selects the existing guide independently of citations
+  ---
+  duration_ms: 0.39625
+  ...
+# Subtest: explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline
+ok 53 - explicit none or invalid visual intent cannot fall back to a cited lesson or old timeline
+  ---
+  duration_ms: 0.323458
+  ...
+# Subtest: two successful turns retain the first guide without making a second guide from citations
+ok 54 - two successful turns retain the first guide without making a second guide from citations
+  ---
+  duration_ms: 0.675334
+  ...
+# Subtest: a deliberate revisit may show the same guide again while failed generation never does
+ok 55 - a deliberate revisit may show the same guide again while failed generation never does
+  ---
+  duration_ms: 0.48225
+  ...
+# Subtest: fact and generated citations merge into one deduplicated Sources footer after the inline guide
+ok 56 - fact and generated citations merge into one deduplicated Sources footer after the inline guide
+  ---
+  duration_ms: 0.451875
+  ...
+# Subtest: failed or unrelated turns cannot select a route graphic from historical learning
+ok 57 - failed or unrelated turns cannot select a route graphic from historical learning
+  ---
+  duration_ms: 0.430167
+  ...
+# Subtest: typed text blocks finite answers, field choices and unknown without changing the draft
+ok 58 - typed text blocks finite answers, field choices and unknown without changing the draft
+  ---
+  duration_ms: 0.472875
+  ...
+# Subtest: the real pending view shows the submitted message and three decorative dots without transcript writes
+ok 59 - the real pending view shows the submitted message and three decorative dots without transcript writes
+  ---
+  duration_ms: 0.558041
+  ...
+# Subtest: manual navigation has no AI typing indicator and reduced motion disables its animation
+ok 60 - manual navigation has no AI typing indicator and reduced motion disables its animation
+  ---
+  duration_ms: 0.622167
+  ...
+# Subtest: the typing wave overrides the loaded universal animation reset, while reduced motion still wins
+ok 61 - the typing wave overrides the loaded universal animation reset, while reduced motion still wins
+  ---
+  duration_ms: 3.569042
+  ...
+# Subtest: a down arrow appears only when more conversation is below and labels the current question when it is offscreen
+ok 62 - a down arrow appears only when more conversation is below and labels the current question when it is offscreen
+  ---
+  duration_ms: 0.48575
+  ...
+# Subtest: the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message
+ok 63 - the down arrow reaches and focuses the offscreen question, with an instant reduced-motion path to the latest message
+  ---
+  duration_ms: 0.37125
+  ...
+# Subtest: typing motion pauses in a hidden document or outside the visible reading pane
+ok 64 - typing motion pauses in a hidden document or outside the visible reading pane
+  ---
+  duration_ms: 0.298958
+  ...
+# Subtest: educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions
+ok 65 - educational follow-ups form one optional collapsed disclosure with at most two unique safe text suggestions
+  ---
+  duration_ms: 0.380875
+  ...
+# Subtest: selecting an educational follow-up fills an editable draft without sending or overwriting another draft
+ok 66 - selecting an educational follow-up fills an editable draft without sending or overwriting another draft
+  ---
+  duration_ms: 0.322084
+  ...
+# Subtest: optional educational questions remain with their explanation before the unchanged Sources footer
+ok 67 - optional educational questions remain with their explanation before the unchanged Sources footer
+  ---
+  duration_ms: 0.348333
+  ...
+# Subtest: typing ASAP clears only unsent answer selections and typed submission wins
+ok 68 - typing ASAP clears only unsent answer selections and typed submission wins
+  ---
+  duration_ms: 1.21475
+  ...
+# Subtest: an empty draft preserves an intentional selection and typed submission still wins without an input event
+ok 69 - an empty draft preserves an intentional selection and typed submission still wins without an input event
+  ---
+  duration_ms: 0.354875
+  ...
+# Subtest: the composer grows, caps and shrinks while preserving a reader’s scroll position
+ok 70 - the composer grows, caps and shrinks while preserving a reader’s scroll position
+  ---
+  duration_ms: 0.485791
+  ...
+# Subtest: the composer respects the mobile visual viewport, its minimum and the viewport fallback
+ok 71 - the composer respects the mobile visual viewport, its minimum and the viewport fallback
+  ---
+  duration_ms: 0.342083
+  ...
+1..71
+# tests 71
+# suites 0
+# pass 71
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83.963083

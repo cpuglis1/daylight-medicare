@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fbf9f4">
+  <title>Daylight</title>
+  <link rel="icon" href="/daylight.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/advisor.css">
+  <script src="/ten-state.js" defer></script>
+  <script src="/advisor.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Daylight Medicare home"><img src="/daylight.svg" alt="" width="36" height="36"><span>Daylight<small>Medicare</small></span></a>
+  </header>
+  <main id="main">
+    <section id="landing" class="hero" aria-labelledby="landing-title">
+      <div class="hero-copy"><h1 id="landing-title">Your coverage,<br>plain as day</h1><p>Understand Medicare and explore your options, at your pace.</p><button id="start" class="primary" disabled>Get started</button></div>
+      <img class="hero-photo" src="/art/arrival-option-a.jpg" width="1400" height="933" alt="A woman with short silver hair and an ochre cardigan outdoors against green foliage.">
+    </section>
+    <section id="workspace" class="workspace" hidden>
+      <nav id="phases" class="phases" aria-label="Your progress"></nav>
+      <div id="fixture" class="fixture" hidden>Synthetic preview · AI replies are mocked.</div>
+      <div class="work-grid">
+        <div class="conversation">
+          <div id="history" class="history"></div>
+          <section id="current" class="current" aria-label="Current work"></section>
+          <form id="composer" class="composer">
+            <label id="message-label" for="message">Your message</label>
+            <textarea id="message" rows="3" maxlength="1200" placeholder="Start wherever you like…"></textarea>
+            <div class="composer-actions"><span class="small">Daylight · AI Medicare guide</span><button id="restore-draft" type="button" class="text-button" hidden>Restore draft</button><button id="send" type="submit" class="primary" disabled>Send</button></div>
+            <p id="ai-note" class="small">AI uses your message with permission. Saving is separate.</p>
+          </form>
+          <p id="status" class="status" role="status"></p>
+          <div id="shortcuts" class="shortcuts"></div>
+          <nav class="utilities" aria-label="Conversation controls"><button id="back" class="text-button">Back</button><button id="review" class="text-button">Review information</button><button id="prepare" class="text-button">Prepare next steps</button><button id="samples" class="text-button">Browse sample plans</button></nav>
+        </div>
+        <aside id="reference" class="reference" aria-label="Your Medicare guide"></aside>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div><button id="privacy" class="text-button" disabled>Your information &amp; privacy</button><button id="resume" class="text-button" hidden>Resume saved information</button><span id="save-status" class="small">Visit only</span></div><p class="credit">Photo: <a href="https://www.pexels.com/photo/woman-smiling-at-the-camera-6787568/" target="_blank" rel="noopener noreferrer">Marcus Aurelius / Pexels</a> · <a href="https://www.pexels.com/license/" target="_blank" rel="noopener noreferrer">License</a>. Illustrative, not a customer endorsement.</p></footer>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <noscript><p>Please enable JavaScript to use Daylight.</p></noscript>
+</body>
+</html>

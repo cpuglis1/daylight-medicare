@@ -1,0 +1,31 @@
+Appendix G – CY 2027 Ceiling Price File Layout
+
+
+   CEILING PRICE FILE
+   Unique record identifiers: CONTRACT_ID, PRICE_ID, NDC, DAYS_SUPPLY, IS_MAIL, and CEILING_QTY
+                Field Name               Type(Size)        NULL                           Field Description
+   CONTRACT_ID                       Char(5)          NOT NULL     References Organization’s Contract Number assigned by CMS
+   PRICE_ID                          Number(3)        NOT NULL     Price File Grouping Number
+   NDC                               Char(11)         NOT NULL     The appropriate 11 Digit NDC from the approved formulary and
+                                                                   supplemental excluded drug file, if applicable, representing the
+                                                                   drug/dose form combination
+   DAYS_SUPPLY                       Number(2)        NOT NULL     The days supply applicable for this unit cost.
+
+                                                                   Acceptable values 30, 60, or 90
+   IS_MAIL                           Number(1)        DEFAULT 0,   Yes/No defines whether cost applies for dispensing at a
+                                                      NOT NULL     contracted network mail order pharmacy.
+
+                                                                   Acceptable values 0 or 1 (0=Cost applies at Retail; 1=Cost
+                                                                   applies at Mail Order)
+   CEILING_QTY                       Number(6)        DEFAULT 0,   Ceiling quantity for given NDC. If N/A, enter 000000.
+                                     (Format:         NOT NULL
+                                     ###.###)
+   CEILING_COST                      Currency(12)     NOT NULL     Ceiling cost for given NDC less dispensing fee. If N/A, enter
+                                     (Format:                      000000000000.
+                                     $$$$$$$$cccc)
+
+
+
+
+June 11, 2026                                                                                                                      Page 1
+

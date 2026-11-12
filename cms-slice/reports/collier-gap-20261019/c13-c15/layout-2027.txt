@@ -1,0 +1,275 @@
+PRESCRIPTION DRUG PLAN FORMULARY AND PHARMACY
+     NETWORK PUBLIC USE FILE RECORD LAYOUT
+                                                  Table Linkage
+
+                                                                                                 Insulin Beneficiary
+                                                     Drugs covered based on FDA-
+                                                                                                      Cost File
+                                                         approved indication
+                                                                                                   CONTRACT_ID
+                                                                                                       PLAN_ID
+                                                         IBC Formulary File                         SEGMENT_ID
+                                                           CONTRACT_ID
+                                                              PLAN_ID                                 other vbls
+                                                               RXCUI
+                                                                                                         TIER
+                                                             other vbls
+Pharmacy Networks File    Plan Information File                                                Beneficiary Cost File
+    CONTRACT_ID              CONTRACT_ID                                                         CONTRACT_ID
+      PLAN_ID                   PLAN_ID                                                             PLAN_ID
+    SEGMENT_ID                SEGMENT_ID                                                          SEGMENT_ID
+
+       other vbls                                       Basic Formulary File
+                            FORMULARY_ID                  FORMULARY_ID                                other vbls
+                                                              other vbls
+ Produces plan networks                                         NDC
+                                                                Rxcui
+                                other vbls                      TIER                                     TIER
+
+                                                     Excluded Drugs Formulary
+                                                               File
+Geographic Locator File                                    CONTRACT_ID
+  MA_REGION_CODE          MA_REGION_CODE                     PLAN_ID
+ PDP_REGION_CODE          PDP_REGION_CODE                     RXCUI
+   COUNTY_CODE              COUNTY_CODE                        TIER
+
+ Produces service area                                       other vbls
+
+                                                              Indicates restrictions and cost sharing for drug
+                                               PLAN INFORMATION FILE
+Field Name           Type(size)   Description
+CONTRACT_ID           Char(5)     Organization contract number assigned by CMS; the first letter of
+                                  CONTRACT_ID signals the type of entity:
+No data              No data            Hxxxx = Local Medicare Advantage (MA) plan
+    No data          No data            Rxxxx = Regional MA plan
+    No data          No data            Sxxxx = Stand-alone Prescription Drug Plan (PDP)
+PLAN_ID               Char(3)     Plan identifier assigned by CMS
+SEGMENT_ID            Char(3)     Segment ID for local MA-PD plans assigned by CMS (zero for all other)
+CONTRACT_NAME         Char(50)    No data
+PLAN_NAME             Char(80)    No data
+FORMULARY_ID          Char(8)     Unique Identifier assigned to formulary
+PREMIUM                9(12.2)    Monthly premium amount
+DEDUCTIBLE             9(12.2)    Annual deductible amount
+MA_REGION_CODE        Char(2)     Regional MA plan service area (applicable only for "R" contracts); codes
+                                  are listed in “MA_REGION_CODE values” table.
+PDP_REGION_CODE       Char(2)     PDP plan service area (applicable only for "S" contracts); codes are listed
+                                  in “PBP_REGION_CODE values” table.
+STATE                 Char(2)     2-character State code (applicable only for "H" contracts -- Local MA
+                                  plans)
+COUNTY_CODE           Char(5)     5-character SSA State/County code (applicable only for "H" contracts --
+                                  Local MA plans); see Geographic Locater file
+SNP                   Char(1)     Is this a Special Needs Plan and, if so, what type? (0=Not a SNP,
+                                  1=Chronic or Disabling Condition, 2=Dual-Eligible, 3=Institutional)
+PLAN_SUPPRESSED_YN    Char(1)     Was this plan's pharmacy data suppressed?
+                                  MA_REGION_CODE VALUES
+Value   Description
+  1     Northern New England (New Hampshire and Maine)
+  2     Central New England (Connecticut, Massachusetts, Rhode Island, and
+        Vermont)
+  3     New York
+  4     New Jersey
+  5     Mid-Atlantic (Delaware, District of Columbia and Maryland)
+  6     Pennsylvania and West Virginia
+  7     North Carolina and Virginia
+  8     Georgia and South Carolina
+  9     Florida
+ 10     Alabama and Tennessee
+ 11     Michigan
+ 12     Ohio
+ 13     Indiana and Kentucky
+ 14     Illinois and Wisconsin
+ 15     Arkansas and Missouri
+ 16     Louisiana and Mississippi
+ 17     Texas
+ 18     Kansas and Oklahoma
+ 19     Upper Midwest and Northern Plains (Iowa, Minnesota, Montana, Nebraska,
+        North Dakota, South Dakota and Wyoming)
+ 20     Colorado and New Mexico
+ 21     Arizona
+ 22     Nevada
+ 23     Northwest (Idaho, Oregon, Utah and Washington)
+ 24     California
+ 25     Hawaii
+ 26     Alaska
+                                 PDP_REGION_CODE VALUES
+Value   Description
+  1     Northern New England (New Hampshire and Maine)
+  2     Central New England (Connecticut, Massachusetts, Rhode Island, and
+        Vermont)
+  3     New York
+  4     New Jersey
+  5     Mid-Atlantic (Delaware, District of Columbia and Maryland)
+  6     Pennsylvania, West Virginia
+  7     Virginia
+  8     North Carolina
+  9     South Carolina
+ 10     Georgia
+ 11     Florida
+ 12     Alabama, Tennessee
+ 13     Michigan
+ 14     Ohio
+ 15     Indiana, Kentucky
+ 16     Wisconsin
+ 17     Illinois
+ 18     Missouri
+ 19     Arkansas
+ 20     Mississippi
+ 21     Louisiana
+ 22     Texas
+ 23     Oklahoma
+ 24     Kansas
+ 25     Upper Midwest and Northern Plains (Iowa, Minnesota, Montana, Nebraska,
+        North Dakota, South Dakota and Wyoming)
+ 26     New Mexico
+ 27     Colorado
+ 28     Arizona
+ 29     Nevada
+ 30     Oregon, Washington
+ 31     Idaho, Utah
+ 32     California
+Value   Description
+ 33     Hawaii
+ 34     Alaska
+ 35     American Samoa
+ 36     Guam
+ 37     Northern Mariana Islands
+ 38     Puerto Rico
+ 39     U.S. Virgin Islands
+                                            BASIC DRUGS FORMULARY FILE
+Field Name               Type(size)   Description
+FORMULARY_ID              Char(8)     Unique ID assigned to each newly created formulary
+FORMULARY_VERSION         Char(5)     Version ID
+CONTRACT_YEAR             Char(4)     Contract year
+RXCUI                     Char(8)     RxNorm concept unique identifier
+NDC                      Char (11)    11-digit proxy National Drug Code (NDC) associated with the drug product
+TIER_LEVEL_VALUE           9(2)       Cost share tier level associated with the NDC
+QUANTITY_LIMIT_YN         Char(1)     Does this NDC have a quantity limit restriction?
+QUANTITY_LIMIT_AMOUNT     Char(7)     Quantity limit amount associated with this NDC
+QUANTITY_LIMIT_DAYS       Char(3)     Quantity limit days associated with this NDC
+PRIOR_AUTHORIZATION_YN    Char(1)     Is prior authorization required for this NDC?
+STEP_THERAPY_YN           Char(1)     Does step therapy apply to this NDC?
+                                      Does this NDC represent one of the Part D drugs selected for negotiation
+SELECTED_DRUG_YN          Char(1)
+                                      under the Medicare Drug Price Negotiation Program?
+                                           EXCLUDED DRUGS FORMULARY FILE
+Field Name              Type(size)   Description
+CONTRACT_ID               Char(5)    Organization contract number assigned by CMS
+PLAN_ID                   Char(3)    Plan identifier assigned by CMS
+RXCUI                     Char(8)    RxNorm concept unique identifier
+TIER                       9(2)      Cost share tier associated with this drug product
+QUANTITY_LIMIT_YN         Char(1)    Does this RXCUI have a quantity limit restriction? 0=No, 1=Yes
+QUANTITY_LIMIT_AMOUNT     Char(8)    Quantity limit amount associated with this RXCUI
+QUANTITY_LIMIT_DAYS       Char(3)    Quantity limit days associated with this RXCUI
+PRIOR_AUTH_YN             Char(1)    Is prior authorization required for this RXCUI?
+STEP_THERAPY_YN           Char(1)    Does step therapy apply to this RXCUI?
+CAPPED_BENEFIT_YN         Char(1)    Does this RXCUI have a capped benefit restriction?
+                                     INDICATION BASED COVERAGE FORMULARY FILE
+Field Name    Type(size)   Description
+CONTRACT_ID    Char(5)     Organization contract number assigned by CMS
+PLAN_ID        Char(3)     Plan identifier assigned by CMS
+RXCUI          Char(8)     RxNorm concept unique identifier
+DISEASE       Char(100)    FDA-approved indication for which the RXCUI is considered on-formulary
+                                           BENEFICIARY COST FILE
+Field Name               Type(size)   Description
+CONTRACT_ID               Char(5)     Organization contract number assigned by CMS
+PLAN_ID                   Char(3)     Plan identifier assigned by CMS
+SEGMENT_ID                Char(3)     Segment ID for local MA-PD plans assigned by CMS (zero for all other)
+COVERAGE_LEVEL              9(1)      Coverage type for beneficiary with no subsidy. 0=pre-deductible, 1=initial
+                                      coverage, 3=catastrophic
+TIER                        9(2)      Cost share tier value
+DAYS_SUPPLY                 9(1)      Length of days supply to which cost structure applies. 1=30 days, 2=90
+                                      days, 3=other, 4=60 days
+COST_TYPE_PREF              9(1)      Type of cost sharing at preferred retail pharmacies. 0=not offered,
+                                      1=copay, 2=coinsurance
+COST_AMT_PREF             9(12.2)     Amount of cost sharing at preferred retail pharmacies. If
+                                      COST_TYPE_PREF=1, this field is interpreted as $$$$cc -- for example,
+                                      2.65 is interpreted as $2.65. If COST_TYPE_PREF=2, this field is
+                                      interpreted as a 2-decimal-place number -- for example, .25 is interpreted
+                                      as 25%
+COST_MIN_AMT_PREF        Char(12)     Minimum cost sharing at preferred retail pharmacies.
+COST_MAX_AMT_PREF         9(12.2)     Maximum cost sharing at preferred retail pharmacies
+COST_TYPE_NONPREF          9(1)       Type of cost sharing at standard retail pharmacies. 0=not offered,
+                                      1=copay, 2=coinsurance
+COST_AMT_NONPREF          9(12.2)     Amount of cost sharing at standard retail pharmacies. See description of
+                                      COST_AMT_PREF.
+COST_MIN_AMT_NONPREF     Char(12)     Minimum cost sharing at standard retail pharmacies.
+COST_MAX_AMT_NONPREF      9(12.2)     Maximum cost sharing at standard retail pharmacies
+COST_TYPE_MAIL_PREF        9(1)       Type of cost sharing at preferred mail-order pharmacies. 0=not offered,
+                                      1=copay, 2=coinsurance
+COST_AMT_MAIL_PREF        9(12.2)     Amount of cost sharing at preferred mail-order pharmacies. See
+                                      description of COST_AMT_PREF.
+COST_MIN_AMT_MAIL_PREF   Char(12)     Minimum cost sharing at preferred mail-order pharmacies.
+COST_MAX_AMT_MAIL_PREF    9(12.2)     Maximum cost sharing at preferred mail-order pharmacies
+                                      Type of cost sharing at standard mail-order pharmacies. 0=not offered,
+COST_TYPE_MAIL_NONPREF      9(1)
+                                      1=copay, 2=coinsurance
+COST_AMT_MAIL_NONPREF     9(12.2)     Amount of cost sharing at standard mail-order pharmacies. See
+                                      description of COST_AMT_PREF.
+Field Name                  Type(size)   Description
+COST_MIN_AMT_MAIL_NONPREF   Char(12)     Minimum cost sharing at standard mail-order pharmacies.
+COST_MAX_AMT_MAIL_NONPREF    9(12.2)     Maximum cost sharing at standard mail-order pharmacies
+
+TIER_SPECIALTY_YN            Char(1)     Is this tier designated as a specialty tier? Note – not all plans offer
+                                         specialty tiers due to the plan benefit design. Plans are not required to
+                                         designate any tiers as specialty tiers.
+DED_APPLIES_YN               Char(1)     Does the deductible apply to this tier?
+                                         INSULIN BENEFICIARY COST FILE
+Field Name                     Type(size) Description
+CONTRACT_ID                     Char(5)     Organization contract number assigned by CMS
+PLAN_ID                         Char(3)     Plan identifier assigned by CMS
+SEGMENT_ID                      Char(3)     Segment ID for local MA-PD plans assigned by CMS (zero for
+                                            all other)
+TIER                              9(2)      Cost share tier value. This field is missing for defined standard
+                                            plans.
+DAYS_SUPPLY                       9(1)      Length of days supply to which cost structure applies. 1=30
+                                            days, 2=90 days, 3=other, 4=60 days
+COPAY_AMT_PREF_INSLN             9(12.2)    Amount of copay for insulin at preferred retail pharmacies. This
+                                            field is interpreted as $$$$cc -- for example, 2.65 is interpreted
+                                            as $2.65.
+COPAY_AMT_NONPREF_INSLN          9(12.2)    Amount of copay for insulin at standard retail pharmacies. See
+                                            description of COPAY_AMT_PREF_INSLN.
+COPAY_AMT_MAIL_PREF_INSLN        9(12.2)    Amount of copay for insulin at preferred mail-order pharmacies.
+                                            See description of COPAY_AMT_PREF_INSLN.
+COPAY_AMT_MAIL_NONPREF_INSLN     9(12.2)    Amount of copay for insulin at standard mail-order pharmacies.
+                                            See description of COPAY_AMT_PREF_INSLN.
+COIN_AMT_PREF_INSLN              9(12.2)    Amount of coinsurance for insulin at preferred retail pharmacies.
+                                            This field is interpreted as a 2-decimal-place number -- for
+                                            example, .25 is interpreted as 25%.
+COIN_AMT_NONPREF_INSLN           9(12.2)    Amount of coinsurance for insulin at standard retail pharmacies.
+                                            See description of COIN_AMT_PREF_INSLN.
+COIN_AMT_MAIL_PREF_INSLN         9(12.2)    Amount of coinsurance for insulin at preferred mail-order
+                                            pharmacies. See description of COIN_AMT_PREF_INSLN.
+COIN_AMT_MAIL_NONPREF_INSLN      9(12.2)    Amount of coinsurance for insulin at standard mail-order
+                                            pharmacies. See description of COIN_AMT_PREF_INSLN.
+                                         GEOGRAPHIC LOCATOR FILE
+Field Name        Type(size)   Description
+COUNTY_CODE        Char(5)     5-character SSA state/county code
+STATENAME         Char(30)     State name
+COUNTY            Char(30)     County name
+MA_REGION_CODE     Char(2)     Regional MA service area (applicable only for "R" contracts)
+MA_REGION         Char(150)    Description of Regional MA region
+PDP_REGION_CODE    Char(2)     Plan service area (applicable only for "S" contracts)
+PDP_REGION        Char(150)    Description of PDP region
+                                           PHARMACY NETWORKS FILE
+Field Name                        Type(size) Description
+CONTRACT_ID                        Char(5)    Organization contract number assigned by CMS
+PLAN_ID                            Char(3)    Plan identifier assigned by CMS
+SEGMENT_ID                         Char(3)    Segment ID for local MA-PD plans assigned by CMS (zero for all other)
+PHARMACY_NUMBER                    Char(12)   12-digit pharmacy number. 10 digit National Provider Identifier (NPI) with
+                                              leading one and zero
+PHARMACY_ZIPCODE                   Char(5)    ZIP Code for pharmacy
+PREFERRED_STATUS_RETAIL            Char(1)    Is the retail pharmacy preferred? (Y/N)
+PREFERRED_STATUS_MAIL              Char(1)    Is the mail pharmacy preferred? (Y/N)
+PHARMACY_RETAIL                    Char(1)    Is the pharmacy a retail outlet? (Y/N)
+PHARMACY_MAIL                      Char(1)    Is the pharmacy a mail-order outlet? (Y/N)
+IN_AREA_FLAG                         9(1)     Pharmacy ZIP Code places it in the plan service area (1=yes)
+BRAND_DISPENSING_FEE_30             9(8.4)    Brand dispensing fee for a 30 day supply
+BRAND_DISPENSING_FEE_60             9(8.4)    Brand dispensing fee for a 60 day supply
+BRAND_DISPENSING_FEE_90             9(8.4)    Brand dispensing fee for a 90 day supply
+GENERIC_DISPENSING_FEE_30           9(8.4)    Generic dispensing fee for a 30 day supply
+GENERIC_DISPENSING_FEE_60           9(8.4)    Generic dispensing fee for a 60 day supply
+GENERIC_DISPENSING_FEE_90           9(8.4)    Generic dispensing fee for a 90 day supply
+SELECTED_DRUG_DISPENSING_FEE_30     9(8.4)    Selected drug dispensing fee for a 30 day supply
+SELECTED_DRUG_DISPENSING_FEE_60     9(8.4)    Selected drug dispensing fee for a 60 day supply
+SELECTED_DRUG_DISPENSING_FEE_90     9(8.4)    Selected drug dispensing fee for a 90 day supply
+

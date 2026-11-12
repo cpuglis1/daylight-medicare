@@ -1,0 +1,260 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+       <style>
+.httpStatusDiv {
+   font-size: 1.2em;
+   font-weight: bold;
+}
+
+.hlQuot {
+   color: #88F;
+}
+
+.hlQuot a {
+   text-decoration: underline;
+   text-decoration-color: #CCC;
+}
+
+.hlQuot a:HOVER {
+   text-decoration: underline;
+   text-decoration-color: #008;
+}
+
+.hlQuot .uuid, .hlQuot .dateTime {
+   user-select: all;
+   -moz-user-select: all;
+   -webkit-user-select: all;
+   -ms-user-select: element;
+}
+
+.hlAttr {
+   color: #888;
+}
+
+.hlTagName {
+   color: #006699;
+}
+
+.hlControl {
+   color: #660000;
+}
+
+.hlText {
+   color: #000000;
+}
+
+.hlUrlBase {
+}
+
+.headersDiv {
+   padding: 10px;
+   margin-left: 10px;
+   border: 1px solid #CCC;
+   border-radius: 10px;
+}
+
+.headersRow {
+}
+
+.headerName {
+   color: #888;
+   font-family: monospace;
+}
+
+.headerValue {
+   color: #88F;
+   font-family: monospace;
+}
+
+.narrativeBody {
+   padding: 10px;
+   margin-left: 10px;
+   border: 1px solid #CCC;
+   border-radius: 10px;
+}
+
+.narrativeBody DIV,
+.narrativeBody TABLE {
+   font-size: 0.9em;
+}
+
+.narrativeBody TABLE > THEAD {
+   background: #AAA;
+}
+
+.narrativeBody TABLE > TBODY > TR:nth-child(odd) > TD {
+   background: #CCC;
+}
+
+.narrativeBody TABLE > TBODY > TR:nth-child(even) > TD {
+   background: #EEE;
+}
+
+.narrativeBody TABLE TD, .narrativeBody TABLE TH {
+   padding: 5px;
+}
+
+.responseBodyTable {
+   width: 100%;
+   margin-left: 0px;
+   margin-top: -10px;
+   position: relative;
+}
+
+.responseBodyTableFirstColumn {
+}
+
+.responseBodyTableSecondColumn {
+   position: absolute;
+   margin-left: 70px;
+   vertical-align: top;
+   left: 0px;
+   right: 0px;
+}
+
+.responseBodyTableSecondColumn PRE {
+   margin: 0px;
+}
+
+.sizeInfo {
+   margin-top: 20px;
+   font-size: 0.8em;
+}
+
+.lineAnchor A {
+   text-decoration: none;
+   padding-left: 20px;
+}
+
+.lineAnchor {
+   display: block;
+   padding-right: 20px;
+}
+
+.selectedLine {
+   background-color: #EEF;
+   font-weight: bold;
+}
+
+H1 {
+   font-size: 1.1em;
+   color: #666;
+}
+
+BODY {
+   font-family: Arial;
+}
+       </style>
+	</head>
+
+	<body><p>This result is being rendered in HTML for easy viewing. You may access this content as <a href="?_format=json">Raw JSON</a> or <a href="?_format=xml">Raw XML</a> or <a href="?_format=ttl">Raw Turtle</a> or view this content in <a href="?_format=html/json">HTML JSON</a> or <a href="?_format=html/xml">HTML XML</a> or <a href="?_format=html/turtle">HTML Turtle</a> . Response generated in 12ms.</p>
+<div class="httpStatusDiv">HTTP 200 OK</div>
+
+<h1>Response Headers</h1><div class="headersDiv"><div class="headersRow"><span class="headerName">X-Powered-By: </span><span class="headerValue">HAPI FHIR 6.6.0 REST Server (FHIR Server; FHIR 4.0.1/R4)</span></div><div class="headersRow"><span class="headerName">X-Request-ID: </span><span class="headerValue">5c5f8c3e24b5099ff2b1dcfb8e7c19ee</span></div></div><h1>Response Body</h1><div class="responseBodyTable"><div class="responseBodyTableSecondColumn"><pre><div id="line1"><span class='hlControl'>{</span></div><div id="line2" onclick="updateHighlightedLineTo('#L2');">  <span class='hlTagName'>&quot;resourceType&quot;</span>: <span class='hlQuot'>&quot;Organization&quot;</span><span class='hlControl'>,</span></div><div id="line3" onclick="updateHighlightedLineTo('#L3');">  <span class='hlTagName'>&quot;id&quot;</span>: <span class='hlQuot'>&quot;organization-88c4bbb1-aa71-4567-be2d-89d069cb3562&quot;</span><span class='hlControl'>,</span></div><div id="line4" onclick="updateHighlightedLineTo('#L4');">  <span class='hlTagName'>&quot;meta&quot;</span>: <span class='hlControl'>{</span></div><div id="line5" onclick="updateHighlightedLineTo('#L5');">    <span class='hlTagName'>&quot;versionId&quot;</span>: <span class='hlQuot'>&quot;1&quot;</span><span class='hlControl'>,</span></div><div id="line6" onclick="updateHighlightedLineTo('#L6');">    <span class='hlTagName'>&quot;lastUpdated&quot;</span>: <span class='hlQuot'>&quot;2026-10-19T17:22:06.679+00:00&quot;</span><span class='hlControl'>,</span></div><div id="line7" onclick="updateHighlightedLineTo('#L7');">    <span class='hlTagName'>&quot;source&quot;</span>: <span class='hlQuot'>&quot;#1VmfuG2Pp4EeAyso&quot;</span><span class='hlControl'>,</span></div><div id="line8" onclick="updateHighlightedLineTo('#L8');">    <span class='hlTagName'>&quot;profile&quot;</span>: <span class='hlControl'>[</span> <span class='hlTagName'>&quot;http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/plannet-Network&quot;</span> ]</div><div id="line9" onclick="updateHighlightedLineTo('#L9');">  <span class='hlControl'>}</span><span class='hlControl'>,</span></div><div id="line10" onclick="updateHighlightedLineTo('#L10');">  <span class='hlTagName'>&quot;active&quot;</span>: true<span class='hlControl'>,</span></div><div id="line11" onclick="updateHighlightedLineTo('#L11');">  <span class='hlTagName'>&quot;type&quot;</span>: <span class='hlControl'>[</span> <span class='hlControl'>{</span></div><div id="line12" onclick="updateHighlightedLineTo('#L12');">    <span class='hlTagName'>&quot;coding&quot;</span>: <span class='hlControl'>[</span> <span class='hlControl'>{</span></div><div id="line13" onclick="updateHighlightedLineTo('#L13');">      <span class='hlTagName'>&quot;system&quot;</span>: <span class='hlQuot'>&quot;http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/OrgTypeCS&quot;</span><span class='hlControl'>,</span></div><div id="line14" onclick="updateHighlightedLineTo('#L14');">      <span class='hlTagName'>&quot;code&quot;</span>: <span class='hlQuot'>&quot;ntwk&quot;</span><span class='hlControl'>,</span></div><div id="line15" onclick="updateHighlightedLineTo('#L15');">      <span class='hlTagName'>&quot;display&quot;</span>: <span class='hlQuot'>&quot;Network&quot;</span></div><div id="line16" onclick="updateHighlightedLineTo('#L16');">    <span class='hlControl'>}</span> ]<span class='hlControl'>,</span></div><div id="line17" onclick="updateHighlightedLineTo('#L17');">    <span class='hlTagName'>&quot;text&quot;</span>: <span class='hlQuot'>&quot;A healthcare provider insurance network&quot;</span></div><div id="line18" onclick="updateHighlightedLineTo('#L18');">  <span class='hlControl'>}</span> ]<span class='hlControl'>,</span></div><div id="line19" onclick="updateHighlightedLineTo('#L19');">  <span class='hlTagName'>&quot;name&quot;</span>: <span class='hlQuot'>&quot;FL PPO&quot;</span><span class='hlControl'>,</span></div><div id="line20" onclick="updateHighlightedLineTo('#L20');">  <span class='hlTagName'>&quot;partOf&quot;</span>: <span class='hlControl'>{</span></div><div id="line21" onclick="updateHighlightedLineTo('#L21');">    <span class='hlTagName'>&quot;reference&quot;</span>: <span class='hlQuot'>&quot;Organization/organization-b3a94a3f-5c60-4be3-970b-cadf2b2d99a9&quot;</span></div><div id="line22" onclick="updateHighlightedLineTo('#L22');">  <span class='hlControl'>}</span></div><div id="line23" onclick="updateHighlightedLineTo('#L23');"><span class='hlControl'>}</span></div></pre></div><div class="responseBodyTableFirstColumn"><pre><div class="lineAnchor" id="anchor1"><a href="#L1" name="L1" id="L1">1</a></div><div class="lineAnchor" id="anchor2"><a href="#L2" name="L2" id="L2">2</a></div><div class="lineAnchor" id="anchor3"><a href="#L3" name="L3" id="L3">3</a></div><div class="lineAnchor" id="anchor4"><a href="#L4" name="L4" id="L4">4</a></div><div class="lineAnchor" id="anchor5"><a href="#L5" name="L5" id="L5">5</a></div><div class="lineAnchor" id="anchor6"><a href="#L6" name="L6" id="L6">6</a></div><div class="lineAnchor" id="anchor7"><a href="#L7" name="L7" id="L7">7</a></div><div class="lineAnchor" id="anchor8"><a href="#L8" name="L8" id="L8">8</a></div><div class="lineAnchor" id="anchor9"><a href="#L9" name="L9" id="L9">9</a></div><div class="lineAnchor" id="anchor10"><a href="#L10" name="L10" id="L10">10</a></div><div class="lineAnchor" id="anchor11"><a href="#L11" name="L11" id="L11">11</a></div><div class="lineAnchor" id="anchor12"><a href="#L12" name="L12" id="L12">12</a></div><div class="lineAnchor" id="anchor13"><a href="#L13" name="L13" id="L13">13</a></div><div class="lineAnchor" id="anchor14"><a href="#L14" name="L14" id="L14">14</a></div><div class="lineAnchor" id="anchor15"><a href="#L15" name="L15" id="L15">15</a></div><div class="lineAnchor" id="anchor16"><a href="#L16" name="L16" id="L16">16</a></div><div class="lineAnchor" id="anchor17"><a href="#L17" name="L17" id="L17">17</a></div><div class="lineAnchor" id="anchor18"><a href="#L18" name="L18" id="L18">18</a></div><div class="lineAnchor" id="anchor19"><a href="#L19" name="L19" id="L19">19</a></div><div class="lineAnchor" id="anchor20"><a href="#L20" name="L20" id="L20">20</a></div><div class="lineAnchor" id="anchor21"><a href="#L21" name="L21" id="L21">21</a></div><div class="lineAnchor" id="anchor22"><a href="#L22" name="L22" id="L22">22</a></div><div class="lineAnchor" id="anchor23"><a href="#L23" name="L23" id="L23">23</a></div></div></td></div>
+<script type="text/javascript">let selectedLines = [];
+
+function updateHighlightedLine() {
+	updateHighlightedLineTo(window.location.hash);
+}
+
+function updateHighlightedLineTo(theNewHash) {
+
+   let next;
+   for (next in selectedLines) {
+		document.getElementById('line' + selectedLines[next]).className = '';
+		document.getElementById('anchor' + selectedLines[next]).className = 'lineAnchor';
+	}
+	selectedLines = [];
+
+   let line = -1;
+   if (theNewHash && theNewHash.match('L[0-9]+-L[0-9]+')) {
+      const dashIndex = theNewHash.indexOf('-');
+      const start = parseInt(theNewHash.substring(2, dashIndex));
+      const end = parseInt(theNewHash.substring(dashIndex + 2));
+      for (let i = start; i <= end; i++) {
+			selectedLines.push(i);
+		}
+	} else if (theNewHash && theNewHash.match('L[0-9]+')) {
+		line = parseInt(theNewHash.substring(2));
+		selectedLines.push(line);
+	}
+
+
+	for (next in selectedLines) {
+		// Prevent us from scrolling to the selected line
+		document.getElementById('L' + selectedLines[next]).name = '';
+		// Select the line number column
+		document.getElementById('line' + selectedLines[next]).className = 'selectedLine';
+		// Select the response body column
+		document.getElementById('anchor' + selectedLines[next]).className = 'lineAnchor selectedLine';
+	}
+		
+	selectedLine = line;
+}
+
+function updateHyperlinksAndStyles() {
+    /* adds hyperlinks and CSS styles to dates and UUIDs (e.g. to enable user-select: all) */
+    const logicalReferenceRegex = /^[A-Z][A-Za-z]+\/[0-9]+$/;
+    const dateTimeRegex = /^-?[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?(Z|([+\-])((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?$/; // from the spec - https://www.hl7.org/fhir/datatypes.html#datetime
+    const uuidRegex = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+
+    const allQuotes = document.querySelectorAll(".hlQuot");
+    for (var i = 0; i < allQuotes.length; i++) {
+        const quote = allQuotes[i];
+        const text = quote.textContent.substr(1, quote.textContent.length - 2 /* remove quotes */);
+
+        const absHyperlink = text.startsWith("http://") || text.startsWith("https://");
+        const relHyperlink = text.match(logicalReferenceRegex);
+        const uuid = text.match(uuidRegex);
+        const dateTime = text.match(dateTimeRegex);
+
+        if (absHyperlink || relHyperlink) {
+            const link = document.createElement("a");
+            const href = absHyperlink ? text : "https://fhir.devoted.com/fhir/" + text;
+            link.setAttribute("href", href);
+            link.textContent = '"' + text + '"';
+            quote.textContent = "";
+            quote.appendChild(link);
+        }
+
+        if (uuid || dateTime) {
+            const span = document.createElement("span");
+            span.setAttribute("class", uuid ? "uuid" : "dateTime");
+            span.textContent = text;
+            quote.textContent = "";
+            quote.appendChild(document.createTextNode('"'));
+            quote.appendChild(span);
+            quote.appendChild(document.createTextNode('"'));
+        }
+    }
+}
+
+(function() {
+    'use strict';
+
+    /* bail out if user is testing a version of this script via Greasemonkey or Tampermonkey */
+    if (window.HAPI_ResponseHighlighter_userscript) {
+        console.log("HAPI ResponseHighlighter: userscript detected - not executing embedded script");
+        return;
+    }
+
+    console.time("updateHighlightedLine");
+    updateHighlightedLine();
+    console.timeEnd("updateHighlightedLine");
+    window.onhashchange = updateHighlightedLine;
+
+    console.time("updateHyperlinksAndStyles");
+    updateHyperlinksAndStyles();
+    console.timeEnd("updateHyperlinksAndStyles");
+
+    window.addEventListener("load", function() {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Navigation_timing_API
+       const now = new Date().getTime();
+       const page_load_time = now - performance.timing.navigationStart;
+       console.log("User-perceived page loading time: " + page_load_time + "ms");
+    });
+
+})();
+</script>
+<div class="sizeInfo">Wrote 0.7 KB (12.8 KB total including HTML) in approximately 1ms</div></body></html>

@@ -1,0 +1,833 @@
+{
+  "raw": {
+    "question_target": "T05",
+    "reply": "You mainly have two Medicare paths to compare. One is Original Medicare, which is Part A for hospital care and Part B for doctors and outpatient care; the other is Medicare Advantage, a private plan that provides your Part A and Part B coverage with its own rules and costs. What you have now matters because current coverage can affect which options make sense and what timing needs checking.",
+    "question": "What health insurance do you have now?",
+    "education_followups": [],
+    "report_refs": [
+      "guide.subject.role",
+      "readiness.RC01.profile.choice",
+      "guide.situation.age65"
+    ],
+    "evidence_refs": [
+      "parts",
+      "routesintro"
+    ],
+    "agenda_update": {
+      "current_concern": "understand Medicare options",
+      "pause": false
+    },
+    "education": {
+      "purpose": "teach",
+      "updates": [
+        {
+          "concept_id": "part_a",
+          "depth": "introduced",
+          "reason": "new",
+          "evidence_refs": [
+            "parts"
+          ]
+        },
+        {
+          "concept_id": "part_b",
+          "depth": "introduced",
+          "reason": "new",
+          "evidence_refs": [
+            "parts"
+          ]
+        },
+        {
+          "concept_id": "coverage_paths",
+          "depth": "introduced",
+          "reason": "new",
+          "evidence_refs": [
+            "routesintro"
+          ]
+        }
+      ],
+      "visual": "none"
+    }
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported",
+        "value": {
+          "month": 11,
+          "year": null
+        },
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [],
+    "task": "compare",
+    "dialogue": {
+      "orientation": "",
+      "lastTarget": null,
+      "explainedTopics": [],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      2,
+      2
+    ],
+    "activeQuestion": {
+      "id": "T05",
+      "entity": "profile",
+      "fields": []
+    },
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "A soonest-possible desired start is a preference, not an exact start month or actual enrollment.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "agenda": {
+      "version": 1,
+      "concerns": [],
+      "priorityReasons": [],
+      "lastMove": null
+    },
+    "education_context": {
+      "catalog": {
+        "version": "education-v1",
+        "concepts": [
+          {
+            "concept_id": "medicare_basics",
+            "title": "What Medicare is",
+            "section": "foundations",
+            "evidence_refs": [
+              "basics"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "part_a",
+            "title": "Part A",
+            "section": "foundations",
+            "evidence_refs": [
+              "parts",
+              "parta"
+            ],
+            "visuals": [
+              "parts",
+              "parta"
+            ]
+          },
+          {
+            "concept_id": "part_b",
+            "title": "Part B",
+            "section": "foundations",
+            "evidence_refs": [
+              "parts",
+              "partb"
+            ],
+            "visuals": [
+              "parts",
+              "partb"
+            ]
+          },
+          {
+            "concept_id": "coverage_paths",
+            "title": "The two coverage paths",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "routesintro",
+              "options"
+            ],
+            "visuals": [
+              "routes"
+            ]
+          },
+          {
+            "concept_id": "original_medicare",
+            "title": "Original Medicare",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "original",
+              "options",
+              "parts"
+            ],
+            "visuals": [
+              "original"
+            ]
+          },
+          {
+            "concept_id": "medicare_advantage",
+            "title": "Medicare Advantage",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "advantage",
+              "options",
+              "routesintro"
+            ],
+            "visuals": [
+              "advantage"
+            ]
+          },
+          {
+            "concept_id": "prescription_coverage",
+            "title": "Where prescription coverage fits",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "drugbasics",
+              "drugs",
+              "options"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "medigap",
+            "title": "Where Medigap fits",
+            "section": "coverage_paths",
+            "evidence_refs": [
+              "medigap",
+              "options",
+              "original"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "provider_checks",
+            "title": "Checking doctors and hospitals",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "checks",
+              "advantage",
+              "original"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "medicine_checks",
+            "title": "Checking exact medicines and pharmacies",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "checks",
+              "drugbasics",
+              "drugs"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "cost_components",
+            "title": "Monthly costs and costs when using care",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "costs"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "medical_spending_limits",
+            "title": "Medical spending limits",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "medical_limit"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "routine_extra_benefits",
+            "title": "Dental, vision and hearing",
+            "section": "personal_tradeoffs",
+            "evidence_refs": [
+              "extras"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "enrollment_timing",
+            "title": "Sign-up timing and coverage start",
+            "section": "enrollment",
+            "evidence_refs": [
+              "enrollment_intro",
+              "dates"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "current_coverage_timing",
+            "title": "Why current insurance matters to timing",
+            "section": "enrollment",
+            "evidence_refs": [
+              "enrollment_intro",
+              "dates"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "medigap_switching",
+            "title": "Checking Medigap and switching rights",
+            "section": "enrollment",
+            "evidence_refs": [
+              "switching",
+              "medigap"
+            ],
+            "visuals": []
+          },
+          {
+            "concept_id": "research_checks",
+            "title": "What still needs checking before choosing",
+            "section": "decision",
+            "evidence_refs": [
+              "checks",
+              "next"
+            ],
+            "visuals": []
+          }
+        ],
+        "delivery_is_not_comprehension": true,
+        "required_for_recommendations": false
+      },
+      "learning": {
+        "version": "education-v1",
+        "revision": 0,
+        "covered": [],
+        "visuals_shown": [],
+        "focus": []
+      },
+      "requested_revisit": true,
+      "revisit_concepts": [
+        "medicare_basics",
+        "part_a",
+        "part_b"
+      ],
+      "turn_kind": "message"
+    },
+    "resolved_changes": [],
+    "advisor_brief": {
+      "goal": "looking to understand my medicare options",
+      "direction": "Help this person understand their coverage options and reach an informed decision.",
+      "reported_goal": null,
+      "research_only": false,
+      "explained_topics": [],
+      "familiarity": {
+        "explicit_report": null,
+        "calibration": "Use topic-specific questions and dialogue tentatively; exposure is not comprehension."
+      }
+    },
+    "recent_exchanges": [],
+    "current_message": "Turning 65 in november and looking to understand my medicare options",
+    "evidence": [
+      {
+        "id": "basics",
+        "title": "What Medicare is",
+        "text": "Medicare is health insurance from the federal government. It helps pay for health care. It is mainly for people 65 or older who meet the program’s eligibility rules. Some younger people qualify because of a disability, End-Stage Renal Disease, or ALS. You can learn the coverage pieces one at a time.",
+        "summary": "Medicare is federal health insurance. We’ll build the rest of the picture one piece at a time.",
+        "question": "What is Medicare?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare"
+      },
+      {
+        "id": "parts",
+        "title": "The two parts to start with",
+        "text": "Part A: Hospital insurance: inpatient hospital care, skilled nursing facility care, hospice and some home health care.\n\nPart B: Medical insurance: doctors, outpatient care, tests, equipment and many preventive services.\n\nParts A and B together, run by the federal government and accepted by any U.S. doctor who takes Medicare.",
+        "summary": "Part A is hospital insurance. Part B is medical insurance. Together, they are Original Medicare.",
+        "question": "What do Parts A and B cover?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "routesintro",
+        "title": "The two coverage routes",
+        "text": "Original Medicare is Parts A and B through the federal program. Medicare Advantage is a private plan approved by Medicare that provides Parts A and B. Both routes provide Medicare coverage, with different rules and costs. We can add the other coverage pieces after this distinction is clear.",
+        "summary": "You can get Parts A and B through the federal program or through a private Medicare Advantage plan.",
+        "question": "What are the two ways to get Medicare?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "parta",
+        "title": "Part A: hospital care",
+        "text": "Part A is hospital insurance. It covers inpatient hospital care, skilled nursing facility care, hospice, and some home health care. Together, Part A and Part B are Original Medicare.",
+        "summary": "Hospital insurance is one part of Medicare.",
+        "question": "What is Part A?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "partb",
+        "title": "Part B: medical care",
+        "text": "Part B is medical insurance. It covers doctors, outpatient care, tests, equipment, and many preventive services. Together, Part A and Part B are Original Medicare.",
+        "summary": "Medical insurance is one part of Medicare.",
+        "question": "What is Part B?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      },
+      {
+        "id": "dates",
+        "title": "Dates depend on your situation",
+        "text": "A birthday and current work coverage do not establish when Part B actually starts. Social Security confirms the enrollment route and effective date. Unknown dates stay unknown. The timeline uses the facts entered in this tab. An unknown date stays an open check; special enrollment rights may need separate confirmation.",
+        "summary": "Your birth date, actual coverage, and job insurance can affect which dates need checking.",
+        "question": "Why do these dates matter?",
+        "source": "https://www.ssa.gov/medicare/sign-up"
+      },
+      {
+        "id": "checks",
+        "title": "What to check for each plan",
+        "text": "Records are in source order or ordered by explicit published fields. Eligibility, doctor participation, exact medicines and personal total cost have not been established. Compare the exact plan's providers, drug coverage, costs, and enrollment requirements before making a decision.",
+        "summary": "A plan list is the starting point. Check doctors, medicines, and costs for your situation.",
+        "question": "What should I check before choosing a plan?",
+        "source": "https://www.medicare.gov/plan-compare/"
+      }
+    ],
+    "uncertainties": [],
+    "comparison_status": {
+      "version": "advisor-comparison-service-20261101-r2",
+      "state": "held",
+      "personal_findings_available": false,
+      "research_completed": false,
+      "reason_codes": [
+        "CONDITION_UNRESOLVED",
+        "EXACT_RELEASE_REQUIRED",
+        "POLICY_NOT_ACCEPTED",
+        "SOURCE_MISSING"
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "id": "T05",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "We’ll use this to understand what you have before looking at other options.",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "current_coverage",
+      "priority": 0,
+      "required": false,
+      "purpose": "We’ll use this to understand what you have before looking at other options."
+    },
+    {
+      "id": "T04",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would you like Medicare coverage to start?",
+        "why": "Your preferred start can differ from when your current insurance ends.",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "topic": "timing",
+      "priority": 1,
+      "required": false,
+      "purpose": "Your preferred start can differ from when your current insurance ends."
+    },
+    {
+      "id": "T03",
+      "question": {
+        "id": "T03",
+        "inventoryIds": [
+          "T03"
+        ],
+        "question": "What ZIP code do you live in?",
+        "why": "Plans differ by county. This helps identify the area you want to look into.",
+        "choices": [],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "zip",
+            "label": "Home ZIP code",
+            "type": "text",
+            "options": []
+          }
+        ],
+        "signature": "T03.profile.zip",
+        "atomicRequests": 1
+      },
+      "topic": "",
+      "priority": 1,
+      "required": false,
+      "purpose": "Plans differ by county. This helps identify the area you want to look into."
+    },
+    {
+      "id": "T06",
+      "question": {
+        "id": "T06",
+        "inventoryIds": [
+          "T06"
+        ],
+        "question": "Are there doctors or hospitals you want to keep?",
+        "why": "You can name the doctors or hospitals you want to keep, or leave this for later.",
+        "choices": [
+          [
+            "none",
+            "No doctors to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T06.profile.text",
+        "atomicRequests": 1
+      },
+      "topic": "doctors",
+      "priority": 1,
+      "required": false,
+      "purpose": "You can name the doctors or hospitals you want to keep, or leave this for later."
+    },
+    {
+      "id": "T07",
+      "question": {
+        "id": "T07",
+        "inventoryIds": [
+          "T07"
+        ],
+        "question": "Which prescriptions should we include?",
+        "why": "You can list the medicines you want included, or leave this for later.",
+        "choices": [
+          [
+            "no",
+            "No prescriptions to include"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "text",
+            "label": "Type your answer",
+            "type": "textarea",
+            "options": []
+          }
+        ],
+        "signature": "T07.profile.text",
+        "atomicRequests": 1
+      },
+      "topic": "drugs",
+      "priority": 2,
+      "required": false,
+      "purpose": "You can list the medicines you want included, or leave this for later."
+    },
+    {
+      "id": "T08",
+      "question": {
+        "id": "T08",
+        "inventoryIds": [
+          "T08"
+        ],
+        "question": "Will you need routine care away from home?",
+        "why": "This helps identify whether access to routine care in another place matters to you.",
+        "choices": [
+          [
+            "local",
+            "Local only"
+          ],
+          [
+            "elsewhere_us",
+            "Elsewhere in the U.S."
+          ],
+          [
+            "outside_us",
+            "Outside the U.S."
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T08.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "travel",
+      "priority": 2,
+      "required": false,
+      "purpose": "This helps identify whether access to routine care in another place matters to you."
+    },
+    {
+      "id": "T09",
+      "question": {
+        "id": "T09",
+        "inventoryIds": [
+          "T09"
+        ],
+        "question": "How would you prefer to balance monthly payments and costs when you get care?",
+        "why": "",
+        "choices": [
+          [
+            "lower_monthly",
+            "Lower monthly payments"
+          ],
+          [
+            "predictable",
+            "More predictable costs"
+          ],
+          [
+            "no_preference",
+            "No preference yet"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T09.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "total_cost",
+      "priority": 2,
+      "required": false,
+      "purpose": "optional_preference"
+    },
+    {
+      "id": "T10",
+      "question": {
+        "id": "T10",
+        "inventoryIds": [
+          "T10"
+        ],
+        "question": "What matters most when we compare your options?",
+        "why": "",
+        "choices": [
+          [
+            "doctors",
+            "Doctors and hospitals"
+          ],
+          [
+            "drugs",
+            "Prescriptions"
+          ],
+          [
+            "total_cost",
+            "Total cost"
+          ],
+          [
+            "bills",
+            "Predictable costs"
+          ],
+          [
+            "travel",
+            "Travel"
+          ],
+          [
+            "other",
+            "Something else"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T10.profile.choice",
+        "atomicRequests": 1,
+        "max": 3
+      },
+      "topic": "other",
+      "priority": 2,
+      "required": false,
+      "purpose": "optional_preference"
+    },
+    {
+      "id": "T02",
+      "question": {
+        "id": "T02",
+        "inventoryIds": [
+          "T02"
+        ],
+        "question": "How familiar are you with Medicare?",
+        "why": "",
+        "choices": [
+          [
+            "new",
+            "New to Medicare"
+          ],
+          [
+            "some",
+            "Know a little"
+          ],
+          [
+            "comfortable",
+            "Comfortable with the basics"
+          ],
+          [
+            "unknown",
+            "Not sure yet"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T02.profile.choice",
+        "atomicRequests": 1
+      },
+      "topic": "learning",
+      "priority": 2,
+      "required": false,
+      "purpose": "Optional familiarity question only if needed to calibrate explanations; do not make it a required intake step."
+    }
+  ],
+  "accepted": true,
+  "validated": {
+    "question_target": "T05",
+    "reply": "You mainly have two Medicare paths to compare. One is Original Medicare, which is Part A for hospital care and Part B for doctors and outpatient care; the other is Medicare Advantage, a private plan that provides your Part A and Part B coverage with its own rules and costs. What you have now matters because current coverage can affect which options make sense and what timing needs checking.",
+    "question": "What health insurance do you have now?",
+    "report_refs": [
+      "guide.subject.role",
+      "readiness.RC01.profile.choice",
+      "guide.situation.age65"
+    ],
+    "evidence_refs": [
+      "parts",
+      "routesintro"
+    ],
+    "agenda_update": {
+      "current_concern": "understand Medicare options",
+      "pause": false
+    },
+    "education": {
+      "purpose": "teach",
+      "updates": [
+        {
+          "concept_id": "part_a",
+          "depth": "introduced",
+          "reason": "new",
+          "evidence_refs": [
+            "parts"
+          ]
+        },
+        {
+          "concept_id": "part_b",
+          "depth": "introduced",
+          "reason": "new",
+          "evidence_refs": [
+            "parts"
+          ]
+        },
+        {
+          "concept_id": "coverage_paths",
+          "depth": "introduced",
+          "reason": "new",
+          "evidence_refs": [
+            "routesintro"
+          ]
+        }
+      ],
+      "visual": "none"
+    },
+    "education_metadata_dropped": false,
+    "education_followups": []
+  }
+}

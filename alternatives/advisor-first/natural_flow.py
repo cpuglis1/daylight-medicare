@@ -975,7 +975,8 @@ class NaturalConversation(AdvisorConversation):
                     'still_needed': [self.PLANS_PAGE_LABELS.get(key, key) for key in view['missing']]}
         return {
             'medigap': page(medigap_profile.profile(g), 'Medicare Supplement (Medigap)',
-                            'listed Medigap premiums for the reported ZIP, age, sex category and tobacco category'),
+                            'listed Medigap premiums for the reported ZIP, age, sex category and tobacco category; '
+                            'pilot list covers ages 65–74 (age 64 is shown age-65 prices) in ZIPs 34101–34108, dated November 10, 2026'),
             'part_d': page(part_d_profile.profile(g, r), 'Part D drug plans',
                            'published 2026 stand-alone Part D plans for Collier County with premiums and deductibles'),
             'purpose': ('What the Plans page can show for this person right now. ready: that tab is showing the '

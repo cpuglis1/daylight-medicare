@@ -1,0 +1,148 @@
+{
+  "schema": "daylight-evaluation-report/1",
+  "run_at": "2026-11-08T13:32:19+00:00",
+  "python": "3.12.9",
+  "paid_model_calls": 0,
+  "suites": [
+    {
+      "suite_id": "persona_journeys",
+      "status": "passed",
+      "measures": "Fourteen synthetic personas through the current :8893 extraction, resolution and composition contract, with injected model responses; expected profiles authored separately.",
+      "gaps": [
+        "Injected responses: says nothing about real-model conversation quality."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "persona_runner.py",
+            "--output",
+            "/private/tmp/daylight-ve-offline.ioXYJu/harness/persona_journeys.json"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 15.6,
+          "output_tail": "{\"scenario_count\": 14, \"passed\": true, \"assertions\": 1244, \"failed\": [], \"paid_model_calls\": 0}\n\nDaylight composition unavailable code=missing_followup question_available=False"
+        }
+      ]
+    },
+    {
+      "suite_id": "checklist_coverage",
+      "status": "passed",
+      "measures": "Scoring of the twelve CMS pre-enrollment checklist items in a decision record's receipt.",
+      "gaps": [
+        "The advisor does not emit checklist receipts yet, so no real decision is scored. This suite tests the scorer and receipt format only."
+      ],
+      "commands": [
+        {
+          "cwd": "infrastructure/daylight-operations",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "tests/test_checklist.py"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.3,
+          "output_tail": ".....                                                                    [100%]\n5 passed in 0.01s"
+        }
+      ]
+    },
+    {
+      "suite_id": "factual_grounding",
+      "status": "passed",
+      "measures": "Pinned educational statements and published references re-verify against their retained sources; generic teaching stays within supported claims.",
+      "gaps": [
+        "Checks the statements and verifiers, not each sentence a live model writes."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "test_understanding",
+            "test_reference_view",
+            "test_generic_coverage_teaching"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.7,
+          "output_tail": ".....................\n----------------------------------------------------------------------\nRan 21 tests in 0.445s\n\nOK"
+        }
+      ]
+    },
+    {
+      "suite_id": "commission_counterfactual",
+      "status": "passed",
+      "measures": "I01: zeroed, multiplied, swapped, adversarial and removed payouts leave rankings, ties and reason codes identical. I02: no commercial value in outputs; commercial keys refused by decision records.",
+      "gaps": [
+        "Covers the ranking functions and decision records. Model-request serialization (rest of I02) is not yet checked with canaries."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "test_independence_counterfactual",
+            "test_plans_workspace.RankingTests"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.2,
+          "output_tail": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.010s\n\nOK"
+        },
+        {
+          "cwd": "infrastructure/daylight-operations",
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "tests/test_records.py"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.2,
+          "output_tail": "..............                                                           [100%]\n14 passed in 0.02s"
+        }
+      ]
+    },
+    {
+      "suite_id": "abstention",
+      "status": "passed",
+      "measures": "Missing or failed evidence holds the affected conclusion instead of guessing: explicit stops, failed responses, comparison-engine holds.",
+      "gaps": [
+        "Offline fault injection; does not observe a live model choosing to abstain."
+      ],
+      "commands": [
+        {
+          "cwd": "alternatives/advisor-first/tests",
+          "argv": [
+            "python",
+            "-m",
+            "unittest",
+            "test_explicit_stop",
+            "test_response_failures",
+            "test_comparison_engine"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 4.3,
+          "output_tail": ".Daylight composition unavailable code=unsupported_finding question_available=True\n.Daylight composition unavailable code=unsupported_finding question_available=True\nDaylight composition unavailable code=unsupported_finding question_available=True\nDaylight composition unavailable code=unsupported_finding question_available=True\n.....Daylight composition unavailable code=input_token_verification question_available=False\n.Daylight extraction unavailable code=input_token_verification\n............................\n----------------------------------------------------------------------\nRan 36 tests in 4.047s\n\nOK"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

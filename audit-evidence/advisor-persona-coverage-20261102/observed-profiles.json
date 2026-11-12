@@ -1,0 +1,5659 @@
+[
+  {
+    "scenario_id": "P1",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2026-12",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "spouse_job"
+        },
+        "RC11": {
+          "jobEnd": "2026-11",
+          "choice": "dates"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2026-12",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "spouse_job"
+        },
+        "RC11": {
+          "jobEnd": "2026-11",
+          "choice": "dates"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {
+        "RC11.profile.coverageEnd": "unknown"
+      },
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStartMonth": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC11": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.jobEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStartMonth": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported",
+        "RC11": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P1-payer",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "my_job"
+        },
+        "RC11": {
+          "jobEnd": "ongoing",
+          "coverageEnd": "ongoing",
+          "choice": "dates"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC06": {
+          "choice": "disability"
+        },
+        "RC10": {
+          "choice": "no"
+        },
+        "RC14": {
+          "choice": "yes"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "my_job"
+        },
+        "RC11": {
+          "jobEnd": "ongoing",
+          "coverageEnd": "ongoing",
+          "choice": "dates"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC06": {
+          "choice": "disability"
+        },
+        "RC10": {
+          "choice": "no"
+        },
+        "RC14": {
+          "choice": "yes"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC11": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.jobEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.coverageEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC04": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC04.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC06": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": 6
+        },
+        "readiness.RC06.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": 6
+        },
+        "readiness.RC10": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": 7
+        },
+        "readiness.RC10.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": 7
+        },
+        "readiness.RC14": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC14.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported",
+        "RC11": "reported",
+        "RC04": "reported",
+        "RC06": "reported",
+        "RC10": "reported",
+        "RC14": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P2",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2026-12",
+          "choice": "dates"
+        },
+        "RC12": {
+          "choice": "yes"
+        },
+        "RC08": {
+          "choice": "move",
+          "eventDate": "2026-12"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2026-12",
+          "choice": "dates"
+        },
+        "RC12": {
+          "choice": "yes"
+        },
+        "RC08": {
+          "choice": "move",
+          "eventDate": "2026-12"
+        }
+      },
+      "dispositions": {
+        "RC13": "explicit_unknown"
+      },
+      "baseline_dispositions": {},
+      "skipped_details": {
+        "RC13.profile.choice": "unknown"
+      },
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStartMonth": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC11": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.coverageEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC12": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC12.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC08": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC08.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC08.profile.eventDate": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStartMonth": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported",
+        "RC11": "reported",
+        "RC12": "reported",
+        "RC08": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P2-browse",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "research"
+        },
+        "RC03": {
+          "choice": "2026",
+          "year": "2026"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "research"
+        },
+        "RC03": {
+          "choice": "2026",
+          "year": "2026"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC03": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC03.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC03.profile.year": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC03": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P3",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "advantage"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC05": {
+          "month": "2020-10",
+          "choice": "details"
+        },
+        "RC16": {
+          "start": "2026-01",
+          "choice": "partial",
+          "priorMedigap": "no"
+        },
+        "RC15": {
+          "event": "plan-ending notice",
+          "choice": "details"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "advantage"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC05": {
+          "month": "2020-10",
+          "choice": "details"
+        },
+        "RC16": {
+          "start": "2026-01",
+          "choice": "partial",
+          "priorMedigap": "no"
+        },
+        "RC15": {
+          "event": "plan-ending notice",
+          "choice": "details"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC04": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC04.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC05": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC05.profile.month": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC05.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC16": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC16.profile.start": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC16.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC16.profile.priorMedigap": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC15": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC15.profile.event": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC15.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC04": "reported",
+        "RC05": "reported",
+        "RC16": "reported",
+        "RC15": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P3-replacement",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "original",
+          "medigap"
+        ],
+        "needs.costPreference": "predictable",
+        "needs.priorities": [
+          "doctors",
+          "total_cost"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC05": {
+          "month": "2020-10",
+          "choice": "details"
+        },
+        "RC17": {
+          "choice": "keep"
+        },
+        "RC07": {
+          "choice": "original"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "original",
+          "medigap"
+        ],
+        "needs.costPreference": "predictable",
+        "needs.priorities": [
+          "doctors",
+          "total_cost"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC05": {
+          "month": "2020-10",
+          "choice": "details"
+        },
+        "RC17": {
+          "choice": "keep"
+        },
+        "RC07": {
+          "choice": "original"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC04": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC04.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC05": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC05.profile.month": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC05.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC17": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC17.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC07": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC07.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "guide.needs.costPreference": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "guide.needs.priorities": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported",
+        "needs.costPreference": "reported",
+        "needs.priorities": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC04": "reported",
+        "RC05": "reported",
+        "RC17": "reported",
+        "RC07": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P4",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "list",
+        "needs.providers": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example One; Example Two"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC21": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "doctor-1",
+              "practice": "Dr. Rivera at Example Clinic",
+              "choice": "details",
+              "city": "Naples, FL"
+            },
+            {
+              "entity": "doctor-2",
+              "practice": "Dr. Lee at Example Hospital",
+              "choice": "details",
+              "city": "Tampa, FL"
+            }
+          ]
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example One",
+              "strength": "10 mg",
+              "form": "tablet",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Two",
+              "strength": "10 mg",
+              "form": "capsule",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "60 capsules",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC18": {
+          "choice": "extra_help",
+          "programs": [
+            "extra_help",
+            "medicaid"
+          ]
+        },
+        "RC24": {
+          "choice": "pharmacy"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "list",
+        "needs.providers": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example One; Example Two"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC21": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "doctor-1",
+              "practice": "Dr. Rivera at Example Clinic",
+              "choice": "details",
+              "city": "Naples, FL"
+            },
+            {
+              "entity": "doctor-2",
+              "practice": "Dr. Lee at Example Hospital",
+              "choice": "details",
+              "city": "Tampa, FL"
+            }
+          ]
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example One",
+              "strength": "10 mg",
+              "form": "tablet",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Two",
+              "strength": "10 mg",
+              "form": "capsule",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "60 capsules",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC18": {
+          "choice": "extra_help",
+          "programs": [
+            "extra_help",
+            "medicaid"
+          ]
+        },
+        "RC24": {
+          "choice": "pharmacy"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {
+        "RC23.medicine-1.quantity": "deferred",
+        "RC23.medicine-1.daysSupply": "deferred",
+        "RC23.medicine-1.pharmacy": "deferred",
+        "RC23.medicine-1.channel": "deferred"
+      },
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.providersStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.providers": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": 4
+        },
+        "readiness.RC21": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC21.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.practice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-2.practice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC21.doctor-2.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC21.doctor-1.city": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": 4
+        },
+        "readiness.RC21.doctor-2.city": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": 7
+        },
+        "readiness.RC22": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 14,
+          "supersedesRevision": 9
+        },
+        "readiness.RC22.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.strength": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 14,
+          "supersedesRevision": 9
+        },
+        "readiness.RC22.medicine-1.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-2.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": 8
+        },
+        "readiness.RC22.medicine-2.strength": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": 8
+        },
+        "readiness.RC22.medicine-2.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": 8
+        },
+        "readiness.RC22.medicine-2.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": 8
+        },
+        "readiness.RC23": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": 10
+        },
+        "readiness.RC23.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.quantity": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.daysSupply": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.pharmacy": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.channel": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-2.quantity": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": 10
+        },
+        "readiness.RC23.medicine-2.daysSupply": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": 10
+        },
+        "readiness.RC23.medicine-2.pharmacy": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": 10
+        },
+        "readiness.RC23.medicine-2.channel": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": 10
+        },
+        "readiness.RC23.medicine-2.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": 10
+        },
+        "readiness.RC18": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 13,
+          "supersedesRevision": null
+        },
+        "readiness.RC18.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 13,
+          "supersedesRevision": null
+        },
+        "readiness.RC18.profile.programs": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 13,
+          "supersedesRevision": null
+        },
+        "readiness.RC24": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 17,
+          "supersedesRevision": null
+        },
+        "readiness.RC24.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 17,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.providersStatus": "reported",
+        "needs.providers": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC21": "reported",
+        "RC22": "reported",
+        "RC23": "reported",
+        "RC18": "reported",
+        "RC24": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P4-unknown",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Three"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Three",
+              "form": "tablet",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Three"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Three",
+              "form": "tablet",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {
+        "RC22.medicine-1.strength": "unknown"
+      },
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC22": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P5",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "military"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.providersStatus": "none",
+        "needs.medicinesStatus": "no",
+        "needs.travel": [
+          "elsewhere_us"
+        ],
+        "knowledge.general": "new"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "someone"
+        },
+        "RC20": {
+          "location": "Tampa, Florida",
+          "choice": "partial"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC06": {
+          "choice": "age65"
+        },
+        "RC26": {
+          "choice": "tfl"
+        },
+        "RC25": {
+          "amount": "$200",
+          "choice": "amount",
+          "includes": "premiums_and_care"
+        },
+        "RC18": {
+          "choice": "extra_help",
+          "programs": [
+            "extra_help",
+            "medicaid"
+          ]
+        },
+        "RC19": {
+          "choice": "details",
+          "qualification": "program confirmation is pending"
+        },
+        "RC27": {
+          "choice": "human"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "coverage.requestedStart": "already",
+        "coverage.current": [
+          "military"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.providersStatus": "none",
+        "needs.medicinesStatus": "no",
+        "needs.travel": [
+          "elsewhere_us"
+        ],
+        "knowledge.general": "new"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "someone"
+        },
+        "RC20": {
+          "location": "Tampa, Florida",
+          "choice": "partial"
+        },
+        "RC04": {
+          "choice": "both"
+        },
+        "RC06": {
+          "choice": "age65"
+        },
+        "RC26": {
+          "choice": "tfl"
+        },
+        "RC25": {
+          "amount": "$200",
+          "choice": "amount",
+          "includes": "premiums_and_care"
+        },
+        "RC18": {
+          "choice": "extra_help",
+          "programs": [
+            "extra_help",
+            "medicaid"
+          ]
+        },
+        "RC19": {
+          "choice": "details",
+          "qualification": "program confirmation is pending"
+        },
+        "RC27": {
+          "choice": "human"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {
+        "G13": [
+          {
+            "value": "tfl",
+            "entity": "profile",
+            "revision": 7,
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user"
+          }
+        ]
+      },
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "guide.needs.providersStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": null
+        },
+        "guide.needs.travel": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "readiness.RC20": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC20.profile.location": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC20.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC04": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC04.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC06": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC06.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC26": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC26.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "readiness.RC25": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": 9
+        },
+        "readiness.RC25.profile.amount": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": null
+        },
+        "readiness.RC25.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": null
+        },
+        "readiness.RC25.profile.includes": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": 9
+        },
+        "readiness.RC18": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 12,
+          "supersedesRevision": 11
+        },
+        "readiness.RC18.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 12,
+          "supersedesRevision": 11
+        },
+        "readiness.RC18.profile.programs": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 12,
+          "supersedesRevision": 11
+        },
+        "readiness.RC19": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 14,
+          "supersedesRevision": null
+        },
+        "readiness.RC19.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 14,
+          "supersedesRevision": null
+        },
+        "readiness.RC19.profile.qualification": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 14,
+          "supersedesRevision": null
+        },
+        "readiness.RC27": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 15,
+          "supersedesRevision": null
+        },
+        "readiness.RC27.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 15,
+          "supersedesRevision": null
+        },
+        "guide.knowledge.general": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "learner",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived",
+        "needs.providersStatus": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.travel": "reported",
+        "knowledge.general": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC20": "reported",
+        "RC04": "reported",
+        "RC06": "reported",
+        "RC26": "reported",
+        "RC25": "reported",
+        "RC18": "reported",
+        "RC19": "reported",
+        "RC27": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P6",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2027-02",
+          "choice": "dates"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2027-02",
+          "choice": "dates"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStartMonth": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC11": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 4
+        },
+        "readiness.RC11.profile.coverageEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 4
+        },
+        "readiness.RC11.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStartMonth": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported",
+        "RC11": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P7",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare"
+      },
+      "reports": {},
+      "raw_guide": {
+        "intent.goal": "compare"
+      },
+      "raw_reports": {},
+      "dispositions": {
+        "RC01": "explicit_unknown"
+      },
+      "baseline_dispositions": {
+        "T04": "unknown",
+        "T05": "unknown",
+        "T03": "unknown",
+        "T06": "unknown",
+        "T07": "unknown",
+        "T08": "unknown"
+      },
+      "skipped_details": {
+        "RC01.profile.choice": "unknown"
+      },
+      "details": {},
+      "provenance": {
+        "guide.intent.goal": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported"
+      },
+      "report_status": {}
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P8",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2026-12",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.medicinesStatus": "no",
+        "needs.providersStatus": "none",
+        "needs.travel": [
+          "local"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2026-12",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.medicinesStatus": "no",
+        "needs.providersStatus": "none",
+        "needs.travel": [
+          "local"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "cobra"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStartMonth": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 9,
+          "supersedesRevision": null
+        },
+        "guide.needs.providersStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 10,
+          "supersedesRevision": null
+        },
+        "guide.needs.travel": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 11,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStartMonth": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived",
+        "needs.medicinesStatus": "reported",
+        "needs.providersStatus": "reported",
+        "needs.travel": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P9",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "someone"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2026-12",
+          "choice": "dates"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month",
+        "coverage.current": [
+          "cobra"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "someone"
+        },
+        "RC09": {
+          "choice": "cobra"
+        },
+        "RC11": {
+          "coverageEnd": "2026-12",
+          "choice": "dates"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 2
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 2
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStartMonth": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC11": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.coverageEnd": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC11.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStartMonth": "reported",
+        "coverage.requestedStart": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported",
+        "RC11": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "P10",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Med; Example Med"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Med",
+              "strength": "5 mg",
+              "form": "tablets",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Med",
+              "strength": "10 mg",
+              "form": "tablets",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "60 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Med; Example Med"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Med",
+              "strength": "5 mg",
+              "form": "tablets",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Med",
+              "strength": "10 mg",
+              "form": "tablets",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "60 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy in Naples",
+              "channel": "retail",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": 4
+        },
+        "readiness.RC22": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.strength": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-2.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.medicine-2.strength": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.medicine-2.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.medicine-2.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC23": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": 6
+        },
+        "readiness.RC23.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.quantity": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.daysSupply": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": 6
+        },
+        "readiness.RC23.medicine-1.pharmacy": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.channel": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-2.quantity": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.daysSupply": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.pharmacy": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.channel": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC22": "reported",
+        "RC23": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F01",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "intent.goalDetail": "Keep living independently",
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.priorities": [
+          "other"
+        ],
+        "needs.priorityOther": "Help at home matters to me"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC02": {
+          "zip": "34102",
+          "county": "Collier, FL",
+          "homeStatus": "my permanent home, not a seasonal address",
+          "choice": "details"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "intent.goalDetail": "Keep living independently",
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.priorities": [
+          "other"
+        ],
+        "needs.priorityOther": "Help at home matters to me"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC02": {
+          "zip": "34102",
+          "county": "Collier, FL",
+          "homeStatus": "my permanent home, not a seasonal address",
+          "choice": "details"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.intent.goal": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.intent.goalDetail": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC02": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC02.profile.zip": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC02.profile.county": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC02.profile.homeStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC02.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.priorities": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "guide.needs.priorityOther": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "intent.goalDetail": "reported",
+        "subject.role": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived",
+        "needs.priorities": "reported",
+        "needs.priorityOther": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC02": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F02",
+    "observed": {
+      "guide": {
+        "subject.role": "self"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC06": {
+          "choice": "disability",
+          "ageBand": "under65"
+        },
+        "RC12": {
+          "choice": "yes",
+          "gap": "no drug coverage from June 2026 through July 2026"
+        }
+      },
+      "raw_guide": {
+        "subject.role": "self"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC06": {
+          "choice": "disability",
+          "ageBand": "under65"
+        },
+        "RC12": {
+          "choice": "yes",
+          "gap": "no drug coverage from June 2026 through July 2026"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC06": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC06.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC06.profile.ageBand": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC12": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC12.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC12.profile.gap": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "subject.role": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC06": "reported",
+        "RC12": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F03",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Alpha"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Alpha",
+              "strength": "5 mg",
+              "form": "tablet",
+              "brand": "brand only",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy, 1 Test Street, Naples",
+              "channel": "retail",
+              "supply": "30-day supply",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC24": {
+          "choice": "pharmacy"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Alpha"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Alpha",
+              "strength": "5 mg",
+              "form": "tablet",
+              "brand": "brand only",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example Pharmacy, 1 Test Street, Naples",
+              "channel": "retail",
+              "supply": "30-day supply",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC24": {
+          "choice": "pharmacy"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.strength": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.brand": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC23": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.quantity": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.daysSupply": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.pharmacy": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.channel": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.supply": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC24": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC24.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC22": "reported",
+        "RC23": "reported",
+        "RC24": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F04",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Beta"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Beta",
+              "form": "tablet",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Beta"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Beta",
+              "form": "tablet",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {
+        "RC22.medicine-1.strength": "unknown",
+        "RC22.medicine-1.brand": "deferred",
+        "RC23.medicine-1.daysSupply": "unknown",
+        "RC23.medicine-1.pharmacy": "deferred",
+        "RC23.medicine-1.channel": "deferred"
+      },
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.name": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.form": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC23": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.quantity": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC22": "reported",
+        "RC23": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F05",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.requestedStartMonth": "2027-01",
+        "coverage.requestedStart": "month"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStartMonth": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 5,
+          "supersedesRevision": 3
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 6,
+          "supersedesRevision": 4
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.requestedStartMonth": "reported",
+        "coverage.requestedStart": "reported"
+      },
+      "report_status": {
+        "RC01": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F06",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "my_job"
+        },
+        "RC06": {
+          "choice": "disability"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.current": [
+          "employer"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC09": {
+          "choice": "my_job"
+        },
+        "RC06": {
+          "choice": "disability"
+        },
+        "RC10": {
+          "choice": "yes"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC06": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 4
+        },
+        "readiness.RC06.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 4
+        },
+        "readiness.RC10": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC10.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [
+        "RC10"
+      ],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC09": "reported",
+        "RC06": "reported",
+        "RC10": "stale"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F07",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "knowledge.general": "new"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "someone"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "someone",
+        "knowledge.general": "new"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "someone"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.knowledge.general": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "learner",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "knowledge.general": "reported"
+      },
+      "report_status": {
+        "RC01": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F08",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Gamma; Example Gamma"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Gamma",
+              "strength": "20 mg",
+              "form": "tablet",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Gamma",
+              "strength": "10 mg",
+              "form": "tablet",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example North Pharmacy",
+              "channel": "retail",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "90 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example South Pharmacy",
+              "channel": "mail",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Gamma; Example Gamma"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC22": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "name": "Example Gamma",
+              "strength": "20 mg",
+              "form": "tablet",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "name": "Example Gamma",
+              "strength": "10 mg",
+              "form": "tablet",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC23": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "medicine-1",
+              "quantity": "30 tablets",
+              "daysSupply": "30",
+              "pharmacy": "Example North Pharmacy",
+              "channel": "retail",
+              "choice": "details"
+            },
+            {
+              "entity": "medicine-2",
+              "quantity": "90 tablets",
+              "daysSupply": "90",
+              "pharmacy": "Example South Pharmacy",
+              "channel": "mail",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": 4
+        },
+        "readiness.RC22": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": 4
+        },
+        "readiness.RC22.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.name": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.strength": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": 4
+        },
+        "readiness.RC22.medicine-1.form": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-1.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC22.medicine-2.name": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.medicine-2.strength": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.medicine-2.form": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC22.medicine-2.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": 3
+        },
+        "readiness.RC23": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.quantity": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.daysSupply": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.pharmacy": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.channel": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-1.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "readiness.RC23.medicine-2.quantity": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.daysSupply": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.pharmacy": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.channel": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        },
+        "readiness.RC23.medicine-2.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 6,
+          "supersedesRevision": 5
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC22": "reported",
+        "RC23": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F09",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "none"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "none",
+        "needs.providers": "Example Clinic"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC21": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "doctor-1",
+              "practice": "Example Clinic",
+              "city": "Naples, FL",
+              "choice": "details"
+            }
+          ]
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.providersStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": 3
+        },
+        "guide.needs.providers": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC21": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.practice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.city": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [
+        "RC21"
+      ],
+      "stale_guide": [
+        "needs.providers"
+      ],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.providersStatus": "reported",
+        "needs.providers": "stale"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC21": "stale"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F10",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.current": [
+          "military"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC26": {
+          "choice": "tfl"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.current": [
+          "military"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC26": {
+          "choice": "tfl"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {
+        "G13": [
+          {
+            "value": "tfl",
+            "entity": "profile",
+            "revision": 3,
+            "source": "user_choice",
+            "confirmation": "confirmed_by_user"
+          }
+        ]
+      },
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC26": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC26.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC26": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F11",
+    "observed": {
+      "guide": {
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Delta 5 mg tablet"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "raw_guide": {
+        "subject.role": "self",
+        "needs.medicinesStatus": "yes",
+        "needs.medications": "Example Delta 5 mg tablet"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.needs.medicinesStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.medications": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "subject.role": "reported",
+        "needs.medicinesStatus": "reported",
+        "needs.medications": "reported"
+      },
+      "report_status": {
+        "RC01": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F12",
+    "observed": {
+      "guide": {
+        "subject.role": "self",
+        "coverage.current": [
+          "original"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC28": {
+          "choice": "different"
+        }
+      },
+      "raw_guide": {
+        "subject.role": "self",
+        "coverage.current": [
+          "original"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC28": {
+          "choice": "different"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC28": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC28.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "subject.role": "reported",
+        "coverage.current": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC28": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F13",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.current": [
+          "none"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.costPreference": "lower_monthly",
+        "needs.priorities": [
+          "total_cost"
+        ]
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "coverage.current": [
+          "none"
+        ],
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        },
+        "needs.costPreference": "lower_monthly",
+        "needs.priorities": [
+          "total_cost"
+        ]
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {
+        "T04": "unknown",
+        "T06": "deferred"
+      },
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.needs.costPreference": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 7,
+          "supersedesRevision": null
+        },
+        "guide.needs.priorities": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 8,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "coverage.current": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived",
+        "needs.costPreference": "reported",
+        "needs.priorities": "reported"
+      },
+      "report_status": {
+        "RC01": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F14",
+    "observed": {
+      "guide": {
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC02": {
+          "zip": "34102",
+          "choice": "details"
+        }
+      },
+      "raw_guide": {
+        "subject.role": "self",
+        "comparison.scope.zip": "34102",
+        "comparison.scope.county": {
+          "fips": "12021",
+          "name": "Collier County",
+          "state": "FL"
+        },
+        "comparison.scope.locationEvidence": {
+          "source": "https://github.com/CMSgov/qpp-eu-data/blob/c2c1de5a2268d006148e24877df5d274a1799f68/staging/2025/COUNTY_ZIP_092025.xlsx",
+          "period": "September 2025",
+          "method": "unique_zip_reference"
+        }
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC02": {
+          "zip": "34102",
+          "choice": "details"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {
+        "RC02.profile.county": "unknown",
+        "RC02.profile.homeStatus": "deferred"
+      },
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.comparison.scope.zip": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC02": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC02.profile.zip": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC02.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "subject.role": "reported",
+        "comparison.scope.zip": "reported",
+        "comparison.scope.county": "derived",
+        "comparison.scope.locationEvidence": "derived"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC02": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F15",
+    "observed": {
+      "guide": {
+        "situation.retirement": {
+          "status": "retired",
+          "when": "for a few years"
+        },
+        "situation.age65": {
+          "month": 11,
+          "year": null
+        },
+        "subject.role": "self"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "raw_guide": {
+        "situation.retirement": {
+          "status": "retired",
+          "when": "for a few years"
+        },
+        "situation.age65": {
+          "month": 11,
+          "year": null
+        },
+        "subject.role": "self"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.situation.retirement": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "guide.situation.age65": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "situation.retirement": "reported",
+        "situation.age65": "reported",
+        "subject.role": "reported"
+      },
+      "report_status": {
+        "RC01": "reported"
+      }
+    },
+    "passed": true
+  },
+  {
+    "scenario_id": "F16",
+    "observed": {
+      "guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "list",
+        "needs.providers": "Example Elm Clinic"
+      },
+      "reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC21": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "doctor-1",
+              "practice": "Example Elm Clinic",
+              "city": "Naples, FL",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC13": {
+          "choice": "yes"
+        }
+      },
+      "raw_guide": {
+        "intent.goal": "compare",
+        "subject.role": "self",
+        "needs.providersStatus": "list",
+        "needs.providers": "Example Elm Clinic"
+      },
+      "raw_reports": {
+        "RC01": {
+          "choice": "self"
+        },
+        "RC21": {
+          "choice": "details",
+          "items": [
+            {
+              "entity": "doctor-1",
+              "practice": "Example Elm Clinic",
+              "city": "Naples, FL",
+              "choice": "details"
+            }
+          ]
+        },
+        "RC13": {
+          "choice": "yes"
+        }
+      },
+      "dispositions": {},
+      "baseline_dispositions": {},
+      "skipped_details": {},
+      "details": {},
+      "provenance": {
+        "guide.subject.role": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.needs.providersStatus": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "guide.needs.providers": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC21": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.practice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.city": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC21.doctor-1.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC13": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC13.profile.choice": {
+          "method": "structured",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      "stale_reports": [],
+      "stale_guide": [],
+      "guide_status": {
+        "intent.goal": "reported",
+        "subject.role": "reported",
+        "needs.providersStatus": "reported",
+        "needs.providers": "reported"
+      },
+      "report_status": {
+        "RC01": "reported",
+        "RC21": "reported",
+        "RC13": "reported"
+      }
+    },
+    "passed": true
+  }
+]

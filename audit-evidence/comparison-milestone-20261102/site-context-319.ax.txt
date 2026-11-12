@@ -1,0 +1,72 @@
+Browser tab: 4, Title: "Daylight", URL: "http://127.0.0.1:8918/".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~							136 button (expanded) Retained source dates and qualifications, Secondary Actions: Collapse
++							151 text These are source-native entries, not a current-practice or network verification.
++							152 text {
+  "periods": {
+    "entity": null,
+    "role": {
+      "end": "9999-12-31",
+      "start": "0001-01-01"
+    }
+  },
+  "context": [
+    {
+      "record_ref": "L08:0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe",
+      "source_table": "entities",
+      "source_native_context": {
+        "status": {
+          "active": true
+        },
+        "qualifiers": null,
+        "provider_period": null
+      },
+      "meaning": "dated_source_context_not_current_practice_or_network_verification"
+    },
+    {
+      "record_ref": "L08:c984344fd352c64e931d016e4f5a7adc787d1607a45f5a2996d59804448423ff",
+      "source_table": "roles",
+      "source_native_context": {
+        "status": null,
+        "qualifiers": {
+          "code": [
+            {
+              "text": "Provider",
+              "coding": [
+                {
+                  "code": "provider",
+                  "system": "http://hl7.org/fhir/organization-role",
+                  "display": "Provider"
+                }
+              ]
+            }
+          ],
+          "active": true,
+          "telecom": [
+            {
+              "use": "work",
+              "value": "1-310-6748600",
+              "system": "phone"
+            }
+          ]
+        },
+        "provider_period": {
+          "end": "9999-12-31",
+          "start": "0001-01-01"
+        }
+      },
+      "meaning": "dated_source_context_not_current_practice_or_network_verification"
+    },
+    {
+      "record_ref": "L08:4873d12db71301f12fec2a8b804bc20e2b374d12dfc692aeeee653d2bbe6f631",
+      "source_table": "locations",
+      "source_native_context": {
+        "status": null,
+        "qualifiers": null,
+        "provider_period": null
+      },
+      "meaning": "dated_source_context_not_current_practice_or_network_verification"
+    }
+  ]
+}
+The focused UI element is 136 button (expanded) Retained source dates and qualifications, Secondary Actions: Collapse

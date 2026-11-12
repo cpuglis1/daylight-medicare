@@ -1,0 +1,115 @@
+{
+  "checkedAt": "2026-10-28T16:01:06.909529+00:00",
+  "services": {
+    "8890": {
+      "homeHttpStatus": 200,
+      "status": {
+        "consumer_ready": false,
+        "plan_validation_status": "pending",
+        "catalog_count": 0,
+        "agent_available": false,
+        "live_conversation_available": false,
+        "model_configured": true,
+        "model_id": "gpt-5.4",
+        "provider": "OpenAI",
+        "conversation_logging": false,
+        "guest_profiles": true,
+        "sample_count": 5,
+        "live_requests_remaining": null,
+        "ai_budget": {
+          "day": "2026-10-28",
+          "timezone": "UTC",
+          "resetAt": "2026-10-29T00:00:00+00:00",
+          "dailyLimitUsd": 1,
+          "estimatedUsd": 0.036515,
+          "reservedOrUncertainUsd": 0.0,
+          "accountedUsd": 0.036515,
+          "remainingUsd": 0.963485,
+          "requestCount": 3,
+          "canRequest": false,
+          "reason": "AI pricing or the persistent budget could not be verified. Paid requests are paused.",
+          "pricingVerifiedAt": "2026-10-21T19:50:00Z",
+          "pricingValidUntil": "2026-10-28T00:00:00Z",
+          "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+        },
+        "automatic_retries": false
+      }
+    },
+    "8891": {
+      "homeHttpStatus": 200,
+      "status": {
+        "consumer_ready": false,
+        "plan_validation_status": "pending",
+        "catalog_count": 0,
+        "agent_available": true,
+        "live_conversation_available": true,
+        "model_configured": true,
+        "model_id": "gpt-5.4",
+        "provider": "OpenAI",
+        "conversation_logging": false,
+        "guest_profiles": true,
+        "sample_count": 5,
+        "live_requests_remaining": null,
+        "ai_budget": {
+          "day": "2026-10-28",
+          "timezone": "UTC",
+          "resetAt": "2026-10-29T00:00:00+00:00",
+          "dailyLimitUsd": 1,
+          "estimatedUsd": 0.036515,
+          "reservedOrUncertainUsd": 0.0,
+          "accountedUsd": 0.036515,
+          "remainingUsd": 0.963485,
+          "requestCount": 3,
+          "canRequest": true,
+          "reason": "",
+          "pricingVerifiedAt": "2026-10-28T14:44:45Z",
+          "pricingValidUntil": "2026-11-04T00:00:00Z",
+          "label": "USD estimates from measured tokens; held amounts include requests without final usage. Not an invoice."
+        },
+        "automatic_retries": false
+      }
+    }
+  },
+  "currentUtcDay": "2026-10-28",
+  "generationCalls": 3,
+  "charges": [
+    {
+      "status": "settled",
+      "inputBound": 4395,
+      "outputBound": 900,
+      "inputTokens": 4395,
+      "cachedTokens": 0,
+      "outputTokens": 374,
+      "chargedNanoUsd": 16597500,
+      "measuredNanoUsd": 16597500
+    },
+    {
+      "status": "settled",
+      "inputBound": 4395,
+      "outputBound": 900,
+      "inputTokens": 4395,
+      "cachedTokens": 3840,
+      "outputTokens": 375,
+      "chargedNanoUsd": 7972500,
+      "measuredNanoUsd": 7972500
+    },
+    {
+      "status": "settled",
+      "inputBound": 4478,
+      "outputBound": 900,
+      "inputTokens": 4478,
+      "cachedTokens": 0,
+      "outputTokens": 50,
+      "chargedNanoUsd": 11945000,
+      "measuredNanoUsd": 11945000
+    }
+  ],
+  "priorDayChargeRowsRetained": 17,
+  "ledgerReadOnlyVerification": true,
+  "scenarios": [
+    "Multi-fact transition request twice, before and after composer fix",
+    "Medicare Advantage explanation during the active transition task"
+  ],
+  "deterministicStepsAddedGenerationCalls": 0,
+  "notes": "All three calls were explicit synthetic browser tests. No customer reports or raw chat are included in this packet. The alternative pricing review was renewed using unchanged official rates; the original config was preserved."
+}

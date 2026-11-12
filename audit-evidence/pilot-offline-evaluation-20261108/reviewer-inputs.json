@@ -1,0 +1,682 @@
+{
+  "schema": "daylight-ve03-reviewer-inputs/1",
+  "status": "fictional_inputs_for_independent_authoring",
+  "fixture_sha256": "14eed7772b390bf53d1a627d00b126d3bb3243c8d3b40a272dc6d8d8375bdff7",
+  "scenarios": [
+    {
+      "id": "P1",
+      "name": "Current-job transition",
+      "actions": [
+        {
+          "type": "task",
+          "task": "timing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "Help me prepare my Medicare transition. I want coverage in December 2026."
+        },
+        {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "employer"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC09",
+          "fields": {
+            "choice": "spouse_job"
+          }
+        },
+        {
+          "type": "message",
+          "message": "The job ends November 2026. I do not know when that insurance ends."
+        }
+      ]
+    },
+    {
+      "id": "P1-payer",
+      "name": "Current-job payer-order and HSA variant",
+      "actions": [
+        {
+          "type": "task",
+          "task": "timing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "Help me check payer order. My health insurance is through my current job. My job and insurance are ongoing. I already have Medicare Parts A and B."
+        },
+        {
+          "type": "choice",
+          "id": "RC04",
+          "fields": {
+            "choice": "both"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC06",
+          "fields": {
+            "choice": "age65"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC10",
+          "fields": {
+            "choice": "yes"
+          }
+        },
+        {
+          "type": "message",
+          "message": "Correction: I first qualified through disability before 65."
+        },
+        {
+          "type": "choice",
+          "id": "RC10",
+          "fields": {
+            "choice": "no"
+          }
+        },
+        {
+          "type": "message",
+          "message": "I also want to check HSA timing; contributions are still being made."
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "COBRA transition with dependents and move",
+      "actions": [
+        {
+          "type": "task",
+          "task": "timing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I have COBRA and want Medicare coverage in January 2027."
+        },
+        {
+          "type": "message",
+          "message": "That COBRA insurance ends in December 2026."
+        },
+        {
+          "type": "message",
+          "message": "Please check my drug gap and how switching could affect my spouse."
+        },
+        {
+          "type": "choice",
+          "id": "RC12",
+          "fields": {
+            "choice": "yes"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC13",
+          "fields": {
+            "choice": "unknown"
+          }
+        },
+        {
+          "type": "message",
+          "message": "I am moving in December 2026; that is the event I want checked."
+        }
+      ]
+    },
+    {
+      "id": "P2-browse",
+      "name": "Published information research-only variant",
+      "actions": [
+        {
+          "type": "task",
+          "task": "browse",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I only want to browse published plan information, not report a personal situation."
+        },
+        {
+          "type": "choice",
+          "id": "T03",
+          "fields": {
+            "zip": "34102"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC03",
+          "fields": {
+            "year": "2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "Advantage member exploring Medigap",
+      "actions": [
+        {
+          "type": "task",
+          "task": "medigap",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I want to explore Medigap after leaving my Medicare Advantage plan."
+        },
+        {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "self"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T03",
+          "fields": {
+            "zip": "34102"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T04",
+          "fields": {
+            "choice": "already"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "advantage"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC04",
+          "fields": {
+            "choice": "both"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC05",
+          "fields": {
+            "month": "October 2020"
+          }
+        },
+        {
+          "type": "message",
+          "message": "That Medicare Advantage episode began January 2026."
+        },
+        {
+          "type": "choice",
+          "id": "RC16",
+          "fields": {
+            "priorMedigap": "no"
+          }
+        },
+        {
+          "type": "message",
+          "message": "The plan-ending notice is the Medigap event I want checked."
+        }
+      ]
+    },
+    {
+      "id": "P3-replacement",
+      "name": "Current Medigap replacement and uncertainty variant",
+      "actions": [
+        {
+          "type": "task",
+          "task": "medigap",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I want a Medigap review. I have Original Medicare and Medigap, live in 34102, already have Medicare Parts A and B, and Part B began October 2020."
+        },
+        {
+          "type": "message",
+          "message": "I am keeping my existing Medigap policy while comparing options."
+        },
+        {
+          "type": "message",
+          "message": "That current arrangement might be Original Medicare."
+        },
+        {
+          "type": "message",
+          "message": "Yes, my current arrangement is Original Medicare."
+        },
+        {
+          "type": "message",
+          "message": "I want more predictable costs, and doctors and total cost matter most."
+        }
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "Two providers and several prescriptions",
+      "actions": [
+        {
+          "type": "task",
+          "task": "providers",
+          "preparing": true
+        },
+        {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "self"
+          }
+        },
+        {
+          "type": "message",
+          "message": "Dr. Rivera at Example Clinic; Dr. Lee at Example Hospital."
+        },
+        {
+          "type": "message",
+          "message": "Dr. Rivera at Example Clinic is in Naples, FL. Dr. Lee at Example Hospital is in Tampa, FL."
+        },
+        {
+          "type": "task",
+          "task": "drug_pricing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I take Example One 5 mg tablet and Example Two 10 mg capsule."
+        },
+        {
+          "type": "message",
+          "message": "Please prepare prescription costs, including adjusted costs."
+        },
+        {
+          "type": "message",
+          "message": "Example One: 30 tablets, 30 days, Example Pharmacy in Naples, retail."
+        },
+        {
+          "type": "message",
+          "message": "Example Two: 60 capsules, 30 days, Example Pharmacy in Naples, retail."
+        },
+        {
+          "type": "choice",
+          "id": "RC18",
+          "fields": {
+            "choice": "medicaid,extra_help"
+          }
+        },
+        {
+          "type": "message",
+          "message": "Correction: Example One is a 10 mg tablet."
+        },
+        {
+          "type": "defer",
+          "id": "RC23"
+        },
+        {
+          "type": "message",
+          "message": "Example Two is filled at a pharmacy, not a clinic."
+        }
+      ]
+    },
+    {
+      "id": "P4-unknown",
+      "name": "Partial medicine identity without fabricated pricing inputs",
+      "actions": [
+        {
+          "type": "task",
+          "task": "drug_pricing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I take Example Three, a tablet. I do not know the strength."
+        }
+      ]
+    },
+    {
+      "id": "P5",
+      "name": "Caregiver, military coverage, travel and budget",
+      "actions": [
+        {
+          "type": "task",
+          "task": "compare",
+          "preparing": true
+        },
+        {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "someone"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T04",
+          "fields": {
+            "choice": "already"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "military"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T03",
+          "fields": {
+            "zip": "34102"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T06",
+          "fields": {
+            "choice": "none"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T07",
+          "fields": {
+            "choice": "no"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T08",
+          "fields": {
+            "choice": "elsewhere_us"
+          }
+        },
+        {
+          "type": "message",
+          "message": "Routine care is needed in Tampa, Florida."
+        },
+        {
+          "type": "task",
+          "task": "timing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "We want payer-order questions for that military coverage."
+        },
+        {
+          "type": "choice",
+          "id": "RC04",
+          "fields": {
+            "choice": "both"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC06",
+          "fields": {
+            "choice": "age65"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "RC26",
+          "fields": {
+            "choice": "tfl"
+          }
+        },
+        {
+          "type": "task",
+          "task": "costs",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "The person wants a monthly budget of $200."
+        },
+        {
+          "type": "choice",
+          "id": "RC25",
+          "fields": {
+            "includes": "premiums_and_care"
+          }
+        },
+        {
+          "type": "message",
+          "message": "The person receives Medicaid and Extra Help benefits."
+        },
+        {
+          "type": "task",
+          "task": "snp",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "We want to understand Special Needs Plans. A plan letter says program confirmation is pending."
+        },
+        {
+          "type": "message",
+          "message": "The person has a refill interruption and wants human help."
+        },
+        {
+          "type": "message",
+          "message": "I am new to Medicare and want more explanation."
+        }
+      ]
+    },
+    {
+      "id": "P6",
+      "name": "Conflicting dates and explicit correction",
+      "actions": [
+        {
+          "type": "task",
+          "task": "timing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I have COBRA, want Medicare coverage in January 2027, and that insurance ends December 2026."
+        },
+        {
+          "type": "message",
+          "message": "I think that insurance ends January 2027, but I am not certain."
+        },
+        {
+          "type": "message",
+          "message": "Correction: that insurance ends February 2027."
+        }
+      ]
+    },
+    {
+      "id": "P7",
+      "name": "Mostly unknown answers retain missingness",
+      "actions": [
+        {
+          "type": "choice",
+          "id": "T01",
+          "fields": {
+            "choice": "compare"
+          }
+        },
+        {
+          "type": "unknown",
+          "id": "RC01"
+        },
+        {
+          "type": "unknown",
+          "id": "T04"
+        },
+        {
+          "type": "unknown",
+          "id": "T05"
+        },
+        {
+          "type": "unknown",
+          "id": "T03"
+        },
+        {
+          "type": "unknown",
+          "id": "T06"
+        },
+        {
+          "type": "unknown",
+          "id": "T07"
+        },
+        {
+          "type": "unknown",
+          "id": "T08"
+        },
+        {
+          "type": "next",
+          "step": "samples"
+        },
+        {
+          "type": "next",
+          "step": "resume"
+        }
+      ]
+    },
+    {
+      "id": "P8",
+      "name": "Educational detour and deliberate goal changes",
+      "actions": [
+        {
+          "type": "task",
+          "task": "compare",
+          "preparing": true
+        },
+        {
+          "type": "choice",
+          "id": "RC01",
+          "fields": {
+            "choice": "self"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T04",
+          "fields": {
+            "choice": "month",
+            "month": "December 2026"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T05",
+          "fields": {
+            "choice": "cobra"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T03",
+          "fields": {
+            "zip": "34102"
+          }
+        },
+        {
+          "type": "message",
+          "message": "What is Medicare Advantage?"
+        },
+        {
+          "type": "message",
+          "message": "I want to just learn for now."
+        },
+        {
+          "type": "task",
+          "task": "drug_pricing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I do not take any prescription medicines."
+        },
+        {
+          "type": "task",
+          "task": "compare",
+          "preparing": true
+        },
+        {
+          "type": "choice",
+          "id": "T06",
+          "fields": {
+            "choice": "none"
+          }
+        },
+        {
+          "type": "choice",
+          "id": "T08",
+          "fields": {
+            "choice": "local"
+          }
+        }
+      ]
+    },
+    {
+      "id": "P9",
+      "name": "Beneficiary and helper coverage stay separate",
+      "actions": [
+        {
+          "type": "task",
+          "task": "timing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I am helping my mother prepare a Medicare transition. She has COBRA, wants Medicare coverage in January 2027, and her insurance ends December 2026."
+        },
+        {
+          "type": "message",
+          "message": "I have current-job insurance, but that is my coverage; my mother still has COBRA."
+        },
+        {
+          "type": "message",
+          "message": "Switch to my coverage instead of my mother; I have current-job insurance."
+        },
+        {
+          "type": "message",
+          "message": "Keep this conversation about my mother. This is for someone else."
+        }
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "Same medicine name, distinct strengths and ambiguous fill",
+      "actions": [
+        {
+          "type": "task",
+          "task": "drug_pricing",
+          "preparing": true
+        },
+        {
+          "type": "message",
+          "message": "I take Example Med 5 mg tablets and Example Med 10 mg tablets."
+        },
+        {
+          "type": "message",
+          "message": "Example Med 5 mg fill: 30 tablets, 30 days, Example Pharmacy in Naples, retail."
+        },
+        {
+          "type": "message",
+          "message": "Example Med 10 mg fill: 60 tablets, 30 days, Example Pharmacy in Naples, retail."
+        },
+        {
+          "type": "message",
+          "message": "Change it to 90 days."
+        },
+        {
+          "type": "message",
+          "message": "For the 5 mg Example Med, change the fill to 90 days."
+        }
+      ]
+    }
+  ]
+}

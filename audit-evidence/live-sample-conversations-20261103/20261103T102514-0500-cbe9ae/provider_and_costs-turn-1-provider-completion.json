@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 39798,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7515,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 6912
+      },
+      "output_tokens": 416,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7931
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"Start with two things: your coverage route and your doctor/cost checks. Medicare has two main paths: Original Medicare is Parts A and B through the federal program, while Medicare Advantage is a private plan that provides Parts A and B. With Original Medicare, you can add a separate drug plan and may be able to buy Medigap to help with your share of costs. With Medicare Advantage, most plans include drug coverage, and you still pay the Part B premium either way.\\n\\nSince keeping your cardiologist matters and you want to understand visit costs, the practical comparison is usually: whether your cardiologist participates in the exact coverage, and what the plan's costs look like beyond the monthly premium. A premium is what you pay each month. Visit costs can also include a deductible, copays, or coinsurance when you use care, so the premium alone does not tell you what cardiology visits could cost.\\n\\nBecause plans vary by area, the first detail I need to narrow this down is your ZIP code in Collier County.\",\"question\":\"What ZIP code do you live in?\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"routesintro\",\"options\",\"costs\"],\"agenda_update\":{\"current_concern\":\"where to start with keeping cardiologist and visit costs\",\"pause\":false},\"education\":{\"purpose\":\"teach\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"introduced\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"premiums\",\"deductible\",\"cost_sharing\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"coverage_paths\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 7.315408
+}

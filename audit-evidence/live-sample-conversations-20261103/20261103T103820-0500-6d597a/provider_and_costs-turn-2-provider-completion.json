@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 45063,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8602,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 326,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 8928
+    },
+    "text": "{\"question_target\":\"T06\",\"reply\":\"That’s enough to get oriented. You’ve reported Aetna Medicare Advantage, and the doctor detail is now more specific: Dr. Maya Reed at Cypress Heart Clinic in Naples. The missing piece is the exact Aetna plan name for this year, because keeping a doctor and what a cardiology visit costs depend on the exact plan, not just the carrier. A carrier match alone doesn’t confirm participation, coverage, or your cost.\\n\\nSince visit cost matters to you, once the exact plan is identified, the key checks are: whether this office participates in that plan, and what the plan says about specialist visit cost-sharing. If you don’t know the plan name yet, that’s okay—we can keep preparing around it.\",\"question\":\"Can you confirm the doctor you want to keep is Dr. Maya Reed at Cypress Heart Clinic in Naples? I want to make sure we compare against the right office before talking through the next check.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\",\"guide.needs.providers\",\"readiness.RC21.doctor-1.practice\",\"readiness.RC21.doctor-1.city\"],\"evidence_refs\":[\"checks\",\"costs\"],\"agenda_update\":{\"current_concern\":\"comparing coverage while keeping a cardiologist and understanding visit costs\",\"pause\":false},\"education\":{\"purpose\":\"advance\",\"updates\":[],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"provider_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 7.519335
+}

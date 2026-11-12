@@ -1,0 +1,193 @@
+{
+  "value": {
+    "move_id": "T04",
+    "reply": "Thanks\u2014that helps separate your current coverage from when you want Medicare to begin.",
+    "question": "When would you like Medicare coverage to start?",
+    "report_refs": [
+      "guide.coverage.current",
+      "readiness.RC09.profile.choice"
+    ],
+    "evidence_refs": []
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.knowledge.general",
+        "status": "reported",
+        "value": "new",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported",
+        "value": {
+          "month": 11,
+          "year": null
+        },
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "employer"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC06.profile.choice",
+        "status": "reported",
+        "value": "age65",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC09.profile.choice",
+        "status": "reported",
+        "value": "spouse_job",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [],
+    "task": "timing",
+    "dialogue": {
+      "orientation": "",
+      "lastTarget": {
+        "id": "T05",
+        "entity": "profile",
+        "fields": []
+      },
+      "explainedTopics": [],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      4,
+      4
+    ],
+    "activeQuestion": {
+      "id": "T04",
+      "entity": "profile",
+      "fields": [
+        "month"
+      ]
+    },
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "A soonest-possible desired start is a preference, not an exact start month or actual enrollment.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "current_message": "My health insurance is through my wife's current job.",
+    "recent_exchanges": [
+      {
+        "user": "I turn 65 in November and want to enroll in medicare -- dont know too much and want to explore my options",
+        "assistant": "We can keep this simple and look at what you have now before options for November.",
+        "question": "What health insurance do you have now?"
+      }
+    ],
+    "evidence": [],
+    "uncertainties": []
+  },
+  "moves": [
+    {
+      "id": "T04",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would you like Medicare coverage to start?",
+        "why": "Your preferred start can differ from when your current insurance ends.",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "purpose": "Your preferred start can differ from when your current insurance ends.",
+      "priority": 0
+    }
+  ],
+  "accepted": true
+}

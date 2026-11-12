@@ -1,0 +1,483 @@
+--- before/natural_agent.py
++++ after/natural_agent.py
+@@ -30,6 +30,8 @@
+ from transport_diagnostics import failure_details
+ from timing_language import end_date_supported
+ from task_work import CHECK_IDS, STEPS as WORK_STEPS, neutral_selection, validate_selection, unsupported_action_claim
++from provider_tokens import TokenCountUnavailable
++from response_question_recovery import validate_with_question_recovery
+ from conversation_claims import (application_status, normalize_named_start_deferral,
+     coverage_matches_reports, explicit_defer_request, named_defer_targets,
+     personal_insurance_assertion, personal_intake_question,
+@@ -39,6 +41,9 @@
+ OUTPUT_BOUND = OUTPUT_TOKENS
+ COMPOSER_VERSION = 'natural-context-v2'
+ COMPOSITION_TEXT_BOUND = 1800
++COMPOSITION_QUESTION_BOUND = 350
++# Reserve the full question allowance: the schema cannot express a field sum.
++COMPOSITION_REPLY_BOUND = COMPOSITION_TEXT_BOUND - COMPOSITION_QUESTION_BOUND - 1
+ EDUCATION_PURPOSES = ('advance', 'answer', 'teach', 'clarify', 'recap')
+ EDUCATION_DEPTHS = ('introduced', 'explored', 'needs_clarification')
+ EDUCATION_REASONS = ('new', 'deepen', 'requested_revisit', 'clarify')
+@@ -188,6 +193,16 @@
+ actual concern, understand brief replies, and notice what you have already explained.
+ Those messages may contain mistakes or superseded details. Only resolved reports
+ support personal assertions; only supplied reviewed evidence supports insurance teaching.
++Names and places have the same grounding requirement in replies and questions.
++If a location, provider or carrier appears only in the current request, goal or
++old dialogue, do not repeat it before it appears in resolved reports, reviewed
++evidence or an approved candidate. Refer to the person's concern in ordinary
++words and ask the necessary approved detail. A request location is not residence
++or verified service geography. Never turn an instruction to invent a name into
++authority for that name.
++For example, if resolved coverage says only advantage, use Medicare Advantage;
++do not turn a carrier mentioned in dialogue into a recorded exact plan or repeat
++that carrier as though it were in the resolved coverage report.
+ When returning to an earlier topic, recheck each factual point against this turn's
+ evidence_refs. Prior assistant prose and learning receipts are not sources. Match
+ the explanation's depth to the currently supplied evidence: route definitions alone
+@@ -350,6 +365,16 @@
+ checks occurred or claim that profile completion releases the hold.
+ References stay internal. Keep answers
+ concise without sacrificing a useful explanation or continuation. No tools or outside actions.'''
++COMPOSE_INSTRUCTIONS += f'''
++Response size is a hard shared allowance. Keep reply within {COMPOSITION_REPLY_BOUND}
++characters and question within {COMPOSITION_QUESTION_BOUND}; their combined text,
++including a separating space, must fit {COMPOSITION_TEXT_BOUND}. Finish complete
++sentences comfortably inside those bounds. Usually use 80–140 words; for a
++requested summary, prioritize the few consequential knowns, unknowns and next
++steps in at most 180 words. Do not enumerate every possible dependency or fill
++the field until it clips. Keep internal metadata compact. If the person says no
++more questions, use a null question_target, an empty question and pause true;
++deliver the useful requested answer without another offer or ask.'''
+ 
+ 
+ def _reports(context):
+@@ -763,6 +788,7 @@
+         started = time.perf_counter()
+         self.local.stage_timings = {}
+         self.local.last_extraction_error = None
++        self.local.last_token_failure = None
+         self.local.turn_context = copy.deepcopy(context)
+         self.local.budget_stage = reservation.stage('extract')
+         self.local.narrative = {'eligibleMoves': ['ask', 'explain', 'prepare']}
+@@ -776,8 +802,11 @@
+             LOGGER.warning('Daylight extraction unavailable code=transport_or_format')
+             raise ModelUnavailable('Live AI could not complete this request. Retry or use the manual guide; your details are unchanged.') from error
+         except ModelUnavailable as error:
+-            code = ('provider_failure' if getattr(self.local,'provider_failure',None)
++            code = ('input_token_verification' if isinstance(error,TokenCountUnavailable) else
++                    'provider_failure' if getattr(self.local,'provider_failure',None)
+                     else EXTRACTION_ERROR_CODES.get(str(error),'extraction_unavailable'))
++            if isinstance(error,TokenCountUnavailable):
++                self.local.last_token_failure = copy.deepcopy(error.diagnostic)
+             self.local.last_extraction_error = code
+             LOGGER.warning('Daylight extraction unavailable code=%s', code)
+             raise
+@@ -1118,6 +1147,7 @@
+         self.local.last_transport_failure = None
+         self.local.stream_status = None
+         self.local.provider_failure = None
++        self.local.last_token_failure = None
+         if not self.enabled or not self.client.available:
+             raise ModelUnavailable('Live composition is unavailable. Your accepted details remain available.')
+         context = copy.deepcopy(resolved_context)
+@@ -1130,8 +1160,8 @@
+         evidence_ids = [item['id'] for item in evidence]
+         spec = schema({
+             'question_target': {'type': ['string','null'], 'enum': [None,*[move['id'] for move in moves]]},
+-            'reply': {'type': 'string', 'maxLength': COMPOSITION_TEXT_BOUND},
+-            'question': {'type': 'string', 'maxLength': 350},
++            'reply': {'type': 'string', 'maxLength': COMPOSITION_REPLY_BOUND},
++            'question': {'type': 'string', 'maxLength': COMPOSITION_QUESTION_BOUND},
+             'education_followups': {'type': 'array', 'maxItems': 2,
+                 'items': {'type': 'string', 'minLength': 1, 'maxLength': 120}},
+             'report_refs': {'type': 'array', 'maxItems': 12, 'items': {'type': 'string', **({'enum': report_ids} if report_ids else {})}, **({'maxItems': 0} if not report_ids else {})},
+@@ -1208,7 +1238,10 @@
+                 'The provider-access explanation is outside its referenced evidence.': 'missing_evidence',
+                 'The response exceeded the conversational text allowance.': 'text_bound',
+             }
+-            self.local.last_composition_error = codes.get(str(error), 'unavailable')
++            self.local.last_composition_error = ('input_token_verification'
++                if isinstance(error,TokenCountUnavailable) else codes.get(str(error), 'unavailable'))
++            if isinstance(error,TokenCountUnavailable):
++                self.local.last_token_failure = copy.deepcopy(error.diagnostic)
+             raise
+         except (HTTPError, URLError, TimeoutError, SSLError, ConnectionError,
+                 json.JSONDecodeError, KeyError, TypeError) as error:
+@@ -1280,11 +1313,13 @@
+         if not isinstance(value, dict) or 'education' not in value:
+             raise ModelUnavailable('The conversational response could not be checked.')
+         core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work'}}
+-        checked = self._validate_composition_core(core, context, moves)
++        checked, recovery = validate_with_question_recovery(self._validate_composition_core, core, context, moves)
+         education = self._validate_education(value['education'], checked)
+         result = {**checked, 'education': education,
+                   'education_metadata_dropped': education != value['education'],
+                   'education_followups': []}
++        if recovery:
++            result['validation_recovery'] = recovery
+         try:
+             result['task_work'] = validate_selection(value.get('task_work', neutral_selection()))
+         except ValueError:
+@@ -1457,8 +1492,8 @@
+         if any(literal.casefold() not in literal_grounding for literal in literals):
+             raise ModelUnavailable('The response introduced a date or amount outside its sources.')
+         names = re.findall(r'\b(?:Dr\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*|(?:[A-Z][a-z]+\s+){1,3}[A-Z][a-z]+|[A-Z][a-z]+[A-Z][A-Za-z]+)\b', combined)
+-        public_names = {'medicare', 'medigap', 'daylight', 'medicare advantage', 'original medicare', 'part a', 'part b', 'part d'}
+-        names = [re.sub(r'^(?:Your|Our|The|An|With|For|If|Since|Before|After|When|Whether|About|And|But|As|In|On|Through|Unlike|Because|Understanding|Reviewing)\s+', '', name) for name in names]
++        public_names = {'medicare', 'medigap', 'daylight', 'medicare advantage', 'original medicare', 'advantage', 'part a', 'part b', 'part d'}
++        names = [re.sub(r'^(?:Your|Our|The|An|With|For|If|Since|Before|After|When|Whether|About|And|But|As|In|On|Through|Unlike|Because|Understanding|Reviewing|Most|Some|Many|Both|Each|These|Those)\s+', '', name) for name in names]
+         # A conversational prefix or doctor honorific is not part of a new
+         # identity. Keep the entire remaining name subject to source grounding:
+         # extra surnames and invented people must still fail this same check.
+--- before/natural_flow.py
++++ after/natural_flow.py
+@@ -45,7 +45,8 @@
+ COMPOSITION_CODES = frozenset({'ungrounded_literal', 'ungrounded_entity', 'invalid_reference',
+     'unsupported_finding', 'missing_evidence', 'missing_report_reference', 'missing_coverage_reference',
+     'missing_worker_reference', 'missing_progress_reference', 'format_or_duplicate_question',
+-    'unavailable', 'transport_or_format', 'provider_failure', 'composition_unavailable'})
++    'unavailable', 'transport_or_format', 'provider_failure', 'composition_unavailable',
++    'input_token_verification', 'text_bound'})
+ LOGGER = logging.getLogger(__name__)
+ QUESTION_TOPICS = {'T02':'learning','T04':'timing','T05':'current_coverage','T06':'doctors',
+     'T07':'drugs','T08':'travel','T09':'total_cost','T10':'other','RC09':'current_coverage',
+@@ -428,8 +429,31 @@
+         held = identifier in {'RC21', 'RC22', 'RC23'} and record['facts'].get(identifier, {}).get('stale')
+         if held:
+             record['facts'][identifier]['stale'] = False
++        provider_text = (self.value(guide, 'needs.providers')
++            if identifier == 'RC21' and not retired else None)
++        previous_offices = copy.deepcopy(record['facts'].get('RC21', {}).get('value', {}).get('items', []))
+         try:
+-            return super().apply(guide, record, update, source)
++            result = super().apply(guide, record, update, source)
++            if isinstance(provider_text, str) and provider_text:
++                # RC21 owns office detail. Its practice-only convenience
++                # projection must not erase the independently reported T06
++                # clinician/list text. Reconcile exact office corrections when
++                # there is one unambiguous retained office; do not revive names
++                # after an explicit No or guess a multi-office text binding.
++                projection = self.value(guide, 'needs.providers') or ''
++                if update.get('correction') and len(previous_offices) > 1:
++                    return result
++                if update.get('correction') and len(previous_offices) == 1:
++                    for field in ('practice', 'city'):
++                        old, new = previous_offices[0].get(field), update.get('fields', {}).get(field)
++                        if isinstance(old, str) and old and isinstance(new, str) and new:
++                            provider_text = provider_text.replace(old, new)
++                for piece in projection.split('; '):
++                    if piece and piece.casefold() not in provider_text.casefold():
++                        provider_text += '; ' + piece
++                if provider_text != projection:
++                    self.put(guide, 'needs.providers', provider_text, source)
++            return result
+         finally:
+             if held and identifier in record['facts']:
+                 record['facts'][identifier]['stale'] = True
+@@ -803,6 +827,10 @@
+         if pending:
+             identifier = pending['update']['id']
+             prefixes = ['guide.' + FIELD[identifier]] if identifier in FIELD else ['readiness.' + identifier + '.']
++            if identifier == 'T03' and set(pending['update'].get('fields', {})) == {'county'}:
++                # A county qualification cannot invalidate an independently
++                # supplied ZIP. FIELD[T03] maps the baseline ZIP, not county.
++                prefixes = ['guide.comparison.scope.county']
+             if identifier == 'T04': prefixes.append('guide.coverage.requestedStartMonth')
+             if identifier in {'S_AGE65', 'S_RETIREMENT'}:
+                 prefixes = ['guide.' + SITUATION_FIELDS['age65' if identifier == 'S_AGE65' else 'retirement']]
+@@ -877,6 +905,8 @@
+             out['assessment']['intakePaused'] = bool(not selected and moves)
+             out['assessment']['conversationOpen'] = bool(not selected and (moves or self.report(out['record'], 'RC01').get('choice') == 'research' or metadata(out['record'])['task'] == 'learn'))
+             out['generated'] = {'status': 'complete', 'move': target or 'answer'}
++            if composed.get('validation_recovery'):
++                out['generated']['validation_recovery'] = copy.deepcopy(composed['validation_recovery'])
+             used = [identifier for identifier in composed['evidence_refs'] if identifier in evidence]
+             taught = list(dict.fromkeys(ref for item in planned['accepted_updates']
+                 if item['depth'] != 'needs_clarification' for ref in item['evidence_refs']))
+@@ -926,16 +956,24 @@
+                 out['notice'] = provider_failure_message(diagnostic, accepted=True)
+             code = getattr(self.agent.local, 'last_composition_error', None) or ('provider_failure' if diagnostic else 'composition_unavailable')
+             if code not in COMPOSITION_CODES: code = 'composition_unavailable'
++            if code == 'input_token_verification':
++                out['notice'] = 'The AI connection check could not finish. Your reported details are kept.'
+             out['generated'] = {'status': 'unavailable', 'retryable': False, 'reason': str(error)[:220], 'code': code}
+             transport = getattr(self.agent.local, 'last_transport_failure', None)
+             if code == 'transport_or_format' and transport:
+                 out['generated']['transport'] = copy.deepcopy(transport)
+             if diagnostic: out['generated']['providerFailure'] = copy.deepcopy(diagnostic)
++            token_failure = getattr(self.agent.local,'last_token_failure',None)
++            if code == 'input_token_verification' and token_failure:
++                out['generated']['preflight'] = copy.deepcopy(token_failure)
+             with self.lock:
+                 self.composition_diagnostics.append({'code': code, 'questionAvailable': bool(recovery_question), 'intakePaused': False})
+                 self.composition_diagnostics = self.composition_diagnostics[-50:]
+             LOGGER.warning('Daylight composition unavailable code=%s question_available=%s', code, bool(recovery_question))
+-        out['metrics']['llmCalls'] += 1
++        # Exact counting may fail before submission. Count paid stages actually
++        # issued, including an uncertain stream, rather than attempted methods.
++        stage = reservation.stage('compose') if reservation else None
++        out['metrics']['llmCalls'] += int(bool(stage and stage.status in {'issued', 'settled', 'uncertain'}))
+         out['metrics']['stageMs'] = copy.deepcopy(getattr(self.agent.local, 'stage_timings', {}))
+         return out
+ 
+@@ -1021,8 +1059,34 @@
+                 updates.append(u)
+             # Dependencies first, independent of extraction order.
+             updates.sort(key=lambda u:0 if u['id'] == 'RC01' else 1 if u['id'] in FIELD else 2)
++            # Multiple positive priorities in one message are coequal answers
++            # to the existing multi-select meaning, not sequential corrections.
++            # Across-turn changes and explicit corrections retain their guards.
++            priorities = [u for u in updates if u['id'] == 'T10']
++            positive = set(dict(Q['T10']['choices'])) - {'unknown', 'none'}
++            if (len(priorities) > 1
++                    and all(set(u['fields']) == {'choice'} and not u.get('correction')
++                            and not u.get('uncertain') and isinstance(u['fields']['choice'], str)
++                            and set(u['fields']['choice'].split(',')) <= positive for u in priorities)
++                    and len({(u.get('entity'), u.get('subject'), u.get('scope')) for u in priorities}) == 1):
++                start = min(message.find(u['quote']) for u in priorities)
++                end = max(message.find(u['quote']) + len(u['quote']) for u in priorities)
++                if 0 <= start < end and end - start <= 600:
++                    merged = copy.deepcopy(priorities[0])
++                    merged['fields']['choice'] = ','.join(dict.fromkeys(
++                        choice for u in priorities for choice in u['fields']['choice'].split(',')))
++                    merged['quote'] = message[start:end]
++                    updates = [u for u in updates if u['id'] != 'T10'] + [merged]
+             ambiguous = [];accepted_updates=[]
+             for update in updates:
++                if (update['id'] == 'T03' and set(update['fields']) == {'county'}
++                        and not re.fullmatch(r'\d{5}', str(self.value(g, 'comparison.scope.zip') or ''))):
++                    # The existing location operation needs a ZIP before it can
++                    # qualify a county. A request mentioning a county is neither
++                    # a conflicting ZIP nor a failed clarification answer. Its
++                    # words remain in the permitted visit; ask the normal ZIP
++                    # candidate rather than creating an unresolvable hold.
++                    continue
+                 pending = self.pending_for(owner)
+                 resolution_update = self.pending_resolution_update(pending, update, r)
+                 resolves_pending = self.touches_pending(pending, update) or self.touches_pending(pending, resolution_update)
+--- before/provider_tokens.py
++++ after/provider_tokens.py
+@@ -3,10 +3,28 @@
+ Same counted payload and bounds as the pinned counter. No generation or retry.
+ """
+ import json
++import logging
+ from urllib.error import HTTPError, URLError
+ from urllib.request import Request
+ from ai_budget import BudgetError, token_int
+ from provider_transport import urlopen
++from transport_diagnostics import failure_details
++
++LOGGER = logging.getLogger(__name__)
++
++
++class TokenCountUnavailable(BudgetError):
++    """Compatibility with the existing gate; this is not a spending-cap error."""
++    failure_code = 'input_token_verification'
++
++    def __init__(self, diagnostic):
++        super().__init__('The AI connection check could not finish. Your current work is preserved.')
++        self.diagnostic = diagnostic
++
++
++def _unavailable(diagnostic):
++    LOGGER.warning('Daylight token verification %s', json.dumps(diagnostic,sort_keys=True))
++    return TokenCountUnavailable(diagnostic)
+ 
+ 
+ def count_input_tokens(client, payload):
+@@ -18,10 +36,21 @@
+         with urlopen(request, timeout=15) as response:
+             raw = response.read(10_001)
+         if len(raw) > 10_000:
+-            raise BudgetError('AI token count exceeded its bound.')
++            raise _unavailable({'phase':'preflight','reason':'count_response_too_large'})
+         count = json.loads(raw)
+         if count.get('object') != 'response.input_tokens':
+-            raise BudgetError('AI input token count is unavailable.')
+-        return token_int(count.get('input_tokens'))
+-    except (HTTPError, URLError, TimeoutError, ValueError, KeyError, TypeError):
+-        raise BudgetError('AI input token count could not be verified. No paid generation was started; manual guidance remains available.') from None
++            raise _unavailable({'phase':'preflight','reason':'count_response_identity'})
++        try:
++            value = token_int(count.get('input_tokens'))
++            if value < 1:
++                raise BudgetError('Invalid input count.')
++        except BudgetError:
++            raise _unavailable({'phase':'preflight','reason':'count_value_invalid'}) from None
++        return value
++    except TokenCountUnavailable:
++        raise
++    except (HTTPError, URLError, TimeoutError) as error:
++        raise _unavailable(failure_details(error,'preflight')) from None
++    except (ValueError, KeyError, TypeError, AttributeError) as error:
++        raise _unavailable({'phase':'preflight','reason':'count_response_format',
++                            'exception':type(error).__name__}) from None
+--- before/provider_transport.py
++++ after/provider_transport.py
+@@ -21,6 +21,27 @@
+ })
+ FAILURE = 'The verified AI connection could not complete.'
+ BODY_BOUND = 1_000_000
++
++
++class ProviderTransportError(URLError):
++    """Only fixed failure categories and the curl exit status may escape."""
++    def __init__(self, category, curl_exit_code=None):
++        super().__init__(FAILURE)
++        self.transport_category = category
++        self.curl_exit_code = curl_exit_code
++
++
++def _failed(process, category):
++    code = process.poll()
++    if code is None:
++        try:
++            code = process.wait(timeout=2)
++        except subprocess.TimeoutExpired:
++            code = None
++    kinds = {5:'proxy',6:'dns',7:'connect',28:'timeout',35:'tls',
++             51:'certificate',58:'certificate',60:'certificate',
++             52:'empty_response',55:'send',56:'receive',92:'http2'}
++    return ProviderTransportError(kinds.get(code,category),code)
+ 
+ 
+ def _quote(value):
+@@ -76,9 +97,9 @@
+     try:
+         code = process.wait(timeout=2)
+     except subprocess.TimeoutExpired as error:
+-        raise URLError(FAILURE) from error
++        raise ProviderTransportError('process_timeout') from error
+     if code:
+-        raise URLError(FAILURE)
++        raise _failed(process,'process_exit')
+ 
+ 
+ def _headers(process):
+@@ -86,7 +107,7 @@
+         line = process.stdout.readline(1025)
+         match = re.fullmatch(rb'HTTP/\d(?:\.\d)? (\d{3})(?: [^\r\n]*)?\r?\n', line)
+         if not match:
+-            raise URLError(FAILURE)
++            raise _failed(process,'invalid_headers' if line else 'empty_headers')
+         status = int(match[1])
+         lines = []
+         size = 0
+@@ -94,13 +115,13 @@
+             line = process.stdout.readline(8193)
+             size += len(line)
+             if not line or len(line) > 8192 or size > 65536:
+-                raise URLError(FAILURE)
++                raise _failed(process,'invalid_headers')
+             if line in {b'\n', b'\r\n'}:
+                 break
+             lines.append(line)
+         if status >= 200:
+             return status, BytesHeaderParser().parsebytes(b''.join(lines))
+-    raise URLError(FAILURE)
++    raise ProviderTransportError('too_many_interim_responses')
+ 
+ 
+ class _Stream:
+@@ -160,7 +181,7 @@
+             raise HTTPError(request.full_url, status, 'AI provider HTTP request failed.',
+                             headers, io.BytesIO(body))
+         yield stream
+-    except HTTPError:
++    except (HTTPError, ProviderTransportError):
+         raise
+     except (OSError, HTTPException) as error:
+         raise URLError(FAILURE) from error
+--- before/transport_diagnostics.py
++++ after/transport_diagnostics.py
+@@ -2,7 +2,7 @@
+ import json
+ from urllib.error import HTTPError
+ 
+-_KINDS = {'HTTPError', 'URLError', 'TimeoutError', 'SSLError', 'ConnectionError',
++_KINDS = {'HTTPError', 'URLError', 'ProviderTransportError', 'TimeoutError', 'SSLError', 'ConnectionError',
+           'ConnectionResetError', 'JSONDecodeError', 'KeyError', 'TypeError'}
+ _PHASES = {'preflight', 'stream', 'decode', 'validate'}
+ _CODES = {'invalid_json_schema', 'invalid_request_error', 'invalid_api_key',
+@@ -13,6 +13,14 @@
+ def failure_details(error, phase, stream=None):
+     result = {'exception': type(error).__name__ if type(error).__name__ in _KINDS else 'unknown',
+               'phase': phase if phase in _PHASES else 'unknown'}
++    exit_code = getattr(error, 'curl_exit_code', None)
++    if type(exit_code) is int and -15 <= exit_code <= 99:
++        result['curl_exit_code'] = exit_code
++    category = getattr(error, 'transport_category', None)
++    if category in {'proxy','dns','connect','timeout','tls','certificate','empty_response',
++                    'send','receive','http2','invalid_headers','empty_headers','process_exit',
++                    'process_timeout','too_many_interim_responses'}:
++        result['transport_category'] = category
+     if isinstance(error, HTTPError):
+         result['http_status'] = error.code if type(error.code) is int else 0
+         try:
+--- before/server.py
++++ after/server.py
+@@ -32,6 +32,7 @@
+ from identity_http import install_identity_routes
+ from understanding import VERSION as UNDERSTANDING_VERSION
+ from task_work import VERSION as TASK_WORK_VERSION
++from response_question_recovery import VERSION as RESPONSE_RELIABILITY_VERSION
+ 
+ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=None,
+           research_repository=None, reference_adapter=None, identity_service=None):
+@@ -50,7 +51,8 @@
+         budget_database=None if fixture else REPO/'cms-slice/var/ai-budget/usage.sqlite3',
+         cookie_namespace='daylight_advisor_fixture' if fixture else 'daylight_advisor_dev',
+         ui_config={'mockAI':fixture,'advisorFirst':True,'variant':'D86','modelPolicy':policy,
+-                   'understandingContract':UNDERSTANDING_VERSION,'taskWorkContract':TASK_WORK_VERSION},
++                   'understandingContract':UNDERSTANDING_VERSION,'taskWorkContract':TASK_WORK_VERSION,
++                   'responseReliabilityContract':RESPONSE_RELIABILITY_VERSION},
+         conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
+         adaptive_class=NaturalConversation)
+     try:
+--- before/natural_state.py
++++ after/natural_state.py
+@@ -494,7 +494,14 @@
+         and isinstance(old.get('choice'), str) and bool(old['choice'])
+         and set(old['choice'].split(',')) <= positive_programs
+         and bool(fields['choice']) and set(fields['choice'].split(',')) <= positive_programs)
+-    if changed and not start_refinement and not date_refinement and not program_addition and not update['correction'] and not (isinstance(existing, dict) and (existing.get('stale') or existing.get('status') in {'unknown', 'skipped', 'stale'})):
++    # The retained provider-list operation appends a named provider to an
++    # existing positive list. Naming that doctor after saying "cardiologist"
++    # does not retract the earlier list or require a correction confirmation.
++    provider_addition = (identifier == 'T06' and old.get('choice') == 'list'
++        and fields.get('choice', 'list') == 'list' and set(fields) <= {'choice', 'text'}
++        and bool(fields.get('text')) and fields['text'].strip().casefold() not in UNRESOLVED
++        and update['subject'] == 'beneficiary' and update['scope'] in {'current', 'intended'})
++    if changed and not start_refinement and not date_refinement and not program_addition and not provider_addition and not update['correction'] and not (isinstance(existing, dict) and (existing.get('stale') or existing.get('status') in {'unknown', 'skipped', 'stale'})):
+         return decision('clarify', 'conflicting_report')
+     if start_refinement:
+         return decision('accept', 'explicit_start_refinement')
+--- before/tests/test_provider_capture_regression.py
++++ after/tests/test_provider_capture_regression.py
+@@ -37,7 +37,7 @@
+                     for identifier, fields, entity in reports])
+                 self.assertEqual(out['generated']['status'], 'complete')
+                 self.assertEqual(case.flow.value(case.g, 'needs.providersStatus'), 'list')
+-                self.assertEqual(case.flow.value(case.g, 'needs.providers'), 'ashley tunkle')
++                self.assertIn('ashley tunkle',case.flow.value(case.g, 'needs.providers'))
+                 providers = case.flow.report(case.r, 'RC21')['items']
+                 self.assertEqual([(item['entity'], item['practice'], item['city']) for item in providers],
+                                  [('doctor-1', 'ashley tunkle', 'naples')])
+--- before/tests/test_provider_http.py
++++ after/tests/test_provider_http.py
+@@ -148,9 +148,9 @@
+         json.dumps(after, allow_nan=False)
+         fields = after['guide']['fields']
+         self.assertEqual(fields['needs.providersStatus']['value'], 'list')
+-        # The retained engine rebuilds the baseline provider summary from its
+-        # structured RC21 practice list when those details are supplied.
+-        self.assertEqual(fields['needs.providers']['value'], 'Example Primary Care')
++        # Office detail must retain the independently reported clinician name.
++        self.assertIn('Dr Example Person',fields['needs.providers']['value'])
++        self.assertIn('Example Primary Care',fields['needs.providers']['value'])
+         self.assertEqual(fields['situation.age65']['value'], {'month': 11, 'year': None})
+         self.assertEqual(fields['coverage.current']['value'], ['cobra'])
+         self.assertEqual(fields['comparison.scope.zip']['value'], '34102')

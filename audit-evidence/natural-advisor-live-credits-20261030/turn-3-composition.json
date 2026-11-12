@@ -1,0 +1,162 @@
+{
+  "value": {
+    "move_id": "explain",
+    "reply": "Part B is the medical insurance part of Medicare. It helps cover doctor visits, outpatient care, tests, medical equipment, and many preventive services; together with Part A, it makes up Original Medicare.",
+    "question": "",
+    "report_refs": [],
+    "evidence_refs": [
+      "partb"
+    ]
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.situation.retirement",
+        "status": "reported",
+        "value": {
+          "status": "retired",
+          "when": "for a few years"
+        },
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported",
+        "value": {
+          "month": 11,
+          "year": null
+        },
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "employer"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC06.profile.choice",
+        "status": "reported",
+        "value": "age65",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC09.profile.choice",
+        "status": "reported",
+        "value": "spouse_job",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [],
+    "task": "timing",
+    "dialogue": {
+      "orientation": "answered",
+      "lastTarget": {
+        "id": "T04",
+        "entity": "profile",
+        "fields": [
+          "month"
+        ]
+      },
+      "explainedTopics": [],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      4,
+      5
+    ],
+    "activeQuestion": null,
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "current_message": "Before we get into dates, what is Medicare Part B?",
+    "evidence": [
+      {
+        "id": "partb",
+        "title": "Part B: medical care",
+        "text": "Part B is medical insurance. It covers doctors, outpatient care, tests, equipment, and many preventive services. Together, Part A and Part B are Original Medicare.",
+        "summary": "Medical insurance is one part of Medicare.",
+        "question": "What is Part B?",
+        "source": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options"
+      }
+    ],
+    "uncertainties": []
+  },
+  "moves": [
+    {
+      "id": "explain",
+      "question": null,
+      "purpose": "Answer this reviewed educational question. The person has paused intake; preserve unresolved information for later without immediately reasking it.",
+      "priority": 0
+    }
+  ],
+  "accepted": true
+}

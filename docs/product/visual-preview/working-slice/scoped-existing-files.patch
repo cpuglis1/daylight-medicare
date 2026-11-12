@@ -1,0 +1,200 @@
+--- before/AGENTS.md
++++ after/AGENTS.md
+@@ -1,6 +1,6 @@
+ # Working on Daylight
+ 
+-Before changing the app, read `PRODUCT.md`, `DAYLIGHT_REQUIREMENTS.md`, and `docs/product/MASTER_DESIGN.md` with its branching nodes/wireframes/acceptance contract. The latter is the running list of binding owner requirements. New explicit owner instructions take precedence; record them there rather than silently changing direction.
++Before changing the app, read `PRODUCT.md`, `DAYLIGHT_REQUIREMENTS.md`, `DESIGN.md`, and `docs/product/MASTER_DESIGN.md` with its branching nodes/wireframes/acceptance contract. The latter is the running list of binding owner requirements. New explicit owner instructions take precedence; record them there rather than silently changing direction.
+ 
+ The active frontend is `cms-slice/apps/chat/`. Keep the step-by-step journey and restore/preserve its visual teaching guide. The latest D49 direction is AI agent first within understandable guided progression and visual teaching; do not restore the superseded all-chat levels flow, substitute a rigid wizard with bolted-on chat, remove lessons to simplify navigation, or treat the archived prototype as the active application. D50–D57 govern knowledge, stable progress, confirmed free text and planned backend guest profiles; documentation is not implementation approval.
+ 
+--- before/PRODUCT.md
++++ after/PRODUCT.md
+@@ -5,6 +5,10 @@
+ ## Latest design authority · October 21, 2026
+ 
+ The owner confirmed **AI agent first**, voluntary knowledge choices plus free text, stable common progress phases, confirmed interpretations, and persistent backend guest profiles without account creation. Read [the master design specification](docs/product/MASTER_DESIGN.md), its branching wireframes/contract and requirements **D49–D57** before future implementation. This is documentation-only design direction; the current app still has session-held state and no new storage is implemented. The latest decisions supersede conflicting older prose below; the original pre-master bytes are preserved in `docs/product/history/2026-10-21-before-master/`.
++
++## Approved visual reference and first-slice authorization
++
++[DESIGN.md](DESIGN.md) records the owner-approved Candidate02 layout and exact Option A photograph. It supersedes the older centered-arrival composition below. The owner authorized the first bounded working slice: goal/recipient/voluntary knowledge, confirmed text, introductory picture and contextual Ask overlay. Existing factual/data gates remain; no commit/push/deploy. Guest persistence and its policy/security prerequisites remain later slices, not an implicit storage change.
+ 
+ ## Platform
+ 
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ after/DAYLIGHT_REQUIREMENTS.md
+@@ -81,6 +81,13 @@
+ | D56 | Specify an eventual comparison dashboard with consistent dimensions, evidence/unknowns, transparent supported ordering, contextual Ask Daylight, explicit user preference and useful next steps. Personal pricing/provider fit/Medigap quotes and human handoff remain gated by verified capability and actual fulfillment. | Exercise keep/undecided/compare, unsupported/stale/error states and preparation; selection never means sent, enrolled or coverage effective. |
+ | D57 | Use the master design specification, complete node/answer inventory, branching wireframes and acceptance contract for future work. Record decision changes and affected flow/state before implementation; styling requests cannot silently change product behavior or remove content. | Every scoped implementation names requirement IDs, nodes, state effects, regressions, rendered checks and remaining limits. |
+ 
++## Latest approved visual/implementation scope
++
++| ID | Binding owner requirement | Acceptance evidence |
++|---|---|---|
++| D58 | Candidate02 layout and exact Option A (Marcus Aurelius/Pexels6787568) are approved. Follow root DESIGN.md; retain the sole exact tagline Your coverage, plain as day. Do not reopen the layout or add slogans. | Match approved desktop/phone captures; keep asset source/license/crop records. |
++| D59 | Implement the first bounded working slice in the active app: goal→recipient as needed→voluntary knowledge/text confirmation→first concepts/growing picture→Ask overlay/exact return. Continue staged implementation without redundant approval; no commit/push/deploy or privacy/data-gate bypass. | Meaningful state/branch tests and actual browser checks; preserve legacy content/routes and uncommitted work. Backend guest saving remains explicitly unconnected until its secure policy/service slice. |
++
+ ## Interpretation already settled
+ 
+ - Historical restoration direction: **Keep the journey and restore the visual guide.** Latest D49 confirms **AI agent first** within that understandable guided visual experience; the agent orchestrates contextual tasks and teaching. Do not revive either a rigid wizard with bolted-on chat or the superseded all-chat levels implementation.
+@@ -125,3 +132,5 @@
+ - **2026-10-21, vision guide implementation authorized:** The owner asked to review and implement `docs/DAYLIGHT_VISION_REVIEW_AND_ACTION_GUIDE.md`. Added D41–D48, approving its goal-first routing, local reference explanations, responsive assistant, native single-field submission, scoped results, and preparation-only service recommendations. Goal comes before D29's beginner lesson; the lesson still begins with Medicare itself. D42 qualifies always-visible teaching; D43 replaces the full-page help presentation while preserving focused answers. D39's repository-organization UI freeze applied to that earlier task, not this explicitly authorized UI implementation. No outbound outreach, enrollment, commit, or publication is authorized by this change.
+ 
+ - **2026-10-21, master-design clarification (documentation only):** Added D49–D57 from the owner’s latest agent-first, voluntary knowledge/free-text, stable-phase, confirmed Something else and backend guest-profile directions and the authorized design safeguards. [Master design](docs/product/MASTER_DESIGN.md) is the implementation-planning entrypoint with branching nodes, wireframes and acceptance. It supersedes conflicting wizard-first/session-only target assumptions while preserving factual/data gates. Backend persistence, AI integration, imagery, dashboard and handoff are specified, not implemented; no UI/app/data changes, outreach, commit or push are authorized by this documentation task.
++
++- **2026-10-21, visual approval and implementation:** Added D58–D59 from explicit owner approval of Candidate02 layout and Option A, followed by authorization to finalize DESIGN.md and implement/verify the first bounded working slice. This supersedes earlier task-specific documentation/UI freezes only within that scope. No commit/push/deploy, real sensitive test data or automatic external outreach is authorized.
+--- before/docs/README.md
++++ after/docs/README.md
+@@ -40,3 +40,5 @@
+ Use latest explicit owner direction first, then numbered requirements and product precedence. Use current code, source hashes, and exact-release records for implementation facts. A dated completion claim, old test count, original Data Layers workbook, or successful capture is not consumer acceptance. The newer data synthesis supersedes old statements that ratings are absent, only 31 networks are packaged, or only 38 records can be represented by the catalog. The original records remain unchanged for provenance.
+ 
+ Evidence directories and original package internals stay in place because scripts, manifests, or historical receipts consume their paths. This index provides navigation without a risky wholesale migration.
++
++Approved visual implementation reference: [root DESIGN.md](../DESIGN.md), D58–D59; flow/state authority remains [the master package](product/MASTER_DESIGN.md).
+--- before/cms-slice/apps/chat/index.html
++++ after/cms-slice/apps/chat/index.html
+@@ -8,7 +8,10 @@
+   <title>Daylight</title>
+   <link rel="icon" type="image/svg+xml" href="/daylight.svg">
+   <link rel="stylesheet" href="/styles.css">
++  <link rel="stylesheet" href="/approved.css">
++  <script src="/flow-state.js" defer></script>
+   <script src="/app.js" defer></script>
++  <script src="/first-slice.js" defer></script>
+ </head>
+ <body>
+   <a class="skip-link" href="#stage">Skip to content</a>
+@@ -20,8 +23,9 @@
+       <img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36">
+       <span class="brand-name">Daylight<span class="brand-category">Medicare</span></span>
+     </a>
+-    <p class="header-note">Your Medicare guide</p>
++    
+     <div class="header-actions">
++      <button id="starting-profile-open" class="text-button" type="button">Your information</button>
+       <button id="restart" class="text-button" type="button" hidden>Start over</button>
+     </div>
+   </header>
+@@ -32,25 +36,16 @@
+   <!-- ============ LANDING (shown first) ============ -->
+   <main id="main">
+     <section id="landing" class="landing" aria-labelledby="landing-title">
+-      <div class="landing-inner">
+-        <h1 tabindex="-1" id="landing-title" class="landing-title">Your coverage, plain as day</h1>
+-        <p class="landing-sub">Understand your Medicare situation, explore relevant options, and prepare your next step.</p>
+-        <button id="get-started" class="primary-button landing-cta" type="button">Get started</button>
+-        <div class="experienced-route">
+-          <p>Already understand your Medicare options?</p>
+-          <button id="fast-start" class="text-button landing-fast" type="button">Skip the guide and compare plans</button>
++      <div class="approved-hero">
++        <div class="landing-inner">
++          <h1 tabindex="-1" id="landing-title" class="landing-title">Your coverage,<br>plain as day</h1>
++          <p class="landing-sub">Understand Medicare, or compare plan options.</p>
++          <div class="approved-entry-actions"><button id="get-started" class="primary-button landing-cta" type="button">Get started</button><button id="fast-start" class="text-button landing-fast" type="button">Skip the guide and compare plans</button></div>
++          <div class="ask-bottom landing-help"><button id="ask-open" class="ask-open-btn" type="button">Ask Daylight</button><p>AI assistant</p></div>
+         </div>
+-        <div class="ask-bottom landing-help">
+-          <button id="ask-open" class="ask-open-btn" type="button">Ask Daylight</button>
+-          <p>A question before you begin? Start here.</p>
+-        </div>
+-        <ul class="landing-points">
+-          <li>No account needed</li>
+-          <li>No ID numbers</li>
+-          <li>At your pace</li>
+-        </ul>
+-        <p class="landing-area">Plan comparison covers <strong>2027 plans in Collier County, Florida</strong> (Naples). The guide is available elsewhere too.</p>
++        <figure class="approved-arrival-photo"><img src="/art/arrival-option-a.jpg" width="1400" height="933" fetchpriority="high" alt="A woman with short silver hair and an ochre cardigan facing the camera outdoors against green foliage."></figure>
+       </div>
++      <div class="approved-arrival-notes"><p>No account needed. No ID numbers.</p><p>General Medicare guidance is available anywhere.<br>Local comparison currently covers <strong>2027 Collier County, Florida.</strong></p></div>
+     </section>
+ 
+     <!-- ============ THE STAGE (one stop at a time) ============ -->
+@@ -85,6 +80,7 @@
+   <div id="ask-scrim" class="ask-scrim" hidden></div>
+ 
+   <footer class="site-footer">
++    <p class="photo-credit">Photo: <a href="https://www.pexels.com/photo/woman-smiling-at-the-camera-6787568/" target="_blank" rel="noopener noreferrer">Marcus Aurelius / Pexels</a> · <a href="https://www.pexels.com/license/" target="_blank" rel="noopener noreferrer">License</a>. Illustrative, not a customer endorsement.</p>
+     <span id="footer-note">No sign-up or ID numbers. Guide notes stay in this tab; submitted chat may be logged.</span>
+     <details id="about-answers"><summary>About your answers</summary><div class="privacy-copy"><p>Guide answers and medicine/doctor notes stay in this browser tab only. Refreshing or closing the tab clears them. Public plan browsing calls the local server. We don't create an account or a customer profile, and we never ask for Medicare numbers, Social Security numbers, or documents. The guide's birth month, job coverage, medicine and doctor fields are not logged or automatically attached to chat.</p><p>Basic questions with an existing guide explanation are answered in this tab. Other submitted chat questions and recent conversation messages are sent to a local server and, when connected, the model that powers the reply. Submitted chat can be saved in local conversation logs. Guide notes are not attached automatically.</p><p>This is general information to help you understand your options. It is not a recommendation, a quote, or enrollment, and it is not a substitute for Medicare.gov or free SHINE counseling.</p></div></details>
+   </footer>
+--- before/cms-slice/apps/chat/app.js
++++ after/cms-slice/apps/chat/app.js
+@@ -156,6 +156,7 @@
+ }
+ // D29–D30: concepts enter only when the current question needs them.
+ function lessonFor(n = state.journey.stop) {
++  if (window.DaylightFlow?.active) return window.DaylightFlow.helpLesson;
+   const start = state.screen.start || "goal", coverage = state.screen.coverage || "context", priority = state.screen.priorities || "priorities", p = person();
+   const make = (id, relevance, concepts, summary) => ({id, ...GUIDE_TOPICS[id], topics: id === "basics" ? ["basics"] : [id, "basics"], relevance, concepts: ["medicare", ...concepts], ...(summary ? {summary} : {})});
+   if (n === 0) {
+@@ -411,15 +412,17 @@
+   const planned = i.goal === "compare" && !state.personalReview ? [0,6,7] : i.goal === "learn" && !state.personalReview ? [0,7] : i.goal === "job" && i.jobGoal !== "compare" ? [0,1,2,7] : [0,1,2,3,4,5,6,7];
+   return [...new Set([...planned, ...state.journey.visited, state.journey.stop])].sort((a,b) => a-b);
+ }
+-function renderJourneyMap() {
+-  const nav = el("journey-map"), strip = node("ol", undefined, "jmap-strip"), stops = routeStops(); nav.replaceChildren(); strip.style.gridTemplateColumns = `repeat(${Math.min(stops.length,8)},minmax(0,1fr))`;
+-  for (const n of stops) { const st = journeyStatus(n), li = node("li", undefined, `jmap-stop jmap-${st}${n === state.journey.stop ? " jmap-active" : ""}`), b = node("button", undefined, "jmap-btn"); b.type = "button"; b.disabled = st === "locked"; b.setAttribute("aria-current", n === state.journey.stop ? "step" : "false"); b.setAttribute("aria-label", `${STOP_NAMES[n]} (${STATUS_WORD[st]})`); b.append(node("span", st === "done" ? "✓" : st === "blocked" ? "!" : String(stops.indexOf(n)+1), "jmap-num"), node("span", STOP_NAMES[n], "jmap-name")); b.addEventListener("click", () => goToStop(n)); li.append(b); strip.append(li); }
+-  const title = state.intake.goal ? GOALS[state.intake.goal] : "Getting started";
+-  const subtask=state.journey.stop === 0 ? ({goal:"Your goal",recipient:"Who this is for",basics:"What Medicare is",learnNext:"What to explore next",learnParts:"Parts A and B",learnRoutes:"Two coverage routes",learnSupplement:"Where supplements fit",compareKind:"What to compare",compareExplain:"Two coverage routes",supplementResult:"Supplement benefits",location:"ZIP code",county:"County"}[state.screen.start || "goal"]) : state.journey.stop === 2 ? ({context:"Current coverage",review:"What you want to change",jobContext:"Job coverage",jobGoal:"Job-coverage task",transition:"Coverage end dates",timing:"Enrollment timing",routesIntro:"Two coverage routes",supplementIntro:"Where supplements fit"}[state.screen.coverage || "context"]) : STOP_NAMES[state.journey.stop];
+-  const context = node("div", undefined, "journey-context"); context.append(node("p", `${title} · ${subtask}`, "jmap-count"));
+-  if (state.intake.goal) context.append(secondary("Edit goal", () => { state.screen.start = "goal"; goToStop(0); }));
+-  nav.append(context,strip);
+-}
++function renderPhases(current) {
++  const nav=el("journey-map"),strip=node("ol",undefined,"phase-track");
++  for(const [index,label] of ["Your goal","Your situation","Your options","Your next step"].entries()){
++    const li=node("li",undefined,index===current?"phase-current":"");if(index===current)li.setAttribute("aria-current","step");
++    li.append(node("span",String(index+1),"phase-number"),node("span",label));strip.append(li);
++  }
++  nav.replaceChildren(strip);
++}
++function legacyPhase(){const n=state.journey.stop;return n===7?3:n>=5?2:n>0?1:["compareKind","compareExplain","supplementResult","location","county"].includes(state.screen.start)?2:["basics","learnNext","learnParts","learnRoutes","learnSupplement"].includes(state.screen.start)?1:0;}
++function renderJourneyMap() {renderPhases(legacyPhase());}
++
+ function goToStop(n) { if (n > state.journey.reached) return; if (n === 7 && state.journey.stop !== 7) state.finishReturn = {stop: state.journey.stop, screen: {...state.screen}}; if (n !== state.journey.stop) state.pictureTopic = null; if (n !== 6) { state.requestId++; state.controller?.abort(); } state.journey.stop = n; state.journey.visited.add(n); renderStop(n, "top"); }
+ function advance(n = Math.min(state.journey.stop + 1, 7)) { state.journey.finished.add(state.journey.stop); state.journey.reached = Math.max(state.journey.reached, n); goToStop(n); }
+ function renderStop(n, focus = "none") {
+@@ -431,7 +434,7 @@
+   arrangeStage(stage, n);
+   for (const d of stage.querySelectorAll("details")) if (state.openDetails[n]?.has(disclosureKey(d))) d.open = true; state.renderedStop = n; if (!el("ask-panel").hidden) renderAskCanned();
+   requestAnimationFrame(() => { if (document.activeElement !== stage && stage.contains(document.activeElement)) return; if (focus.startsWith("feedback") && selectedValue) { [...stage.querySelectorAll(".choice")].find(b => b.dataset.value === selectedValue)?.focus({preventScroll: true}); } else if (focus === "top") { stage.focus({preventScroll: true}); window.scrollTo({top: 0, behavior: "instant"}); } });
+-  announce(`Chapter ${n + 1} of ${STOP_NAMES.length}: ${STOP_NAMES[n]}.`);
++  announce(`${["Your goal","Your situation","Your options","Your next step"][legacyPhase()]}: ${stage.querySelector("h1")?.textContent || STOP_NAMES[n]}.`);
+ }
+ function arrangeStage(stage, n) {
+   const lesson = lessonFor(n);
+@@ -465,9 +468,9 @@
+   if (head) stage.replaceChildren(layout, explanation);
+ }
+ function askBottom() { const box = node("div", undefined, "ask-bottom"), b = secondary("Ask Daylight", openAsk); b.className = "ask-open-btn"; box.append(b, node("p", "Questions about this step? Your place stays here.")); return box; }
+-function showLanding() { document.body.classList.add("landing-mode"); el("landing").hidden = false; ["stage", "journey-map", "restart"].forEach(id => el(id).hidden = true); el("ask-open").hidden = false; document.querySelector(".header-note").hidden = false; closeAsk(false); window.scrollTo({top: 0, behavior: "instant"}); requestAnimationFrame(() => el("get-started").focus({preventScroll: true})); }
+-function beginJourney(quick = false) { state.quick = quick; state.screen.start = quick ? "compareKind" : "goal"; state.personalReview = false; if (state.guidePreference === null) state.guideOpen = !quick; if (quick) state.intake.goal = "compare"; document.body.classList.remove("landing-mode"); el("landing").hidden = true; ["stage", "journey-map", "restart"].forEach(id => el(id).hidden = false); renderStop(0, "top"); }
+-function startOver() { state.controller?.abort(); state.requestId++; Object.assign(state, {intake: freshIntake(), journey: {stop: 0, reached: 0, visited: new Set(), finished: new Set()}, screen: {}, quick: false, guideOpen: true, guidePreference: null, pictureTopic: null, personalReview: false, learned: new Set(["medicare"]), catalog: null, plansLoaded: false, plansError: null, category: "all", sort: null, selected: new Map(), comparison: null, compareError: null, compareBusy: false, plansLimit: 6, planQuery: "", openDetails: {}, renderedStop: undefined, dateReturn: null, conversationId: crypto.randomUUID(), history: [], busy: false, chatWelcomed: false, chatTurns: 0, preparationDrafts: {}, preparationContexts: {}, previousPreparationDrafts: [], activePreparation: null, finishReturn: null, comparisonStale: false, selectionContext: null, locationReturn: null, locationBusy: false, locationIssue: null}); el("ask-thread").replaceChildren(); askCurrentExchange = null; el("ask-input").value = ""; setAskStatus(""); showLanding(); }
++function showLanding() { document.body.classList.add("landing-mode"); el("landing").hidden = false; ["stage", "journey-map", "restart"].forEach(id => el(id).hidden = true); el("ask-open").hidden = false; if(document.querySelector(".header-note"))document.querySelector(".header-note").hidden = false; closeAsk(false); window.scrollTo({top: 0, behavior: "instant"}); requestAnimationFrame(() => el("get-started").focus({preventScroll: true})); }
++function beginJourney(quick = false) { if(window.DaylightFlow) return window.DaylightFlow.start(quick); state.quick = quick; state.screen.start = quick ? "compareKind" : "goal"; state.personalReview = false; if (state.guidePreference === null) state.guideOpen = !quick; if (quick) state.intake.goal = "compare"; document.body.classList.remove("landing-mode"); el("landing").hidden = true; ["stage", "journey-map", "restart"].forEach(id => el(id).hidden = false); renderStop(0, "top"); }
++function startOver() { window.DaylightFlow?.reset(); state.controller?.abort(); state.requestId++; Object.assign(state, {intake: freshIntake(), journey: {stop: 0, reached: 0, visited: new Set(), finished: new Set()}, screen: {}, quick: false, guideOpen: true, guidePreference: null, pictureTopic: null, personalReview: false, learned: new Set(["medicare"]), catalog: null, plansLoaded: false, plansError: null, category: "all", sort: null, selected: new Map(), comparison: null, compareError: null, compareBusy: false, plansLimit: 6, planQuery: "", openDetails: {}, renderedStop: undefined, dateReturn: null, conversationId: crypto.randomUUID(), history: [], busy: false, chatWelcomed: false, chatTurns: 0, preparationDrafts: {}, preparationContexts: {}, previousPreparationDrafts: [], activePreparation: null, finishReturn: null, comparisonStale: false, selectionContext: null, locationReturn: null, locationBusy: false, locationIssue: null}); el("ask-thread").replaceChildren(); askCurrentExchange = null; el("ask-input").value = ""; setAskStatus(""); showLanding(); }
+ function requestStartOver() {
+   let dialog = el("restart-confirm");
+   if (!dialog) {
+@@ -514,7 +517,7 @@
+     } else actions(stage,"Continue",()=>nextScreen("start",parts?"learnRoutes":supplement?"learnNext":"compareKind"),true,()=>nextScreen("start",parts?"learnNext":supplement?"learnRoutes":"compareKind"));return;
+   }
+   if(page === "compareKind") {
+-    const q=questionBlock("Which plans would you like to compare?");q.append(renderChips(Object.entries(COMPARE_KINDS),i.compareKind,v=>pick("compareKind",v)));stage.append(q);
++    const q=questionBlock("Which plans or options would you like to compare?");q.append(renderChips(Object.entries(COMPARE_KINDS),i.compareKind,v=>pick("compareKind",v)));stage.append(q);
+     actions(stage,"Continue",()=>{ if(i.compareKind === "unsure") nextScreen("start","compareExplain"); else if(i.compareKind === "medigap") nextScreen("start","supplementResult"); else nextScreen("start","location"); },!!i.compareKind,state.quick?showLanding:()=>nextScreen("start",i.goal === "compare"?"goal":"recipient"));return;
+   }
+   if(page === "supplementResult") {
+@@ -991,9 +994,10 @@
+   const viewport=window.visualViewport,available=viewport?.height || window.innerHeight;
+   if(open && Number.isFinite(available)) {
+     const phone=matchMedia("(max-width: 760px)").matches;
+-    const height=Math.min(phone?760:780,available-32);
++    const height=Math.min(phone?736:710,available-32);
+     el("ask-panel").style.height=`${height}px`;
+-    el("ask-panel").style.top=`${(viewport?.offsetTop || 0)+(phone?available-height-16:Math.max(16,Math.min(100,(available-height)/2)))}px`;
++    const reference=document.querySelector(".flow-picture,.guide-panel");const anchor=reference?.getBoundingClientRect().top || (available-height)/2;
++    el("ask-panel").style.top=`${(viewport?.offsetTop || 0)+(phone?available-height-12:Math.max(16,Math.min(anchor,available-height-16)))}px`;
+   }
+ }
+ function revealAskExchange(exchange = askCurrentExchange, focus = true) {

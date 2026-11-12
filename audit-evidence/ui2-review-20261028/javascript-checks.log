@@ -1,0 +1,19 @@
+$ node --check cms-slice/apps/chat-alternative/adaptive-app.js
+
+exit=0
+$ node cms-slice/tests/test_chat_alternative_core.js
+Conversation scenario passed: mixed three turns, later facts, multiple entities, conditional followup, correction, defer, progress and learning-scope guard.
+
+exit=0
+$ node cms-slice/tests/test_chat_alternative_dom.js
+Simplified DOM passed: direct question with one reason, no welcome/context/labels, inline suggestions, progress beside transcript, one composer, dictation fallback, multi-select, review and plans return. Rendered checks paused.
+
+exit=0
+$ node cms-slice/tests/test_chat_conditionals_dom.js needs
+needs displayed in SAME chat: RC01 → RC18 → RC20 → RC21 → RC21 → RC22 → RC22 → RC23 → RC23 → external-data hold → explicit sample browsing; no intake gaps.
+
+exit=0
+$ node cms-slice/tests/test_profile_gate_dom.js
+All-unknown DOM: missing-information gate, no automatic plans or re-ask loop, explicit samples, optional useful next question.
+
+exit=0

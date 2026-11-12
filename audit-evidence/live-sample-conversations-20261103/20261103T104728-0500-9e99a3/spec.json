@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "id": "provider_and_costs",
+      "title": "Keeping a cardiologist and understanding visit costs",
+      "fictional": true,
+      "messages": [
+        "I'm checking Medicare coverage for myself in Collier County. I'd like to keep my cardiologist and understand what visits could cost. Where should I start?",
+        "I currently have Aetna Medicare Advantage. My cardiologist is Dr. Maya Reed at Cypress Heart Clinic in Naples. I don't know the exact plan name.",
+        "Before we go further, what does Medicare Advantage mean? Does the office accepting Aetna prove it takes my particular plan?",
+        "Actually, the office is in Bonita Springs, not Naples. My home ZIP is 34102. I still don't have the exact plan name.",
+        "My main concern is being able to see that doctor. I don't have a firm budget. What can we establish now, and what would still need checking?",
+        "Please give me a short list of what to ask the plan and the office. Don't contact anyone. No more questions."
+      ]
+    }
+  ],
+  "maximum_generation_stages": 12,
+  "automatic_retries": false,
+  "source_changes_during_run": false,
+  "rubric": [
+    "task_recognition",
+    "verification_distinctions",
+    "teaching_in_context",
+    "continuity_and_corrections",
+    "useful_next_step",
+    "burden_and_control"
+  ],
+  "score_anchors": {
+    "0": "material failure",
+    "1": "partly successful with a material gap",
+    "2": "successful in the observed conversation"
+  },
+  "performance": [
+    "backend_wall_seconds",
+    "extraction_and_composition_seconds",
+    "input_and_output_tokens",
+    "measured_estimated_cost"
+  ],
+  "consumer_comprehension": "unobserved",
+  "personas": "fictional, prewritten, no adaptive rescue"
+}

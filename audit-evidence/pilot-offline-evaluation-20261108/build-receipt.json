@@ -1,0 +1,46 @@
+{
+  "schema": "daylight-pilot-offline-baseline/1",
+  "ve_01_status": "local_baseline_only",
+  "milestone_a_commit": null,
+  "working_tree_base_commit": "7d15873e98875dca7940d07903c141d19d5da333",
+  "working_tree_has_uncommitted_advisor_and_harness_inputs": true,
+  "input_manifest_files": 412,
+  "input_manifest_sha256": "85354518bd9b4bce65704ae6e5202cec73deaa749b075d733b4a0907123bfcaa",
+  "scoped_input_manifest_unchanged_across_run": true,
+  "engine_lock_path": "alternatives/advisor-first/engine-lock.json",
+  "engine_lock_sha256": "4e106adf2e9837a54e2b234a400c1cc83bc414f366f0c9f95eeef55a01634107",
+  "engine_lock_entries_verified": 58,
+  "model_policy": {
+    "version": "D86-ongoing-v3",
+    "reasoning_effort": "none",
+    "output_tokens": 900,
+    "composition_reasoning_effort": "none"
+  },
+  "model_policy_sha256": "268d135701553f93b710492124c4fc152ba8dd4d9be5d0ee4a3f0255a72200f5",
+  "configured_default_model_id": "gpt-6.1-sol",
+  "configured_model_ids": [
+    "gpt-5.4",
+    "gpt-6.1-sol",
+    "claude-opus-5-5"
+  ],
+  "provider_resolved_model_versions": null,
+  "paid_model_calls": 0,
+  "external_network": "denied",
+  "harness_report_sha256": "e909003d653ef1a65e6b92c87e6fde692e3b9cd197c0b9b2a553a543dc92b060",
+  "selected_reference_and_regression_inputs_sha256": {
+    "cms-slice/data-sources/l01-published-reference-review.json": "c1eb47010f1fea9e13df9b9c00becb251ac4dd66c3c28917ec6ea111c4133ee4",
+    "cms-slice/data-sources/l03-published-reference-review.json": "275be9d2b0842fce326648c27786208430b29b66b894d42ead275ce37157d892",
+    "cms-slice/data-sources/plans-workspace-acceptance.json": "7f6b722fe03aef017142b4808f71d747414d747ffad03051b74feaa857b0813f",
+    "docs/product/recommendation-scope-2026-11-04-r13/display-candidate.json": "ba625a2968a53a46dc72dddf52a4e74064b56b0b14e55c9e8768d2b580fa3609",
+    "audit-evidence/live-sample-conversations-20261103/20261103T104504-0500-cc5c1f/provider_and_costs-turn-3-composition.json": "42a8a460f48aae647834aa0d412afc7f3b8e6d15da06d9231a263ae56701c8e5"
+  },
+  "repeat_run": {
+    "python": "3.14.7",
+    "pytest": "8.4.2",
+    "jsonschema_available": "4.25.1",
+    "report": "harness-report-python314.json",
+    "report_sha256": "22b5f3807357ef3e2cb11d645724522d27c30e20a3e00e20b8fad51ed4a84ebe",
+    "passed": true,
+    "paid_model_calls": 0
+  }
+}

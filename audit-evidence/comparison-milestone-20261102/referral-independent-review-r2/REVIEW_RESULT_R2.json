@@ -1,0 +1,104 @@
+{
+  "findings_closed_in_new_candidate": [
+    "RF-NR-R1-F01",
+    "RF-NR-R1-F02",
+    "RF-NR-R1-F03"
+  ],
+  "new_acceptance": false,
+  "new_candidate_findings": [],
+  "originals_completed": 0,
+  "presealed_case_dispositions": [
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-01",
+      "review": "NR10-BILL-PLAN-FIRST binds effect0 to covered OON scope; recommendation remains separate."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-02",
+      "review": "NR10-PAID-REIMBURSEMENT binds effect1 to already-paid covered OON services and plan share."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-03",
+      "review": "NR10-BILL-FORWARDING requires sent bill and member belief, with no paid antecedent or coverage adjudication."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-04",
+      "review": "NR10-PAID-OR-FULL-BILL-REQUEST retains covered services AND (overpaid OR full-cost bill)."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-05",
+      "review": "NR15 preserves in-most-cases scope and the exact four OR exceptions."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-06",
+      "review": "NR15 full-cost branch is NOT(OR exceptions), conjoined with parent scope. All243 ternary exception/scope combinations independently checked."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-07",
+      "review": "NR34-MEDICARE-COVERED-STUDY asserts Medicare share separately from plan notice."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-08",
+      "review": "NR34-QUALIFIED-TRIAL-NOTICE retains member tells plan, without prior deadline or noncoverage inference."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-09",
+      "review": "NR34 separates paid refund and documentation requirement; unchanged NR33 retains participation boundaries."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-10",
+      "review": "NR34-NONAPPROVED-LIABILITY requires explicit study nonapproval; unknown approval is not nonapproval."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-11",
+      "review": "NR34 routine-item example retains otherwise-Medicare-covered hospital stay and study-procedure qualifications."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-12",
+      "review": "NR33 byte-semantically unchanged; NR34 references it and separately labels advance notice encouraged, not permission."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-13",
+      "review": "ExactlyNR10/NR15/NR34 differ;33other rules and all non-rule fields unchanged;63parent record bindings and7holds replay."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-14",
+      "review": "Additional branch/effect counts describe representation only; no original obligation/state or acceptance changes."
+    },
+    {
+      "disposition": "bounded_correction_supported",
+      "expected_id": "RF2-15",
+      "review": "Recovered clause and separate inpatientr4 integration are hash-bound as provenance; unknown/insufficient retained."
+    }
+  ],
+  "remaining_source_or_application_holds": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07"
+  ],
+  "schema": "daylight.referral.correction-independent-result.r2",
+  "source_cutoff": "The review verifies these three source-graph corrections and unchanged scope. It does not establish full meaning equivalence, adopted source authority or consumer applicability.",
+  "source_pixel_reread_pages": [
+    32,
+    34,
+    35,
+    41
+  ]
+}

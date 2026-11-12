@@ -1,0 +1,24 @@
+/* D129 extension of the existing MA controls/cards, scoped to Medigap. */
+.plan-kinds button.plan-kind { font-family:inherit; font-size:inherit; cursor:pointer; background-color:transparent; border:0; }
+.plan-kinds button.plan-kind.current { background-color:var(--sage); }
+.plan-kinds button.plan-kind:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+.medigap-editor { margin:20px 0 12px; border-block:1px solid var(--line); }
+.medigap-editor > summary { padding:14px 0; cursor:pointer; font-weight:700; font-size:var(--text-label); }
+.medigap-invitation { margin:28px 0; max-width:42rem; }
+.medigap-invitation h2 { margin:0 0 12px; }
+.medigap-invitation .primary-button { margin-top:8px; }
+.medigap-profile-row { justify-content:space-between; padding:8px 0; }
+.medigap-profile-row p { margin:0; }
+.medigap-actions { margin:16px 0; }
+.medigap-scroll-help { display:none; }
+.medigap-filters { grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:20px; }
+#medigap-results .plan-card .plan-facts { display:block; }
+#medigap-results .plans-compare th { min-width:190px; }
+#medigap-results .plans-compare caption { text-align:left; padding:12px 0; font-weight:700; }
+@container plans (max-width:560px) {
+  .medigap-filters { grid-template-columns:1fr; }
+  .medigap-scroll-help { display:block; }
+  .medigap-invitation .primary-button { width:100%; }
+  .plan-kinds button.plan-kind { font-size:var(--text-help); border:1px solid var(--line); }
+  .plan-kinds button.plan-kind.current { border-color:var(--olive); }
+}

@@ -1,0 +1,47 @@
+{
+  "fictional": true,
+  "maximum_generation_stages": 2,
+  "automatic_retry": false,
+  "error_type": "ModelUnavailable",
+  "error": "Live AI could not complete this request. Retry or use the manual guide; your details are unchanged.",
+  "error_chain": [
+    "Traceback (most recent call last):\n",
+    "  File \"/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py\", line 744, in extract\n    return self.run(owner, message, guide, ['R00'], request_id)\n           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/Users/cep4u/daylight/alternatives/advisor-first/narrative_agent.py\", line 225, in run\n    count=getattr(self,'count_request_tokens',self.count_tokens)(self.client,payload)\n",
+    "  File \"/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py\", line 687, in count_request_tokens\n    count = self.count_tokens(client, packed)\n",
+    "  File \"/Users/cep4u/daylight/alternatives/chat-first/cms-slice/scripts/ai_budget.py\", line 122, in count_input_tokens\n    with urlopen(request,timeout=15) as response:raw=response.read(10001)\n         ~~~~~~~^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py\", line 187, in urlopen\n    return opener.open(url, data, timeout)\n           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py\", line 487, in open\n    response = self._open(req, data)\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py\", line 504, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n                              '_open', req)\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py\", line 464, in _call_chain\n    result = func(*args)\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py\", line 1368, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                        context=self._context)\n                        ^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py\", line 1324, in do_open\n    r = h.getresponse()\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py\", line 1478, in getresponse\n    response.begin()\n    ~~~~~~~~~~~~~~^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py\", line 343, in begin\n    version, status, reason = self._read_status()\n                              ~~~~~~~~~~~~~~~~~^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py\", line 304, in _read_status\n    line = str(self.fp.readline(_MAXLINE + 1), \"iso-8859-1\")\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socket.py\", line 729, in readinto\n    return self._sock.recv_into(b)\n           ~~~~~~~~~~~~~~~~~~~~^^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/ssl.py\", line 1304, in recv_into\n    return self.read(nbytes, buffer)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^\n",
+    "  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/ssl.py\", line 1138, in read\n    return self._sslobj.read(len, buffer)\n           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^\n",
+    "ssl.SSLError: [SSL: SSLV3_ALERT_BAD_RECORD_MAC] ssl/tls alert bad record mac (_ssl.c:2713)\n",
+    "\nThe above exception was the direct cause of the following exception:\n\n",
+    "Traceback (most recent call last):\n",
+    "  File \"/Users/cep4u/daylight/audit-evidence/advisor-reply-transport-20261102/reproduce.py\", line 47, in <module>\n    state = flow.turn(owner, {'guide':state['guide'],'record':state['record'],\n        'continuation':state['continuation'],'requestId':uuid.uuid4().hex,\n        'action':{'type':'message','message':\"I am 64 and looking to enroll in medicare when eligible, but don't really know when that is\"},\n        'aiConsent':True,'contextPolicy':CONTEXT_POLICY})\n",
+    "  File \"/Users/cep4u/daylight/alternatives/advisor-first/natural_flow.py\", line 1285, in turn\n    out = self.direct_disposition(owner,payload,g,r) or self.message(owner, payload, g, r)\n                                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/Users/cep4u/daylight/alternatives/advisor-first/natural_flow.py\", line 978, in message\n    result = self.agent.extract(owner, message, extraction_guide, context, payload['requestId'], reservation)\n",
+    "  File \"/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py\", line 751, in extract\n    raise ModelUnavailable('Live AI could not complete this request. Retry or use the manual guide; your details are unchanged.') from error\n",
+    "chat.ModelUnavailable: Live AI could not complete this request. Retry or use the manual guide; your details are unchanged.\n"
+  ],
+  "receipts": [
+    {
+      "status": "cancelled",
+      "charged_nano_usd": 0,
+      "measured_nano_usd": 0
+    },
+    {
+      "status": "cancelled",
+      "charged_nano_usd": 0,
+      "measured_nano_usd": 0
+    }
+  ],
+  "accounted_usd": 0.0
+}

@@ -1,0 +1,45 @@
+{"case": "self", "turn": 1, "generated": {"status": "complete", "move": "T05"}, "reply": "The main choice is between Original Medicare and Medicare Advantage. Original Medicare is Parts A and B from the federal program; you can add a separate drug plan and may be able to add Medigap. Medicare Advantage is a private plan that provides Parts A and B, and many plans include drug coverage.", "question": "What health insurance do you have now?", "visual": "routes", "seconds": 7.878}
+{"case": "self", "turn": 2, "generated": {"status": "complete", "move": "RC09"}, "reply": "That helps because current-job coverage can affect when it makes sense to start Medicare, especially Part B. I can’t tell from that alone whether you’d want to enroll right away or keep employer coverage for a while.", "question": "Whose job is this health insurance through?", "visual": "none", "seconds": 4.489}
+Daylight extraction unavailable code=transport_or_format
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "maximum_generation_stages": 14,
+  "maximum_reservation_usd": 0.469,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "token_checks": [
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6701,
+      "history_exchanges": 0
+    },
+    {
+      "case": "self",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5549,
+      "history_exchanges": 0
+    },
+    {
+      "case": "self",
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5570,
+      "history_exchanges": 1
+    }
+  ],
+  "self_reference_captured": true,
+  "birthday_precision_preserved": true,
+  "error": {
+    "type": "ModelUnavailable",
+    "message": "Live AI could not complete this request. Retry or use the manual guide; your details are unchanged."
+  },
+  "all_turns_complete": false,
+  "generation_stages_reserved": 5,
+  "measured_usd": 0.035325,
+  "accounted_usd": 0.035325
+}

@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 46258,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8791,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 344,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9135
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"That gives us a useful start: you’re on a Medicare Advantage plan now, and the exact plan name is still an open check. For keeping your cardiologist, the key point is that a doctor taking Aetna in general does not confirm they take your specific Medicare Advantage plan. And for visit costs, being in the plan still doesn’t by itself tell us what you would pay for a cardiology visit or test. Those are separate checks.\\n\\nSo the practical first step is to narrow the comparison area, then we can organize what to verify for your doctor and likely visit costs.\",\"question\":\"What ZIP code do you live in? That helps focus the plans available in your area before we sort out your exact plan and doctor check.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\",\"guide.needs.providers\",\"guide.needs.providersStatus\",\"guide.needs.priorities\"],\"evidence_refs\":[\"checks\"],\"agenda_update\":{\"current_concern\":\"keeping a cardiologist and understanding visit costs while comparing coverage\",\"pause\":false},\"education\":{\"purpose\":\"advance\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\"]},{\"concept_id\":\"cost_components\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"total_cost\"],\"evidence_refs\":[\"checks\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"provider_checks\"],\"next_step\":\"prepare\"}}"
+  },
+  "elapsed_seconds": 7.057239
+}

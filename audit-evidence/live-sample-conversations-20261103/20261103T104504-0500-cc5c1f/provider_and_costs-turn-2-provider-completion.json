@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 49241,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9482,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 335,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9817
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"That gives us a useful start. We know you’re on a Medicare Advantage plan, and you’ve named the cardiologist and office you want to keep. What we still do **not** know is the exact Aetna plan, so we can’t tell yet whether Dr. Maya Reed at Cypress Heart Clinic in Naples participates in **your specific plan** or what a cardiology visit would cost under it. A carrier name alone isn’t enough for that check. For visit costs, the pieces to compare are the monthly premium and what you pay when you use care, like deductibles, copays, or coinsurance.\",\"question\":\"What ZIP code do you live in? That helps narrow the Medicare plans available in your area while we sort out doctor access and visit costs.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\",\"guide.needs.providers\",\"readiness.RC21.doctor-1.practice\",\"readiness.RC21.doctor-1.city\"],\"evidence_refs\":[\"checks\",\"costs\"],\"agenda_update\":{\"current_concern\":\"keeping cardiologist and understanding visit costs while comparing Medicare options\",\"pause\":false},\"education\":{\"purpose\":\"advance\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_identity\",\"provider_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"provider_checks\"],\"next_step\":\"prepare\"}}"
+  },
+  "elapsed_seconds": 5.713454
+}

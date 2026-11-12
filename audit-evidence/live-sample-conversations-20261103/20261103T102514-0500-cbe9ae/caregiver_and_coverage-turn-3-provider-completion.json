@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47169,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9031,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 393,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9424
+    },
+    "text": "{\"question_target\":\"T06\",\"reply\":\"They’re not the same thing.\\n\\nMedigap goes with Original Medicare. It’s extra coverage that can help with your share of certain Part A and Part B costs.\\n\\nMedicare Advantage is the other main route for getting Medicare hospital and medical coverage. Instead of getting Parts A and B through Original Medicare, you get them through a Medicare-approved private plan. Most of those plans include drug coverage.\\n\\nA simple way to picture it:\\n- Original Medicare + optional separate pieces like Medigap and a drug plan\\n- or Medicare Advantage as an alternative way to get Parts A and B\\n\\nSo if your mother stays with Original Medicare, Medigap is the one that fits with it. Medigap does not pair with Medicare Advantage.\",\"question\":\"Are there doctors or hospitals she wants to keep?\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"options\",\"routesintro\",\"original\"],\"agenda_update\":{\"current_concern\":\"confused about Medigap versus Medicare Advantage\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"clarify\",\"aspect_ids\":[\"additional_coverage\",\"public_private_delivery\"],\"evidence_refs\":[\"options\",\"routesintro\"]},{\"concept_id\":\"original_medicare\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"optional_additions\",\"federal_parts\"],\"evidence_refs\":[\"original\",\"options\"]},{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\"],\"evidence_refs\":[\"routesintro\",\"options\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_identity\"],\"blocking_concepts\":[\"coverage_paths\",\"original_medicare\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 6.736432
+}

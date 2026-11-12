@@ -1,0 +1,95 @@
+--- audit-evidence/pilot-sample-data-notice-20261107/before/natural_agent.py	2026-11-07 22:22:28.035286651 +0000
++++ alternatives/advisor-first/natural_agent.py	2026-11-07 22:31:31.395202219 +0000
+@@ -398,6 +398,28 @@
+ separating space. These are ceilings, not length targets. Finish complete sentences and
+ keep metadata compact. There is no minimum response length.'''
+ 
++# Owner direction (November 7, 2026, DQ-01 pilot scope): the invite-only pilot
++# runs on 2026 sample data only. Applied only when server.py sets pilot_scope.
++PILOT_SCOPE_NOTICE = ('This is a pilot, for 2026 sample data only. It does not show 2027 plans '
++                      'or prices, and no one can enroll through it. For real 2027 choices, you '
++                      'can use Medicare.gov or call 1-800-MEDICARE.')
++PILOT_SCOPE_INSTRUCTIONS = f'''
++
++Pilot scope (owner direction for the invite-only pilot):
++This visit is a pilot that uses 2026 sample data only. These pilot facts are approved for you
++to state without other sources: "{PILOT_SCOPE_NOTICE}"
++- Say in plain words that this is a pilot, for 2026 sample data only, whenever your reply
++  describes specific plans, premiums, costs, benefits, networks, drug coverage or a comparison.
++  Keep it next to the details it qualifies.
++- When the person asks about 2027, next year, open enrollment, enrolling, switching or buying
++  a plan, also say the pilot does not show 2027 plans or prices and no one can enroll through
++  it, and that for real 2027 choices they can use Medicare.gov or call 1-800-MEDICARE.
++- Never present 2026 sample plans, prices or comparisons as available to the person now.
++- Keep the notice to these pilot facts; do not add enrollment-period dates or rules to it.
++- Otherwise do not repeat the notice; a reply without plan details does not need it.'''
++PILOT_FIRST_REPLY_INSTRUCTION = '''
++This is your first reply in this visit: briefly say that this is a pilot, for 2026 sample data only.'''
++
+ 
+ def _reports(context):
+     value = context.get('reports', [])
+@@ -1210,10 +1232,30 @@
+             elif key not in {'choice', 'daysSupply', 'channel', 'ageBand', 'year', 'zip', 'county', 'priorMedigap'} and value and value.casefold() not in quote.casefold():
+                 raise ModelUnavailable('A detail was not explicitly supplied.')
+ 
++    def _pilot_scope_instructions(self, owner):
++        """Pilot-only scope notice; empty for every other deployment."""
++        if not getattr(self, 'pilot_scope', False):
++            return ''
++        with self.lock:
++            first = owner not in self.__dict__.setdefault('pilot_notified', set())
++        return PILOT_SCOPE_INSTRUCTIONS + (PILOT_FIRST_REPLY_INSTRUCTION if first else '')
++
++    def _note_pilot_notice(self, owner, answer):
++        # Soft check, never a rejection: if a reply omits the pilot notice,
++        # the next reply is asked for it again.
++        if not getattr(self, 'pilot_scope', False) or not isinstance(answer, dict):
++            return
++        text = ' '.join(str(answer.get(key) or '') for key in ('reply', 'question'))
++        if 'pilot' in text.casefold():
++            with self.lock:
++                self.__dict__.setdefault('pilot_notified', set()).add(owner)
++
+     def compose(self, owner, resolved_context, moves, request_id, reservation):
+         started = time.perf_counter()
+         try:
+-            return self._compose_with_recovery(owner, resolved_context, moves, request_id, reservation)
++            answer = self._compose_with_recovery(owner, resolved_context, moves, request_id, reservation)
++            self._note_pilot_notice(owner, answer)
++            return answer
+         finally:
+             timings = getattr(self.local, 'stage_timings', {})
+             timings['composition'] = round((time.perf_counter() - started) * 1000)
+@@ -1332,7 +1374,7 @@
+             }),
+         })
+         output_limit = getattr(self, 'max_output_tokens', OUTPUT_BOUND)
+-        payload = {'model': self.client.model, 'instructions': COMPOSE_INSTRUCTIONS,
++        payload = {'model': self.client.model, 'instructions': COMPOSE_INSTRUCTIONS + self._pilot_scope_instructions(owner),
+             'input': [{'role': 'user', 'content': json.dumps({'resolved_context': context, 'question_candidates': moves}, ensure_ascii=False, separators=(',', ':'))}],
+             'store': False, 'max_output_tokens': output_limit, 'reasoning': {'effort': self.composition_reasoning_effort}, 'tools': [],
+             'text': {'format': {'type': 'json_schema', 'name': 'daylight_resolved_conversation', 'strict': True, 'schema': spec}},
+@@ -1650,7 +1692,9 @@
+         grounding = json.dumps({'reports': _reports(context), 'evidence': context.get('evidence', []), 'moves': moves,
+                                 'retained_plan_identities': [{k: p[k] for k in ('id', 'name')}
+                                     for p in context.get('plans_context', {}).get('plans', [])],
+-                                'date_display_aliases': sorted(_month_aliases(_reports(context)))}, ensure_ascii=False).casefold()
++                                'date_display_aliases': sorted(_month_aliases(_reports(context))),
++                                **({'pilot_scope': PILOT_SCOPE_NOTICE} if getattr(self, 'pilot_scope', False) else {})},
++                               ensure_ascii=False).casefold()
+         if context.get('plans_context') and re.search(
+                 r'(?i)\b(?:this|that|the selected) plan (?:has|offers|includes|covers|pays|costs)\b', combined):
+             cited_plan_facts = [f for f in context.get('evidence', [])
+--- audit-evidence/pilot-sample-data-notice-20261107/before/server.py	2026-11-07 22:28:24.558624459 +0000
++++ alternatives/advisor-first/server.py	2026-11-07 22:30:36.555981546 +0000
+@@ -160,6 +160,9 @@
+                             local_review=research_catalog is not None)
+     if pilot:
+         service.adaptive.agent.budget = pilot_budget
++        # Owner direction (DQ-01 pilot scope): replies say this is a pilot on 2026 sample data.
++        for agent in {service.adaptive.agent, *getattr(service.adaptive, 'model_agents', {}).values()}:
++            agent.pilot_scope = True
+         service = install_pilot_gate(service, pilot)
+     return service
+ 

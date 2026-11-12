@@ -1,0 +1,53 @@
+{
+  "arm": "prompt",
+  "model": "gpt-6.1-sol",
+  "fictional": true,
+  "send_limit": 8,
+  "turns": [
+    {
+      "action": {
+        "type": "message",
+        "message": "I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense."
+      },
+      "reply": "We can review the coverage in place first, without assuming a change is needed. A useful review looks at doctor participation, prescription coverage, and both monthly payments and costs when getting care—not just the premium. Identifying the current coverage is the best starting point.",
+      "notice": null,
+      "question": "What health insurance does your mom have now? If you’re unsure of the type, you can share the plan names printed on her coverage cards, without any member numbers.",
+      "target": "T05",
+      "learner_signal": "none",
+      "source_ids": [
+        "costs"
+      ],
+      "generated": {
+        "status": "complete",
+        "move": "T05"
+      },
+      "elapsed_seconds": 10.7
+    },
+    {
+      "action": {
+        "type": "choice",
+        "id": "T05",
+        "fields": {
+          "choice": "original,medigap"
+        }
+      },
+      "reply": "",
+      "notice": "Daylight could not verify a name in the AI reply. Your reported details are kept.",
+      "question": "What ZIP code do you live in?",
+      "target": "T03",
+      "learner_signal": "none",
+      "source_ids": [],
+      "generated": {
+        "status": "unavailable",
+        "retryable": false,
+        "reason": "The response introduced a named entity outside its sources.",
+        "code": "ungrounded_entity"
+      },
+      "elapsed_seconds": 7.98
+    }
+  ],
+  "stop": "response not complete",
+  "elapsed_seconds": 18.77,
+  "accounted_usd": 0.0200919,
+  "measured_usd": 0.0200919
+}

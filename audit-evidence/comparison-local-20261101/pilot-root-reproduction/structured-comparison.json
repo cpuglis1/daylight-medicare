@@ -1,0 +1,434 @@
+{
+  "CMS_all_Medicare_services_raw": "2",
+  "CMS_out_of_network_control_raw": "2",
+  "accepted_for_reference": false,
+  "carrier_exceptions": [
+    {
+      "categories": [
+        "9a1",
+        "9b"
+      ],
+      "predicate": "diagnostic_colonoscopy",
+      "sources": [
+        "SB-selective-deductible",
+        "EOC-deductible-and-list-start",
+        "EOC-list-continuation"
+      ],
+      "state": "source_transcribed_unreviewed"
+    },
+    {
+      "predicate": "Medicare_covered_service_at_FQHC",
+      "scope": "any such Medicare-covered service",
+      "sources": [
+        "EOC-deductible-and-list-start"
+      ],
+      "state": "source_transcribed_unreviewed"
+    }
+  ],
+  "carrier_out_of_network_literal": "No deductible",
+  "category_set_equal": true,
+  "component_agreement_does_not_establish_semantic_equivalence": true,
+  "condition_family_review": {
+    "authorization": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "covered_days": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "deductible": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "exclusion": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "frequency_and_quantity": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "network_and_setting": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "qualification": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "referral": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "shared_allowance": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    },
+    "waiver_and_replacement": {
+      "absence_in_deductible_excerpt_is_not_absence_of_requirement": true,
+      "state": "pending_independent_interpretation"
+    }
+  },
+  "condition_logic": {
+    "base_predicate": {
+      "children": [
+        {
+          "predicate": "in_network"
+        },
+        {
+          "predicate": "Medicare_covered_service"
+        },
+        {
+          "predicate": "category_in_six_selected_categories"
+        },
+        {
+          "child": {
+            "children": [
+              {
+                "predicate": "category_in_ASC_or_outpatient_hospital"
+              },
+              {
+                "predicate": "diagnostic_colonoscopy"
+              }
+            ],
+            "op": "and"
+          },
+          "op": "not"
+        },
+        {
+          "child": {
+            "predicate": "Medicare_covered_service_at_FQHC"
+          },
+          "op": "not"
+        },
+        {
+          "predicate": "applicable_assistance_qualification_not_resolved"
+        }
+      ],
+      "op": "and"
+    },
+    "deductible_shared_across_categories": "proposed_single_plan_annual_accumulator_not_six_separate_amounts",
+    "no_personal_evaluation": true,
+    "stages": [
+      "before_deductible",
+      "after_deductible_copayment_or_coinsurance"
+    ],
+    "state": "proposed_unreviewed"
+  },
+  "full_meaning_outcome": "insufficient_evidence",
+  "interpretation_review_complete": false,
+  "no_conflict_found_in_compared_components": true,
+  "nominal_amount": {
+    "CMS_raw": "1000.00",
+    "carrier": "1000",
+    "decimal_equal": true,
+    "unit": "USD/calendar_year"
+  },
+  "proposed_carrier_category_mapping": {
+    "1a": "Inpatient hospital care",
+    "1b": "Inpatient mental health care",
+    "2": "Skilled nursing facility (SNF) care",
+    "9a1": "Outpatient hospital services",
+    "9a2": "Outpatient hospital observation services",
+    "9b": "Ambulatory surgical center (ASC)"
+  },
+  "sealed_complete_meaning_comparator": {
+    "accepted_for_reference": false,
+    "differences": [],
+    "outcome": "insufficient_evidence",
+    "schema": "l03-comparison/1"
+  },
+  "selected_CMS_categories": [
+    "1a",
+    "1b",
+    "2",
+    "9a1",
+    "9a2",
+    "9b"
+  ],
+  "structured_observations": {
+    "carrier": {
+      "boundaries": {
+        "day_bands": [],
+        "frequency": "annual",
+        "quantity": "unknown",
+        "reset": "calendar_year"
+      },
+      "conditions": {
+        "authorization": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "covered_days": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "deductible": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "exclusion": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "frequency_and_quantity": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "network_and_setting": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "qualification": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "referral": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "shared_allowance": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "waiver_and_replacement": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        }
+      },
+      "context": {
+        "assistance_basis": "unknown",
+        "network": "in_network",
+        "population": "published_nominal_schedule",
+        "setting": "six_selected_categories_with_exceptions"
+      },
+      "cost": {
+        "amount": "1000",
+        "kind": "deductible",
+        "range_basis": "exact_nominal"
+      },
+      "evidence": [
+        {
+          "footnotes": [
+            {
+              "reason": "No full offering interpretation review",
+              "state": "unresolved"
+            }
+          ],
+          "headers": [
+            "Section1.2 Our plan deductible"
+          ],
+          "interpretation_review_id": null,
+          "location": "Section1.2 plus continuationPDFp40",
+          "passage_sha256": "143b89849d1bb9088a62264c2c0fdedcfe471db562b1ac9f4793f00a257f248b",
+          "pdf_page": 39,
+          "side": "carrier",
+          "source_sha256": "7602dc081bd6d615dac7f43d3739234668e5701c5464cc89d061ac1f46ae75ba"
+        }
+      ],
+      "exceptions": [
+        {
+          "reason": "Complete linked interpretation review not performed",
+          "state": "unknown"
+        }
+      ],
+      "identity": {
+        "contract": "H5652",
+        "geographic_variant": "unknown",
+        "geography": "Collier12021",
+        "plan": "002",
+        "segment": "000",
+        "year": 2026
+      },
+      "service": {
+        "category": "plan_level_medical_deductible",
+        "subtype": "selected_Medicare_covered_services"
+      },
+      "shared_budgets": [
+        {
+          "id": "2026:H5652:002:000:medical_deductible",
+          "reason": "Proposed single annual deductible across selected categories; independent review pending",
+          "state": "unresolved"
+        }
+      ],
+      "unit": {
+        "currency_or_percentage": "USD",
+        "denominator": "plan_annual_deductible",
+        "period": "calendar_year"
+      },
+      "variant": {
+        "effective_period": "2026-01-01/2026-12-31",
+        "enrollment_basis": "unknown",
+        "identifier": "2026:H5652:002:000:base",
+        "kind": "base"
+      }
+    },
+    "cms": {
+      "boundaries": {
+        "day_bands": [],
+        "frequency": "annual",
+        "quantity": "unknown",
+        "reset": "calendar_year"
+      },
+      "conditions": {
+        "authorization": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "covered_days": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "deductible": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "exclusion": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "frequency_and_quantity": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "network_and_setting": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "qualification": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "referral": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "shared_allowance": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        },
+        "waiver_and_replacement": {
+          "assertion": "Exact family interpretation remains under review",
+          "evidence_ids": [],
+          "interpretation_review_id": null,
+          "obligation_ids": [],
+          "state": "unresolved"
+        }
+      },
+      "context": {
+        "assistance_basis": "unknown",
+        "network": "in_network",
+        "population": "published_nominal_schedule",
+        "setting": "six_selected_categories_with_exceptions"
+      },
+      "cost": {
+        "amount": "1000.00",
+        "kind": "deductible",
+        "range_basis": "exact_nominal"
+      },
+      "evidence": [
+        {
+          "interpretation_review_id": null,
+          "member": "H5652-002-000-2026.json",
+          "pointer": "/pbp/0/planLevelCostSharing/planDeductible/planDeductibleDetails",
+          "side": "cms",
+          "source_sha256": "65077aeb8deb6e82eaeddc8e32b2b1a810d1df2ca814a69b1d24401f4f5cbbe3"
+        }
+      ],
+      "exceptions": [
+        {
+          "reason": "Complete linked interpretation review not performed",
+          "state": "unknown"
+        }
+      ],
+      "identity": {
+        "contract": "H5652",
+        "geographic_variant": "unknown",
+        "geography": "Collier12021",
+        "plan": "002",
+        "segment": "000",
+        "year": 2026
+      },
+      "service": {
+        "category": "plan_level_medical_deductible",
+        "subtype": "selected_Medicare_covered_services"
+      },
+      "shared_budgets": [
+        {
+          "id": "2026:H5652:002:000:medical_deductible",
+          "reason": "Proposed single annual deductible across selected categories; independent review pending",
+          "state": "unresolved"
+        }
+      ],
+      "unit": {
+        "currency_or_percentage": "USD",
+        "denominator": "plan_annual_deductible",
+        "period": "calendar_year"
+      },
+      "variant": {
+        "effective_period": "2026-01-01/2026-12-31",
+        "enrollment_basis": "unknown",
+        "identifier": "2026:H5652:002:000:base",
+        "kind": "base"
+      }
+    }
+  }
+}

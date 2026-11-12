@@ -1,0 +1,99 @@
+test_both_invalid_components_stay_held_after_one_repair (test_composition_recovery.CompositionRecoveryTests.test_both_invalid_components_stay_held_after_one_repair) ... Daylight composition validation code=ungrounded_literal retained=none
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=none
+ok
+test_disconnect_during_repair_retains_original_safe_component (test_composition_recovery.CompositionRecoveryTests.test_disconnect_during_repair_retains_original_safe_component) ... Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition transport {"exception": "ConnectionResetError", "phase": "stream"}
+ok
+test_failed_repair_preserves_only_the_independently_checked_question (test_composition_recovery.CompositionRecoveryTests.test_failed_repair_preserves_only_the_independently_checked_question) ... Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+ok
+test_freeform_orphan_question_cannot_survive_an_invalid_answer (test_composition_recovery.CompositionRecoveryTests.test_freeform_orphan_question_cannot_survive_an_invalid_answer) ... Daylight composition validation code=ungrounded_literal retained=none
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=none
+ok
+test_logs_contain_categories_and_never_rejected_text (test_composition_recovery.CompositionRecoveryTests.test_logs_contain_categories_and_never_rejected_text) ... ok
+test_malformed_completed_json_is_settled_then_repaired (test_composition_recovery.CompositionRecoveryTests.test_malformed_completed_json_is_settled_then_repaired) ... Daylight composition validation code=invalid_structure retained=none
+Daylight composition recovery stage=compose
+ok
+test_missing_education_is_neutral_metadata (test_composition_recovery.CompositionRecoveryTests.test_missing_education_is_neutral_metadata) ... ok
+test_optional_metadata_failure_does_not_discard_core_or_add_a_call (test_composition_recovery.CompositionRecoveryTests.test_optional_metadata_failure_does_not_discard_core_or_add_a_call) ... ok
+test_provider_billing_failure_does_not_trigger_repair (test_composition_recovery.CompositionRecoveryTests.test_provider_billing_failure_does_not_trigger_repair) ... ok
+test_question_premises_receive_the_answer_factual_checks (test_composition_recovery.CompositionRecoveryTests.test_question_premises_receive_the_answer_factual_checks) ... Daylight composition validation code=ungrounded_literal retained=none
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=none
+ok
+test_repair_and_connection_recovery_share_one_attempt_slot (test_composition_recovery.CompositionRecoveryTests.test_repair_and_connection_recovery_share_one_attempt_slot) ... Daylight composition transport {"exception": "ConnectionResetError", "phase": "stream"}
+Daylight connection recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+ok
+test_repair_budget_failure_keeps_safe_question_and_cancels_unissued_hold (test_composition_recovery.CompositionRecoveryTests.test_repair_budget_failure_keeps_safe_question_and_cancels_unissued_hold) ... Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+ok
+test_repair_output_reservation_can_be_denied_without_losing_safe_question (test_composition_recovery.CompositionRecoveryTests.test_repair_output_reservation_can_be_denied_without_losing_safe_question) ... ERROR
+test_same_repair_path_for_every_selectable_model_and_guard_category (test_composition_recovery.CompositionRecoveryTests.test_same_repair_path_for_every_selectable_model_and_guard_category) ... Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_entity retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=unsupported_finding retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_entity retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=unsupported_finding retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_entity retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=unsupported_finding retained=question
+Daylight composition recovery stage=compose
+ok
+test_standalone_guards_still_reject_unresolved_reports_and_unsupported_findings (test_composition_recovery.CompositionRecoveryTests.test_standalone_guards_still_reject_unresolved_reports_and_unsupported_findings) ... ok
+test_valid_whole_reply_survives_invalid_question_without_paid_repair (test_composition_recovery.CompositionRecoveryTests.test_valid_whole_reply_survives_invalid_question_without_paid_repair) ... Daylight composition validation code=invalid_question retained=reply
+ok
+test_profile_evidence_and_delivery_accounting_survive_repair_or_question_only (test_composition_recovery.RecoveryControllerTests.test_profile_evidence_and_delivery_accounting_survive_repair_or_question_only) ... Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+ok
+
+======================================================================
+ERROR: test_repair_output_reservation_can_be_denied_without_losing_safe_question (test_composition_recovery.CompositionRecoveryTests.test_repair_output_reservation_can_be_denied_without_losing_safe_question)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_composition_recovery.py", line 199, in test_repair_output_reservation_can_be_denied_without_losing_safe_question
+    answer = self.compose()
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_composition_recovery.py", line 73, in compose
+    return self.agent.compose('fictional-owner', self.context, self.moves, self.request_id, reservation)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py", line 1100, in compose
+    return self._compose_with_recovery(owner, resolved_context, moves, request_id, reservation)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py", line 1111, in _compose_with_recovery
+    answer = self._compose_once(owner, resolved_context, moves, request_id, reservation,
+                                repair_feedback=feedback)
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py", line 1240, in _compose_once
+    response, text = self._complete(payload, raw)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/cep4u/daylight/alternatives/advisor-first/natural_agent.py", line 1288, in _complete
+    response = self.client.transport(payload)
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_composition_recovery.py", line 196, in exhaust_after_submission
+    self.agent.budget.daily_cap_nano_usd = 1
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: property 'daily_cap_nano_usd' of 'AdvisorDailyBudget' object has no setter
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.832s
+
+FAILED (errors=1)

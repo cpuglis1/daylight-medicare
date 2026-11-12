@@ -1,0 +1,19 @@
+{
+  "status": "core_implemented_source_stop_verified",
+  "script": "scripts/medicare_collector.py",
+  "tests": "collector-final-tests.log",
+  "actual_browser_dispatches": 14,
+  "minimum_event_spacing_seconds": 5.000918,
+  "manual_entry_script_discovery_gets": 2,
+  "manual_discovery_spacing_seconds": 22.252355,
+  "max_requests_per_run": 2000,
+  "source_stop_at_utc": "2026-10-20T14:45:02.586107+00:00",
+  "source_stop_url": "https://www.medicare.gov/api/v1/data/plan-compare/ldflags",
+  "source_stop_http_status": 403,
+  "requests_after_denial": 0,
+  "active_stop": "c16-active-stop.json",
+  "new_scenario_observations": 0,
+  "earlier_shell_capture": "c16-browser-preflight-6 is explicitly invalidated by c16-readiness-correction.json; no facts promoted",
+  "task_adapters_admitted": false,
+  "notes": "Local manifest stops were reviewed before controlled resume; the final origin 403 has not been cleared. No alternate-browser/IP/transport origin retry, real beneficiary inputs or live batch."
+}

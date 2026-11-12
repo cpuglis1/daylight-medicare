@@ -1,0 +1,69 @@
+test_research_serving (unittest.loader._FailedTest.test_research_serving) ... ERROR
+test_research_identity (unittest.loader._FailedTest.test_research_identity) ... ERROR
+test_research_drug_candidates (unittest.loader._FailedTest.test_research_drug_candidates) ... ERROR
+test_research_provider_identity (unittest.loader._FailedTest.test_research_provider_identity) ... ERROR
+
+======================================================================
+ERROR: test_research_serving (unittest.loader._FailedTest.test_research_serving)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_research_serving
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/infrastructure/daylight-data/tests/test_research_serving.py", line 8, in <module>
+    import pytest
+ModuleNotFoundError: No module named 'pytest'
+
+
+======================================================================
+ERROR: test_research_identity (unittest.loader._FailedTest.test_research_identity)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_research_identity
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/infrastructure/daylight-data/tests/test_research_identity.py", line 6, in <module>
+    import pytest
+ModuleNotFoundError: No module named 'pytest'
+
+
+======================================================================
+ERROR: test_research_drug_candidates (unittest.loader._FailedTest.test_research_drug_candidates)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_research_drug_candidates
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/infrastructure/daylight-data/tests/test_research_drug_candidates.py", line 7, in <module>
+    import pytest
+ModuleNotFoundError: No module named 'pytest'
+
+
+======================================================================
+ERROR: test_research_provider_identity (unittest.loader._FailedTest.test_research_provider_identity)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_research_provider_identity
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/cep4u/daylight/infrastructure/daylight-data/tests/test_research_provider_identity.py", line 6, in <module>
+    import pytest
+ModuleNotFoundError: No module named 'pytest'
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (errors=4)

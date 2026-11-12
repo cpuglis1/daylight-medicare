@@ -1,0 +1,29 @@
+test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions (test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions) ... FAIL
+
+======================================================================
+FAIL: test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions (test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_natural_flow.py", line 375, in test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions
+    self.assertEqual([self.g['stateVersion'], self.r['stateVersion']],
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     [visit_a[0]['stateVersion'], visit_a[1]['stateVersion']])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [0, 0] != [0, 2]
+
+First differing element 1:
+0
+2
+
+- [0, 0]
+?     ^
+
++ [0, 2]
+?     ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.170s
+
+FAILED (failures=1)
+Baseline source SHA preserved in before.json. Unrelated original failure reproduced: True

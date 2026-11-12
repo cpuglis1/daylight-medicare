@@ -1,0 +1,58 @@
+{
+  "version": "understanding-20261103-r1",
+  "coverage_year": 2026,
+  "review_due": "2026-11-24",
+  "scope": "Retained general educational statements. Engineering integrity and a maintenance deadline do not supply new source, method or personal acceptance.",
+  "capabilities": {
+    "transition": {
+      "title": "Your coverage transition",
+      "fact_ids": ["enrollment_intro", "cobra_timing", "dates"],
+      "layers": ["L13", "L11", "L14"],
+      "personal_state": "held",
+      "dependencies": ["current insurance type", "current employment and whose job supplies coverage", "employer size where relevant", "actual Medicare enrollment", "relevant event dates and their precision", "accepted applicable rules and exact release"],
+      "gaps": ["L13 R18 review and exact personal timing authority", "applicable personal case evidence", "separate Medigap rights review"],
+      "blocks": [
+        {"id": "insurance_kind", "label": "Start with the coverage you have", "text": "The kind of insurance, current employment and employer size can matter to enrollment timing.", "evidence_refs": ["enrollment_intro"]},
+        {"id": "cobra", "label": "COBRA has different timing rules", "text": "COBRA is not coverage based on current employment and does not extend the time to enroll in Part B.", "evidence_refs": ["cobra_timing"]},
+        {"id": "window", "label": "Signing up and coverage starting are different", "text": "For most people first eligible at 65, the initial sign-up window spans seven months. Coverage start also depends on when and how enrollment happens; first-of-month birthdays have special rules.", "evidence_refs": ["enrollment_intro"]},
+        {"id": "confirm_dates", "label": "Confirm the actual start", "text": "A birthday or preferred start is not an actual Medicare effective date. Social Security confirms the enrollment route and effective date.", "evidence_refs": ["dates"]}
+      ],
+      "required_case_families": ["current employment versus COBRA versus retiree coverage", "self versus spouse employment", "unknown employer size", "first-of-month birthday", "unknown and partial dates", "job and insurance end on different dates", "desired versus actual start", "correction invalidates dependent dates", "no rule authority preserves preparation"]
+    },
+    "coverage_paths": {
+      "title": "How coverage fits together",
+      "fact_ids": ["routesintro", "options", "original", "advantage", "drugs", "medigap", "switching", "parts"],
+      "layers": ["L01", "L03", "L04", "L10", "L11", "L13", "L14"],
+      "personal_state": "held",
+      "dependencies": ["accepted path-specific applicability", "exact products, period and geography for personal findings"],
+      "gaps": ["personal path eligibility and timing", "plan-specific access and benefit checks", "state-specific buying and switching rights"],
+      "blocks": [
+        {"id": "original_base", "route": "original", "label": "Original Medicare", "text": "Parts A and B through the federal program.", "evidence_refs": ["routesintro"], "alternative_support": [["original"], ["options"], ["parts"]]},
+        {"id": "advantage_base", "route": "advantage", "label": "Medicare Advantage", "text": "Parts A and B through a Medicare-approved private plan.", "evidence_refs": ["routesintro"], "alternative_support": [["advantage"], ["options"]]},
+        {"id": "original_additions", "route": "original", "label": "Optional additions", "text": "Separate Part D for drugs; Medigap may help with your share of costs.", "evidence_refs": ["options"], "alternative_support": [["original"]]},
+        {"id": "advantage_drugs", "route": "advantage", "label": "Drug coverage", "text": "Most Medicare Advantage plans include Part D. Check the exact plan.", "evidence_refs": ["options"]},
+        {"id": "combination", "label": "Where Medigap belongs", "text": "Medigap works with Original Medicare, not Medicare Advantage. Drug coverage is separate.", "evidence_refs": ["medigap"], "alternative_support": [["options"]]},
+        {"id": "original_access", "route": "original", "label": "Access to care", "text": "You can use a U.S. doctor who takes Medicare.", "evidence_refs": ["original"], "alternative_support": [["parts"]]},
+        {"id": "advantage_access", "route": "advantage", "label": "Access and rules", "text": "Doctors, costs and rules vary by plan and need checking.", "evidence_refs": ["advantage"]},
+        {"id": "part_b", "label": "Part B premium", "text": "The Part B premium still applies with either coverage route.", "evidence_refs": ["options"]},
+        {"id": "switching", "label": "Future flexibility", "text": "Medigap buying rights need a separate check. The federal six-month period depends on both age and Part B enrollment; other conditions and rights may matter.", "evidence_refs": ["switching"]}
+      ],
+      "required_case_families": ["beginner sees only explained pieces", "Medigap versus Advantage compatibility", "optional separate drug coverage", "plan-specific restrictions remain unknown", "switching rights do not follow from product benefits", "same evidence regardless of commercial arrangements"]
+    },
+    "costs": {
+      "title": "What makes up your costs",
+      "fact_ids": ["costs", "medical_limit"],
+      "layers": ["L01", "L03", "L05", "L06", "L10", "L12"],
+      "personal_state": "held",
+      "dependencies": ["accepted exact components and methods", "explicit period, units and scenario quantities", "included and excluded services", "network and drug phase", "separate assistance and premium qualifications"],
+      "gaps": ["complete accepted plan benefit meaning and conditions", "accepted benefit accumulation and cap methods", "personal pharmacy prices and Medigap quotes", "personal assistance applicability"],
+      "blocks": [
+        {"id": "premiums", "label": "Each month", "text": "Premiums pay for coverage. A premium alone is not your total cost.", "evidence_refs": ["costs"]},
+        {"id": "care", "label": "When you use care", "text": "Deductibles, copays and coinsurance depend on the benefit's rules.", "evidence_refs": ["costs"]},
+        {"id": "medical_cap", "label": "What a limit covers", "text": "A Medicare Advantage limit applies to covered medical cost sharing. Premiums and drug costs are separate.", "evidence_refs": ["medical_limit"]},
+        {"id": "original_limit", "label": "Original Medicare on its own", "text": "Parts A and B have no yearly medical spending cap on their own.", "evidence_refs": ["medical_limit"]}
+      ],
+      "required_case_families": ["monthly versus annual versus benefit period", "explicit scenario quantities", "unknown is not zero", "overlapping components cannot be added", "medical caps exclude premiums and drugs", "partial subtotal is not total cost", "changed inputs or expired review invalidate output", "published amounts are not personal quotes"]
+    }
+  }
+}

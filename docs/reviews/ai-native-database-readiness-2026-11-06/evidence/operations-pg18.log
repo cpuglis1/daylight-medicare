@@ -1,0 +1,158 @@
+postgres (PostgreSQL) 18.6
+apply 001_operations.sql
+run 001_operations_test.sql
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:32: NOTICE:  ok: has_commercial_key
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:46: NOTICE:  ok (rejected 23514): commercial key in decision inputs
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:50: NOTICE:  ok (rejected 23514): ordered id outside the candidate set
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:54: NOTICE:  ok (rejected 23514): unknown purpose
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:55: NOTICE:  ok (rejected P0001): decision update
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:56: NOTICE:  ok (rejected P0001): decision delete
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:61: NOTICE:  ok (rejected P0001): review update
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:63: NOTICE:  ok (rejected 23514): non-numeric NPN
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:73: NOTICE:  ok (rejected 23514): prompt text in trace metadata
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:76: NOTICE:  ok (rejected 23514): malformed request hash
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:80: NOTICE:  ok (rejected 23514): visit reference must be an opaque hash
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:81: NOTICE:  ok (rejected P0001): trace delete
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:93: NOTICE:  ok: work_case_current
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:104: NOTICE:  ok (rejected 23514): effective without a date
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:106: NOTICE:  ok (rejected 23514): malformed offering id
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:111: NOTICE:  ok: enrollment_current
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:122: NOTICE:  ok: reconciliation
+ count 
+-------
+     1
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:129: NOTICE:  ok (rejected 42501): app reads commissions
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:130: NOTICE:  ok (rejected 42501): app reads reconciliation
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:132: NOTICE:  ok (rejected 42501): app writes a licensed review
+ expect_error 
+--------------
+ 
+(1 row)
+
+ count 
+-------
+     1
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:142: NOTICE:  ok (rejected 42501): reviewer writes a decision
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:143: NOTICE:  ok (rejected 42501): reviewer reads commissions
+ expect_error 
+--------------
+ 
+(1 row)
+
+ count 
+-------
+     1
+(1 row)
+
+ count 
+-------
+     1
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:151: NOTICE:  ok (rejected 42501): fulfillment reads decision inputs
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:152: NOTICE:  ok (rejected 42501): fulfillment reads traces
+ expect_error 
+--------------
+ 
+(1 row)
+
+psql:/Users/cep4u/daylight/infrastructure/daylight-operations/tests/sql/001_operations_test.sql:154: NOTICE:  ok (rejected 42501): fulfillment edits enrollment status
+ expect_error 
+--------------
+ 
+(1 row)
+
+                result                
+--------------------------------------
+ ALL OPERATIONS SQL ASSERTIONS PASSED
+(1 row)
+

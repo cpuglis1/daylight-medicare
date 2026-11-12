@@ -1,0 +1,54 @@
+{
+  "maximumReservationUsd": 0.201,
+  "maximumGenerationStages": 6,
+  "fictionalInputs": true,
+  "automaticRetries": false,
+  "savedProfile": false,
+  "extractReasoning": "none",
+  "checks": "failed",
+  "failure": "'situation.age65'",
+  "generationStageCount": 2,
+  "measuredEstimateUsd": 0.02518,
+  "heldUsd": 0.0,
+  "accountedUsd": 0.02518,
+  "outputs": [
+    {
+      "case": "turn-1",
+      "message": "I've been retired for a few years and turn 65 in November. I'm new to Medicare and want to find coverage that includes my prescriptions. My health insurance is through my wife's current job.",
+      "seconds": 7.281,
+      "reply": "Medicare drug coverage is usually handled through a Part D plan or some Medicare Advantage plans.",
+      "question": "When would you like Medicare coverage to start?",
+      "target": "T04",
+      "generated": {
+        "status": "complete",
+        "move": "T04"
+      }
+    }
+  ],
+  "timings": [
+    {
+      "case": "turn-1",
+      "stage": "daylight_guide_commands",
+      "part": "count_tokens",
+      "seconds": 0.374
+    },
+    {
+      "case": "turn-1",
+      "stage": "extract",
+      "part": "whole_stage",
+      "seconds": 4.865
+    },
+    {
+      "case": "turn-1",
+      "stage": "daylight_resolved_conversation",
+      "part": "count_tokens",
+      "seconds": 0.245
+    },
+    {
+      "case": "turn-1",
+      "stage": "compose",
+      "part": "whole_stage",
+      "seconds": 2.407
+    }
+  ]
+}

@@ -1,0 +1,577 @@
+{
+  "guide": {
+    "schemaVersion": 2,
+    "stateVersion": 6,
+    "fields": {
+      "subject.role": {
+        "value": "self",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 1
+      },
+      "knowledge.general": {
+        "value": "new",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 2
+      },
+      "coverage.current": {
+        "value": [
+          "employer"
+        ],
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 3
+      },
+      "situation.retirement": {
+        "value": {
+          "status": "retired",
+          "when": "for a few years"
+        },
+        "status": "reported",
+        "source": "user_text",
+        "confirmation": "reported_by_user",
+        "revision": 4
+      },
+      "situation.age65": {
+        "value": {
+          "month": 11,
+          "year": null
+        },
+        "status": "reported",
+        "source": "user_text",
+        "confirmation": "reported_by_user",
+        "revision": 5
+      },
+      "coverage.requestedStart": {
+        "value": "soonest",
+        "status": "reported",
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 6
+      }
+    },
+    "flow": {
+      "node": "R00",
+      "history": [],
+      "queue": [],
+      "lessonReturn": null,
+      "personalReview": false,
+      "guideOpen": true,
+      "origin": "T01",
+      "invalidations": [],
+      "scroll": 0
+    },
+    "topics": {},
+    "preferences": {
+      "saveGuide": false,
+      "saveSensitive": false,
+      "noticeVersion": "guest-notice-2026-10-21-v1"
+    }
+  },
+  "record": {
+    "schemaVersion": 1,
+    "ruleVersion": "readiness-inputs-20261022-v1",
+    "stateVersion": 4,
+    "guideFingerprint": "",
+    "facts": {
+      "RC01": {
+        "value": {
+          "choice": "self"
+        },
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 2,
+        "stale": false
+      },
+      "RC09": {
+        "value": {
+          "choice": "spouse_job"
+        },
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 3,
+        "stale": false
+      },
+      "RC06": {
+        "value": {
+          "choice": "age65"
+        },
+        "source": "confirmed_agent_interpretation",
+        "confirmation": "reported_by_user",
+        "revision": 4,
+        "stale": false
+      }
+    },
+    "entityDispositions": {},
+    "requests": [],
+    "detailsRequested": false,
+    "completeness": {},
+    "dispositions": {},
+    "queue": [],
+    "index": 0,
+    "shown": [],
+    "pass": 0,
+    "history": [],
+    "mode": "summary",
+    "editNotice": false,
+    "reviewOnly": false,
+    "conversation": {
+      "version": 1,
+      "task": "compare",
+      "preparing": true,
+      "baselineDispositions": {},
+      "skippedDetails": {},
+      "details": {},
+      "editing": "",
+      "checks": [],
+      "itemRevisions": {},
+      "itemInvalidations": {},
+      "lastFactIds": [],
+      "journey": {
+        "learningSeen": [],
+        "samplesVisible": false
+      }
+    },
+    "natural": {
+      "version": 1,
+      "provenance": {
+        "guide.subject.role": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        },
+        "readiness.RC01": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "readiness.RC01.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.knowledge.general": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        },
+        "guide.coverage.current": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC09.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        },
+        "readiness.RC06": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "readiness.RC06.profile.choice": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.situation.retirement": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        },
+        "guide.situation.age65": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 5,
+          "supersedesRevision": null
+        },
+        "guide.coverage.requestedStart": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 6,
+          "supersedesRevision": null
+        }
+      },
+      "dialogue": {
+        "orientation": "",
+        "lastTarget": {
+          "id": "T03",
+          "entity": "profile",
+          "fields": [
+            "zip"
+          ]
+        },
+        "explainedTopics": [],
+        "deferredTargets": [],
+        "clarifications": []
+      }
+    }
+  },
+  "assessment": {
+    "version": "D79-adaptive-20261028-r3",
+    "task": "compare",
+    "preparing": true,
+    "nextQuestion": {
+      "id": "T03",
+      "inventoryIds": [
+        "T03"
+      ],
+      "question": "What ZIP code do you live in?",
+      "why": "",
+      "choices": [],
+      "multi": false,
+      "entity": "profile",
+      "fields": [
+        {
+          "key": "zip",
+          "label": "Home ZIP code",
+          "type": "text",
+          "options": []
+        }
+      ],
+      "signature": "T03.profile.zip",
+      "atomicRequests": 1
+    },
+    "state": "missing_information",
+    "limitation": "A personal comparison is held for complete market data, accepted benefits and independent comparison review. A checklist can prepare your information; it cannot verify personal fit.",
+    "personalizedRecommendationAllowed": false,
+    "externalVerificationReady": false,
+    "unresolvedReportedInputs": [
+      {
+        "id": "T04",
+        "label": "Exact coverage start month",
+        "state": "not established"
+      }
+    ],
+    "ruleDecisions": {
+      "T01": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "T02": {
+        "treatment": "optional",
+        "state": "reported_reused"
+      },
+      "T03": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T04": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_preference"
+      },
+      "T05": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "T06": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T07": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T08": {
+        "treatment": "task_specific_missing_only",
+        "state": "missing"
+      },
+      "T09": {
+        "treatment": "optional",
+        "state": "optional_not_blocking"
+      },
+      "T10": {
+        "treatment": "optional",
+        "state": "optional_not_blocking"
+      },
+      "RC01": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "RC02": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC03": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC04": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC05": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC06": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "RC07": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC08": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC09": {
+        "treatment": "task_specific_missing_only",
+        "state": "reported_reused"
+      },
+      "RC10": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC11": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC12": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC13": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC14": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC15": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC16": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC17": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC18": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC19": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC20": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC21": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC22": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC23": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC24": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC25": {
+        "treatment": "optional",
+        "state": "optional_not_blocking"
+      },
+      "RC26": {
+        "treatment": "task_specific_missing_only",
+        "state": "not_requested"
+      },
+      "RC27": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC28": {
+        "treatment": "internal_only",
+        "state": "internal_no_supported_missing_dependency"
+      },
+      "RC11.C1": {
+        "treatment": "within_parent_missing_only",
+        "state": "within_parent"
+      },
+      "RC16.C1": {
+        "treatment": "within_parent_missing_only",
+        "state": "within_parent"
+      },
+      "RC16.C2": {
+        "treatment": "within_parent_missing_only",
+        "state": "within_parent"
+      }
+    },
+    "gapIds": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G07",
+      "G08",
+      "G09",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14"
+    ],
+    "journey": {
+      "phase": 1,
+      "labels": [
+        "Your goal",
+        "Your situation",
+        "Your options",
+        "Your next step"
+      ],
+      "meaning": "Conversation milestones, not verified eligibility or a recommendation.",
+      "reportedGroups": 6,
+      "samplesVisible": false,
+      "summary": "",
+      "nextStep": null
+    },
+    "sampleBrowsing": {
+      "allowed": true,
+      "requiresExplicitAction": true,
+      "year": 2027,
+      "location": "Collier County, Florida",
+      "notRecommendation": true
+    },
+    "narrative": {
+      "opener": false,
+      "eligibleMoves": [
+        "ask",
+        "explain",
+        "prepare"
+      ],
+      "action": "prepare",
+      "actionLabel": "Prepare my next steps",
+      "capabilityVersion": "D86-preparation-v1",
+      "visual": {
+        "kind": "basics",
+        "title": "A place to start"
+      },
+      "reason": "Let\u2019s understand your current coverage before considering a change.",
+      "suggestedCheck": "timing",
+      "natural": true
+    },
+    "intakePaused": false
+  },
+  "reply": "Okay \u2014 we can look at the soonest option.",
+  "facts": [],
+  "pendingId": null,
+  "pendingUpdates": [],
+  "metrics": {
+    "llmCalls": 2,
+    "synthetic": false,
+    "stageMs": {
+      "extraction": 2492,
+      "composition": 2125
+    }
+  },
+  "personalRecommendation": false,
+  "reportedRows": [
+    {
+      "id": "T02",
+      "label": "Explanation preference",
+      "value": "New to Medicare",
+      "status": "reported"
+    },
+    {
+      "id": "T04",
+      "label": "Preferred Medicare start",
+      "value": "As soon as possible",
+      "status": "reported"
+    },
+    {
+      "id": "T05",
+      "label": "Current health insurance",
+      "value": "Current-job coverage",
+      "status": "reported"
+    },
+    {
+      "id": "S_RETIREMENT",
+      "label": "Work status",
+      "value": "Retired for a few years",
+      "status": "reported"
+    },
+    {
+      "id": "S_AGE65",
+      "label": "65th birthday",
+      "value": "Turning 65 in November (year not stated)",
+      "status": "reported"
+    },
+    {
+      "id": "RC01",
+      "label": "Who this is for",
+      "value": "Me",
+      "status": "reported"
+    },
+    {
+      "id": "RC09",
+      "label": "Work insurance",
+      "value": "Spouse\u2019s current job",
+      "status": "reported"
+    }
+  ],
+  "expectedStateVersion": 5,
+  "expectedReadinessRevision": 4,
+  "continuation": "1207e219630e8e504a7615da4c3bcf65.4a00e73a54af5784e70f30f534d7b4a09c323630475ccec95c0d6a18044c56c1",
+  "generated": {
+    "status": "complete",
+    "move": "T03"
+  }
+}

@@ -1,0 +1,501 @@
+{
+  "fictional_inputs": true,
+  "saved_profile": false,
+  "automatic_retries": false,
+  "selected_case": "caregiver",
+  "checks_passed": true,
+  "quality_checks": {
+    "caregiver_scope_preserved": true,
+    "caregiver_role_not_reasked": true,
+    "caregiver_return_point_preserved": true,
+    "caregiver_correction_preserved": true
+  },
+  "maximum_generation_stages": 6,
+  "maximum_reservation_usd": 0.201,
+  "model": "gpt-5.4",
+  "reasoning": "none",
+  "turns": [
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "action": {
+        "type": "message",
+        "message": "I am helping my mother, who turns 65 in November. I have insurance through my current job, but she has no health insurance. She wants to understand her Medicare options."
+      },
+      "elapsed_seconds": 9.936,
+      "reply": "She has two main Medicare paths to compare: Original Medicare, which is Part A and Part B through the federal program, or a Medicare Advantage plan, which is offered by a private company and provides Part A and Part B. With Original Medicare, she can usually add a separate drug plan and may be able to buy Medigap; with Medicare Advantage, drug coverage is often included.",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would she like Medicare coverage to start?",
+        "why": "",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T04"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "timing",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "routesintro",
+          "options"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: The two coverage routes"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 1,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "coverage_paths"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 5498,
+          "composition": 4344
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "someone",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "coverage.current": {
+          "value": [
+            "none"
+          ],
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "someone"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "action": {
+        "type": "message",
+        "message": "Before I answer, what does Part B cover?"
+      },
+      "elapsed_seconds": 6.263,
+      "reply": "Part B is the medical part of Medicare. It generally covers doctor visits, outpatient care, tests, medical equipment, and many preventive services; Part A is more for hospital-type care.",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would she like Medicare coverage to start?",
+        "why": "",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T04"
+      },
+      "advisor": {
+        "kind": "teach",
+        "topic": "timing",
+        "reason": "user_question",
+        "teachingFactIds": [
+          "partb",
+          "parts"
+        ],
+        "sources": [
+          {
+            "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options",
+            "label": "Medicare.gov: Part B: medical care"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "part_b"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 2490,
+          "composition": 3697
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "someone",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "coverage.current": {
+          "value": [
+            "none"
+          ],
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "situation.age65": {
+          "value": {
+            "month": 11,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 3
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "someone"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "action": {
+        "type": "message",
+        "message": "Actually, she turns 65 in December, not November."
+      },
+      "elapsed_seconds": 7.305,
+      "reply": "Thanks for the correction. Since she turns 65 in December, the key next detail is when she wants her Medicare coverage to begin, because the birthday month and the desired start month are not always the same.",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would she like Medicare coverage to start?",
+        "why": "",
+        "choices": [
+          [
+            "soonest",
+            "As soon as possible"
+          ],
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "generated": {
+        "status": "complete",
+        "move": "T04"
+      },
+      "advisor": {
+        "kind": "ask",
+        "topic": "timing",
+        "reason": "user_question",
+        "teachingFactIds": [],
+        "sources": [
+          {
+            "url": "https://www.ssa.gov/medicare/sign-up",
+            "label": "Medicare.gov: Dates depend on your situation"
+          }
+        ],
+        "visual": "none",
+        "educationFollowups": []
+      },
+      "education": {
+        "version": "education-v1",
+        "revision": 2,
+        "covered": [
+          {
+            "concept_id": "coverage_paths",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          },
+          {
+            "concept_id": "part_b",
+            "depth": "introduced",
+            "needs_clarification": false,
+            "deliveries": 1
+          }
+        ],
+        "visuals_shown": [],
+        "focus": [
+          "part_b"
+        ]
+      },
+      "metrics": {
+        "llmCalls": 2,
+        "synthetic": false,
+        "stageMs": {
+          "extraction": 3504,
+          "composition": 3730
+        }
+      },
+      "guide": {
+        "subject.role": {
+          "value": "someone",
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1
+        },
+        "coverage.current": {
+          "value": [
+            "none"
+          ],
+          "status": "reported",
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 2
+        },
+        "situation.age65": {
+          "value": {
+            "month": 12,
+            "year": null
+          },
+          "status": "reported",
+          "source": "user_text",
+          "confirmation": "reported_by_user",
+          "revision": 4
+        }
+      },
+      "facts": {
+        "RC01": {
+          "value": {
+            "choice": "someone"
+          },
+          "source": "confirmed_agent_interpretation",
+          "confirmation": "reported_by_user",
+          "revision": 1,
+          "stale": false
+        }
+      }
+    }
+  ],
+  "token_checks": [
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_guide_commands",
+      "tokens": 6781,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 1,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5572,
+      "history_exchanges": 0
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_guide_commands",
+      "tokens": 7476,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 2,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5399,
+      "history_exchanges": 1
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_guide_commands",
+      "tokens": 7563,
+      "history_exchanges": 2
+    },
+    {
+      "case": "caregiver",
+      "turn": 3,
+      "contract": "daylight_resolved_conversation",
+      "tokens": 5579,
+      "history_exchanges": 2
+    }
+  ],
+  "all_turns_complete": true,
+  "generation_stages_reserved": 6,
+  "receipts": [
+    {
+      "id": "327750225ba24f4990cff7bf3f88ded2e8bf8c88602d14ff",
+      "status": "settled",
+      "charged_nano_usd": 22667500,
+      "measured_nano_usd": 22667500,
+      "input_tokens": 6781,
+      "output_tokens": 381
+    },
+    {
+      "id": "e6895c2ce5d8a31c26683a5d90764fbbd91778fe3215ab70",
+      "status": "settled",
+      "charged_nano_usd": 16945000,
+      "measured_nano_usd": 16945000,
+      "input_tokens": 5572,
+      "output_tokens": 201
+    },
+    {
+      "id": "bc1c147a05f7061ccfa35d21243e68ed35fa1205e6eef342",
+      "status": "settled",
+      "charged_nano_usd": 19995000,
+      "measured_nano_usd": 19995000,
+      "input_tokens": 7476,
+      "output_tokens": 87
+    },
+    {
+      "id": "ca3c79f49b01774a25bf5c9875628b567b07f1751d32a210",
+      "status": "settled",
+      "charged_nano_usd": 15672500,
+      "measured_nano_usd": 15672500,
+      "input_tokens": 5399,
+      "output_tokens": 145
+    },
+    {
+      "id": "943761e5e08c46cb499e2536ee8502e6d4ad64c180d9d62b",
+      "status": "settled",
+      "charged_nano_usd": 21637500,
+      "measured_nano_usd": 21637500,
+      "input_tokens": 7563,
+      "output_tokens": 182
+    },
+    {
+      "id": "245da5f036f519844424cdf8e94d870241bea7d0410b8478",
+      "status": "settled",
+      "charged_nano_usd": 15867500,
+      "measured_nano_usd": 15867500,
+      "input_tokens": 5579,
+      "output_tokens": 128
+    }
+  ],
+  "measured_usd": 0.112785,
+  "accounted_usd": 0.112785
+}

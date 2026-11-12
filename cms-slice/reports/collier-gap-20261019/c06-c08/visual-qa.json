@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-10-20T02:20:13.546239+00:00",
+  "status": "passed",
+  "source_visual_checks": [
+    {
+      "source_id": "ahca-pace-august-2026",
+      "pdf_pages": [
+        5
+      ],
+      "finding": "Hope PACE / Collier / Operational table row visually confirmed."
+    },
+    {
+      "source_id": "medicare-older-medigap-guide",
+      "pdf_pages": [
+        28,
+        31
+      ],
+      "finding": "Older policy cancellation, unavailable older benefits, drug coverage and creditable notices visually confirmed."
+    }
+  ],
+  "browser": {
+    "browser": "Chrome",
+    "url": "http://127.0.0.1:8767/",
+    "inputs": "Synthetic statements and public Naples ZIP; all birthday, medication and personal eligibility answers unknown. No referral submitted.",
+    "checks": [
+      "Intake completes to map, including Not sure priority/extras selections",
+      "SHINE statewide phone, TTY, checked date and expandable Collier appointment details visible",
+      "PACE separate conditional path with assessment, cost and address-confirmation route visible",
+      "All four coordination notices visible before coverage changes",
+      "Coverage notices remain visible while catalog lists all 70 source records"
+    ],
+    "screenshots": [
+      "browser-resources.jpg",
+      "browser-coordination.jpg"
+    ],
+    "incidental_fix": "Multi-choice intake Continue previously overwrote selected arrays with the string set, blocking map entry. Preserve the existing arrays. No logging policy change.",
+    "final_screenshots": [
+      "final-browser-resources.jpg",
+      "final-browser-coordination.jpg"
+    ],
+    "final_files_checked_again": true,
+    "screenshots_sha256": {
+      "final-browser-resources.jpg": "2b77c1354fb1c1832baa71d1d01a2d0315c67ec59ba2b99712fec5347ce681ed",
+      "final-browser-coordination.jpg": "94e81bb29d5dcc82adff4d6aeb300f4d48d8e4cb0b3208f04390ed634cca582c"
+    }
+  },
+  "qualified_domain_signoff": "pending"
+}

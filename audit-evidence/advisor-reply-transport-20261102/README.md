@@ -1,0 +1,13 @@
+# Repeated failed reply: secure transport correction
+
+The owner reported that the same opening still failed after the timing-recovery fix. That earlier change did not address the intermittent connection failure.
+
+Three planned independent fictional checks stopped at the first failure: two completed, then the third failed before generation with **SSLV3_ALERT_BAD_RECORD_MAC** in Python's HTTPS token-count request. Both third-visit reservations were cancelled and charged $0. [Captured trace](fresh-3.json), [summary](live-summary.json). The two completed visits settled $0.031638 total. This demonstrates a real TLS failure, although the historical composition error was not individually identifiable from its former generic log category.
+
+The local service now uses the system curl SecureTransport/LibreSSL backend for both exact token counting and the two conversational generation stages, avoiding the failing Python OpenSSL path. Certificate/hostname verification remains enabled. Only the two existing OpenAI POST endpoints are allowed; credentials and JSON pass through a private stdin pipe rather than arguments or files. No redirect or automatic retry is enabled. Processes have bounded connect/overall timeouts and are reaped on completion/cancellation. The pinned engine and other variants are unchanged.
+
+Both streaming readers now stop at response.completed and prefer the completed response's canonical text. Previously a late stream failure could discard a completed response. Missing completion, incomplete responses, existing output bounds and uncertain usage still fail closed. This separately reproduced defect is not claimed to identify every historical error.
+
+Fixed-category diagnostics distinguish phase, exception type, HTTP status and known provider codes without retaining messages, bodies or customer text. The earlier stream/diagnostic revision passed **823 existing tests**; five terminal-stream tests and three diagnostic checks are retained. That full run preceded the curl transport integration and is not a test claim for the final transport. The owner then explicitly requested stopping additional test runs. No additional suite was run; activation is followed by one direct browser check of the reported opening. The curl module was syntax checked and manually inspected; its portability is currently local macOS only.
+
+The $5 UTC-day allowance, 16,000 input/900 output limits, v3 Send permission, separate saving, accepted UI and personal-output/source gates remain. Only :8893 was restarted. The final browser capture records the direct check after activation; no customer saved reports were edited.

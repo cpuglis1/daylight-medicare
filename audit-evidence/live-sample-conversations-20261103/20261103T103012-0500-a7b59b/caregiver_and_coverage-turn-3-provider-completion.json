@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 47203,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9051,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 385,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9436
+    },
+    "text": "{\"question_target\":\"T06\",\"reply\":\"No—they’re not the same thing. Medicare Advantage is an alternative way to get Medicare: a private plan provides Parts A and B instead of getting those through Original Medicare. Medigap is different: it’s a supplement that works with Original Medicare to help with your share of certain costs. It does not go with Medicare Advantage. A simple way to picture it is:\\nOriginal Medicare → may add Medigap + separate drug plan\\nMedicare Advantage → private plan for A and B, and most plans include drug coverage\\nSo for your mother, since she has Original Medicare now, Medigap is the one that pairs with it.\",\"question\":\"Are there doctors or hospitals she definitely wants to keep? That will help us focus the comparison in a practical way.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\"],\"evidence_refs\":[\"medigap\",\"options\",\"advantage\"],\"agenda_update\":{\"current_concern\":\"difference between Medigap and Medicare Advantage\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"cost_sharing_role\",\"route_relationship\",\"separate_drugs\"],\"evidence_refs\":[\"medigap\",\"options\"]},{\"concept_id\":\"medicare_advantage\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"private_delivery\",\"included_drugs\"],\"evidence_refs\":[\"advantage\",\"options\"]},{\"concept_id\":\"original_medicare\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"optional_additions\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"routes\"},\"task_work\":{\"check_ids\":[\"coverage_paths\",\"provider_identity\"],\"blocking_concepts\":[\"medigap\",\"medicare_advantage\"],\"next_step\":\"answer\"}}"
+  },
+  "elapsed_seconds": 7.447804
+}

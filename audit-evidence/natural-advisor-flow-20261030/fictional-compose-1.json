@@ -1,0 +1,168 @@
+{
+  "value": {
+    "move_id": "orientation",
+    "reply": "Turning 65 in November often means it\u2019s a good time to get oriented, but retirement by itself doesn\u2019t tell us what coverage you have now or whether you\u2019ve started Medicare yet.",
+    "question": "Where are you with Medicare so far?",
+    "report_refs": [
+      "guide.situation.retirement",
+      "guide.situation.age65"
+    ],
+    "evidence_refs": []
+  },
+  "reports": [
+    {
+      "id": "guide.subject.role",
+      "status": "reported",
+      "value": "self",
+      "provenance": {
+        "method": "direct_report",
+        "status": "user_reported",
+        "subject": "beneficiary",
+        "scope": "current",
+        "revision": 1,
+        "supersedesRevision": null
+      }
+    },
+    {
+      "id": "guide.situation.retirement",
+      "status": "reported",
+      "value": {
+        "status": "retired",
+        "when": "for a few years"
+      },
+      "provenance": {
+        "method": "direct_report",
+        "status": "user_reported",
+        "subject": "beneficiary",
+        "scope": "current",
+        "revision": 2,
+        "supersedesRevision": null
+      }
+    },
+    {
+      "id": "guide.situation.age65",
+      "status": "reported",
+      "value": {
+        "month": 11,
+        "year": null
+      },
+      "provenance": {
+        "method": "direct_report",
+        "status": "user_reported",
+        "subject": "beneficiary",
+        "scope": "current",
+        "revision": 3,
+        "supersedesRevision": null
+      }
+    },
+    {
+      "id": "readiness.RC01.profile.choice",
+      "status": "reported",
+      "value": "self",
+      "provenance": {
+        "method": "direct_report",
+        "status": "user_reported",
+        "subject": "beneficiary",
+        "scope": "current",
+        "revision": 2,
+        "supersedesRevision": null
+      }
+    },
+    {
+      "id": "readiness.RC06.profile.choice",
+      "status": "reported",
+      "value": "age65",
+      "provenance": {
+        "method": "direct_report",
+        "status": "user_reported",
+        "subject": "beneficiary",
+        "scope": "intended",
+        "revision": 3,
+        "supersedesRevision": null
+      }
+    }
+  ],
+  "moves": [
+    {
+      "id": "orientation",
+      "question": {
+        "id": "orientation",
+        "entity": "profile",
+        "question": "Where are you with Medicare so far?",
+        "why": "",
+        "fields": [],
+        "choices": [],
+        "multi": false,
+        "signature": "natural-orientation-v1",
+        "conversational": true
+      },
+      "purpose": "Understand where this person is in getting started with Medicare. An optional open conversational question, not actual A/B enrollment or a familiarity gate.",
+      "priority": 0
+    },
+    {
+      "id": "T05",
+      "question": {
+        "id": "T05",
+        "inventoryIds": [
+          "T05"
+        ],
+        "question": "What health insurance do you have now?",
+        "why": "We\u2019ll use this to understand what you have before looking at other options.",
+        "choices": [
+          [
+            "original",
+            "Original Medicare (Parts A and B)"
+          ],
+          [
+            "advantage",
+            "Medicare Advantage (Part C)"
+          ],
+          [
+            "medigap",
+            "Medicare Supplement / Medigap"
+          ],
+          [
+            "drug",
+            "Separate prescription drug plan"
+          ],
+          [
+            "employer",
+            "Current-job coverage"
+          ],
+          [
+            "retiree",
+            "Retiree coverage"
+          ],
+          [
+            "cobra",
+            "COBRA"
+          ],
+          [
+            "military",
+            "VA, TRICARE or military coverage"
+          ],
+          [
+            "medicaid",
+            "Medicaid"
+          ],
+          [
+            "none",
+            "None"
+          ],
+          [
+            "unknown",
+            "Not sure"
+          ]
+        ],
+        "multi": true,
+        "entity": "profile",
+        "fields": [],
+        "signature": "T05.profile.choice",
+        "atomicRequests": 1
+      },
+      "purpose": "We\u2019ll use this to understand what you have before looking at other options.",
+      "priority": 1
+    }
+  ],
+  "accepted": true
+}

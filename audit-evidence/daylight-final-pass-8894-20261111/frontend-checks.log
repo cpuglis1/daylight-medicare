@@ -1,0 +1,90 @@
+TAP version 13
+# Subtest: chat answers automatically fetch exact prices; rerenders do not refetch
+ok 1 - chat answers automatically fetch exact prices; rerenders do not refetch
+  ---
+  duration_ms: 32.917416
+  ...
+# Subtest: missing profile invites conversation without a second intake or price request
+ok 2 - missing profile invites conversation without a second intake or price request
+  ---
+  duration_ms: 1.584042
+  ...
+# Subtest: delayed old prices are discarded after a chat correction
+ok 3 - delayed old prices are discarded after a chat correction
+  ---
+  duration_ms: 1.434833
+  ...
+# Subtest: 75+ removes rates without asking sex or tobacco; corrected age reloads automatically
+ok 4 - 75+ removes rates without asking sex or tobacco; corrected age reloads automatically
+  ---
+  duration_ms: 1.55325
+  ...
+# Subtest: unknown stays open and deliberate editing routes to its chat question
+ok 5 - unknown stays open and deliberate editing routes to its chat question
+  ---
+  duration_ms: 0.709
+  ...
+# Subtest: failed lookup keeps shared answers and retries only deliberately
+ok 6 - failed lookup keeps shared answers and retries only deliberately
+  ---
+  duration_ms: 1.098958
+  ...
+# Subtest: compare three source rates, remove and return to the full list
+ok 7 - compare three source rates, remove and return to the full list
+  ---
+  duration_ms: 6.976041
+  ...
+# Subtest: ready shared profile automatically loads all published plans without demographic inputs
+ok 8 - ready shared profile automatically loads all published plans without demographic inputs
+  ---
+  duration_ms: 32.817791
+  ...
+# Subtest: missing scope invites chat without a duplicate form or price request
+ok 9 - missing scope invites chat without a duplicate form or price request
+  ---
+  duration_ms: 1.443875
+  ...
+# Subtest: chat corrections discard delayed old results and unsupported years clear prices
+ok 10 - chat corrections discard delayed old results and unsupported years clear prices
+  ---
+  duration_ms: 1.256583
+  ...
+# Subtest: unknown answers remain open and corrections return to the specific chat question
+ok 11 - unknown answers remain open and corrections return to the specific chat question
+  ---
+  duration_ms: 0.582375
+  ...
+# Subtest: source details preserve negative components and do not assign personal costs
+ok 12 - source details preserve negative components and do not assign personal costs
+  ---
+  duration_ms: 1.434583
+  ...
+# Subtest: three-plan comparison and removal retain all plans
+ok 13 - three-plan comparison and removal retain all plans
+  ---
+  duration_ms: 6.453542
+  ...
+# Subtest: failed reads keep profile and retry only deliberately
+ok 14 - failed reads keep profile and retry only deliberately
+  ---
+  duration_ms: 1.241
+  ...
+# Subtest: reviewed profile reaches registered workspace with no URL or storage
+ok 15 - reviewed profile reaches registered workspace with no URL or storage
+  ---
+  duration_ms: 2.583083
+  ...
+# Subtest: expired or unreviewed handoff cannot open a workspace
+ok 16 - expired or unreviewed handoff cannot open a workspace
+  ---
+  duration_ms: 0.426041
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102.21275

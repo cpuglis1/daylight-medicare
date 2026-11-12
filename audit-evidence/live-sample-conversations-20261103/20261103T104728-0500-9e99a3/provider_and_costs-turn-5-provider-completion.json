@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 50588,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 9793,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 391,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 10184
+    },
+    "text": "{\"question_target\":\"T08\",\"reply\":\"Right now, we can establish the main decision point: because you’re in Medicare Advantage, seeing that doctor depends on the exact plan, not just the carrier name. We also know your main priority is doctor access, and you don’t need us to force a budget frame first.\\n\\nWhat still needs checking is separate: the exact plan name and year, the exact office/location you’d use, whether that office participates in that specific plan, and then what a cardiology visit or test would cost under that plan. Those are different checks, and none is confirmed yet.\\n\\nOne useful tradeoff to understand now: Original Medicare generally lets you use any U.S. doctor who takes Medicare, while Medicare Advantage doctor access varies by plan.\",\"question\":\"Will you need routine care away from home? That helps tell us whether broader doctor access should matter in your comparison, beyond keeping this one doctor.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\",\"guide.needs.priorities\",\"readiness.RC21.profile.choice\",\"readiness.RC21.doctor-1.city\",\"readiness.RC21.doctor-1.choice\",\"readiness.RC25.profile.choice\"],\"evidence_refs\":[\"checks\",\"advantage\",\"original\"],\"agenda_update\":{\"current_concern\":\"seeing that doctor and what can be established now vs checked later\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\",\"original_provider_access\"],\"evidence_refs\":[\"checks\",\"advantage\",\"original\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_identity\",\"provider_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 6.769885
+}

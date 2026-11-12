@@ -1,0 +1,16 @@
+--- before/alternatives/advisor-first/advisor_budget.py
++++ alternatives/advisor-first/advisor_budget.py
+@@ -151,9 +151,10 @@
+     def reserve(self, input_tokens, output_tokens, model):
+         self.check_rates(model)
+         i, o = token_int(input_tokens), token_int(output_tokens)
+-        if not 1 <= i <= INPUT_TOKENS or o != OUTPUT_TOKENS:
+-            raise BudgetError('AI request exceeds the reviewed token limits. Use a shorter question or manual guidance.')
+-        amount = i * 2500 + o * 15000
++        spec = MODELS[model]
++        if i < 1 or o != spec.output_tokens:
++            raise BudgetError('Use a verified input count and the configured output allowance.')
++        amount = i * max(spec.input_rate, spec.cache_write_rate) + o * spec.output_rate
+         key, day = secrets.token_hex(24), self.day()
+         try:
+             with self.db() as db:

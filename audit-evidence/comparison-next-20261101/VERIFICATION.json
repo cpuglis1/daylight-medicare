@@ -1,0 +1,153 @@
+{
+  "schema": "daylight.comparison-next-verification.v1",
+  "recorded_at": "2026-11-02T13:46:09.378184+00:00",
+  "status": "local_backend_and_evidence_preparation_verified_not_full_program_completion",
+  "requirements": [
+    "D64",
+    "D73",
+    "D77",
+    "D79",
+    "D86",
+    "D87"
+  ],
+  "new_code_sha256": {
+    "alternatives/advisor-first/identity_resolution.py": "23cbfd87a7ac521073c30d8ebd5cd6adb47aa6d41bc356313450991f854bd14c",
+    "alternatives/advisor-first/tests/test_identity_resolution.py": "bdf4201b2093260530104a9eaaf88b791ad295551c356553893653f193f0e998",
+    "alternatives/advisor-first/tools/check_identity_choice.py": "5bee81ed2aa824a21fa7356276930a325711108e3b99ab3ce16d73279993c0a0",
+    "infrastructure/daylight-data/src/daylight_data/serving/provider_identity.py": "6450a7a0127f96c17b7fd4d78895e7d155dcc46dac848738b890934635c9ced0",
+    "infrastructure/daylight-data/tests/test_research_provider_identity.py": "2c6216df4c8419a400409a40916839309b05e83f7d01393fcb9de4a2bbacd2c1",
+    "infrastructure/daylight-data/src/daylight_data/serving/drug_candidates.py": "9b0618b84cb735e939523634510b140ebdb64d5cbb36620db2e08528490d7f14",
+    "infrastructure/daylight-data/tests/test_research_drug_candidates.py": "6ce29b3d587d73b91e5e50c066dbd28b8c137c5044cc713c982895a0462992e9",
+    "infrastructure/daylight-data/tools/whole_offering.py": "90d22a094da23d33e76a610c8b63495e9355708c150442c68b886a39da2ad89e",
+    "infrastructure/daylight-data/tests/test_whole_offering.py": "1648887b98692e099adda82d98737561985e88d077ccb39cc97981ea2a3bf957"
+  },
+  "baseline_preservation": {
+    "source_after_sha256": "503ea849e7a8678f73a98d54aaf36e4f6592d5a45a90542adad1199be106afab",
+    "baseline_files": 209,
+    "unchanged_files": 195,
+    "this_workstream_documentation_changes": 3,
+    "concurrent_changes_observed": 11,
+    "unexpected_changes": 0,
+    "before_images_match": true
+  },
+  "r11_packet": {
+    "path": "docs/data/l03-ma-benefits-2026-11-01-whole-offering-r11/PACKET_MANIFEST.json",
+    "sha256": "c1c26ff19c71252b1b1d1fbc15ca999e71888d9bfea522853a9a005c7654e85e",
+    "members_verified": 373,
+    "failures": [],
+    "inventory_global": 392570,
+    "offering_total": 4675,
+    "offering_pending": 4659,
+    "offering_required_missing": 16,
+    "new_component_work_selection": 217,
+    "r10_plus_r11_distinct_component_selection": 288,
+    "outside_component_selections": 4387,
+    "offline_reproduction_files_identical": 10,
+    "new_accepted": 0,
+    "new_fully_supported": 0,
+    "new_awaiting_review": 0,
+    "whole_offering_pilot_complete": false,
+    "expert_domain_approval": false
+  },
+  "checks": {
+    "infrastructure_identity_tests": {
+      "passed": 155,
+      "log": "identity-infrastructure-pytest-r2.log"
+    },
+    "explicit_identity_choice_tests": {
+      "passed": 17,
+      "log": "identity-choice-unit-tests-r3.log"
+    },
+    "whole_offering_preparation_tests": {
+      "passed": 12,
+      "log": "whole-offering-unit-tests.log"
+    },
+    "source_and_component_review_tests": {
+      "passed": 13,
+      "log": "all-inpatient-review-unit-tests.log"
+    },
+    "fresh_candidate_integrity_checks": {
+      "passed": 459,
+      "log": "fresh-source-validation.log"
+    },
+    "advisor_comparison_snapshot": {
+      "passed": 474,
+      "log": "advisor-full-suite-final.log",
+      "predates_later_concurrent_chat_edits": true
+    },
+    "concurrent_full_rechecks": {
+      "r1": {
+        "count": 446,
+        "failures": 2,
+        "errors": 4,
+        "snapshot_stable": false,
+        "socket_restriction": true
+      },
+      "r2": {
+        "count": 481,
+        "failures": 1,
+        "errors": 0,
+        "snapshot_stable": false,
+        "socket_restriction": false
+      },
+      "later_send_and_reveal_wrappers": {
+        "both_passed": true,
+        "snapshot_stable": true,
+        "receipt": "concurrent-fragment-check-r3.json"
+      },
+      "clean_full_current_ui_certification": false
+    }
+  },
+  "actual_read_only_receipts": {
+    "infrastructure/daylight-data/reports/research-provider-identity-2026-11-01-r2.json": {
+      "sha256": "e94fedbf0b9d8f0723b4f114eacc08069ded4457fd105a6762bb9a2f476b4649",
+      "passed_checks": 34,
+      "cases": 5,
+      "native_sqlite_row_crosschecks": 8,
+      "current_code_verified": true
+    },
+    "infrastructure/daylight-data/reports/research-drug-candidates-2026-11-01-r1.json": {
+      "sha256": "787a3b41e1dd2058e170f50975a0bf8dead76d5bbd7ad96286f303899feb4573",
+      "passed_checks": 33,
+      "cases": 8,
+      "code_verified": true,
+      "historical_code_bound_snapshot_preserved": true
+    },
+    "audit-evidence/comparison-next-20261101/actual-identity-choice-r4.json": {
+      "sha256": "e025b2c32efc75c15bf288120759b5d5ab880252b255c11d8d1ad1e47ac994dc",
+      "passed_checks": 11,
+      "elapsed_ms": 82.543,
+      "current_code_verified": true,
+      "fictional_source_mirroring_profile": true,
+      "http_ui_ai_journey": false
+    }
+  },
+  "qa": {
+    "provider_locator_P2": "closed_by_independent_synthetic_reproduction_and_155_tests",
+    "identity_stop_and_in_query_expiry_findings": "closed_with_adversarial_checks",
+    "source_expected_candidate": "frozen_before_downstream_exposure_not_expert_ground_truth",
+    "technical_comparison_reviewer_prior_r10_exposure": "disclosed",
+    "site_cap": "explicit_omitted_edge_counts_no_site_cursor",
+    "provider_lookup_performance": "richer_actual_cases_take_seconds_no_interactive_or_p95_acceptance"
+  },
+  "actions_by_this_workstream": {
+    "database_domain_writes": 0,
+    "real_guest_profile_store_access": false,
+    "paid_ai_calls": 0,
+    "cloud_provisioning": false,
+    "runtime_restart": false,
+    "customer_route_or_model_tool_integration": false,
+    "consumer_release": false,
+    "source_permission_change": false,
+    "accepted_r4_change": false
+  },
+  "remaining": [
+    "complete whole-meaning reconciliation and all linked conditions/missing predicates",
+    "continue required whole-offering representatives and layout strata",
+    "independent interpretation review and exact new-release acceptance",
+    "authenticated provider/identity composition and source-authorized UI/AI journeys",
+    "whole 1-5 program incomplete",
+    "current frontend changes have separate concurrent validation responsibility",
+    "cloud target identifiers/cost and target-specific deployment/recovery checks before provisioning"
+  ]
+}

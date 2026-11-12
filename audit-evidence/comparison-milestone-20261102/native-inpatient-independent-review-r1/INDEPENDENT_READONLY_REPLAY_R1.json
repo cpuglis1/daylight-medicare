@@ -1,0 +1,1687 @@
+{
+  "candidate_sha256": "921904149c53c4841a7e6c4910db7836fabe4349401f33cfa4a2b7aabc8b4992",
+  "checks_passed": 5091,
+  "confirmed_findings": [],
+  "control_decisions": {
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsAmountYesNo": {
+      "control_id": "NATIVE-INPATIENT-001",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsAmt": {
+      "control_id": "NATIVE-INPATIENT-002",
+      "decision": "literal_operand_only",
+      "expected_source_class": "literal_retained_without_new_enum_inference",
+      "original_bindings": 1,
+      "raw": "40",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsCostShareYesNo": {
+      "control_id": "NATIVE-INPATIENT-003",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-004",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval1CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-005",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-006",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-007",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval2CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-008",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-009",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-010",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval3CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-011",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-012",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCoinsDayIntervalStay/bdDayIntervalCoinsuranceNumber": {
+      "control_id": "NATIVE-INPATIENT-013",
+      "decision": "literal_cardinality_only",
+      "expected_source_class": "literal_retained_without_new_enum_inference",
+      "original_bindings": 1,
+      "raw": "0",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentAmountYesNo": {
+      "control_id": "NATIVE-INPATIENT-014",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentAmt": {
+      "control_id": "NATIVE-INPATIENT-015",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentCostShareYesNo": {
+      "control_id": "NATIVE-INPATIENT-016",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-017",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-018",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-019",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-020",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-021",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-022",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-023",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-024",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdCopaymentDayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-025",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdDeductibleAmt": {
+      "control_id": "NATIVE-INPATIENT-026",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdDeductibleYesNo": {
+      "control_id": "NATIVE-INPATIENT-027",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostShareABPOSComponent/bdMaxPlanBenefitYesNo": {
+      "control_id": "NATIVE-INPATIENT-028",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostSharingTierComponent/bdCostSharingYesNo": {
+      "control_id": "NATIVE-INPATIENT-029",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostSharingTierComponent/bdLowestCostTier": {
+      "control_id": "NATIVE-INPATIENT-030",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/CostSharingTierComponent/bdNumberOfTiers": {
+      "control_id": "NATIVE-INPATIENT-031",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/InpatientHospitalAcuteBenefitPeriodComponent/bdMedCostSharingChargeYesNo": {
+      "control_id": "NATIVE-INPATIENT-032",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/InpatientHospitalAcuteBenefitPeriodComponent/bdMedInpatientHospitalAcuteBenefitPeriod": {
+      "control_id": "NATIVE-INPATIENT-033",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "3",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/InpatientHospitalAcuteBenefitPeriodComponent/bdMedInpatientHospitalAcuteBenefitPeriodDescription": {
+      "control_id": "NATIVE-INPATIENT-034",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/MoopAmountComponent/bdMoopAmount": {
+      "control_id": "NATIVE-INPATIENT-035",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/MoopAmountComponent/bdMoopAmountYesNo": {
+      "control_id": "NATIVE-INPATIENT-036",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/MoopAmountComponent/bdMoopDescription": {
+      "control_id": "NATIVE-INPATIENT-037",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/MoopAmountComponent/bdMoopPeriodicity": {
+      "control_id": "NATIVE-INPATIENT-038",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/PartABTierDeductibleComponent/bdPartAandBTier1DeductibleAmt": {
+      "control_id": "NATIVE-INPATIENT-039",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/PartABTierDeductibleComponent/bdPartAandBTier2DeductibleAmt": {
+      "control_id": "NATIVE-INPATIENT-040",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/PartABTierDeductibleComponent/bdPartAandBTier3DeductibleAmt": {
+      "control_id": "NATIVE-INPATIENT-041",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/PartABTierDeductibleComponent/bdPartAandBTierDeductibleYesNo": {
+      "control_id": "NATIVE-INPATIENT-042",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/PriorAuthorizationReferralNmBenefitComponent/bdAuthorizationYesNo": {
+      "control_id": "NATIVE-INPATIENT-043",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/PriorAuthorizationReferralNmBenefitComponent/bdReferralYesNo": {
+      "control_id": "NATIVE-INPATIENT-044",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsurancePercentageYesNo": {
+      "control_id": "NATIVE-INPATIENT-045",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-046",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval1CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-047",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-048",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-049",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval2CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-050",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-051",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-052",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval3CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-053",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalReserve/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-054",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-055",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval1CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-056",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-057",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-058",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval2CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-059",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-060",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-061",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval3CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-062",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-063",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1Percentage": {
+      "control_id": "NATIVE-INPATIENT-064",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier1YesNo": {
+      "control_id": "NATIVE-INPATIENT-065",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-066",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-067",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-068",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-069",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-070",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-071",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-072",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-073",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalReserve/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-074",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-075",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval1CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-076",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-077",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-078",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval2CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-079",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-080",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-081",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval3CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-082",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-083",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2Percentage": {
+      "control_id": "NATIVE-INPATIENT-084",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier2YesNo": {
+      "control_id": "NATIVE-INPATIENT-085",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-086",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-087",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-088",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-089",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-090",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-091",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-092",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-093",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalReserve/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-094",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-095",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval1CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-096",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-097",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-098",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval2CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-099",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-100",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-101",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval3CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-102",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-103",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3Percentage": {
+      "control_id": "NATIVE-INPATIENT-104",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCoinsuranceComponent/bdCoinsuranceTier3YesNo": {
+      "control_id": "NATIVE-INPATIENT-105",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentAmountYesNo": {
+      "control_id": "NATIVE-INPATIENT-106",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1Amt": {
+      "control_id": "NATIVE-INPATIENT-107",
+      "decision": "scoped_projection_with_schedule_dependency",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "0.00",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-108",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-109",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-110",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-111",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-112",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-113",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-114",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-115",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-116",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalReserve/bdDayIntervalCopaymentNumber": {
+      "control_id": "NATIVE-INPATIENT-117",
+      "decision": "literal_cardinality_only",
+      "expected_source_class": "literal_retained_without_new_enum_inference",
+      "original_bindings": 1,
+      "raw": "0",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-118",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-119",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "375.00",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-120",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "7",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-121",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "8",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-122",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "0.00",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-123",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "90",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-124",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-125",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-126",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1DayIntervalStay/bdDayIntervalCopaymentNumber": {
+      "control_id": "NATIVE-INPATIENT-127",
+      "decision": "literal_cardinality_only",
+      "expected_source_class": "literal_retained_without_new_enum_inference",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier1YesNo": {
+      "control_id": "NATIVE-INPATIENT-128",
+      "decision": "scoped_selector_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2Amt": {
+      "control_id": "NATIVE-INPATIENT-129",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-130",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-131",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-132",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-133",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-134",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-135",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-136",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-137",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalReserve/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-138",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-139",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-140",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-141",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-142",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-143",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-144",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-145",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-146",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-147",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier2YesNo": {
+      "control_id": "NATIVE-INPATIENT-148",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3Amt": {
+      "control_id": "NATIVE-INPATIENT-149",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-150",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval1CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-151",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-152",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-153",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval2CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-154",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-155",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval3CoinsurancePercentage": {
+      "control_id": "NATIVE-INPATIENT-156",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalReserve/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-157",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-158",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-159",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-160",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-161",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-162",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-163",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-164",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-165",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-166",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/benefitDetails/TierCopaymentComponent/bdCopaymentTier3YesNo": {
+      "control_id": "NATIVE-INPATIENT-167",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/categoryCode": {
+      "control_id": "NATIVE-INPATIENT-168",
+      "decision": "source_identity_descriptor",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "1a",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/0/categoryTypeId": {
+      "control_id": "NATIVE-INPATIENT-169",
+      "decision": "source_identity_descriptor",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": 1,
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdAdditionalDaysCostShare/bdCostSharingYesNo": {
+      "control_id": "NATIVE-INPATIENT-170",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "2",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdAdditionalDaysCostShare/bdLowestCostTier": {
+      "control_id": "NATIVE-INPATIENT-171",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdAdditionalDaysCostShare/bdNumberOfTiers": {
+      "control_id": "NATIVE-INPATIENT-172",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentAmountYesNo": {
+      "control_id": "NATIVE-INPATIENT-173",
+      "decision": "selector_hold",
+      "expected_source_class": "exact_named_control_retained_label_unresolved",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-174",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "91",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-175",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "0.00",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-176",
+      "decision": "scoped_source_format_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "999",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-177",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-178",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-179",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-180",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-181",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-182",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier1DayIntervalStay/bdDayIntervalCopaymentNumber": {
+      "control_id": "NATIVE-INPATIENT-183",
+      "decision": "literal_cardinality_only",
+      "expected_source_class": "literal_retained_without_new_enum_inference",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-184",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-185",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-186",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-187",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-188",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-189",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-190",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-191",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-192",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier2DayIntervalStay/bdDayIntervalCopaymentNumber": {
+      "control_id": "NATIVE-INPATIENT-193",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval1BeginDay": {
+      "control_id": "NATIVE-INPATIENT-194",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval1CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-195",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval1EndDay": {
+      "control_id": "NATIVE-INPATIENT-196",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval2BeginDay": {
+      "control_id": "NATIVE-INPATIENT-197",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval2CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-198",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval2EndDay": {
+      "control_id": "NATIVE-INPATIENT-199",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval3BeginDay": {
+      "control_id": "NATIVE-INPATIENT-200",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval3CopaymentAmount": {
+      "control_id": "NATIVE-INPATIENT-201",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayInterval3EndDay": {
+      "control_id": "NATIVE-INPATIENT-202",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdCopaymentTier3DayIntervalStay/bdDayIntervalCopaymentNumber": {
+      "control_id": "NATIVE-INPATIENT-203",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdTierCopayment/bdNumberOfTiers": {
+      "control_id": "NATIVE-INPATIENT-204",
+      "decision": "literal_cardinality_only",
+      "expected_source_class": "literal_retained_without_new_enum_inference",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdUnlimitedAdditionalDays/bdBenefitUnlimitedYesNo": {
+      "control_id": "NATIVE-INPATIENT-205",
+      "decision": "scoped_selector_projection",
+      "expected_source_class": "scoped_parser_projection_supported_for_this_model",
+      "original_bindings": 1,
+      "raw": "1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/benefitDetails/AdditionalDays1a1Component/bdUnlimitedAdditionalDays/bdIndicateNumOfAddDays": {
+      "control_id": "NATIVE-INPATIENT-206",
+      "decision": "blank_retained_no_negative_inference",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/categoryCode": {
+      "control_id": "NATIVE-INPATIENT-207",
+      "decision": "source_identity_descriptor",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": "1a1",
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    },
+    "/pbp/0/benefitDetails/benefitDetailsInfo/1/categoryTypeId": {
+      "control_id": "NATIVE-INPATIENT-208",
+      "decision": "source_identity_descriptor",
+      "expected_source_class": "blank_or_descriptor",
+      "original_bindings": 0,
+      "raw": 2,
+      "review": "supported within source-format/context bounds; no full benefit equivalence"
+    }
+  },
+  "database_or_app_write": false,
+  "decision_counts": {
+    "blank_retained_no_negative_inference": 170,
+    "literal_cardinality_only": 5,
+    "literal_operand_only": 1,
+    "scoped_projection_with_schedule_dependency": 1,
+    "scoped_selector_projection": 2,
+    "scoped_source_format_projection": 15,
+    "selector_hold": 10,
+    "source_identity_descriptor": 4
+  },
+  "exact_SAS_branches_replayed": 137,
+  "exact_flat_questions_replayed": 300,
+  "new_acceptance": false,
+  "schema": "daylight.native-inpatient.independent-replay.r1",
+  "scope": "Source-format and preservation replay, not full factual or carrier/native benefit equivalence."
+}

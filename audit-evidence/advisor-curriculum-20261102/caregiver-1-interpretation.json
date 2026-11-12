@@ -1,0 +1,212 @@
+{
+  "message": "I am helping my mother, who turns 65 in November. I have insurance through my current job, but she has no health insurance. She wants to understand her Medicare options.",
+  "raw": {
+    "updates": [
+      {
+        "id": "RC01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "someone"
+          }
+        ],
+        "quote": "I am helping my mother",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T05",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "employer"
+          }
+        ],
+        "quote": "I have insurance through my current job",
+        "scope": "current",
+        "subject": "learner",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "RC09",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "my_job"
+          }
+        ],
+        "quote": "I have insurance through my current job",
+        "scope": "current",
+        "subject": "learner",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T05",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "none"
+          }
+        ],
+        "quote": "she has no health insurance",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "basics",
+      "parts",
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "learning",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "She wants to understand her Medicare options."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "situation_proposals": [
+      {
+        "kind": "age65",
+        "subject": "beneficiary",
+        "scope": "intended",
+        "quote": "who turns 65 in November",
+        "uncertain": false,
+        "correction": false,
+        "month": 11,
+        "year": null,
+        "status": "",
+        "when": ""
+      }
+    ],
+    "goal_quote": "She wants to understand her Medicare options.",
+    "education_request": {
+      "kind": "explain",
+      "concept_ids": [
+        "medicare_basics",
+        "coverage_paths"
+      ],
+      "quote": "She wants to understand her Medicare options."
+    }
+  },
+  "accepted": {
+    "updates": [
+      {
+        "id": "RC01",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "someone"
+          }
+        ],
+        "quote": "I am helping my mother",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      },
+      {
+        "id": "T05",
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "choice",
+            "value": "none"
+          }
+        ],
+        "quote": "she has no health insurance",
+        "scope": "current",
+        "subject": "beneficiary",
+        "uncertain": false,
+        "correction": false
+      }
+    ],
+    "requests": [],
+    "fact_ids": [
+      "basics",
+      "parts",
+      "routesintro"
+    ],
+    "agenda": {
+      "concerns": [
+        {
+          "topic": "learning",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "status": "open",
+          "quote": "She wants to understand her Medicare options."
+        }
+      ],
+      "priorityReason": {
+        "topic": "",
+        "reason": "",
+        "quote": "",
+        "subject": "unclear",
+        "scope": "unknown"
+      }
+    },
+    "goal_quote": "She wants to understand her Medicare options.",
+    "education_request": {
+      "kind": "explain",
+      "concept_ids": [
+        "medicare_basics",
+        "coverage_paths"
+      ],
+      "quote": "She wants to understand her Medicare options."
+    },
+    "situation_proposals": [
+      {
+        "kind": "age65",
+        "subject": "beneficiary",
+        "scope": "intended",
+        "quote": "who turns 65 in November",
+        "uncertain": false,
+        "correction": false,
+        "month": 11,
+        "year": null,
+        "status": "",
+        "when": ""
+      }
+    ],
+    "rejected_updates": [
+      {
+        "id": "T05",
+        "reason": "unsupported_report"
+      },
+      {
+        "id": "RC09",
+        "reason": "unsupported_report"
+      }
+    ],
+    "rejected_situation_proposals": [],
+    "rejected_commands": []
+  },
+  "reviewed_fact_ids": [
+    "basics",
+    "parts",
+    "routesintro"
+  ]
+}

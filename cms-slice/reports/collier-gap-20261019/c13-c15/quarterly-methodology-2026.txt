@@ -1,0 +1,111 @@
+PRESCRIPTION DRUG PLAN FORMULARY, PHARMACY NETWORK, AND
+PRICING INFORMATION PUBLIC USE FILE METHODOLOGY
+This Quarterly Public Use File (SPUF) is comprised of 9 separate files. Each file is flat (ASCII) with pipe (|)
+delimiters and a header record that contains the field name. Sample files are included for the larger files
+so that users can examine the fields before processing.
+The SPUF is built from data included in the first new posting during the last month for a given quarter on
+the Medicare Plan Finder (MPF) tool available at https://www.medicare.gov/. Pharmacy network and
+drug pricing data are updated on the MPF tool every two weeks, thus the data in this SPUF may not
+match exactly what currently appears on the MPF tool. Each SPUF has a naming convention of
+SPUF.YYYY.YYYYMMDD.zip. The first four digits of the zip file’s name corresponds to the contract year
+(CY) of the data included in the SPUF. The final eight digits correspond to the date posted to the CMS
+website.
+
+Three types of Part D plans appear in the PUF. "Local Medicare Advantage" plans are identified by a
+CONTRACT_ID that begins with the letter H. "Regional Medicare Advantage" plans are identified by a
+CONTRACT_ID that begins with the letter R. Stand-alone "Prescription Drug Plans" are identified by a
+CONTRACT_ID that begins with the letter S. Each plan is uniquely identified by the combination of
+CONTRACT_ID, PLAN_ID, and SEGMENT_ID (note that SEGMENT_ID is always zero for R and S contracts).
+The following Plans are not included in this Public Use File:
+
+    •   Non-Part D Plans
+    •   National PACE Plans
+    •   Employer Sponsored Plans
+    •   Demonstration Plans (MMPs are included)
+
+Plans whose data has been suppressed in the PUF reporting period due to plan request, data inaccuracy,
+or other issues identified by CMS appear in the Plan Information file with the PLAN_SUPPRESSED_YN
+field set to “Y”. They do not appear in any other files.
+
+The Inflation Reduction Act of 2022 (IRA) made changes to the Part D benefit. Starting in Coverage Year
+(CY) 2025, the benefit has three phases instead of four: the deductible phase, the initial coverage phase,
+and the catastrophic phase 1. Since the coverage gap benefit phase was eliminated, the Medicare
+Coverage Gap Discount Program (CGDP) sunset as of January 1, 2025, and was replaced with the
+Medicare Part D Manufacturer Discount Program (Discount Program), effective January 1, 2025 2. Under
+the Discount Program, participating manufacturers are required to provide discounts on their applicable
+drugs both in the initial and catastrophic coverage phases of the Part D benefit. These files do not reflect
+discounts applied to these drugs.
+
+
+
+
+1
+  The following link will take you to final Part D redesign information: https://www.cms.gov/priorities/medicare-
+prescription-drug-affordability/overview/medicare-part-d-improvements.
+2
+  The following link will take you to Medicare Part D Manufacturer Discount Program information:
+https://www.cms.gov/priorities/medicare-prescription-drug-affordability/overview/medicare-part-d-
+improvements.
+There are two Inflation Reduction Act (IRA) policies for 2026 that impact the Medicare Plan Finder (MPF)
+Quarterly Public Use Files (SPUFs):
+
+    1. Medicare Drug Price Negotiation Program: 3 CMS selected ten drugs covered under Medicare
+       Part D for the first cycle of negotiations for initial price applicability year (IPAY) 2026. The newly
+       added Selected Drug flag in the Basic Drugs Formulary file can be used to determine which
+       dispensing fee in the Pharmacy Network file applies to the drug. The Pharmacy Network file has
+       three new dispensing fee variables for Selected Drugs (for 30, 60, and 90 days supply). If a Part D
+       sponsor reports a selected drug dispensing fee, MPF will apply the selected drug dispensing fee
+       to selected drugs on the plan formulary. Where a selected drug dispensing fee is not reported
+       by the Part D sponsor, MPF will apply the brand dispensing fee to selected drugs on the plan
+       formulary.
+
+    2. Insulin Cost Sharing: 4 the cost sharing for insulin was changed from a maximum copay of $35 to
+       the lesser amount of a copay cap and coinsurance. For 2026 and each subsequent year, the
+       applicable beneficiary cost-sharing amount for Part D covered insulin products is the lesser of a)
+       $35 copay (or the Plan Benefit Package (PBP) submitted copay, if lower), b) an amount equal to
+       25% of the maximum fair price established for the covered insulin product under the Medicare
+       Drug Price Negotiation Program, 5 or c) an amount equal to 25% of the negotiated price, as
+       defined in 42 CFR § 423.100 6, (or the Plan Benefit Package (PBP) submitted coinsurance, if
+       lower), of the covered insulin product. The Insulin Beneficiary Cost file has four new coinsurance
+       variables reflecting the PBP submitted coinsurance percentages in item C.
+
+
+
+The SPUF contains the following files:
+
+1. Plan Information File - Includes information for each plan (name, contract ID, plan ID, service area,
+   etc.).
+2. Geographic Locator File - Includes the Medicare Advantage (MA) and Prescription Drug Plan (PDP)
+   Region codes and county codes.
+3. Basic Drugs Formulary File - Includes formulary details for each plan including National Drug Codes
+   (NDCs), tier level, and indicators for step therapy, quantity limits, prior authorization, and a newly
+   added selected drug flag.
+4. Excluded Drugs Formulary File - Enhanced alternative plans may elect to provide a supplemental
+   benefit and cover excluded drugs. File includes formulary details for excluded drugs that are covered
+   by the plan (for enhanced alternative plans only).
+5. Beneficiary Cost File - Plan level cost sharing details for preferred and standard retail and mail-order
+   network pharmacies.
+
+3
+  Refer to Medicare Drug Price Negotiation Program information: https://www.cms.gov/priorities/medicare-
+prescription-drug-affordability/overview/medicare-drug-price-negotiation-program
+4
+  Refer to final Part D redesign information: https://www.cms.gov/priorities/medicare-prescription-drug-
+affordability/overview/medicare-part-d-improvements
+5
+  Refer to lists of selected drugs and negotiated prices: https://www.cms.gov/priorities/medicare-prescription-
+drug-affordability/overview/medicare-drug-price-negotiation-program/selected-drugs-and-negotiated-prices
+6
+  Refer to 42 CFR § 423.100: https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-423/subpart-
+C/section-423.100
+6. Pharmacy Network File - National Provider Identifier (NPI) numbers for each retail and mail-order
+   network pharmacy including preferred, retail, and mail-order indicators, and brand, generic, and
+   selected drug dispensing fees for 30/60/90 days supply, respectively.
+7. Pricing File - Plan level average monthly unit costs for formulary Part D drugs.
+8. Indication Based Coverage Formulary File - Includes drugs covered based on FDA-approved
+   indication for each plan.
+9. Insulin Beneficiary Cost File - Plan level copay and coinsurance amounts for insulin at preferred and
+   standard retail and mail-order network pharmacies.
+
+Please refer to the Record Layout for file layouts and field values.
+

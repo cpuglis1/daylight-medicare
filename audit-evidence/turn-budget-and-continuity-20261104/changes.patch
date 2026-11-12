@@ -1,0 +1,382 @@
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ DAYLIGHT_REQUIREMENTS.md
+@@ -1,4 +1,6 @@
+ # Daylight owner requirements
++
++**D86/D90 budget admission and conversational continuity · November 4, 2026.** Owner removed the anticipatory “complete turn could exceed” block and requested a check against repeating information. For :8893, admit a new turn while accounted daily usage is below $5, then let that bounded turn and its existing recovery allowance finish; the final total may exceed $5. Do not reject an admitted turn based on its forecast maximum. Reject new turns once the threshold is reached, including existing unsettled holds in accounting. Preserve exact counting/settlement, receipt verification, uncertainty holds, pricing and clock checks, request/output bounds, recovery-attempt limits, the shared ledger and protected variants. This supersedes the earlier worst-case $5 ceiling only for this advisor. The shared composer checks its draft against recent exchanges and learning history, adds the new implication or next step, and revisits only for a request, confusion, correction or changed guidance. Delivered teaching never proves understanding. No added model stage, case script, profile field or UI change; no agent-run live conversation tests. [Implementation and activation](audit-evidence/turn-budget-and-continuity-20261104/README.md).
+ 
+ **D86/D90 validation and recovery · November 4, 2026.** Owner authorized fixing validation/recovery while preserving curriculum, profile, evidence and factual safeguards, with no canned prose or case-specific dialogue rules. In :8893, keep a valid whole answer or approved model-written question independently; never salvage sentence fragments that could lose qualifications. Quarantine missing or malformed optional learning/task metadata without discarding validated text or granting teaching credit. After a completed invalid composition, permit one separately counted and funded same-model repair using unchanged resolved context; it shares the existing recovery slot with connection recovery, so composition has at most two submitted attempts. Preserve settled and uncertain receipts, the shared $5/UTC-day cap, exact-request replay, source/report/purpose checks, permissions and protected variants. Never repeat accepted extraction or store rejected drafts in profiles/history/logs. This supersedes the earlier network-only retry restriction for this bounded repair. If no component validates, keep it withheld. UI remains unchanged; technical fault injection is permitted, with no agent-run live conversations, paid probes or quality claims. [Implementation and activation](audit-evidence/composition-recovery-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/natural_agent.py
++++ alternatives/advisor-first/natural_agent.py
+@@ -81,7 +81,8 @@
+         if self.budget:
+             # The provider has now counted the exact packed request. Fund that
+             # input plus the model's output allowance atomically before sending.
+-            # A larger context is allowed whenever the shared daily cap covers it.
++            # The advisor's admitted-turn policy records the full reservation
++            # without rejecting a turn already admitted below its threshold.
+             self.budget.check_rates(self.model)
+             spec = MODELS[self.model]
+             cap = getattr(self.budget, 'daily_cap_nano_usd', CAP)
+@@ -97,7 +98,7 @@
+                         raise BudgetError('AI reservation could not be found or is already closed.')
+                     amount = count * max(spec.input_rate, spec.cache_write_rate) + row[1] * spec.output_rate
+                     total, *_ = self.budget._amounts(db, day)
+-                    if total - row[0] + amount > cap:
++                    if not getattr(self.budget, 'finish_admitted_turn', False) and total - row[0] + amount > cap:
+                         raise BudgetError(f'This request could exceed the shared ${cap / 1_000_000_000:g} daily AI limit. Try after 00:00 UTC or use manual guidance.')
+                     db.execute('UPDATE ai_charges SET reserved=?,charged=?,input_bound=? WHERE id=?',
+                                (amount, amount, count, self.key))
+@@ -128,7 +129,8 @@
+ 
+     def _replace(self):
+         try:
+-            replacement = TurnReservation(self.budget, self.model, stages=('compose',)).stage('compose')
++            replacement = TurnReservation(self.budget, self.model, stages=('compose',),
++                                          _recovery_of=self).stage('compose')
+         except BudgetError:
+             return False
+         self.key, self.status = replacement.key, replacement.status
+@@ -162,13 +164,13 @@
+ 
+ 
+ class TurnReservation:
+-    """Reserve outputs together, then fund each counted input before submission.
+-
+-    Inputs are known only when each stage's context is ready. A later stage can
+-    hit the daily cap after an earlier stage succeeds; its accepted work remains.
+-    Close releases only stages never submitted.
++    """Reserve outputs together, then record each counted input before submission.
++
++    The local advisor checks the threshold at admission, allowing the bounded
++    turn to finish. Other budget policies retain worst-case admission checks.
++    Close releases only stages never submitted; issued uncertainty stays held.
+     """
+-    def __init__(self, budget, model, stages=('extract', 'compose')):
++    def __init__(self, budget, model, stages=('extract', 'compose'), *, _recovery_of=None):
+         if not stages or len(stages) != len(set(stages)) or set(stages) - {'extract', 'compose'}:
+             raise BudgetError('Use the defined extraction and composition stages.')
+         self.budget = budget
+@@ -180,6 +182,7 @@
+         spec = MODELS[model]
+         amount = spec.output_tokens * spec.output_rate
+         cap = getattr(budget, 'daily_cap_nano_usd', CAP)
++        finish_admitted = getattr(budget, 'finish_admitted_turn', False)
+         day = budget.day()
+         try:
+             with budget.db() as db:
+@@ -187,7 +190,19 @@
+                 if db.execute("SELECT value FROM ai_meta WHERE key='blocked'").fetchone():
+                     raise BudgetError('AI usage needs reconciliation. Manual guidance remains available.')
+                 total, *_ = budget._amounts(db, day)
+-                if total + amount * len(stages) > cap:
++                continuing = False
++                if _recovery_of is not None:
++                    if (not isinstance(_recovery_of, ReservedStage) or _recovery_of.budget is not budget
++                            or _recovery_of.model != model or _recovery_of.attempts != 1
++                            or _recovery_of.status not in {'settled', 'uncertain'} or stages != ('compose',)):
++                        raise BudgetError('Use the existing stage receipt for bounded recovery.')
++                    receipt = db.execute('SELECT status FROM ai_charges WHERE id=?', (_recovery_of.key,)).fetchone()
++                    if not receipt or receipt[0] != _recovery_of.status:
++                        raise BudgetError('The recovery receipt could not be verified.')
++                    continuing = True
++                if finish_admitted and not continuing and total >= cap:
++                    raise BudgetError(f'The shared ${cap / 1_000_000_000:g} daily AI limit has been reached. It resets at 00:00 UTC.')
++                if not finish_admitted and total + amount * len(stages) > cap:
+                     raise BudgetError(f'This complete turn could exceed the shared ${cap / 1_000_000_000:g} daily AI limit. Use the manual guide or try after 00:00 UTC.')
+                 for name in stages:
+                     key = secrets.token_hex(24)
+@@ -250,9 +265,15 @@
+ Work toward their question's resolution. If a missing fact would change the answer or the
+ next useful action, ask for it; otherwise help with what is already known. Candidate questions
+ are available meanings, not a checklist or an order to follow. An expressed goal or preference
+-stays part of the conversation. Build on recent exchanges and revisit an explanation when
+-the person's questions or a new circumstance call for it. Use the curriculum as a reference
+-for the understanding this person needs now.
++stays part of the conversation. Use the curriculum as a reference for the understanding
++this person needs now.
++
++Before sending, check your proposed reply against recent_exchanges and education_context.learning.
++Build on what has already been explained. Give the new information, implication or next step
++their latest answer makes useful; do not repeat the same explanation, caveat or acknowledgment
++in different words. Revisit only when they ask, show confusion, correct a detail, or new evidence
++changes the guidance. Then repeat only what is needed to make that change clear. Prior delivery
++does not prove understanding; use their response to decide whether clarification would help.
+ 
+ Give the supported part of an answer at the level the evidence allows. When a requested
+ personal result needs an unavailable capability, identify that specific boundary briefly,
+--- before/alternatives/advisor-first/AGENTS.md
++++ alternatives/advisor-first/AGENTS.md
+@@ -1,4 +1,6 @@
+ # Working on the advisor-first variant
++
++**D86/D90 budget admission and conversational continuity · November 4, 2026.** Owner removed the anticipatory “complete turn could exceed” block and requested a check against repeating information. For :8893, admit a new turn while accounted daily usage is below $5, then let that bounded turn and its existing recovery allowance finish; the final total may exceed $5. Do not reject an admitted turn based on its forecast maximum. Reject new turns once the threshold is reached, including existing unsettled holds in accounting. Preserve exact counting/settlement, receipt verification, uncertainty holds, pricing and clock checks, request/output bounds, recovery-attempt limits, the shared ledger and protected variants. This supersedes the earlier worst-case $5 ceiling only for this advisor. The shared composer checks its draft against recent exchanges and learning history, adds the new implication or next step, and revisits only for a request, confusion, correction or changed guidance. Delivered teaching never proves understanding. No added model stage, case script, profile field or UI change; no agent-run live conversation tests. [Implementation and activation](../../audit-evidence/turn-budget-and-continuity-20261104/README.md).
+ 
+ **D86/D90 validation and recovery · November 4, 2026.** Owner authorized fixing validation/recovery while preserving curriculum, profile, evidence and factual safeguards, with no canned prose or case-specific dialogue rules. In :8893, keep a valid whole answer or approved model-written question independently; never salvage sentence fragments that could lose qualifications. Quarantine missing or malformed optional learning/task metadata without discarding validated text or granting teaching credit. After a completed invalid composition, permit one separately counted and funded same-model repair using unchanged resolved context; it shares the existing recovery slot with connection recovery, so composition has at most two submitted attempts. Preserve settled and uncertain receipts, the shared $5/UTC-day cap, exact-request replay, source/report/purpose checks, permissions and protected variants. Never repeat accepted extraction or store rejected drafts in profiles/history/logs. This supersedes the earlier network-only retry restriction for this bounded repair. If no component validates, keep it withheld. UI remains unchanged; technical fault injection is permitted, with no agent-run live conversations, paid probes or quality claims. [Implementation and activation](../../audit-evidence/composition-recovery-20261104/README.md).
+ 
+--- before/alternatives/advisor-first/advisor_budget.py
++++ alternatives/advisor-first/advisor_budget.py
+@@ -23,6 +23,11 @@
+ 
+ 
+ class AdvisorDailyBudget(DailyBudget):
++    # Owner-approved local testing policy: check today's accounted usage when
++    # admitting a turn, then let its bounded stages/recovery finish. The final
++    # turn may cross the threshold; this is not a worst-case spending ceiling.
++    finish_admitted_turn = True
++
+     @property
+     def daily_cap_nano_usd(self):
+         # There is no environment, request or caller-selected cap override.
+@@ -133,9 +138,9 @@
+             except Exception:
+                 total, measured, held, count = cap, 0, cap, 0
+         remaining = max(0, cap - total)
+-        if ready and remaining < 900 * 15000:
++        if ready and remaining == 0:
+             ready = False
+-            reason = 'The shared daily AI allowance is used. Manual guidance remains available until 00:00 UTC.'
++            reason = 'The shared $5 daily AI limit has been reached. It resets at 00:00 UTC.'
+         return {
+             'day': day, 'timezone': 'UTC',
+             'resetAt': (datetime.fromisoformat(day).replace(tzinfo=timezone.utc) + timedelta(days=1)).isoformat(),
+@@ -162,8 +167,8 @@
+                 if db.execute("SELECT value FROM ai_meta WHERE key='blocked'").fetchone():
+                     raise BudgetError('AI usage needs reconciliation. Manual guidance remains available.')
+                 total, *_ = self._amounts(db, day)
+-                if total + amount > self.daily_cap_nano_usd:
+-                    raise BudgetError('This request could exceed the shared $5 daily AI limit. Try after 00:00 UTC or use manual guidance.')
++                if total >= self.daily_cap_nano_usd:
++                    raise BudgetError('The shared $5 daily AI limit has been reached. It resets at 00:00 UTC.')
+                 db.execute('INSERT INTO ai_charges VALUES(?,?,NULL,?,?,NULL,?,?,?,NULL,NULL,NULL)',
+                            (key, day, amount, amount, 'reserved', i, o))
+             return key
+--- before/alternatives/advisor-first/tests/test_advisor_budget.py
++++ alternatives/advisor-first/tests/test_advisor_budget.py
+@@ -102,13 +102,26 @@
+         self.assertEqual(local.summary()['accountedUsd'], 1.2)
+         self.assertEqual([row[6] for row in self.rows()].count('cancelled'), 2)
+ 
+-    def test_complete_turn_rejection_is_atomic_with_one_stage_of_headroom(self):
++    def test_complete_turn_is_admitted_with_less_than_its_output_reservation_remaining(self):
+         self.seed_usd(498)
+         local = self.local()
+-        before = self.rows()
+-        with self.assertRaises(BudgetError):
++        self.assertTrue(local.summary()['canRequest'])
++        with TurnReservation(local, 'gpt-5.4'):
++            self.assertEqual(local.summary()['accountedUsd'], 5.007)
++            with self.assertRaisesRegex(BudgetError, 'has been reached'):
++                TurnReservation(local, 'gpt-5.4')
++        self.assertEqual(local.summary()['accountedUsd'], 4.98)
++
++    def test_any_positive_balance_can_start_but_reached_limit_cannot(self):
++        self.base.seed([('prior', self.base.day(), 1_999_999, 0, 0)])
++        local = self.local()
++        self.assertTrue(local.summary()['canRequest'])
++        key = local.reserve(1000, 900, 'gpt-5.4')
++        local.settle(key, completed())
++        self.assertGreater(local.summary()['accountedUsd'], 5)
++        self.assertFalse(local.summary()['canRequest'])
++        with self.assertRaisesRegex(BudgetError, 'has been reached'):
+             TurnReservation(local, 'gpt-5.4')
+-        self.assertEqual(self.rows(), before)
+ 
+     def test_concurrent_turns_cannot_each_claim_the_same_headroom(self):
+         self.seed_usd(496)
+@@ -137,9 +150,9 @@
+         try:
+             self.assertFalse(errors)
+             self.assertFalse(any(worker.is_alive() for worker in workers))
+-            self.assertEqual(results.count('reserved'), 1)
+-            self.assertEqual(results.count('rejected'), 3)
+-            self.assertEqual(self.base.summary()['accountedUsd'], 4.987)
++            self.assertEqual(results.count('reserved'), 2)
++            self.assertEqual(results.count('rejected'), 2)
++            self.assertEqual(self.base.summary()['accountedUsd'], 5.014)
+         finally:
+             for reservation in reservations:
+                 reservation.close()
+@@ -272,22 +285,20 @@
+                 stage.check_input(1)
+         self.assertEqual(local.summary()['reservedOrUncertainUsd'], .128)
+ 
+-    def test_opus_exact_daily_boundary_accepts_then_refuses_one_extra_token(self):
++    def test_counting_admitted_opus_input_can_cross_threshold_without_changing_receipts(self):
+         self.seed_usd(486)
+         local = self.local()
+         with TurnReservation(local, 'claude-opus-5-5', stages=('compose',)) as reservation:
+             stage = reservation.stage('compose')
+             stage.check_input(23000)
+             self.assertEqual(local.summary()['accountedUsd'], 5)
+-            before = self.rows()
+-            with self.assertRaisesRegex(BudgetError, 'shared \\$5 daily'):
+-                stage.check_input(23001)
+-            self.assertEqual(self.rows(), before)
+-            with self.assertRaisesRegex(BudgetError, 'counted and funded'):
+-                stage.issued()
++            stage.check_input(23001)
++            self.assertEqual(local.summary()['accountedUsd'], 5.000004)
++            with self.assertRaisesRegex(BudgetError, 'has been reached'):
++                TurnReservation(local, 'claude-opus-5-5')
+         self.assertEqual(local.summary()['accountedUsd'], 4.86)
+ 
+-    def test_later_stage_budget_failure_keeps_the_completed_receipt(self):
++    def test_later_stage_can_finish_crossing_threshold_with_exact_settled_receipts(self):
+         self.seed_usd(494)
+         local = self.local()
+         with TurnReservation(local, 'gpt-5.4') as reservation:
+@@ -295,13 +306,17 @@
+             extraction.check_input(10000)
+             extraction.issued()
+             extraction.settle(completed(i=10000))
+-            with self.assertRaisesRegex(BudgetError, 'shared \\$5 daily'):
+-                reservation.stage('compose').check_input(30000)
++            composition = reservation.stage('compose')
++            composition.check_input(30000)
++            composition.issued()
++            composition.settle(completed(i=30000))
+         with local.db() as db:
+             self.assertEqual(db.execute('SELECT status,charged FROM ai_charges WHERE id=?',
+                 (extraction.key,)).fetchone(), ('settled', 26_500_000))
+-        self.assertEqual(local.summary()['accountedUsd'], 4.9665)
++        self.assertEqual(local.summary()['accountedUsd'], 5.043)
+         self.assertEqual(local.summary()['reservedOrUncertainUsd'], 0)
++        with self.assertRaisesRegex(BudgetError, 'has been reached'):
++            TurnReservation(local, 'gpt-5.4')
+ 
+     def test_recovery_requires_new_count_and_preserves_original_hold(self):
+         local = self.local()
+@@ -320,7 +335,7 @@
+         self.now[0] += 86400
+         self.assertEqual(local.summary()['reservedOrUncertainUsd'], .128)
+ 
+-    def test_concurrent_count_funding_cannot_spend_the_same_headroom(self):
++    def test_concurrent_admitted_turns_record_full_counts_before_blocking_new_turns(self):
+         self.seed_usd(480)
+         local = self.local()
+         reservations = [TurnReservation(local, 'claude-opus-5-5', stages=('compose',)) for _ in range(4)]
+@@ -346,8 +361,10 @@
+                 worker.join(timeout=15)
+             self.assertFalse(errors)
+             self.assertFalse(any(worker.is_alive() for worker in workers))
+-            self.assertEqual(sorted(results), ['funded', 'funded', 'rejected', 'rejected'])
+-            self.assertEqual(local.summary()['accountedUsd'], 5)
++            self.assertEqual(results, ['funded'] * 4)
++            self.assertEqual(local.summary()['accountedUsd'], 5.008)
++            with self.assertRaisesRegex(BudgetError, 'has been reached'):
++                TurnReservation(local, 'claude-opus-5-5')
+         finally:
+             for reservation in reservations:
+                 reservation.close()
+--- before/alternatives/advisor-first/tests/test_composition_recovery.py
++++ alternatives/advisor-first/tests/test_composition_recovery.py
+@@ -12,6 +12,7 @@
+ import test_natural_flow as flow_fixtures
+ from advisor_budget import AdvisorDailyBudget
+ from advisor_models import MODELS
++from ai_budget import BudgetError
+ from chat import ModelUnavailable
+ from composition_recovery import CompositionRejected
+ from natural_agent import _question_candidates
+@@ -175,11 +176,11 @@
+         self.assertEqual(answer['reply'], draft['reply'])
+         self.assertEqual(answer['education']['updates'], [])
+ 
+-    def test_repair_budget_failure_keeps_safe_question_and_cancels_unissued_hold(self):
++    def test_repair_count_failure_keeps_safe_question_and_cancels_unissued_hold(self):
+         self.responses = [self.draft(reply='An example amount is $777777.')]
+         def count(_, payload):
+             self.counts.append(copy.deepcopy(payload))
+-            return 2_000_000 if 'validation_feedback' in json.loads(payload['input'][0]['content']) else 300
++            return 0 if 'validation_feedback' in json.loads(payload['input'][0]['content']) else 300
+         self.agent.count_tokens = count
+         answer = self.compose()
+         self.assertEqual(answer['question'], self.draft()['question'])
+@@ -188,12 +189,13 @@
+         self.assertEqual(sorted(row[0] for row in self.rows()), ['cancelled', 'settled'])
+         self.assertEqual(self.agent.budget.summary()['reservedOrUncertainUsd'], 0)
+ 
+-    def test_repair_output_reservation_can_be_denied_without_losing_safe_question(self):
++    def test_repair_accounting_hold_keeps_safe_question_without_another_call(self):
+         self.responses = [self.draft(reply='An example amount is $777777.')]
+         transport = self.agent.client.transport
+         def exhaust_after_submission(payload):
+             response = transport(payload)
+-            patch('advisor_budget.APPROVED_CAP', 1).start()
++            with self.agent.budget.db() as db:
++                db.execute("INSERT OR REPLACE INTO ai_meta VALUES('blocked','unverified usage')")
+             return response
+         self.agent.client.transport = exhaust_after_submission
+         answer = self.compose()
+@@ -225,6 +227,25 @@
+         with self.assertRaises(ModelUnavailable):
+             self.compose()
+         self.assertEqual(len(self.calls), 1)
++
++    def test_admitted_repair_can_cross_daily_threshold_for_every_model(self):
++        for model in MODELS:
++            with self.subTest(model=model):
++                self.agent.budget = AdvisorDailyBudget.adopt(self.fixture.ledger())
++                self.agent.budget.seed([('prior', self.agent.budget.day(), 1_999_999, 0, 0)])
++                self.agent.client.model = model
++                self.agent.max_output_tokens = MODELS[model].output_tokens
++                self.request_id = str(uuid.uuid4())
++                self.responses = [self.draft(reply='An example amount is $777777.'), self.draft()]
++                start = len(self.calls)
++                answer = self.compose()
++                self.assertEqual(answer['validation_recovery']['replacement'], 'validated_model_repair')
++                self.assertEqual(len(self.calls) - start, 2)
++                self.assertGreater(self.agent.budget.summary()['accountedUsd'], 5)
++                self.assertEqual(self.agent.budget.summary()['reservedOrUncertainUsd'], 0)
++                self.assertFalse(self.agent.budget.summary()['canRequest'])
++                with self.assertRaisesRegex(BudgetError, 'has been reached'):
++                    self.agent.reserve_turn()
+ 
+     def test_logs_contain_categories_and_never_rejected_text(self):
+         self.responses = [self.draft(reply='An example amount is $777777.'), self.draft()]
+@@ -245,6 +266,34 @@
+ 
+ class RecoveryControllerTests(unittest.TestCase):
+     """One injected transaction checks state writes, not dialogue quality."""
++    def test_completed_turn_replay_is_free_after_crossing_daily_threshold(self):
++        budget_fixture = fixtures.NaturalAgentTests()
++        budget_fixture.setUp()
++        self.addCleanup(budget_fixture.doCleanups)
++        fixture = flow_fixtures.NaturalFlowTests()
++        fixture.setUp()
++        self.addCleanup(fixture.doCleanups)
++        budget = AdvisorDailyBudget.adopt(budget_fixture.ledger())
++        budget.seed([('prior', budget.day(), 1_999_999, 0, 0)])
++        fixture.flow.agent.budget = budget
++        fixture.flow.agent.count_tokens = lambda *_: 300
++        fixture.flow.agent.composition_recovery = True
++        fixture.extractions = [fixture.extraction([
++            fixture.update('RC01', {'choice': 'self'}, 'This is for me.')])]
++        fixture.compositions = [{'reply': 'An example amount is $777777.'}, {}]
++        payload = fixture.payload({'type': 'message', 'message': 'This is for me.'})
++        with patch('urllib.request.urlopen', side_effect=AssertionError('No network calls in fault injection')):
++            out = fixture.take(payload)
++            self.assertEqual(out['generated']['status'], 'complete')
++            self.assertEqual(out['metrics']['llmCalls'], 3)
++            self.assertGreater(budget.summary()['accountedUsd'], 5)
++            replay = fixture.flow.turn(fixture.owner, payload)
++            self.assertEqual(replay['reply'], out['reply'])
++            self.assertEqual(len(fixture.calls), 3)
++            with self.assertRaisesRegex(BudgetError, 'has been reached'):
++                fixture.turn({'type': 'message', 'message': 'Continue.'})
++            self.assertEqual(len(fixture.calls), 3)
++
+     def test_profile_evidence_and_delivery_accounting_survive_repair_or_question_only(self):
+         for repaired in (True, False):
+             with self.subTest(repaired=repaired), patch('urllib.request.urlopen',
+--- before/docs/product/MASTER_DESIGN.md
++++ docs/product/MASTER_DESIGN.md
+@@ -1,4 +1,6 @@
+ # Daylight master design and agent contract
++
++**D86/D90 budget admission and conversational continuity · November 4, 2026.** Owner removed the anticipatory “complete turn could exceed” block and requested a check against repeating information. For :8893, admit a new turn while accounted daily usage is below $5, then let that bounded turn and its existing recovery allowance finish; the final total may exceed $5. Do not reject an admitted turn based on its forecast maximum. Reject new turns once the threshold is reached, including existing unsettled holds in accounting. Preserve exact counting/settlement, receipt verification, uncertainty holds, pricing and clock checks, request/output bounds, recovery-attempt limits, the shared ledger and protected variants. This supersedes the earlier worst-case $5 ceiling only for this advisor. The shared composer checks its draft against recent exchanges and learning history, adds the new implication or next step, and revisits only for a request, confusion, correction or changed guidance. Delivered teaching never proves understanding. No added model stage, case script, profile field or UI change; no agent-run live conversation tests. [Implementation and activation](../../audit-evidence/turn-budget-and-continuity-20261104/README.md).
+ 
+ **D86/D90 validation and recovery · November 4, 2026.** Owner authorized fixing validation/recovery while preserving curriculum, profile, evidence and factual safeguards, with no canned prose or case-specific dialogue rules. In :8893, keep a valid whole answer or approved model-written question independently; never salvage sentence fragments that could lose qualifications. Quarantine missing or malformed optional learning/task metadata without discarding validated text or granting teaching credit. After a completed invalid composition, permit one separately counted and funded same-model repair using unchanged resolved context; it shares the existing recovery slot with connection recovery, so composition has at most two submitted attempts. Preserve settled and uncertain receipts, the shared $5/UTC-day cap, exact-request replay, source/report/purpose checks, permissions and protected variants. Never repeat accepted extraction or store rejected drafts in profiles/history/logs. This supersedes the earlier network-only retry restriction for this bounded repair. If no component validates, keep it withheld. UI remains unchanged; technical fault injection is permitted, with no agent-run live conversations, paid probes or quality claims. [Implementation and activation](../../audit-evidence/composition-recovery-20261104/README.md).
+ 

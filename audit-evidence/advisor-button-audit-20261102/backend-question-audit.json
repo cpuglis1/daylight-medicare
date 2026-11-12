@@ -1,0 +1,965 @@
+{
+  "paid_model_calls": 0,
+  "question_inventory_count": 41,
+  "distinct_parent_count": 38,
+  "default_finite_choice_count": 103,
+  "questions": [
+    {
+      "inventory_id": "T01",
+      "kind": "baseline",
+      "parent": "T01",
+      "visible_default_choices": [
+        [
+          "learn",
+          "Understand Medicare"
+        ],
+        [
+          "compare",
+          "Find coverage"
+        ],
+        [
+          "review",
+          "Review my coverage"
+        ],
+        [
+          "unresolved",
+          "Something else"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T02",
+      "kind": "baseline",
+      "parent": "T02",
+      "visible_default_choices": [
+        [
+          "new",
+          "New to Medicare"
+        ],
+        [
+          "some",
+          "Know a little"
+        ],
+        [
+          "comfortable",
+          "Comfortable with the basics"
+        ],
+        [
+          "unknown",
+          "Not sure yet"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": [],
+      "requiredness": "optional_preference",
+      "review_treatment": "optional"
+    },
+    {
+      "inventory_id": "T03",
+      "kind": "baseline",
+      "parent": "T03",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [
+        "zip"
+      ],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T04",
+      "kind": "baseline",
+      "parent": "T04",
+      "visible_default_choices": [
+        [
+          "soonest",
+          "As soon as possible"
+        ],
+        [
+          "already",
+          "I already have Medicare"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [
+        "month"
+      ],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T05",
+      "kind": "baseline",
+      "parent": "T05",
+      "visible_default_choices": [
+        [
+          "original",
+          "Original Medicare (Parts A and B)"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage (Part C)"
+        ],
+        [
+          "medigap",
+          "Medicare Supplement / Medigap"
+        ],
+        [
+          "drug",
+          "Separate prescription drug plan"
+        ],
+        [
+          "employer",
+          "Current-job coverage"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ],
+        [
+          "military",
+          "VA, TRICARE or military coverage"
+        ],
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "none",
+          "None"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "max": null,
+      "default_fields": [],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T06",
+      "kind": "baseline",
+      "parent": "T06",
+      "visible_default_choices": [
+        [
+          "none",
+          "No doctors to include"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [
+        "text"
+      ],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T07",
+      "kind": "baseline",
+      "parent": "T07",
+      "visible_default_choices": [
+        [
+          "no",
+          "No prescriptions to include"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [
+        "text"
+      ],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T08",
+      "kind": "baseline",
+      "parent": "T08",
+      "visible_default_choices": [
+        [
+          "local",
+          "Local only"
+        ],
+        [
+          "elsewhere_us",
+          "Elsewhere in the U.S."
+        ],
+        [
+          "outside_us",
+          "Outside the U.S."
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "max": null,
+      "default_fields": [],
+      "dependency": [],
+      "requiredness": "required_only_for_relevant_capability",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "T09",
+      "kind": "baseline",
+      "parent": "T09",
+      "visible_default_choices": [
+        [
+          "lower_monthly",
+          "Lower monthly payments"
+        ],
+        [
+          "predictable",
+          "More predictable costs"
+        ],
+        [
+          "no_preference",
+          "No preference yet"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": [],
+      "requiredness": "optional_preference",
+      "review_treatment": "optional"
+    },
+    {
+      "inventory_id": "T10",
+      "kind": "baseline",
+      "parent": "T10",
+      "visible_default_choices": [
+        [
+          "doctors",
+          "Doctors and hospitals"
+        ],
+        [
+          "drugs",
+          "Prescriptions"
+        ],
+        [
+          "total_cost",
+          "Total cost"
+        ],
+        [
+          "bills",
+          "Predictable costs"
+        ],
+        [
+          "travel",
+          "Travel"
+        ],
+        [
+          "other",
+          "Something else"
+        ],
+        [
+          "unknown",
+          "Not sure"
+        ]
+      ],
+      "multi": true,
+      "max": 3,
+      "default_fields": [],
+      "dependency": [],
+      "requiredness": "optional_preference",
+      "review_treatment": "optional"
+    },
+    {
+      "inventory_id": "RC01",
+      "kind": "conditional",
+      "parent": "RC01",
+      "visible_default_choices": [
+        [
+          "self",
+          "Me"
+        ],
+        [
+          "someone",
+          "Someone I help"
+        ],
+        [
+          "research",
+          "Research only"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "None; integrity guards run before dependent checks.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC02",
+      "kind": "conditional",
+      "parent": "RC02",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC01.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC03",
+      "kind": "conditional",
+      "parent": "RC03",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC01.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC04",
+      "kind": "conditional",
+      "parent": "RC04",
+      "visible_default_choices": [
+        [
+          "both",
+          "A and B"
+        ],
+        [
+          "a_only",
+          "A only"
+        ],
+        [
+          "b_only",
+          "B only"
+        ],
+        [
+          "neither",
+          "Neither"
+        ],
+        [
+          "pending",
+          "Applied; waiting"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC01.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC05",
+      "kind": "conditional",
+      "parent": "RC05",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC04.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC06",
+      "kind": "conditional",
+      "parent": "RC06",
+      "visible_default_choices": [
+        [
+          "age65",
+          "Age 65 or older"
+        ],
+        [
+          "disability",
+          "Disability before 65"
+        ],
+        [
+          "esrd",
+          "Kidney failure / ESRD"
+        ],
+        [
+          "als",
+          "ALS"
+        ],
+        [
+          "other",
+          "Another reason"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC04.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC07",
+      "kind": "conditional",
+      "parent": "RC07",
+      "visible_default_choices": [
+        [
+          "original",
+          "Original Medicare"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage"
+        ],
+        [
+          "pending",
+          "A change is pending"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC04.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC08",
+      "kind": "conditional",
+      "parent": "RC08",
+      "visible_default_choices": [
+        [
+          "loss",
+          "Losing coverage"
+        ],
+        [
+          "move",
+          "Moving"
+        ],
+        [
+          "plan_change",
+          "Plan ending or changing service area"
+        ],
+        [
+          "assistance_change",
+          "Medicaid or Extra Help changed"
+        ],
+        [
+          "other",
+          "Another event"
+        ],
+        [
+          "none",
+          "Nothing changed"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC03, RC04, RC07.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC09",
+      "kind": "conditional",
+      "parent": "RC09",
+      "visible_default_choices": [
+        [
+          "my_job",
+          "My current job"
+        ],
+        [
+          "spouse_job",
+          "Spouse\u2019s current job"
+        ],
+        [
+          "family_job",
+          "Family member\u2019s current job"
+        ],
+        [
+          "retiree",
+          "Retiree coverage"
+        ],
+        [
+          "cobra",
+          "COBRA"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC07.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC10",
+      "kind": "conditional",
+      "parent": "RC10",
+      "visible_default_choices": [
+        [
+          "yes",
+          "20 or more"
+        ],
+        [
+          "no",
+          "Fewer than 20"
+        ],
+        [
+          "unknown",
+          "I'm not sure"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC06, RC09.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC11",
+      "kind": "conditional",
+      "parent": "RC11",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC09.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC12",
+      "kind": "conditional",
+      "parent": "RC12",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Yes, according to its notice"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "none",
+          "I have no drug coverage"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC07, RC09.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC13",
+      "kind": "conditional",
+      "parent": "RC13",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Administrator says yes"
+        ],
+        [
+          "no",
+          "Administrator says no"
+        ],
+        [
+          "unchecked",
+          "I have not checked"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC09.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC14",
+      "kind": "conditional",
+      "parent": "RC14",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC05, RC09.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC15",
+      "kind": "conditional",
+      "parent": "RC15",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC02, RC05, RC06, RC11.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC16",
+      "kind": "conditional",
+      "parent": "RC16",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC07, RC08, RC15.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC17",
+      "kind": "conditional",
+      "parent": "RC17",
+      "visible_default_choices": [
+        [
+          "replace",
+          "Yes, replacing it"
+        ],
+        [
+          "keep",
+          "No, keeping it"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC07, RC15.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC18",
+      "kind": "conditional",
+      "parent": "RC18",
+      "visible_default_choices": [
+        [
+          "medicaid",
+          "Medicaid"
+        ],
+        [
+          "extra_help",
+          "Extra Help"
+        ],
+        [
+          "part_b_help",
+          "Help paying Part B"
+        ],
+        [
+          "ssi",
+          "SSI"
+        ],
+        [
+          "none",
+          "None known"
+        ],
+        [
+          "declined",
+          "Prefer not to say"
+        ]
+      ],
+      "multi": true,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC01, RC03.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC19",
+      "kind": "conditional",
+      "parent": "RC19",
+      "visible_default_choices": [
+        [
+          "details",
+          "Program or plan confirmation"
+        ],
+        [
+          "no",
+          "No confirmation"
+        ],
+        [
+          "declined",
+          "Do not explore this type"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC02, RC04, RC18.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC20",
+      "kind": "conditional",
+      "parent": "RC20",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC02.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC21",
+      "kind": "conditional",
+      "parent": "RC21",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC02, RC03.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC22",
+      "kind": "conditional",
+      "parent": "RC22",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC03.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC23",
+      "kind": "conditional",
+      "parent": "RC23",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC22.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC24",
+      "kind": "conditional",
+      "parent": "RC24",
+      "visible_default_choices": [
+        [
+          "clinic",
+          "At a clinic"
+        ],
+        [
+          "pharmacy",
+          "At a pharmacy"
+        ],
+        [
+          "both",
+          "Both / Not sure"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC22, RC23.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC25",
+      "kind": "conditional",
+      "parent": "RC25",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC03, RC18.",
+      "requiredness": "optional_preference",
+      "review_treatment": "optional"
+    },
+    {
+      "inventory_id": "RC26",
+      "kind": "conditional",
+      "parent": "RC26",
+      "visible_default_choices": [
+        [
+          "va",
+          "VA health care"
+        ],
+        [
+          "tfl",
+          "TRICARE For Life"
+        ],
+        [
+          "tricare",
+          "Other TRICARE"
+        ],
+        [
+          "champva",
+          "CHAMPVA"
+        ],
+        [
+          "other",
+          "Another program"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC04, RC12.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "task_specific_missing_only"
+    },
+    {
+      "inventory_id": "RC27",
+      "kind": "conditional",
+      "parent": "RC27",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ],
+        [
+          "human",
+          "I want human help"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC08.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC28",
+      "kind": "conditional",
+      "parent": "RC28",
+      "visible_default_choices": [
+        [
+          "original",
+          "Original Medicare is current"
+        ],
+        [
+          "advantage",
+          "Medicare Advantage is current"
+        ],
+        [
+          "different",
+          "They apply at different times"
+        ],
+        [
+          "neither",
+          "Neither"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "None; integrity guards run before dependent checks.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "internal_only"
+    },
+    {
+      "inventory_id": "RC11.C1",
+      "kind": "documented_child",
+      "parent": "RC11",
+      "visible_default_choices": [],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC09.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "within_parent_missing_only"
+    },
+    {
+      "inventory_id": "RC16.C1",
+      "kind": "documented_child",
+      "parent": "RC16",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC07, RC08, RC15.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "within_parent_missing_only"
+    },
+    {
+      "inventory_id": "RC16.C2",
+      "kind": "documented_child",
+      "parent": "RC16",
+      "visible_default_choices": [
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ],
+      "multi": false,
+      "max": null,
+      "default_fields": [],
+      "dependency": "RC07, RC08, RC15.",
+      "requiredness": "required_only_when_applicable_to_requested_check",
+      "review_treatment": "within_parent_missing_only"
+    }
+  ]
+}

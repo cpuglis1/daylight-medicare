@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Daylight empty customer aggregate template",
+  "type": "object",
+  "required": [
+    "guide",
+    "readiness",
+    "fieldDefinitions"
+  ],
+  "properties": {
+    "guide": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "stateVersion",
+        "fields",
+        "flow",
+        "preferences"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "fields": {
+          "type": "object",
+          "description": "Existing allowlisted confirmed report envelopes. Absence means unanswered, not none."
+        }
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "ruleVersion",
+        "facts",
+        "dispositions"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "facts": {
+          "type": "object",
+          "description": "Existing RC report envelopes; no verified status accepted."
+        }
+      }
+    },
+    "fieldDefinitions": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/emptyField"
+      }
+    }
+  },
+  "$defs": {
+    "emptyField": {
+      "type": "object",
+      "required": [
+        "value",
+        "state",
+        "verified"
+      ],
+      "properties": {
+        "value": {
+          "type": "null"
+        },
+        "state": {
+          "const": "unanswered"
+        },
+        "verified": {
+          "const": false
+        }
+      }
+    }
+  },
+  "runtimeValidation": "Existing guest_profiles.validate_guide and readiness_profiles.validate, plus alternative profile_readiness guards. This schema describes the empty template; metadata is not submitted as profile facts."
+}

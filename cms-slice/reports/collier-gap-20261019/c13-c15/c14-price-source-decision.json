@@ -1,0 +1,161 @@
+{
+  "task": "C14",
+  "status": "complete_assessment_no_go",
+  "assessed_at_utc": "2026-10-20T12:39:02.045666+00:00",
+  "timebox": {
+    "planned": "Three-day feasibility effort",
+    "actual": "Expedited point-in-time assessment on October 19–20, 2026 Eastern; not three elapsed days of monitoring or supplier replies.",
+    "completion_basis": "Catalog discovery, retained archive/header inspection, official pricing-grain documentation and public commercial offering review support a present no-go decision. Future availability is not predicted."
+  },
+  "decision": "NO GO for a personal 2027 drug-cost calculator; no adequate authorized 2027 negotiated price feed has been obtained.",
+  "public_sources": [
+    {
+      "source": "CMS monthly 2027 PUF",
+      "evidence": [
+        "cms-public-catalog-c14",
+        "retained-cms-methodology-2027",
+        "retained-cms-layout-2027"
+      ],
+      "distribution": {
+        "dataset_title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information : 2026-10-15",
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/ed1496ea-23e7-41f1-9292-172fa842ccfb/data-viewer",
+        "metadata_modified": "2026-10-15",
+        "distribution": {
+          "@type": "Distribution",
+          "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+          "mediaType": "application/zip",
+          "format": "ZIP",
+          "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/ed1496ea-23e7-41f1-9292-172fa842ccfb",
+          "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information : 2026-10-15",
+          "modified": "2026-10-15",
+          "temporal": [
+            {
+              "@type": "PeriodOfTime",
+              "startDate": "2026-10-01",
+              "endDate": "2026-10-31"
+            }
+          ],
+          "license": "https://www.usa.gov/government-works"
+        },
+        "filename_benefit_year_candidate": "2027"
+      },
+      "archive_inspection": "monthly-archive-inspection.json",
+      "archive_sha256": "5f3bbe4e9ca29bce965403f3780d66452ec446cef5bf01fa050d3c6a990f053c",
+      "archive_bytes": 2290695063,
+      "result": "Full retained archive hash verified; eight distinct table headers re-read; six pharmacy partitions share the pinned layout. No per-drug negotiated unit-price table. Tier copays/coinsurance and dispensing fees do not supply that missing price."
+    },
+    {
+      "source": "CMS quarterly pricing PUF",
+      "evidence": [
+        "cms-public-catalog-c14",
+        "retained-cms-quarterly-methodology-2026",
+        "retained-cms-quarterly-layout-2026"
+      ],
+      "distribution": {
+        "dataset_title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information : 2026-09-01",
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/58f846ab-857d-49c9-862e-0d5ee68fca57/data-viewer",
+        "metadata_modified": "2026-10-15",
+        "distribution": {
+          "@type": "Distribution",
+          "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/062e9434-ed9d-4e83-abbd-4d64eb375949/SPUF_2026_20261007.zip",
+          "mediaType": "application/zip",
+          "format": "ZIP",
+          "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/58f846ab-857d-49c9-862e-0d5ee68fca57",
+          "title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information : 2026-09-01",
+          "modified": "2026-10-15",
+          "temporal": [
+            {
+              "@type": "PeriodOfTime",
+              "startDate": "2026-07-01",
+              "endDate": "2026-09-30"
+            }
+          ],
+          "license": "https://www.usa.gov/government-works"
+        },
+        "filename_benefit_year_candidate": "2026"
+      },
+      "benefit_year_candidate": "2026",
+      "result": "Latest selected current catalog distribution is SPUF_2026_20261007.zip, not a 2027 feed. Retained official methodology describes plan-level average monthly unit costs; layout defines plan/segment/NDC/days-supply average in-area retail unit cost, without pharmacy ID in the pricing table. Unsuitable for a store-specific quote even if an appropriate future-year average file appears.",
+      "scope": "Fresh catalog selection plus verified retained documentation; quarterly raw ZIP was not newly downloaded or scanned in C14."
+    },
+    {
+      "source": "CMS/MPF external access inquiry",
+      "evidence": "../c09-c12/c11-send-receipt.json",
+      "result": "C11 reply/access grant remains pending; no licensed feed assumed."
+    },
+    {
+      "source": "Medicare.gov fixed synthetic observations",
+      "evidence": "c13-site-policy.json",
+      "result": "Future C20 dated examples only; no observation run in this assessment and no personal query service authorized (H09)."
+    }
+  ],
+  "commercial_sources": [
+    {
+      "name": "ConnectureDRX",
+      "evidence": [
+        "connecture-pricing-api",
+        "connecture-plancompare"
+      ],
+      "published_claim": "Medicare comparison APIs, dosage-specific pricing and monthly out-of-pocket estimates across benefit phases.",
+      "verified_access": false,
+      "adequate_for_calculator": false,
+      "missing": [
+        "executed license/redisplay and retention rights",
+        "2027 Collier plan coverage",
+        "pharmacy-specific data grain",
+        "sample payload and validation cases",
+        "price and refresh SLA"
+      ]
+    },
+    {
+      "name": "SunFire",
+      "evidence": [
+        "sunfire-home",
+        "sunfire-quoting"
+      ],
+      "published_claim": "MAPD/PDP quoting/enrollment platform and existing/custom APIs; public pages do not verify a standalone 2027 negotiated drug-price data license.",
+      "verified_access": false,
+      "adequate_for_calculator": false,
+      "missing": [
+        "drug-price API availability and scope",
+        "2027 Collier coverage",
+        "sample/schema/grain",
+        "reuse license, pricing and cadence"
+      ]
+    },
+    {
+      "name": "CSG Market Advisor",
+      "evidence": "../c09-c12/c10-csg-decision.json",
+      "result": "Prior optional subscription decision deferred. A quoted tool subscription is not evidence of a licensed 2027 raw drug-price feed.",
+      "adequate_for_calculator": false
+    }
+  ],
+  "minimum_source_acceptance": [
+    "Authorized contract or official access grant with display, caching, retention and derivative-calculation rights for this use.",
+    "Benefit year 2027 and exact CMS contract/plan/segment identity; coverage or explicit unavailable states for all 61 drug-bearing Collier records.",
+    "Exact drug identifier and strength/form, quantity/unit, days supply, pharmacy identifier or explicitly labeled average grain, retail/mail and preferred status.",
+    "Negotiated unit/total price definition, dispensing-fee inclusion, effective/as-of dates, refresh cadence and correction policy.",
+    "Plan cost-sharing rules and benefit-phase calculation inputs validated against dated fixed synthetic worked cases; no substitution of 2026 values.",
+    "Source and calculation version receipts, error/missing-data behavior and independent reconciliation before H01 can be approved."
+  ],
+  "next_trigger": "Reassess when C11 returns an authorized 2027 route, CMS publishes a 2027 pricing distribution, or an approved commercial evaluation produces a license and representative sample. Supplier outreach/purchase/account creation was not performed in C14.",
+  "R1_behavior": "Retain 61-plan coverage/tier/restriction and pharmacy evidence; link Plan Finder for personal estimates. Future C20 observations are dated synthetic examples.",
+  "holds": [
+    "H01",
+    "H08",
+    "H09"
+  ],
+  "open_issues": [
+    "DQ-007",
+    "DQ-008"
+  ],
+  "date_ambiguity": {
+    "outer_name": "2027_20261008.zip",
+    "inner_member_date_token": "20261031",
+    "metadata_modified": "2026-10-15",
+    "disposition": "Unresolved publisher naming/date discrepancy. Do not claim data as of future October 31; use pinned October release with the distinct observed dates."
+  },
+  "spend_usd": 0,
+  "new_outreach_sent": false,
+  "runtime_price_data_added": false
+}

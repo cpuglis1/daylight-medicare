@@ -1,0 +1,178 @@
+Daylight composition validation code=missing_followup retained=reply
+Daylight composition recovery stage=compose
+..Daylight composition validation code=missing_followup retained=reply
+Daylight composition recovery stage=compose
+Daylight composition validation code=missing_followup retained=reply
+Daylight composition unavailable code=missing_followup question_available=False
+......................Daylight composition transport {"exception": "TimeoutError", "phase": "stream"}
+Daylight composition unavailable code=transport_or_format question_available=False
+...Daylight composition unavailable code=missing_followup question_available=True
+.......................Daylight extraction transport model=gpt-5.4 {"exception": "ConnectionResetError", "phase": "stream"}
+Daylight composition transport {"exception": "ConnectionResetError", "phase": "stream"}
+.......................Daylight extraction unavailable code=extraction_unavailable
+.........................Daylight extraction unavailable code=provider_failure
+................Daylight composition transport {"exception": "SSLError", "phase": "stream"}
+..Daylight extraction transport model=gpt-5.4 {"exception": "TimeoutError", "phase": "stream"}
+...Daylight extraction unavailable code=extraction_unavailable
+........Daylight composition unavailable code=unavailable question_available=False
+...........................FFFF....E............................................Daylight composition unavailable code=unsupported_finding question_available=True
+........Daylight composition unavailable code=unsupported_finding question_available=True
+....................................Daylight composition unavailable code=unavailable question_available=False
+................................................Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+.Daylight composition validation code=ungrounded_literal retained=none
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=none
+.Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition transport {"exception": "ConnectionResetError", "phase": "stream"}
+.Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+.Daylight composition validation code=ungrounded_literal retained=none
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=none
+..Daylight composition validation code=invalid_structure retained=none
+Daylight composition recovery stage=compose
+....Daylight composition validation code=ungrounded_literal retained=none
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=none
+.Daylight composition validation code=ungrounded_literal retained=question
+.Daylight composition transport {"exception": "ConnectionResetError", "phase": "stream"}
+Daylight connection recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+.Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+.Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_entity retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=unsupported_finding retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_entity retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=unsupported_finding retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_entity retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=unsupported_finding retained=question
+Daylight composition recovery stage=compose
+..Daylight composition validation code=invalid_question retained=reply
+.Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+.Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+Daylight composition recovery stage=compose
+Daylight composition validation code=ungrounded_literal retained=question
+.........................................Daylight extraction unavailable code=invalid_structure
+.......
+======================================================================
+ERROR: test_retiring_items_preserves_an_unrelated_pending_clarification (test_button_backend_gates.ButtonBackendGateTests.test_retiring_items_preserves_an_unrelated_pending_clarification) (typed=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_button_backend_gates.py", line 456, in test_retiring_items_preserves_an_unrelated_pending_clarification
+    self.assertEqual(out['assessment']['nextQuestion']['id'],'RC11')
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+FAIL: test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields (test_button_backend_gates.ButtonBackendGateTests.test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields) (question='RC11')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_button_backend_gates.py", line 420, in test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields
+    self.assertEqual([field['key'] for field in out['assessment']['nextQuestion']['fields']],[second])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['jobEnd', 'coverageEnd'] != ['coverageEnd']
+
+First differing element 0:
+'jobEnd'
+'coverageEnd'
+
+First list contains 1 additional elements.
+First extra element 1:
+'coverageEnd'
+
+- ['jobEnd', 'coverageEnd']
+?  ----------
+
++ ['coverageEnd']
+
+======================================================================
+FAIL: test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields (test_button_backend_gates.ButtonBackendGateTests.test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields) (question='RC16')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_button_backend_gates.py", line 420, in test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields
+    self.assertEqual([field['key'] for field in out['assessment']['nextQuestion']['fields']],[second])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['priorMedigap', 'start'] != ['start']
+
+First differing element 0:
+'priorMedigap'
+'start'
+
+First list contains 1 additional elements.
+First extra element 1:
+'start'
+
+- ['priorMedigap', 'start']
++ ['start']
+
+======================================================================
+FAIL: test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields (test_button_backend_gates.ButtonBackendGateTests.test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields) (question='RC22')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_button_backend_gates.py", line 420, in test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields
+    self.assertEqual([field['key'] for field in out['assessment']['nextQuestion']['fields']],[second])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['strength', 'form'] != ['form']
+
+First differing element 0:
+'strength'
+'form'
+
+First list contains 1 additional elements.
+First extra element 1:
+'form'
+
+- ['strength', 'form']
++ ['form']
+
+======================================================================
+FAIL: test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields (test_button_backend_gates.ButtonBackendGateTests.test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields) (question='RC23')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/cep4u/daylight/alternatives/advisor-first/tests/test_button_backend_gates.py", line 420, in test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields
+    self.assertEqual([field['key'] for field in out['assessment']['nextQuestion']['fields']],[second])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['daysSupply', 'channel'] != ['channel']
+
+First differing element 0:
+'daysSupply'
+'channel'
+
+First list contains 1 additional elements.
+First extra element 1:
+'channel'
+
+- ['daysSupply', 'channel']
++ ['channel']
+
+----------------------------------------------------------------------
+Ran 362 tests in 125.540s
+
+FAILED (failures=4, errors=1)

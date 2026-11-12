@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 43218,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8179,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 310,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 8489
+    },
+    "text": "{\"question_target\":\"T03\",\"reply\":\"That gives us a useful starting point. You’ve reported that you’re currently in a Medicare Advantage plan, and not knowing the exact Aetna plan name is normal for a first pass. For your cardiologist and visit costs, the key checks are separate: the exact plan, the exact office location, and the specific kind of visit or test. A carrier name alone doesn’t confirm that the doctor is in-network for your plan or what you’d pay. Since plans vary by county, the next detail that helps narrow comparison is your ZIP code.\",\"question\":\"What ZIP code do you live in? Plans differ by county, and this helps focus the comparison area.\",\"education_followups\":[],\"report_refs\":[\"guide.coverage.current\"],\"evidence_refs\":[\"checks\"],\"agenda_update\":{\"current_concern\":\"compare coverage around cardiologist access and visit costs\",\"pause\":false},\"education\":{\"purpose\":\"advance\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\"]},{\"concept_id\":\"cost_components\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"total_cost\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"coverage_identity\",\"provider_participation\",\"personal_cost\"],\"blocking_concepts\":[\"provider_checks\"],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 11.573477
+}

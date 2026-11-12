@@ -1,0 +1,23 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 46606,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 8901,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 371,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 9272
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Bonita Springs helps for the office location, and 34102 resolves the home ZIP for the comparison area. Not having the exact plan name is still okay for now. The practical limit is that Aetna plus the office location still does not prove your cardiologist takes your specific Medicare Advantage plan, because participation can vary by the exact plan under the same company name. And even if the office takes the plan, that alone would not tell us your visit cost. Visit cost depends on the exact plan and the kind of visit or test, and a premium is separate from what you pay when you use care.\",\"question\":\"For your cardiologist, do you want to focus next on how to identify your exact plan from your card or paperwork, or on which visit-cost pieces matter once we have the plan?\",\"education_followups\":[],\"report_refs\":[\"guide.comparison.scope.county\",\"guide.coverage.current\",\"readiness.RC21.doctor-1.city\"],\"evidence_refs\":[\"checks\",\"costs\"],\"agenda_update\":{\"current_concern\":\"whether Aetna and office location prove plan acceptance, and what affects visit cost\",\"pause\":false},\"education\":{\"purpose\":\"advance\",\"updates\":[{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"checks\"]},{\"concept_id\":\"cost_components\",\"depth\":\"explored\",\"reason\":\"deepen\",\"aspect_ids\":[\"premiums\",\"cost_sharing\",\"total_cost\"],\"evidence_refs\":[\"costs\"]}],\"visual\":\"none\"},\"task_work\":{\"check_ids\":[\"provider_participation\",\"personal_cost\",\"coverage_identity\"],\"blocking_concepts\":[],\"next_step\":\"clarify\"}}"
+  },
+  "elapsed_seconds": 7.872138
+}

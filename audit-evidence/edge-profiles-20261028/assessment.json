@@ -1,0 +1,188 @@
+{
+  "rows": [
+    {
+      "id": "P6",
+      "name": "Conflicting dates and explicit correction",
+      "controlled": "PASS",
+      "controlledFailedChecks": [],
+      "liveWorkflow": "BLOCKED_REPLY",
+      "liveGuardChecks": [
+        {
+          "label": "ambiguous replacement is pending",
+          "actual": false,
+          "expected": true,
+          "passed": false
+        },
+        {
+          "label": "prior end date preserved",
+          "actual": "2026-12",
+          "expected": "2026-12",
+          "passed": true
+        }
+      ],
+      "blockedReplies": [
+        {
+          "httpStatus": 503,
+          "error": "The requested task needs clarification."
+        }
+      ],
+      "samplesAllowed": true,
+      "personalRecommendationReady": false
+    },
+    {
+      "id": "P7",
+      "name": "Mostly unknown answers",
+      "controlled": "FAIL",
+      "controlledFailedChecks": [
+        {
+          "label": "required unknowns remain visible",
+          "passed": false,
+          "actual": 6,
+          "expected": 7
+        }
+      ],
+      "liveWorkflow": "FAIL",
+      "liveGuardChecks": [
+        {
+          "label": "no repeated unknown question",
+          "actual": 7,
+          "expected": 7,
+          "passed": true
+        },
+        {
+          "label": "all seven unknowns visible",
+          "actual": 6,
+          "expected": 7,
+          "passed": false
+        },
+        {
+          "label": "only goal recorded",
+          "actual": [
+            "intent.goal"
+          ],
+          "expected": [
+            "intent.goal"
+          ],
+          "passed": true
+        }
+      ],
+      "blockedReplies": [],
+      "samplesAllowed": true,
+      "personalRecommendationReady": false
+    },
+    {
+      "id": "P8",
+      "name": "Side question and changing goals",
+      "controlled": "PASS",
+      "controlledFailedChecks": [],
+      "liveWorkflow": "PASS",
+      "liveGuardChecks": [
+        {
+          "label": "side question preserves task",
+          "actual": "compare",
+          "expected": "compare",
+          "passed": true
+        },
+        {
+          "label": "active question preserved",
+          "actual": "T06.profile.text",
+          "expected": "T06.profile.text",
+          "passed": true
+        },
+        {
+          "label": "explicit learning changes task",
+          "actual": "learn",
+          "expected": "learn",
+          "passed": true
+        },
+        {
+          "label": "return reuses earlier facts",
+          "actual": "T06",
+          "expected": "T06",
+          "passed": true
+        }
+      ],
+      "blockedReplies": [],
+      "samplesAllowed": true,
+      "personalRecommendationReady": false
+    },
+    {
+      "id": "P9",
+      "name": "Mother and helper have different coverage",
+      "controlled": "PASS",
+      "controlledFailedChecks": [],
+      "liveWorkflow": "BLOCKED_REPLY",
+      "liveGuardChecks": [
+        {
+          "label": "mother role preserved",
+          "actual": "someone",
+          "expected": "someone",
+          "passed": true
+        },
+        {
+          "label": "helper insurance not merged",
+          "actual": [
+            "cobra"
+          ],
+          "expected": [
+            "cobra"
+          ],
+          "passed": true
+        }
+      ],
+      "blockedReplies": [
+        {
+          "httpStatus": 503,
+          "error": "The requested task needs clarification."
+        }
+      ],
+      "samplesAllowed": true,
+      "personalRecommendationReady": false
+    },
+    {
+      "id": "P10",
+      "name": "Same medicine name, different strengths",
+      "controlled": "FAIL",
+      "controlledFailedChecks": [
+        {
+          "label": "two explicitly reported medicines remain distinct",
+          "passed": false,
+          "actual": 1,
+          "expected": 2
+        }
+      ],
+      "liveWorkflow": "FAIL",
+      "liveGuardChecks": [
+        {
+          "label": "two distinct strength reports retained",
+          "actual": 1,
+          "expected": 2,
+          "passed": false
+        },
+        {
+          "label": "both strengths retained",
+          "actual": [
+            "10 mg"
+          ],
+          "expected": [
+            "10 mg",
+            "5 mg"
+          ],
+          "passed": false
+        }
+      ],
+      "blockedReplies": [],
+      "samplesAllowed": true,
+      "personalRecommendationReady": false
+    }
+  ],
+  "controlledProfilesPassed": 3,
+  "controlledProfilesFailed": 2,
+  "liveCleanWorkflows": 1,
+  "liveBlockedReplies": 2,
+  "liveOtherFailures": 2,
+  "note": "P9 passed the data-integrity assertions but its live reply returned HTTP 503. It is not counted as a clean conversation. Each live wording was tried once, with no automatic retry.",
+  "paidGenerationAttempts": 5,
+  "observedUtcDay": "2026-10-29",
+  "estimatedUsd": 0.0645275
+}

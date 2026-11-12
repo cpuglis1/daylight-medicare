@@ -1,0 +1,591 @@
+{
+  "checkedAtUtc": "2026-10-30T21:43:38.355641+00:00",
+  "scope": "Only files and SQLite tables enumerated in the before snapshots. Each database is read through a mode=ro URI and one read transaction. No runtime or API calls.",
+  "hashMethod": "Files: SHA-256(bytes). Rows: SHA-256(json.dumps(tuple(row), sort_keys=True).encode()). Row comparisons use multisets; no personal values are emitted.",
+  "limits": [
+    "This is a dated snapshot, not a monitor. Run this script again after further diagnostics or browser sessions.",
+    "A new browser session may add an unsaved guest row without creating a saved profile; additions and modifications remain distinguishable by exact row hashes.",
+    "Measured ledger amounts are token-based estimates, not an invoice. Reserved or uncertain amounts are retained accounting holds, not proof of billed usage.",
+    "This script does not test provider quota/credit availability and does not change or release any hold."
+  ],
+  "protectedFiles": {
+    "alternatives/chat-first/cms-slice/scripts/consumer_acceptance.py": {
+      "beforeSha256": "ae5333f4ebe096e6453f821ae10801cf3d4a9ccab4d3a7b454e4a07e9e85d6cc",
+      "afterSha256": "ae5333f4ebe096e6453f821ae10801cf3d4a9ccab4d3a7b454e4a07e9e85d6cc",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/validate_devoted_drugs.py": {
+      "beforeSha256": "1f737f46530e8c8c2f197f5f5f96686da1cd71697e50b92d25d6d5e26cbab87d",
+      "afterSha256": "1f737f46530e8c8c2f197f5f5f96686da1cd71697e50b92d25d6d5e26cbab87d",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/guide_server.py": {
+      "beforeSha256": "1956c658bc51f0f2a9338833b22962bee7fd746950beb95ad26eec4d74f58713",
+      "afterSha256": "1956c658bc51f0f2a9338833b22962bee7fd746950beb95ad26eec4d74f58713",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/carrier_quality.py": {
+      "beforeSha256": "f7c8054c1e4f0ab715fdb96b24d6ea9d481f409a3e701001d8d84b6750a81755",
+      "afterSha256": "f7c8054c1e4f0ab715fdb96b24d6ea9d481f409a3e701001d8d84b6750a81755",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/transcript_log.py": {
+      "beforeSha256": "53450cdc49e88cb5fe6e049091964ae65ad593e4bae1f7c9e4cdaacebf77e729",
+      "afterSha256": "53450cdc49e88cb5fe6e049091964ae65ad593e4bae1f7c9e4cdaacebf77e729",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/cms_slice.py": {
+      "beforeSha256": "5bdb6c58d0c19b913373abee5d595373f0751d82018bef2aad003cba01064de9",
+      "afterSha256": "5bdb6c58d0c19b913373abee5d595373f0751d82018bef2aad003cba01064de9",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/catalog_actions.py": {
+      "beforeSha256": "954a933a46e462b2dd531782a297196f11720151c83c1c73eea7300c4f00f1e4",
+      "afterSha256": "954a933a46e462b2dd531782a297196f11720151c83c1c73eea7300c4f00f1e4",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/collier_baseline.py": {
+      "beforeSha256": "2edcdc6a49f66e87c7f05b008c3aae69e337e0d4b8ac1448e4a9c67086f7de92",
+      "afterSha256": "2edcdc6a49f66e87c7f05b008c3aae69e337e0d4b8ac1448e4a9c67086f7de92",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/readiness_agent.py": {
+      "beforeSha256": "0b5bcac4fda9174549818b4e2cba3ab7331158122da0fc65e2942aaefc69904f",
+      "afterSha256": "0b5bcac4fda9174549818b4e2cba3ab7331158122da0fc65e2942aaefc69904f",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/profile_readiness.py": {
+      "beforeSha256": "39e3efc1f011fc7c9efe6fdab253e0547d6d469e68b018e9decfff8d77798675",
+      "afterSha256": "39e3efc1f011fc7c9efe6fdab253e0547d6d469e68b018e9decfff8d77798675",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/evidence_store.py": {
+      "beforeSha256": "36eded73273a52ba8bf0e2d8acab984f9339dea80346fd8de29192b22e639274",
+      "afterSha256": "36eded73273a52ba8bf0e2d8acab984f9339dea80346fd8de29192b22e639274",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/validation_audit.py": {
+      "beforeSha256": "c114ed83f3582801ed9766ae7a2f3ad18c5a9ced157016c8bb66314a349e5430",
+      "afterSha256": "c114ed83f3582801ed9766ae7a2f3ad18c5a9ced157016c8bb66314a349e5430",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/chat_server.py": {
+      "beforeSha256": "26410b5ff22a81a819ef2dcf80e0099f27f7d8260a41fe6e146f830df5ac4142",
+      "afterSha256": "26410b5ff22a81a819ef2dcf80e0099f27f7d8260a41fe6e146f830df5ac4142",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/research.py": {
+      "beforeSha256": "c98452e17b7f5efd69029bca8101b39bcd8d484c0daf6e9d108346d1c87d0a56",
+      "afterSha256": "c98452e17b7f5efd69029bca8101b39bcd8d484c0daf6e9d108346d1c87d0a56",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/drug_validation.py": {
+      "beforeSha256": "6ecc265f99b836f07c220b5b35ef0dff7d7768b7bb82aa023f2a63b5b73ac799",
+      "afterSha256": "6ecc265f99b836f07c220b5b35ef0dff7d7768b7bb82aa023f2a63b5b73ac799",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/build_zip_counties.py": {
+      "beforeSha256": "dc20b62126fdcbf965299bd001fd44592be60f62bbdb8414bfaf36fe7b3dcb10",
+      "afterSha256": "dc20b62126fdcbf965299bd001fd44592be60f62bbdb8414bfaf36fe7b3dcb10",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/live_conversation.py": {
+      "beforeSha256": "c1e2d026d5a1c5f306bcf97cac1312fed8aec634af2ce0c4fca061e8c08ce1dd",
+      "afterSha256": "c1e2d026d5a1c5f306bcf97cac1312fed8aec634af2ce0c4fca061e8c08ce1dd",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/star_ratings.py": {
+      "beforeSha256": "c1764a3d20a70cf6ddb65ad0f44d36b8869f8204324d14dcd8460122f0fba4e8",
+      "afterSha256": "c1764a3d20a70cf6ddb65ad0f44d36b8869f8204324d14dcd8460122f0fba4e8",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/conversation.py": {
+      "beforeSha256": "841bc106d8447aaa187ed8d7634890d03b748fc091a078b1e3e91556e98fddc6",
+      "afterSha256": "841bc106d8447aaa187ed8d7634890d03b748fc091a078b1e3e91556e98fddc6",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/florida_medigap.py": {
+      "beforeSha256": "f0e47314d4503652aedab021a38d897eb3f9aeeea9c6e67255ce7641f78f1696",
+      "afterSha256": "f0e47314d4503652aedab021a38d897eb3f9aeeea9c6e67255ce7641f78f1696",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/demo_tools.py": {
+      "beforeSha256": "4841ae7edea78ef69fc00f37b1abe3627ce35499666793b90193b37746557a12",
+      "afterSha256": "4841ae7edea78ef69fc00f37b1abe3627ce35499666793b90193b37746557a12",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/ten_server.py": {
+      "beforeSha256": "bd1114661ecb5ecf5fed9151ca0133e6d09f86e9d0a98e15d1edfdfd03fbc9ae",
+      "afterSha256": "bd1114661ecb5ecf5fed9151ca0133e6d09f86e9d0a98e15d1edfdfd03fbc9ae",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/eval_conversations.py": {
+      "beforeSha256": "5475df755366f82b93939e0bdce5d4d4daa7d2860b97b3dcf36f1164be2e66b6",
+      "afterSha256": "5475df755366f82b93939e0bdce5d4d4daa7d2860b97b3dcf36f1164be2e66b6",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/demo_release.py": {
+      "beforeSha256": "30072532f3452890a5003aea7aa697b0e6b3a4add4dcc19f64e43a97fa3b3bb7",
+      "afterSha256": "30072532f3452890a5003aea7aa697b0e6b3a4add4dcc19f64e43a97fa3b3bb7",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/audit_prescription.py": {
+      "beforeSha256": "da360a7d96b0e2b1e950e23a654b3ad200a70af3e13f3571c0c75f3466675df5",
+      "afterSha256": "da360a7d96b0e2b1e950e23a654b3ad200a70af3e13f3571c0c75f3466675df5",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/validate_naples.py": {
+      "beforeSha256": "28bb0cef7f28ebf462cd77c3a923dccaf6af34012e5356768fe0b6a3714c7126",
+      "afterSha256": "28bb0cef7f28ebf462cd77c3a923dccaf6af34012e5356768fe0b6a3714c7126",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/guide_agent.py": {
+      "beforeSha256": "08b1f029dff077c030462d3e84ccd36070e714542e86d9c2c3c3743ef46c43d5",
+      "afterSha256": "08b1f029dff077c030462d3e84ccd36070e714542e86d9c2c3c3743ef46c43d5",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/runtime_env.py": {
+      "beforeSha256": "ef44ba173e40804eae63357d8a914263a875c5598f91112e8347e3978bbc076d",
+      "afterSha256": "ef44ba173e40804eae63357d8a914263a875c5598f91112e8347e3978bbc076d",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/naples_catalog.py": {
+      "beforeSha256": "d64375949e1d6a1bc8d6bb687394bbe597afecf1900f53df959db33bf2f19d45",
+      "afterSha256": "d64375949e1d6a1bc8d6bb687394bbe597afecf1900f53df959db33bf2f19d45",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/reply_validation.py": {
+      "beforeSha256": "24b13421fa1cc5d3e2516c13dfdf057ca936cc608750d1b7e3d11f62a2b00355",
+      "afterSha256": "24b13421fa1cc5d3e2516c13dfdf057ca936cc608750d1b7e3d11f62a2b00355",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/readiness_conversation.py": {
+      "beforeSha256": "92e594144874cc3423126448f88db063b9ade2c14980371a89ddb2054a198048",
+      "afterSha256": "92e594144874cc3423126448f88db063b9ade2c14980371a89ddb2054a198048",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/conversation_journey.py": {
+      "beforeSha256": "22a03f6e8b95fe0f1cb99d2620184c68db398a15896440796c67f34c533ca181",
+      "afterSha256": "22a03f6e8b95fe0f1cb99d2620184c68db398a15896440796c67f34c533ca181",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/chat.py": {
+      "beforeSha256": "3679486c20fcb9bcc940220aba1cc259d2db1c0ef5145e11dcbb3175bf945e92",
+      "afterSha256": "3679486c20fcb9bcc940220aba1cc259d2db1c0ef5145e11dcbb3175bf945e92",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/conversation_state.py": {
+      "beforeSha256": "2b687afb97906a459efe5db592d4baa2846ade4e75c533055b6866cf562dcc4d",
+      "afterSha256": "2b687afb97906a459efe5db592d4baa2846ade4e75c533055b6866cf562dcc4d",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/reference_evidence.py": {
+      "beforeSha256": "085846b022d00fc1d694dc934ff8d0bcf910d1a516daec65fc10bea2cd030a39",
+      "afterSha256": "085846b022d00fc1d694dc934ff8d0bcf910d1a516daec65fc10bea2cd030a39",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/source_refresh.py": {
+      "beforeSha256": "bb6fd85e8e0ae322afa5e3779487a98635226e90b06a7676255d4715de0f82fe",
+      "afterSha256": "bb6fd85e8e0ae322afa5e3779487a98635226e90b06a7676255d4715de0f82fe",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/adaptive_flow.py": {
+      "beforeSha256": "fb96439e125f13b676077f43a5bdb018e864cf2cb4ff3a69f6f7e67edac1de22",
+      "afterSha256": "fb96439e125f13b676077f43a5bdb018e864cf2cb4ff3a69f6f7e67edac1de22",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/local_programs.py": {
+      "beforeSha256": "6b0ffda389a98ef426010b320c554ee980cb654bb0b79814206237cb7e1423ba",
+      "afterSha256": "6b0ffda389a98ef426010b320c554ee980cb654bb0b79814206237cb7e1423ba",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/verify_collier_bundle.py": {
+      "beforeSha256": "b59424aa46dc92d56781e8b7acc2b0b075a2abf9c6795d7fb3ff5fa0e23ecbee",
+      "afterSha256": "b59424aa46dc92d56781e8b7acc2b0b075a2abf9c6795d7fb3ff5fa0e23ecbee",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/eval_rubric.py": {
+      "beforeSha256": "eb60e2075e24578666944523980cf81d4f19f6dee414068cd9df4ed09bd1bc07",
+      "afterSha256": "eb60e2075e24578666944523980cf81d4f19f6dee414068cd9df4ed09bd1bc07",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/adaptive_agent.py": {
+      "beforeSha256": "29253cd9eb44af95f5c42a12891686115a4e897e544e3cfe87fa7550e04bdd63",
+      "afterSha256": "29253cd9eb44af95f5c42a12891686115a4e897e544e3cfe87fa7550e04bdd63",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/readiness_profiles.py": {
+      "beforeSha256": "0a6284e9f313b0877f80a53ddc458b05190cfd32183e0f0401be81bc57f194c0",
+      "afterSha256": "0a6284e9f313b0877f80a53ddc458b05190cfd32183e0f0401be81bc57f194c0",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/identity_lookup.py": {
+      "beforeSha256": "c44ce70bf3a7dab9166b6347113333647f1618c01c0c437a5f178d6f2fb2b0e2",
+      "afterSha256": "c44ce70bf3a7dab9166b6347113333647f1618c01c0c437a5f178d6f2fb2b0e2",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/guest_profiles.py": {
+      "beforeSha256": "30d1f6544c2e1791e23315539cbc3e95492ad0a91228c2db4ce09389f6e366fa",
+      "afterSha256": "30d1f6544c2e1791e23315539cbc3e95492ad0a91228c2db4ce09389f6e366fa",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/check_missing_pbp.py": {
+      "beforeSha256": "42d2c331de1d68bc2c41808a2297b185602991c2ef8161a7c262b6743d03e777",
+      "afterSha256": "42d2c331de1d68bc2c41808a2297b185602991c2ef8161a7c262b6743d03e777",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/starter_questions.py": {
+      "beforeSha256": "8a7bb99352a031efb3fa8864b6c3e8d2bf6449600e11a5053918a787b598e7e3",
+      "afterSha256": "8a7bb99352a031efb3fa8864b6c3e8d2bf6449600e11a5053918a787b598e7e3",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/ai_budget.py": {
+      "beforeSha256": "80f2cac99e1786b25370bb7c8abce0d9a2f0e9a7d0226f06a110bdf55dd51e98",
+      "afterSha256": "80f2cac99e1786b25370bb7c8abce0d9a2f0e9a7d0226f06a110bdf55dd51e98",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/medicare_collector.py": {
+      "beforeSha256": "9a5e4b12004821b6f4231abb9156e048bb524adb790ca7c0341f92abe19f97d0",
+      "afterSha256": "9a5e4b12004821b6f4231abb9156e048bb524adb790ca7c0341f92abe19f97d0",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/demo.py": {
+      "beforeSha256": "bc1b79068f4f05e38391650b742c60f54f008ce1c4a24805106566e180993d37",
+      "afterSha256": "bc1b79068f4f05e38391650b742c60f54f008ce1c4a24805106566e180993d37",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/usage_metrics.py": {
+      "beforeSha256": "cff0ab3db542ecf952ac7cdd5be2eac7ce00b5b8e6d328c9e3c8b986f1f3c361",
+      "afterSha256": "cff0ab3db542ecf952ac7cdd5be2eac7ce00b5b8e6d328c9e3c8b986f1f3c361",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/knowledge.py": {
+      "beforeSha256": "59c47297ae7a386ce7e551327e5185525a48536149525e894abe4f2ddb418d79",
+      "afterSha256": "59c47297ae7a386ce7e551327e5185525a48536149525e894abe4f2ddb418d79",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/core_benefits.py": {
+      "beforeSha256": "732cf3c0c43a13b45f09eb4cf22100907f2038740bbfbb24a2e216a3f6fe5783",
+      "afterSha256": "732cf3c0c43a13b45f09eb4cf22100907f2038740bbfbb24a2e216a3f6fe5783",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/prescription.py": {
+      "beforeSha256": "87ca7560cf109b75afda5fd06797b0aea96cfd2e61be7b026b3f869fde25ce73",
+      "afterSha256": "87ca7560cf109b75afda5fd06797b0aea96cfd2e61be7b026b3f869fde25ce73",
+      "unchanged": true
+    },
+    "alternatives/chat-first/cms-slice/scripts/chat_conversation.py": {
+      "beforeSha256": "3c88477ccd4aa6f155d601b46c881a7761d11817828c685396168631b37cb4e6",
+      "afterSha256": "3c88477ccd4aa6f155d601b46c881a7761d11817828c685396168631b37cb4e6",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/sample-plans.json": {
+      "beforeSha256": "b7ea10517487dafa38483674b8c8200613b68662e434706956b5a6876df99115",
+      "afterSha256": "b7ea10517487dafa38483674b8c8200613b68662e434706956b5a6876df99115",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/index.html": {
+      "beforeSha256": "959a7e2879b26da5175439e87280c5157dceaf31997e36d502ebce059bc73efc",
+      "afterSha256": "959a7e2879b26da5175439e87280c5157dceaf31997e36d502ebce059bc73efc",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/advisor.css": {
+      "beforeSha256": "093d23dacd45dc1acfd38392e529f72bac897e00527aef65fce9c58e976500a9",
+      "afterSha256": "093d23dacd45dc1acfd38392e529f72bac897e00527aef65fce9c58e976500a9",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/styles.css": {
+      "beforeSha256": "3a0aa6ce8be83bc0e11deb93034770730679f7dbd1655ba3b5cefd1e25ea3cd5",
+      "afterSha256": "3a0aa6ce8be83bc0e11deb93034770730679f7dbd1655ba3b5cefd1e25ea3cd5",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/ten.css": {
+      "beforeSha256": "301ea893531f63ea34562bdb4e9050ff6704850ea7e4e26c6ed8a07eb3425c9f",
+      "afterSha256": "301ea893531f63ea34562bdb4e9050ff6704850ea7e4e26c6ed8a07eb3425c9f",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/adaptive.css": {
+      "beforeSha256": "db155ad3644211525750523776f42feb863948e0d2247ebe0209899c1a2fd218",
+      "afterSha256": "db155ad3644211525750523776f42feb863948e0d2247ebe0209899c1a2fd218",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/zip-counties.json": {
+      "beforeSha256": "02a7418c61dcb476ddf27f8af7d94cc24ac10c1a5d54d44972930931a81c3923",
+      "afterSha256": "02a7418c61dcb476ddf27f8af7d94cc24ac10c1a5d54d44972930931a81c3923",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/approved.css": {
+      "beforeSha256": "b566a83ddf827e6076cfb795f1e304e003ac99542a8d13c9ea43b9a0adae2fe1",
+      "afterSha256": "b566a83ddf827e6076cfb795f1e304e003ac99542a8d13c9ea43b9a0adae2fe1",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/daylight.svg": {
+      "beforeSha256": "f2124fe1ceb3dbaa55909093aa9ea5eb51edae2bc838b3dfd36f0b7523d1e286",
+      "afterSha256": "f2124fe1ceb3dbaa55909093aa9ea5eb51edae2bc838b3dfd36f0b7523d1e286",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/chat.css": {
+      "beforeSha256": "e2efaafabd24c5ec8b36213396fb5c89602017e93107043cc75147bb307758b8",
+      "afterSha256": "e2efaafabd24c5ec8b36213396fb5c89602017e93107043cc75147bb307758b8",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/guide-contract.json": {
+      "beforeSha256": "857a5b73798fac8ef0044bec3dd82013570d6bf91eec1e015bda496ba8539f3b",
+      "afterSha256": "857a5b73798fac8ef0044bec3dd82013570d6bf91eec1e015bda496ba8539f3b",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/teaching-facts.json": {
+      "beforeSha256": "78355ff155ce732d2ad4bab9bd54c2a9ebba705bbaa2867ce7100f23df174697",
+      "afterSha256": "78355ff155ce732d2ad4bab9bd54c2a9ebba705bbaa2867ce7100f23df174697",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/ten-state.js": {
+      "beforeSha256": "743c24d943be29e850d38cf1d8d004891179fa15844b124493ad88629a3f47d8",
+      "afterSha256": "743c24d943be29e850d38cf1d8d004891179fa15844b124493ad88629a3f47d8",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/readiness-content.json": {
+      "beforeSha256": "d6d04b4b31c24c38ca02ae780cdec20c4f3f3d7df2dab2a28d51153df5947f91",
+      "afterSha256": "d6d04b4b31c24c38ca02ae780cdec20c4f3f3d7df2dab2a28d51153df5947f91",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/baseline-content.json": {
+      "beforeSha256": "3a35b8527ba2e11ae10e200124b28ef344b6c7bc09d4ca76148b17820d7f36f9",
+      "afterSha256": "3a35b8527ba2e11ae10e200124b28ef344b6c7bc09d4ca76148b17820d7f36f9",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/art/arrival-option-a.jpg.origin.txt": {
+      "beforeSha256": "f1ad633e7034be4313056e4e9222ef6ee90d473df5880158228831cdaa544fc8",
+      "afterSha256": "f1ad633e7034be4313056e4e9222ef6ee90d473df5880158228831cdaa544fc8",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/art/arrival-option-a.jpg": {
+      "beforeSha256": "69e031c500101e715bc324c16d51b4d9cdf6ade49f561933386479fa3633a099",
+      "afterSha256": "69e031c500101e715bc324c16d51b4d9cdf6ade49f561933386479fa3633a099",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/art/daylight-agent.svg": {
+      "beforeSha256": "a4160418d9852ec6ae77a0304e81cd892c8f5c6ac78acb9e0ac50cefd5dbd802",
+      "afterSha256": "a4160418d9852ec6ae77a0304e81cd892c8f5c6ac78acb9e0ac50cefd5dbd802",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/art/grain.svg": {
+      "beforeSha256": "efde3b41e189403410fede7921407b9018d95b53fa16a75091ac7bac5c57f6f7",
+      "afterSha256": "efde3b41e189403410fede7921407b9018d95b53fa16a75091ac7bac5c57f6f7",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/fonts/fraunces.woff2": {
+      "beforeSha256": "48282a415ec22e31beaf0a0666e6fae0c8cbddcd0b1f6e729f27c3ade8a64e43",
+      "afterSha256": "48282a415ec22e31beaf0a0666e6fae0c8cbddcd0b1f6e729f27c3ade8a64e43",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/fonts/atkinson-700.woff2": {
+      "beforeSha256": "1cc7c0c5fbf16d1be3cb6d95c89fc0afd0e11f264e239ac97c64a326c5d88fe4",
+      "afterSha256": "1cc7c0c5fbf16d1be3cb6d95c89fc0afd0e11f264e239ac97c64a326c5d88fe4",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/fonts/LICENSE.txt": {
+      "beforeSha256": "5275e9bb5c68914a62b2d71c9eb0989f1769681f1e0dc29811f6d3ddfcecf8b1",
+      "afterSha256": "5275e9bb5c68914a62b2d71c9eb0989f1769681f1e0dc29811f6d3ddfcecf8b1",
+      "unchanged": true
+    },
+    "alternatives/advisor-first/web/fonts/atkinson-400.woff2": {
+      "beforeSha256": "a60206dd4793eb886952e48dc3e1c1d59942c004b2ab1e0086e7ccd156a7852d",
+      "afterSha256": "a60206dd4793eb886952e48dc3e1c1d59942c004b2ab1e0086e7ccd156a7852d",
+      "unchanged": true
+    }
+  },
+  "stores": {
+    "alternatives/advisor-first/var/profiles/guides.sqlite3": {
+      "beforeInode": 126229541,
+      "afterInode": 126229541,
+      "inodeUnchanged": true,
+      "tables": {
+        "guests": {
+          "beforeCount": 3,
+          "afterCount": 3,
+          "existingRowsUnchanged": true,
+          "exactRowsUnchanged": true,
+          "missingOrChangedBeforeRowCount": 0,
+          "addedRowCount": 0,
+          "afterRowSha256": [
+            "238758882018148b672cb15693fb3cd360145cbf0b1895d09102907e03c3c7cb",
+            "cfa1d6113728b95b2062b5924d2c9ff8c0322eda0c5a1e9102f4e1bcd8e0d1bc",
+            "427c716d5555fdb1b341e8753bd3a73ef893bf5c037ebdc2b4e1c3a764372b39"
+          ],
+          "missingOrChangedBeforeRowSha256": [],
+          "addedRowSha256": []
+        },
+        "requests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "existingRowsUnchanged": true,
+          "exactRowsUnchanged": true,
+          "missingOrChangedBeforeRowCount": 0,
+          "addedRowCount": 0,
+          "afterRowSha256": [],
+          "missingOrChangedBeforeRowSha256": [],
+          "addedRowSha256": []
+        },
+        "readiness": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "existingRowsUnchanged": true,
+          "exactRowsUnchanged": true,
+          "missingOrChangedBeforeRowCount": 0,
+          "addedRowCount": 0,
+          "afterRowSha256": [],
+          "missingOrChangedBeforeRowSha256": [],
+          "addedRowSha256": []
+        },
+        "readiness_requests": {
+          "beforeCount": 0,
+          "afterCount": 0,
+          "existingRowsUnchanged": true,
+          "exactRowsUnchanged": true,
+          "missingOrChangedBeforeRowCount": 0,
+          "addedRowCount": 0,
+          "afterRowSha256": [],
+          "missingOrChangedBeforeRowSha256": [],
+          "addedRowSha256": []
+        }
+      }
+    },
+    "cms-slice/var/ai-budget/usage.sqlite3": {
+      "beforeInode": 123372132,
+      "afterInode": 123372132,
+      "inodeUnchanged": true,
+      "tables": {
+        "ai_meta": {
+          "beforeCount": 1,
+          "afterCount": 1,
+          "existingRowsUnchanged": true,
+          "exactRowsUnchanged": true,
+          "missingOrChangedBeforeRowCount": 0,
+          "addedRowCount": 0,
+          "afterRowSha256": [
+            "e236654a55ab19b428d7777a725fed4116cc648027851fc9dab0e6d5c6254a51"
+          ],
+          "missingOrChangedBeforeRowSha256": [],
+          "addedRowSha256": []
+        },
+        "ai_charges": {
+          "beforeCount": 65,
+          "afterCount": 65,
+          "existingRowsUnchanged": true,
+          "exactRowsUnchanged": true,
+          "missingOrChangedBeforeRowCount": 0,
+          "addedRowCount": 0,
+          "afterRowSha256": [
+            "5b93c4692df99cf6e967329faf16a65d79f4356246fd05ece99152f42335e0fa",
+            "88404e5ffc82c191522ced9413ccbe60cc8e4d4410ebfe1ed9ab150e6aff353b",
+            "d71acb52d19010aa8605f174d18ad8c10c5967fddbfbdc589a4bcc9e60a72979",
+            "3765258b0905695791b9fd0bbabbc9d2f829e2a01c55c3f7b57fe9e7b6e34b6f",
+            "913a5229e635a2ffe19af02e3685e9f3a2926cf8b4a95ee7765f76d74977c22a",
+            "4d9b390bd3ac6c3b3f25bdd39db7918742367439ecdabc54d52596e15bf77efe",
+            "13a272cdb1875cf9b110a8d81eb97be0b7fe672faac0101fe7b599cd59bcb0ef",
+            "1ad313850530e4c111dd5fcfa48faa9be84bf8f280bceb6dc50e4c3ba0f22195",
+            "94290c9b9e58e16f5606212a135145260084634238e77fc91b5689376425eb0c",
+            "b3d545f1a79f792c6e189e6fe4767a8bd88b9ec7362fd08de08a3d58d64f68dd",
+            "3175859e5a8366636be85923c4aa5dcc819911bd8f7ad0ce1412bdfb30bf14f5",
+            "0dfe261dc9eaddccf5be9a9e5892fb8f5dbaf9d19feb69cbb1ece52e50f623bf",
+            "5a6d01aaa8aeadc64962a0f9c46304a2623ac24b8748b66f7b7bb3aa5cbd7909",
+            "dc34b7885c8fc4eaa52c1dc1b3174f8fdf70fcc2ade8a3a364a2e294e98004f9",
+            "4ab4c7e794bb245284d8cfbe8260384fc6e037fffcab9bdc3de9b6fa6e5e54af",
+            "12aab526af8f43e6ced1bd9cfddf98fdba551d4a3d6297353f9a88126b74adbe",
+            "543ec7d74201dc383626d13e4c0398be0b0b41e2b1ba03cfa2b1d406d7e71e52",
+            "4d1a0d83b57ae5053fdd4b52fb7fedad6cf4be43eee8a9d111cb6efebaef458b",
+            "b4a5ac31488bb362ea6d6f3980e2b15ab0f373778466516caaf42234f40ab5af",
+            "c1d0b9f9e80f107cc94d4dcf9f97f31baba913c6a77fd01ce6bf34f2f0b444a8",
+            "93b6d4a3b31c3703f771ea01102c1e2085fa5cc64ea05e1bfee70fc36b08f6aa",
+            "0a09cf9a5085783a82c3ab1d8facccf1bd221e995edeff81b5fd7e10238f8e07",
+            "27f3777244cd26c2441aa2240acac708c0497915d10ad781449802e1a3b61691",
+            "f3bdb1f41f12320497ea253a42e413c9f78684268ede4e121938ea213acb3ddc",
+            "d0176cc91833cfa1bc5066d2676e513e5732f5030dc0e44baedd3b4d86465143",
+            "d417eabcf6d1974eb6942a097619c6dc0cd143500f0a699f3da622b5176769e7",
+            "7ac078efc80b7638e37352ecd5c8110fdd6b371ca00413c2583393b98e2eb16f",
+            "60473e150ab2501ea23e45d130d3fb0d63c6e905471fdf3e90a49b35f2c3cb71",
+            "7cb5ce8bacb52413b1a20b5fda60356d2324b3e235d3223f1e457078c91480b8",
+            "530f5bac98d0413793e65ce6d3205d908b9801d1da37ff8a7561619aaa300b92",
+            "1ce9ba3388804bc3db7920662eb3e3adb060f35a0feb57707614413543a7fdd9",
+            "f32b339debda8f7a063b619448fd160fcfc07ea5361a172467cc113cf7b66533",
+            "a6b3a73ef00dc383fd5926894fcb61b0636102592fbf63345e194a70c01d8ba1",
+            "e0e97745be8bec07dc70e733ab3fce869b96565fc4f2fdfae1ee79212c334d82",
+            "1d6c75804b77931f183bb1cb74a9a0646e6d02f015508211958c374b4d49c5b9",
+            "c54a72371b51433467efeb9f4f3ddc0f23c11f2da14322add6c18732f175a4f3",
+            "2d087a780f6509743827e33ad4b9d496c60a67cb16b47e21c970b7fdc6713925",
+            "69acf54d496308cae15f298604960a7a5742e61b2605716314d7b5f9e638f632",
+            "ac57875f70c4b8e65a19a0b2c6d068f985dfc85d67605c3aa9b17f6b9746ab96",
+            "f2e90f2edc6e2ef388aa02be397ec89026d7fad2af9b4407f6ce6a62fb601cfe",
+            "7a5e220249acd07275595d3791d10ddee2dffeac68021ed29fa453544bdef779",
+            "75b928d8f5adbbeea23a790c7e48fce1281b13e94016e60468d20f968717ff9d",
+            "f559c5c3e8c8dd7b552d9c08cbbf2e0adaf222a6be300bd016a6dc4f558871d3",
+            "d4525da28cf277635d2cde6a0f9e3d00554c2f8678be26cafecb468e37642e11",
+            "0affeae55a9411af6e129b8c1c4b8beaf06a5f29a60a28ae2449eb287fb71ae9",
+            "06997d79a724d5003d94aa02460812ce2760707cf2f7893ae3fb2d8a1b999dc0",
+            "df9fc38db1f96489501fab6b840320ab0c55441f78d5e2f3bb7a1c93a9a90e17",
+            "f5ae0741a480e363792ca1603112c88213e18d4275cf0537c6601b9692aa3035",
+            "e081fb5cabe4023ea08c28473e5125e70b5ef767b04439506d1abb27c76ba487",
+            "c57818ef0f4420c81c5b68f481adb8b4ebbd81c0557ca6c62b6c3b8339078b7e",
+            "1e2b3f3f7dc672ecc820843cc1a5cfcb4334fde12c8395d3d9234150fb12d6a3",
+            "0e685627b88793633830a0427aa9a39995f8a7a45914b29ca7b80a38cbd8f5e2",
+            "638a084cf8b78df83e78004212781ee81380388ff242c3684144bb4dab2e5e23",
+            "b6abe982ba1922c53b7ba9ddaa6ceee90243bea3ab6bbc825f94cf3e5427f805",
+            "e13f86aed029980ed5fdcd3f39ff7a7789c6f507b3b9aabe344d1d44adbd3aab",
+            "9517cebd7c3cc5a9b55abe572fada3dfebd22ebb10e924af44fa063f004357eb",
+            "64dda6b4208685a5826ad739e74f83f7f06f65d25f6463d59fed53668f1e5b78",
+            "ebfde63a8b5c1a1e2fc7920f2edc99854691e1fbd921d722308fffb7c5184cf6",
+            "d4e2e24a40c9271e7d89ec9b26c3a4344ad1edbd336863ee78351fa8e9c50a51",
+            "3d1e4d0dacc4c9b6ff53ef500b3c546a8a46ab8053b08cc348a5b25990c0507b",
+            "1a48ffec1acdf80d5998fad027544c5c81f7d78dd42515f2a3722d107b43d19b",
+            "9c790d6c39baaccf49ba2cb93d32396576722054f18d97a8d089db7d495797cf",
+            "e17de647cbf1e8355e7680c9b536a92319275c9d5459ce063b29d849bf1a4736",
+            "0da6abbceb5783b61bb0036e7f6b1a61f70588ff00ffbb6eb5cc5d449ea8cbec",
+            "44397cce2297a38bebe3ccb4a86fdf6f79c4251f1f407cd30cbf696401c46d09"
+          ],
+          "missingOrChangedBeforeRowSha256": [],
+          "addedRowSha256": [],
+          "expectedSharedBudgetAdditions": {
+            "description": "Append-only reservations/settlements from authorized fictional verification. No pre-existing row change is excused as budget activity; old rows are compared exactly.",
+            "statuses": {},
+            "days": {},
+            "chargedNanoUsd": 0,
+            "measuredNanoUsd": 0,
+            "heldNanoUsd": 0,
+            "originalReservationBoundsNanoUsd": 0,
+            "inputTokens": 0,
+            "outputTokens": 0
+          },
+          "currentUtcDayAccounting": {
+            "day": "2026-10-30",
+            "includesPriorUncertainAndLateCompletions": true,
+            "requestCount": 36,
+            "statuses": {
+              "settled": 26,
+              "cancelled": 5,
+              "uncertain": 5
+            },
+            "dailyCapNanoUsd": 5000000000,
+            "accountedNanoUsd": 555257000,
+            "measuredNanoUsd": 387757000,
+            "heldNanoUsd": 167500000,
+            "remainingNanoUsd": 4444743000,
+            "accountedUsd": 0.555257,
+            "measuredUsd": 0.387757,
+            "heldUsd": 0.1675,
+            "remainingUsd": 4.444743,
+            "reconciliationBlocked": false,
+            "providerAvailability": "Not checked; local cap remaining does not establish provider credit or quota."
+          }
+        }
+      }
+    }
+  },
+  "summary": {
+    "protectedFileCount": 77,
+    "protectedFilesUnchanged": true,
+    "allPreExistingRowsUnchanged": true,
+    "allInodesUnchanged": true,
+    "productionProfileRowsExactlyUnchanged": true
+  }
+}

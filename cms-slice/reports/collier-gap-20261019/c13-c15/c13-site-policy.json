@@ -1,0 +1,141 @@
+{
+  "task": "C13",
+  "status": "complete",
+  "assessed_at_utc": "2026-10-20T12:39:02.045666+00:00",
+  "decision": "Allow bounded synthetic public-page observations subject to robots and G9; unknown backend paths require separate engineering review in C16.",
+  "legal_approval": {
+    "state": "owner_reported_approved_C12",
+    "evidence": "../c09-c12/c12-legal-decision.json"
+  },
+  "robots": {
+    "evidence": "medicare-robots",
+    "host_scope": "www.medicare.gov",
+    "user_agent_group": "*",
+    "sha256": "870c736c7d500651b9d79a666882d629e9fff8f249b72f5a041e5c401d2b587b",
+    "retrieved_at_utc": "2026-10-20T02:42:00.900789+00:00",
+    "review_due_at_utc": "2026-10-21T02:42:00.900789+00:00",
+    "allow": [
+      "/core/*.css$",
+      "/core/*.css?",
+      "/core/*.js$",
+      "/core/*.js?",
+      "/core/*.gif",
+      "/core/*.jpg",
+      "/core/*.jpeg",
+      "/core/*.png",
+      "/core/*.svg",
+      "/profiles/*.css$",
+      "/profiles/*.css?",
+      "/profiles/*.js$",
+      "/profiles/*.js?",
+      "/profiles/*.gif",
+      "/profiles/*.jpg",
+      "/profiles/*.jpeg",
+      "/profiles/*.png",
+      "/profiles/*.svg"
+    ],
+    "disallow": [
+      "/core/",
+      "/profiles/",
+      "/README.txt",
+      "/web.config",
+      "/admin/",
+      "/comment/reply/",
+      "/filter/tips",
+      "/node/add/",
+      "/node/",
+      "/es/node/",
+      "/app-static-content/",
+      "/search/",
+      "/medicare-search/",
+      "/user/register/",
+      "/user/password/",
+      "/user/login/",
+      "/user/logout/",
+      "/index.php/admin/",
+      "/index.php/comment/reply/",
+      "/index.php/filter/tips",
+      "/index.php/node/add/",
+      "/index.php/node/",
+      "/index.php/es/node/",
+      "/index.php/app-static-content/",
+      "/index.php/search/",
+      "/index.php/medicare-search/",
+      "/index.php/user/password/",
+      "/index.php/user/register/",
+      "/index.php/user/login/",
+      "/index.php/user/logout/"
+    ]
+  },
+  "reviewed_public_entry_paths": [
+    "/plan-compare/",
+    "/medigap-supplemental-insurance-plans/",
+    "/care-compare/"
+  ],
+  "reviewed_policy_paths": [
+    "/robots.txt",
+    "/privacy-policy",
+    "/about-us/using-this-site"
+  ],
+  "path_disposition": {
+    "reviewed_entries": "Not disallowed by saved robots; eligible for bounded synthetic observation under G9.",
+    "core_profiles": "Only the explicit CSS/JS/image exceptions override those directory denials. Other assets remain denied.",
+    "app_static_content": "Denied, including the /index.php/ variant. C16 must not load it merely because a page depends on it.",
+    "account_login_member": "Excluded from collector scope even if a particular route is not named in robots.",
+    "backend_api_and_other_hosts": "Not approved by this review. Review actual paths, host-specific robots/policies and response shape before adding to C16's bounded manifest.",
+    "entry_subroutes": "Not automatically approved by approval of an entry URL; enumerate and review in C16."
+  },
+  "policy_findings": [
+    {
+      "evidence": "medicare-privacy",
+      "finding": "Privacy, security, cookies and account-data practices; no affirmative blanket grant for automated reuse found in this saved page."
+    },
+    {
+      "evidence": "medicare-using-site",
+      "finding": "Accessibility, linking and security-reporting information; no blanket automated collection grant found in this saved page."
+    },
+    {
+      "evidence": "cms-linking-policy",
+      "finding": "External links do not confer CMS endorsement; linked sites retain their own policies."
+    }
+  ],
+  "interpretation": "Robots non-denial is a crawl boundary, not a legal license or a claim about third-party rights. C12 approval remains recorded; no new legal sign-off requested.",
+  "guardrails_for_C16": {
+    "minimum_interval_seconds": 5,
+    "maximum_requests_per_run": 2000,
+    "rate_scope": "All outgoing collector requests, including browser subresources; block denied/unreviewed requests before navigation.",
+    "schedule": "Off-peak Eastern, preferably overnight",
+    "inputs": "Fixed synthetic C17/C20/C22/C27 sets only",
+    "user_agent": "Descriptive application name and owner contact",
+    "cache": "No identical query in a refresh cycle",
+    "stop_on": [
+      "403",
+      "429",
+      "CAPTCHA",
+      "block page",
+      "unexpected schema/page shape",
+      "newly disallowed path"
+    ],
+    "forbidden": [
+      "real beneficiary inputs (H09)",
+      "logged-in pages",
+      "login or CAPTCHA bypass",
+      "IP rotation or proxies to evade restrictions"
+    ],
+    "receipts": [
+      "synthetic inputs",
+      "URL",
+      "UTC retrieval time",
+      "raw response or page snapshot",
+      "SHA-256",
+      "parser version"
+    ],
+    "preflight": "Refresh robots/policy review before use if 24-hour review window expires; do not renew other source/release deadlines.",
+    "dry_run_and_kill_switch": "Required by C16, not implemented in this assessment"
+  },
+  "execution": "Only robots/privacy/using-this-site pages were requested here; three identified Medicare.gov GETs spaced at least five seconds. No Plan Finder scenario, member or provider data query was run on Medicare.gov.",
+  "held": [
+    "H09"
+  ],
+  "collector_implemented": false
+}

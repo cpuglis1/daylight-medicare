@@ -1,0 +1,176 @@
+{
+  "value": {
+    "move_id": "T04",
+    "reply": "Getting started early helps here, because Medicare timing and the end of coverage through a spouse\u2019s job do not always line up the same way.",
+    "question": "When would you like Medicare coverage to start?",
+    "report_refs": [
+      "guide.subject.role",
+      "guide.situation.retirement",
+      "guide.coverage.current",
+      "readiness.RC09.profile.choice"
+    ],
+    "evidence_refs": []
+  },
+  "context": {
+    "reports": [
+      {
+        "id": "guide.subject.role",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 1,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.situation.retirement",
+        "status": "reported",
+        "value": {
+          "status": "retired",
+          "when": "for a few years"
+        },
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.situation.age65",
+        "status": "reported",
+        "value": {
+          "month": 11,
+          "year": null
+        },
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "guide.coverage.current",
+        "status": "reported",
+        "value": [
+          "employer"
+        ],
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC01.profile.choice",
+        "status": "reported",
+        "value": "self",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 2,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC06.profile.choice",
+        "status": "reported",
+        "value": "age65",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "intended",
+          "revision": 3,
+          "supersedesRevision": null
+        }
+      },
+      {
+        "id": "readiness.RC09.profile.choice",
+        "status": "reported",
+        "value": "spouse_job",
+        "provenance": {
+          "method": "direct_report",
+          "status": "user_reported",
+          "subject": "beneficiary",
+          "scope": "current",
+          "revision": 4,
+          "supersedesRevision": null
+        }
+      }
+    ],
+    "known": [],
+    "task": "timing",
+    "dialogue": {
+      "orientation": "progress",
+      "lastTarget": null,
+      "explainedTopics": [],
+      "deferredTargets": [],
+      "clarifications": []
+    },
+    "revision": [
+      4,
+      4
+    ],
+    "activeQuestion": null,
+    "cannotInfer": [
+      "Reported facts are not verified coverage, eligibility, prices or permission.",
+      "Retirement does not establish retiree insurance or an insurance end date.",
+      "Birthday, desired start, job end, insurance end and actual enrollment are distinct.",
+      "Unknown, deferred, none, tentative and stale are distinct; do not invent missing precision.",
+      "A helper report does not become a beneficiary fact; a name does not verify an entity or coverage."
+    ],
+    "current_message": "I'm just getting started. I haven't applied for Medicare yet. My health insurance is through my wife's current job.",
+    "evidence": [],
+    "uncertainties": []
+  },
+  "moves": [
+    {
+      "id": "T04",
+      "question": {
+        "id": "T04",
+        "inventoryIds": [
+          "T04"
+        ],
+        "question": "When would you like Medicare coverage to start?",
+        "why": "Your preferred start can differ from when your current insurance ends.",
+        "choices": [
+          [
+            "already",
+            "I already have Medicare"
+          ]
+        ],
+        "multi": false,
+        "entity": "profile",
+        "fields": [
+          {
+            "key": "month",
+            "label": "Month and year",
+            "type": "text",
+            "options": [],
+            "hint": "For example, December 2026 or 12/26. You can also type your answer below."
+          }
+        ],
+        "signature": "T04.profile.month",
+        "atomicRequests": 1
+      },
+      "purpose": "Your preferred start can differ from when your current insurance ends.",
+      "priority": 0
+    }
+  ],
+  "accepted": true
+}

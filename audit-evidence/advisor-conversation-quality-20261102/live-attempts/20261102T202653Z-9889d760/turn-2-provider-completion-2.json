@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 35769,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 6988,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 244,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7232
+    },
+    "text": "{\"question_target\":null,\"reply\":\"No—usually you choose one route or the other, not both together. Original Medicare is Parts A and B through the federal program; Medicare Advantage is a private plan that provides your Part A and Part B instead. If you choose Original Medicare, you can add a separate drug plan and may be able to add Medigap; Medigap does not go with Medicare Advantage.\",\"question\":\"Would it help if I next explain the practical difference between those two routes in plain English?\",\"education_followups\":[],\"report_refs\":[],\"evidence_refs\":[\"routesintro\",\"options\"],\"agenda_update\":{\"current_concern\":\"whether Original Medicare and Medicare Advantage are bought together\",\"pause\":false},\"education\":{\"purpose\":\"answer\",\"updates\":[{\"concept_id\":\"coverage_paths\",\"depth\":\"explored\",\"reason\":\"requested_revisit\",\"aspect_ids\":[\"public_private_delivery\",\"additional_coverage\",\"part_b_premium\"],\"evidence_refs\":[\"routesintro\",\"options\"]},{\"concept_id\":\"medigap\",\"depth\":\"introduced\",\"reason\":\"new\",\"aspect_ids\":[\"route_relationship\"],\"evidence_refs\":[\"options\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 4.073901,
+  "turn": 2,
+  "event": "unknown_preference_and_misconception",
+  "fictional_inputs": true
+}

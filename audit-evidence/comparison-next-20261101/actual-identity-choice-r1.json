@@ -1,0 +1,86 @@
+{
+  "schema": "actual-source-fictional-choice-audit/1",
+  "observed_at": "2026-11-02T00:55:38.586640+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "exact_retained_product_candidate",
+      "passed": true
+    },
+    {
+      "name": "source_snapshot_and_raw_parent_preserved",
+      "passed": true
+    },
+    {
+      "name": "no_automatic_confirmation",
+      "passed": true
+    },
+    {
+      "name": "explicit_fictional_selection_only",
+      "passed": true
+    },
+    {
+      "name": "reports_not_backfilled_or_changed",
+      "passed": true
+    },
+    {
+      "name": "source_permission_not_inferred",
+      "passed": true
+    },
+    {
+      "name": "no_clinical_coverage_or_consumer_promotion",
+      "passed": true
+    },
+    {
+      "name": "changed_report_invalidates_choice",
+      "passed": true
+    },
+    {
+      "name": "forget_removes_visit_receipt",
+      "passed": true
+    }
+  ],
+  "elapsed_ms": 90.797,
+  "fixture_kind": "explicitly_fictional_source_mirroring_reports_not_customer_confirmation",
+  "source_binding": {
+    "snapshot_id": "d28ca11bbfcb2ccffe96ada8e3a1d4448a4b68b552bd3193f36151ed5f965178",
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "manifest_sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+    "adapter_sha256": "89b632515112b903c461ffd34d4d52fef3696dac0dfbce63d3aac20b1ecac470",
+    "selected_derivations": {
+      "drug_identity": {
+        "layer_id": "L05",
+        "source_path": "docs/data/l05-drug-coverage-2026-10-25/build-r3/inventory.sqlite3",
+        "source_table": "drug_identities",
+        "source_sha256": "f41e6e2f08d11874825d63f87f36dd588f781cb312e4f49db3f75ed6116c35b7",
+        "derivation_id": "c7c4519136fdc5c36d02b4428c51446543fdc3c55a677bb40eee82df2e216b2e",
+        "adapter_code_sha256": "5b10730881fb2a0988603924b83d1d7d40593dd1e835b797433603bba688e5ec"
+      }
+    },
+    "accepted_release_id": null
+  },
+  "source_candidate_id": "L05:4a39eaf9c6c6fc8bd371e70fc5e9f65b6f50ca267d1942a68bd0eaff3871caea",
+  "source_raw_sha256": "97918a48ebc41e7f374f8388ea6398036c39e0328480c6e1d7f391cbded32d2f",
+  "source_access_registration": {
+    "state": "unregistered",
+    "requested_source_ids": [
+      "sealed-local:L05",
+      "L05"
+    ],
+    "registered_source_ids": [],
+    "absence_is_permission": false,
+    "output_authority": "held"
+  },
+  "postgres_writes": 0,
+  "actual_guest_store_access": false,
+  "paid_ai_calls": 0,
+  "http_or_ui_integrated": false,
+  "new_acceptance": false,
+  "consumer_release": false,
+  "code_sha256": {
+    "alternatives/advisor-first/identity_resolution.py": "3c3fc1a8e98124ef42a02a87dae05b4731d5d702f1a3d0e162c971ab340223da",
+    "alternatives/advisor-first/tests/test_identity_resolution.py": "691d891d4d14a803497dadfb2754f1a3f379b538660a9838b09d743165e61c85",
+    "alternatives/advisor-first/tools/check_identity_choice.py": "0759c43a0386b949c198816869dddace89279dc461a248ba64cb282ce801f36e",
+    "infrastructure/daylight-data/src/daylight_data/serving/identity.py": "97a1e3a43a3248d6caa1988ee984ec8503d0aea2541bc7605cac6bc7149671cc"
+  }
+}

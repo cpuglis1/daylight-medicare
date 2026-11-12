@@ -1,0 +1,26 @@
+{
+  "contract": "daylight_resolved_conversation",
+  "stage": "composition",
+  "request_bytes": 37328,
+  "automatic_retry": false,
+  "returned": {
+    "status": "completed",
+    "usage": {
+      "input_tokens": 7289,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 303,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 7592
+    },
+    "text": "{\"question_target\":null,\"reply\":\"Not necessarily on either point. Medicare Advantage is not simply “free” — you still pay the Part B premium, and a plan’s monthly premium is only one part of total cost because you can also have deductibles, copays, or coinsurance when you get care. And whether your doctor takes a Medicare Advantage plan depends on that specific plan, so it cannot be assumed just because the doctor takes Medicare generally.\",\"question\":\"Do you want me to explain the doctor difference again in one plain-English comparison between Original Medicare and Medicare Advantage?\",\"education_followups\":[\"How can a plan have a low premium but still cost more overall?\",\"What do I need to check to know whether my doctor takes a Medicare Advantage plan?\"],\"report_refs\":[],\"evidence_refs\":[\"advantage\",\"checks\",\"original\"],\"agenda_update\":{\"current_concern\":\"whether Medicare Advantage is free and whether doctors take it\",\"pause\":false},\"education\":{\"purpose\":\"clarify\",\"updates\":[{\"concept_id\":\"cost_components\",\"depth\":\"introduced\",\"reason\":\"clarify\",\"aspect_ids\":[\"premiums\",\"cost_sharing\",\"total_cost\"],\"evidence_refs\":[\"costs\"]},{\"concept_id\":\"provider_checks\",\"depth\":\"explored\",\"reason\":\"clarify\",\"aspect_ids\":[\"original_provider_access\",\"plan_specific_participation\",\"unverified_participation\"],\"evidence_refs\":[\"original\",\"advantage\",\"checks\"]}],\"visual\":\"none\"}}"
+  },
+  "elapsed_seconds": 6.332125,
+  "turn": 5,
+  "event": "misconception_repair",
+  "fictional_inputs": true
+}
