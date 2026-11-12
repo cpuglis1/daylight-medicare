@@ -58,7 +58,8 @@ def worker(root: Path) -> int:
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     # Known failures still run and are reported on every run. Only failures
     # outside the reviewed list fail the check; the list is not acceptance.
-    known = json.loads((root / KNOWN_FAILURES).read_text())["tests"]
+    listed = json.loads((root / KNOWN_FAILURES).read_text())
+    known = {**listed["tests"], **listed.get("needs_unpublished_files", {})}
     failed = {test_name(test) for test, _ in result.failures + result.errors}
     unexpected = sorted(failed - set(known))
     summary = {"schema": "daylight-advisor-checks/v2",

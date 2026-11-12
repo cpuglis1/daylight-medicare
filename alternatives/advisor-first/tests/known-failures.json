@@ -27,5 +27,12 @@
     "test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions": "State versions differ from the test's expectation ([0, 0] vs [0, 2]).",
     "test_provider_capture_regression.ProviderCaptureRegressionTests.test_two_doctor_locations_follow_two_medicine_strengths_without_name_fallback": "Two-location doctor capture now ends 'unavailable' instead of moving to T07.",
     "test_task_work_flow.TaskWorkFlowTests.test_same_request_replay_preserves_current_work_and_historical_replay_suppresses_it": "Historical replay no longer suppresses 'task_work' in saved state."
+  },
+  "needs_unpublished_files": {
+    "test_model_router.ProviderBypassSourceTests.test_pilot_service_runs_in_the_pilot_route_environment": "Reads infrastructure/daylight-pilot/daylight-pilot.service, held off main by the publication policy (on backup/2026-11-12).",
+    "test_response_failures.GenerationContractTests.test_the_retained_oversize_summary_still_fails_the_original_guard": "Reads audit-evidence/live-sample-conversations-20261103/, held off main by the publication policy (on backup/2026-11-12).",
+    "test_response_failures.LocationDependencyTests.test_exact_four_extractions_allow_a_grounded_zip_acknowledgment": "Reads audit-evidence/live-sample-conversations-20261103/, held off main by the publication policy (on backup/2026-11-12).",
+    "test_response_failures.LocationDependencyTests.test_exact_reported_doctor_name_survives_office_detail_and_city_correction": "Reads audit-evidence/live-sample-conversations-20261103/, held off main by the publication policy (on backup/2026-11-12).",
+    "test_response_failures.QuestionRecoveryTests.test_exact_live_public_term_with_quantifier_is_not_an_invented_name": "Reads audit-evidence/live-sample-conversations-20261103/, held off main by the publication policy (on backup/2026-11-12)."
   }
 }
