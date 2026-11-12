@@ -12,6 +12,24 @@ dependencies. It includes the proposed architecture, phased migration, rollback
 and acceptance checks. Hosting choices and cost ranges there are proposals to
 price and review before provisioning.
 
+**D144, November 12:** a separate verified **195 MB local display database** is
+ready for the Collier demo. Its compressed export is **12.18 MB**; the 31.01 GB
+research database remains intact. The [subset runbook and proof](../../audit-evidence/collier-pilot-subset-20261112/README.md)
+give the exact contents, app configuration, source-control preflight and limits.
+This supersedes a whole-research-DB restore as the immediate pilot data task.
+The full research/operations service remains separate future work. No RDS,
+cloud transfer, AWS budget change or participant-facing deployment ran here.
+
+**D145, November 12:** [localhost:8895](http://localhost:8895/) is the separate
+unified local demo: current frontend and direct API in one Python process,
+using the D144 subset and a separate guest store. :8893/:8894 remain running.
+The [runbook and verification](../../audit-evidence/unified-demo-8895-20261112/README.md)
+record the exact boundaries. PostgreSQL remains a separate local process; “one
+port” means one browser origin and one app service. This local development mode
+shares the existing $15/provider/UTC-day allowance. It is not the invite-only
+hosted runtime or its $100 cumulative budget. Use it to establish UI/API/data
+parity before the separately reviewed AWS deployment.
+
 ## Prepared locally
 
 | Item | Implementation and verification |

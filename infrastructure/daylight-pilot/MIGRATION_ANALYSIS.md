@@ -181,6 +181,15 @@ For public operation, decide whether accepted reports must survive host replacem
 
 The consumer site does not need to expose the entire research database. It needs the exact permitted data for each released capability, plus enough provenance and authority information to verify it.
 
+**D144 update, November 12:** the owner requested a lean local demo subset while
+preserving the research database. The [verified 195 MB display database](../../audit-evidence/collier-pilot-subset-20261112/README.md)
+and 12.18 MB compressed export now replace a full research restore as the
+immediate pilot data deliverable. They include the private Medigap cache and
+bounded PDP projection; MA remains file-backed. Apply the target restore,
+role, STOP, freshness and acceptance checks below to this scope. The full
+research service migration remains future work; no RDS provisioning or hosting
+budget increase was performed by this local change.
+
 ### Inventory and classify first
 
 Produce a manifest separating public-source evidence, licensed CSG evidence, derived serving data, source/code receipts, local guest state, operational records, logs and secrets. Record byte counts, content hashes, year/geography, source permissions, dependency builds and retention. The known 29.37 GB database size excludes the independent archive, backups and later additions.

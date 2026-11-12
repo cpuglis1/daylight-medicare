@@ -1,5 +1,92 @@
 # Daylight
 
+## Quick start: run the Collier pilot demo locally (:8895)
+
+One local process serves the current Daylight interface and API at
+`http://localhost:8895`. It covers Medicare Advantage, Medigap and Part D for
+Collier County, Florida (ZIPs 34101–34108, 2026). This demo is still being tested.
+It is a development tool, not a consumer release, quote or recommendation.
+
+**You need:** macOS or Linux, Git, **Python 3.14.7 exactly**, **PostgreSQL 18**
+(the data file needs version-18 tools), and the pilot data folder from the project
+owner. The data is not in Git because its sources have use and transfer terms.
+
+**1. Clone and install the pinned Python packages**
+
+```bash
+git clone https://github.com/cpuglis1/daylight-medicare.git daylight
+cd daylight
+git checkout pilot-demo/8895
+python3.14 --version   # must print 3.14.7
+python3.14 -m venv infrastructure/daylight-data/.venv
+infrastructure/daylight-data/.venv/bin/pip install -r infrastructure/daylight-data/requirements.lock
+infrastructure/daylight-data/.venv/bin/python tools/prepare_advisor.py   # one-time setup; prints "created"
+```
+
+The pilot data refuses to load with any other Python or package version
+(`RUNTIME_BINDING_MISMATCH` or `RUNTIME_DEPENDENCY_MISMATCH`).
+
+**2. Put the pilot data folder in place**
+
+Copy the `2026-11-12-r1` folder you received to
+`infrastructure/daylight-data/.state/pilot-subset/2026-11-12-r1/`. Git ignores this path.
+Check the file:
+
+```bash
+shasum -a 256 infrastructure/daylight-data/.state/pilot-subset/2026-11-12-r1/pilot.dump.gz
+# expect 3ff09570e1e2042bd09879a7290d18b6d51ca35e477bd5818e0c0ef8a5c390d7
+```
+
+**3. Load it into your own PostgreSQL 18**
+
+On macOS, run `brew install postgresql@18` and put `$(brew --prefix postgresql@18)/bin`
+first on your `PATH`. Then start a local server you own:
+
+```bash
+initdb -D ~/daylight-pg -U daylight_dev --auth=trust
+pg_ctl -D ~/daylight-pg -l ~/daylight-pg.log -o "-p 55499 -h 127.0.0.1" start
+export PGHOST=127.0.0.1 PGPORT=55499 PGUSER=daylight_dev
+psql -d postgres -c "CREATE ROLE daylight_csg_loader NOLOGIN; CREATE ROLE daylight_csg_reader NOLOGIN; CREATE ROLE daylight_plan_research_reader NOLOGIN;"
+psql -d postgres -c "CREATE DATABASE daylight_pilot_collier_2026_r1;"
+gunzip -c infrastructure/daylight-data/.state/pilot-subset/2026-11-12-r1/pilot.dump.gz \
+  | pg_restore --no-owner -d daylight_pilot_collier_2026_r1
+```
+
+The three `NOLOGIN` roles must exist before the restore; the app reads through them.
+
+**4. Start Daylight**
+
+```bash
+export DAYLIGHT_PILOT_DATABASE_URL="host=127.0.0.1 port=55499 dbname=daylight_pilot_collier_2026_r1 user=daylight_dev"
+infrastructure/daylight-data/.venv/bin/python alternatives/advisor-first/demo_server.py --fixture
+```
+
+Open `http://localhost:8895`. `--fixture` uses fictional, offline conversation
+replies: no API key, no model calls and no cost. The plan panels use the real
+pilot data. For example, a 65-year-old in 34101 should see 72 Medicare Advantage
+plans, 178 Medigap quotes and 10 Part D plans.
+
+**Live AI replies (optional, costs money).** Leave out `--fixture` and create a
+`.env` file at the repository root with `OPENAI_API_KEY=...`. Add
+`ANTHROPIC_API_KEY=...` to use the Claude option. Never commit `.env`. Paid
+requests stop at the shared daily ledger cap. They also stop once the price review
+in `alternatives/advisor-first/pricing-review.json` expires. It must be re-confirmed
+at least every seven days.
+
+**Check it:**
+
+```bash
+cd alternatives/advisor-first/tests
+DAYLIGHT_PILOT_DATABASE_URL="$DAYLIGHT_PILOT_DATABASE_URL" ../../../infrastructure/daylight-data/.venv/bin/python -m unittest test_unified_demo -v
+```
+
+**Not covered by this demo:** personal drug costs, provider network checks,
+enrollment and recommendations. Ports 8890, 8891, 8893, 8894 and 8896 belong to
+protected variants; the demo refuses them. The full research database
+(about 63 GB) is not needed and is not shared.
+
+---
+
 **Current advisor development · November 2, 2026:** The shared advisor source is `alternatives/advisor-first/`. Start with the [credential-free fixture quick start](docs/project/DEVELOPMENT.md); it includes the exact shared-engine dependencies, fictional tests and explicit private-research test limits. The [project hub](docs/project/README.md) maps current work and protected variants. Public source publication does not activate hosting, accepted personal findings or recommendations.
 
 **Start here · November 2, 2026:** [Current project hub](docs/project/README.md) — [company narrative](docs/company/README.md), [all fifteen company capabilities](docs/project/CAPABILITIES.md), [2026 Collier controlled pilot](docs/project/COLLIER_MVP.md), and [GitHub/cloud handoff](docs/project/CLOUD_HANDOFF.md). The current advisor development surface is **:8893 in `alternatives/advisor-first/`**; the earlier variants and stores remain protected. The owner confirmed the existing public `cpuglis1/daylight-medicare` repository and a 2026 controlled pilot first. The review adds organization and preparation, not a push, cloud deployment or consumer recommendation release.

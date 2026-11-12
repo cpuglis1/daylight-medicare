@@ -1,5 +1,13 @@
 # Daylight data infrastructure
 
+**D144 local demo subset:** `daylight_pilot_collier_2026_r1` is a verified
+195 MB database alongside the intact 31.01 GB research database. It supplies
+the complete private Medigap cache and the bounded Part D display projection;
+MA continues to use its existing catalogs. The [runbook and checks](../../audit-evidence/collier-pilot-subset-20261112/README.md)
+include the 12.18 MB compressed export, app connection mode and source-control
+preflight. This is local technical verification, not a new source release or
+hosted deployment.
+
 **D96 Collier plan types:** the additive
 [PDP/Medigap research backend](src/daylight_data/plan_types/README.md) now loads
 the retained catalog, source rates and missing L10 base sidecars into its own

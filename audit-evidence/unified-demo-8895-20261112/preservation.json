@@ -1,0 +1,37 @@
+{
+  "hash_method": "sha256 of concatenated sqlite3 iterdump statements, without separator",
+  "frontend_and_proxy_files": 49,
+  "frontend_and_proxy_changed": [],
+  "preexisting_stores": 8,
+  "byte_identical_logical_stores": [
+    "alternatives/advisor-first/var/verification-natural/guides.sqlite3",
+    "alternatives/advisor-first/var/profiles/guides.sqlite3",
+    "cms-slice/var/ten-question-profiles/guides.sqlite3",
+    "cms-slice/var/l01-rollback-20261025/budget.sqlite3",
+    "cms-slice/var/l01-rollback-20261025/original.sqlite3",
+    "cms-slice/var/l01-rollback-20261025/alternate.sqlite3",
+    "cms-slice/var/guest-profiles/guides.sqlite3"
+  ],
+  "expected_metadata_change": {
+    "cms-slice/var/ai-budget/usage.sqlite3": {
+      "only_change": "UTC clock guard latest_day advanced from 2026-11-11 to 2026-11-12 during status read",
+      "prior_day_restored_in_memory_sha256": "a47069155c06cc2c6c24e59714c5e1dbc0bc661caed18d72e07d088b5b1d62f0",
+      "all_other_rows_identical": true
+    }
+  },
+  "stores_after": {
+    "alternatives/advisor-first/var/verification-natural/guides.sqlite3": "bf270ff99499b2aac34de3da9c93e66ea4f6933c3b19c3c9f5a47daf4542d4a9",
+    "alternatives/advisor-first/var/profiles/guides.sqlite3": "d9f18a41da70765b159cf576b38a17afde1ddad378a822778be42ec4eb64a835",
+    "cms-slice/var/ten-question-profiles/guides.sqlite3": "2a217554548a78ea903065bce5702e21205424fbce93b739962bb8d2a2767591",
+    "cms-slice/var/l01-rollback-20261025/budget.sqlite3": "631431305ddf05971b04638054f70d727a6f8ea5602d18891002dbf27fd0825a",
+    "cms-slice/var/l01-rollback-20261025/original.sqlite3": "90c35b82be7b6431494659cb5de0120d77dfe925bd2a2addf9eaf2fa6ff5008f",
+    "cms-slice/var/l01-rollback-20261025/alternate.sqlite3": "17470aca3124dcc6c11b928090f74b8f1ba30414e45df39deefea672d3266f3e",
+    "cms-slice/var/guest-profiles/guides.sqlite3": "c315c4939f7e0075be6be592a9cd9354d516c7ac99f2bcfa936ded3ee098753f",
+    "cms-slice/var/ai-budget/usage.sqlite3": "f86abfe9efc76f631d118c9e6763388343344050b4079e550d8f0d3ec18bfc86"
+  },
+  "existing_listener_pids": {
+    "8893": 64640,
+    "8894": 48153
+  },
+  "new_listener_pid": 24626
+}

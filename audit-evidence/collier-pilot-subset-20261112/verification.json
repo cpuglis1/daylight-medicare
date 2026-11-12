@@ -1,0 +1,104 @@
+{
+  "catalog_files": {
+    "cms-slice/data-sources/plans-publication.json": {
+      "bytes": 738,
+      "sha256": "ddbbf293f1aa1d28a5389fbdeb04dfe8e0746bae7134ca78312b0543085e894c"
+    },
+    "cms-slice/data-sources/plans-verification-findings.json": {
+      "bytes": 66,
+      "sha256": "0d695805f0373b712d1801088fc52d06f6cbff254a042c2068bbb051a20b4057"
+    },
+    "cms-slice/data-sources/plans-workspace-acceptance.json": {
+      "bytes": 324,
+      "sha256": "7f6b722fe03aef017142b4808f71d747414d747ffad03051b74feaa857b0813f"
+    },
+    "docs/product/recommendation-scope-2026-11-04-r10/critical-benefits.json": {
+      "bytes": 5703149,
+      "sha256": "b677e66bd53d429d0e1aa7d1a563401d274f9fc95aee65c0a907a8e3b1cdd5a1"
+    },
+    "docs/product/recommendation-scope-2026-11-04-r12/display-candidate.json": {
+      "bytes": 373281,
+      "sha256": "62ae73885700fb67d3f171d6807aaf6101f27801ab48246191cda34ab022e32f"
+    },
+    "docs/product/recommendation-scope-2026-11-04-r13/display-candidate.json": {
+      "bytes": 577122,
+      "sha256": "ba625a2968a53a46dc72dddf52a4e74064b56b0b14e55c9e8768d2b580fa3609"
+    },
+    "docs/product/recommendation-scope-2026-11-04-r5/catalog.json": {
+      "bytes": 3808034,
+      "sha256": "2c0198a2b848a26e09440e3daf1355c0ec5e45b107ef7de63784cd48f1aa3756"
+    }
+  },
+  "checks": [
+    "all CSG columns and rows equal",
+    "all 320 Medigap app outputs equal",
+    "all three PDP responses equal",
+    "ten-plan PDP app output equal",
+    "source data and authority controls unchanged",
+    "catalog bytes identical"
+  ],
+  "csg_app_profiles": 320,
+  "csg_app_rate_observations": 55040,
+  "csg_full_column_parity": {
+    "benefit": {
+      "rows": 3840,
+      "sha256": "7a62f7b2b508cb1c53dfbdcc78e68787ddc2bd2a6c2ad9b1f37bf7b29329d6cb"
+    },
+    "build": {
+      "rows": 1,
+      "sha256": "359ac7914577724877247ef84a48dbb62e545b0d54a62ddc8c3e818f380d9811"
+    },
+    "completion": {
+      "rows": 1,
+      "sha256": "a225cdf2cc544be81622140b0cb18225d160fe2910731a61146733aec6d98587"
+    },
+    "rate": {
+      "rows": 55040,
+      "sha256": "e02fa52d3bbad54be0aa634f022a123b340abcba73973410482d765d23e7226f"
+    },
+    "schema_revision": {
+      "rows": 1,
+      "sha256": "7c749ab52a353b773bc43ef576797d6b33cd6fd02e3308d3e22dd3f321facbe5"
+    },
+    "selection_event": {
+      "rows": 1,
+      "sha256": "e2faba6a9f7f49587095bcf0179880cb4163fa27485a5078a3f11d0cac304842"
+    },
+    "source": {
+      "rows": 320,
+      "sha256": "4279f21be78197ca9e151d268e0fd8fa259da9692130d3bb649b142f6c212e04"
+    },
+    "stop_event": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "csg_schema_source_dump_sha256": "ff6fd297c002f63b0761ba7043113ae48946e7f08e429b05b0785c94f12ece57",
+  "database": "daylight_pilot_collier_2026_r1",
+  "dump": {
+    "bytes": 149355045,
+    "clean_CSG_restore": "passed",
+    "full_archive_decode": "passed",
+    "sha256": "6526f20bd704cab94df22d628976289653493dad2e9a650bfc8f3569eed8bbd5"
+  },
+  "not_claimed": [
+    "source/method acceptance",
+    "consumer release",
+    "AWS deployment",
+    "off-machine recovery",
+    "future STOP synchronization",
+    "live conversation quality"
+  ],
+  "pdp_app_sha256": "5a64e01783515be804ad54985957972f85d5581ed1d12c7c583d9a339570738b",
+  "pdp_response_counts": {
+    "pdp_county": 1,
+    "pdp_offering": 10,
+    "pdp_restriction": 10
+  },
+  "reduction_percent": 99.3712,
+  "schema": "collier-subset-verification/1",
+  "snapshot_id": "b60269211a7896a80ae0f1ebe66af1be37a0a4f58fcd9d70ef15accf5b16b47c",
+  "source_database_bytes": 31011337919,
+  "source_unchanged": true,
+  "target_database_bytes": 195002895
+}

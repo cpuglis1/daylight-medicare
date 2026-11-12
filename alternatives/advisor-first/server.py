@@ -53,7 +53,7 @@ from part_d_profile import profile as part_d_profile_view
 def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=None,
           research_repository=None, reference_adapter=None, identity_service=None,
           comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None,
-          medigap_repository=None, part_d_repository=None):
+          medigap_repository=None, part_d_repository=None, local_demo=False):
     if port in {8890,8891,8896}:
         raise ValueError('That port belongs to a preserved Daylight surface.')
     if pilot_origin is not None:
@@ -62,7 +62,14 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
                 or origin.username is not None or origin.password is not None
                 or pilot_origin != f'https://{origin.netloc}' or origin.port is not None):
             raise ValueError('Use an explicit HTTPS origin without a path or port for the hosted pilot rehearsal.')
-    db = Path(database).resolve() if database else HERE/'var/profiles/guides.sqlite3'
+    if local_demo and (port in {8893, 8894} or pilot_state is not None or pilot_origin is not None
+                       or research_repository is not None or identity_service is not None or comparison_preview):
+        raise ValueError('The unified local demo uses its own port and display-only data services.')
+    demo_store = HERE/'var/demo-8895'
+    default_db = demo_store/('fixture.sqlite3' if fixture else 'guides.sqlite3') if local_demo else HERE/'var/profiles/guides.sqlite3'
+    db = Path(database).resolve() if database else default_db
+    if local_demo and not fixture and not db.is_relative_to(demo_store.resolve()):
+        raise ValueError('The unified local demo must use its separate private store.')
     pilot = pilot_budget = None
     if pilot_state is not None:
         if (not fixture or comparison_preview or any(option is not None for option in (
@@ -100,7 +107,8 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
     service=make_server(port, database=db, web=HERE/'web', client=client, public_origin=pilot_origin,
         enable_live=not fixture, live_limit=None, count_tokens=count_tokens or count_input_tokens,
         budget_database=None if fixture else REPO/'cms-slice/var/ai-budget/usage.sqlite3',
-        cookie_namespace=GUEST_COOKIE if pilot else ('daylight_advisor_fixture' if fixture else 'daylight_advisor_dev'),
+        cookie_namespace=(('daylight_demo_8895_fixture' if fixture else 'daylight_demo_8895_dev') if local_demo
+                          else GUEST_COOKIE if pilot else ('daylight_advisor_fixture' if fixture else 'daylight_advisor_dev')),
         ui_config=config, conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
         adaptive_class=NaturalConversation)
     # Keep shared-profile presentation local; the pinned engine's Daylight
@@ -211,9 +219,13 @@ if __name__ == '__main__':
                         help='Show the D91 educational comparison in an isolated fixture visit.')
     parser.add_argument('--local-research', action='store_true',
                         help='Connect the exact existing private 2026 research build; no consumer release.')
+    parser.add_argument('--pilot-data', type=Path,
+                        help='Use a verified local display-subset binding and DAYLIGHT_PILOT_DATABASE_URL.')
     parser.add_argument('--identity-research',action='store_true',
                         help='Explicit internal-only identity review; no consumer source purpose or personal findings.')
     args=parser.parse_args()
+    if args.pilot_data and (args.local_research or args.identity_research or args.comparison_preview or args.pilot_state):
+        parser.error('--pilot-data is a separate local display mode; do not combine research/identity/preview/pilot rehearsal modes')
     if (args.pilot_tls_cert or args.pilot_tls_key) and not (
             args.pilot_tls_cert and args.pilot_tls_key and args.pilot_state and args.fixture):
         parser.error('Pilot TLS requires the certificate, key and fixture pilot state.')
@@ -225,17 +237,23 @@ if __name__ == '__main__':
     research_catalog = None
     medigap_repository = None
     part_d_repository = None
-    if args.local_research:
+    if args.local_research or args.pilot_data:
         from catalog_research import CatalogResearch, CRITICAL_BENEFITS_PATH
+        research_catalog = CatalogResearch(critical_benefits_path=CRITICAL_BENEFITS_PATH)
+    if args.local_research:
         from comparison_research import local_repository
         from published_reference import PublishedReferenceAdapter
         repository = local_repository()
         reference_adapter = PublishedReferenceAdapter()
-        research_catalog = CatalogResearch(critical_benefits_path=CRITICAL_BENEFITS_PATH)
         from medigap_pilot import local_repository as local_medigap_repository
         medigap_repository = local_medigap_repository()
         from part_d_pilot import local_repository as local_part_d_repository
         part_d_repository = local_part_d_repository()
+    if args.pilot_data:
+        import sys
+        sys.path.insert(0, str(REPO / 'infrastructure/daylight-data/src'))
+        from daylight_data.pilot_subset.store import repositories
+        medigap_repository, part_d_repository = repositories(args.pilot_data)
     if args.identity_research:
         from identity_journey import local_identity_journey
         identity_service=local_identity_journey(internal_research=True)
