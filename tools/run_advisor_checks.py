@@ -18,6 +18,7 @@ PRIVATE_TESTS = {
     "test_published_reference": "Requires exact accepted r4 evidence, original verifier and external review receipt from the private research archive.",
     "test_unified_demo": "Requires the private Collier pilot database (not in Git). Run it locally after the README quick start.",
     "test_comparison_http": "Its experiment check reads the CMS MPF benefit workbook under docs/data/, which is not in Git.",
+    "test_prescription_profile_preview": "Runs the :8895 demo against the private pilot database and pilot foundation data (not in Git).",
 }
 KNOWN_FAILURES = "alternatives/advisor-first/tests/known-failures.json"
 
