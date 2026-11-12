@@ -31,7 +31,39 @@ def test_name(test) -> str:
     return str(getattr(test, "description", test))
 
 
-def worker(root: Path) -> int:
+def module_of(name: str) -> str:
+    """Test module of a known-failure id, including 'setUpClass (module.Class)'."""
+    if name.startswith("setUpClass ("):
+        name = name[len("setUpClass ("):]
+    return name.split(".")[0]
+
+
+def assign(loaded: dict, shard: tuple[int, int] | None) -> list[str]:
+    """Modules for shard k of n: largest-first by test count, deterministic.
+
+    Every module lands in exactly one shard; no shard means all modules.
+    """
+    if shard is None:
+        return list(loaded)
+    index, count = shard
+    bins = [[0, i, []] for i in range(count)]
+    for name in sorted(loaded, key=lambda m: (-loaded[m].countTestCases(), m)):
+        target = min(bins, key=lambda b: (b[0], b[1]))
+        target[0] += max(loaded[name].countTestCases(), 1)
+        target[2].append(name)
+    return sorted(bins[index - 1][2])
+
+
+def parse_shard(value: str | None) -> tuple[int, int] | None:
+    if not value:
+        return None
+    index, count = (int(part) for part in value.split("/"))
+    if not 1 <= index <= count:
+        raise ValueError("SHARD_OUT_OF_RANGE")
+    return index, count
+
+
+def worker(root: Path, shard: tuple[int, int] | None = None) -> int:
     def network_guard(event, args):
         if event == "socket.getaddrinfo":
             if args[0] not in {"localhost", "127.0.0.1", "::1", None}:
@@ -45,32 +77,35 @@ def worker(root: Path) -> int:
     sys.path.insert(0, str(tests))
     sys.path.insert(0, str(tests.parent))
     loader = unittest.TestLoader()
-    suite = unittest.TestSuite()
-    modules = []
+    loaded = {}
     for path in sorted(tests.glob("test_*.py")):
         if path.stem in PRIVATE_TESTS:
             continue
-        modules.append(path.stem)
-        suite.addTests(loader.loadTestsFromName(path.stem))
-    if not modules or loader.errors:
-        # Loader failures remain in the suite so unittest renders their details.
-        if not modules:
-            raise ValueError("PUBLIC_TEST_SUITE_MISSING")
+        loaded[path.stem] = loader.loadTestsFromName(path.stem)
+    if not loaded:
+        raise ValueError("PUBLIC_TEST_SUITE_MISSING")
+    # Loader failures remain in their module's suite so unittest renders them.
+    modules = assign(loaded, shard)
+    suite = unittest.TestSuite(loaded[name] for name in modules)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     # Known failures still run and are reported on every run. Only failures
     # outside the reviewed list fail the check; the list is not acceptance.
     listed = json.loads((root / KNOWN_FAILURES).read_text())
-    known = {**listed["tests"], **listed.get("needs_unpublished_files", {})}
+    known = {name: reason for name, reason in
+             {**listed["tests"], **listed.get("needs_unpublished_files", {})}.items()
+             if module_of(name) in modules}
     failed = {test_name(test) for test, _ in result.failures + result.errors}
     unexpected = sorted(failed - set(known))
     summary = {"schema": "daylight-advisor-checks/v2",
+        "shard": f"{shard[0]}/{shard[1]}" if shard else "all",
         "passed": not unexpected and bool(result.testsRun),
         "unexpected_failures": unexpected,
         "known_failures_still_failing": sorted(failed & set(known)),
         "known_failures_now_passing": sorted(set(known) - failed),
         "python_tests_run": result.testsRun, "failures": len(result.failures),
         "errors": len(result.errors), "skipped_cases": len(result.skipped),
-        "public_test_modules": len(modules), "private_modules_not_run": PRIVATE_TESTS,
+        "public_test_modules": len(modules), "public_test_modules_total": len(loaded),
+        "private_modules_not_run": PRIVATE_TESTS,
         "external_python_network": "denied", "provider_credentials_inherited": False,
         "source_acceptance_changed": False}
     print(json.dumps(summary, indent=2))
@@ -80,16 +115,20 @@ def worker(root: Path) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--shard", help="Run one part of the suite, e.g. 2/4. Omit to run everything.")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    shard = parse_shard(args.shard)
     if args.worker:
-        return worker(root)
+        return worker(root, shard)
     # Do not inherit a real API key, database DSN, service token or model config.
     environment = {key: os.environ[key] for key in ("PATH", "SYSTEMROOT", "WINDIR", "TMPDIR", "TEMP", "TMP") if key in os.environ}
     environment["PYTHONDONTWRITEBYTECODE"] = "1"
     environment["PYTHONUNBUFFERED"] = "1"
-    completed = subprocess.run([sys.executable, "-B", str(Path(__file__).resolve()), "--worker"],
-                               cwd=root, env=environment)
+    command = [sys.executable, "-B", str(Path(__file__).resolve()), "--worker"]
+    if shard:
+        command += ["--shard", f"{shard[0]}/{shard[1]}"]
+    completed = subprocess.run(command, cwd=root, env=environment)
     return completed.returncode
 
 
