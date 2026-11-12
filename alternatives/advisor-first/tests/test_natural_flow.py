@@ -22,6 +22,11 @@ class NaturalFlowTests(unittest.TestCase):
         self.calls = []
         self.extractions = []
         self.compositions = []
+        # Older state/provenance fixtures supplied answer-only prose. Keep
+        # those fixtures valid under the active-turn contract without treating
+        # this scripted question as evidence of real conversational quality.
+        # Negative response-contract tests explicitly disable this convenience.
+        self.supply_fixture_followup = True
 
         def transport(payload):
             self.calls.append(copy.deepcopy(payload))
@@ -79,6 +84,9 @@ class NaturalFlowTests(unittest.TestCase):
                              'report_refs': [], 'evidence_refs': [],
                              'education': {'purpose': 'advance', 'updates': [], 'visual': 'none'},
                              'agenda_update': {'current_concern': '', 'pause': False}, **value}
+                    if (self.supply_fixture_followup and sent['resolved_context'].get('require_followup')
+                            and not value['question'] and not value['agenda_update']['pause']):
+                        value['question'] = 'What would be most helpful to explore next?'
             else:
                 self.fail('Unexpected model schema: ' + name)
             if isinstance(value, Exception):
@@ -154,7 +162,9 @@ class NaturalFlowTests(unittest.TestCase):
         text = "I've been retired for a few years, and am turning 65 in November."
         reply = 'We can take this step by step so you feel ready for what comes next.'
         question = 'What health insurance do you have now?'
-        out = self.message(text, compose={'reply': reply, 'question': question})
+        # Current coverage remains an allowed consequential follow-up even
+        # when comparison guidance ranks ZIP first; choose its meaning explicitly.
+        out = self.message(text, compose={'question_target': 'T05', 'reply': reply, 'question': question})
         self.assertNotIn('review', out)
         self.assertEqual(out['pendingUpdates'], [])
         self.assertEqual(out['reply'], reply)
@@ -189,6 +199,10 @@ class NaturalFlowTests(unittest.TestCase):
         self.assertIn('guide.situation.age65', {item['id'] for item in reports})
 
     def test_multiturn_context_preserves_orientation_and_separate_dates(self):
+        # This scenario tests the timing context lens, not the comparison
+        # lens that intentionally minimizes unrelated older birthday reports.
+        self.turn({'type': 'task', 'task': 'timing', 'preparing': True},
+                  aiConsent=False, contextPolicy=None)
         first = "I've been retired for a few years, and am turning 65 in November."
         self.message(first, compose={'question_target': 'T02'})
         self.message('I am just getting started.')
@@ -629,7 +643,7 @@ class NaturalFlowTests(unittest.TestCase):
         self.assertEqual(first['guide']['fields']['coverage.current']['value'], ['employer'])
         self.assertEqual(first['guide']['fields']['coverage.current']['confirmation'], 'reported_by_user')
         self.assertEqual(first['generated']['status'], 'unavailable')
-        self.assertIsNotNone(first['assessment']['nextQuestion'])
+        self.assertIsNone(first['assessment']['nextQuestion'])
         self.assertNotIn('review', first)
         self.assertEqual(self.flow.turn(self.owner, copy.deepcopy(payload)), first)
         self.assertEqual(len(self.calls), 2)
@@ -644,7 +658,7 @@ class NaturalFlowTests(unittest.TestCase):
         recovered = self.take(copy.deepcopy(payload))
         self.assertEqual(self.flow.value(self.g, 'coverage.current'), ['employer'])
         self.assertEqual(self.g['fields']['coverage.current']['confirmation'], 'reported_by_user')
-        self.assertIsNotNone(recovered['assessment']['nextQuestion'])
+        self.assertIsNone(recovered['assessment']['nextQuestion'])
         self.assertNotIn('review', recovered)
         self.assertEqual(len(self.calls), 1)
         self.assertEqual(self.flow.turn_journal[(self.owner, payload['requestId'])]['stage'], 'resolved')
@@ -658,7 +672,7 @@ class NaturalFlowTests(unittest.TestCase):
                            compose={'move_id': 'fabricated-enrollment-action'})
         self.assertEqual(self.flow.value(self.g, 'coverage.current'), ['employer'])
         self.assertEqual(out['generated']['status'], 'unavailable')
-        self.assertIsNotNone(out['assessment']['nextQuestion'])
+        self.assertIsNone(out['assessment']['nextQuestion'])
         self.assertNotIn('preparation', out)
         self.assertNotIn('review', out)
         self.assertEqual(len(self.calls), 2)
@@ -797,6 +811,259 @@ class NaturalFlowTests(unittest.TestCase):
         self.assertEqual(self.g['fields']['subject.role']['confirmation'], 'reported_by_user')
         self.assertEqual(self.r['natural']['provenance']['guide.subject.role']['method'], 'structured')
         self.assertEqual(self.calls, [])
+
+
+class ClarificationLoopTests(unittest.TestCase):
+    """Nov 9 fixes: a pending clarification must be satisfiable in the person's own words."""
+    setUp = NaturalFlowTests.setUp
+    update = staticmethod(NaturalFlowTests.update)
+    extraction = staticmethod(NaturalFlowTests.extraction)
+    payload = NaturalFlowTests.payload
+    take = NaturalFlowTests.take
+    turn = NaturalFlowTests.turn
+    message = NaturalFlowTests.message
+    stage_payloads = NaturalFlowTests.stage_payloads
+
+    @staticmethod
+    def situation(kind, text, **value):
+        return {'kind': kind, 'subject': 'beneficiary', 'scope': 'current', 'quote': text,
+                'uncertain': False, 'correction': False, 'month': value.get('month'),
+                'year': value.get('year'), 'status': value.get('status', ''), 'when': value.get('when', '')}
+
+    def test_retired_and_not_working_is_one_consistent_report(self):
+        text = 'Retired, and not working anywhere.'
+        self.message(text, extraction=self.extraction(
+            situation_proposals=[self.situation('retirement', text, status='retired')]))
+        self.assertEqual(self.flow.value(self.g, 'situation.retirement'), {'status': 'retired', 'when': ''})
+        self.assertIsNone(self.flow.pending_for(self.owner))
+
+    def test_mixed_retirement_clauses_still_clarify(self):
+        text = 'Retired, but still working part time.'
+        self.message(text, extraction=self.extraction(
+            situation_proposals=[self.situation('retirement', text, status='retired')]))
+        self.assertNotIn('situation.retirement', self.g['fields'])
+        self.assertEqual(self.flow.pending_for(self.owner)['update']['id'], 'S_RETIREMENT')
+
+    def test_phrase_answer_to_the_retirement_question_is_accepted(self):
+        self.message('I think I am retired.')
+        self.assertEqual(self.flow.pending_for(self.owner)['update']['id'], 'S_RETIREMENT')
+        # The extractor returns nothing usable; the person's phrase still answers.
+        self.message('Yes, retired from civilian work and not working', extraction=self.extraction(situation_proposals=[]))
+        self.assertEqual(self.flow.value(self.g, 'situation.retirement'), {'status': 'retired', 'when': ''})
+        self.assertIsNone(self.flow.pending_for(self.owner))
+
+    def test_bare_yes_confirms_the_tentative_life_report_daylight_asked_about(self):
+        out = self.message('I think I am retired.')
+        self.assertEqual(self.flow.pending_for(self.owner)['update']['id'], 'S_RETIREMENT')
+        self.assertTrue(out['assessment']['nextQuestion']['clarification']['confirmable'])
+        self.message('Yes.', extraction=self.extraction(situation_proposals=[]))
+        self.assertEqual(self.flow.value(self.g, 'situation.retirement'), {'status': 'retired', 'when': ''})
+        self.assertIsNone(self.flow.pending_for(self.owner))
+
+    def test_just_those_two_confirms_the_pending_medicine_list(self):
+        text = 'I take levothyroxine and atorvastatin, I think that is everything.'
+        out = self.message(text, [self.update('T07', {'text': 'levothyroxine and atorvastatin'}, text, uncertain=True)])
+        pending = self.flow.pending_for(self.owner)
+        self.assertEqual(pending['update']['id'], 'T07')
+        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T07')
+        self.assertTrue(out['assessment']['nextQuestion']['clarification']['confirmable'])
+        self.message('Just those two.')
+        self.assertIsNone(self.flow.pending_for(self.owner))
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'levothyroxine and atorvastatin')
+        self.assertEqual(self.g['fields']['needs.medications']['status'], 'reported')
+
+    def test_a_plain_no_does_not_confirm_a_pending_report(self):
+        text = 'I take levothyroxine and atorvastatin, I think that is everything.'
+        self.message(text, [self.update('T07', {'text': 'levothyroxine and atorvastatin'}, text, uncertain=True)])
+        self.message('No.')
+        self.assertIsNotNone(self.flow.pending_for(self.owner))
+        self.assertNotEqual(self.g['fields'].get('needs.medications', {}).get('status'), 'reported')
+
+    def test_an_affirmative_with_a_new_report_lets_the_report_win(self):
+        text = 'I take levothyroxine and atorvastatin, I think that is everything.'
+        self.message(text, [self.update('T07', {'text': 'levothyroxine and atorvastatin'}, text, uncertain=True)])
+        reply = 'Yes, those are all of them: levothyroxine, atorvastatin and metformin.'
+        self.message(reply, [self.update('T07', {'text': 'levothyroxine, atorvastatin and metformin'}, reply, correction=True)])
+        self.assertIsNone(self.flow.pending_for(self.owner))
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'levothyroxine, atorvastatin and metformin')
+
+
+class PartAOnlyTests(unittest.TestCase):
+    """Nov 9: "Part A only" is a report of the parts held (RC04), told in the person's words."""
+    setUp = NaturalFlowTests.setUp
+    update = staticmethod(NaturalFlowTests.update)
+    extraction = staticmethod(NaturalFlowTests.extraction)
+    payload = NaturalFlowTests.payload
+    take = NaturalFlowTests.take
+    turn = NaturalFlowTests.turn
+    message = NaturalFlowTests.message
+
+    def test_part_a_only_in_own_words_records_the_parts_held(self):
+        self.message('This is for me.', [self.update('RC01', {'choice': 'self'}, 'This is for me.')])
+        self.message('I have Medicare Part A only, not Part B yet.')
+        self.assertEqual(self.flow.report(self.r, 'RC04').get('choice'), 'a_only')
+
+    def test_never_signed_up_for_part_b_records_a_only(self):
+        self.message('This is for me.', [self.update('RC01', {'choice': 'self'}, 'This is for me.')])
+        self.message('I turned 65 last year and never signed up for Part B. Embarrassing, I know.',
+                     extraction=self.extraction(situation_proposals=[]))
+        self.assertEqual(self.flow.report(self.r, 'RC04').get('choice'), 'a_only')
+
+    def test_a_relatives_parts_are_left_to_the_extractor(self):
+        self.message('This is for me.', [self.update('RC01', {'choice': 'self'}, 'This is for me.')])
+        self.message('My husband has Part A only.')
+        self.assertFalse(self.flow.report(self.r, 'RC04'))
+
+    def test_part_a_only_also_answers_the_coverage_question_as_original_medicare(self):
+        found = self.flow.direct_choices('I have Medicare Part A only, not Part B yet.', self.flow.question('T05'), [])
+        self.assertEqual([item['fields']['choice'] for item in found], ['original'])
+        found = self.flow.direct_choices('Regular Medicare.', self.flow.question('T05'), [])
+        self.assertEqual([item['fields']['choice'] for item in found], ['original'])
+
+
+class PlansPageEntryTests(unittest.TestCase):
+    """Nov 9, 2026 (owner): Plans-page entries are the person's reports, saved
+    quietly, never chat turns; the next chat reply acknowledges them once and
+    asks whether there are others. Several medicines may be added."""
+    setUp = NaturalFlowTests.setUp
+    update = staticmethod(NaturalFlowTests.update)
+    extraction = staticmethod(NaturalFlowTests.extraction)
+    payload = NaturalFlowTests.payload
+    take = NaturalFlowTests.take
+    turn = NaturalFlowTests.turn
+    message = NaturalFlowTests.message
+    stage_payloads = NaturalFlowTests.stage_payloads
+    composed_context = NaturalFlowTests.composed_context
+
+    def plans(self, id, **fields):
+        return self.turn({'type': 'choice', 'id': id, 'fields': fields, 'source': 'plans_filter'},
+                         aiConsent=False, contextPolicy=None)
+
+    def start(self):
+        self.message('This is for me.', [self.update('RC01', {'choice': 'self'}, 'This is for me.')])
+
+    def test_two_medicines_added_on_the_plans_page_both_stay_and_make_no_model_call(self):
+        self.start()
+        calls = len(self.calls)
+        self.plans('T07', text='Eliquis')
+        self.plans('T07', text='metformin 500 mg')
+        self.assertEqual(len(self.calls), calls)
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'Eliquis; metformin 500 mg')
+        self.assertEqual(self.r['natural']['provenance']['guide.needs.medications']['method'], 'plans_filter')
+
+    def test_several_at_once_and_a_restated_list_do_not_duplicate(self):
+        self.start()
+        self.plans('T07', text='Eliquis; metformin')
+        self.plans('T07', text='metformin; lisinopril 10 mg')
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'Eliquis; metformin; lisinopril 10 mg')
+
+    def test_a_doctor_with_a_comma_is_one_doctor(self):
+        self.start()
+        self.plans('T06', text='Dr. Maria Lopez, Naples')
+        self.plans('T06', text='Naples Heart and Vascular')
+        self.assertEqual(self.flow.value(self.g, 'needs.providers'), 'Dr. Maria Lopez, Naples; Naples Heart and Vascular')
+
+    def test_next_chat_reply_acknowledges_once_and_asks_for_others(self):
+        self.start()
+        self.plans('T07', text='Eliquis')
+        self.plans('T07', text='metformin')
+        out = self.message('Do any of these plans have a $0 premium?', compose={'reply': 'Several plans on screen list a $0 monthly premium.'})
+        sent = self.composed_context()
+        self.assertEqual(sent['plans_page_additions']['medicines_added'], ['Eliquis', 'metformin'])
+        self.assertIn('take them as given', sent['plans_page_additions']['how_to_use'])
+        self.assertTrue(out['reply'].startswith('I see you added Eliquis and metformin on the Plans page'))
+        self.assertIn('Several plans on screen', out['reply'])
+        candidates = self.stage_payloads('daylight_resolved_conversation')[-1]['question_candidates']
+        self.assertEqual(candidates[0]['id'], 'T07')
+        self.assertIn('Besides Eliquis and metformin', candidates[0]['question']['question'])
+        out = self.message('What is a deductible?', compose={'reply': 'A deductible is what you pay before the plan starts to pay.'})
+        self.assertNotIn('plans_page_additions', self.composed_context())
+        self.assertNotIn('Plans page', out['reply'])
+
+    def test_a_reply_that_already_names_the_entries_is_left_as_written(self):
+        self.start()
+        self.plans('T07', text='Eliquis')
+        reply = 'I see you added Eliquis on the Plans page. Coverage for it differs by plan.'
+        out = self.message('Which plans cover it?', compose={'reply': reply})
+        self.assertEqual(out['reply'].split('\n\n')[0], reply)
+
+    def test_remove_control_reports_only_the_net_removal(self):
+        self.start()
+        self.plans('T07', text='Eliquis; metformin')
+        self.message('Thanks.', compose={'reply': 'Noted.'})
+        self.plans('T07', choice='no')
+        self.plans('T07', text='metformin')
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'metformin')
+        self.message('Okay.', compose={'reply': 'Okay.'})
+        additions = self.composed_context()['plans_page_additions']
+        self.assertEqual(additions['removed'], ['Eliquis'])
+        self.assertEqual(additions['medicines_added'], [])
+
+    def test_also_take_adds_even_when_marked_a_correction(self):
+        self.start()
+        self.plans('T07', text='Eliquis, metformin')
+        more = 'Oh, and I also take atorvastatin.'
+        self.message(more, [self.update('T07', {'text': 'atorvastatin'}, 'I also take atorvastatin', correction=True)], compose={'reply': 'Noted.'})
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'Eliquis; metformin; atorvastatin')
+
+    def test_model_acknowledgement_still_gets_any_others_when_another_question_wins(self):
+        self.start()
+        self.plans('T07', text='Eliquis')
+        out = self.message('Is there a deadline?', compose={'reply': 'I see you added Eliquis on the Plans page. The timing depends on your coverage.', 'question_target': None, 'question': ''})
+        self.assertIn('Tell me if there are any other medicines to include.', out['reply'])
+
+    def test_a_medicine_named_in_chat_adds_to_the_list(self):
+        self.start()
+        text = 'I take Eliquis and metformin.'
+        self.message(text, [self.update('T07', {'text': 'Eliquis and metformin'}, text)])
+        more = 'I also take lisinopril.'
+        self.message(more, [self.update('T07', {'text': 'lisinopril'}, more)])
+        self.assertIsNone(self.flow.pending_for(self.owner))
+        self.assertEqual(self.flow.value(self.g, 'needs.medications'), 'Eliquis; metformin; lisinopril')
+
+
+class RetestNov9FlowTests(unittest.TestCase):
+    """R1, R3, R5 from the Nov 9 live retest."""
+    setUp = NaturalFlowTests.setUp
+    update = staticmethod(NaturalFlowTests.update)
+    extraction = staticmethod(NaturalFlowTests.extraction)
+    payload = NaturalFlowTests.payload
+    take = NaturalFlowTests.take
+    turn = NaturalFlowTests.turn
+    message = NaturalFlowTests.message
+    stage_payloads = NaturalFlowTests.stage_payloads
+    composed_context = NaturalFlowTests.composed_context
+
+    def start(self):
+        self.message('This is for me.', [self.update('RC01', {'choice': 'self'}, 'This is for me.')])
+
+    def test_just_part_a_answers_the_coverage_question_once_parts_are_known(self):
+        self.start()
+        self.message('I have Medicare Part A only, not Part B yet.')
+        self.assertEqual(self.flow.report(self.r, 'RC04').get('choice'), 'a_only')
+        current = self.flow.question('T05')
+        self.assertIsNotNone(self.flow.part_a_coverage_answer('Yes, still just Part A.', current, [], self.r))
+        self.assertIsNone(self.flow.part_a_coverage_answer('Just Part A and COBRA.', current, [], self.r))
+        self.assertIsNone(self.flow.part_a_coverage_answer('Is just Part A enough?', current, [], self.r))
+
+    def test_ended_job_coverage_keeps_the_accepted_window_statement_until_r2(self):
+        self.start()
+        if 'partb_sep_coverage_ended' in self.flow.facts:
+            self.skipTest('r2 accepted; the dedicated statement is used')
+        selected = [{'rule_id': 'partb_sep_coverage_ended', 'fact_id': 'partb_sep_coverage_ended', 'status': 'met',
+                     'applies_because': ['RC11: coverage ended October 2026'], 'confirm_with': [], 'how_to_use': 'State the window.'}]
+        with patch('natural_flow.applicable_rules', return_value=selected):
+            self.message('What deadline am I about to miss?', compose={'reply': 'There is an 8-month window.'})
+        rules = {rule['rule_id']: rule for rule in self.composed_context().get('applicable_rules', [])}
+        self.assertEqual(rules['partb_sep_coverage_ended']['fact_id'], 'working_coverage_sep')
+        self.assertTrue(rules['partb_sep_coverage_ended']['statement'])
+
+    def test_the_floor_never_repeats_and_never_stands_in_for_an_answer(self):
+        self.start()
+        first = self.message('Is my buddy right about the VA penalty?', compose=ModelUnavailable('x'))
+        second = self.message('So is he right?', compose=ModelUnavailable('x'))
+        self.assertIn('I don’t have a checked answer to that question here yet', first['reply'])
+        self.assertNotEqual(first['reply'].split('\n\n')[0], 'The sign-up window and coverage start are different; current insurance helps identify the relevant timing questions.')
 
 
 if __name__ == '__main__':

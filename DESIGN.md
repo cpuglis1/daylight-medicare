@@ -1,6 +1,6 @@
 ---
 name: Daylight
-description: Your coverage, plain as day
+description: Medicare, plain as day.
 colors:
   paper: "#fbf9f4"
   paper-raised: "#fffefa"
@@ -120,6 +120,12 @@ components:
 ---
 
 # Design System: Daylight
+
+**D137 consumer brand restored · November 11, 2026:** Restore **Daylight** throughout :8894, including the tab title, accessible home label, Ask/Talk controls and error copy. Hero: **Medicare, plain as day.**, retaining the break after `Medicare,`. Supporting sentence: **Understand your coverage options and prepare to enroll, at your pace.** The advisor backend also uses Daylight. Preserve the sun, photograph, colors, typography, layout, interactions, newer Medigap/Part D behavior, internal names and saved data. This supersedes D121/D122 branding. [Restoration and responsive verification](audit-evidence/daylight-restore-20261111/README.md).
+
+**D93 :8894 UI refresh · November 5, 2026:** Owner approved applying this system with legibility changes for adults 65+ in a separate :8894 front end (`alternatives/advisor-first/web-8894`, served by `ui-8894/serve.py` in front of the unchanged :8893 backend). Scoped to :8894 until promoted: `choice-border`, `composer-border` and `phase-border` become one control edge `#7a8676` (3.8:1 on raised paper, was 2.2–2.9:1); the catalog olive family resolves to `olive`; `tokens.css` is the only `:root`; every clickable label is at least 17px and fine print 15px; staged word reveal is off; at the owner's request :8894 adds functional motion (thinking dots, arrival fade, control feedback, sheet and drawer slide), all removed under reduced motion; the model picker is a development control (`?models`). The Plans page groups plans by joining rule, sorts by lowest premium by default and replaces internal wording with plain words while keeping every original notice in its details. Controls, choices, selected state, plan-card shadow, phase labels without checkmarks and the Your guide & privacy footer placement follow this file. [Implementation, checks and remaining gaps](audit-evidence/ui-refresh-8894-20261105/README.md).
+
+**D58/D86 scoped landing override · November 2, 2026:** The owner approved **Medicare, plain as day.** as the large :8893 hero headline, breaking after `Medicare,`, with **Understand your coverage options and prepare to enroll, at your pace.** beneath it. Use the existing sun/Daylight wordmark without its Medicare subtitle and retain Get started. This supersedes the earlier exact-tagline rule only for :8893's landing presentation; preserve all layout, font, palette, photo and interaction decisions. Protected variants retain their earlier copy. [Scoped change and responsive evidence](audit-evidence/landing-medicare-20261102/README.md).
 
 ## Overview
 

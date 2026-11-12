@@ -1,6 +1,6 @@
-# Current status and next work
+# Historical status snapshot October 21 2026
 
-Reviewed October 21, 2026. This is a current entrypoint; older reports remain evidence of their stated dates.
+**For current status, use the [November 2 project hub](project/README.md), [capability assessment](project/CAPABILITIES.md) and [2026 Collier pilot backlog](project/COLLIER_MVP.md).** This page preserves the October 21 review, including its old runtime, 2027 catalog, acceptance and test statements. It is not the current project entrypoint and does not describe the later :8893 advisor or integrated 2026 research platform.
 
 ## What is implemented
 

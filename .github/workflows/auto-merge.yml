@@ -1,0 +1,68 @@
+name: Auto-merge clean pull requests
+
+# D149: merge a pull request once both required checks pass on its latest
+# commit. GitHub Free private repositories have no branch protection or
+# native auto-merge, so this workflow checks the conditions itself.
+# Skipped: drafts, forks, Dependabot (proposals only; pinned locks need
+# deliberate review) and any PR labeled "no-auto-merge".
+
+"on":
+  workflow_run:
+    workflows: ["Repository checks", "Dependency security"]
+    types: [completed]
+
+permissions: {}
+
+concurrency:
+  group: auto-merge-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+    steps:
+      - name: Merge if every condition holds
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          set -euo pipefail
+          pr=$(gh pr list -R "$REPO" --state open --head "$BRANCH" \
+            --json number,headRefOid,isDraft,author,headRepositoryOwner,labels \
+            --jq "[.[] | select(.headRefOid == \"$SHA\")][0]")
+          if [ -z "$pr" ] || [ "$pr" = "null" ]; then echo "No open PR at $SHA; nothing to do."; exit 0; fi
+          number=$(jq -r .number <<<"$pr")
+          if [ "$(jq -r .isDraft <<<"$pr")" = "true" ]; then echo "#$number is a draft; skipping."; exit 0; fi
+          if [ "$(jq -r .headRepositoryOwner.login <<<"$pr")" != "$OWNER" ]; then echo "#$number is from a fork; skipping."; exit 0; fi
+          case "$(jq -r .author.login <<<"$pr")" in
+            *dependabot*) echo "#$number is a Dependabot proposal; review it by hand."; exit 0;;
+          esac
+          if jq -e '.labels | map(.name) | index("no-auto-merge")' <<<"$pr" >/dev/null; then
+            echo "#$number is labeled no-auto-merge; skipping."; exit 0
+          fi
+          # Both checks must have succeeded on this exact commit.
+          for workflow in "Repository checks" "Dependency security"; do
+            conclusion=$(gh api "repos/$REPO/actions/runs?head_sha=$SHA&event=pull_request&per_page=50" \
+              --jq "[.workflow_runs[] | select(.name == \"$workflow\")] | sort_by(.created_at) | last | .conclusion // \"missing\"")
+            if [ "$conclusion" != "success" ]; then echo "$workflow is $conclusion on $SHA; waiting."; exit 0; fi
+          done
+          # GitHub computes mergeability lazily; give it a moment.
+          for attempt in 1 2 3 4 5 6; do
+            state=$(gh pr view "$number" -R "$REPO" --json mergeable --jq .mergeable)
+            [ "$state" != "UNKNOWN" ] && break
+            sleep 10
+          done
+          if [ "$state" != "MERGEABLE" ]; then echo "#$number is $state; not merging."; exit 0; fi
+          gh pr merge "$number" -R "$REPO" --merge --match-head-commit "$SHA"
+          echo "Merged #$number at $SHA."

@@ -7,16 +7,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '..', 'web', 'advisor.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '..', process.env.DAYLIGHT_TEST_WEB || 'web', 'advisor.js'), 'utf8');
 const start = source.indexOf('  function turnCandidate(');
-const end = source.indexOf('  async function concept(', start);
+const end = source.indexOf('  function concept(', start);
 assert.ok(start > 0 && end > start, 'Load the actual production request builder and turn.');
-const production = source.match(/^  const OPENING_QUESTION = .*$/m)?.[0]+'\n'+source.slice(start, end);
+const noticeHelpers = ['PAUSED', 'plain'].map(name => source.match(new RegExp('^  const '+name+' = .*$', 'm'))?.[0] || '').join('\n');
+const production = source.match(/^  const OPENING_QUESTION = .*$/m)?.[0]+'\n'+noticeHelpers+'\n'+source.slice(start, end);
 const visualSource = source.slice(source.indexOf('  function turnVisual('),source.indexOf('  function inlineGuide('));
 const plain = value => JSON.parse(JSON.stringify(value));
 
 function harness(failure) {
-  const calls = [], notices = [], pending = [];
+  const calls = [], notices = [], pending = [], recoveryCalls = [];
+  let recoveryResult = null;
   let transportFailure = failure, renderFailure = null, nextRequest = 0;
   const elements = new Map();
   const element = id => {
@@ -32,11 +34,12 @@ function harness(failure) {
   const response = structuredClone(initial);
   response.reply = 'We can work through the next steps together.';
   const context = vm.createContext({
-    state: initial, config: {mockAI: false}, busy: false, review: null, prepared: null,
+    state: initial, config: {mockAI: false}, busy: false, review: null, prepared: null, visitResume: undefined,
     clone: structuredClone, crypto: {randomUUID: () => `unique-request-${++nextRequest}`},
     q: () => context.state.assessment.nextQuestion,
     $: element, failedRequest: null, lastRequest: null, frames: [], history: [],
     reviewMessage: '', preparedVersions: [], selectedGoal: '', parkedMessages: [],
+    drafts:new Map(),selected:[],currentSignature:'',setTimeout:resolve=>resolve(),
     metrics: {turns: 0, llmCalls: 0},
     setBusy(value) { context.busy = value; }, note(value) { notices.push(value); },
     beginPending(words, usingAI) { pending.push({kind:'begin',words,usingAI}); },
@@ -46,18 +49,144 @@ function harness(failure) {
     consent() { assert.fail('A deliberate Send must not open a second consent prompt.'); },
     dialog() { assert.fail('Sending a message must not create a dialog.'); },
     api: async (url, payload) => {
+      if (url === '/api/conversation/recover') {
+        recoveryCalls.push(structuredClone(payload));
+        if (!recoveryResult) throw Error('Recovery connection unavailable.');
+        return typeof recoveryResult === 'function' ? recoveryResult() : structuredClone(recoveryResult);
+      }
       calls.push({url, payload: structuredClone(payload)});
       if (transportFailure) throw transportFailure;
       return structuredClone(response);
     },
   });
   vm.runInContext(visualSource+'\n'+production, context, {filename: 'advisor.js:production-send'});
-  return {context, calls, notices, pending, element, initial,response,
+  return {context, calls, notices, pending, element, initial,response,recoveryCalls,
+    recoverWith(result) {recoveryResult=result;},
     failTransport(error) {transportFailure = error;},
     failRenderOnce(error) {renderFailure = error;},
     candidate: (action,deliberate) => context.turnCandidate(action,deliberate),
     turn: (action,words,deliberate) => context.turn(action,words,deliberate)};
 }
+
+test('plan-review actions preserve an unsent draft and do not authorize AI',async()=>{
+  for (const type of ['review_plans','confirm_plan_review','get_plan_handoff']) {
+    const h=harness();
+    assert.equal(await h.turn({type,token:'review-token'}),false);
+    assert.equal(h.calls.length,0);
+    assert.equal(h.element('message').value,'I turn 65 in November.');
+    h.element('message').value='';
+    assert.equal(h.candidate({type,token:'review-token'}).aiConsent,false);
+  }
+});
+
+test('only explicit confirmation opens the plans destination with its receipt',async()=>{
+  const h=harness(),received=[];h.element('message').value='';
+  h.response.plansHandoff={token:'reviewed-receipt',reportedInfoReviewed:true};
+  h.context.DaylightPlansHandoff={open:async value=>{received.push(plain(value));return true;}};
+  assert.equal(await h.turn({type:'confirm_plan_review',token:'review-token'},'See plans'),true);
+  assert.deepEqual(received,[h.response.plansHandoff]);
+  assert.equal(h.calls.length,1);
+  assert.equal(h.calls[0].payload.aiConsent,false);
+  assert.equal(await h.turn({type:'refresh'}),true);
+  assert.equal(received.length,1,'Utility refresh cannot navigate into plans.');
+});
+
+test('a failed plans destination keeps the accepted state and lets the user retry',async()=>{
+  const h=harness();h.element('message').value='';
+  h.response.plansHandoff={token:'reviewed-receipt',reportedInfoReviewed:true};
+  h.context.DaylightPlansHandoff={open:async()=>{throw Error('Fixture unavailable');}};
+  assert.equal(await h.turn({type:'confirm_plan_review',token:'review-token'},'See plans'),true);
+  assert.equal(h.context.state.plansHandoff.token,'reviewed-receipt');
+  assert.match(h.notices.at(-1),/reviewed information is kept/);
+});
+
+test('a lost completed reply is recovered automatically without another model request',async()=>{
+  const h=harness(Error('Connection lost'));
+  h.recoverWith({status:'completed',response:h.response});
+  const words=h.element('message').value;
+  assert.equal(await h.turn({type:'message',message:words},words),true);
+  assert.equal(h.calls.length,1);assert.equal(h.recoveryCalls.length,1);
+  assert.deepEqual(h.recoveryCalls[0],h.calls[0].payload);
+  assert.equal(h.context.history.length,1);assert.equal(h.element('message').value,'');
+});
+
+for (const status of ['reset','resumed']) test(`${status} session installs current state and preserves the unsent draft`,async()=>{
+  const error=Object.assign(Error('Your conversation changed. Keep this message and resume the latest state.'),{code:409,recovery:'conversation_state'});
+  const h=harness(error),words=h.element('message').value;
+  h.context.history=[{reply:'Earlier conversation'}];h.context.review={token:'old-action'};
+  const recovered=structuredClone(h.response);recovered.continuation='current-binding';
+  h.recoverWith({status,response:recovered});
+  assert.equal(await h.turn({type:'message',message:words},words),false);
+  assert.equal(h.context.state.continuation,'current-binding');
+  assert.equal(h.element('message').value,words);
+  assert.equal(h.context.review,null);assert.equal(h.context.failedRequest,null);
+  assert.equal(h.calls.length,1,'Recovery never resubmits against a changed question.');
+  assert.doesNotMatch(h.notices.at(-1),/Your conversation changed|resume the latest state/);
+  assert.equal(h.context.busy,false);
+  h.failTransport(null);h.response.continuation='after-reconnected-send';
+  assert.equal(await h.turn({type:'message',message:words},words),true);
+  assert.equal(h.calls[1].payload.continuation,'current-binding');
+  assert.notEqual(h.calls[1].payload.requestId,h.calls[0].payload.requestId);
+});
+
+test('reconnection leaves a newer draft intact and parks the original',async()=>{
+  const h=harness(Object.assign(Error('stale'),{code:409,recovery:'conversation_state'}));
+  const words=h.element('message').value;
+  h.recoverWith(()=>{h.element('message').value='A newer draft';return {status:'reset',response:h.response};});
+  assert.equal(await h.turn({type:'message',message:words},words),false);
+  assert.equal(h.element('message').value,'A newer draft');
+  assert.deepEqual(plain(h.context.parkedMessages),[words]);
+});
+
+test('bounded working checks keep the original request key for the next Send',async()=>{
+  const h=harness(Object.assign(Error('still working'),{code:409,recovery:'conversation_busy'}));
+  h.recoverWith({status:'working'});
+  const words=h.element('message').value,action={type:'message',message:words};
+  assert.equal(await h.turn(action,words),false);
+  assert.equal(h.recoveryCalls.length,20);assert.equal(h.calls.length,1);
+  assert.equal(h.context.failedRequest.requestId,h.calls[0].payload.requestId);
+  assert.match(h.notices.at(-1),/still working/);
+  h.failTransport(null);
+  assert.equal(await h.turn(action,words),true);
+  assert.equal(h.calls[1].payload.requestId,h.calls[0].payload.requestId);
+});
+
+test('a still-processing request is automatically picked up when its receipt arrives',async()=>{
+  const h=harness(Error('Connection lost'));let reads=0;
+  h.recoverWith(()=>++reads < 4 ? {status:'working'} : {status:'completed',response:h.response});
+  const words=h.element('message').value;
+  assert.equal(await h.turn({type:'message',message:words},words),true);
+  assert.equal(h.recoveryCalls.length,4);assert.equal(h.calls.length,1);
+  assert.equal(h.context.history.length,1);assert.equal(h.context.busy,false);
+});
+
+test('non-session conflicts cannot invoke session recovery',async()=>{
+  const h=harness(Object.assign(Error('A named action is no longer valid.'),{code:409}));
+  const words=h.element('message').value;
+  assert.equal(await h.turn({type:'message',message:words},words),false);
+  assert.equal(h.recoveryCalls.length,0);assert.equal(h.calls.length,1);
+});
+
+test('expired guest authority reconnects freely with saving paused and draft retained',async()=>{
+  const h=harness(Object.assign(Error('Guest expired'),{code:401}));
+  let reconnects=0;
+  h.context.refreshVisitAuthority=async()=>{reconnects++;const state=structuredClone(h.response);state.continuation='new-owner';state.guide.preferences={saveGuide:false,saveSensitive:false};h.context.state=state;};
+  const words=h.element('message').value;
+  assert.equal(await h.turn({type:'message',message:words},words),false);
+  assert.equal(reconnects,1);assert.equal(h.context.state.continuation,'new-owner');
+  assert.equal(h.context.state.guide.preferences.saveGuide,false);
+  assert.equal(h.element('message').value,words);
+  assert.match(h.notices.at(-1),/Saving is paused/);assert.equal(h.calls.length,1);
+});
+
+test('a recovered unavailable generation never becomes an assistant history message',async()=>{
+  const h=harness(Object.assign(Error('stale'),{code:409,recovery:'conversation_state'}));
+  h.response.generated={status:'unavailable'};h.response.reply='A generation failure notice.';
+  h.recoverWith({status:'resumed',response:h.response});
+  const words=h.element('message').value;
+  await h.turn({type:'message',message:words},words);
+  assert.equal(h.context.history.length,0);assert.equal(h.element('message').value,words);
+});
 
 test('Send carries current AI permission, relevant-context policy and the same visit state', () => {
   const h = harness();
@@ -363,6 +492,7 @@ test('the composer clears before transport settles and restores the exact raw dr
   const h = harness();
   let fail;
   h.context.api = async (url,payload) => {
+    if (url === '/api/conversation/recover') throw Error('Recovery connection unavailable.');
     h.calls.push({url,payload:structuredClone(payload)});
     return await new Promise((resolve,reject) => {fail=reject;});
   };
@@ -383,7 +513,10 @@ test('the composer clears before transport settles and restores the exact raw dr
 test('a failed Send preserves a newer composer draft and makes the submitted draft recoverable separately', async () => {
   const h = harness();
   let fail;
-  h.context.api = async () => await new Promise((resolve,reject) => {fail=reject;});
+  h.context.api = async url => {
+    if (url === '/api/conversation/recover') throw Error('Recovery connection unavailable.');
+    return await new Promise((resolve,reject) => {fail=reject;});
+  };
   const raw='  What does Part B cover?\n';
   const sent=raw.trim();h.element('message').value=raw;
   const pending=h.turn({type:'message',message:sent},sent);
@@ -447,4 +580,14 @@ test('a guide stays with its teaching exchange and cannot migrate onto a later t
   assert.equal(h.context.history[0].visual,firstVisual);
   assert.equal(h.context.state.assessment.nextQuestion.question,'When does your COBRA coverage end?');
   assert.equal(h.calls.length,2);
+});
+
+test('Plans view context is captured once on message Send and never on navigation',()=>{
+  const h=harness();let snapshots=0;
+  h.context.DaylightPlans={snapshot(){snapshots++;return {version:'plans-context-v1',viewDigest:'current'};}};
+  const request=h.context.turnCandidate({type:'message',message:'Explain this term.'});
+  assert.equal(request.plansContextPolicy,'plans-context-v1');
+  assert.equal(request.plansContext.viewDigest,'current');assert.equal(snapshots,1);
+  const navigation=h.context.turnCandidate({type:'review_plans'});
+  assert.equal(navigation.plansContext,undefined);assert.equal(snapshots,1);
 });

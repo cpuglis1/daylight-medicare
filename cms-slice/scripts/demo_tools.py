@@ -5,10 +5,14 @@ from datetime import datetime, timezone
 import json
 import re
 import threading
+import copy
+import local_programs
+from consumer_acceptance import ConsumerAcceptance, research_or_accepted
 
 import cms_slice as cms
 import prescription as rx
 import research
+import star_ratings
 from identity_lookup import IdentityLookup
 from knowledge import Knowledge
 
@@ -16,7 +20,10 @@ TOOL_CODE_SHA256 = cms.file_hash(__file__)
 REVIEW_INPUTS = ("reports/work-package-1/run-manifest.json", "reports/work-package-2/read-manifest.json",
                  "reports/work-package-3/manifest.json", "reports/source-diligence/manifest.json",
                  "reports/demo-quality-manifest.json", "reports/drug-validation-manifest.json",
-                 "reports/devoted-drug-validation.json")
+                 "reports/devoted-drug-validation.json", "reports/collier-gap-20261019/c03/change-assessment.json",
+                 "reports/collier-gap-20261019/c04/manifest.json", "reports/collier-gap-20261019/c06-c08/manifest.json")
+
+MAX_DRUG_PAGE_SIZE = 20
 
 
 def dollars(cents):
@@ -24,11 +31,13 @@ def dollars(cents):
 
 
 class DemoTools:
-    def __init__(self, model=None, prescription_model=None, knowledge=None, identities=None, release=None):
+    def __init__(self, model=None, prescription_model=None, knowledge=None, identities=None, release=None, *, research_mode=False):
         if release is not None:
             from demo_release import load
             frozen = load(release)
             model, prescription_model, knowledge, identities = (frozen[k] for k in ("model", "prescription_model", "knowledge", "identities"))
+        self.research_mode = research_mode
+        self.consumer_acceptance = ConsumerAcceptance(frozen["release_path"] if release is not None else None)
         self.model = model or research.ReadModel()
         self.rx = prescription_model or research.PrescriptionModel()
         self.knowledge = knowledge or Knowledge()
@@ -47,6 +56,7 @@ class DemoTools:
         if due <= checked:
             raise cms.SourceError("Demo source-review dates are invalid")
         self.snapshot = self.model.catalog("2027", "12021")
+        self.star_ratings = frozen.get("star_ratings", {}) if release is not None else star_ratings.load(self.snapshot)
         self.cache = getattr(self.rx, "cache", rx.CACHE)
         self.by_id = {r["id"]: r for r in self.snapshot["options"] + self.snapshot["exclusions"]}
         self.joins = {r["id"]: r for r in self.rx.report["joins"]}
@@ -64,6 +74,7 @@ class DemoTools:
             "rx_manifest": cms.sha256(json.dumps(self.rx.manifest, sort_keys=True).encode()), "knowledge": self.knowledge.version,
             "quality": cms.sha256(json.dumps(self.quality, sort_keys=True).encode()),
             "data_review": self.data_review,
+            "stars": self.star_ratings,
             "tool_code": TOOL_CODE_SHA256}, sort_keys=True).encode())[:20]
 
     def fact(self, fid, text, evidence=None, **extra):
@@ -78,6 +89,7 @@ class DemoTools:
         return {"id": "cms-" + cell["archive_sha256"][:12] + "-" + str(cell["record_ordinal"]),
                 "url": self.snapshot["sources"][cell["artifact"]]["url"], **cell, **self.review_evidence()}
 
+    @research_or_accepted
     def market_options(self, year="2027", county_fips="12021", category=None):
         self.model.catalog(year, county_fips)
         if category not in {None, "MA", "MA-PD", "PDP"}:
@@ -93,12 +105,13 @@ class DemoTools:
         return {"facts": facts, "full_option_ids": [r["id"] for r in rows], "order": "source identity; not suitability", "snapshot_id": self.version,
                 "excluded_ids": [r["id"] for r in self.snapshot["exclusions"]], "preserve_all_facts": True}
 
+    @research_or_accepted
     def plan_details(self, plan_id):
         if plan_id not in self.by_id:
             raise cms.SourceError("Plan outside the pinned Collier 2027 release")
         row = self.by_id[plan_id]
         if not row["comparison_available"]:
-            return {"facts": [self.fact("excluded-" + plan_id, f"{plan_id} is in the captured source but outside the supported comparison scope: {', '.join(row['exclusion_reasons'])}. This is a scope limit, not personal ineligibility.", [self.cms_evidence(row["source"])], plan_id=plan_id)], "snapshot_id": self.version}
+            return {"facts": [self.fact("excluded-" + plan_id, f"{plan_id} is in the captured source but outside the supported core-benefit comparison scope: {', '.join(row['exclusion_reasons'])}. Drug evidence and stars have separate availability; this does not establish personal ineligibility.", [self.cms_evidence(row["source"])], plan_id=plan_id), self.star_fact(plan_id)], "snapshot_id": self.version}
         facts = []
         for field in [row["plan_premium"]["field"], "annual_part_d_deductible", "in_network_medical_moop"]:
             cell = row["facts"][field]
@@ -113,8 +126,17 @@ class DemoTools:
                                    f"The Medicare.gov comparison card for {row['name']} ({plan_id}) lists primary doctor visits as {official['primary_care_raw']} and specialist visits as {official['specialist_raw']}. This is a published summary; deductible, referral, service-setting and full Evidence of Coverage conditions still need checking.",
                                    [{"id": "medicaregov-"+plan_id, "url": official["url"], "retrieved_at_utc": official["observed_at_utc"],
                                      "sha256": self.quality["medicare_gov_observations_sha256"], **self.review_evidence()}], plan_id=plan_id))
+        facts.append(self.star_fact(plan_id))
         return {"facts": facts, "snapshot_id": self.version, "category": row["category"], "personal_fit_assessed": False}
 
+    @research_or_accepted
+    def star_fact(self, plan_id):
+        value = star_ratings.for_plan(self.star_ratings, self.by_id[plan_id])
+        label = f"{value['value']:g} of 5 stars" if value["state"] == "rated" else value["reason"]
+        return self.fact("stars-" + plan_id, f"{plan_id}: CMS 2027 {value.get('label', 'contract')} rating: {label}. Published October 8, 2026; contract-level quality rating, not personal suitability.",
+                         [value["evidence"]] if "evidence" in value else [], plan_id=plan_id)
+
+    @research_or_accepted
     def medicine_candidates(self, name):
         result = self.identities.medicines(name)
         facts = [self.fact("drug-candidates-" + cms.sha256(name.casefold().encode())[:12],
@@ -123,6 +145,7 @@ class DemoTools:
                            "No product, quantity or days supply has been confirmed for you.", [result["evidence"]])]
         return {**result, "facts": facts}
 
+    @research_or_accepted
     def plan_candidates(self, name):
         if not isinstance(name, str) or not 2 <= len(name.strip()) <= 100:
             raise cms.SourceError("Specify a short published plan or carrier name")
@@ -140,6 +163,7 @@ class DemoTools:
                                     f"The captured market has {len(candidates)} plan-name matches for {name}. Choose the exact plan ID and year; similar names can have different benefits or comparison scope.",
                                     [{"id": "cms-plan-identities", "url": self.snapshot["sources"]["landscape"]["url"], "sha256": self.snapshot["sources"]["landscape"]["sha256"], **self.review_evidence()}])]}
 
+    @research_or_accepted
     def pharmacy_candidates(self, name, city="Naples"):
         result = self.identities.pharmacies(name, city)
         return {**result, "facts": [self.fact("pharmacy-candidates-" + cms.sha256((name+city).encode())[:12],
@@ -161,27 +185,42 @@ class DemoTools:
             self.pharmacy_matches[key] = rows
             return rows
 
-    def drug_evidence(self, rxcui, plan_ids=None, pharmacy_npi=None):
+    def _drug_page(self, plan_ids, offset, limit):
+        if plan_ids is None:
+            plan_ids = list(self.by_id)
+        if not isinstance(plan_ids, list) or not 1 <= len(plan_ids) <= len(self.by_id) or any(not isinstance(p, str) for p in plan_ids) or len(set(plan_ids)) != len(plan_ids):
+            raise cms.SourceError("Choose distinct captured plan IDs or omit them for the complete catalog")
+        if any(p not in self.by_id for p in plan_ids):
+            raise cms.SourceError("Prescription query contains a plan outside the captured catalog")
+        offset = 0 if offset is None else offset
+        limit = MAX_DRUG_PAGE_SIZE if limit is None else limit
+        if type(offset) is not int or offset < 0 or offset >= len(plan_ids) or type(limit) is not int or not 1 <= limit <= MAX_DRUG_PAGE_SIZE:
+            raise cms.SourceError("Use an in-range offset and a page size from 1 to 20")
+        ordered = sorted(plan_ids)
+        end = min(offset + limit, len(ordered))
+        return ordered[offset:end], {"offset": offset, "limit": limit, "total": len(ordered), "returned": end - offset,
+                                     "next_offset": end if end < len(ordered) else None, "full_option_ids": ordered}
+
+    @research_or_accepted
+    def drug_evidence(self, rxcui, plan_ids=None, pharmacy_npi=None, offset=0, limit=MAX_DRUG_PAGE_SIZE):
         if not isinstance(rxcui, str) or not re.fullmatch(r"[1-9]\d{0,7}", rxcui):
             raise cms.SourceError("Specify an exact RxCUI from a confirmed product choice or explicit code query")
         if pharmacy_npi is not None:
             rx.pharmacy_number(pharmacy_npi)
-        if plan_ids is None:
-            plan_ids = [r["id"] for r in self.snapshot["options"]]
-        if not isinstance(plan_ids, list) or not 1 <= len(plan_ids) <= 38 or any(not isinstance(p, str) for p in plan_ids) or len(set(plan_ids)) != len(plan_ids):
-            raise cms.SourceError("Choose one to 38 distinct supported plans")
-        if any(p not in self.by_id or not self.by_id[p]["comparison_available"] for p in plan_ids):
-            raise cms.SourceError("Prescription comparison contains an unsupported/excluded plan")
+        page_ids, pagination = self._drug_page(plan_ids, offset, limit)
         facts, results = [], []
-        for plan_id in [r["id"] for r in self.snapshot["options"] if r["id"] in plan_ids]:
+        for plan_id in page_ids:
             join = self.joins[plan_id]
             if not join["selected_plan"]:
                 results.append({"plan_id": plan_id, "status": join["status"], "products": []})
-                facts.append(self.fact("rx-"+plan_id+"-"+rxcui, f"{plan_id} has no Part D coverage in this source; it does not inherit another plan's drug benefits.", [self.cms_evidence(self.by_id[plan_id]["source"])], plan_id=plan_id))
+                text = "has no Part D coverage in this source; it does not inherit another plan's drug benefits." if join["status"] == "not_applicable_non_part_d" else "has unresolved prescription-source mapping; coverage remains unknown."
+                facts.append(self.fact("rx-"+plan_id+"-"+rxcui, f"{plan_id} {text}", [self.cms_evidence(self.by_id[plan_id]["source"])], plan_id=plan_id))
                 continue
             raw_plan = join["selected_plan"]["raw"]
             if raw_plan["PLAN_SUPPRESSED_YN"] != "N":
                 raise cms.SourceError("Plan prescription data suppressed or unknown")
+            if plan_id + "-pharmacy.psv.gz" not in self.rx.manifest["cache_sha256"]:
+                raise cms.SourceError("Plan pharmacy evidence is not packaged; no availability claim is supported")
             products = self.forms_rx.get((raw_plan["FORMULARY_ID"], rxcui), [])
             summary = []
             for item in products:
@@ -203,23 +242,28 @@ class DemoTools:
                 pharmacy = {"status": "listed_in_pinned_network" if rows else "not_listed_in_pinned_network", "npi": pharmacy_npi,
                             "rows": [{"preferred_retail": r["raw"]["PREFERRED_STATUS_RETAIL"], "retail": r["raw"]["PHARMACY_RETAIL"], "evidence": r["evidence"]} for r in rows]}
                 text += f" Pharmacy NPI {pharmacy_npi} is {'listed' if rows else 'not listed'} in this pinned network; current store participation still needs confirmation."
+            if self.by_id[plan_id]["category"] == "SNP":
+                text += " Special needs eligibility remains unconfirmed; reading evidence does not establish eligibility."
             facts.append(self.fact("rx-"+plan_id+"-"+rxcui, text, evidence, plan_id=plan_id))
             results.append({"plan_id": plan_id, "status": "listed_with_source_conditions" if summary else "missing_basic_evidence_not_noncoverage", "products": summary, "pharmacy": pharmacy})
-        return {"facts": facts, "results": results, "rxcui": rxcui, "snapshot_id": self.version,
+        return {"facts": facts, "results": results, "rxcui": rxcui, "snapshot_id": self.version, "pagination": pagination,
+                "full_option_ids": pagination["full_option_ids"],
                 "pricing": "unavailable_for_2027", "personal_medicine_confirmed": False,
                 "order": "source identity; not suitability or cost", "preserve_all_facts": True}
 
+    @research_or_accepted
     def provider_evidence(self, name, plan_id=None):
         if plan_id is not None and plan_id not in self.by_id:
             raise cms.SourceError("Provider query plan is outside the supported release")
         return self.knowledge.provider(name, plan_id)
 
-    def drug_list_evidence(self, rxcuis, plan_ids=None, pharmacy_npi=None):
+    @research_or_accepted
+    def drug_list_evidence(self, rxcuis, plan_ids=None, pharmacy_npi=None, offset=0, limit=MAX_DRUG_PAGE_SIZE):
         if (not isinstance(rxcuis, list) or not 1 <= len(rxcuis) <= 15 or
                 any(not isinstance(code, str) or not re.fullmatch(r"[1-9]\d{0,7}", code) for code in rxcuis) or len(set(rxcuis)) != len(rxcuis)):
             raise cms.SourceError("Specify one to 15 distinct exact RxCUI product codes; no medicine is inferred")
         codes = sorted(rxcuis, key=int)
-        batches = [self.drug_evidence(code, plan_ids, pharmacy_npi) for code in codes]
+        batches = [self.drug_evidence(code, plan_ids, pharmacy_npi, offset, limit) for code in codes]
         ids = [r["plan_id"] for r in batches[0]["results"]]
         by_plan = {pid: [] for pid in ids}
         facts = []
@@ -231,13 +275,25 @@ class DemoTools:
                 by_plan[result["plan_id"]].append({"rxcui": code, **result})
         return {"facts": sorted(facts, key=lambda f: f.get("plan_id", f["id"])),
                 "results": [{"plan_id": pid, "medicines": by_plan[pid]} for pid in ids],
-                "rxcuis": codes, "full_option_ids": ids, "snapshot_id": self.version, "pricing": "unavailable_for_2027",
+                "rxcuis": codes, "full_option_ids": batches[0]["full_option_ids"], "pagination": batches[0]["pagination"], "snapshot_id": self.version, "pricing": "unavailable_for_2027",
                 "personal_medicine_list_confirmed": False, "preserve_all_facts": True,
                 "order": "Plan source identity, then numeric vocabulary code; no suitability, drug substitution or cost ranking"}
 
+    @research_or_accepted
     def education(self, topic):
         return self.knowledge.topic(topic)
 
+    @research_or_accepted
+    def local_resources(self):
+        return copy.deepcopy(self.knowledge.local_resources) | {"facts": copy.deepcopy([f for f in self.knowledge.facts.values() if f.get("topic") in {"pace", "shine"}])}
+
+    @research_or_accepted
+    def coordination(self, messages):
+        flags = local_programs.context(messages)
+        ids = [f["fact_id"] for f in flags] + (["shine-referral"] if flags else [])
+        return {"coordination_flags": flags, "coordination_facts": copy.deepcopy([self.knowledge.facts[fid] for fid in ids])}
+
+    @research_or_accepted
     def call(self, name, arguments):
         allowed = {"market_options", "plan_details", "plan_candidates", "medicine_candidates", "pharmacy_candidates", "drug_evidence", "drug_list_evidence", "provider_evidence", "education"}
         if name not in allowed or not isinstance(arguments, dict):

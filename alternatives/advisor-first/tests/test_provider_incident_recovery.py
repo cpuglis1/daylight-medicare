@@ -58,7 +58,10 @@ class ProviderIncidentRecoveryTests(fixture.ProviderHttpTests):
     def assert_report_and_holds(self, out, *, next_question='T07'):
         json.dumps(out, allow_nan=False)
         self.assertEqual(out['guide']['fields']['needs.providersStatus']['value'], 'list')
-        self.assertEqual(out['assessment']['nextQuestion']['id'], next_question)
+        if next_question is None:
+            self.assertIsNone(out['assessment']['nextQuestion'])
+        else:
+            self.assertEqual(out['assessment']['nextQuestion']['id'], next_question)
         self.assertEqual(out['guide']['fields']['situation.age65']['value'], {'month': 11, 'year': None})
         self.assertEqual(out['record']['facts']['RC11']['value']['coverageEnd'], '2026-12')
         self.assertFalse(out['personalRecommendation'])
@@ -97,7 +100,7 @@ class ProviderIncidentRecoveryTests(fixture.ProviderHttpTests):
         self.assertEqual(out['continuation'], replay['continuation'])
         self.assert_report_and_holds(replay)
 
-    def test_known_composition_unavailability_keeps_captured_provider_and_next_question(self):
+    def test_known_composition_unavailability_keeps_provider_without_new_intake(self):
         self.seed_to_provider_question()
         text = 'My PCP is dr charlie fiction in naples'
         self.queue_provider(text)
@@ -106,10 +109,9 @@ class ProviderIncidentRecoveryTests(fixture.ProviderHttpTests):
             status, out = self.request('/api/conversation/turn', self.payload(text))
         self.assertEqual(status, 200)
         self.assertEqual(out['generated']['status'], 'unavailable')
-        # Without a validated composer selection, the deterministic first
-        # candidate asks the still-missing desired start. It must not repeat
-        # provider intake or imply an invented date from the birthday/COBRA end.
-        self.assert_report_and_holds(out, next_question='T04')
+        # Capture survives without treating a failed reply as a decision to
+        # start another optional question. Timing authority stays separate.
+        self.assert_report_and_holds(out, next_question=None)
         self.assertEqual(out['reply'], '')
         self.assertEqual(len(self.calls), 10)
 
@@ -138,7 +140,7 @@ class ProviderIncidentRecoveryTests(fixture.ProviderHttpTests):
         status, recovered = self.request('/api/conversation/turn', payload)
         self.assertEqual(status, 200)
         self.assertEqual(len(self.calls), calls, 'Recovery must not re-extract or recompose automatically.')
-        self.assert_report_and_holds(recovered, next_question='T04')
+        self.assert_report_and_holds(recovered, next_question=None)
         self.assertEqual(len(recovered['record']['facts']['RC21']['value']['items']), 1)
         with self.service.budget.db() as db:
             statuses = [row[0] for row in db.execute(

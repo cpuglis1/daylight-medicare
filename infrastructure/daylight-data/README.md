@@ -1,5 +1,20 @@
 # Daylight data infrastructure
 
+**D144 local demo subset:** `daylight_pilot_collier_2026_r1` is a verified
+195 MB database alongside the intact 31.01 GB research database. It supplies
+the complete private Medigap cache and the bounded Part D display projection;
+MA continues to use its existing catalogs. The [runbook and checks](../../audit-evidence/collier-pilot-subset-20261112/README.md)
+include the 12.18 MB compressed export, app connection mode and source-control
+preflight. This is local technical verification, not a new source release or
+hosted deployment.
+
+**D96 Collier plan types:** the additive
+[PDP/Medigap research backend](src/daylight_data/plan_types/README.md) now loads
+the retained catalog, source rates and missing L10 base sidecars into its own
+immutable serving schema. All 277,198 loaded records passed full parity. Private
+research APIs/CLI are implemented; consumer display remains held pending actual
+approval. [Execution, checks and open data/operating work](../../docs/reviews/collier-plan-type-backend-2026-11-06/implementation-r1/README.md).
+
 Additive D85 implementation, begun October 29, 2026. The target is November 5 in
 America/New_York. [The governing plan](../../docs/data/infrastructure-plan-2026-10-29/IMPLEMENTATION_PLAN.md)
 and [execution evidence](../../docs/data/infrastructure-execution-2026-10-29/) distinguish
@@ -41,12 +56,24 @@ The completed build-r3 load retains 17,767,179 source/context rows and 17,823,14
 initial projections together in `daylight_research_2026_r2` (58,013,032,975 bytes at
 load completion). Use [the persistent local runbook](runbooks/PERSISTENT_LOCAL.md);
 query verification and backup receipts are separate from the load receipt.
+The November 5 D94 physical redesign now retains the same data and original
+database identity in a **29,374,584,511-byte** compact layout. Full local clean
+recovery, all original/staged logical-column hashes and live plan/provider/drug
+checks passed before legacy-table retirement. Existing reads use compatibility
+views; new ingestion continues through fresh versioned targets. See the
+[measured result and remaining review](../../docs/reviews/database-redesign-2026-11-05/README.md)
+and [local compact recovery recipe](redesign/r2/RECOVERY.md).
+The [November 6 dependency reconciliation](../../docs/reviews/dependency-reconciliation-2026-11-06/README.md)
+preserves the current 38-package lock and the exact historical 33-package lock.
+Its isolated historical-input verification passed 759 queries and 756 checks;
+use that explicit command to audit the retained build without downgrading the
+current comparison-backend dependencies.
 Collier scope IDs remain in the preserved native `fields.id` / `raw_payload.id`;
 their material `offering_id` column is unpopulated. The explicit source bridge
 checks all 72 IDs against national and r9 offerings without backfilling immutable
 rows. That bridge is research validation, not completed domain normalization.
 Complete domain-specific relational models, release selection, original-authority
-replay, connectors/scheduler, full restore and application bridge remain **pending**. Initial
+replay, connectors/scheduler, off-machine restore and application bridge remain **pending**. Initial
 projection transport deliberately remains separate from source import receipts; neither
 receipt proves layer completeness or output acceptance. Parser/config changes require
 a new derivation; unchanged rows reuse their immutable identities.

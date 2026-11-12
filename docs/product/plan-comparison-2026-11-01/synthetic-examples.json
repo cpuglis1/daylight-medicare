@@ -1,0 +1,128 @@
+{
+  "design_id": "daylight-comparison-design-2026-r1",
+  "status": "fictional_design_excerpts_not_runtime_api_fixtures",
+  "customer_rows_included": false,
+  "real_plan_or_price_claims": false,
+  "examples": [
+    {
+      "id": "S01-input-and-evidence-are-separate",
+      "description": "A fictional person listed a doctor, but the office is ambiguous. No real comparison release exists.",
+      "response_excerpt": {
+        "contract_id": "daylight-comparison-design-2026-r1",
+        "mode": "research_preparation",
+        "binding": {
+          "beneficiary_id": "fictional-beneficiary-1",
+          "guide_revision": 3,
+          "readiness_revision": 4,
+          "adapter_version": "proposed-advisor-comparison-adapter-r1",
+          "coverage_year": 2026,
+          "research_build_id": "fictional-research-build",
+          "accepted_release_id": null
+        },
+        "authority": {
+          "personal_comparison": {"state": "held", "reason_codes": ["EXACT_RELEASE_REQUIRED"]},
+          "recommendation": {"state": "held", "reason_codes": ["POLICY_NOT_ACCEPTED", "EXACT_RELEASE_REQUIRED"]}
+        },
+        "universe": {"completeness": "unknown", "candidate_set_ref": null, "unsupported_categories": ["not_assessed"]},
+        "units": [
+          {"unit_id": "fictional-current", "kind": "current_arrangement", "identity_state": "partial"},
+          {"unit_id": "fictional-A", "kind": "cms_offering", "identity_state": "fictional_placeholder"}
+        ],
+        "findings": [{
+          "finding_id": "fictional-doctor-1-network-A",
+          "unit_id": "fictional-A",
+          "dimension_id": "provider_access",
+          "subject_or_item_id": "fictional-doctor-1",
+          "report_refs": [{"path": "guide.fields.needs.providers", "item_id": "fictional-doctor-1", "subject_id": "fictional-beneficiary-1", "report_revision": 2, "record_revision": 3, "scope": "requested_provider"}],
+          "question_ids": ["T06", "RC21"],
+          "gap_ids": ["G05"],
+          "input_state": "partial",
+          "evidence_state": "missing",
+          "applicability": "undetermined",
+          "policy_state": "unreviewed",
+          "output_state": "held",
+          "result": "unresolved",
+          "value": null,
+          "condition_set": {"completeness": "unknown", "predicates": [], "missing_predicates": ["exact_office", "exact_network_and_effective_period"]},
+          "reason_codes": ["ITEM_IDENTITY_UNRESOLVED", "SOURCE_MISSING", "EXACT_RELEASE_REQUIRED"],
+          "evidence_refs": [],
+          "rule_refs": ["R06", "R14", "R18"],
+          "dependency_refs": ["fictional-doctor-1@2"],
+          "invalidation_keys": ["fictional-doctor-1", "scope.year", "scope.county", "evidence.release"]
+        }],
+        "next_question": {
+          "question_id": "RC21",
+          "item_id": "fictional-doctor-1",
+          "subject_id": "fictional-beneficiary-1",
+          "target_paths": ["readiness.facts.RC21.value.items[].practice", "readiness.facts.RC21.value.items[].city"],
+          "purpose": "Identify which office to investigate; answering cannot establish network participation.",
+          "affected_findings": ["fictional-doctor-1-network-A"]
+        },
+        "work_items": [{
+          "type": "verify_exact_provider_network",
+          "status": "proposed_blocked_on_identity",
+          "owner_role": "evidence_research",
+          "affected_findings": ["fictional-doctor-1-network-A"],
+          "closure_evidence": "Exact provider/site, offering/network and effective-period evidence with reviewed source-use and output authority."
+        }],
+        "outcomes": [
+          {"kind": "continue_checking", "state": "available_preparation"},
+          {"kind": "keep_current", "state": "consequences_unresolved"},
+          {"kind": "defer_decision", "state": "consequences_unresolved"}
+        ]
+      }
+    },
+    {
+      "id": "S02-no-more-intake-for-a-source-hold",
+      "description": "The fictional office identity is resolved in a new report revision. Network evidence and release remain absent.",
+      "response_excerpt": {
+        "mode": "research_preparation",
+        "binding": {"guide_revision": 3, "readiness_revision": 5, "accepted_release_id": null},
+        "findings": [{
+          "finding_id": "fictional-doctor-1-network-A",
+          "input_state": "sufficient_report",
+          "evidence_state": "missing",
+          "applicability": "undetermined",
+          "policy_state": "unreviewed",
+          "output_state": "held",
+          "result": "unresolved",
+          "reason_codes": ["SOURCE_MISSING", "EXACT_RELEASE_REQUIRED"]
+        }],
+        "next_question": null,
+        "work_items": [{"type": "verify_exact_provider_network", "status": "proposed_not_started", "owner_role": "evidence_research"}]
+      },
+      "expected_behavior": "Do not ask RC21 again, mark this as nonparticipation, or invent a completed tool check. Other independently eligible questions remain possible only for the person's requested task."
+    },
+    {
+      "id": "S03-drug-correction-invalidates-the-fill",
+      "description": "A clear correction changes one fictional medicine's strength while another medicine and all providers stay unchanged.",
+      "event": {"question_id": "RC28", "target_item_id": "fictional-medicine-1", "old_revision": 2, "new_revision": 3, "changed_path": "readiness.facts.RC22.value.items[].strength"},
+      "expected_invalidation": ["fictional-medicine-1-identity", "fictional-medicine-1-formulary", "fictional-medicine-1-fill-price", "any_total_or_tradeoff_depending_on_those_findings", "old_revision_action_tokens"],
+      "expected_preservation": ["fictional-medicine-2_reports", "provider_reports", "unrelated_dates"],
+      "expected_behavior": "Retain old evidence as historical, resolve the new exact product, and reassess the affected fill. Ask only consequential missing details; do not default to the old price or demand full-profile approval."
+    },
+    {
+      "id": "S04-scoped-tradeoff-without-a-global-winner",
+      "description": "Hypothetical comparison logic after separate exact-purpose evidence acceptance. These symbolic values are not prices or released data.",
+      "fixture_inputs": {
+        "user_priorities": ["provider_access", "predictable_costs"],
+        "priority_order": null,
+        "unit_A_monthly_plan_premium": "symbolically_lower",
+        "unit_B_monthly_plan_premium": "symbolically_higher",
+        "premium_basis": "same_role_same_year_same_scope_published_component",
+        "requested_provider_access_for_A": "unresolved",
+        "requested_provider_access_for_B": "supported_under_fixture_assumption",
+        "personal_total_cost": "unresolved"
+      },
+      "expected_tradeoff": {
+        "compared_subset": ["monthly_plan_premium"],
+        "direction": "A_has_lower_published_plan_premium_under_stated_fixture_assumptions",
+        "material_unresolved_dimensions": ["provider_access_for_A", "personal_total_cost"],
+        "overall_relation": "tradeoff_or_unresolved",
+        "global_fit_score": null,
+        "automatic_personal_order": null
+      },
+      "expected_behavior": "Emphasize both expressed priorities; do not rank their order, penalize A for missing evidence, claim annual savings, certify a must-have or call B the overall winner."
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 Two additive profile observations; no new required intake question or policy rule.
 Only explicit, scoped words may populate these fields. Never supply a missing year.
 """
+import calendar
 import re
 from timing_language import after_coverage_supported
 
@@ -82,13 +83,14 @@ def soonest_start_supported(quote, active=None):
     """
     if not isinstance(quote, str):return False
     text=quote.replace('’',"'").strip().lower()
-    urgent=r'(?:asap|as soon as (?:possible|i can)|(?:the )?(?:earliest|soonest)(?: possible)?|right away|immediately)'
+    urgent=r"(?:asap|as soon as (?:possible|i can|i(?:'m| am) eligible)|when i (?:can|(?:am|'m) eligible)|(?:the )?(?:earliest|soonest)(?: possible)?|right away|immediately)"
     if not re.search(r'\b'+urgent+r'\b',text):return False
     if re.search(r'\b(?:if|suppose|hypothetically|for example|maybe|might|probably|not sure)\b',text):return False
     if re.search(r"\b(?:don't|do not|doesn't|does not|no longer)\s+(?:want|need|prefer|hope)|\bnot\s+"+urgent+r'\b',text):return False
     if '?' in text:return False
     asked=bool(active and active.get('id')=='T04')
-    if asked and re.fullmatch(r'(?:please\s+)?'+urgent+r'[.!\s]*',text):return True
+    first_clause = re.split(r'[.!;]\s+', text, maxsplit=1)[0]
+    if asked and re.fullmatch(r'(?:please\s+)?'+urgent+r'[.!\s]*',first_clause):return True
     return bool(re.search(r'\b(?:medicare|coverage|insurance)\b',text)
         and re.search(r"\b(?:want|need|prefer|like|hope|hoping|start|begin)\b",text)
         and not re.search(r'\b(?:job|employment|insurance|coverage)\b.{0,25}\b(?:ends?|ending)\b',text))
@@ -154,10 +156,27 @@ Other 41-question meanings remain covered by their existing contracts/validators
         if value=='none' and not re.search(r'\buninsured\b|\bno (?:health )?(?:insurance|coverage)\b|\b(?:don.t|do not) have (?:any |health )?(?:insurance|coverage)\b',text):return False
     return True
 
+def birthday_first_day(quote, month):
+    """Retain the timing exception as a boolean, without storing a birth day."""
+    if month is None or re.search(r"\b(?:maybe|possibly|not sure|if)\b|\?", quote, re.I):
+        return None
+    days = set(re.findall(r'\b' + MONTHS[month - 1] + r'\s+(\d{1,2})(?:st|nd|rd|th)?\b', quote, re.I))
+    if days:
+        if len(days) != 1:
+            return None
+        day = int(days.pop())
+        return day == 1 if 1 <= day <= calendar.monthrange(2000, month)[1] else None
+    match = re.search(r"\b(not )?(?:on )?the (?:first|1st)(?: day)?(?: of (?:the month|" + MONTHS[month - 1] + r"))?[.!]?$", quote, re.I)
+    return not bool(match[1]) if match else None
+
+
 def describe(kind,value):
     if kind=='retirement':
         return {'retired':'Retired','retiring':'Planning to retire','working':'Working'}[value['status']]+(' '+value['when'] if value.get('when') else '')
-    return 'Turning 65 in '+MONTHS[value['month']-1].title()+(' '+str(value['year']) if value.get('year') else ' (year not stated)')
+    month = MONTHS[value['month'] - 1].title()
+    year = ' ' + str(value['year']) if value.get('year') else ' (year not stated)'
+    timing = {True: ' (birthday on the first)', False: ' (birthday later in the month)'}.get(value.get('first_day'), '')
+    return 'Turning 65 in ' + month + year + timing
 
 def summary(guide):
     values={kind:guide['fields'].get(field,{}).get('value') for kind,field in FIELDS.items()}

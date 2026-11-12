@@ -87,6 +87,23 @@ const accessibleText = node => node.getAttribute('aria-hidden') === 'true' ? '' 
 const visualText = node => node.className.split(/\s+/).includes('sr-only') ? '' :
   node._text + node.children.map(visualText).join('');
 
+test('generated conversation omits prepared blocks while keeping reply, question and sources', () => {
+  const h = harness(true);
+  h.paint([{askedQuestion:'A prior question?',user:'A reported answer.',reply:'Generated reply.',
+    facts:[{title:'Prepared fact heading',text:'Prepared fact text'}],
+    sources:[{url:'https://www.medicare.gov/basics',label:'Medicare source'}],
+    visual:{kind:'routes',title:'Prepared guide heading',concepts:['original','advantage']},
+    reportedDates:[{label:'Prepared date label',value:'March 2027'}],comparisonMilestone:true}]);
+  const text = accessibleText(h.host);
+  assert.ok(text.includes('Generated reply.'));
+  assert.ok(text.includes('A prior question?'));
+  assert.ok(text.includes('Medicare source'));
+  assert.ok(!text.includes('Prepared'));
+  assert.ok(!text.includes('review what you’ve shared'));
+  assert.equal(byClass(h.host,'inline-guide').length,0);
+  assert.equal(byTag(h.host,'a').length,1);
+});
+
 function harness(reduced = false) {
   const host = new FakeNode('div');
   const reference = new FakeNode('aside');
@@ -96,12 +113,17 @@ function harness(reduced = false) {
   let reducedMotion = reduced;
   const queries = [];
   const notices = [];
+  const artifactActions = [];
   const context = vm.createContext({
     document: {createElement: tag => new FakeNode(tag)},
     $: id => { assert.ok(['history','reference','current','message'].includes(id)); return id === 'history' ? host : id === 'reference' ? reference : id === 'message' ? message : current; },
     matchMedia: query => { queries.push(query); return {matches: reducedMotion}; },
     URL,
     history: [],
+    DaylightVisitArtifacts: require('../web/visit-artifacts.js'),
+    reviewDateInformation() {artifactActions.push('dates');},
+    reviewInformation() {artifactActions.push('details');},
+    turn(action) {artifactActions.push(action.type);},
     renderedHistory: 0,
     firstHistory: null,
     openingRevealed: false,
@@ -126,9 +148,9 @@ function harness(reduced = false) {
   vm.runInContext(`${elementSource}\n${openingQuestionSource}\n${buttonSource}\n${revealSetSource}\n${questionSetSource}\n${renderingSource}\n${formSource}\n${referenceSource}\n${failureSource}\n${appendHistorySource}`, context,
     {filename: 'advisor.js:production-reveal-functions'});
   return {
-    host, queries, notices,
+    host, queries, notices, artifactActions,
     paint(items) { if (items !== undefined) context.history = items; context.paintHistory(); },
-    append(requestId,askedQuestion,userWords,result) {return context.appendTurnHistory(requestId,askedQuestion,userWords,result);},
+    append(requestId,askedQuestion,userWords,result,previous) {return context.appendTurnHistory(requestId,askedQuestion,userWords,result,previous);},
     paragraph(...args) { return context.paragraph(...args); },
     question(question,items) {
       if (items !== undefined) context.history = items;
@@ -179,7 +201,7 @@ function currentHarness() {
     $:node,
     matchMedia:() => ({matches:false}),
     history:[{reply:'Here is the answer to your question.'}],
-    prepared:null,review:null,busy:false,openingRevealed:false,parkedMessages:[],selectedGoal:'',
+    config:{},prepared:null,review:null,busy:false,openingRevealed:false,parkedMessages:[],selectedGoal:'',
     q:() => context.usableQuestion(context.state),
     draftFor:question => {const key = question.signature || question.id;if (!drafts.has(key)) drafts.set(key,{fields:{},choice:[]});return drafts.get(key);},
     selectionSlot() {},drawReference() {},setBusy() {},revealSend() {},concept() {},turn(...args) {calls.push(args);},reviewInformation() {},
@@ -210,23 +232,19 @@ test('the new greeting and subsequent assistant replies reveal, while user messa
   assert.equal(byClass(user, 'sr-only').length, 0);
 });
 
-test('reviewed fact bodies reveal but their headings, Sources control and source links are immediate', () => {
+test('prepared fact bodies stay hidden while their source links remain inspectable', () => {
   const h = harness();
   const facts = [{title: 'Part B', text: 'Part B helps cover medical care.',
     source: 'https://www.medicare.gov/coverage',
     sources: [{url: 'https://www.medicare.gov/basics', label: 'Medicare basics'}]}];
   h.paint([{reply: 'Here’s how that part works.', facts}]);
-  const factHost = byClass(h.host, 'facts')[0];
-  assert.equal(byClass(factHost, 'assistant-reveal').length, 1);
-  assert.equal(visualText(byTag(factHost, 'p')[0]), facts[0].text);
-  assert.equal(byTag(factHost, 'h2')[0].textContent, 'Part B');
+  assert.equal(byClass(h.host, 'facts').length, 0);
+  assert.ok(!accessibleText(h.host).includes(facts[0].text));
   const answer = byClass(h.host,'chat-daylight')[0];
   const sources = byClass(answer, 'sources')[0];
-  assert.equal(byClass(factHost,'sources').length,0,'Exchange citations belong after the complete answer.');
   assert.equal(byTag(sources, 'summary')[0].textContent, 'Sources');
   assert.equal(byTag(sources, 'a').length, 2);
   assert.equal(byClass(sources, 'reveal-word').length, 0);
-  assert.equal(byClass(byTag(factHost, 'h2')[0], 'reveal-word').length, 0);
 });
 
 test('visual and accessible text each preserve every character, including spaces and HTML-like user content', () => {
@@ -268,7 +286,7 @@ test('the complete opening question, example and reassurance reveal in sequence 
   const opening = h.opening([greeting]);
   const lines = [
     ['H2', '', 'What has you thinking about Medicare today?'],
-    ['P', 'intro-example', 'For example: turning 65, leaving work, reviewing your coverage, or helping someone else.'],
+    ['P', 'intro-example', 'You can start with something like “I’m retiring soon and don’t know where to begin.”'],
     ['P', 'intro-help', 'A sentence or two is enough.'],
   ];
   assert.equal(opening.children.length, 3);
@@ -317,7 +335,7 @@ test('the actual loaded stylesheet retains the 120ms fade and disables animation
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)\{body\.chat-mode \.reveal-word\{animation:none!important\}\}/);
 });
 
-test('reduced motion renders complete plain text for greetings, replies and facts', () => {
+test('reduced motion renders reply text while keeping prepared facts hidden', () => {
   const h = harness(true);
   const greeting = {reply: 'Welcome to Daylight.'};
   const response = {user: 'Tell me about Part B.', reply: 'We can start there.',
@@ -327,7 +345,8 @@ test('reduced motion renders complete plain text for greetings, replies and fact
   assert.equal(byClass(h.host, 'sr-only').length, 0);
   assert.equal(byClass(h.host, 'assistant-reveal').length, 0);
   assert.equal(byClass(h.host, 'chat-daylight')[0].textContent, greeting.reply);
-  assert.ok(h.host.textContent.includes(response.facts[0].text));
+  assert.ok(h.host.textContent.includes(response.reply));
+  assert.ok(!h.host.textContent.includes(response.facts[0].text));
   assert.ok(h.queries.every(query => query === '(prefers-reduced-motion: reduce)'));
 });
 
@@ -582,7 +601,7 @@ test('intake footer controls stay hidden and profile review is offered with the 
   assert.ok(renderCurrent.indexOf('Review your profile') > renderCurrent.indexOf('Here’s where we are'));
   assert.doesNotMatch(html,/id="ai-notice"|aria-describedby="ai-notice"/);
   const privacySource = source.slice(source.indexOf('  function privacy('),source.indexOf("  $('composer').onsubmit"));
-  assert.match(privacySource,/Send uses OpenAI\. When you choose Send, your message, recent conversation and relevant profile details go to OpenAI\./);
+  assert.match(privacySource,/When you choose Send, your message, recent conversation and relevant profile details go to the provider shown beside the model selector\./);
   assert.match(html,/id="privacy"[^>]*>Privacy &amp; saving</);
 });
 
@@ -669,6 +688,41 @@ test('history rebuilds preserve answered questions exactly once as complete acce
   assert.equal(visualText(articles[0]),item.askedQuestion);
   assert.equal(accessibleText(articles[1]),item.user);
   assert.equal(accessibleText(articles[2]),item.reply);
+});
+
+test('an empty model reply does not receive an automatic date picture', () => {
+  const h = harness(true);
+  const previous = {reportedRows: [{id:'S_AGE65',label:'65th birthday',value:'November',status:'reported'}]};
+  const result = {reply:'',reportedRows:[...previous.reportedRows,
+    {id:'RC11',label:'End dates',value:{coverageEnd:'december'},status:'reported'}]};
+  h.append('dates-1','When does coverage end?','December',result,previous);
+  h.paint();
+  assert.match(accessibleText(h.host), /December/);
+  assert.doesNotMatch(accessibleText(h.host), /Dates you’ve shared|November/);
+  assert.deepEqual(h.artifactActions, [], 'Rendering never opens a review or submits an action.');
+  h.paint();
+  assert.equal(byTag(h.host,'button').filter(node => node.textContent === 'Review or correct dates').length,0);
+  h.paint([{reply:'',reportedDates:require('../web/visit-artifacts.js').reportedDates(result),
+    visual:{kind:'timeline',title:'Existing timing guide',items:[['Birthday','November'],['Insurance end','december']]}}]);
+  assert.equal(byClass(h.host,'inline-guide').length,0);
+  assert.doesNotMatch(accessibleText(h.host), /Dates you’ve shared/);
+  assert.doesNotMatch(accessibleText(h.host), /Existing timing guide/);
+});
+
+test('comparison progress does not insert prepared narration into the conversation', () => {
+  const h = harness(true);
+  const previous = {reportedRows:[{id:'T03',value:'12345',status:'reported'},
+    {id:'T06',value:'None to check',status:'reported'}]};
+  const result = {reply:'We can leave that open.',reportedRows:[...previous.reportedRows,
+    {id:'T07',value:'unknown',status:'unknown'}]};
+  h.append('comparison-1','Which prescriptions?','I don’t know yet',result,previous);
+  h.paint();
+  assert.match(accessibleText(h.host), /We can leave that open/);
+  assert.doesNotMatch(accessibleText(h.host), /review what you’ve shared and see which details are still open/);
+  assert.deepEqual(h.artifactActions, []);
+  h.append('comparison-2','','Thanks',{...result,reply:'You’re welcome.'},result);
+  h.paint();
+  assert.equal(byTag(h.host,'button').filter(node => node.textContent === 'Make a checklist').length,0);
 });
 
 test('a generation failure keeps the server’s actual next question and choices available without adding its notice to the panel', () => {
@@ -919,7 +973,7 @@ test('generated teaching keeps one compact inspectable Sources disclosure withou
   assert.equal(byClass(h.host,'sources').length,1);
 });
 
-test('current-turn route teaching appears inline once while Sources remains a separate disclosure', () => {
+test('route guide intent does not insert prepared writing and Sources remains available', () => {
   const h = harness();
   const visual=h.turnVisual({advisor:{teachingFactIds:['routesintro']}});
   const item={reply:'These are the two main coverage paths.',visual,
@@ -927,15 +981,11 @@ test('current-turn route teaching appears inline once while Sources remains a se
   h.paint([item]);
   const answer=byClass(h.host,'chat-daylight')[0];
   const guides=byClass(answer,'inline-guide');
-  assert.equal(guides.length,1);
-  assert.ok(visualText(guides[0]).includes('Original Medicare'));
-  assert.ok(visualText(guides[0]).includes('Medicare Advantage'));
-  assert.equal(byTag(guides[0],'details').length,0);
+  assert.equal(guides.length,0);
   assert.equal(byTag(answer,'details').length,1,'Only Sources remains expandable.');
   assert.equal(byTag(answer,'summary')[0].textContent,'Sources');
-  const firstGuide=guides[0];
   h.paint();
-  assert.equal(byClass(h.host,'inline-guide')[0],firstGuide,'Repaint must not recreate or replay teaching.');
+  assert.equal(byClass(h.host,'inline-guide').length,0);
 });
 
 test('current visual intent selects the existing guide independently of citations', () => {
@@ -969,20 +1019,18 @@ test('explicit none or invalid visual intent cannot fall back to a cited lesson 
     'Only older responses that lack the visual field retain the previous rendering contract.');
 });
 
-test('two successful turns retain the first guide without making a second guide from citations', () => {
+test('successive replies keep their sources and questions without prepared guides', () => {
   const h=harness(),url='https://www.medicare.gov/basics';
   const first={generated:{status:'complete'},reply:'These are the two main coverage paths.',facts:[],
     advisor:{visual:'routes',teachingFactIds:['routesintro'],sources:[{url,label:'Medicare basics'}]}};
   h.append('turn-one','What has you thinking about Medicare today?',
     'Turning 65 in November and looking to understand my Medicare options.',first);
   h.paint();
-  const firstGuide=byClass(h.host,'inline-guide')[0];
   const second={generated:{status:'complete'},reply:'Your current insurance helps determine what comes next.',facts:[],
     advisor:{visual:'none',teachingFactIds:['routesintro'],sources:[{url,label:'Medicare basics'},{url,label:'Duplicate'}]}};
   h.append('turn-two','Is this for you, someone you help, or just general research?','Me',second);
   h.paint();
-  assert.equal(byClass(h.host,'inline-guide').length,1);
-  assert.equal(byClass(h.host,'inline-guide')[0],firstGuide,'A later citation cannot replace or replay the original guide.');
+  assert.equal(byClass(h.host,'inline-guide').length,0);
   const secondExchange=h.host.children[1],sources=byClass(secondExchange,'sources');
   assert.equal(sources.length,1,'The citation remains inspectable even without another guide.');
   assert.equal(byTag(sources[0],'summary')[0].textContent,'Sources');
@@ -999,32 +1047,30 @@ test('two successful turns retain the first guide without making a second guide 
   assert.equal(h.host.children.length,2,'Request replay must not append a repeated exchange or graphic.');
 });
 
-test('a deliberate revisit may show the same guide again while failed generation never does', () => {
+test('revisit replies also omit prepared guides', () => {
   const h=harness(),advisor={visual:'routes',teachingFactIds:['routesintro'],sources:[]};
   h.append('introduction','','My Medicare options',{generated:{status:'complete'},reply:'Here are the coverage paths.',advisor});
   h.paint();
-  const original=byClass(h.host,'inline-guide')[0];
   h.append('requested-revisit','','Please explain the two paths again.',
     {generated:{status:'complete'},reply:'Let’s look at the two paths again.',advisor});
   h.paint();
-  assert.equal(byClass(h.host,'inline-guide').length,2,'Frontend honors the validated revisit decision.');
-  assert.equal(byClass(h.host,'inline-guide')[0],original);
+  assert.equal(byClass(h.host,'inline-guide').length,0);
   assert.equal(h.turnVisual({generated:{status:'unavailable'},advisor}),null);
 });
 
-test('fact and generated citations merge into one deduplicated Sources footer after the inline guide', () => {
+test('fact and generated citations merge while prepared text and guides stay hidden', () => {
   const h=harness(), first='https://www.medicare.gov/basics', second='https://www.medicare.gov/coverage', third='https://www.medicare.gov/plan-compare';
   const visual=h.turnVisual({advisor:{teachingFactIds:['routesintro']}});
   h.paint([{reply:'Here are the two coverage paths.',visual,
     facts:[{id:'routesintro',title:'Two coverage paths',text:'The paths arrange coverage differently.',source:first,
       sources:[{url:second,label:'Coverage details'},{url:first,label:'Repeated basics'}]}],
     sources:[{url:first,label:'Medicare basics'},{url:third,label:'Plan comparison'}]}]);
-  const answer=byClass(h.host,'chat-daylight')[0], guide=byClass(answer,'inline-guide')[0];
+  const answer=byClass(h.host,'chat-daylight')[0];
   const sources=byClass(answer,'sources');
   assert.equal(sources.length,1);
-  assert.equal(answer.children.at(-1),sources[0],'Sources follows both the explanation and graphic.');
-  assert.ok(answer.children.indexOf(guide)<answer.children.indexOf(sources[0]));
-  assert.equal(byClass(byClass(answer,'facts')[0],'sources').length,0);
+  assert.equal(answer.children.at(-1),sources[0]);
+  assert.equal(byClass(answer,'inline-guide').length,0);
+  assert.equal(byClass(answer,'facts').length,0);
   assert.equal(byTag(sources[0],'summary')[0].textContent,'Sources');
   assert.equal(byClass(sources[0],'reveal-word').length,0);
   assert.deepEqual(byTag(sources[0],'a').map(link=>link.href),[first,third,second]);

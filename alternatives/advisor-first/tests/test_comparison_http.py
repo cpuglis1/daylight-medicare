@@ -12,13 +12,16 @@ import uuid
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from server import build
 from comparison_evidence import PURPOSES
+from comparison_preview import preview_for_snapshot
+from guest_profiles import ProfileError
 
 
 class ComparisonHttpTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.temporary = tempfile.TemporaryDirectory()
-        cls.server = build(0, fixture=True, database=Path(cls.temporary.name)/'comparison.sqlite3')
+        cls.server = build(0, fixture=True, database=Path(cls.temporary.name)/'comparison.sqlite3',
+                           comparison_preview=True)
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.thread.start()
 
@@ -81,6 +84,41 @@ class ComparisonHttpTests(unittest.TestCase):
         self.assertEqual(self.request('/api/conversation/turn', payload, csrf=False)[0], 403)
         payload['comparison'] = {'accepted_release_id': 'forged'}
         self.assertEqual(self.request('/api/conversation/turn', payload)[0], 422)
+
+    def test_preview_recalculates_only_hospital_and_preserves_current_authority(self):
+        status, self.state = self.request('/api/conversation/turn', self.payload({'type': 'start'}))
+        self.assertEqual(status, 200)
+        payload = self.payload({'type': 'start'})
+        del payload['action']
+        path = '/api/comparison/review'
+        baseline = None
+        for days, expected in ((3, '540.00'), (4, '720.00')):
+            status, out = self.request(path, {**payload, 'preview_days': days})
+            self.assertEqual(status, 200, out)
+            self.assertEqual(out['continuation'], self.state['continuation'])
+            self.assertTrue(all(p['state'] == 'held' for p in out['comparison']['authority'].values()))
+            preview = out['comparison']['educational_preview']
+            self.assertEqual(preview['days'], days)
+            humana, erickson = preview['plans']
+            self.assertEqual(humana.pop('hospital_copay'), expected)
+            self.assertIsNone(erickson.pop('hospital_copay'))
+            self.assertIn('deductible', erickson['hospital_hold'])
+            if baseline is not None:
+                self.assertEqual(preview['plans'], baseline)
+            baseline = preview['plans']
+        for invalid in ({'preview_days': True}, {'preview_days': 5}, {'preview_days': 3, 'offering_id': 'H0000'},
+                        {'preview_days': 3, 'scope': {'year': 2027}}):
+            self.assertEqual(self.request(path, {**payload, **invalid})[0], 422)
+        self.assertEqual(self.request(path, {**payload, 'preview_days': 3}, csrf=False)[0], 403)
+        self.assertEqual(self.request(path, {**payload, 'preview_days': 3,
+                         'continuation': '0'*32+'.'+'0'*64})[0], 409)
+
+    def test_preview_declines_conflicting_reported_scope(self):
+        for county, year in (('12021', '2027'), ('12011', '2026')):
+            response = {'guide': {'fields': {'comparison.scope.county': {'value': {'fips': county}}}},
+                        'record': {'facts': {'RC03': {'value': {'year': year}}}}}
+            with self.assertRaises(ProfileError):
+                preview_for_snapshot({3: {}}, 3, response)
 
     def test_saved_profile_does_not_gain_derived_comparison_or_trace(self):
         status, out = self.request('/api/conversation/turn', self.payload({'type': 'start'}))

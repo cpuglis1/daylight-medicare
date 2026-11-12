@@ -234,6 +234,32 @@ class ConversationClaimTests(unittest.TestCase):
         question = 'Would you like to explore how drug coverage works?'
         self.assertEqual(self.validate(question=question)['question'], question)
 
+    def test_resolved_start_cannot_be_reasked_as_an_untargeted_preference(self):
+        self.flow.capture(self.g, self.r, {'id':'T04','entity':'profile',
+            'fields':{'choice':'month','month':'2027-08'}})
+        self.context = self.flow.context(self.g, self.r, CONTEXT_POLICY, self.flow.question('T05'))
+        self.moves = self.flow.eligible('fictional-validation', self.g, self.r)
+        self.assertFalse(any(item['id'] == 'T04' for item in self.moves))
+        reply = 'We can leave that preference as you stated it.'
+        for question in [
+                'Do you want Medicare to start as soon as possible around then, or in August 2027 specifically?',
+                'When would you like Medicare coverage to start?',
+                'Would you prefer your coverage to begin as soon as possible?']:
+            with self.subTest(question=question):
+                out = self.validate(reply=reply + ' ' + question, question=question)
+                self.assertEqual(out['reply'], reply)
+                self.assertEqual(out['question'], '')
+                self.assertIsNone(out['question_target'])
+
+    def test_timing_explanation_invitation_is_not_a_start_preference_request(self):
+        question = 'Would you like to understand how Medicare start dates work?'
+        self.assertEqual(self.validate(question=question)['question'], question)
+
+    def test_approved_start_question_remains_available_when_needed(self):
+        question = 'When would you like Medicare coverage to start?'
+        self.moves = [{'id':'T04','question':self.flow.question('T04')}]
+        self.assertEqual(self.validate(question_target='T04', question=question)['question'], question)
+
     def test_pause_omits_selected_practical_question_and_preserves_reply(self):
         reply = 'We can pause here.'
         out = self.validate(reply=reply, question_target='T05',
@@ -441,7 +467,7 @@ class CapturedTurnFourTests(unittest.TestCase):
         # inline, without creating a practical question candidate.
         expected_reply = '\n\n'.join(part for part in
                                     (captured['composition']['reply'], captured['composition']['question']) if part)
-        self.assertEqual(out['reply'], expected_reply)
+        self.assertTrue(out['reply'].startswith(expected_reply))  # Active fixture now includes a follow-up.
         self.assertIsNone(out['assessment']['nextQuestion'])
         self.assertEqual(out['generated']['status'], 'complete')
         self.assertEqual(len(self.calls) - before, 2)

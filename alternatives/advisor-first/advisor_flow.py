@@ -64,7 +64,8 @@ class AdvisorConversation(AdaptiveConversation):
             if not isinstance(value,dict):raise ProfileError('Use a current reported situation.')
             if kind=='retirement':
                 if set(value)!={'status','when'} or value['status'] not in {'retired','retiring','working'} or not isinstance(value['when'],str) or len(value['when'])>80:raise ProfileError('Use the reported work status.')
-            elif set(value)!={'month','year'} or type(value['month']) is not int or not 1<=value['month']<=12 or value['year'] is not None and (type(value['year']) is not int or not 1900<=value['year']<=2099):raise ProfileError('Keep the stated birthday month and any unstated year separate.')
+            elif (set(value)-{'first_day'}!={'month','year'} or ('first_day' in value and type(value['first_day']) is not bool) or type(value['month']) is not int or not 1<=value['month']<=12 or value['year'] is not None and (type(value['year']) is not int or not 1900<=value['year']<=2099)):
+                raise ProfileError('Use the reported birthday month and first-of-month detail.')
         return guide,record
 
     def save(self,token,csrf,payload):

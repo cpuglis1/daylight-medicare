@@ -287,7 +287,10 @@ class OngoingAdvisorTests(unittest.TestCase):
         extraction_call, advisor_call = self.calls
         properties = extraction_call['text']['format']['schema']['properties']
         self.assertEqual(set(properties), {'updates', 'requests', 'fact_ids', 'agenda',
-                                          'situation_proposals', 'goal_quote', 'education_request'})
+                                          'situation_proposals', 'goal_quote', 'education_request',
+                                          'learner_observations', 'discourse_note'})
+        self.assertEqual(set(properties['learner_observations']['items']['properties']),
+                         {'concept_id', 'aspect_ids', 'signal', 'subject', 'quote', 'interpretation'})
         self.assertTrue({'mode', 'task', 'practical_request', 'move_id', 'reason_id'}.isdisjoint(properties))
         sent = json.loads(advisor_call['input'][0]['content'])
         self.assertIn('question_candidates', sent)
@@ -337,7 +340,7 @@ class OngoingAdvisorTests(unittest.TestCase):
                 reply=reply, report_refs=['guide.coverage.current', 'readiness.RC09.profile.choice']))
         sent = self.stage_payloads('daylight_resolved_conversation')[-1]
         self.assertIn('T03', {item['id'] for item in sent['question_candidates']})
-        self.assertEqual(sent['resolved_context']['advisor_brief']['decision']['focus'], 'timing')
+        self.assertEqual(sent['resolved_context']['advisor_brief']['decision']['focus'], 'plan_preparation')
         reports = {item['id']: item for item in sent['resolved_context']['reports']}
         self.assertEqual(reports['readiness.RC09.profile.choice']['value'], 'spouse_job')
         self.assertEqual(reports['guide.coverage.current']['value'], ['employer'])

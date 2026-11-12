@@ -1,0 +1,3361 @@
+{
+  "authority": {
+    "enrollment": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "personal_comparison": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "published_display": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "quote": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "ranking": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    },
+    "recommendation": {
+      "authority_refs": [],
+      "reason_codes": [
+        "EXACT_RELEASE_REQUIRED",
+        "SOURCE_USE_REVIEW_REQUIRED",
+        "POLICY_NOT_ACCEPTED"
+      ],
+      "state": "held"
+    }
+  },
+  "automatic_profile_binding": false,
+  "before_after_source_accounting": [
+    {
+      "after_counts": {
+        "entity_candidates": 1,
+        "location_observations": 2,
+        "role_observations": 2,
+        "site_candidates": 2,
+        "source_conflicts": 0,
+        "source_observation_locators": 5,
+        "sources": 2
+      },
+      "after_identity_state": "site_disambiguation_required",
+      "before_counts": {
+        "entity_candidates": 1,
+        "location_observations": 2,
+        "role_observations": 2,
+        "site_candidates": 2,
+        "source_conflicts": 0,
+        "source_observation_locators": 5,
+        "sources": 2
+      },
+      "before_identity_state": "site_disambiguation_required",
+      "case_id": "multi_site",
+      "native_site_candidate_ids_unchanged": true
+    },
+    {
+      "after_counts": {
+        "entity_candidates": 1,
+        "location_observations": 1,
+        "role_observations": 1,
+        "site_candidates": 1,
+        "source_conflicts": 0,
+        "source_observation_locators": 2,
+        "sources": 2
+      },
+      "after_identity_state": "partial_identity_candidates",
+      "before_counts": {
+        "entity_candidates": 1,
+        "location_observations": 1,
+        "role_observations": 1,
+        "site_candidates": 1,
+        "source_conflicts": 0,
+        "source_observation_locators": 2,
+        "sources": 2
+      },
+      "before_identity_state": "partial_identity_candidates",
+      "case_id": "role_without_separately_retained_actor",
+      "native_site_candidate_ids_unchanged": true
+    },
+    {
+      "after_counts": {
+        "entity_candidates": 1,
+        "location_observations": 1,
+        "role_observations": 0,
+        "site_candidates": 1,
+        "source_conflicts": 0,
+        "source_observation_locators": 1,
+        "sources": 1
+      },
+      "after_identity_state": "site_identity_candidate",
+      "before_counts": {
+        "entity_candidates": 1,
+        "location_observations": 1,
+        "role_observations": 0,
+        "site_candidates": 1,
+        "source_conflicts": 0,
+        "source_observation_locators": 1,
+        "sources": 1
+      },
+      "before_identity_state": "site_identity_candidate",
+      "case_id": "location_only",
+      "native_site_candidate_ids_unchanged": true
+    },
+    {
+      "after_counts": {
+        "entity_candidates": 0,
+        "location_observations": 0,
+        "role_observations": 0,
+        "site_candidates": 0,
+        "source_conflicts": 1,
+        "source_observation_locators": 0,
+        "sources": 0
+      },
+      "after_identity_state": "source_identity_conflict",
+      "before_counts": {
+        "entity_candidates": 0,
+        "location_observations": 0,
+        "role_observations": 0,
+        "site_candidates": 0,
+        "source_conflicts": 1,
+        "source_observation_locators": 0,
+        "sources": 0
+      },
+      "before_identity_state": "source_identity_conflict",
+      "case_id": "native_npi_conflict",
+      "native_site_candidate_ids_unchanged": true
+    },
+    {
+      "after_counts": {
+        "entity_candidates": 0,
+        "location_observations": 0,
+        "role_observations": 0,
+        "site_candidates": 0,
+        "source_conflicts": 0,
+        "source_observation_locators": 0,
+        "sources": 0
+      },
+      "after_identity_state": "not_observed_in_selected_directory",
+      "before_counts": {
+        "entity_candidates": 0,
+        "location_observations": 0,
+        "role_observations": 0,
+        "site_candidates": 0,
+        "source_conflicts": 0,
+        "source_observation_locators": 0,
+        "sources": 0
+      },
+      "before_identity_state": "not_observed_in_selected_directory",
+      "case_id": "absent_exact_npi",
+      "native_site_candidate_ids_unchanged": true
+    }
+  ],
+  "binding": {
+    "accepted_release_id": null,
+    "adapter_sha256": "0bad1e182f51c2c74fb6cff422dcbdbfadd39c7cf901aaab615cae2fe7b7a2da",
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "manifest_sha256": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+    "selected_derivations": {
+      "entities": {
+        "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+        "derivation_id": "3bc7f08b8f41af6aca732a519aba459635c944d2dc148397901461b66f7eab7d",
+        "layer_id": "L08",
+        "source_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+        "source_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+        "source_table": "entities"
+      },
+      "locations": {
+        "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+        "derivation_id": "507a27eaba33183032228e1f5366b49c1a74c976f2587a16b43d21d2922b07f4",
+        "layer_id": "L08",
+        "source_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+        "source_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+        "source_table": "locations"
+      },
+      "observations": {
+        "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+        "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+        "layer_id": "L08",
+        "source_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+        "source_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+        "source_table": "observations"
+      },
+      "roles": {
+        "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+        "derivation_id": "e0d86041dc4cd499a3d905930808eee9f6e7e62c6e860cdb268c50f6a382d65a",
+        "layer_id": "L08",
+        "source_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+        "source_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+        "source_table": "roles"
+      },
+      "source_conflicts": {
+        "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+        "derivation_id": "c35b4e987a1fce6d4de28c0db7e965939ccddb4a15176b8c493cc947940cbb0b",
+        "layer_id": "L08",
+        "source_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+        "source_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+        "source_table": "source_conflicts"
+      },
+      "sources": {
+        "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+        "derivation_id": "9953c7399d3af92efde37ee4b12d5e96c0cfa4ba887f8c7e815b9ed4dc5ce7ef",
+        "layer_id": "L08",
+        "source_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+        "source_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+        "source_table": "sources"
+      }
+    },
+    "snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee"
+  },
+  "binding_control_hashes": {
+    "BUILD_MANIFEST.json": "6a10de05227dc72b4c86ce10b5ce407dfce94d669cd07ada2a589bce013f079d",
+    "LOAD_COMPLETE.json": "8fe943aa4510fe626adede59049b580f5d19294aef89097bf92989569aa76efb",
+    "TARGET.json": "5cfcb3ef33da4e83a28ea2dc2fb56cafe7ff2f5c7e792ad581a2e60701214160",
+    "units/6fe06c57bf798b79b6028e1784364877683332401b99c26c33538633966b54be.json": "98f04212e9dcf65ef8f1d7c1e51698030f9307c02a46d91e08c2a7bef19077b7",
+    "units/96b14d238acf8f8c37ae0dc1221c57d6dae3ba707d261456bb10efa1917e394b.json": "090ac59df0eae140a3b7f494dc9a13880115c58fbd30d58e7f0115c0166c5ca8",
+    "units/a7c4b88735d8fa694d7f44ac03f530f47212c1d3c65f5efc25f679313e927e5a.json": "48cb6f8cbde069bd9b1ef2a3bbf62e4dbab5ade173ba2c038db7f7d65d3d75f5",
+    "units/ac50536928058b88ce476bb1f0367f119892485da8bb0deb4f9389b98422e84e.json": "9699f1875fe01f23cb11b7cab2d93b6875299e61ca00e775daa80d181103999c",
+    "units/ca7c59d0d3915f83078fd1b6788a1387b9918d275f67580ab0cc10e67fa160d3.json": "31d37ad1357489f86a0473eb7774e6fa14c4bba0ae6f060c3968b08987c5364b",
+    "units/fdfa10830f4ccea8dd0560cb33b55944ab8bb9abd1f9890a38b7f3a365af2779.json": "00e103a2e27b8f21a69c971e99e341459dfc773efc149858336695fbaaf28e8b"
+  },
+  "cases": [
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+      "case_id": "multi_site",
+      "consumer_release": false,
+      "counts": {
+        "entity_candidates": 1,
+        "location_observations": 2,
+        "role_observations": 2,
+        "site_candidates": 2,
+        "source_conflicts": 0,
+        "source_observation_locators": 5,
+        "sources": 2
+      },
+      "identity_state": "site_disambiguation_required",
+      "native_conflict_fields": [],
+      "operator_only": true,
+      "page": {
+        "entities_have_more": false,
+        "next_entity_ordinal": null,
+        "next_role_ordinal": null,
+        "ordering": "source_row_ordinal_then_source_location_reference",
+        "roles_have_more": false,
+        "site_candidates_have_more": false,
+        "site_continuation": "not_supported_within_selected_window",
+        "site_edges_in_selected_window": 2,
+        "site_edges_omitted": 0,
+        "snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee"
+      },
+      "partial": {
+        "is_partial": false,
+        "locators_without_pointer": [],
+        "locators_without_source_id": [],
+        "missing_location_keys": [],
+        "missing_observation_ids": [],
+        "missing_source_ids": [],
+        "records_without_observation_id": [],
+        "unfetched_location_keys": [],
+        "unresolved_role_actor_keys": []
+      },
+      "record_checks": [
+        {
+          "candidate_id": "L08:entity:d7f808965cc260ed58c86cd0e5b49e799afe13f8bda4f4793b661ea10cd26e23",
+          "conditions_sha256": "bc61c8ff45e3bc4a70754430d2ce1fe8e6870d227e661e73ff8db40d75ac8169",
+          "entity_key": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "group": "entity_candidates",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "3bc7f08b8f41af6aca732a519aba459635c944d2dc148397901461b66f7eab7d",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "cdf96ebc0fedfda748439c3484e47c9611a7f2e7dacacff7589223058cae2840",
+            "record_id": "0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2\"]",
+            "source_row_ordinal": 78557,
+            "source_table": "entities"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe",
+          "source_native_fields_sha256": "d2da432917b44dd04d7e72f90095ca7c4accb088b4049ee0037da36c284c06de",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": "Organization"
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "6bbbf61fe6e31668e9b667bf6866fb8e6cf8197da79abaf0bf49f58616fb3249",
+          "entity_key": "flex.optum.com/OrganizationAffiliation/SJ8o5ozslyO4PjuD9GmsrBWd2lf7BTlTQYtQWK85Lqb",
+          "group": "role_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "e0d86041dc4cd499a3d905930808eee9f6e7e62c6e860cdb268c50f6a382d65a",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "bf980fc679b291273ce31c190530ab4d2065d05828113ab4121fd34642f547fc",
+            "record_id": "c984344fd352c64e931d016e4f5a7adc787d1607a45f5a2996d59804448423ff",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"flex.optum.com/OrganizationAffiliation/SJ8o5ozslyO4PjuD9GmsrBWd2lf7BTlTQYtQWK85Lqb\"]",
+            "source_row_ordinal": 70801,
+            "source_table": "roles"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:c984344fd352c64e931d016e4f5a7adc787d1607a45f5a2996d59804448423ff",
+          "source_native_fields_sha256": "5056681fb981627340101e8a2256dd6edb4fbfcf16226d31adc3efc312ff004a",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "6983e992f4e0d9ef1c55e7fcf605586c15ecb3acbe88e0fca156644bbf76ed39",
+          "entity_key": "flex.optum.com/OrganizationAffiliation/kZlasuy9xmrLMNX9bNWUUhOLm84kSgNx2FiABXH75QR",
+          "group": "role_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "e0d86041dc4cd499a3d905930808eee9f6e7e62c6e860cdb268c50f6a382d65a",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "58d3bbde1a086cbac3caeb1604c4c539e90ffacaac4ce363de07c74eccfd8879",
+            "record_id": "b37c062f4faf5c07fc0e4ce82c193012a3ad0fa4c51bd22235d24eefeca099a1",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"flex.optum.com/OrganizationAffiliation/kZlasuy9xmrLMNX9bNWUUhOLm84kSgNx2FiABXH75QR\"]",
+            "source_row_ordinal": 70840,
+            "source_table": "roles"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:b37c062f4faf5c07fc0e4ce82c193012a3ad0fa4c51bd22235d24eefeca099a1",
+          "source_native_fields_sha256": "b5bf57caffaff07301d4a5a5a1afcbc5caf7a3d9d4ea46f53bb029cdf73db5c3",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": "flex.optum.com/Location/PFtCnOFg4MOGjPUv5cfql3Onl3l4aijxSkPhNos7NwZ",
+          "group": "location_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "507a27eaba33183032228e1f5366b49c1a74c976f2587a16b43d21d2922b07f4",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "472a72d72ab53b98ecdbb2dd828166aa7bbdadc51c99d535715596c981348900",
+            "record_id": "f88f24ff03f211a2d7a113306bb332b6884be04cf2ff3f0f8e2a73f98accf194",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"flex.optum.com/Location/PFtCnOFg4MOGjPUv5cfql3Onl3l4aijxSkPhNos7NwZ\"]",
+            "source_row_ordinal": 5284,
+            "source_table": "locations"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:f88f24ff03f211a2d7a113306bb332b6884be04cf2ff3f0f8e2a73f98accf194",
+          "source_native_fields_sha256": "f5504b462abc51c43a3be1cad3acb7b7dcb93548161641847dd8dd4c21095e78",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": "flex.optum.com/Location/dpLqEmFHx4WdMhCwWCQoPJCisLMbU55iQrVc88mEyUV",
+          "group": "location_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "507a27eaba33183032228e1f5366b49c1a74c976f2587a16b43d21d2922b07f4",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "916faf1b46f7b83e402eeb060dbe35a6abd3cff3567921387a5239bbc03f547f",
+            "record_id": "4873d12db71301f12fec2a8b804bc20e2b374d12dfc692aeeee653d2bbe6f631",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"flex.optum.com/Location/dpLqEmFHx4WdMhCwWCQoPJCisLMbU55iQrVc88mEyUV\"]",
+            "source_row_ordinal": 5585,
+            "source_table": "locations"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:4873d12db71301f12fec2a8b804bc20e2b374d12dfc692aeeee653d2bbe6f631",
+          "source_native_fields_sha256": "14db278caf986842f16f03126f89512219627005dea233914d24666aab6b1453",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": null,
+          "group": "sources",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "9953c7399d3af92efde37ee4b12d5e96c0cfa4ba887f8c7e815b9ed4dc5ce7ef",
+            "ordinal_basis": "sqlite_primary_key_order:id",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "084a97f8363eead2d50e08b0ec8674bd06ff56298e9986980b76bdccf2a940c4",
+            "record_id": "595f4afcd5d49e868e3762e234e6da740e466f9e1d4083561e365effdd6fb4a5",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"206c3da5fbbbc1044f53195b9c2c4dd2bdd3689ed03e374cdea8fbe4156496ba\"]",
+            "source_row_ordinal": 155,
+            "source_table": "sources"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:595f4afcd5d49e868e3762e234e6da740e466f9e1d4083561e365effdd6fb4a5",
+          "source_native_fields_sha256": "32c95f80db061d8c48c01452b0b4f22d4c423108965cfffe8f908a7bdcaf95d6",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": null,
+          "group": "sources",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "9953c7399d3af92efde37ee4b12d5e96c0cfa4ba887f8c7e815b9ed4dc5ce7ef",
+            "ordinal_basis": "sqlite_primary_key_order:id",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "0381a133b1871c0f154307be1e3bf5332b3b30b421606da7f033260c3da058eb",
+            "record_id": "cd4cad951ceff780bad8560deb2118c80c528b59c9fbd9e482c626d5cff851d3",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"c00f3f8e7a9e4ab39cc3d349bb1a6b53f8d32c099f912f959dc8ae582acb8c3e\"]",
+            "source_row_ordinal": 887,
+            "source_table": "sources"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:cd4cad951ceff780bad8560deb2118c80c528b59c9fbd9e482c626d5cff851d3",
+          "source_native_fields_sha256": "7e55fc96fba0b3346269714cd454b7daf60764dcf7862419d8114ebec4d6ad72",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        }
+      ],
+      "request": {
+        "npi": "1922013515"
+      },
+      "result_sha256": "daf5a0fac3f810e97468c0e4ebb8def72baea7260cb277cce1bc32f71c0c1b5c",
+      "site_candidates": [
+        {
+          "actor_resolution_state": "explicit_source_actor_entity",
+          "appointment_availability": "not_evaluated",
+          "automatic_profile_binding": false,
+          "candidate_id": "L08:site:a63e96fd0ab5391439e84ad6180ee847e195d1b79248b36bc92dce63aa03a552",
+          "current_practice_status": "dated_source_not_reverified",
+          "entity_key": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "entity_ref": "L08:0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe",
+          "entity_type": "Organization",
+          "identity_state": "requires_explicit_site_disambiguation",
+          "kind": "provider_site",
+          "location_key": "flex.optum.com/Location/dpLqEmFHx4WdMhCwWCQoPJCisLMbU55iQrVc88mEyUV",
+          "location_ref": "L08:4873d12db71301f12fec2a8b804bc20e2b374d12dfc692aeeee653d2bbe6f631",
+          "lookup_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+          "namespace": "retained_L08_composite_directory_site",
+          "network_status": "not_evaluated",
+          "output_authority": "held",
+          "participation_status": "not_evaluated",
+          "relation_basis": "explicit_role_provider_key_and_location_reference",
+          "role_actor_key": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "role_key": "flex.optum.com/OrganizationAffiliation/SJ8o5ozslyO4PjuD9GmsrBWd2lf7BTlTQYtQWK85Lqb",
+          "role_ref": "L08:c984344fd352c64e931d016e4f5a7adc787d1607a45f5a2996d59804448423ff",
+          "source_component": "wellcare-r5_composite_reference",
+          "source_identity_conflict_refs": [],
+          "source_location": {
+            "address": {
+              "city": "Inglewood",
+              "country": "USA",
+              "line": [
+                "323 N Prairie Ave Ste 334"
+              ],
+              "postalCode": "90301-4501",
+              "state": "CA",
+              "text": "323 N Prairie Ave Ste 334 Inglewood CA 90301-4501",
+              "type": "physical",
+              "use": "work"
+            },
+            "name": "323 N Prairie Ave Ste 334-Inglewood-CA-90301-903014501",
+            "position": {
+              "latitude": "33.966286477617",
+              "longitude": "-118.343986411739"
+            },
+            "telecom": null
+          },
+          "source_name": "Pacific Nephrology Medical Grp",
+          "source_npis": [
+            "1922013515"
+          ],
+          "source_organization_reference": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "source_periods": {
+            "entity": null,
+            "role": {
+              "end": "9999-12-31",
+              "start": "0001-01-01"
+            }
+          }
+        },
+        {
+          "actor_resolution_state": "explicit_source_actor_entity",
+          "appointment_availability": "not_evaluated",
+          "automatic_profile_binding": false,
+          "candidate_id": "L08:site:ba9a214683c3c4960985286ffec595f7f7599a68c75df79d451371d98a23c00b",
+          "current_practice_status": "dated_source_not_reverified",
+          "entity_key": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "entity_ref": "L08:0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe",
+          "entity_type": "Organization",
+          "identity_state": "requires_explicit_site_disambiguation",
+          "kind": "provider_site",
+          "location_key": "flex.optum.com/Location/PFtCnOFg4MOGjPUv5cfql3Onl3l4aijxSkPhNos7NwZ",
+          "location_ref": "L08:f88f24ff03f211a2d7a113306bb332b6884be04cf2ff3f0f8e2a73f98accf194",
+          "lookup_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+          "namespace": "retained_L08_composite_directory_site",
+          "network_status": "not_evaluated",
+          "output_authority": "held",
+          "participation_status": "not_evaluated",
+          "relation_basis": "explicit_role_provider_key_and_location_reference",
+          "role_actor_key": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "role_key": "flex.optum.com/OrganizationAffiliation/kZlasuy9xmrLMNX9bNWUUhOLm84kSgNx2FiABXH75QR",
+          "role_ref": "L08:b37c062f4faf5c07fc0e4ce82c193012a3ad0fa4c51bd22235d24eefeca099a1",
+          "source_component": "wellcare-r5_composite_reference",
+          "source_identity_conflict_refs": [],
+          "source_location": {
+            "address": {
+              "city": "Culver City",
+              "country": "USA",
+              "line": [
+                "3831 Hughes Ave Ste 603"
+              ],
+              "postalCode": "90232-6846",
+              "state": "CA",
+              "text": "3831 Hughes Ave Ste 603 Culver City CA 90232-6846",
+              "type": "physical",
+              "use": "work"
+            },
+            "name": "3831 Hughes Ave Ste 603-Culver City-CA-90232-902326846",
+            "position": {
+              "latitude": "34.022476744849",
+              "longitude": "-118.398168794065"
+            },
+            "telecom": null
+          },
+          "source_name": "Pacific Nephrology Medical Grp",
+          "source_npis": [
+            "1922013515"
+          ],
+          "source_organization_reference": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "source_periods": {
+            "entity": null,
+            "role": {
+              "end": "9999-12-31",
+              "start": "0001-01-01"
+            }
+          }
+        }
+      ],
+      "source_access_registration": {
+        "absence_is_permission": false,
+        "output_authority": "held",
+        "requested_source_ids": [
+          "sealed-local:L08",
+          "L08"
+        ],
+        "state": "unregistered"
+      },
+      "source_access_states": [],
+      "source_observation_locators": [
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:b044a8f93e3ab09e61253679a6af2a179de40340fb5538958388ddec5a1d57a8",
+          "entity_key": "flex.optum.com/Location/dpLqEmFHx4WdMhCwWCQoPJCisLMbU55iQrVc88mEyUV",
+          "entity_type": "provider_observations",
+          "observation_id": "04274559f01d79817c1f7f4d776493af63d1eb8578e2dbc59f50cc15ce7e45c9",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/2/resource",
+          "primary_record_refs": [
+            "L08:4873d12db71301f12fec2a8b804bc20e2b374d12dfc692aeeee653d2bbe6f631"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "57ee9a54d401b1bee889513190ad2f8de2a97d916ecfd530d22d81ce39b469ac",
+          "record_id": "b044a8f93e3ab09e61253679a6af2a179de40340fb5538958388ddec5a1d57a8",
+          "resource_type": "Location",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "206c3da5fbbbc1044f53195b9c2c4dd2bdd3689ed03e374cdea8fbe4156496ba",
+          "source_row_key": "[\"04274559f01d79817c1f7f4d776493af63d1eb8578e2dbc59f50cc15ce7e45c9\"]",
+          "source_row_ordinal": 1395,
+          "source_table": "observations"
+        },
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:19683c692855403ce8f6479a34b41b7bb1dbb6ee1a4d66f090859e8871b1f7b9",
+          "entity_key": "flex.optum.com/Location/PFtCnOFg4MOGjPUv5cfql3Onl3l4aijxSkPhNos7NwZ",
+          "entity_type": "provider_observations",
+          "observation_id": "0e01bfa0fa12d7ccde9645e70ddba963725edc74c5513b98887d14ab3d26fa46",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/3/resource",
+          "primary_record_refs": [
+            "L08:f88f24ff03f211a2d7a113306bb332b6884be04cf2ff3f0f8e2a73f98accf194"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "b5ecdd7b58f480cc9e07d63b1606ba54be5af412f35d5ed2ed576bc2e39c6a72",
+          "record_id": "19683c692855403ce8f6479a34b41b7bb1dbb6ee1a4d66f090859e8871b1f7b9",
+          "resource_type": "Location",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "206c3da5fbbbc1044f53195b9c2c4dd2bdd3689ed03e374cdea8fbe4156496ba",
+          "source_row_key": "[\"0e01bfa0fa12d7ccde9645e70ddba963725edc74c5513b98887d14ab3d26fa46\"]",
+          "source_row_ordinal": 4478,
+          "source_table": "observations"
+        },
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:e157569d2b22c52302426b1f29efe1e055f54cc1b12ffce07c999d7110748d8a",
+          "entity_key": "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2",
+          "entity_type": "provider_observations",
+          "observation_id": "151a1d0b44d9c80bdbbbbf11b169bc7f2970b8c64ba2d843f1e7ce33b3b5ca64",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/0/resource",
+          "primary_record_refs": [
+            "L08:0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "fd268fb926c21b0ecb93996811128697c00aabf28988dadbbe43419e44330c5a",
+          "record_id": "e157569d2b22c52302426b1f29efe1e055f54cc1b12ffce07c999d7110748d8a",
+          "resource_type": "Organization",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "c00f3f8e7a9e4ab39cc3d349bb1a6b53f8d32c099f912f959dc8ae582acb8c3e",
+          "source_row_key": "[\"151a1d0b44d9c80bdbbbbf11b169bc7f2970b8c64ba2d843f1e7ce33b3b5ca64\"]",
+          "source_row_ordinal": 6765,
+          "source_table": "observations"
+        },
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:c403a3622359f15b36fef4f4fbc9df82123b29698953d35c51d93b4dd4a3153b",
+          "entity_key": "flex.optum.com/OrganizationAffiliation/kZlasuy9xmrLMNX9bNWUUhOLm84kSgNx2FiABXH75QR",
+          "entity_type": "provider_observations",
+          "observation_id": "898d72a8fb6d380f1391f4f57935a41d396ee6590339adfd1cc5388d7cd20f9f",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/1/resource",
+          "primary_record_refs": [
+            "L08:b37c062f4faf5c07fc0e4ce82c193012a3ad0fa4c51bd22235d24eefeca099a1"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "431f1b0ce0444fc8785c2934bb95025c6b319d50a40abf34405477780e8d90b9",
+          "record_id": "c403a3622359f15b36fef4f4fbc9df82123b29698953d35c51d93b4dd4a3153b",
+          "resource_type": "OrganizationAffiliation",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "206c3da5fbbbc1044f53195b9c2c4dd2bdd3689ed03e374cdea8fbe4156496ba",
+          "source_row_key": "[\"898d72a8fb6d380f1391f4f57935a41d396ee6590339adfd1cc5388d7cd20f9f\"]",
+          "source_row_ordinal": 44111,
+          "source_table": "observations"
+        },
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:c2faa008fc33e88c74c52ab6bc907d5fe761ef2ac9d0f43212cafcc2034b4174",
+          "entity_key": "flex.optum.com/OrganizationAffiliation/SJ8o5ozslyO4PjuD9GmsrBWd2lf7BTlTQYtQWK85Lqb",
+          "entity_type": "provider_observations",
+          "observation_id": "db973a0062157d066f0da3aa7c27dc997a1acc1d1676ea7a5d30234a917a456a",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/0/resource",
+          "primary_record_refs": [
+            "L08:c984344fd352c64e931d016e4f5a7adc787d1607a45f5a2996d59804448423ff"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "dfa5fd6370332c50a56d0122885ba68a203b95e8376cabf338077a6f95982b36",
+          "record_id": "c2faa008fc33e88c74c52ab6bc907d5fe761ef2ac9d0f43212cafcc2034b4174",
+          "resource_type": "OrganizationAffiliation",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "206c3da5fbbbc1044f53195b9c2c4dd2bdd3689ed03e374cdea8fbe4156496ba",
+          "source_row_key": "[\"db973a0062157d066f0da3aa7c27dc997a1acc1d1676ea7a5d30234a917a456a\"]",
+          "source_row_ordinal": 70287,
+          "source_table": "observations"
+        }
+      ]
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+      "case_id": "role_without_separately_retained_actor",
+      "consumer_release": false,
+      "counts": {
+        "entity_candidates": 1,
+        "location_observations": 1,
+        "role_observations": 1,
+        "site_candidates": 1,
+        "source_conflicts": 0,
+        "source_observation_locators": 2,
+        "sources": 2
+      },
+      "identity_state": "partial_identity_candidates",
+      "native_conflict_fields": [],
+      "operator_only": true,
+      "page": {
+        "entities_have_more": false,
+        "next_entity_ordinal": null,
+        "next_role_ordinal": null,
+        "ordering": "source_row_ordinal_then_source_location_reference",
+        "roles_have_more": false,
+        "site_candidates_have_more": false,
+        "site_continuation": "not_supported_within_selected_window",
+        "site_edges_in_selected_window": 1,
+        "site_edges_omitted": 0,
+        "snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee"
+      },
+      "partial": {
+        "is_partial": true,
+        "locators_without_pointer": [],
+        "locators_without_source_id": [],
+        "missing_location_keys": [],
+        "missing_observation_ids": [],
+        "missing_source_ids": [],
+        "records_without_observation_id": [],
+        "unfetched_location_keys": [],
+        "unresolved_role_actor_keys": [
+          "fhir.humana.com/Practitioner/f331b5adf3c8c3439e085b170d46d6c419bd455972e56700157192d304d53f5b"
+        ]
+      },
+      "record_checks": [
+        {
+          "candidate_id": "L08:entity:22d9baf4e2f022c08940fdc82a3cee5b283a86a8a48d0dfa3c9870b4c9559581",
+          "conditions_sha256": "bc61c8ff45e3bc4a70754430d2ce1fe8e6870d227e661e73ff8db40d75ac8169",
+          "entity_key": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef",
+          "group": "entity_candidates",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "3bc7f08b8f41af6aca732a519aba459635c944d2dc148397901461b66f7eab7d",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "d18a06c76a207d7ebd8797e03b1701a437dddedc3ea80af760cc685ad8d65e4f",
+            "record_id": "702a781a433ca321321478809a3899081da8592bd020f0195fc8b1fde7958cb8",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef\"]",
+            "source_row_ordinal": 24209,
+            "source_table": "entities"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:702a781a433ca321321478809a3899081da8592bd020f0195fc8b1fde7958cb8",
+          "source_native_fields_sha256": "9caeb26f677648c0284ae9ed9f7ff4410d705035b12876f11669a8e6b95c90e9",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": "PractitionerRole"
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "88c4ed590252ceb6e2a74ea2dac9e4fde2c899e69eeb151b6c8e257c30f92a1b",
+          "entity_key": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef",
+          "group": "role_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "e0d86041dc4cd499a3d905930808eee9f6e7e62c6e860cdb268c50f6a382d65a",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "ebde35b7044c9c1a54b1c1f05d74e1e368aead7b3f83f25591367aa60a1c9224",
+            "record_id": "c3fbd1d73b857c240746bfb5ce8291bbd20df94c5ea0a16ee65665932e8d3c57",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef\"]",
+            "source_row_ordinal": 17758,
+            "source_table": "roles"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:c3fbd1d73b857c240746bfb5ce8291bbd20df94c5ea0a16ee65665932e8d3c57",
+          "source_native_fields_sha256": "f1ae49844c868c1301f576e1e2ddbe8fea662f701665dd2bebd417cb0ad58576",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": "fhir.humana.com/Location/b72416783e810a6a489f6ae4143ffa6a95f2b19aa2bed8dffd7bfafafb2bad6b",
+          "group": "location_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "507a27eaba33183032228e1f5366b49c1a74c976f2587a16b43d21d2922b07f4",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "f3dd65d8cef96072cde5a5fb992621d228d6ffbffa2fa525219f7e06d731f3ce",
+            "record_id": "9ca45f170d287546c6881d2254bc8c213aaf3517b1858a52659fca0529ea1ae7",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"fhir.humana.com/Location/b72416783e810a6a489f6ae4143ffa6a95f2b19aa2bed8dffd7bfafafb2bad6b\"]",
+            "source_row_ordinal": 4263,
+            "source_table": "locations"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:9ca45f170d287546c6881d2254bc8c213aaf3517b1858a52659fca0529ea1ae7",
+          "source_native_fields_sha256": "b9da1db951e36018151efa5a5524c0dead7338aa1681d3daa779902b36b66be4",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": null,
+          "group": "sources",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "9953c7399d3af92efde37ee4b12d5e96c0cfa4ba887f8c7e815b9ed4dc5ce7ef",
+            "ordinal_basis": "sqlite_primary_key_order:id",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "e7dbeda92b2a0810dce8da8e4efe2ac05e0ae53ee3b274d555c0a23ed1e44d2b",
+            "record_id": "a6d6e55366e61fdc5e6194e71e491e902cfe26a7e2e4eb24b8699159484afd7f",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"4985593106817593e17ff9f9b48922fa3cd6a3f90b122163af1042dcbb47a60d\"]",
+            "source_row_ordinal": 379,
+            "source_table": "sources"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:a6d6e55366e61fdc5e6194e71e491e902cfe26a7e2e4eb24b8699159484afd7f",
+          "source_native_fields_sha256": "131b467248558caa12ee96dbfef7839dd35c8d0cef8ef545f5ce801025756ca1",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": null,
+          "group": "sources",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "9953c7399d3af92efde37ee4b12d5e96c0cfa4ba887f8c7e815b9ed4dc5ce7ef",
+            "ordinal_basis": "sqlite_primary_key_order:id",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "c7f86d70601cf328e793adfd1bc9ebd06a38a9783ecd7cabc88da4e225645003",
+            "record_id": "6f21f4bf739ebd1a189ff434aee230ab953448fd77135d5d8dd06350931a7478",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"ac96ef4a8581f3635dd545c56b23ba0b116d06d6acc1e718d254dc44b9329c00\"]",
+            "source_row_ordinal": 809,
+            "source_table": "sources"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:6f21f4bf739ebd1a189ff434aee230ab953448fd77135d5d8dd06350931a7478",
+          "source_native_fields_sha256": "2a942fa24700ad6a3824ad9210a7cce20b8dee8627eb11793f41a01d7b902e1d",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        }
+      ],
+      "request": {
+        "entity_key": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef"
+      },
+      "result_sha256": "caf785d6e3ba33a59eed49259311cbcec6d31d362723aa512c5a7ae25a89a1d3",
+      "site_candidates": [
+        {
+          "actor_resolution_state": "role_identity_actor_reference_not_separately_resolved",
+          "appointment_availability": "not_evaluated",
+          "automatic_profile_binding": false,
+          "candidate_id": "L08:site:851556f52e98d8e9815d3746a0c1054779e3422c29490923cff5a69ee1f4e0fb",
+          "current_practice_status": "dated_source_not_reverified",
+          "entity_key": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef",
+          "entity_ref": "L08:702a781a433ca321321478809a3899081da8592bd020f0195fc8b1fde7958cb8",
+          "entity_type": "PractitionerRole",
+          "identity_state": "requires_explicit_site_disambiguation",
+          "kind": "provider_site",
+          "location_key": "fhir.humana.com/Location/b72416783e810a6a489f6ae4143ffa6a95f2b19aa2bed8dffd7bfafafb2bad6b",
+          "location_ref": "L08:9ca45f170d287546c6881d2254bc8c213aaf3517b1858a52659fca0529ea1ae7",
+          "lookup_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+          "namespace": "retained_L08_composite_directory_site",
+          "network_status": "not_evaluated",
+          "output_authority": "held",
+          "participation_status": "not_evaluated",
+          "relation_basis": "exact_role_entity_key_and_location_reference",
+          "role_actor_key": "fhir.humana.com/Practitioner/f331b5adf3c8c3439e085b170d46d6c419bd455972e56700157192d304d53f5b",
+          "role_key": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef",
+          "role_ref": "L08:c3fbd1d73b857c240746bfb5ce8291bbd20df94c5ea0a16ee65665932e8d3c57",
+          "source_component": "wellcare-r5_composite_reference",
+          "source_identity_conflict_refs": [],
+          "source_location": {
+            "address": {
+              "city": "Naples",
+              "district": "Collier",
+              "line": [
+                "9132 Strada Pl, Ste 11101"
+              ],
+              "postalCode": "34108",
+              "state": "FL"
+            },
+            "name": "Naples Center for Cosmetic Dentistry PA, Naples",
+            "position": {
+              "latitude": "26.251217",
+              "longitude": "-81.797124"
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "use": "work",
+                "value": "2396593053"
+              }
+            ]
+          },
+          "source_name": null,
+          "source_npis": [],
+          "source_organization_reference": "fhir.humana.com/Organization/1f076e7374f13069dfae17cdfd281e5ee743f71aaeda1e595dd49ee19ec27719",
+          "source_periods": {
+            "entity": null,
+            "role": null
+          }
+        }
+      ],
+      "source_access_registration": {
+        "absence_is_permission": false,
+        "output_authority": "held",
+        "requested_source_ids": [
+          "sealed-local:L08",
+          "L08"
+        ],
+        "state": "unregistered"
+      },
+      "source_access_states": [],
+      "source_observation_locators": [
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:bf96fba14f5bceb1b1003d1512adca5d9c8dfec88f712f445132c50c6977f28f",
+          "entity_key": "fhir.humana.com/Location/b72416783e810a6a489f6ae4143ffa6a95f2b19aa2bed8dffd7bfafafb2bad6b",
+          "entity_type": "provider_observations",
+          "observation_id": "24c4a46245b964fd0c0c6cb4c3553bbe3e218bdd8f50fedfc072640895a9a465",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/39/resource",
+          "primary_record_refs": [
+            "L08:9ca45f170d287546c6881d2254bc8c213aaf3517b1858a52659fca0529ea1ae7"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "7b6eb4d49df4d77d9f89dc06e470dc9e84a79a57a9f12b03f944e5616d55f30d",
+          "record_id": "bf96fba14f5bceb1b1003d1512adca5d9c8dfec88f712f445132c50c6977f28f",
+          "resource_type": "Location",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "ac96ef4a8581f3635dd545c56b23ba0b116d06d6acc1e718d254dc44b9329c00",
+          "source_row_key": "[\"24c4a46245b964fd0c0c6cb4c3553bbe3e218bdd8f50fedfc072640895a9a465\"]",
+          "source_row_ordinal": 11793,
+          "source_table": "observations"
+        },
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:a57165f00d5aa6e4940158cdc456c289331e2eb4acdbc75bacdb2e40a5159d31",
+          "entity_key": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef",
+          "entity_type": "provider_observations",
+          "observation_id": "c6b32421891865578557de4b9d572d2d15a799e1e024d2bbbd75824487439053",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/85/resource",
+          "primary_record_refs": [
+            "L08:702a781a433ca321321478809a3899081da8592bd020f0195fc8b1fde7958cb8",
+            "L08:c3fbd1d73b857c240746bfb5ce8291bbd20df94c5ea0a16ee65665932e8d3c57"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "67f5796cba5accfcfc605086057ccc70055d8dbc9d99d9d6509ebbb01644ea40",
+          "record_id": "a57165f00d5aa6e4940158cdc456c289331e2eb4acdbc75bacdb2e40a5159d31",
+          "resource_type": "PractitionerRole",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "4985593106817593e17ff9f9b48922fa3cd6a3f90b122163af1042dcbb47a60d",
+          "source_row_key": "[\"c6b32421891865578557de4b9d572d2d15a799e1e024d2bbbd75824487439053\"]",
+          "source_row_ordinal": 63763,
+          "source_table": "observations"
+        }
+      ]
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+      "case_id": "location_only",
+      "consumer_release": false,
+      "counts": {
+        "entity_candidates": 1,
+        "location_observations": 1,
+        "role_observations": 0,
+        "site_candidates": 1,
+        "source_conflicts": 0,
+        "source_observation_locators": 1,
+        "sources": 1
+      },
+      "identity_state": "site_identity_candidate",
+      "native_conflict_fields": [],
+      "operator_only": true,
+      "page": {
+        "entities_have_more": false,
+        "next_entity_ordinal": null,
+        "next_role_ordinal": null,
+        "ordering": "source_row_ordinal_then_source_location_reference",
+        "roles_have_more": false,
+        "site_candidates_have_more": false,
+        "site_continuation": "not_supported_within_selected_window",
+        "site_edges_in_selected_window": 1,
+        "site_edges_omitted": 0,
+        "snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee"
+      },
+      "partial": {
+        "is_partial": false,
+        "locators_without_pointer": [],
+        "locators_without_source_id": [],
+        "missing_location_keys": [],
+        "missing_observation_ids": [],
+        "missing_source_ids": [],
+        "records_without_observation_id": [],
+        "unfetched_location_keys": [],
+        "unresolved_role_actor_keys": []
+      },
+      "record_checks": [
+        {
+          "candidate_id": "L08:entity:258085e52ea876be0bcb7b6ae0647ed51ea9cd8b6bc90dffdfb68a1875b763d1",
+          "conditions_sha256": "bc61c8ff45e3bc4a70754430d2ce1fe8e6870d227e661e73ff8db40d75ac8169",
+          "entity_key": "apigw.bcbsfl.com/Location/8139776",
+          "group": "entity_candidates",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "3bc7f08b8f41af6aca732a519aba459635c944d2dc148397901461b66f7eab7d",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "fcf48e973cf19c443bf6206926f2325957a1a27376988df9f01e4a38dac2b098",
+            "record_id": "2ed6fcdbfdbf50742ecd5f2aa2fea87c57698916bb553947a136ea9005ed2023",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"apigw.bcbsfl.com/Location/8139776\"]",
+            "source_row_ordinal": 28,
+            "source_table": "entities"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:2ed6fcdbfdbf50742ecd5f2aa2fea87c57698916bb553947a136ea9005ed2023",
+          "source_native_fields_sha256": "05dd3748708869952ba0111c704ca09b3c3c3bdb1bd9bd685c2a7e5195bf27ee",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": "Location"
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": "apigw.bcbsfl.com/Location/8139776",
+          "group": "location_observations",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "507a27eaba33183032228e1f5366b49c1a74c976f2587a16b43d21d2922b07f4",
+            "ordinal_basis": "sqlite_primary_key_order:entity_key",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "786cde151f2aaf6ba4aee5b9a4b1009bce3daf03277a761544731b680cb99ad0",
+            "record_id": "3aa2b1c86ca4d3223f28ebf24f381d810a3ab74e26137c1a4c3cf7a88cf7c966",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"apigw.bcbsfl.com/Location/8139776\"]",
+            "source_row_ordinal": 1,
+            "source_table": "locations"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:3aa2b1c86ca4d3223f28ebf24f381d810a3ab74e26137c1a4c3cf7a88cf7c966",
+          "source_native_fields_sha256": "60d82b2103568bae36f04405d9d6e16f62373a248d1f458d31ec27cdc10a4a8e",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        },
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": null,
+          "group": "sources",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "9953c7399d3af92efde37ee4b12d5e96c0cfa4ba887f8c7e815b9ed4dc5ce7ef",
+            "ordinal_basis": "sqlite_primary_key_order:id",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "0da2cee0ca73db418c6426297e840e8079d165e94f6989f4109f7194a76414bc",
+            "record_id": "e4ea73a6092e1b0cde9246c441d9e590bb25eaa11a492003c3eeaa225fa81aeb",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"89534377db071204055bf7fbfefe50e7c0ac7c44869e1340dcccf669c72437eb\"]",
+            "source_row_ordinal": 647,
+            "source_table": "sources"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:e4ea73a6092e1b0cde9246c441d9e590bb25eaa11a492003c3eeaa225fa81aeb",
+          "source_native_fields_sha256": "280e03432257ef3b98dcf526311657c2d8c41cbcd092522f0b16c221b1387719",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        }
+      ],
+      "request": {
+        "entity_key": "apigw.bcbsfl.com/Location/8139776"
+      },
+      "result_sha256": "eef39ef054b6a131b59463ec44f4faaf88a9b5573fba98cdb54c2203a8cfc716",
+      "site_candidates": [
+        {
+          "actor_resolution_state": "location_entity_only",
+          "appointment_availability": "not_evaluated",
+          "automatic_profile_binding": false,
+          "candidate_id": "L08:site:3c1ef98f903d2a3c5498d3b9b369ccbe5d74c7f37a73d04b5d73f6c107d8988e",
+          "current_practice_status": "dated_source_not_reverified",
+          "entity_key": "apigw.bcbsfl.com/Location/8139776",
+          "entity_ref": "L08:2ed6fcdbfdbf50742ecd5f2aa2fea87c57698916bb553947a136ea9005ed2023",
+          "entity_type": "Location",
+          "identity_state": "requires_explicit_site_disambiguation",
+          "kind": "provider_site",
+          "location_key": "apigw.bcbsfl.com/Location/8139776",
+          "location_ref": "L08:3aa2b1c86ca4d3223f28ebf24f381d810a3ab74e26137c1a4c3cf7a88cf7c966",
+          "lookup_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+          "namespace": "retained_L08_composite_directory_site",
+          "network_status": "not_evaluated",
+          "output_authority": "held",
+          "participation_status": "not_evaluated",
+          "relation_basis": "exact_location_entity_key",
+          "role_actor_key": null,
+          "role_key": null,
+          "role_ref": null,
+          "source_component": "wellcare-r5_composite_reference",
+          "source_identity_conflict_refs": [],
+          "source_location": {
+            "address": {
+              "city": "Fort Meade",
+              "line": [
+                "25 N LANIER AVE"
+              ],
+              "postalCode": "33841",
+              "state": "FL",
+              "type": "postal",
+              "use": "work"
+            },
+            "name": "25 N LANIER AVE",
+            "position": null,
+            "telecom": [
+              {
+                "system": "phone",
+                "use": "work",
+                "value": "8632857171"
+              }
+            ]
+          },
+          "source_name": "25 N LANIER AVE",
+          "source_npis": [],
+          "source_organization_reference": null,
+          "source_periods": {
+            "entity": null,
+            "role": null
+          }
+        }
+      ],
+      "source_access_registration": {
+        "absence_is_permission": false,
+        "output_authority": "held",
+        "requested_source_ids": [
+          "sealed-local:L08",
+          "L08"
+        ],
+        "state": "unregistered"
+      },
+      "source_access_states": [],
+      "source_observation_locators": [
+        {
+          "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+          "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+          "derivation_id": "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+          "entity_id": "L08:2bdfd6e74f954f08b7fc2e617ba8a18b26f86be4bd58518727f9e09e48d6f2a4",
+          "entity_key": "apigw.bcbsfl.com/Location/8139776",
+          "entity_type": "provider_observations",
+          "observation_id": "d1b59f09d35c1f9cca3cc3436c4ad23733140ee69d91e9014b6644be0e3bae7b",
+          "ordinal_basis": "sqlite_primary_key_order:id",
+          "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+          "pointer": "/entry/0/resource",
+          "primary_record_refs": [
+            "L08:2ed6fcdbfdbf50742ecd5f2aa2fea87c57698916bb553947a136ea9005ed2023",
+            "L08:3aa2b1c86ca4d3223f28ebf24f381d810a3ab74e26137c1a4c3cf7a88cf7c966"
+          ],
+          "projected_locator_values_verified": true,
+          "raw_parent_verified": true,
+          "raw_sha256": "9ab8c8a3ed11964699bfc51518d415afb8814f9a4d0acb0b02d57556611821ad",
+          "record_id": "2bdfd6e74f954f08b7fc2e617ba8a18b26f86be4bd58518727f9e09e48d6f2a4",
+          "resource_type": "Location",
+          "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+          "source_id": "89534377db071204055bf7fbfefe50e7c0ac7c44869e1340dcccf669c72437eb",
+          "source_row_key": "[\"d1b59f09d35c1f9cca3cc3436c4ad23733140ee69d91e9014b6644be0e3bae7b\"]",
+          "source_row_ordinal": 67208,
+          "source_table": "observations"
+        }
+      ]
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+      "case_id": "native_npi_conflict",
+      "consumer_release": false,
+      "counts": {
+        "entity_candidates": 0,
+        "location_observations": 0,
+        "role_observations": 0,
+        "site_candidates": 0,
+        "source_conflicts": 1,
+        "source_observation_locators": 0,
+        "sources": 0
+      },
+      "identity_state": "source_identity_conflict",
+      "native_conflict_fields": [
+        {
+          "fields": {
+            "directory_hospital": "Encompass Health Rehabilitation Hospital",
+            "directory_npi": "1497333017",
+            "directory_records": [
+              {
+                "document_sha256": "bb22e99e79be88076bdbb3f5bda109333e6805662523dd6235e54a6d26330c83",
+                "hospital_id": "AHCA:458386",
+                "page": 344,
+                "pdf_record_id": "bb22e99e79be88076bdbb3f5bda109333e6805662523dd6235e54a6d26330c83:1837"
+              },
+              {
+                "document_sha256": "5a08b6793fdfe76bbe376f48d3eaac69b31b70acf1b80b7e0bd58473ecb89e42",
+                "hospital_id": "AHCA:458386",
+                "page": 344,
+                "pdf_record_id": "5a08b6793fdfe76bbe376f48d3eaac69b31b70acf1b80b7e0bd58473ecb89e42:1831"
+              },
+              {
+                "document_sha256": "46308b9eaa37534166a5e929eb6beec6c86dc58c2fb38cb13f7fd1228eb1be87",
+                "hospital_id": "AHCA:458386",
+                "page": 344,
+                "pdf_record_id": "46308b9eaa37534166a5e929eb6beec6c86dc58c2fb38cb13f7fd1228eb1be87:1835"
+              },
+              {
+                "document_sha256": "6ca2c48661ac5fd71310d8f2c1ce0fd1b5c9df170d5d9c0e485756cfb2d5c580",
+                "hospital_id": "AHCA:458386",
+                "page": 346,
+                "pdf_record_id": "6ca2c48661ac5fd71310d8f2c1ce0fd1b5c9df170d5d9c0e485756cfb2d5c580:1835"
+              },
+              {
+                "document_sha256": "d9d9751010888d56a4fe2a3ac9fe2ba990f6c0f4d15bb0503fa83e2fdb72e6d6",
+                "hospital_id": "AHCA:458386",
+                "page": 344,
+                "pdf_record_id": "d9d9751010888d56a4fe2a3ac9fe2ba990f6c0f4d15bb0503fa83e2fdb72e6d6:1830"
+              }
+            ],
+            "directory_street": "14305 Collier Blvd, Naples FL 34119",
+            "disposition": "Retain source listing and both facts. Hold resolved identity and consequential campus participation inference pending publisher correction or specific authoritative evidence.",
+            "id": "REHAB-NPI-1497333017",
+            "kind": "published_hospital_identifier_conflict",
+            "registry_organization": "ENCOMPASS HEALTH REHABILITATION HOSPITAL OF GREENVILLE, LLC",
+            "registry_practice_address": "3372 LAURENS ROAD, GREENVILLE SC 29607",
+            "registry_source_id": "93e2e5bb0a00463f4befcbaadd40dc8d372d72e61be3b4664e7750291282faf2",
+            "registry_source_sha256": "5a3611ccd9a8f4985c6ba11a801b57bef91d9b5e225a4d68a53d8f4480a971ae"
+          },
+          "id": "REHAB-NPI-1497333017",
+          "identity_is_not_network_verification": true,
+          "kind": "published_hospital_identifier_conflict",
+          "personal_network_status_determined": false,
+          "reference_component": "wellcare-r5"
+        }
+      ],
+      "operator_only": true,
+      "page": {
+        "entities_have_more": false,
+        "next_entity_ordinal": null,
+        "next_role_ordinal": null,
+        "ordering": "source_row_ordinal_then_source_location_reference",
+        "roles_have_more": false,
+        "site_candidates_have_more": false,
+        "site_continuation": "not_supported_within_selected_window",
+        "site_edges_in_selected_window": 0,
+        "site_edges_omitted": 0,
+        "snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee"
+      },
+      "partial": {
+        "is_partial": false,
+        "locators_without_pointer": [],
+        "locators_without_source_id": [],
+        "missing_location_keys": [],
+        "missing_observation_ids": [],
+        "missing_source_ids": [],
+        "records_without_observation_id": [],
+        "unfetched_location_keys": [],
+        "unresolved_role_actor_keys": []
+      },
+      "record_checks": [
+        {
+          "candidate_id": null,
+          "conditions_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "entity_key": null,
+          "group": "source_conflicts",
+          "lineage": {
+            "adapter_code_sha256": "d3f26b8d104330667dd0f68f2853a9b09e144d21b1789bfc9861290c8ff12e99",
+            "artifact_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+            "derivation_id": "c35b4e987a1fce6d4de28c0db7e965939ccddb4a15176b8c493cc947940cbb0b",
+            "ordinal_basis": "sqlite_primary_key_order:id",
+            "original_path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+            "raw_sha256": "e9127f73d4d24f4140a82a4be475e5b42a46c579c6e677e290f16fc117065ad6",
+            "record_id": "f0b1e334c7231cdd70b1d40f364f4b1e21413b492c87ed0b825f33c01ba8af3d",
+            "snapshot_id": "60b2dc927538f0f2e73c3533e30ed702797c18caf95620bcf6454fd62e432130",
+            "source_row_key": "[\"REHAB-NPI-1497333017\"]",
+            "source_row_ordinal": 1,
+            "source_table": "source_conflicts"
+          },
+          "output_authority": "held",
+          "raw_hash_verified": true,
+          "record_ref": "L08:f0b1e334c7231cdd70b1d40f364f4b1e21413b492c87ed0b825f33c01ba8af3d",
+          "source_native_fields_sha256": "b0452019d3b05d4149a7b3e90d5d482da38c0f557a14f7ca71cec3aac7f05d6e",
+          "states": {
+            "evidence_state": "source_observed",
+            "freshness_state": "historical_2026_snapshot",
+            "output_acceptance_state": "research_only",
+            "semantic_review_state": "not_newly_reviewed",
+            "source_use_state": "existing_source_policy_applies",
+            "value_state": "source_observed"
+          },
+          "type": null
+        }
+      ],
+      "request": {
+        "npi": "1497333017"
+      },
+      "result_sha256": "21ae043b0715b5928b16098491c3c0159e2cf6756a1c0e8a16e41c53be303afa",
+      "site_candidates": [],
+      "source_access_registration": {
+        "absence_is_permission": false,
+        "output_authority": "held",
+        "requested_source_ids": [
+          "sealed-local:L08",
+          "L08"
+        ],
+        "state": "unregistered"
+      },
+      "source_access_states": [],
+      "source_observation_locators": []
+    },
+    {
+      "all_purposes_held": true,
+      "automatic_profile_binding": false,
+      "binding_snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee",
+      "case_id": "absent_exact_npi",
+      "consumer_release": false,
+      "counts": {
+        "entity_candidates": 0,
+        "location_observations": 0,
+        "role_observations": 0,
+        "site_candidates": 0,
+        "source_conflicts": 0,
+        "source_observation_locators": 0,
+        "sources": 0
+      },
+      "identity_state": "not_observed_in_selected_directory",
+      "native_conflict_fields": [],
+      "operator_only": true,
+      "page": {
+        "entities_have_more": false,
+        "next_entity_ordinal": null,
+        "next_role_ordinal": null,
+        "ordering": "source_row_ordinal_then_source_location_reference",
+        "roles_have_more": false,
+        "site_candidates_have_more": false,
+        "site_continuation": "not_supported_within_selected_window",
+        "site_edges_in_selected_window": 0,
+        "site_edges_omitted": 0,
+        "snapshot_id": "21b12beb2a99378b818d32686136e5ade64ec3c384841a7e2f34bb26d0d01aee"
+      },
+      "partial": {
+        "is_partial": false,
+        "locators_without_pointer": [],
+        "locators_without_source_id": [],
+        "missing_location_keys": [],
+        "missing_observation_ids": [],
+        "missing_source_ids": [],
+        "records_without_observation_id": [],
+        "unfetched_location_keys": [],
+        "unresolved_role_actor_keys": []
+      },
+      "record_checks": [],
+      "request": {
+        "npi": "9999999999"
+      },
+      "result_sha256": "879fa3b0d33f80ac2f8c004d14ba2c756576c65175b4e89108ef7a7a2a9fb5d2",
+      "site_candidates": [],
+      "source_access_registration": {
+        "absence_is_permission": false,
+        "output_authority": "held",
+        "requested_source_ids": [
+          "sealed-local:L08",
+          "L08"
+        ],
+        "state": "unregistered"
+      },
+      "source_access_states": [],
+      "source_observation_locators": []
+    }
+  ],
+  "checks": {
+    "absent_id_is_only_not_observed": true,
+    "accepted_release_null": true,
+    "all_access_absence_explicit_unregistered": true,
+    "all_case_snapshots_equal": true,
+    "all_emitted_locators_raw_and_projection_verified": true,
+    "all_five_cases_completed": true,
+    "all_locator_primary_refs_bound": true,
+    "all_purpose_holds_preserved": true,
+    "consumer_release_false": true,
+    "current_practice_not_reverified": true,
+    "federal_hospital_and_cms_grains_not_queried": true,
+    "frozen_code_and_test_hashes_verified": true,
+    "frozen_code_unchanged_after_replay": true,
+    "historical_code_bytes_preserved_exactly": true,
+    "historical_r1_receipt_unchanged": true,
+    "location_only_not_clinician": true,
+    "missing_actor_preserved_without_fabrication": true,
+    "multi_site_not_merged": true,
+    "native_npi_conflict_preserved": true,
+    "network_participation_appointment_eligibility_not_evaluated": true,
+    "no_automatic_customer_binding": true,
+    "operator_only": true,
+    "physical_guard_database_oid_marker_cluster_port_socket_verified": true,
+    "physical_source_bytes_match_all_selected_derivations": true,
+    "physical_sqlite_native_observation_crosschecks_passed": true,
+    "population_controls_passed_for_each_lookup": true,
+    "raw_observation_payload_not_emitted": true,
+    "runtime_read_only": true,
+    "runtime_repeatable_read": true,
+    "runtime_research_reader": true,
+    "same_actual_case_counts_states_and_native_site_ids_as_r1": true,
+    "serving_code_unchanged_after_replay": true,
+    "source_file_stat_unchanged_after_read": true,
+    "source_record_raw_hashes_checked": true
+  },
+  "code_hashes": {
+    "infrastructure/daylight-data/src/daylight_data/serving/provider_identity.py": "6450a7a0127f96c17b7fd4d78895e7d155dcc46dac848738b890934635c9ced0",
+    "infrastructure/daylight-data/tests/test_research_provider_identity.py": "2c6216df4c8419a400409a40916839309b05e83f7d01393fcb9de4a2bbacd2c1"
+  },
+  "consumer_release": false,
+  "contract_id": "l08-exact-provider-site-research-r2",
+  "corrects": {
+    "code_history_artifacts": {
+      "audit-evidence/comparison-next-20261101/code-history/provider_identity.before-locator-guard.py": "69665183bd02494b05b312c1dbcb6e0faa4dbe84fcea6e35bd42693ea945d42d",
+      "audit-evidence/comparison-next-20261101/code-history/test_research_provider_identity.before-locator-guard.py": "f2100182e2731e701d8a8a75b67602500790fdecce95d60e57f7af53a251f8c4"
+    },
+    "historical_receipt": "infrastructure/daylight-data/reports/research-provider-identity-2026-11-01-r1.json",
+    "historical_receipt_sha256": "e7c4a1d256e73ba94bb6697a5cbf2124f27651c914647873b7ce6f2c6a46efe4",
+    "historical_snapshot_id": "c50438c1bc59c1f98cf966089185df12b652c19e4d1ef999e27289d7944f009b",
+    "issue": "R1 emitted native observation locator metadata without cross-checking its retained raw parent or normalized claimants. A synthetic tampered pointer/entity/type/hash/path was accepted. No corruption of actual retained source data was asserted or observed.",
+    "repair": "R2 validates selected metadata, raw parent hash, exact native locator columns, source key/order, common snapshot and every normalized claimant before emitting a reduced locator. Duplicate/foreign locators reject; native missing pointer/source remains partial."
+  },
+  "final_replay_measurements": {
+    "basis": "New bounded five-case replay after final module/test freeze, captured during receipt generation. Each wall time includes guarded lookup; one local observation per case, not p95/concurrency evidence.",
+    "cases": [
+      {
+        "case_id": "multi_site",
+        "lookup_wall_ms": 5363.223
+      },
+      {
+        "case_id": "role_without_separately_retained_actor",
+        "lookup_wall_ms": 2569.409
+      },
+      {
+        "case_id": "location_only",
+        "lookup_wall_ms": 691.623
+      },
+      {
+        "case_id": "native_npi_conflict",
+        "lookup_wall_ms": 144.843
+      },
+      {
+        "case_id": "absent_exact_npi",
+        "lookup_wall_ms": 110.366
+      }
+    ],
+    "plans": [
+      {
+        "execution_ms": 50.976,
+        "planning_ms": 1.247,
+        "query": "exact_npi_selected_derivation"
+      },
+      {
+        "execution_ms": 854.422,
+        "planning_ms": 0.511,
+        "query": "explicit_actor_role_edges"
+      },
+      {
+        "execution_ms": 483.396,
+        "planning_ms": 0.533,
+        "query": "verified_native_observation_locators"
+      }
+    ]
+  },
+  "gaps_preserved": [
+    "G05",
+    "G06",
+    "G12",
+    "G14"
+  ],
+  "independent_review": {
+    "basis": "Read-only source_expected_fresh agent review reported in this session before actual replay; separate from actual DB evidence.",
+    "new_source_or_consumer_acceptance": false,
+    "original_combined_qa_tamper": "rejected_PROVIDER_SOURCE_LOCATOR_MISMATCH",
+    "raw_and_projected_entity_key_rehashed_tamper": "rejected_against_primary_claimant",
+    "reported_tests_passed": 155,
+    "reviewed_module_sha256": "6450a7a0127f96c17b7fd4d78895e7d155dcc46dac848738b890934635c9ced0",
+    "reviewed_test_sha256": "2c6216df4c8419a400409a40916839309b05e83f7d01393fcb9de4a2bbacd2c1"
+  },
+  "new_acceptance": false,
+  "observed_at": "2026-11-02T13:42:01.808485+00:00",
+  "operator_only": true,
+  "passed": true,
+  "physical_guard_code_binding": {
+    "functions": [
+      "validate_local_dsn",
+      "validate_local_connection",
+      "ResearchPlanRepository._read",
+      "repository_from_env"
+    ],
+    "path": "infrastructure/daylight-data/src/daylight_data/serving/repository.py",
+    "sha256": "850c8322957841463d9a69d1486eb42a233c2be2c6858fff9a86cf9c4674ae5d"
+  },
+  "physical_guard_observation": {
+    "cluster_system_identifier": "7702175360224817979",
+    "database": "daylight_research_2026_r2",
+    "database_oid": 2448635,
+    "marker": "daylight-local-full/1:3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "port": "55485",
+    "unix_socket": true
+  },
+  "physical_guard_observation_sha256": "6fe55f74aeab3b4e6af5e30f29d90860c755e20c2e45bd0ce81263ff74d1f751",
+  "physical_native_observation_checks": [
+    {
+      "case_id": "multi_site",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:4873d12db71301f12fec2a8b804bc20e2b374d12dfc692aeeee653d2bbe6f631"
+      ],
+      "observation_id": "04274559f01d79817c1f7f4d776493af63d1eb8578e2dbc59f50cc15ce7e45c9",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "57ee9a54d401b1bee889513190ad2f8de2a97d916ecfd530d22d81ce39b469ac"
+    },
+    {
+      "case_id": "multi_site",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:f88f24ff03f211a2d7a113306bb332b6884be04cf2ff3f0f8e2a73f98accf194"
+      ],
+      "observation_id": "0e01bfa0fa12d7ccde9645e70ddba963725edc74c5513b98887d14ab3d26fa46",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "b5ecdd7b58f480cc9e07d63b1606ba54be5af412f35d5ed2ed576bc2e39c6a72"
+    },
+    {
+      "case_id": "multi_site",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:0adbabed9c005045febc071c6effd57728f1b6906050921fa238b29549903bfe"
+      ],
+      "observation_id": "151a1d0b44d9c80bdbbbbf11b169bc7f2970b8c64ba2d843f1e7ce33b3b5ca64",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "fd268fb926c21b0ecb93996811128697c00aabf28988dadbbe43419e44330c5a"
+    },
+    {
+      "case_id": "multi_site",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:b37c062f4faf5c07fc0e4ce82c193012a3ad0fa4c51bd22235d24eefeca099a1"
+      ],
+      "observation_id": "898d72a8fb6d380f1391f4f57935a41d396ee6590339adfd1cc5388d7cd20f9f",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "431f1b0ce0444fc8785c2934bb95025c6b319d50a40abf34405477780e8d90b9"
+    },
+    {
+      "case_id": "multi_site",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:c984344fd352c64e931d016e4f5a7adc787d1607a45f5a2996d59804448423ff"
+      ],
+      "observation_id": "db973a0062157d066f0da3aa7c27dc997a1acc1d1676ea7a5d30234a917a456a",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "dfa5fd6370332c50a56d0122885ba68a203b95e8376cabf338077a6f95982b36"
+    },
+    {
+      "case_id": "role_without_separately_retained_actor",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:9ca45f170d287546c6881d2254bc8c213aaf3517b1858a52659fca0529ea1ae7"
+      ],
+      "observation_id": "24c4a46245b964fd0c0c6cb4c3553bbe3e218bdd8f50fedfc072640895a9a465",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "7b6eb4d49df4d77d9f89dc06e470dc9e84a79a57a9f12b03f944e5616d55f30d"
+    },
+    {
+      "case_id": "role_without_separately_retained_actor",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:702a781a433ca321321478809a3899081da8592bd020f0195fc8b1fde7958cb8",
+        "L08:c3fbd1d73b857c240746bfb5ce8291bbd20df94c5ea0a16ee65665932e8d3c57"
+      ],
+      "observation_id": "c6b32421891865578557de4b9d572d2d15a799e1e024d2bbbd75824487439053",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "67f5796cba5accfcfc605086057ccc70055d8dbc9d99d9d6509ebbb01644ea40"
+    },
+    {
+      "case_id": "location_only",
+      "locator_columns_match_physical_sqlite_row": true,
+      "normalized_primary_record_refs": [
+        "L08:2ed6fcdbfdbf50742ecd5f2aa2fea87c57698916bb553947a136ea9005ed2023",
+        "L08:3aa2b1c86ca4d3223f28ebf24f381d810a3ab74e26137c1a4c3cf7a88cf7c966"
+      ],
+      "observation_id": "d1b59f09d35c1f9cca3cc3436c4ad23733140ee69d91e9014b6644be0e3bae7b",
+      "physical_sqlite_row_matches_retained_parent_hash": true,
+      "raw_sha256": "9ab8c8a3ed11964699bfc51518d415afb8814f9a4d0acb0b02d57556611821ad"
+    }
+  ],
+  "physical_target_binding": {
+    "build_id": "99db288a0fa78c06f2be4f7ee762e12cdbfc83cf960298c6e7d5df214572d395",
+    "cluster_system_identifier": "7702175360224817979",
+    "created_at": "2026-10-30T19:03:46.633784+00:00",
+    "creation_build_id": "3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "database": "daylight_research_2026_r2",
+    "database_oid": 2448635,
+    "execution_started_at": "2026-10-30T20:32:05.549632+00:00",
+    "marker": "daylight-local-full/1:3eb6a72ca32becaf2fc6841d6fa6bd42083968658fa026f675de527fcd2d99a9",
+    "predecessor_target_sha256": "de802be73bf954bd77ec3c6c71c41860a6a2a80fd5027b6b8939e2f73bb78e73"
+  },
+  "physical_target_control_sha256": "5cfcb3ef33da4e83a28ea2dc2fb56cafe7ff2f5c7e792ad581a2e60701214160",
+  "prior_session_measurements": {
+    "basis": "Historical tool-observed timings retained separately. Complete prior five-case output/plan JSON was not saved and is not reconstructed. These timings do not describe the fresh receipt replay.",
+    "historical_r1_receipt_replay_measurements": {
+      "basis": "New bounded five-case replay after final module/test freeze, captured during receipt generation. Each wall time includes guarded lookup; one local observation per case, not p95/concurrency evidence.",
+      "cases": [
+        {
+          "case_id": "multi_site",
+          "lookup_wall_ms": 5245.088
+        },
+        {
+          "case_id": "role_without_separately_retained_actor",
+          "lookup_wall_ms": 1407.475
+        },
+        {
+          "case_id": "location_only",
+          "lookup_wall_ms": 599.792
+        },
+        {
+          "case_id": "native_npi_conflict",
+          "lookup_wall_ms": 137.512
+        },
+        {
+          "case_id": "absent_exact_npi",
+          "lookup_wall_ms": 105.667
+        }
+      ],
+      "plans": [
+        {
+          "execution_ms": 47.234,
+          "planning_ms": 1.226,
+          "query": "exact_npi_selected_derivation"
+        },
+        {
+          "execution_ms": 1002.767,
+          "planning_ms": 0.51,
+          "query": "explicit_actor_role_edges"
+        }
+      ]
+    },
+    "later_final_frozen_multi_site_lookup_wall_ms": 5016.83,
+    "prior_actual_five_case_lookup_wall_ms": {
+      "absent_exact_npi": 156.676,
+      "location_only": 685.432,
+      "multi_site": 6227.743,
+      "native_npi_conflict": 163.759,
+      "role_without_separately_retained_actor": 3781.784
+    },
+    "prototype_plan_receipt_retained": false,
+    "prototype_sql_execution_ms": {
+      "entity": 53.677,
+      "locations": 4.239,
+      "roles": 706.591
+    }
+  },
+  "profile_or_guest_data_read": false,
+  "query_plans": [
+    {
+      "execution_ms": 50.976,
+      "explain_json": {
+        "Execution Time": 50.976,
+        "Plan": {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Actual Startup Time": 50.939,
+          "Actual Total Time": 50.942,
+          "Async Capable": false,
+          "Disabled": false,
+          "Inner Unique": true,
+          "Join Type": "Inner",
+          "Local Dirtied Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Written Blocks": 0,
+          "Node Type": "Nested Loop",
+          "Parallel Aware": false,
+          "Plan Rows": 1,
+          "Plan Width": 1731,
+          "Plans": [
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 1.0,
+              "Actual Startup Time": 48.182,
+              "Actual Total Time": 48.183,
+              "Async Capable": false,
+              "Disabled": false,
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Limit",
+              "Parallel Aware": false,
+              "Parent Relationship": "InitPlan",
+              "Plan Rows": 3,
+              "Plan Width": 1177,
+              "Plans": [
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 1.0,
+                  "Actual Startup Time": 48.181,
+                  "Actual Total Time": 48.182,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Sort",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Rows": 3,
+                  "Plan Width": 1177,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 1.0,
+                      "Actual Startup Time": 4.342,
+                      "Actual Total Time": 48.174,
+                      "Alias": "observation",
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Filter": "((source_row_ordinal > '0'::smallint) AND ((fields -> 'npi'::text) ? '1922013515'::text))",
+                      "Index Cond": "((derivation_id = '3bc7f08b8f41af6aca732a519aba459635c944d2dc148397901461b66f7eab7d'::text) AND (entity_type = 'provider_entities'::text))",
+                      "Index Name": "observation_pkey",
+                      "Index Searches": 1,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Index Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 3,
+                      "Plan Width": 1177,
+                      "Relation Name": "observation",
+                      "Rows Removed by Filter": 80308,
+                      "Rows Removed by Index Recheck": 0,
+                      "Scan Direction": "Forward",
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 82707,
+                      "Shared Read Blocks": 0,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.69,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 1051.35
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 82710,
+                  "Shared Read Blocks": 0,
+                  "Shared Written Blocks": 0,
+                  "Sort Key": [
+                    "observation.source_row_ordinal"
+                  ],
+                  "Sort Method": "quicksort",
+                  "Sort Space Type": "Memory",
+                  "Sort Space Used": 26,
+                  "Startup Cost": 1051.37,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 1051.38
+                }
+              ],
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 82710,
+              "Shared Read Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 1051.37,
+              "Subplan Name": "CTE matched",
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 1051.38
+            },
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 1.0,
+              "Actual Startup Time": 50.933,
+              "Actual Total Time": 50.934,
+              "Async Capable": false,
+              "Disabled": false,
+              "Inner Unique": true,
+              "Join Filter": "(d.derivation_id = o.derivation_id)",
+              "Join Type": "Inner",
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Nested Loop",
+              "Parallel Aware": false,
+              "Parent Relationship": "Outer",
+              "Plan Rows": 1,
+              "Plan Width": 1568,
+              "Plans": [
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 1.0,
+                  "Actual Startup Time": 50.91,
+                  "Actual Total Time": 50.911,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Inner Unique": true,
+                  "Join Type": "Inner",
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Nested Loop",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Rows": 1,
+                  "Plan Width": 1503,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 1.0,
+                      "Actual Startup Time": 48.183,
+                      "Actual Total Time": 48.184,
+                      "Alias": "o",
+                      "Async Capable": false,
+                      "CTE Name": "matched",
+                      "Disabled": false,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Maximum Storage": 17,
+                      "Node Type": "CTE Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 3,
+                      "Plan Width": 620,
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 82710,
+                      "Shared Read Blocks": 0,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.0,
+                      "Storage": "Memory",
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 0.06
+                    },
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 1.0,
+                      "Actual Startup Time": 2.719,
+                      "Actual Total Time": 2.719,
+                      "Alias": "r",
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Index Cond": "((derivation_id = o.derivation_id) AND (source_table = o.source_table) AND (source_row_ordinal = o.source_row_ordinal))",
+                      "Index Name": "source_record_pkey",
+                      "Index Searches": 1,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Index Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Inner",
+                      "Plan Rows": 1,
+                      "Plan Width": 902,
+                      "Relation Name": "source_record",
+                      "Rows Removed by Index Recheck": 0,
+                      "Scan Direction": "Forward",
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 1,
+                      "Shared Read Blocks": 5,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.69,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 8.71
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 82711,
+                  "Shared Read Blocks": 5,
+                  "Shared Written Blocks": 0,
+                  "Startup Cost": 0.69,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 26.19
+                },
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 1.0,
+                  "Actual Startup Time": 0.019,
+                  "Actual Total Time": 0.019,
+                  "Alias": "d",
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Index Cond": "(derivation_id = r.derivation_id)",
+                  "Index Name": "derivation_pkey",
+                  "Index Searches": 1,
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Index Scan",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Inner",
+                  "Plan Rows": 1,
+                  "Plan Width": 195,
+                  "Relation Name": "derivation",
+                  "Rows Removed by Index Recheck": 0,
+                  "Scan Direction": "Forward",
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 2,
+                  "Shared Read Blocks": 1,
+                  "Shared Written Blocks": 0,
+                  "Startup Cost": 0.27,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 5.92
+                }
+              ],
+              "Rows Removed by Join Filter": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 82713,
+              "Shared Read Blocks": 6,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 0.96,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 32.12
+            },
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 1.0,
+              "Actual Startup Time": 0.005,
+              "Actual Total Time": 0.005,
+              "Alias": "s",
+              "Async Capable": false,
+              "Disabled": false,
+              "Index Cond": "(snapshot_id = d.snapshot_id)",
+              "Index Name": "source_snapshot_pkey",
+              "Index Searches": 1,
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Index Scan",
+              "Parallel Aware": false,
+              "Parent Relationship": "Inner",
+              "Plan Rows": 1,
+              "Plan Width": 228,
+              "Relation Name": "source_snapshot",
+              "Rows Removed by Index Recheck": 0,
+              "Scan Direction": "Forward",
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 3,
+              "Shared Read Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 0.27,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 5.57
+            }
+          ],
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 82716,
+          "Shared Read Blocks": 6,
+          "Shared Written Blocks": 0,
+          "Startup Cost": 1052.61,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Total Cost": 1089.13
+        },
+        "Planning": {
+          "Local Dirtied Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Written Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 277,
+          "Shared Read Blocks": 5,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 1.247,
+        "Triggers": []
+      },
+      "nodes": [
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": null,
+          "Node Type": "Limit",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": null,
+          "Node Type": "Sort",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": "observation_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "observation",
+          "Rows Removed by Filter": 80308
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": null,
+          "Node Type": "CTE Scan",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": "source_record_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "source_record",
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": "derivation_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "derivation",
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 1.0,
+          "Index Name": "source_snapshot_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "source_snapshot",
+          "Rows Removed by Filter": null
+        }
+      ],
+      "parameters": [
+        "3bc7f08b8f41af6aca732a519aba459635c944d2dc148397901461b66f7eab7d",
+        "1922013515",
+        0
+      ],
+      "planning_ms": 1.247,
+      "query": "exact_npi_selected_derivation",
+      "sql": "WITH matched AS MATERIALIZED (\n SELECT * FROM dl_evidence.observation WHERE derivation_id=%s AND entity_type='provider_entities'\n AND fields->'npi' ? %s AND source_row_ordinal>%s ORDER BY source_row_ordinal LIMIT 21)\n SELECT o.*,r.raw_payload,r.raw_sha256,r.record_id,r.source_row_key,r.ordinal_basis,\n d.snapshot_id,d.adapter_code_sha256,s.original_path,s.artifact_sha256,\n s.source_use_state AS snapshot_source_use_state FROM matched o\n JOIN dl_evidence.source_record r USING(derivation_id,source_table,source_row_ordinal)\n JOIN dl_control.derivation d USING(derivation_id)\n JOIN dl_control.source_snapshot s USING(snapshot_id) ORDER BY o.source_row_ordinal",
+      "sql_sha256": "e48b5a98e34f3418dccc060b617e4089f30876f4105e38adc97cddd8c340867d"
+    },
+    {
+      "execution_ms": 854.422,
+      "explain_json": {
+        "Execution Time": 854.422,
+        "Plan": {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Actual Startup Time": 854.244,
+          "Actual Total Time": 854.369,
+          "Async Capable": false,
+          "Disabled": false,
+          "Inner Unique": true,
+          "Join Type": "Inner",
+          "Local Dirtied Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Written Blocks": 0,
+          "Node Type": "Nested Loop",
+          "Parallel Aware": false,
+          "Plan Rows": 1,
+          "Plan Width": 1731,
+          "Plans": [
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 2.0,
+              "Actual Startup Time": 853.45,
+              "Actual Total Time": 853.452,
+              "Async Capable": false,
+              "Disabled": false,
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Limit",
+              "Parallel Aware": false,
+              "Parent Relationship": "InitPlan",
+              "Plan Rows": 1,
+              "Plan Width": 1177,
+              "Plans": [
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 2.0,
+                  "Actual Startup Time": 853.449,
+                  "Actual Total Time": 853.45,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Sort",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Rows": 1,
+                  "Plan Width": 1177,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 2.0,
+                      "Actual Startup Time": 616.079,
+                      "Actual Total Time": 853.436,
+                      "Alias": "observation",
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Filter": "((source_row_ordinal > '0'::smallint) AND (((fields ->> 'provider_key'::text) = ANY ('{flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2}'::text[])) OR ((fields ->> 'entity_key'::text) = ANY ('{flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2}'::text[]))))",
+                      "Index Cond": "((derivation_id = 'e0d86041dc4cd499a3d905930808eee9f6e7e62c6e860cdb268c50f6a382d65a'::text) AND (entity_type = 'provider_roles'::text))",
+                      "Index Name": "observation_pkey",
+                      "Index Searches": 1,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Index Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 1,
+                      "Plan Width": 1177,
+                      "Relation Name": "observation",
+                      "Rows Removed by Filter": 72221,
+                      "Rows Removed by Index Recheck": 0,
+                      "Scan Direction": "Forward",
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 567020,
+                      "Shared Read Blocks": 82486,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.69,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 625.03
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 567020,
+                  "Shared Read Blocks": 82486,
+                  "Shared Written Blocks": 0,
+                  "Sort Key": [
+                    "observation.source_row_ordinal"
+                  ],
+                  "Sort Method": "quicksort",
+                  "Sort Space Type": "Memory",
+                  "Sort Space Used": 27,
+                  "Startup Cost": 625.04,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 625.04
+                }
+              ],
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 567020,
+              "Shared Read Blocks": 82486,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 625.04,
+              "Subplan Name": "CTE matched",
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 625.04
+            },
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 2.0,
+              "Actual Startup Time": 854.229,
+              "Actual Total Time": 854.35,
+              "Async Capable": false,
+              "Disabled": false,
+              "Inner Unique": true,
+              "Join Filter": "(d.derivation_id = o.derivation_id)",
+              "Join Type": "Inner",
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Nested Loop",
+              "Parallel Aware": false,
+              "Parent Relationship": "Outer",
+              "Plan Rows": 1,
+              "Plan Width": 1568,
+              "Plans": [
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 2.0,
+                  "Actual Startup Time": 854.209,
+                  "Actual Total Time": 854.328,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Inner Unique": true,
+                  "Join Type": "Inner",
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Nested Loop",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Rows": 1,
+                  "Plan Width": 1503,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 2.0,
+                      "Actual Startup Time": 853.455,
+                      "Actual Total Time": 853.456,
+                      "Alias": "o",
+                      "Async Capable": false,
+                      "CTE Name": "matched",
+                      "Disabled": false,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Maximum Storage": 18,
+                      "Node Type": "CTE Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 1,
+                      "Plan Width": 620,
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 567020,
+                      "Shared Read Blocks": 82486,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.0,
+                      "Storage": "Memory",
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 0.02
+                    },
+                    {
+                      "Actual Loops": 2,
+                      "Actual Rows": 1.0,
+                      "Actual Startup Time": 0.432,
+                      "Actual Total Time": 0.432,
+                      "Alias": "r",
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Index Cond": "((derivation_id = o.derivation_id) AND (source_table = o.source_table) AND (source_row_ordinal = o.source_row_ordinal))",
+                      "Index Name": "source_record_pkey",
+                      "Index Searches": 2,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Index Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Inner",
+                      "Plan Rows": 1,
+                      "Plan Width": 902,
+                      "Relation Name": "source_record",
+                      "Rows Removed by Index Recheck": 0,
+                      "Scan Direction": "Forward",
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 4,
+                      "Shared Read Blocks": 8,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.69,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 8.71
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 567024,
+                  "Shared Read Blocks": 82494,
+                  "Shared Written Blocks": 0,
+                  "Startup Cost": 0.69,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 8.73
+                },
+                {
+                  "Actual Loops": 2,
+                  "Actual Rows": 1.0,
+                  "Actual Startup Time": 0.008,
+                  "Actual Total Time": 0.008,
+                  "Alias": "d",
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Index Cond": "(derivation_id = r.derivation_id)",
+                  "Index Name": "derivation_pkey",
+                  "Index Searches": 2,
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Index Scan",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Inner",
+                  "Plan Rows": 1,
+                  "Plan Width": 195,
+                  "Relation Name": "derivation",
+                  "Rows Removed by Index Recheck": 0,
+                  "Scan Direction": "Forward",
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 3,
+                  "Shared Read Blocks": 3,
+                  "Shared Written Blocks": 0,
+                  "Startup Cost": 0.27,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 5.92
+                }
+              ],
+              "Rows Removed by Join Filter": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 567027,
+              "Shared Read Blocks": 82497,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 0.96,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 14.66
+            },
+            {
+              "Actual Loops": 2,
+              "Actual Rows": 1.0,
+              "Actual Startup Time": 0.007,
+              "Actual Total Time": 0.007,
+              "Alias": "s",
+              "Async Capable": false,
+              "Disabled": false,
+              "Index Cond": "(snapshot_id = d.snapshot_id)",
+              "Index Name": "source_snapshot_pkey",
+              "Index Searches": 2,
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Index Scan",
+              "Parallel Aware": false,
+              "Parent Relationship": "Inner",
+              "Plan Rows": 1,
+              "Plan Width": 228,
+              "Relation Name": "source_snapshot",
+              "Rows Removed by Index Recheck": 0,
+              "Scan Direction": "Forward",
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 3,
+              "Shared Read Blocks": 3,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 0.27,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 5.57
+            }
+          ],
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 567030,
+          "Shared Read Blocks": 82500,
+          "Shared Written Blocks": 0,
+          "Startup Cost": 626.27,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Total Cost": 645.33
+        },
+        "Planning": {
+          "Local Dirtied Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Written Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 42,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 0.511,
+        "Triggers": []
+      },
+      "nodes": [
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": null,
+          "Node Type": "Limit",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": null,
+          "Node Type": "Sort",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": "observation_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "observation",
+          "Rows Removed by Filter": 72221
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 2.0,
+          "Index Name": null,
+          "Node Type": "CTE Scan",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 2,
+          "Actual Rows": 1.0,
+          "Index Name": "source_record_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "source_record",
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 2,
+          "Actual Rows": 1.0,
+          "Index Name": "derivation_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "derivation",
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 2,
+          "Actual Rows": 1.0,
+          "Index Name": "source_snapshot_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "source_snapshot",
+          "Rows Removed by Filter": null
+        }
+      ],
+      "parameters": [
+        "e0d86041dc4cd499a3d905930808eee9f6e7e62c6e860cdb268c50f6a382d65a",
+        [
+          "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2"
+        ],
+        [
+          "flex.optum.com/Organization/kv18cUHcq8xaiLsr5wzKtiAslckR810VLCstwwSm3f2"
+        ],
+        0
+      ],
+      "planning_ms": 0.511,
+      "query": "explicit_actor_role_edges",
+      "sql": "WITH matched AS MATERIALIZED (\n SELECT * FROM dl_evidence.observation WHERE derivation_id=%s AND entity_type='provider_roles'\n AND (fields->>'provider_key'=ANY(%s) OR fields->>'entity_key'=ANY(%s)) AND source_row_ordinal>%s ORDER BY source_row_ordinal LIMIT 51)\n SELECT o.*,r.raw_payload,r.raw_sha256,r.record_id,r.source_row_key,r.ordinal_basis,\n d.snapshot_id,d.adapter_code_sha256,s.original_path,s.artifact_sha256,\n s.source_use_state AS snapshot_source_use_state FROM matched o\n JOIN dl_evidence.source_record r USING(derivation_id,source_table,source_row_ordinal)\n JOIN dl_control.derivation d USING(derivation_id)\n JOIN dl_control.source_snapshot s USING(snapshot_id) ORDER BY o.source_row_ordinal",
+      "sql_sha256": "a0ba887b06c0f6e24f7515d88314c3287b2fd6a4e3110cf009bd8048ae3212d6"
+    },
+    {
+      "execution_ms": 483.396,
+      "explain_json": {
+        "Execution Time": 483.396,
+        "Plan": {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Actual Startup Time": 483.346,
+          "Actual Total Time": 483.349,
+          "Async Capable": false,
+          "Disabled": false,
+          "Local Dirtied Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Written Blocks": 0,
+          "Node Type": "Sort",
+          "Parallel Aware": false,
+          "Plan Rows": 18,
+          "Plan Width": 1388,
+          "Plans": [
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 5.0,
+              "Actual Startup Time": 481.963,
+              "Actual Total Time": 481.966,
+              "Async Capable": false,
+              "Disabled": false,
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Limit",
+              "Parallel Aware": false,
+              "Parent Relationship": "InitPlan",
+              "Plan Rows": 142,
+              "Plan Width": 1177,
+              "Plans": [
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 5.0,
+                  "Actual Startup Time": 481.962,
+                  "Actual Total Time": 481.964,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Sort",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Rows": 142,
+                  "Plan Width": 1177,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 5.0,
+                      "Actual Startup Time": 107.293,
+                      "Actual Total Time": 481.951,
+                      "Alias": "observation",
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Exact Heap Blocks": 23487,
+                      "Filter": "((fields ->> 'id'::text) = ANY ('{151a1d0b44d9c80bdbbbbf11b169bc7f2970b8c64ba2d843f1e7ce33b3b5ca64,db973a0062157d066f0da3aa7c27dc997a1acc1d1676ea7a5d30234a917a456a,898d72a8fb6d380f1391f4f57935a41d396ee6590339adfd1cc5388d7cd20f9f,0e01bfa0fa12d7ccde9645e70ddba963725edc74c5513b98887d14ab3d26fa46,04274559f01d79817c1f7f4d776493af63d1eb8578e2dbc59f50cc15ce7e45c9}'::text[]))",
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Lossy Heap Blocks": 0,
+                      "Node Type": "Bitmap Heap Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 142,
+                      "Plan Width": 1177,
+                      "Plans": [
+                        {
+                          "Actual Loops": 1,
+                          "Actual Rows": 82055.0,
+                          "Actual Startup Time": 11.321,
+                          "Actual Total Time": 11.321,
+                          "Async Capable": false,
+                          "Disabled": false,
+                          "Index Cond": "((derivation_id = '998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1'::text) AND (entity_type = 'provider_observations'::text))",
+                          "Index Name": "observation_pkey",
+                          "Index Searches": 1,
+                          "Local Dirtied Blocks": 0,
+                          "Local Hit Blocks": 0,
+                          "Local Read Blocks": 0,
+                          "Local Written Blocks": 0,
+                          "Node Type": "Bitmap Index Scan",
+                          "Parallel Aware": false,
+                          "Parent Relationship": "Outer",
+                          "Plan Rows": 5688,
+                          "Plan Width": 0,
+                          "Shared Dirtied Blocks": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 2571,
+                          "Shared Written Blocks": 0,
+                          "Startup Cost": 0.0,
+                          "Temp Read Blocks": 0,
+                          "Temp Written Blocks": 0,
+                          "Total Cost": 809.57
+                        }
+                      ],
+                      "Recheck Cond": "((derivation_id = '998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1'::text) AND (entity_type = 'provider_observations'::text))",
+                      "Relation Name": "observation",
+                      "Rows Removed by Filter": 82050,
+                      "Rows Removed by Index Recheck": 0,
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 249743,
+                      "Shared Read Blocks": 51439,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 809.6,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 22862.66
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 249743,
+                  "Shared Read Blocks": 51439,
+                  "Shared Written Blocks": 0,
+                  "Sort Key": [
+                    "observation.source_row_ordinal"
+                  ],
+                  "Sort Method": "quicksort",
+                  "Sort Space Type": "Memory",
+                  "Sort Space Used": 32,
+                  "Startup Cost": 22867.74,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 22868.09
+                }
+              ],
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 249743,
+              "Shared Read Blocks": 51439,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 22867.74,
+              "Subplan Name": "CTE matched",
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 22868.09
+            },
+            {
+              "Actual Loops": 1,
+              "Actual Rows": 5.0,
+              "Actual Startup Time": 482.24,
+              "Actual Total Time": 483.339,
+              "Async Capable": false,
+              "Disabled": false,
+              "Hash Cond": "(d.snapshot_id = s.snapshot_id)",
+              "Inner Unique": true,
+              "Join Type": "Inner",
+              "Local Dirtied Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Written Blocks": 0,
+              "Node Type": "Hash Join",
+              "Parallel Aware": false,
+              "Parent Relationship": "Outer",
+              "Plan Rows": 18,
+              "Plan Width": 1388,
+              "Plans": [
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 5.0,
+                  "Actual Startup Time": 482.148,
+                  "Actual Total Time": 482.218,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Hash Cond": "(o.derivation_id = d.derivation_id)",
+                  "Inner Unique": true,
+                  "Join Type": "Inner",
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Hash Join",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Rows": 18,
+                  "Plan Width": 1116,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 5.0,
+                      "Actual Startup Time": 481.997,
+                      "Actual Total Time": 482.064,
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Inner Unique": true,
+                      "Join Type": "Inner",
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Nested Loop",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 18,
+                      "Plan Width": 1051,
+                      "Plans": [
+                        {
+                          "Actual Loops": 1,
+                          "Actual Rows": 5.0,
+                          "Actual Startup Time": 481.965,
+                          "Actual Total Time": 481.968,
+                          "Alias": "o",
+                          "Async Capable": false,
+                          "CTE Name": "matched",
+                          "Disabled": false,
+                          "Local Dirtied Blocks": 0,
+                          "Local Hit Blocks": 0,
+                          "Local Read Blocks": 0,
+                          "Local Written Blocks": 0,
+                          "Maximum Storage": 23,
+                          "Node Type": "CTE Scan",
+                          "Parallel Aware": false,
+                          "Parent Relationship": "Outer",
+                          "Plan Rows": 142,
+                          "Plan Width": 168,
+                          "Shared Dirtied Blocks": 0,
+                          "Shared Hit Blocks": 249743,
+                          "Shared Read Blocks": 51439,
+                          "Shared Written Blocks": 0,
+                          "Startup Cost": 0.0,
+                          "Storage": "Memory",
+                          "Temp Read Blocks": 0,
+                          "Temp Written Blocks": 0,
+                          "Total Cost": 2.84
+                        },
+                        {
+                          "Actual Loops": 5,
+                          "Actual Rows": 1.0,
+                          "Actual Startup Time": 0.017,
+                          "Actual Total Time": 0.017,
+                          "Alias": "r",
+                          "Async Capable": false,
+                          "Disabled": false,
+                          "Index Cond": "((derivation_id = o.derivation_id) AND (source_table = o.source_table) AND (source_row_ordinal = o.source_row_ordinal))",
+                          "Index Name": "source_record_pkey",
+                          "Index Searches": 5,
+                          "Local Dirtied Blocks": 0,
+                          "Local Hit Blocks": 0,
+                          "Local Read Blocks": 0,
+                          "Local Written Blocks": 0,
+                          "Node Type": "Index Scan",
+                          "Parallel Aware": false,
+                          "Parent Relationship": "Inner",
+                          "Plan Rows": 1,
+                          "Plan Width": 902,
+                          "Relation Name": "source_record",
+                          "Rows Removed by Index Recheck": 0,
+                          "Scan Direction": "Forward",
+                          "Shared Dirtied Blocks": 0,
+                          "Shared Hit Blocks": 11,
+                          "Shared Read Blocks": 19,
+                          "Shared Written Blocks": 0,
+                          "Startup Cost": 0.69,
+                          "Temp Read Blocks": 0,
+                          "Temp Written Blocks": 0,
+                          "Total Cost": 8.71
+                        }
+                      ],
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 249754,
+                      "Shared Read Blocks": 51458,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.69,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 1239.66
+                    },
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 315.0,
+                      "Actual Startup Time": 0.147,
+                      "Actual Total Time": 0.147,
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Hash Batches": 1,
+                      "Hash Buckets": 1024,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Hash",
+                      "Original Hash Batches": 1,
+                      "Original Hash Buckets": 1024,
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Inner",
+                      "Peak Memory Usage": 78,
+                      "Plan Rows": 308,
+                      "Plan Width": 195,
+                      "Plans": [
+                        {
+                          "Actual Loops": 1,
+                          "Actual Rows": 315.0,
+                          "Actual Startup Time": 0.028,
+                          "Actual Total Time": 0.109,
+                          "Alias": "d",
+                          "Async Capable": false,
+                          "Disabled": false,
+                          "Local Dirtied Blocks": 0,
+                          "Local Hit Blocks": 0,
+                          "Local Read Blocks": 0,
+                          "Local Written Blocks": 0,
+                          "Node Type": "Seq Scan",
+                          "Parallel Aware": false,
+                          "Parent Relationship": "Outer",
+                          "Plan Rows": 308,
+                          "Plan Width": 195,
+                          "Relation Name": "derivation",
+                          "Shared Dirtied Blocks": 0,
+                          "Shared Hit Blocks": 0,
+                          "Shared Read Blocks": 13,
+                          "Shared Written Blocks": 0,
+                          "Startup Cost": 0.0,
+                          "Temp Read Blocks": 0,
+                          "Temp Written Blocks": 0,
+                          "Total Cost": 16.08
+                        }
+                      ],
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 0,
+                      "Shared Read Blocks": 13,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 16.08,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 16.08
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 249754,
+                  "Shared Read Blocks": 51471,
+                  "Shared Written Blocks": 0,
+                  "Startup Cost": 20.62,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 1259.64
+                },
+                {
+                  "Actual Loops": 1,
+                  "Actual Rows": 185.0,
+                  "Actual Startup Time": 0.075,
+                  "Actual Total Time": 0.075,
+                  "Async Capable": false,
+                  "Disabled": false,
+                  "Hash Batches": 1,
+                  "Hash Buckets": 1024,
+                  "Local Dirtied Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Node Type": "Hash",
+                  "Original Hash Batches": 1,
+                  "Original Hash Buckets": 1024,
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Inner",
+                  "Peak Memory Usage": 52,
+                  "Plan Rows": 185,
+                  "Plan Width": 209,
+                  "Plans": [
+                    {
+                      "Actual Loops": 1,
+                      "Actual Rows": 185.0,
+                      "Actual Startup Time": 0.015,
+                      "Actual Total Time": 0.054,
+                      "Alias": "s",
+                      "Async Capable": false,
+                      "Disabled": false,
+                      "Local Dirtied Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Node Type": "Seq Scan",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Rows": 185,
+                      "Plan Width": 209,
+                      "Relation Name": "source_snapshot",
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Hit Blocks": 3,
+                      "Shared Read Blocks": 4,
+                      "Shared Written Blocks": 0,
+                      "Startup Cost": 0.0,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Total Cost": 8.85
+                    }
+                  ],
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Hit Blocks": 3,
+                  "Shared Read Blocks": 4,
+                  "Shared Written Blocks": 0,
+                  "Startup Cost": 8.85,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Total Cost": 8.85
+                }
+              ],
+              "Shared Dirtied Blocks": 0,
+              "Shared Hit Blocks": 249882,
+              "Shared Read Blocks": 51495,
+              "Shared Written Blocks": 0,
+              "Startup Cost": 31.78,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Total Cost": 1271.07
+            }
+          ],
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 249882,
+          "Shared Read Blocks": 51495,
+          "Shared Written Blocks": 0,
+          "Sort Key": [
+            "o.source_row_ordinal"
+          ],
+          "Sort Method": "quicksort",
+          "Sort Space Type": "Memory",
+          "Sort Space Used": 33,
+          "Startup Cost": 24139.54,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Total Cost": 24139.58
+        },
+        "Planning": {
+          "Local Dirtied Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Written Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 25,
+          "Shared Read Blocks": 17,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 0.533,
+        "Triggers": []
+      },
+      "nodes": [
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Sort",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Limit",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Sort",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Bitmap Heap Scan",
+          "Relation Name": "observation",
+          "Rows Removed by Filter": 82050
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 82055.0,
+          "Index Name": "observation_pkey",
+          "Node Type": "Bitmap Index Scan",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Hash Join",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Hash Join",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "Nested Loop",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 5.0,
+          "Index Name": null,
+          "Node Type": "CTE Scan",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 5,
+          "Actual Rows": 1.0,
+          "Index Name": "source_record_pkey",
+          "Node Type": "Index Scan",
+          "Relation Name": "source_record",
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 315.0,
+          "Index Name": null,
+          "Node Type": "Hash",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 315.0,
+          "Index Name": null,
+          "Node Type": "Seq Scan",
+          "Relation Name": "derivation",
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 185.0,
+          "Index Name": null,
+          "Node Type": "Hash",
+          "Relation Name": null,
+          "Rows Removed by Filter": null
+        },
+        {
+          "Actual Loops": 1,
+          "Actual Rows": 185.0,
+          "Index Name": null,
+          "Node Type": "Seq Scan",
+          "Relation Name": "source_snapshot",
+          "Rows Removed by Filter": null
+        }
+      ],
+      "parameters": [
+        "998fe0aef51c4e0de2723608810f669e028bf86a70b72d110eb9996510f8d0d1",
+        [
+          "151a1d0b44d9c80bdbbbbf11b169bc7f2970b8c64ba2d843f1e7ce33b3b5ca64",
+          "db973a0062157d066f0da3aa7c27dc997a1acc1d1676ea7a5d30234a917a456a",
+          "898d72a8fb6d380f1391f4f57935a41d396ee6590339adfd1cc5388d7cd20f9f",
+          "0e01bfa0fa12d7ccde9645e70ddba963725edc74c5513b98887d14ab3d26fa46",
+          "04274559f01d79817c1f7f4d776493af63d1eb8578e2dbc59f50cc15ce7e45c9"
+        ]
+      ],
+      "planning_ms": 0.533,
+      "query": "verified_native_observation_locators",
+      "sql": "WITH matched AS MATERIALIZED (\n SELECT * FROM dl_evidence.observation WHERE derivation_id=%s AND entity_type='provider_observations'\n AND fields->>'id'=ANY(%s) ORDER BY source_row_ordinal LIMIT 201)\n SELECT o.entity_id,o.entity_type,o.source_table,o.source_row_ordinal,o.derivation_id,\n o.fields->>'id' AS observation_id,o.fields->>'source_id' AS source_id,\n o.fields->>'pointer' AS pointer,o.fields->>'entity_key' AS entity_key,\n o.fields->>'type' AS resource_type,r.record_id,r.raw_sha256,r.raw_payload,\n r.source_row_key,r.ordinal_basis,d.snapshot_id,\n s.original_path,s.artifact_sha256,d.adapter_code_sha256 FROM matched o\n JOIN dl_evidence.source_record r USING(derivation_id,source_table,source_row_ordinal)\n JOIN dl_control.derivation d USING(derivation_id)\n JOIN dl_control.source_snapshot s USING(snapshot_id) ORDER BY o.source_row_ordinal",
+      "sql_sha256": "324c5c6d6e0b13833b0037e96cfb4166a9eff94ec1b545d7e88f60a61a3bd30a"
+    }
+  ],
+  "remaining_limits": [
+    "Composite normalized directory snapshot, not a complete provider roster or current registry verification.",
+    "NPI-bearing practitioners, organizations, roles and locations remain distinct source entities.",
+    "Only explicit role provider/location references form site candidates; organization membership is not a substitute.",
+    "Names or matching addresses do not merge entities/sites; shared sites and multiple roles remain separate.",
+    "A source active flag or period does not establish current practice, participation, network access or appointments.",
+    "Missing, truncated or conflicting source references are unresolved, never a negative coverage finding.",
+    "Site candidates are capped at 200 edges per selected entity/role/location window; omitted-edge counts are explicit and there is no site cursor. Inspect the retained role/location references; entity/role cursors do not continue the capped site list.",
+    "Finish the selected entity page and its role windows before advancing entities; location references beyond the 100-location window remain explicitly unfetched.",
+    "Federal hospital IDs, Original Medicare assignments/enrollment/optout, and medical-plan network findings need separate methods and sources.",
+    "Every site candidate still requires explicit item/person/time disambiguation; customer confirmation grants no consumer source authority.",
+    "The composite wellcare-r5 database includes multiple directory publishers; it is not a Wellcare-only roster.",
+    "This receipt checks five exact selectors and their raw parents, not the semantic correctness or currentness of all retained provider records.",
+    "Exact selectors use existing derivation/lineage indexes and filter a bounded source slice; no dedicated NPI/entity JSON index, migration or schema change was added.",
+    "Lookup wall times are seconds for richer source cases; no interactive latency or concurrency acceptance is claimed.",
+    "Synthetic tests cover null actors, pagination/truncation, response caps, STOP/stale source state and malformed/lineage drift without altering real source records.",
+    "Native observation locator columns now verify the internally read raw parent and every selected normalized claimant; large raw FHIR payloads are omitted only after verification."
+  ],
+  "request_selection": {
+    "basis": "Retained public source-only exact role/location keys; no customer/profile input.",
+    "selected_keys": {
+      "location_only": "apigw.bcbsfl.com/Location/8139776",
+      "role_without_separately_retained_actor": "fhir.humana.com/PractitionerRole/000088a3ace4aa9eb0b14a4b1ac3815d0292d2aecdf6dd37c9d653196c56a0ef"
+    },
+    "source_selection_sql": {
+      "location_only": "SELECT e.entity_key FROM entities e JOIN locations l ON l.entity_key=e.entity_key WHERE e.type='Location' ORDER BY e.entity_key LIMIT 1",
+      "role_without_separately_retained_actor": "SELECT e.entity_key FROM entities e JOIN roles r ON r.entity_key=e.entity_key LEFT JOIN entities a ON a.entity_key=r.provider_key WHERE e.type='PractitionerRole' AND a.entity_key IS NULL ORDER BY e.entity_key LIMIT 1"
+    },
+    "sqlite_open_mode": "mode=ro&immutable=1"
+  },
+  "runtime_guard_observation": {
+    "database": "daylight_research_2026_r2",
+    "effective_role": "daylight_research_reader",
+    "transaction_isolation": "repeatable read",
+    "transaction_read_only": "on"
+  },
+  "schema": "local-research-provider-identity-audit/2",
+  "scope": {
+    "category": "composite_directory_identity",
+    "personal_geography_or_plan_scope": null,
+    "source_component": "wellcare-r5",
+    "year": 2026
+  },
+  "serving_code_hashes": {
+    "__init__.py": "48528101cdeaea9cf3583c267c67427dcc2baf353a0d6fab4bae99294c7bb46a",
+    "binding.py": "fc4618811408d57499959ac9295413386e310f57ac146a7fd03bf3f006d23c4a",
+    "drug_candidates.py": "9b0618b84cb735e939523634510b140ebdb64d5cbb36620db2e08528490d7f14",
+    "identity.py": "97a1e3a43a3248d6caa1988ee984ec8503d0aea2541bc7605cac6bc7149671cc",
+    "native_lineage.py": "588ac35588b539622b3f09f592696b49f33e50ee450c4465caab9a5cea782c8b",
+    "provider_identity.py": "6450a7a0127f96c17b7fd4d78895e7d155dcc46dac848738b890934635c9ced0",
+    "repository.py": "850c8322957841463d9a69d1486eb42a233c2be2c6858fff9a86cf9c4674ae5d"
+  },
+  "site_cap_boundary": {
+    "basis": "Synthetic source regression, not a real provider count",
+    "meaning": "Entity and role cursors do not continue the capped site list; selected role/location references remain inspectable. Location-window continuation remains unimplemented.",
+    "omitted_edges": 40,
+    "partial": true,
+    "retained_location_records": 6,
+    "retained_role_records": 40,
+    "returned_site_candidates": 200,
+    "selected_source_edges": 240,
+    "site_continuation": "not_supported_within_selected_window"
+  },
+  "source_access_registration": {
+    "absence_is_permission": false,
+    "output_authority": "held",
+    "requested_source_ids": [
+      "sealed-local:L08",
+      "L08"
+    ],
+    "state": "unregistered"
+  },
+  "source_access_states": [],
+  "source_artifact": {
+    "bytes": 2499805184,
+    "observed_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8",
+    "path": "docs/data/l08-provider-networks-2026-10-27/wellcare-r5/providers.sqlite3",
+    "population_controls": {
+      "entities": 80309,
+      "locations": 6025,
+      "observations": 82055,
+      "roles": 72223,
+      "source_conflicts": 1,
+      "sources": 1231
+    },
+    "selected_sha256": "c6e3013a8fa69e09099bb699e5717da79518615f0887ee73fd17398b95c574a8"
+  },
+  "source_or_database_mutated": false,
+  "source_policy_binding": {
+    "L08_allowed_outputs": [
+      "Internal source-qualified provider/site candidate search with distinct exact-plan positive evidence, named-network evidence, family-only observation and unresolved state",
+      "Synthetic inspection of 381 positive hospital-plan cells and 843 unknowns with date/source context",
+      "Original Medicare source-qualified assignment/enrollment/optout observations, preserving both sides of conflicting records",
+      "Inspect missing checks and next official verification tasks; no mandatory full-profile intake to browse evidence"
+    ],
+    "L08_held_outputs": [
+      "Network-absence or out-of-network inference from missing/partial listing",
+      "Guaranteeing person/site in-network from name, NPI, health-system affiliation or benefit existence",
+      "Positive current Medicare participation for enumerated source-conflict identities without clarification",
+      "All-provider/all-network completeness claim",
+      "Medicare SELECT network fit until exact L10 policy/form/network established",
+      "Personal recommendations or consumer activation without separately accepted evidence capability"
+    ],
+    "path": "infrastructure/daylight-data/config/source-composition.2026.json",
+    "sha256": "eccf8200870dd68333caa65a1cafe72a8d0441057ce51ea65d4eacdef177ddc3"
+  },
+  "tests": {
+    "command": "PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_research_provider_identity.py tests/test_research_identity.py tests/test_research_serving.py",
+    "elapsed_seconds": 0.35,
+    "locator_repair_added_tests": 26,
+    "new_provider_tests_total": 58,
+    "observation": "Observed synthetic full source-identity suite after repair, bound to exact final module/test bytes; not rerun by receipt generation. The26 new guard cases include the original combined QA canary, individual metadata/raw tampering, duplicates, common-snapshot and normalized-claimant mismatch, valid shared observations, and genuine native nulls.",
+    "passed": 155
+  }
+}

@@ -17,12 +17,32 @@ def candidate(identifier, priority=1, required=False):
 
 
 class DecisionGuidanceTests(unittest.TestCase):
-    def test_timing_dependencies_precede_location_and_unexplained_start_preference(self):
+    def test_comparison_marks_relevance_without_enforcing_intake_sequence(self):
+        moves = [candidate('RC11'), candidate('T04'), candidate('T10'),
+                 candidate('T07'), candidate('T06'), candidate('T03')]
+        for removed in ('T03', 'T06', 'T07'):
+            ranked, brief = guidance(moves, task='compare', age65=True,
+                concerns=[{'topic':'timing','status':'open','subject':'beneficiary'}])
+            self.assertEqual([item['id'] for item in ranked], [item['id'] for item in moves])
+            self.assertTrue(brief['relevance_is_advisory'])
+            self.assertEqual(brief['practical_focus'], 'timing')
+            self.assertCountEqual([item['id'] for item in ranked], [item['id'] for item in moves])
+            moves = [item for item in moves if item['id'] != removed]
+
+    def test_comparison_confusion_can_be_answered_without_forcing_intake(self):
+        ranked, brief = guidance([candidate('T03'), candidate('T04')], task='compare',
+            age65=True, education_request={'kind':'clarify','concept_ids':['enrollment_timing']})
+        self.assertEqual(brief['focus'], 'timing')
+        self.assertEqual(brief['question_policy'], 'clarify_current_confusion')
+        self.assertTrue(brief['return_point_is_optional'])
+        self.assertEqual(ranked[0]['id'], 'T03')
+
+    def test_timing_marks_dependencies_without_prescribing_next_question(self):
         moves = [candidate('T03'), candidate('T04'), candidate('RC09'), candidate('T10')]
         ranked, brief = guidance(moves, task='timing')
-        self.assertEqual([item['id'] for item in ranked], ['RC09', 'T04', 'T03', 'T10'])
+        self.assertEqual([item['id'] for item in ranked], ['T03', 'T04', 'RC09', 'T10'])
         self.assertEqual(brief['focus'], 'timing')
-        self.assertEqual(brief['obstacles'][0]['question_id'], 'RC09')
+        self.assertIn('RC09', [item['question_id'] for item in brief['obstacles']])
         self.assertTrue(brief['return_point_is_optional'])
         self.assertEqual(brief['personal_research'], 'held')
 
@@ -39,7 +59,8 @@ class DecisionGuidanceTests(unittest.TestCase):
         moves = [candidate('T03'), candidate('T06'), candidate('T04')]
         ranked, brief = guidance(moves, task='timing', age65=True,
             concerns=[{'topic': 'doctors', 'status': 'open', 'subject': 'beneficiary'}])
-        self.assertEqual(ranked[0]['id'], 'T06')
+        self.assertEqual(next(item for item in ranked if item['id'] == 'T06')['decision_relevance'],
+                         'current_decision')
         self.assertEqual(brief['focus'], 'doctors')
         self.assertIn('exact provider check', brief['objective'])
         self.assertEqual(brief['personal_research'], 'held')
@@ -73,7 +94,10 @@ class DecisionGuidanceTests(unittest.TestCase):
                     'topic': 'doctors', 'status': 'open', 'subject': subject}])
                 self.assertEqual(brief['focus'], 'timing')
                 self.assertEqual(brief['practical_focus'], 'timing')
-                self.assertEqual(ranked[0]['id'], 'RC09')
+                self.assertEqual(next(item for item in ranked if item['id'] == 'RC09')
+                                 ['decision_relevance'], 'current_decision')
+                self.assertEqual(next(item for item in ranked if item['id'] == 'T06')
+                                 ['decision_relevance'], 'available_if_useful')
                 provider = next(item for item in ranked if item['id'] == 'T06')
                 self.assertEqual(provider['decision_relevance'], 'available_if_useful')
                 self.assertCountEqual([item['id'] for item in ranked], ['T06', 'RC09', 'T04'])
@@ -149,7 +173,8 @@ class DecisionPermissionIntegrationTests(unittest.TestCase):
         self.assertEqual(out['generated']['status'], 'complete')
         sent = case.stage_payloads('daylight_resolved_conversation')[-1]
         self.assertEqual(sent['resolved_context']['advisor_brief']['decision']['focus'], 'doctors')
-        self.assertEqual(sent['question_candidates'][0]['id'], 'T06')
+        self.assertEqual(next(item for item in sent['question_candidates'] if item['id'] == 'T06')
+                         ['decision_relevance'], 'current_decision')
         self.assertEqual([item['id'] for item in case.flow.eligible(case.owner, case.g, case.r)],
                          original_order, 'Eligibility itself must remain policy-neutral.')
         return case, original_order
@@ -177,13 +202,16 @@ class DecisionPermissionIntegrationTests(unittest.TestCase):
                            compose=self.answer(), contextPolicy=CONTEXT_POLICY)
         self.assertEqual(out['generated']['status'], 'complete')
         sent = case.stage_payloads('daylight_resolved_conversation')[-1]
-        self.assertEqual(sent['question_candidates'][0]['id'], 'T06')
-        self.assertEqual(sent['question_candidates'][0]['decision_relevance'], 'current_decision')
+        self.assertEqual(next(item for item in sent['question_candidates'] if item['id'] == 'T06')
+                         ['decision_relevance'], 'current_decision')
         self.assertCountEqual([item['id'] for item in sent['question_candidates']], original_order)
         brief = sent['resolved_context']['advisor_brief']['decision']
         self.assertEqual(brief['focus'], 'doctors')
+        self.assertTrue(brief['relevance_is_advisory'])
         self.assertTrue(brief['return_point_is_optional'])
-        self.assertIsNone(out['assessment']['nextQuestion'], 'Answer-only remains an allowed move.')
+        # November 8, 2026: an answer-only draft gains the approved return
+        # point (the pending T04 timing question) rather than ending without one.
+        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T04')
 
     def test_route_revisit_retains_sources_for_open_provider_concern(self):
         case, _ = self.case_with_v3_concern()
@@ -196,7 +224,7 @@ class DecisionPermissionIntegrationTests(unittest.TestCase):
         context = case.stage_payloads('daylight_resolved_conversation')[-1]['resolved_context']
         evidence = {item['id']: item for item in context['evidence']}
         self.assertTrue({'routesintro', 'options', 'original', 'advantage', 'checks'} <= set(evidence))
-        self.assertLessEqual(len(evidence), 6)
+        self.assertLessEqual(len(evidence), 8)  # six sources plus up to two rule statements (Nov 8, 2026)
         for identifier in ('original', 'advantage'):
             self.assertEqual(evidence[identifier], case.flow.facts[identifier])
         self.assertEqual(context['advisor_brief']['decision']['focus'], 'coverage_paths')

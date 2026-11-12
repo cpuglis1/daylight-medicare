@@ -14,7 +14,8 @@ VERSION = 'education-v1'
 PURPOSES = frozenset({'advance', 'answer', 'teach', 'clarify', 'recap'})
 DEPTHS = frozenset({'introduced', 'explored', 'needs_clarification'})
 REASONS = frozenset({'new', 'deepen', 'requested_revisit', 'clarify'})
-VISUALS = frozenset({'none', 'routes', 'original', 'advantage', 'parts', 'parta', 'partb'})
+VISUALS = frozenset({'none', 'routes', 'original', 'advantage', 'parts', 'parta', 'partb',
+                     'transition', 'costs'})
 EVENT_LIMIT = 32
 ASPECT_UPDATE_LIMIT = 3
 _EVENT = re.compile(r'[A-Za-z0-9:_-]{1,128}\Z')
@@ -81,10 +82,34 @@ _ASPECTS = {
 }
 
 
+# Outcomes describe useful understanding, not an order to teach or a pass/fail
+# requirement. Evidence and aspects below retain their existing source scopes.
+_OUTCOMES = {
+    'medicare_basics': 'Explain what Medicare is and the question you need help with.',
+    'part_a': 'Recognize where Part A fits in coverage for care.',
+    'part_b': 'Recognize where Part B fits in coverage for care.',
+    'coverage_paths': 'Distinguish the coverage paths and a tradeoff relevant to your goal.',
+    'original_medicare': 'Explain how Original Medicare and optional additional coverage fit together.',
+    'medicare_advantage': 'Explain how a private Medicare plan delivers coverage and why its rules matter.',
+    'prescription_coverage': 'Identify where prescription coverage fits in the coverage arrangement.',
+    'medigap': 'Explain what a supplement helps pay and why its exact terms matter.',
+    'provider_checks': 'Distinguish naming a doctor from confirming access under the intended coverage.',
+    'medicine_checks': 'Explain why the exact medicine, pharmacy and coverage conditions need checking.',
+    'cost_components': 'Distinguish monthly payments from costs when using care in a relevant example.',
+    'medical_spending_limits': 'Explain which costs a medical spending limit does and does not bound.',
+    'routine_extra_benefits': 'Explain why an advertised benefit needs its limits and conditions checked.',
+    'enrollment_timing': 'Distinguish signing up from coverage starting and identify what needs confirmation.',
+    'current_coverage_timing': 'Explain why current coverage can affect enrollment decisions.',
+    'medigap_switching': 'Recognize which switching conditions need checking before changing coverage.',
+    'research_checks': 'Distinguish reported information from verified findings and identify a useful next step.',
+}
+
+
 def _concept(identifier, title, section, evidence, visuals=()):
     return {'concept_id': identifier, 'title': title, 'section': section,
             'evidence_refs': list(evidence), 'visuals': list(visuals),
-            'aspects': copy.deepcopy(_ASPECTS[identifier])}
+            'aspects': copy.deepcopy(_ASPECTS[identifier]),
+            'learning_outcome': _OUTCOMES[identifier]}
 
 
 # Several concepts may share one source. Citing that source does not check off
@@ -107,15 +132,15 @@ CONCEPTS = (
     _concept('medicine_checks', 'Checking exact medicines and pharmacies', 'personal_tradeoffs',
              ('checks', 'drugbasics', 'drugs')),
     _concept('cost_components', 'Monthly costs and costs when using care', 'personal_tradeoffs',
-             ('costs',)),
+             ('costs',), ('costs',)),
     _concept('medical_spending_limits', 'Medical spending limits', 'personal_tradeoffs',
-             ('medical_limit',)),
+             ('medical_limit',), ('costs',)),
     _concept('routine_extra_benefits', 'Dental, vision and hearing', 'personal_tradeoffs',
              ('extras',)),
     _concept('enrollment_timing', 'Sign-up timing and coverage start', 'enrollment',
-             ('enrollment_intro', 'dates')),
+             ('enrollment_intro', 'dates'), ('transition',)),
     _concept('current_coverage_timing', 'Why current insurance matters to timing', 'enrollment',
-             ('enrollment_intro', 'dates', 'cobra_timing')),
+             ('enrollment_intro', 'dates', 'cobra_timing'), ('transition',)),
     _concept('medigap_switching', 'Checking Medigap and switching rights', 'enrollment',
              ('switching', 'medigap')),
     _concept('research_checks', 'What still needs checking before choosing', 'decision',

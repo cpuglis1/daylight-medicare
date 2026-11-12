@@ -10,6 +10,7 @@ import sys
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 import uuid
 
 HERE = Path(__file__).resolve().parents[1]
@@ -538,7 +539,8 @@ class NaturalAgentTests(unittest.TestCase):
         with self.agent.reserve_turn() as reservation:
             out = self.agent.extract('owner','I want help understanding my options.',self.g,{},str(uuid.uuid4()),reservation)
         properties=self.calls[-1]['text']['format']['schema']['properties']
-        self.assertEqual(set(properties),{'updates','requests','fact_ids','agenda','situation_proposals','goal_quote','education_request'})
+        # discourse_note: bounded rolling discourse brief (November 8, 2026).
+        self.assertEqual(set(properties),{'updates','requests','fact_ids','agenda','situation_proposals','goal_quote','education_request','discourse_note'})
         for forbidden in ['mode','task','task_quote','reflection','confirmation','move_id','reason_id','practical_request']:
             self.assertNotIn(forbidden,properties)
             self.assertNotIn(forbidden,out)
@@ -784,7 +786,7 @@ class NaturalAgentTests(unittest.TestCase):
         self.assertEqual([row[0] for row in rows], ['cancelled', 'settled'])
         self.assertEqual(rows[0][1], 0)
         self.assertEqual(rows[1][1], 300*2500 + 70*15000)
-        self.assertTrue(all(row[2:] == (8000, 900) for row in rows))
+        self.assertEqual([row[2:] for row in rows], [(0, 900), (300, 900)])
 
     def test_both_stages_settle_without_extra_reservations(self):
         budget = self.ledger()
@@ -802,7 +804,7 @@ class NaturalAgentTests(unittest.TestCase):
 
     def test_insufficient_group_allowance_starts_no_stage(self):
         budget = self.ledger()
-        budget.seed([('historic', '2026-10-30', 380000, 0, 0)])
+        budget.seed([('historic', '2026-10-30', 392000, 0, 0)])
         self.agent.budget = budget
         with self.assertRaises(BudgetError): self.agent.reserve_turn()
         self.assertEqual(self.calls, [])
@@ -812,7 +814,7 @@ class NaturalAgentTests(unittest.TestCase):
     def test_unissued_preflight_failure_releases_both_stages(self):
         budget = self.ledger()
         self.agent.budget = budget
-        self.agent.count_tokens = lambda *_: 9000
+        self.agent.count_tokens = lambda *_: 1_000_000
         self.answer = self.extraction([])
         with self.assertRaises(BudgetError):
             with self.agent.reserve_turn() as reservation:
@@ -851,6 +853,22 @@ class NaturalAgentTests(unittest.TestCase):
                              ['cancelled', 'uncertain'])
         self.assertEqual(len(self.calls), 1)
         self.assertEqual(self.agent.cache, {})
+
+    def test_extraction_http_rejection_is_distinct_from_a_disconnected_reply(self):
+        self.agent.budget = self.ledger()
+        self.failure = HTTPError('https://example.test/', 400, 'private error', None,
+            io.BytesIO(b'{"error":{"type":"invalid_request_error","message":"PRIVATE-BODY"}}'))
+        self.addCleanup(self.failure.close)
+        with self.assertLogs('natural_agent', level='WARNING') as logs:
+            with self.assertRaisesRegex(ModelUnavailable, 'provider declined'):
+                with self.agent.reserve_turn() as reservation:
+                    self.agent.extract('owner', 'A fictional report.', self.g, {},
+                                       str(uuid.uuid4()), reservation)
+        recorded = '\n'.join(logs.output)
+        self.assertIn('"http_status": 400', recorded)
+        self.assertIn('"provider_code": "invalid_request_error"', recorded)
+        self.assertNotIn('PRIVATE-BODY', recorded)
+        self.assertEqual(len(self.calls), 1)
 
     def test_tls_composition_failure_preserves_settled_extraction_without_retry(self):
         budget = self.ledger()
@@ -913,7 +931,7 @@ class NaturalAgentTests(unittest.TestCase):
                     counted.append(copy.deepcopy(payload))
                     content = json.loads(payload['input'][0]['content'])
                     current = content['confirmed_context' if stage == 'extract' else 'resolved_context']
-                    return 7000 + 600*len(current['recent_exchanges'])
+                    return 16000 + 600*len(current['recent_exchanges'])
                 self.agent.count_tokens = counter
                 answer = self.extraction([]) if stage == 'extract' else self.composition()
                 requests = []
@@ -932,17 +950,16 @@ class NaturalAgentTests(unittest.TestCase):
                                                str(uuid.uuid4()),reservation)
                 self.assertEqual(len(requests),1,'Packing counts never regenerate a model response.')
                 self.assertEqual(self.agent.calls,before_calls+1)
-                self.assertEqual(len(counted),6)
+                self.assertEqual(len(counted),1)
                 key = 'confirmed_context' if stage == 'extract' else 'resolved_context'
                 actual = json.loads(json.loads(requests[0].data)['input'][0]['content'])
                 expected = json.loads(counted[0]['input'][0]['content'])
-                expected[key]['recent_exchanges'] = [history[-1]]
                 self.assertEqual(actual,expected,'The real HTTP bytes must match the packed token count.')
                 self.assertEqual(context,before,'Packing must never trim server visit memory.')
                 self.assertEqual([len(json.loads(item['input'][0]['content'])[key]['recent_exchanges'])
-                                  for item in counted],[6,5,4,3,2,1])
+                                  for item in counted],[6])
 
-    def test_history_packing_stops_as_soon_as_the_input_fits(self):
+    def test_history_is_retained_above_the_former_input_ceiling(self):
         history = [{'user':str(index),'assistant':str(index)} for index in range(6)]
         content = {'resolved_context':{'recent_exchanges':history,'reports':[{'id':'keep'}],
                     'education_context':{'learning':{'focus':['coverage_paths']}}},
@@ -952,13 +969,13 @@ class NaturalAgentTests(unittest.TestCase):
         def counter(_, item):
             state = json.loads(item['input'][0]['content'])
             counts.append(len(state['resolved_context']['recent_exchanges']))
-            return 7000 + 300*counts[-1]
+            return 16000 + 300*counts[-1]
         self.agent.count_tokens = counter
         count = self.agent.count_request_tokens(self.agent.client,payload)
-        self.assertEqual(count,7900)
-        self.assertEqual(counts,[6,5,4,3])
+        self.assertEqual(count,17800)
+        self.assertEqual(counts,[6])
         actual = json.loads(payload['input'][0]['content'])
-        self.assertEqual(actual['resolved_context']['recent_exchanges'],history[-3:])
+        self.assertEqual(actual['resolved_context']['recent_exchanges'],history)
         self.assertEqual(actual['resolved_context']['reports'],content['resolved_context']['reports'])
         self.assertEqual(actual['resolved_context']['education_context'],
                          content['resolved_context']['education_context'])
@@ -978,7 +995,7 @@ class NaturalAgentTests(unittest.TestCase):
                          json.dumps(content,ensure_ascii=False,separators=(',',':')))
         self.assertEqual(len(counts),1)
 
-    def test_lossless_json_compaction_precedes_history_removal_and_counting(self):
+    def test_lossless_json_compaction_precedes_counting(self):
         context = {'current_message':'My name has spaces. Please keep them.',
             'recent_exchanges':[{'user':'A complete sentence.', 'assistant':'Another complete sentence.'}],
             'reports':[{'id':'keep','value':{'month':11,'year':None}}],
@@ -997,18 +1014,18 @@ class NaturalAgentTests(unittest.TestCase):
         self.assertEqual(json.loads(payload['input'][0]['content']),before)
         self.assertEqual(content,before)
 
-    def test_oversize_after_six_history_removals_stays_unissued_and_bounded(self):
+    def test_input_exceeding_daily_budget_stays_unissued_without_removing_history(self):
         budget = self.ledger()
         self.agent.budget = budget
         context = {'recent_exchanges':[{'user':str(index),'assistant':str(index)} for index in range(6)]}
         before = copy.deepcopy(context)
         counts = []
-        self.agent.count_tokens = lambda _, value: counts.append(copy.deepcopy(value)) or 9001
+        self.agent.count_tokens = lambda _, value: counts.append(copy.deepcopy(value)) or 1_000_000
         self.answer = self.extraction([])
         with self.assertRaises(BudgetError):
             with self.agent.reserve_turn() as reservation:
                 self.agent.extract('owner','I am retired.',self.g,context,str(uuid.uuid4()),reservation)
-        self.assertEqual(len(counts),7)
+        self.assertEqual(len(counts),1)
         self.assertEqual(context,before)
         self.assertEqual(self.calls,[])
         self.assertEqual(self.agent.calls,0)
@@ -1077,7 +1094,7 @@ class NaturalAgentTests(unittest.TestCase):
         with budget.db() as db:
             rows = db.execute('SELECT status,charged FROM ai_charges').fetchall()
         self.assertEqual(sorted(row[0] for row in rows), ['cancelled', 'uncertain'])
-        self.assertEqual(sum(row[1] for row in rows), 33500000)
+        self.assertEqual(sum(row[1] for row in rows), 300*2500 + 900*15000)
 
     def test_streamed_quota_failure_preserves_accepted_details_message(self):
         self.agent.client.transport = None
@@ -1090,5 +1107,180 @@ class NaturalAgentTests(unittest.TestCase):
         self.assertNotIn('canary', str(error.exception))
 
 
+class CarrierAliasTests(unittest.TestCase):
+    """R2: "UHC" on screen may be written "UnitedHealthcare"; other insurers stay ungrounded."""
+    setUp = NaturalAgentTests.setUp
+    extraction = NaturalAgentTests.extraction
+    empty_agenda = NaturalAgentTests.empty_agenda
+    update = NaturalAgentTests.update
+    composition = NaturalAgentTests.composition
+    compose = NaturalAgentTests.compose
+    ledger = NaturalAgentTests.ledger
+
+    def test_expanded_insurer_of_an_on_screen_plan_is_grounded(self):
+        self.context['reports'] = []
+        self.context['evidence'] = list(self.context.get('evidence', [])) + [
+            {'id': 'plan:H0001-006', 'title': 'Plan', 'text': 'AARP Medicare Advantage from UHC FL-0006 (H0001-006) plan type: HMO-POS.',
+             'summary': 'AARP Medicare Advantage from UHC FL-0006 (H0001-006) plan type: HMO-POS.'}]
+        self.answer = self.composition(reply='These are UnitedHealthcare plans; the screen shows each one’s published terms.')
+        self.assertEqual(self.compose()['reply'], self.answer['reply'])
+
+    def test_an_insurer_not_on_screen_is_still_ungrounded(self):
+        self.context['reports'] = []
+        self.answer = self.composition(reply='Humana Gold Plus covers this differently.')
+        with self.assertRaises(ModelUnavailable): self.compose()
+
+
 if __name__ == '__main__':
     unittest.main()
+
+
+class RedirectContractNov9Tests(unittest.TestCase):
+    """Owner intent, every turn ends with a question (live run P05–P09, Nov 9, 2026)."""
+    setUp = NaturalAgentTests.setUp
+    extraction = NaturalAgentTests.extraction
+    empty_agenda = NaturalAgentTests.empty_agenda
+    update = NaturalAgentTests.update
+    composition = NaturalAgentTests.composition
+    compose = NaturalAgentTests.compose
+    ledger = NaturalAgentTests.ledger
+
+    def test_brevity_demand_is_not_a_pause_and_the_open_question_is_restored(self):
+        self.moves = [{'id': 'T06', 'question': {'id': 'T06', 'question': 'Are there doctors or hospitals you’d like to keep?',
+                       'choices': [['none', 'No doctors to include']]}, 'purpose': 'x', 'priority': 1}]
+        self.context['required_target'] = {'id': 'T06', 'reason': 'current_decision', 'question': 'Are there doctors or hospitals you’d like to keep?'}
+        self.context['require_followup'] = True
+        self.context['pause_allowed'] = False
+        self.answer = self.composition(question_target=None, reply='No.', question='', agenda_update={'current_concern': 'COBRA bill', 'pause': True})
+        out = self.compose()
+        self.assertEqual(out['reply'], 'No.')
+        self.assertEqual(out['question_target'], 'T06')
+        self.assertEqual(out['question'], 'Are there doctors or hospitals you’d like to keep?')
+        self.assertFalse(out['agenda_update']['pause'])
+
+    def test_person_requested_pause_still_ends_without_a_question(self):
+        self.context['require_followup'] = True
+        self.context['pause_allowed'] = True
+        self.answer = self.composition(question_target=None, reply='Of course. We can pick this up whenever you like.', question='',
+                                       agenda_update={'current_concern': '', 'pause': True})
+        out = self.compose()
+        self.assertEqual(out['question'], '')
+        self.assertTrue(out['agenda_update']['pause'])
+
+    def test_missing_followup_keeps_the_answer_and_adds_the_continuation_question(self):
+        self.moves = []
+        self.context['require_followup'] = True
+        self.context['pause_allowed'] = False
+        self.answer = self.composition(question_target=None, reply='We can take the next piece at your pace.', question='')
+        out = self.compose()
+        self.assertEqual(out['reply'], self.answer['reply'])
+        self.assertEqual(out['question'], 'What would you like to understand next?')
+        self.assertIsNone(out['question_target'])
+        self.assertEqual(out['validation_recovery']['reason'], 'missing_followup')
+
+    def test_dependent_spouse_coverage_is_not_a_spouse_job_claim(self):
+        self.context['reports'] = [{'id': 'guide.coverage.current', 'value': ['retiree'], 'status': 'reported'}]
+        self.answer = self.composition(reply="Joining an outside drug plan could end the retiree package, including your husband's coverage.",
+                                       report_refs=['guide.coverage.current'])
+        self.assertEqual(self.compose()['reply'], self.answer['reply'])
+        self.context['reports'] = [{'id': 'guide.coverage.current', 'value': ['employer'], 'status': 'reported'}]
+        self.answer = self.composition(reply="Your insurance through your husband's job gives us a starting point.", report_refs=['guide.coverage.current'])
+        with self.assertRaises(ModelUnavailable): self.compose()
+        self.assertEqual(self.agent.local.last_composition_error, 'missing_worker_reference')
+
+    def test_resolved_rule_months_ground_the_reply(self):
+        self.context['applicable_rules'] = [{'rule_id': 'ma_trial_right', 'fact_id': 'ma_trial_right', 'status': 'not_met',
+            'applies_because': ['RC16: first Advantage plan started March 2021; 12-month window ended March 2022'],
+            'confirm_with': [], 'how_to_use': '', 'statement': 'x'}]
+        self.context['reports'].append({'id': 'readiness.RC16.profile.choice', 'value': 'yes', 'status': 'reported'})
+        self.answer = self.composition(reply='On the start you reported, March 2021, the 12-month trial right would have ended around March 2022.',
+                                       report_refs=['readiness.RC16.profile.choice'])
+        self.assertEqual(self.compose()['reply'], self.answer['reply'])
+
+
+class OwnWordsGroundingTests(unittest.TestCase):
+    """Echoing the amounts and names the person just typed is reporting, not invention (P11, Nov 9, 2026)."""
+    setUp = NaturalAgentTests.setUp
+    extraction = NaturalAgentTests.extraction
+    empty_agenda = NaturalAgentTests.empty_agenda
+    update = NaturalAgentTests.update
+    composition = NaturalAgentTests.composition
+    compose = NaturalAgentTests.compose
+    ledger = NaturalAgentTests.ledger
+
+    def test_amounts_and_names_from_the_current_message_are_grounded(self):
+        self.context['reports'] = []
+        self.context['current_message'] = 'Reedglass Pharmacy quoted $510 for 60 apixaban tablets and Dr. Tavin Rookmere prescribed it.'
+        self.answer = self.composition(reply='A $510 quote for 60 tablets from Reedglass Pharmacy is the kind of cost a drug plan is meant to change; Dr. Tavin Rookmere’s prescription itself does not decide coverage.')
+        self.assertEqual(self.compose()['reply'], self.answer['reply'])
+
+    def test_bare_months_from_the_current_message_still_need_an_accepted_report(self):
+        self.context['reports'] = []
+        self.context['current_message'] = 'I think it was sometime in February, and I paid $510 last week.'
+        self.answer = self.composition(reply='Since February you have paid $510 a month.')
+        with self.assertRaises(ModelUnavailable): self.compose()
+        self.assertEqual(self.agent.local.last_composition_error, 'ungrounded_literal')
+
+    def test_specific_dates_the_person_typed_may_be_echoed(self):
+        self.context['reports'] = []
+        self.context['current_message'] = 'Plan N started February 1, 2021. I bought seven days on November 5, so I need more November 12.'
+        self.answer = self.composition(reply='You said Plan N started February 1, 2021 and the next refill is needed November 12; a 7-day supply is what you bought.')
+        self.assertEqual(self.compose()['reply'], self.answer['reply'])
+
+
+class ContextFitTests(unittest.TestCase):
+    """A bounded composition context is compacted, never refused (P12/P16/P17, Nov 9, 2026)."""
+    setUp = NaturalAgentTests.setUp
+    extraction = NaturalAgentTests.extraction
+    empty_agenda = NaturalAgentTests.empty_agenda
+    update = NaturalAgentTests.update
+    composition = NaturalAgentTests.composition
+    compose = NaturalAgentTests.compose
+    ledger = NaturalAgentTests.ledger
+
+    def big_context(self):
+        plans = [{'id': f'H1045-0{n}', 'name': f'Plan {n}', 'type': 'HMO-POS', 'identity_state': 'listed',
+                  'fields': {f'f{i}': {'label': 'Label ' + 'x' * 40, 'state': 'reference', 'value': '$%d' % i,
+                                       'conditions': ['condition ' + 'y' * 120] * 3, 'reason_codes': ['CODE'] * 2,
+                                       'evidence_ref': f'ev:{n}:{i}'} for i in range(25)}} for n in range(3)]
+        evidence = [{'id': f'ev:{n}:{i}', 'text': 'Plan value ' + 'z' * 200 + ' (published 2026 term; shown for review, not yet confirmed by Daylight)',
+                     'kind': 'published_plan_field', 'review_state': 'reference', 'offering_id': f'H1045-0{n}'}
+                    for n in range(3) for i in range(25)]
+        evidence += [{'id': f'fact{i}', 'text': 'Reviewed statement ' + 'w' * 300, 'summary': 's'} for i in range(8)]
+        return {'reports': [{'id': 'guide.coverage.current', 'value': ['advantage'], 'status': 'reported'}],
+                'applicable_rules': [{'rule_id': 'ma_trial_right', 'statement': 'rule'}],
+                'advisor_brief': {'discourse': ['note'] * 5},
+                'recent_exchanges': [{'user': 'u' * 400, 'assistant': 'a' * 900, 'question': 'q'} for _ in range(8)],
+                'education_context': {'catalog': {'concepts': [{'concept_id': 'c', 'description': 'd' * 500}] * 10}},
+                'learner_context': {'observations': ['o' * 2000]},
+                'plans_context': {'plans': plans, 'compared_ids': [p['id'] for p in plans], 'reference_notice': 'n' * 300},
+                'evidence': evidence}
+
+    def test_oversized_context_is_compacted_oldest_first_and_keeps_reports_rules_and_moves(self):
+        context = self.big_context()
+        before = len(json.dumps(context))
+        steps = NaturalAgent._fit_context(context, self.moves, 40_000)
+        after = len(json.dumps({'resolved_context': context, 'question_candidates': self.moves}))
+        self.assertLessEqual(after, 40_000)
+        self.assertLess(after, before)
+        self.assertEqual(steps[0], 'recent_exchanges:3')
+        self.assertEqual(context['reports'][0]['id'], 'guide.coverage.current')
+        self.assertEqual(context['applicable_rules'][0]['rule_id'], 'ma_trial_right')
+        self.assertEqual(context['advisor_brief']['discourse'], ['note'] * 5)
+        # Every evidence id the model may cite is still in the context.
+        self.assertTrue(all(item['id'] for item in context['evidence']))
+
+    def test_fitting_context_is_untouched(self):
+        context = {'reports': [], 'evidence': [], 'recent_exchanges': [{'user': 'hi', 'assistant': 'hello', 'question': ''}]}
+        self.assertEqual(NaturalAgent._fit_context(context, self.moves, 40_000), [])
+        self.assertEqual(len(context['recent_exchanges']), 1)
+
+    def test_oversized_compose_request_is_sent_after_compaction(self):
+        self.context.update(self.big_context())
+        self.context['current_message'] = 'Compare the plans.'
+        self.answer = self.composition()
+        self.agent.max_input_bytes = 60_000
+        out = self.compose()
+        self.assertEqual(out['question'], self.answer['question'])
+        self.assertTrue(self.agent.local.context_trim)
+        self.assertLessEqual(len(json.dumps(self.calls[-1]).encode()), 60_000)

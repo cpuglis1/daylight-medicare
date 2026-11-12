@@ -7,6 +7,19 @@ This build retains the exact selected 2026 research populations together in
 the specified integrated research queries. Neither grants source-use permission,
 semantic acceptance, personal applicability or a consumer release.
 
+**Current physical layout · D94, November 5:** the same database/OID/creation
+marker now serves compact data through read-only compatibility views. All
+17,767,179 source rows, 17,823,148 projections and 5,972 offering rows remain;
+database size is 29.37 GB. Full local native recovery and every original/staged
+logical-column hash passed before original-table retirement, followed by live
+feature/permission checks and a post-retirement audit. See the
+[execution report](../../../docs/reviews/database-redesign-2026-11-05/README.md)
+and [standalone local recovery recipe](../redesign/r2/RECOVERY.md).
+The original sources, evidence archive and prior physical-schema logical backup
+remain retained. New builds use fresh owned versioned targets. Do not run an
+import, migration or the historical completed-build resume command against the
+current read views. Source/method/purpose authority is unchanged.
+
 The separate `daylight_data_test` database and the zero-evidence first setup
 attempt `daylight_research_2026_r1` remain retained. Never initialize, replace or
 drop these databases to rerun a measurement. The original applications keep their
@@ -27,7 +40,11 @@ This local process is not an automatically started production service. See
 `PREFLIGHT.md` for this cluster's stop/start commands; do not run its historical
 `migrate` example against the retained original database.
 
-## Exact resume
+## Historical completed-build resume
+
+The command below records the completed pre-D94 build and its exact transport
+recovery. Preserve it for provenance; it is not a command to rebuild the current
+compact served snapshot in place.
 
 Only after the current invocation has exited, with its code/configuration and
 receipts unchanged, rerun the same build command. Never run a second coordinator
@@ -56,6 +73,14 @@ committed rows. Free space and the original failure must be understood before
 resuming. Do not lower the 7 GiB reserve to finish a run.
 
 ## Read-only verification
+
+**Dependency-history reconciliation · November 6:** the current lock retains
+five JSON Schema comparison-backend additions beyond the original 33 packages.
+Use the [exact archived-input verification command](../../../docs/reviews/dependency-reconciliation-2026-11-06/README.md#repeatable-command)
+for the completed historical build. It passed 759 queries and 756 checks while
+preserving the current working lock and all frozen manifests. The original-root
+command below still correctly rejects the newer lock; it remains here as the
+historical interface, not an instruction to downgrade dependencies.
 
 This requires a completed exact load. It reconciles all 363 selected windows,
 source/derivation metadata and checkpoints, tests the Collier bridge and Florida
@@ -97,9 +122,10 @@ external content-addressed evidence archive or cluster-global role definitions;
 retain `.state/archive/` and recreate the required roles for a logical restore.
 Neither a dump nor an APFS clone on this disk supplies off-machine recovery.
 
-## Physical recovery status
+## Historical physical recovery attempt and current status
 
-The optional cold-cluster operator is prepared and its mechanics have mock tests.
+The following describes the pre-D94 cold-cluster attempt. The optional
+cold-cluster operator is prepared and its mechanics have mock tests.
 It was not executed. Automatic action review rejected the attempted checkpoint
 stop/restart and whole-cluster clone for service-disruption/filesystem risk.
 The recorded alternative was a consistent read-only logical dump; no service
@@ -112,8 +138,14 @@ SQL decode without execution. Its 122 completed receipts and 1,000-row interrupt
 prefix remain linked from schema 2. Current 363 execution jobs and historical 123
 jobs are separate cohorts; do not add their receipt row totals as physical rows.
 
-A clean logical restore, physical recovery, off-machine backup and PITR remain
-separate untested gates. PostgreSQL's
+D94 subsequently completed a full clean logical restore of the lossless compact
+representation, all-column verification and live cutover without a service
+stop/restart. Cold-cluster recovery, off-machine backup and PITR remain separate
+untested gates. The historical full-build verifier also detects a dependency-lock
+hash drift predating D94; the November 6 reconciliation now supplies its exact
+historical inputs in a separate snapshot. Its frozen receipt and the current
+dependency lock remain unchanged.
+PostgreSQL's
 [whole-cluster filesystem backup guidance](https://www.postgresql.org/docs/18/backup-file.html)
 requires a clean shutdown for ordinary per-file copying.
 
@@ -121,6 +153,8 @@ requires a clean shutdown for ordinary per-file copying.
 
 The actual receipts must identify which recovery and query checks ran. Typed
 domain-model expansion, useful service/API integration, per-source permission,
-independent semantic review, release acceptance, clean logical restore,
-off-machine backup and target deployment retain separate obligations. No scheduled
+independent semantic review, release acceptance, off-machine backup and target
+deployment retain separate obligations. The current compact backup has a full
+local clean-restore proof; see its recipe for the derived read adapter and record
+identity index. No scheduled
 source acquisition or paid cloud resource is enabled by this local build.

@@ -185,8 +185,8 @@ def run_live():
         with tempfile.TemporaryDirectory(prefix='advisor-quality-', dir=VARIANT / 'var') as temporary:
             app = build(0, database=Path(temporary) / 'fictional.sqlite3')
             flow, agent = app.adaptive, app.adaptive.agent
-            if agent.client.model != 'gpt-5.4' or agent.budget.daily_cap_nano_usd != 5_000_000_000:
-                raise AssertionError('Use the existing reviewed model and $5 UTC ledger policy.')
+            if agent.client.model != 'gpt-5.4' or agent.budget.daily_cap_nano_usd != 15_000_000_000:
+                raise AssertionError('Use the existing reviewed model and $15 UTC ledger policy.')
             result['budget_before'] = agent.budget.summary()
             reserve, extract, compose, count = agent.reserve_turn, agent.validate_output, agent.validate_composition, agent.count_tokens
             def capture_completion(capture):

@@ -149,7 +149,9 @@ class ButtonBackendGateTests(unittest.TestCase):
                     self.assertEqual(out['assessment']['nextQuestion']['id'],'RC20')
                     self.assertEqual([field['key'] for field in out['assessment']['nextQuestion']['fields']],['location'])
                 else:
-                    self.assertIsNone(out['assessment']['nextQuestion'])
+                    self.assertIn(out['assessment']['nextQuestion']['id'],
+                        [item['question_id'] for item in out['planReadiness']['missing']])
+                    self.assertFalse(out['planReadiness']['canReview'])
                 self.assertFalse(out['assessment']['personalizedRecommendationAllowed'])
                 self.assertEqual(case.calls,[])
 

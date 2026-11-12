@@ -129,15 +129,15 @@ class CurriculumFlowTests(unittest.TestCase):
         self.assertEqual(sent['submitted_answer']['question_id'], 'RC01')
         self.assertEqual(sent['submitted_answer']['fields'], {'choice': 'self'})
 
-    def test_routine_me_answer_cannot_reintroduce_the_same_overview(self):
+    def test_redundant_delivery_metadata_keeps_validated_prose_without_new_learning_credit(self):
         self.opening()
         before = copy.deepcopy(self.record())
         out = self.finite_me(self.composition(reply=self.OVERVIEW, refs=['routesintro'],
             education=self.education('teach', [self.delivery()], 'routes')))
         self.assert_complete(out)
-        self.assertEqual(out['reply'], '', 'Rejected redundant teaching must not remain as repeated prose.')
+        self.assertEqual(out['reply'], self.OVERVIEW)
         self.assertEqual(out['advisor']['visual'], 'none')
-        self.assertEqual(out['advisor']['sources'], [])
+        self.assertTrue(out['advisor']['sources'], 'Validated claims retain their sources.')
         self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
         self.assertEqual(out['assessment']['nextQuestion']['question'], self.INSURANCE)
         self.assertEqual(self.record(), before)
@@ -194,7 +194,7 @@ class CurriculumFlowTests(unittest.TestCase):
         self.assertEqual(self.record()['concepts']['coverage_paths'], overview)
         self.assertEqual(self.record()['visuals'], {'routes': 1})
 
-    def test_failed_composition_does_not_advance_education_or_drop_the_question(self):
+    def test_failed_composition_can_deliver_the_requested_reviewed_lesson(self):
         self.opening(role_known=True)
         before = copy.deepcopy(self.record())
         text = 'How does prescription coverage fit?'
@@ -204,10 +204,10 @@ class CurriculumFlowTests(unittest.TestCase):
             compose=ModelUnavailable('Synthetic composition failure.'))
         self.assertEqual(out['generated']['status'], 'unavailable')
         self.assertEqual(out['reply'], '')
-        self.assertEqual(out['advisor']['visual'], 'none')
-        self.assertEqual(self.record(), before)
+        self.assertEqual([fact['id'] for fact in out['facts']], ['drugbasics'])
+        self.assertEqual(self.record()['concepts']['coverage_paths'], before['concepts']['coverage_paths'])
         self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
-        self.assertNotIn('prescription_coverage', self.record()['concepts'])
+        self.assertIn('prescription_coverage', self.record()['concepts'])
         self.assertEqual(len(self.calls), 4)
 
     def test_ordinary_typed_coverage_answer_and_citation_do_not_authorize_revisit(self):
@@ -224,8 +224,8 @@ class CurriculumFlowTests(unittest.TestCase):
                     [self.delivery(reason='requested_revisit')], 'routes')))
         self.assert_complete(out)
         self.assertEqual(self.flow.value(self.g, 'coverage.current'), ['none'])
-        self.assertEqual(out['reply'], self.OVERVIEW,
-                         'The finite-answer guard must not erase an otherwise accepted typed response.')
+        self.assertEqual(out['reply'], self.OVERVIEW)
+        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T04')
         self.assertTrue(out['advisor']['sources'])
         self.assertEqual(out['advisor']['visual'], 'none')
         self.assertEqual(self.record(), before)
@@ -278,7 +278,11 @@ class CurriculumFlowTests(unittest.TestCase):
                         [self.delivery('provider_checks', refs=['checks'])])))
         self.assertTrue(after_move['injected'], 'The fault must happen after composition, not before it.')
         self.assertEqual(out['generated']['status'], 'unavailable')
-        self.assertEqual(out['reply'], '')
+        # Never-blank floor (Nov 8, 2026): one reviewed statement replaces the
+        # composed prose; the planned delivery itself is still not committed.
+        self.assertTrue(out['reply'])
+        self.assertNotIn('participation needs checking for the exact plan', out['reply'])
+        self.assertEqual(out['advisor']['reason'], 'recovery')
         self.assertEqual(out['advisor']['visual'], 'none')
         self.assertEqual(self.record(), before)
         if 'education' in out:
@@ -303,7 +307,8 @@ class CurriculumFlowTests(unittest.TestCase):
         self.assertEqual(typed['learning'], prior)
         self.assertEqual(typed['catalog'], finite['catalog'])
         self.assertEqual(typed['turn_kind'], 'message')
-        self.assertEqual(self.extracted_context()['education_context'], {'learning': prior})
+        self.assertEqual(self.extracted_context()['education_context'],
+                         {'learning': prior, 'catalog': catalog_context()})
         self.assertEqual(len(self.calls), 5, 'No third teaching or planning model call is added.')
 
     def test_duplicate_question_in_prose_is_removed_while_dedicated_question_is_retained(self):

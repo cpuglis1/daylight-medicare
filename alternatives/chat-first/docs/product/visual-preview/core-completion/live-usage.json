@@ -1,0 +1,138 @@
+{
+  "provider": "OpenAI",
+  "model": "gpt-5.4",
+  "approval": {
+    "max_requests": 6,
+    "max_usd": 0.5,
+    "scope": "synthetic smoke only"
+  },
+  "rates_usd_per_million": {
+    "input": 2.5,
+    "cached_input": 0.25,
+    "output": 15
+  },
+  "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+  "attempts": [
+    {
+      "attempt": 1,
+      "request_bytes_upper_token_bound": 12444,
+      "max_output_tokens": 900,
+      "reserved_upper_usd": 0.04461,
+      "time_utc": "2026-10-21T19:21:41Z"
+    },
+    {
+      "attempt": 2,
+      "request_bytes_upper_token_bound": 11929,
+      "max_output_tokens": 900,
+      "reserved_upper_usd": 0.0433225,
+      "time_utc": "2026-10-21T19:21:44Z"
+    },
+    {
+      "attempt": 3,
+      "scenario": "browser_stream",
+      "request_bytes_upper_token_bound": 12192,
+      "max_output_tokens": 900,
+      "reserved_upper_usd": 0.04398,
+      "time_utc": "2026-10-21T19:26:31Z"
+    }
+  ],
+  "results": [
+    {
+      "scenario": "multi_fact",
+      "http_status": 200,
+      "mode": "live_agent",
+      "profile_changed": false,
+      "facts": [],
+      "patches": [
+        {
+          "field": "intent.goal",
+          "value": "compare",
+          "status": "reported",
+          "quote": "I want to compare plans"
+        },
+        {
+          "field": "subject.role",
+          "value": "someone",
+          "status": "reported",
+          "quote": "for my mom"
+        },
+        {
+          "field": "knowledge.general",
+          "value": "new",
+          "status": "reported",
+          "quote": "I am new to Medicare."
+        }
+      ],
+      "usage_measured_tokens": {
+        "input_tokens": 2649,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 97,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2746
+      },
+      "error": null,
+      "cost_estimate_usd_from_measured_tokens": 0.0080775,
+      "confirmation_status": 200,
+      "confirmation_bound_to_version": true
+    },
+    {
+      "scenario": "grounded_explanation",
+      "http_status": 200,
+      "mode": "live_agent",
+      "profile_changed": false,
+      "facts": [
+        "parta"
+      ],
+      "patches": [
+        {
+          "field": "intent.goal",
+          "value": "learn",
+          "status": "reported",
+          "quote": "Please explain what Part A does in plain language."
+        }
+      ],
+      "usage_measured_tokens": {
+        "input_tokens": 2547,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 65,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2612
+      },
+      "error": null,
+      "cost_estimate_usd_from_measured_tokens": 0.0073425,
+      "confirmation_status": 200,
+      "confirmation_bound_to_version": true
+    },
+    {
+      "scenario": "browser_stream",
+      "usage_measured_tokens": {
+        "input_tokens": 2587,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 96,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2683
+      },
+      "cost_estimate_usd_from_measured_tokens": 0.0079075,
+      "validated_result_count": 1
+    }
+  ],
+  "profile_remained_unsaved": true,
+  "reserved_upper_total_usd": 0.1319125,
+  "estimated_total_usd_from_measured_tokens": 0.0233275,
+  "cost_label": "Estimate from measured provider token usage at published rates; not an invoice."
+}

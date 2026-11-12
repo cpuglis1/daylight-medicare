@@ -1,0 +1,42 @@
+{
+  "provenance": "Separately transcribed expected values from CMS 2026 annual table/MM14279 and the named cost-sharing manual sections. This fixture is an engineering check, not a human review receipt.",
+  "cost_values": {
+    "a_premium_full": 56500,
+    "a_premium_reduced": 31100,
+    "a_deductible": 173600,
+    "hospital_61_90": 43400,
+    "hospital_reserve": 86800,
+    "snf_21_100": 21700,
+    "b_premium": 20290,
+    "b_deductible": 28300,
+    "immuno_premium": 12160,
+    "b_coinsurance": {"numerator": 20, "denominator": 100},
+    "a_premium_free": 0,
+    "hospital_1_60": 0,
+    "hospital_after_covered_days": null,
+    "snf_1_20": 0,
+    "snf_after_100": null,
+    "home_services_base": 0,
+    "home_dme_rate": {"numerator": 20, "denominator": 100},
+    "home_npwt_rate": {"numerator": 20, "denominator": 100},
+    "home_osteoporosis_rate": {"numerator": 20, "denominator": 100},
+    "hospice_services_base": 0,
+    "hospice_drug_cap": {"approximate_rate": {"numerator": 5, "denominator": 100}, "maximum_cents": 500, "schedule": "hospice_MAC_approved"},
+    "hospice_respite_rate": {"numerator": 5, "denominator": 100},
+    "hospice_inpatient_drugs": 0,
+    "blood_deductible_units": 3,
+    "immuno_deductible": 28300
+  },
+  "zero_cost_ids": ["a_premium_free", "hospital_1_60", "snf_1_20", "home_services_base", "hospice_services_base", "hospice_inpatient_drugs"],
+  "income_edges_dollars": {
+    "individual": [109000, 137000, 171000, 205000, 500000],
+    "joint": [218000, 274000, 342000, 410000, 750000],
+    "separate_together": [109000, 391000]
+  },
+  "adjustments_cents": {
+    "full_b": [0, 8120, 20290, 32460, 44630, 48700],
+    "immuno_b": [0, 8110, 20270, 32430, 44590, 48650],
+    "part_d": [0, 1450, 3750, 6040, 8330, 9100]
+  },
+  "note_ids": ["NOTE-A-CATEGORIES", "NOTE-PERIODS", "NOTE-B-EXCEPTIONS", "NOTE-IMMUNO", "NOTE-TAX-BASIS", "NOTE-SEPARATE", "NOTE-COMPONENTS", "NOTE-HOME-HOSPICE"]
+}

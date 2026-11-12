@@ -18,7 +18,10 @@ class ExplicitStopTests(unittest.TestCase):
         self.assertIsNone(out['assessment']['nextQuestion'])
         self.assertTrue(out['assessment']['intakePaused'])
         self.assertTrue(out['assessment']['conversationOpen'])
-        self.assertEqual(out['reply'], '')
+        # The explicit stop still holds (no question); the never-blank floor
+        # shows one reviewed statement instead of an empty reply (Nov 8, 2026).
+        self.assertTrue(out['reply'])
+        self.assertNotIn('$20', out['reply'])
         self.assertNotIn('education', out)
 
     def test_explicit_stop_overrides_generated_question(self):

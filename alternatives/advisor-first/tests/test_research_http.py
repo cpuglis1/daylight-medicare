@@ -241,6 +241,7 @@ class ResearchHttpTests(unittest.TestCase):
     def test_client_cannot_supply_new_derived_or_permission_fields(self):
         payload=self.review_payload();payload['authority']={'recommendation':'permitted'}
         self.assertEqual(self.request('/api/comparison/review',payload)[0],422)
+        self.assertEqual(self.request('/api/comparison/review',{**self.review_payload(),'preview_days':3})[0],422)
 
     def test_scope_in_url_is_rejected_without_read(self):
         self.assertEqual(self.request('/api/research/status?year=2026')[0],422)

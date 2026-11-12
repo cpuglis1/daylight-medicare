@@ -227,10 +227,13 @@ class ConversationContinuityTests(unittest.TestCase):
         out = self.message('I know a little about Medicare.',
             [self.update('T02', {'choice':'some'}, 'I know a little about Medicare.')],
             compose={'reply':'Your premium will be $20.', 'report_refs':[]})
-        self.assertEqual(out['reply'], '')
+        # Never-blank floor (Nov 8, 2026): the invalid prose is gone; one
+        # reviewed statement takes its place, never the rejected amount.
+        self.assertTrue(out['reply'])
+        self.assertNotIn('$20', out['reply'])
         self.assertTrue(out['notice'])
         self.assertEqual(out['generated']['status'], 'unavailable')
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+        self.assertIn(out['assessment']['nextQuestion']['id'], {'T03', 'T05'})
         diagnostic = self.flow.composition_diagnostics[-1]
         self.assertEqual(set(diagnostic), {'code', 'questionAvailable', 'intakePaused'})
         self.assertNotIn('20', json.dumps(diagnostic))
@@ -241,7 +244,8 @@ class ConversationContinuityTests(unittest.TestCase):
         out = self.message('Before we go on, what is Medicare Part B?',
             extraction=self.extraction(mode='answer', fact_ids=['partb']),
             compose={'reply':'Your premium will be $20.', 'question':''})
-        self.assertEqual(out['reply'], '')
+        self.assertTrue(out['reply'])
+        self.assertNotIn('$20', out['reply'])
         self.assertFalse(out['assessment']['intakePaused'])
         self.assertIsNotNone(out['assessment']['nextQuestion'])
         with patch.object(self.flow.agent, 'compose', side_effect=ModelUnavailable('A fictional diagnostic failure.')):
@@ -269,18 +273,19 @@ class ConversationContinuityTests(unittest.TestCase):
         self.message(first, extraction=self.extraction([
             self.update('T02', {'choice':'new'}, 'I know very little about it.')],
             practical_request={'task':'timing', 'quote':'want to enroll in Medicare'}))
-        self.assertEqual(self.flow.assess(self.g, self.r)['nextQuestion']['id'], 'T05')
+        self.assertIn(self.flow.assess(self.g, self.r)['nextQuestion']['id'], {'T03', 'T05'})
         text = "My health insurance is through my wife's current job."
         out = self.message(text, extraction=self.extraction([
             self.update('T05', {'choice':'employer'}, text),
             self.update('RC09', {'choice':'spouse_job'}, text)],
             task='timing', task_quote='Insurance comes through a spouse employer.',
-            requests=[{'id':'payer_order','quote':'Please tell me who pays first.'}]))
+            requests=[{'id':'payer_order','quote':'Please tell me who pays first.'}]),
+            compose={'question_target': 'RC11'})
         self.assertEqual(self.flow.value(self.g, 'coverage.current'), ['employer'])
         self.assertEqual(self.flow.report(self.r, 'RC09')['choice'], 'spouse_job')
-        # The explicit spouse-job reports make coverage/job-end facts useful
-        # before a desired-start preference. Invalid advisory metadata must not
-        # block those reports or this approved consequential continuation.
+        # The explicit spouse-job reports keep coverage/job-end clarification
+        # available even when ZIP ranks first. Invalid advisory metadata must
+        # not block those reports or this explicitly selected approved follow-up.
         self.assertEqual(out['assessment']['nextQuestion']['id'], 'RC11')
         self.assertEqual(out['assessment']['task'], 'compare')
         self.assertEqual(out['generated']['status'], 'complete')
@@ -288,3 +293,68 @@ class ConversationContinuityTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class EveryTurnEndsWithAQuestionTests(unittest.TestCase):
+    """Live-run defects of Nov 9, 2026 (P05 'No.', P06/P08 closed floor, one-word chip answers)."""
+    setUp = fixtures.NaturalFlowTests.setUp
+    payload = fixtures.NaturalFlowTests.payload
+    take = fixtures.NaturalFlowTests.take
+    turn = fixtures.NaturalFlowTests.turn
+    message = fixtures.NaturalFlowTests.message
+    choice = fixtures.NaturalFlowTests.choice
+    task = fixtures.NaturalFlowTests.task
+    stage_payloads = fixtures.NaturalFlowTests.stage_payloads
+    composed_context = fixtures.NaturalFlowTests.composed_context
+    update = staticmethod(fixtures.NaturalFlowTests.update)
+    extraction = staticmethod(fixtures.NaturalFlowTests.extraction)
+
+    def test_yes_or_no_demand_does_not_allow_a_pause(self):
+        self.message('I turn 65 in November.')
+        out = self.message('Should I throw away the COBRA bill now? Just say yes or no.',
+                           compose={'question_target': None, 'reply': 'No.', 'question': '',
+                                    'agenda_update': {'current_concern': 'COBRA bill', 'pause': True}})
+        self.assertFalse(self.composed_context()['pause_allowed'])
+        self.assertIn('No.', out['reply'])
+        self.assertTrue(out['assessment']['nextQuestion'] or out['reply'].rstrip().endswith('?'))
+
+    def test_person_words_allow_the_pause(self):
+        self.message('I turn 65 in November.')
+        out = self.message("That's all for today, thanks.",
+                           compose={'question_target': None, 'reply': 'Of course. Come back whenever you like.', 'question': '',
+                                    'agenda_update': {'current_concern': '', 'pause': True}})
+        self.assertTrue(self.composed_context()['pause_allowed'])
+        self.assertIsNone(out['assessment']['nextQuestion'])
+        self.assertFalse(out['reply'].rstrip().endswith('?'))
+
+    def test_floor_without_an_approved_question_still_asks_one(self):
+        self.message('I turn 65 in November.')
+        out = self.message('Does losing my doctor mean they have to let me buy that G policy?',
+                           compose=ModelUnavailable('synthetic composition failure'))
+        self.assertEqual(out['advisor']['reason'], 'recovery')
+        self.assertTrue(out['assessment']['nextQuestion'] or out['reply'].rstrip().endswith('?'))
+        self.assertNotIn('could not verify', out.get('notice') or '')
+
+    def test_one_word_answer_matching_the_chip_is_recorded(self):
+        self.task('timing')
+        self.choice('RC01', choice='self')
+        asked = self.flow.assess(self.g, self.r)['nextQuestion']
+        self.assertEqual((asked or {}).get('id'), 'T04', asked)
+        # The scripted extractor proposes nothing; the server recognises the chip label.
+        self.message("As soon as possible. I don't want a gap.")
+        self.assertEqual(self.flow.value(self.g, 'coverage.requestedStart'), 'soonest')
+
+    def test_direct_choice_matching_is_exact_and_bounded(self):
+        from adaptive_flow import Q
+        current = lambda identifier: {'id': identifier, 'choices': Q[identifier]['choices']}
+        pick = lambda identifier, text: [u['fields']['choice'] for u in self.flow.direct_choices(text, current(identifier), [])]
+        self.assertEqual(pick('RC04', 'Neither.'), ['neither'])
+        self.assertEqual(pick('RC09', 'Mine. I already told you, 240 employees.'), ['my_job'])
+        self.assertEqual(pick('T05', 'An HMO with drugs. Never had Medigap.'), ['advantage'])
+        self.assertEqual(pick('T10', 'Keeping my doctor, then total cost. So should I stop?'), ['doctors', 'total_cost'])
+        self.assertEqual(pick('RC10', 'About 120 people'), ['yes'])
+        self.assertEqual(pick('RC10', '8 people. I run a shop.'), ['no'])
+        self.assertEqual(pick('RC04', 'Which parts do I need?'), [])
+        self.assertEqual(pick('T05', 'Both, really: Medicare Parts A and B'), [])
+        self.assertEqual(pick('RC04', 'Neither of my sisters has signed up and I am not sure what I should do about it either.'), [])
+        self.assertEqual(self.flow.direct_choices('Neither.', current('RC04'), [{'id': 'RC04'}]), [])

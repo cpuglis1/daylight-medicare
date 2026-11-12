@@ -1,0 +1,93 @@
+{
+  "schema": "daylight-d91-collier-decision-review-scope/1",
+  "candidate_id": "D91-COLLIER-DECISION-2026-r8",
+  "prepared_on_et": "2026-11-04",
+  "state": "independent_review_pending",
+  "accepted_release_id": null,
+  "scope": {
+    "coverage_year": 2026,
+    "state": "FL",
+    "county_fips": "12021",
+    "fixture_zip": "34102",
+    "fixture_effective_date": "2026-12-01",
+    "offering_ids": ["2026:H1036:217:000", "2026:H1032:198:000"],
+    "regression_only_offering_ids": ["2026:H5652:002:000"],
+    "coverage_path_baseline": "reported_original_medicare_with_part_d_and_medigap_as_research_options",
+    "candidate_basis": "engineering_pair_within_wider_market",
+    "entire_market_evaluated": false,
+    "case_inputs": "fictional"
+  },
+  "inputs": {
+    "plan_terms_and_scenarios": {
+      "path": "../recommendation-scope-2026-11-04-r4/pilot.json",
+      "sha256": "d56444e9235701ad063e79e2fc2a38f85a8ed5d9f0167cf440882aacccbb12e8"
+    },
+    "plan_source_readings": {
+      "path": "../recommendation-scope-2026-11-04-r4/source-readings.json",
+      "sha256": "80ea85040e84cecebeba333d97530a94d36a986bd028b1b66ea4e23d80246952"
+    },
+    "plan_method_replay": {
+      "path": "../recommendation-scope-2026-11-04-r4/build_pilot.py",
+      "sha256": "d96bb38d8e0ee5b2523ffb8ecb89ef9c8e75610c2a9776d7ed35540ebc80004f"
+    },
+    "case_results": {
+      "path": "../recommendation-scope-2026-11-04-r7/case-results.json",
+      "sha256": "52bd83c4f39ecd6fc7957728cbe8543f2f2f28424ed69fecc791c60a82f2122b"
+    },
+    "dated_manual_observations": {
+      "path": "../recommendation-scope-2026-11-04-r7/public-observations.json",
+      "sha256": "90dcc72e450880fa1db05985906bba556e50c3849ea379194c3d3c83d54737cf"
+    },
+    "case_method_replay": {
+      "path": "../recommendation-scope-2026-11-04-r7/run_cases.py",
+      "sha256": "99a8949c97fb5ac59e7567da444283dd4f7f5fadbdd31030a464d51b1801ffbc"
+    },
+    "enrollment_method_manifest": {
+      "path": "../../data/l13-enrollment-2026-10-28/build-r1/manifest.json",
+      "sha256": "407d53ea070349b8dcba0fbbc10893932d96c32a71cbfa447d68ff470e08616c"
+    }
+  },
+  "capabilities": {
+    "published_terms": {
+      "purpose_for_review": "published_display",
+      "offering_relative_fields": ["published.coverage", "scenarios.premium_12_months.monthly_rate", "published.part_b_reduction", "published.medical_deductible", "published.medical_maximums.value.in_network", "published.part_d_deductible", "published.specialist_in_network"],
+      "conditions": ["Preserve source and parent conditions for each field.", "Show the Humana reduction as up to $3. Keep reductions, plan premiums and actual Part B billing separate.", "Keep the medical limit scoped to in-network care and separate from drug spending.", "Retain drug deductible tiers and exceptions, plus specialist referral and authorization qualifications."]
+    },
+    "bounded_plan_examples": {
+      "purpose_for_review": "published_display",
+      "offering_relative_fields": ["scenarios.premium_12_months", "scenarios.pcp_four_visits", "scenarios.hospital_days.3", "scenarios.hospital_days.4"],
+      "conditions": ["Count gross plan premiums once. Distinguish the December case from the 12-month example.", "Use four ordinary covered in-network PCP visits.", "Use one covered acute in-network admission from day one. Exclude discharge day and separate professional charges. Retain all scenario assumptions and exclusions.", "Preserve the Erickson inpatient deductible hold as a regression only."]
+    },
+    "enrollment_timing": {
+      "purpose_for_review": "personal_comparison",
+      "evidence_path": "eligibility",
+      "bounded_result": "conditional_initial_election_path_for_fictional_dates",
+      "held_conclusions": ["individual_entitlement", "application_acceptance", "actual_effective_coverage"],
+      "invalidate_on": ["residence", "age_or_eligibility_basis", "a_or_b_effective_date", "current_coverage", "election_date", "intended_date_or_year", "rule_or_authority_change"]
+    },
+    "medicine_and_pharmacy": {
+      "purpose_for_review": "personal_comparison",
+      "evidence_path": "cases[].medicine_by_offering",
+      "bounded_result": "dated_december_plan_finder_estimate_for_exact_fixture_product_quantity_and_outlet",
+      "held_conclusions": ["quantity_limit_satisfaction_where_unit_unresolved", "actual_dispensing", "binding_price"],
+      "invalidate_on": ["product_or_form", "quantity_or_supply", "outlet", "subsidy_or_pricing_inputs", "intended_date_or_year", "source_or_authority_change"]
+    },
+    "doctor_and_site": {
+      "purpose_for_review": "personal_comparison",
+      "evidence_path": "provider_by_offering",
+      "bounded_result": "dated_listing_or_group_signal_with_explicit_access_hold",
+      "held_conclusions": ["exact_december_participation_confirmed", "appointment_access", "concierge_terms", "continuity_into_2027"],
+      "invalidate_on": ["clinician_or_site", "offering", "intended_date_or_year", "source_or_authority_change"]
+    }
+  },
+  "purpose_states": {
+    "published_display": "held",
+    "personal_comparison": "held",
+    "ranking": "held",
+    "recommendation": "held",
+    "quote": "held",
+    "enrollment": "held"
+  },
+  "out_of_scope": ["2027_plan_facts", "all_market_shortlist", "personal_total_spend", "integrated_enrollment", "source_or_method_approval_by_inheritance"],
+  "acceptance_requirements": ["independent_domain_review", "exact_source_use_and_method_authority", "scope_and_purpose_binding", "freshness_and_expiry", "revocation", "protected_session_and_report_revision_binding", "hosted_consumer_journey_observation"]
+}

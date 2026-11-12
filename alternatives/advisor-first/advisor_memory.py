@@ -11,16 +11,21 @@ import time
 from collections import OrderedDict
 
 from education import empty_record, validate_record
+from learner_state import empty_record as empty_learner, validate_record as validate_learner
+from task_work import empty_record as empty_work_record, validate_record as validate_work_record
+from turn_contract import checked_continuation
 
 
 CONTEXT_POLICY = 'natural-context-v3'
 HISTORY_EXCHANGES = 6
 HISTORY_LIMIT = 5000
+DISCOURSE_NOTES = 10
+DISCOURSE_CHARS = 1200
 HISTORY_TTL = 3600
 VISIT_LIMIT = 128
 _TARGET = re.compile(
     r'(?:T(?:0[1-9]|10)|RC(?:0[1-9]|1[0-9]|2[0-8])|'
-    r'RC11\.C1|RC16\.C[12]|S_AGE65|S_RETIREMENT)\Z')
+    r'RC11\.C1|RC16\.C[12]|S_AGE65|S_RETIREMENT|MG_(?:AGE|SEX|TOBACCO))\Z')
 
 
 class VisitMemory:
@@ -72,6 +77,25 @@ class VisitMemory:
             key = self._permitted(owner, chain, policy)
             return copy.deepcopy(self._visits.get(key, {}).get('education', empty_record()))
 
+    def task_work(self, owner, chain, policy):
+        """Selected work identifiers only; same owner/visit/expiry as dialogue."""
+        with self._lock:
+            key = self._permitted(owner, chain, policy)
+            return copy.deepcopy(self._visits.get(key, {}).get('task_work', empty_work_record()))
+
+    def learner(self, owner, chain, policy):
+        with self._lock:
+            key = self._permitted(owner, chain, policy)
+            return copy.deepcopy(self._visits.get(key, {}).get('learner', empty_learner()))
+
+    def clear_task_work(self, owner, chain):
+        """An explicit task switch drops selected work, retaining dialogue/help."""
+        with self._lock:
+            self._prune()
+            key = self._key(owner, chain)
+            if key in self._visits:
+                self._visits[key].pop('task_work', None)
+
     def commit_education(self, owner, chain, policy, record):
         """Commit a delivered free lesson within an already permitted visit.
 
@@ -107,7 +131,8 @@ class VisitMemory:
 
     def remember(self, owner, chain, policy, user, reply, question,
                  question_target=None, agenda_update=None, goal=None,
-                 candidate_ids=(), education_record=None):
+                 candidate_ids=(), education_record=None, task_work_record=None,
+                 learner_record=None, continuation=None, discourse_note=None):
         """Remember one completed exchange after the caller validates its reports.
 
         ``goal`` is an optional explicit-user-report patch supplied by the caller;
@@ -147,14 +172,23 @@ class VisitMemory:
             if goal is not None:
                 self._text(goal, 200, 'goal')
             education = validate_record(education_record) if education_record is not None else None
+            task_work = validate_work_record(task_work_record) if task_work_record is not None else None
+            learner = validate_learner(learner_record) if learner_record is not None else None
+            continuation = checked_continuation(continuation) if continuation is not None else None
 
             # Validation is complete before mutating any active visit.
             memory = copy.deepcopy(self._visits.get(key, {
                 'exchanges': [], 'brief': {}, 'expires': 0,
             }))
             brief = memory['brief']
+            if continuation is not None:
+                brief['continuation'] = continuation
             if education is not None:
                 memory['education'] = education
+            if task_work is not None:
+                memory['task_work'] = task_work
+            if learner is not None:
+                memory['learner'] = learner
             if goal is not None:
                 if goal:
                     brief['goal'] = goal
@@ -169,6 +203,14 @@ class VisitMemory:
                 brief['paused'] = agenda_update['pause']
             if target is not None:
                 brief['pending_question'] = target
+            if discourse_note:
+                # Rolling discourse brief: bounded, visit-only, never saved.
+                note = self._text(discourse_note, 160, 'discourse note')
+                notes = [item for item in brief.get('discourse', []) if item != note]
+                notes.append(note)
+                while len(notes) > DISCOURSE_NOTES or sum(map(len, notes)) > DISCOURSE_CHARS:
+                    notes.pop(0)
+                brief['discourse'] = notes
 
             exchanges = memory['exchanges']
             if sum(map(len, exchange.values())) <= HISTORY_LIMIT:

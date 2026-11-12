@@ -1,0 +1,1426 @@
+{
+  "scope_id": "D91-EDUCATIONAL-COMPARISON-2026-r1",
+  "status": "planning_overlay_not_runtime_policy",
+  "source_map": {
+    "path": "docs/product/plan-comparison-2026-11-01/question-decision-map.json",
+    "sha256": "71924264dbadb61e549be99c85065748218c4a952d9f8d6e39552555d970b17d"
+  },
+  "profile_contract_id": "daylight-profile-contract-2026-r1",
+  "profile_contract_content_sha256": "fc91d3f6df8e338b79fdbd6df909d76196c9ac59bca1d792666bb1f7b7387cbb",
+  "counts": {
+    "question_definitions": 41,
+    "primary_questions": 38,
+    "documented_child_aliases": 3,
+    "field_definitions": 78,
+    "representation_gaps": 14,
+    "clarification_variants": 11,
+    "additive_optional_report_paths": 14,
+    "runtime_capabilities": 8,
+    "proposed_capability_bridges": 14
+  },
+  "consumer_release_granted": false,
+  "questions": [
+    {
+      "question_id": "T01",
+      "kind": "baseline",
+      "meaning": "What would you like help with today?",
+      "canonical_paths": [
+        "guide.fields.intent.goal",
+        "guide.fields.intent.goalDetail"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [],
+      "gap_ids": [],
+      "rule_ids": [
+        "R01",
+        "R16"
+      ],
+      "ask_only_when": "Clarify goal only if explicit intent is insufficient for the requested help.",
+      "unknown_effect": "Education/browsing can continue; do not invent a goal.",
+      "product_work_group": "task_person_teaching",
+      "product_responsibility": "Requested task, beneficiary and contextual explanation; familiarity never changes fit.",
+      "existing_meaning_pointer": "/questions/0",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T02",
+      "kind": "baseline",
+      "meaning": "How familiar are you with Medicare?",
+      "canonical_paths": [
+        "guide.fields.knowledge.general"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [],
+      "source_requiredness": "optional_preference",
+      "source_dependencies": [],
+      "source_layer_ids": [],
+      "gap_ids": [],
+      "rule_ids": [
+        "R17",
+        "R16"
+      ],
+      "ask_only_when": "Ask optionally if familiarity would improve the explanation.",
+      "unknown_effect": "No factual availability, candidate, fit or ranking gate.",
+      "product_work_group": "task_person_teaching",
+      "product_responsibility": "Requested task, beneficiary and contextual explanation; familiarity never changes fit.",
+      "existing_meaning_pointer": "/questions/1",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T03",
+      "kind": "baseline",
+      "meaning": "What ZIP code do you live in?",
+      "canonical_paths": [
+        "guide.fields.comparison.scope.zip",
+        "guide.fields.comparison.scope.county",
+        "guide.fields.comparison.scope.locationEvidence"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "availability"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L02",
+        "L04",
+        "L10",
+        "L14",
+        "L15"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R02",
+        "R16"
+      ],
+      "ask_only_when": "Ask missing ZIP/county only for a geography-dependent requested check; reuse RC02.",
+      "unknown_effect": "Geographic finding remains unscoped; no inferred county/residency.",
+      "product_work_group": "geography_year",
+      "product_responsibility": "Scope available facts to exact year/geography; preference is not entitlement.",
+      "existing_meaning_pointer": "/questions/2",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T04",
+      "kind": "baseline",
+      "meaning": "When do you need Medicare coverage to start?",
+      "canonical_paths": [
+        "guide.fields.coverage.requestedStart",
+        "guide.fields.coverage.requestedStartMonth"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14"
+      ],
+      "gap_ids": [
+        "G01",
+        "G14"
+      ],
+      "rule_ids": [
+        "R02",
+        "R04"
+      ],
+      "ask_only_when": "Ask desired timing only when it changes the requested check; soonest is a preference.",
+      "unknown_effect": "No inferred month, effective date, eligibility anchor or deadline.",
+      "product_work_group": "geography_year",
+      "product_responsibility": "Scope available facts to exact year/geography; preference is not entitlement.",
+      "existing_meaning_pointer": "/questions/3",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T05",
+      "kind": "baseline",
+      "meaning": "What health coverage do you have now?",
+      "canonical_paths": [
+        "guide.fields.coverage.current"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L02",
+        "L03",
+        "L04",
+        "L10",
+        "L11",
+        "L13",
+        "L14"
+      ],
+      "gap_ids": [
+        "G04",
+        "G08",
+        "G13",
+        "G14"
+      ],
+      "rule_ids": [
+        "R03",
+        "R04"
+      ],
+      "ask_only_when": "Reuse current coverage reports; clarify consequential subtype/period only.",
+      "unknown_effect": "Keep partial positives and missing baseline; no inferred A/B or absence.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/4",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T06",
+      "kind": "baseline",
+      "meaning": "Which doctors or hospitals would you like to keep?",
+      "canonical_paths": [
+        "guide.fields.needs.providersStatus",
+        "guide.fields.needs.providers"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "provider_fit"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L08"
+      ],
+      "gap_ids": [
+        "G05",
+        "G12",
+        "G14"
+      ],
+      "rule_ids": [
+        "R06"
+      ],
+      "ask_only_when": "Ask only requested provider needs; reuse known names and distinguish explicit none from unknown.",
+      "unknown_effect": "Unknown list is not no providers; listing a name is not a hard constraint.",
+      "product_work_group": "providers",
+      "product_responsibility": "Exact provider/site identity then separately sourced participation and access.",
+      "existing_meaning_pointer": "/questions/5",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T07",
+      "kind": "baseline",
+      "meaning": "What prescriptions do you take?",
+      "canonical_paths": [
+        "guide.fields.needs.medicinesStatus",
+        "guide.fields.needs.medications",
+        "guide.fields.needs.medicationDetails",
+        "guide.fields.needs.pharmacies"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "drug_coverage",
+        "drug_pricing"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L05",
+        "L06",
+        "L07"
+      ],
+      "gap_ids": [
+        "G05",
+        "G08",
+        "G14"
+      ],
+      "rule_ids": [
+        "R07",
+        "R08"
+      ],
+      "ask_only_when": "Ask medicines only for a requested care/coverage comparison; reuse existing items.",
+      "unknown_effect": "Unknown list is not no medicines; partial items stay partial.",
+      "product_work_group": "medicines_pharmacies",
+      "product_responsibility": "Product identity, formulary conditions and only relevant fill/store/administration details.",
+      "existing_meaning_pointer": "/questions/6",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T08",
+      "kind": "baseline",
+      "meaning": "Will you need routine care away from home?",
+      "canonical_paths": [
+        "guide.fields.needs.travel"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "provider_fit",
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_for_relevant_capability",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L03",
+        "L08",
+        "L10",
+        "L14"
+      ],
+      "gap_ids": [
+        "G06",
+        "G14"
+      ],
+      "rule_ids": [
+        "R09"
+      ],
+      "ask_only_when": "Ask only if routine-away-care needs could change the requested comparison.",
+      "unknown_effect": "Do not assume no travel, a location, or emergency evidence implies routine coverage.",
+      "product_work_group": "care_away",
+      "product_responsibility": "Routine versus emergency care and relevant places/periods.",
+      "existing_meaning_pointer": "/questions/7",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T09",
+      "kind": "baseline",
+      "meaning": "How would you prefer to balance monthly payments and costs when you get care?",
+      "canonical_paths": [
+        "guide.fields.needs.costPreference"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [],
+      "source_requiredness": "optional_preference",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L01",
+        "L03",
+        "L04",
+        "L06",
+        "L10",
+        "L12"
+      ],
+      "gap_ids": [
+        "G03",
+        "G08",
+        "G12"
+      ],
+      "rule_ids": [
+        "R12"
+      ],
+      "ask_only_when": "Ask optionally if the person wants to express this tradeoff.",
+      "unknown_effect": "No invented risk tolerance, numerical weights or cost model.",
+      "product_work_group": "priorities_costs",
+      "product_responsibility": "Optional priorities and budget scope; explain tradeoffs without invented weights.",
+      "existing_meaning_pointer": "/questions/8",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "T10",
+      "kind": "baseline",
+      "meaning": "What matters most when we compare your options?",
+      "canonical_paths": [
+        "guide.fields.needs.priorities",
+        "guide.fields.needs.priorityOther"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [],
+      "source_requiredness": "optional_preference",
+      "source_dependencies": [],
+      "source_layer_ids": [
+        "L03",
+        "L05",
+        "L06",
+        "L07",
+        "L08",
+        "L09",
+        "L10"
+      ],
+      "gap_ids": [
+        "G12"
+      ],
+      "rule_ids": [
+        "R12",
+        "R15"
+      ],
+      "ask_only_when": "Reuse expressed priorities; ask optionally when it helps an actual tradeoff.",
+      "unknown_effect": "No forced priorities, click-order weights or mandatory ranking.",
+      "product_work_group": "priorities_costs",
+      "product_responsibility": "Optional priorities and budget scope; explain tradeoffs without invented weights.",
+      "existing_meaning_pointer": "/questions/9",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC01",
+      "kind": "conditional",
+      "meaning": "Who is this coverage for?",
+      "canonical_paths": [
+        "readiness.facts.RC01.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "None; integrity guards run before dependent checks.",
+      "source_layer_ids": [],
+      "gap_ids": [],
+      "rule_ids": [
+        "R01"
+      ],
+      "ask_only_when": "Clarify whose facts apply when consequential; reuse unambiguous first-person reports.",
+      "unknown_effect": "No cross-person transfer or implied sharing authority.",
+      "product_work_group": "task_person_teaching",
+      "product_responsibility": "Requested task, beneficiary and contextual explanation; familiarity never changes fit.",
+      "existing_meaning_pointer": "/questions/10",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC02",
+      "kind": "conditional",
+      "meaning": "Where is your permanent home?",
+      "canonical_paths": [
+        "readiness.facts.RC02.value.choice",
+        "readiness.facts.RC02.value.zip",
+        "readiness.facts.RC02.value.county",
+        "readiness.facts.RC02.value.homeStatus"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "availability"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC01.",
+      "source_layer_ids": [
+        "L02",
+        "L04",
+        "L07",
+        "L08",
+        "L10",
+        "L11",
+        "L12",
+        "L14",
+        "L15"
+      ],
+      "gap_ids": [
+        "G06"
+      ],
+      "rule_ids": [
+        "R02",
+        "R09"
+      ],
+      "ask_only_when": "Reuse T03; ask only missing permanent/moving/seasonal meaning relevant to the check.",
+      "unknown_effect": "ZIP lookup is not proof of residency; preserve multiple places.",
+      "product_work_group": "geography_year",
+      "product_responsibility": "Scope available facts to exact year/geography; preference is not entitlement.",
+      "existing_meaning_pointer": "/questions/11",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC03",
+      "kind": "conditional",
+      "meaning": "Which year should we compare?",
+      "canonical_paths": [
+        "readiness.facts.RC03.value.choice",
+        "readiness.facts.RC03.value.year"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "availability"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC01.",
+      "source_layer_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05",
+        "L06",
+        "L07",
+        "L08",
+        "L09",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14",
+        "L15"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R02",
+        "R14"
+      ],
+      "ask_only_when": "Confirm an explicit year only when absent/ambiguous for the requested evidence.",
+      "unknown_effect": "No substituting 2026 research or unvalidated 2027 samples.",
+      "product_work_group": "geography_year",
+      "product_responsibility": "Scope available facts to exact year/geography; preference is not entitlement.",
+      "existing_meaning_pointer": "/questions/12",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC04",
+      "kind": "conditional",
+      "meaning": "Which Medicare parts do you have now?",
+      "canonical_paths": [
+        "readiness.facts.RC04.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing",
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC01.",
+      "source_layer_ids": [
+        "L02",
+        "L04",
+        "L11",
+        "L13",
+        "L14"
+      ],
+      "gap_ids": [
+        "G01",
+        "G02",
+        "G07"
+      ],
+      "rule_ids": [
+        "R03",
+        "R04"
+      ],
+      "ask_only_when": "Ask actual A/B status for a finding needing it; never equate applied/getting started with active parts.",
+      "unknown_effect": "Hold dependent entitlement/transition conclusion; learning remains available.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/13",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC05",
+      "kind": "conditional",
+      "meaning": "When did Part B start?",
+      "canonical_paths": [
+        "readiness.facts.RC05.value.choice",
+        "readiness.facts.RC05.value.month"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing",
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC04.",
+      "source_layer_ids": [
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [
+        "G02",
+        "G07"
+      ],
+      "rule_ids": [
+        "R04",
+        "R05"
+      ],
+      "ask_only_when": "Ask only if an applicable timing/rights check requires the actual B month.",
+      "unknown_effect": "No substitution for Part A chronology, birthday or requested start.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/14",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC06",
+      "kind": "conditional",
+      "meaning": "How did you first qualify, or expect to qualify, for Medicare?",
+      "canonical_paths": [
+        "readiness.facts.RC06.value.choice",
+        "readiness.facts.RC06.value.ageBand"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing",
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC04.",
+      "source_layer_ids": [
+        "L01",
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [
+        "G01",
+        "G03",
+        "G10"
+      ],
+      "rule_ids": [
+        "R04",
+        "R05"
+      ],
+      "ask_only_when": "Ask basis/age precision only for an applicable supported rule.",
+      "unknown_effect": "No inferred birthday, exact eligibility anchor or personal premium.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/15",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC07",
+      "kind": "conditional",
+      "meaning": "How do you get your A and B benefits now?",
+      "canonical_paths": [
+        "readiness.facts.RC07.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "route_comparison",
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC04.",
+      "source_layer_ids": [
+        "L02",
+        "L03",
+        "L04",
+        "L10",
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [
+        "G04",
+        "G13"
+      ],
+      "rule_ids": [
+        "R03",
+        "R05"
+      ],
+      "ask_only_when": "Reuse T05/RC04 where sufficient; clarify only actual delivery meaning needed now.",
+      "unknown_effect": "No forced delivery category or inferred policy identity.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/16",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC08",
+      "kind": "conditional",
+      "meaning": "What changed about your coverage?",
+      "canonical_paths": [
+        "readiness.facts.RC08.value.choice",
+        "readiness.facts.RC08.value.eventDate"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC03, RC04, RC07.",
+      "source_layer_ids": [
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "Ask exact change/date only if the requested transition check needs it.",
+      "unknown_effect": "Keep partial event/date; no inferred window.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/17",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC09",
+      "kind": "conditional",
+      "meaning": "Is this coverage from someone who is still working?",
+      "canonical_paths": [
+        "readiness.facts.RC09.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC07.",
+      "source_layer_ids": [
+        "L13"
+      ],
+      "gap_ids": [
+        "G10"
+      ],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "Ask active-work versus retiree/other source only for relevant coordination/timing.",
+      "unknown_effect": "Retired status is not retiree insurance; preserve whose employment applies.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/18",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC10",
+      "kind": "conditional",
+      "meaning": "Does the employer have 20 or more employees?",
+      "canonical_paths": [
+        "readiness.facts.RC10.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC06, RC09.",
+      "source_layer_ids": [
+        "L13"
+      ],
+      "gap_ids": [
+        "G10"
+      ],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "Use the actual applicable threshold variant only after basis/current-work context is known.",
+      "unknown_effect": "Unknown/unbound threshold is not a payer-order determination.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/19",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC11",
+      "kind": "conditional",
+      "meaning": "When did the job or coverage end?",
+      "canonical_paths": [
+        "readiness.facts.RC11.value.choice",
+        "readiness.facts.RC11.value.jobEnd",
+        "readiness.facts.RC11.value.coverageEnd"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC09.",
+      "source_layer_ids": [
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "Collect only missing date/precision required by the relevant change check.",
+      "unknown_effect": "Do not merge jobEnd and coverageEnd or invent exact days.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/20",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC12",
+      "kind": "conditional",
+      "meaning": "Do you have a written notice saying your drug coverage counts as creditable (as good as Medicare’s standard coverage), and has there been a gap?",
+      "canonical_paths": [
+        "readiness.facts.RC12.value.choice",
+        "readiness.facts.RC12.value.gap"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing",
+        "drug_coverage"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC07, RC09.",
+      "source_layer_ids": [
+        "L04",
+        "L05",
+        "L13"
+      ],
+      "gap_ids": [
+        "G01"
+      ],
+      "rule_ids": [
+        "R04",
+        "R07"
+      ],
+      "ask_only_when": "Ask the missing notice/period/gap meaning only when relevant; preserve independent known parts.",
+      "unknown_effect": "Report of notice does not verify coverage; unknown gap cannot yield a penalty finding.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/21",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC13",
+      "kind": "conditional",
+      "meaning": "Could a change affect anyone else’s coverage?",
+      "canonical_paths": [
+        "readiness.facts.RC13.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing",
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC09.",
+      "source_layer_ids": [
+        "L13"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "At an actual relevant change, clarify only missing party/action/effect/period facts; reuse scoped administrator reports.",
+      "unknown_effect": "Sole-insured status does not establish no impact on own benefits. No automatic consequence or collection of other people details.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/22",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC14",
+      "kind": "conditional",
+      "meaning": "Are you or your employer adding money to an HSA?",
+      "canonical_paths": [
+        "readiness.facts.RC14.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC05, RC09.",
+      "source_layer_ids": [
+        "L13"
+      ],
+      "gap_ids": [
+        "G02",
+        "G07"
+      ],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "Ask only for a relevant supported contribution/transition check.",
+      "unknown_effect": "A yes/no cannot decide chronology, retroactivity or tax consequences.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/23",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC15",
+      "kind": "conditional",
+      "meaning": "For the Medigap option you want to explore, what coverage change or notice should we check?",
+      "canonical_paths": [
+        "readiness.facts.RC15.value.choice",
+        "readiness.facts.RC15.value.event"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC02, RC05, RC06, RC11.",
+      "source_layer_ids": [
+        "L10",
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R05"
+      ],
+      "ask_only_when": "Ask exact relevant event/notice for the requested Medigap branch; reuse RC05/RC11.",
+      "unknown_effect": "No generic underwriting/rights assertion from a branch choice.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/24",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC16",
+      "kind": "conditional",
+      "meaning": "Was this your first Medicare Advantage plan, when did it start, and did you have Medigap before?",
+      "canonical_paths": [
+        "readiness.facts.RC16.value.choice",
+        "readiness.facts.RC16.value.start",
+        "readiness.facts.RC16.value.priorMedigap"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC07, RC08, RC15.",
+      "source_layer_ids": [
+        "L10",
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [
+        "G01",
+        "G04"
+      ],
+      "rule_ids": [
+        "R05"
+      ],
+      "ask_only_when": "Use distinct first-plan/start/prior-policy reports only for relevant rights research.",
+      "unknown_effect": "History is not verified return/issueability; gaps G01/G04 persist.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/25",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC17",
+      "kind": "conditional",
+      "meaning": "Are you replacing an existing Medigap policy?",
+      "canonical_paths": [
+        "readiness.facts.RC17.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC07, RC15.",
+      "source_layer_ids": [
+        "L10",
+        "L11"
+      ],
+      "gap_ids": [
+        "G04"
+      ],
+      "rule_ids": [
+        "R05"
+      ],
+      "ask_only_when": "Ask only if replacement is part of the requested comparison/change.",
+      "unknown_effect": "No inferred exemption, continuation, guaranteed issue or quote.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/26",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC18",
+      "kind": "conditional",
+      "meaning": "Do you currently receive benefits from any of these programs?",
+      "canonical_paths": [
+        "readiness.facts.RC18.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "drug_pricing",
+        "snp"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC01, RC03.",
+      "source_layer_ids": [
+        "L01",
+        "L06",
+        "L12"
+      ],
+      "gap_ids": [
+        "G03",
+        "G09"
+      ],
+      "rule_ids": [
+        "R10",
+        "R08",
+        "R11"
+      ],
+      "ask_only_when": "Reuse each named current/pending/unknown program; precision only for affected requested finding.",
+      "unknown_effect": "Partial program knowledge is retained; no subsidy amount or qualification inference.",
+      "product_work_group": "assistance_restrictions",
+      "product_responsibility": "Applicable named assistance and restricted-plan checks; unknown is not ineligible.",
+      "existing_meaning_pointer": "/questions/27",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC19",
+      "kind": "conditional",
+      "meaning": "For the Special Needs Plan type you want to explore, what exact qualifying program or plan confirmation do you have?",
+      "canonical_paths": [
+        "readiness.facts.RC19.value.choice",
+        "readiness.facts.RC19.value.qualification"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "snp"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC02, RC04, RC18.",
+      "source_layer_ids": [
+        "L02",
+        "L12",
+        "L14"
+      ],
+      "gap_ids": [
+        "G09"
+      ],
+      "rule_ids": [
+        "R10"
+      ],
+      "ask_only_when": "Ask only exact relevant qualification report for a requested plan type.",
+      "unknown_effect": "Unverified/unknown qualification is unresolved, not ineligible; no broad clinical intake.",
+      "product_work_group": "assistance_restrictions",
+      "product_responsibility": "Applicable named assistance and restricted-plan checks; unknown is not ineligible.",
+      "existing_meaning_pointer": "/questions/28",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC20",
+      "kind": "conditional",
+      "meaning": "Where will you need routine care away from home?",
+      "canonical_paths": [
+        "readiness.facts.RC20.value.choice",
+        "readiness.facts.RC20.value.location"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "provider_fit"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC02.",
+      "source_layer_ids": [
+        "L03",
+        "L08",
+        "L10",
+        "L14"
+      ],
+      "gap_ids": [
+        "G06"
+      ],
+      "rule_ids": [
+        "R09"
+      ],
+      "ask_only_when": "Reuse T08/places; ask only missing location/type/period needed for routine access.",
+      "unknown_effect": "Do not flatten multiple destinations or substitute emergency evidence.",
+      "product_work_group": "care_away",
+      "product_responsibility": "Routine versus emergency care and relevant places/periods.",
+      "existing_meaning_pointer": "/questions/29",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC21",
+      "kind": "conditional",
+      "meaning": "What exact office and location should we use for each doctor or hospital?",
+      "canonical_paths": [
+        "readiness.facts.RC21.value.choice",
+        "readiness.facts.RC21.value.items[].entity",
+        "readiness.facts.RC21.value.items[].practice",
+        "readiness.facts.RC21.value.items[].city"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "provider_fit"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC02, RC03.",
+      "source_layer_ids": [
+        "L08"
+      ],
+      "gap_ids": [
+        "G05"
+      ],
+      "rule_ids": [
+        "R06"
+      ],
+      "ask_only_when": "Resolve each requested provider site; present identity ambiguity rather than silently selecting a namesake.",
+      "unknown_effect": "Internal ID/NPI match is not network or appointment verification.",
+      "product_work_group": "providers",
+      "product_responsibility": "Exact provider/site identity then separately sourced participation and access.",
+      "existing_meaning_pointer": "/questions/30",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC22",
+      "kind": "conditional",
+      "meaning": "What exact name, strength, form, and brand or generic preference should we use for each medicine?",
+      "canonical_paths": [
+        "readiness.facts.RC22.value.choice",
+        "readiness.facts.RC22.value.items[].entity",
+        "readiness.facts.RC22.value.items[].name",
+        "readiness.facts.RC22.value.items[].strength",
+        "readiness.facts.RC22.value.items[].form",
+        "readiness.facts.RC22.value.items[].brand"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "drug_coverage",
+        "drug_pricing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC03.",
+      "source_layer_ids": [
+        "L05",
+        "L06"
+      ],
+      "gap_ids": [
+        "G05",
+        "G11"
+      ],
+      "rule_ids": [
+        "R07",
+        "R08"
+      ],
+      "ask_only_when": "Resolve product/strength/form only as needed; brand preference remains optional.",
+      "unknown_effect": "Strength is not quantity/dose; unknown preference does not erase known product facts.",
+      "product_work_group": "medicines_pharmacies",
+      "product_responsibility": "Product identity, formulary conditions and only relevant fill/store/administration details.",
+      "existing_meaning_pointer": "/questions/31",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC23",
+      "kind": "conditional",
+      "meaning": "For each medicine, what quantity, days supply, exact pharmacy and retail or mail order should we use?",
+      "canonical_paths": [
+        "readiness.facts.RC23.value.choice",
+        "readiness.facts.RC23.value.items[].entity",
+        "readiness.facts.RC23.value.items[].quantity",
+        "readiness.facts.RC23.value.items[].daysSupply",
+        "readiness.facts.RC23.value.items[].pharmacy",
+        "readiness.facts.RC23.value.items[].channel",
+        "readiness.facts.RC23.value.items[].supply"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "drug_pricing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC22.",
+      "source_layer_ids": [
+        "L05",
+        "L06",
+        "L07"
+      ],
+      "gap_ids": [
+        "G05",
+        "G08",
+        "G11"
+      ],
+      "rule_ids": [
+        "R08",
+        "R11"
+      ],
+      "ask_only_when": "Ask only missing per-item quantity/units/days supply/store/channel needed for a supported requested fill-price, quantity-limit or pharmacy-network finding; no full pricing prerequisite.",
+      "unknown_effect": "No assumed fill, pharmacy choice or average-as-quote; coverage research may continue.",
+      "product_work_group": "medicines_pharmacies",
+      "product_responsibility": "Product identity, formulary conditions and only relevant fill/store/administration details.",
+      "existing_meaning_pointer": "/questions/32",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC24",
+      "kind": "conditional",
+      "meaning": "Is this given at a clinic or filled at a pharmacy?",
+      "canonical_paths": [
+        "readiness.facts.RC24.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "drug_coverage"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC22, RC23.",
+      "source_layer_ids": [
+        "L01",
+        "L03",
+        "L05",
+        "L13"
+      ],
+      "gap_ids": [
+        "G11"
+      ],
+      "rule_ids": [
+        "R07",
+        "R08"
+      ],
+      "ask_only_when": "Ask the missing discriminator only when it changes an accepted coverage rule/research target.",
+      "unknown_effect": "Clinic versus pharmacy alone cannot decide part, device, authorization or a separate problem.",
+      "product_work_group": "medicines_pharmacies",
+      "product_responsibility": "Product identity, formulary conditions and only relevant fill/store/administration details.",
+      "existing_meaning_pointer": "/questions/33",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC25",
+      "kind": "conditional",
+      "meaning": "Is there a monthly amount you want to stay under?",
+      "canonical_paths": [
+        "readiness.facts.RC25.value.choice",
+        "readiness.facts.RC25.value.amount",
+        "readiness.facts.RC25.value.includes"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [],
+      "source_requiredness": "optional_preference",
+      "source_dependencies": "RC03, RC18.",
+      "source_layer_ids": [
+        "L01",
+        "L03",
+        "L04",
+        "L06",
+        "L10",
+        "L12"
+      ],
+      "gap_ids": [
+        "G03",
+        "G08",
+        "G09",
+        "G12"
+      ],
+      "rule_ids": [
+        "R11",
+        "R12"
+      ],
+      "ask_only_when": "Ask optionally when the person wants a budget constraint; clarify what the amount includes.",
+      "unknown_effect": "Unspecified scope cannot yield an all-in affordability/total-cost claim.",
+      "product_work_group": "priorities_costs",
+      "product_responsibility": "Optional priorities and budget scope; explain tradeoffs without invented weights.",
+      "existing_meaning_pointer": "/questions/34",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC26",
+      "kind": "conditional",
+      "meaning": "Which military or veterans’ coverage do you have?",
+      "canonical_paths": [
+        "readiness.facts.RC26.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing",
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC04, RC12.",
+      "source_layer_ids": [
+        "L13",
+        "L14"
+      ],
+      "gap_ids": [
+        "G13"
+      ],
+      "rule_ids": [
+        "R03",
+        "R04",
+        "R10"
+      ],
+      "ask_only_when": "Ask only missing program subtype relevant to current baseline/coordination.",
+      "unknown_effect": "Program category is not complete coordination evidence.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/35",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC27",
+      "kind": "conditional",
+      "meaning": "Is there a coverage interruption you need help with now?",
+      "canonical_paths": [
+        "readiness.facts.RC27.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC08.",
+      "source_layer_ids": [
+        "L13",
+        "L14",
+        "L15"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R04",
+        "R16"
+      ],
+      "ask_only_when": "Ask/reuse explicit interruption details only for supported continuity help.",
+      "unknown_effect": "No invented completed help, coverage cancellation or eligibility finding.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/36",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC28",
+      "kind": "conditional",
+      "meaning": "What should I correct about the specific detail we were discussing?",
+      "canonical_paths": [
+        "readiness.facts.RC28.value.choice"
+      ],
+      "parent_alias_of": null,
+      "source_capabilities": [
+        "route_comparison"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "None; integrity guards run before dependent checks.",
+      "source_layer_ids": [],
+      "gap_ids": [
+        "G14"
+      ],
+      "rule_ids": [
+        "R13",
+        "R16"
+      ],
+      "ask_only_when": "Apply clear targeted correction directly; ask only actual ambiguity in person/item/field/time.",
+      "unknown_effect": "No newest-message-wins conflict resolution or acceptance ritual.",
+      "product_work_group": "correction",
+      "product_responsibility": "Correct scoped reports and invalidate only dependent findings and recommendations.",
+      "existing_meaning_pointer": "/questions/37",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC11.C1",
+      "kind": "documented_child",
+      "meaning": "When does the job-based health coverage end?",
+      "canonical_paths": [
+        "readiness.facts.RC11.value.coverageEnd"
+      ],
+      "parent_alias_of": "RC11",
+      "source_capabilities": [
+        "timing"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC09.",
+      "source_layer_ids": [
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R04"
+      ],
+      "ask_only_when": "Ask only missing coverageEnd; reuse a parent answer to the same field.",
+      "unknown_effect": "No extra obligation and no substitution for jobEnd.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/38",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC16.C1",
+      "kind": "documented_child",
+      "meaning": "When did it start?",
+      "canonical_paths": [
+        "readiness.facts.RC16.value.start"
+      ],
+      "parent_alias_of": "RC16",
+      "source_capabilities": [
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC07, RC08, RC15.",
+      "source_layer_ids": [
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [],
+      "rule_ids": [
+        "R05"
+      ],
+      "ask_only_when": "Ask only missing relevant actual Advantage episode start in the parent history context; keep first-entry status distinct.",
+      "unknown_effect": "No extra obligation; requested future start cannot substitute.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/39",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    },
+    {
+      "question_id": "RC16.C2",
+      "kind": "documented_child",
+      "meaning": "Did you have Medigap before it?",
+      "canonical_paths": [
+        "readiness.facts.RC16.value.priorMedigap"
+      ],
+      "parent_alias_of": "RC16",
+      "source_capabilities": [
+        "medigap_rights"
+      ],
+      "source_requiredness": "required_only_when_applicable_to_requested_check",
+      "source_dependencies": "RC07, RC08, RC15.",
+      "source_layer_ids": [
+        "L10",
+        "L11",
+        "L13"
+      ],
+      "gap_ids": [
+        "G04"
+      ],
+      "rule_ids": [
+        "R05"
+      ],
+      "ask_only_when": "Ask only missing prior Medigap meaning in the parent context.",
+      "unknown_effect": "No extra obligation or inferred right to return.",
+      "product_work_group": "current_coverage_transition",
+      "product_responsibility": "Coverage-path teaching and applicable baseline/transition/rights checks; no universal timing interview.",
+      "existing_meaning_pointer": "/questions/40",
+      "new_mandatory_question": false,
+      "new_release_authority": false
+    }
+  ],
+  "application_rules": [
+    "All original question meanings, paths, branches, aliases and optionality remain.",
+    "Grouping schedules work, not a new fixed interview or gate.",
+    "Source failures are external tasks; never repair them by asking redundant profile questions.",
+    "Every conclusion uses finding-specific reported-input and evidence/method/purpose gates.",
+    "RC23/RC24 reuse only the details needed for the requested narrow check; full pricing intake is not a prerequisite.",
+    "RC13 preserves own group/retiree consequences as well as effects on other people.",
+    "Separate later advisor extensions and representation gaps remain governed by the current profile adapter."
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "daylight-d94-database-redesign/1",
+  "passed": true,
+  "at": "2026-11-06T01:33:08.688592+00:00",
+  "database_before_bytes": 58013193919,
+  "database_after_bytes": 29374584511,
+  "database_bytes_reduced": 28638609408,
+  "new_maintenance_allocated_bytes_nonunique": 5816049664,
+  "retained_trial_databases": [
+    {
+      "datname": "daylight_compact_2026_r1",
+      "bytes": 373618367
+    },
+    {
+      "datname": "daylight_compact_fixture_4b27a3a157_test",
+      "bytes": 9025215
+    },
+    {
+      "datname": "daylight_compact_fixture_5fda0e29a3_test",
+      "bytes": 8541887
+    }
+  ],
+  "accounted_reduction_after_maintenance_and_trials": 22431374275,
+  "volume_free_before_database_phase_reference": 59990122496,
+  "volume_free_after_bytes": 81481805824,
+  "observed_volume_free_increase": 21491683328,
+  "wal_current_bytes": 1073741824,
+  "volume_delta_includes_concurrent_activity_and_apfs_wal_timing": true,
+  "counts": {
+    "raw_rows": 17767179,
+    "projection_rows": 17823148,
+    "offerings": 5972
+  },
+  "recovery_verified_chunks": 1283,
+  "backup_bytes": 5813006603,
+  "backup_sha256": "d3b19beffa7f59da5fb285958232b93b0c58381e971a19e6e9fcaaea3e73b154",
+  "original_source_files_and_prior_backups_retained": true,
+  "source_control_history_unchanged_after_retirement": true,
+  "mvp": {
+    "passed": true,
+    "counts": {
+      "offering": 72,
+      "benefit": 720,
+      "scenario": 288,
+      "family": 1008,
+      "medical_service": 1440,
+      "question": 41
+    },
+    "published_holds": 141,
+    "scenario_holds": 88,
+    "total_material_holds": 229,
+    "complete_input_json_roundtrips": 6,
+    "active_app_changed": false,
+    "new_acceptance": false,
+    "consumer_release_enabled": false
+  },
+  "provider_checks": 35,
+  "provider_and_medicine_results_identical": true,
+  "post_retirement_72_plan_audit": true,
+  "source_method_consumer_acceptance_changed": false,
+  "off_machine_recovery_verified": false,
+  "historical_verifier": {
+    "historical_verifier_passed": false,
+    "block": "frozen_dependency_lock_hash_differs",
+    "path": "infrastructure/daylight-data/requirements.lock",
+    "frozen_sha256": "375c52227496ddbf0babeaf264dd6326ad30f2a5e0a5194746c8211887d04a87",
+    "current_sha256": "81946390d9173c21246e42798e902934a4b0551d316c8bb6eb9bc3a4d466bcab",
+    "mtime_utc": "2026-11-04T00:31:57.279600+00:00",
+    "maintenance_baseline_at": "2026-11-05T21:37:56.029597+00:00",
+    "mtime_predates_maintenance": true,
+    "file_edited_by_this_work": false,
+    "before_content_hash_recorded": false,
+    "frozen_receipts_modified": false,
+    "gate_waived": false
+  },
+  "query_timings_after": [
+    {
+      "elapsed_ms": 80.338,
+      "query": "list_plans",
+      "rows": 20
+    },
+    {
+      "elapsed_ms": 13.541,
+      "query": "list_plans",
+      "rows": 20
+    },
+    {
+      "elapsed_ms": 13.471,
+      "query": "list_plans",
+      "rows": 20
+    },
+    {
+      "elapsed_ms": 11.303,
+      "query": "list_plans",
+      "rows": 12
+    },
+    {
+      "elapsed_ms": 452.729,
+      "offering_id": "2026:H0710:010:000",
+      "query": "inspect_plan"
+    },
+    {
+      "elapsed_ms": 439.629,
+      "offering_id": "2026:R5826:074:000",
+      "query": "inspect_plan"
+    }
+  ],
+  "code_sha256": {
+    "infrastructure/daylight-data/redesign/r2/schema.sql": "60ac0fb1a16bdbf241c8784d7338b9bcc40eafeec65d47cbef49e08319430ec2",
+    "infrastructure/daylight-data/redesign/r3/read_views.sql": "c288d8a8df006bedd66637345dd2f73fb9887a13f2dcbae2122ec5ac3853f87b",
+    "infrastructure/daylight-data/redesign/r2/post_restore.sql": "f7384a456d399e2717660f97a74d9e6f7824114682dff7dd3e00a4c29dd635a5",
+    "infrastructure/daylight-data/tools/compact_bounded_recovery.py": "4def1b31a5bbf2aef8abb2844ac29caad19be3e91a3ef991acf99ad40bf6ee3d",
+    "infrastructure/daylight-data/tools/compact_database.py": "38be5f17ce9499a6171121f8747642c3171e2fac7e01b6087e4e465a866172e0",
+    "infrastructure/daylight-data/tools/compact_database_r2.py": "f0c8bed23bf9be5eb42a6dcea719cd17f0c176f50200b289ac0b6308e6857937",
+    "infrastructure/daylight-data/tools/compact_identity_index.py": "f4adff4f997114aa55aebc4939738e006eb148d7959d7c746685024b7dde2ead",
+    "infrastructure/daylight-data/tools/compact_process.py": "34c3a921d1e244854fcf435d494c3b8298f9f586035648da0583aeb53d4790e4",
+    "infrastructure/daylight-data/tools/compact_range.py": "b38b8616004f268846b9dae77a14c0bdd9d1c04f0fb03fc23313588488627a25",
+    "infrastructure/daylight-data/tools/compact_recovery.py": "9b09e6d79a8dce773b1d19c306e9cc40e5cbb55a347040ddd1a486b7d1716e9a",
+    "infrastructure/daylight-data/tools/compact_recovery_pipeline.py": "1609debc4747046a9ae1c50dce8b6e31559fd3236362932f32c208f7098e024b",
+    "infrastructure/daylight-data/tools/deploy_compact.py": "7aba92e64c84fb2161e50760fed2850061e42a7edfb29e8f9320834c097fe434",
+    "infrastructure/daylight-data/tools/verify_compact_medicines.py": "395c73ccbe652de6e391ae84550a15cfca41f2e9dd50320b286b215995b6351f",
+    "infrastructure/daylight-data/tools/verify_live_compact.py": "d5b5152cd09700fbcc340dbfdaeefd0113e4298cd2723871a14e34e31ebdc081",
+    "infrastructure/daylight-data/tools/verify_recovered_compact.py": "6cf2ecc1f4786bc05f2d00916574b48c9e22443e279265ded2c88cba35a0eb81"
+  },
+  "volume_reference_at": "2026-11-05T21:49:49.045562+00:00",
+  "volume_reference_sha256": "bed57bdde009bf005dc057e1ebce7166d51e92fae0b940cea45a447c437d0f05",
+  "accounting_scope_note": "Database reduction less all new maintenance directory allocation and retained trial databases; new source/tool/document allocation is small and WAL/APFS/concurrent activity is reported separately."
+}

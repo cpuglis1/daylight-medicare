@@ -2,7 +2,7 @@
 
 Owner direction · October 21, 2026 · Read before product, model, data or commercial decisions.
 
-**Our purpose is Medicare expertise without giving up control of the process.** “AI-first Chapter” is an internal business thesis, not permission to copy another product or claim exclusivity. The intended positioning is an AI Medicare advisor that helps people understand, compare and act on their own terms, with humans available when needed. This is positioning, **not another website tagline**. The approved brand line remains **Your coverage, plain as day**.
+**Our purpose is Medicare expertise without giving up control of the process.** “AI-first Chapter” is an internal business thesis, not permission to copy another product or claim exclusivity. The intended positioning is an AI Medicare advisor that helps people understand, compare and act on their own terms, with humans available when needed. This is positioning, **not another website tagline**. D137 (November 11, 2026) restores **Daylight** and **Medicare, plain as day.** on :8894, with **Understand your coverage options and prepare to enroll, at your pace.** beneath it. The advisor identity and public messages also return to Daylight. Protected variants and historical evidence remain unchanged.
 
 These are binding design and governance requirements, including [D64](DAYLIGHT_REQUIREMENTS.md#independence-and-completeness--october-21-2026). They are not a claim that a validated recommendation engine, comprehensive market coverage, enrollment or human handoff is implemented. Current personalized comparisons remain gated. Use the [master design](docs/product/MASTER_DESIGN.md) for flow and [acceptance appendix](docs/product/INDEPENDENCE_ACCEPTANCE.md) for evidence required before release.
 

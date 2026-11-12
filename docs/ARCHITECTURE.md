@@ -1,5 +1,7 @@
 # Current architecture
 
+**November 2, 2026:** The content below is the retained October 21 implementation snapshot. The newer :8893 advisor, local fifteen-layer research database, comparison foundations and current gaps are assessed in [Architecture alignment and implementation guide](planning/ARCHITECTURE_ALIGNMENT_AND_IMPLEMENTATION_2026-11-02.md). Use that assessment and its current source/execution links for newer behavior; neither document grants source or consumer release acceptance.
+
 Reviewed October 21, 2026 from the implementation. This guide describes what exists, not the larger proposed company architecture.
 
 ## Application and data boundaries

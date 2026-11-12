@@ -1,21 +1,25 @@
 """Local D86 language boundary: meaningful retrieval and grounded report proposals.
 
 The pinned :8891 engine stays read-only. The request runner below is a local static
-copy of its bounded runner with an explicit reasoning setting; budget limits stay
-8000 input / 900 total output tokens, shared $1 UTC/day, with no automatic retry.
+copy of its bounded runner with an explicit reasoning setting. The local request
+bounds are in request_limits.py; the shared allowance is $5/UTC-day, without retries.
 """
 import copy
 import hashlib
 import json
 import re
+from ssl import SSLError
 import time
-from urllib.request import Request, urlopen
+from urllib.request import Request
+from provider_transport import urlopen
 from urllib.error import HTTPError, URLError
 from adaptive_agent import AdaptiveAgent
 from adaptive_flow import Q
 from chat import ModelUnavailable
 from guest_profiles import ProfileError, validate_guide
 from ai_budget import BudgetError
+from request_limits import REQUEST_BYTES
+from transport_diagnostics import failure_details
 from guide_agent import INSTRUCTIONS
 from situation import observations, supported_choice, timing_request
 
@@ -65,7 +69,31 @@ def provider_failure_message(diagnostic, *, accepted=False):
     return 'The model could not finish. Accepted details are preserved.' if accepted else 'The model could not finish. Your guide is unchanged.'
 
 
+class ExtractionTransportFailure(ModelUnavailable):
+    """Only a bounded diagnostic crosses the provider boundary."""
+    def __init__(self, error, phase):
+        self.diagnostic = failure_details(error, phase)
+        status = self.diagnostic.get('http_status')
+        code = self.diagnostic.get('provider_code')
+        if status == 402 or code in {'credit_balance_exhausted', 'insufficient_quota', 'billing_error'}:
+            message = 'The AI provider reported a billing problem.'
+        elif status in (401, 403):
+            message = 'The AI provider did not authorize this request.'
+        elif status == 429:
+            message = 'The AI provider is limiting requests right now.'
+        elif status is not None and status >= 500:
+            message = 'The AI provider is temporarily unavailable.'
+        elif status is not None:
+            message = 'The AI provider declined the request.'
+        elif self.diagnostic['exception'] in {'JSONDecodeError', 'KeyError', 'TypeError'}:
+            message = 'Daylight could not read the AI provider’s reply.'
+        else:
+            message = 'The AI connection ended before Daylight received a complete reply.'
+        super().__init__(message)
+
+
 class NarrativeAgent(AdaptiveAgent):
+    max_input_bytes = REQUEST_BYTES
     instructions = AdaptiveAgent.instructions + '''
 D86 corrected situation reasoning:
 Separate life circumstances from current health insurance, the requested task,
@@ -85,6 +113,11 @@ retrieval is legitimate: do not attach the closest unrelated teaching block.
 Choose move_id only from narrative.eligibleMoves and reason_id from its enum.
 No authored insurance prose, arbitrary tools or personal eligibility findings.
 For continuations, leave task/task_quote empty unless explicitly changing focus.
+discourse_note (when present in the schema): at most 160 characters, in plain words, of
+what the person said this turn that is NOT a report or request: a worry, a belief they
+repeated from someone else, a preference about how to proceed, or a question they
+want answered later. Empty when nothing of the kind was said. Never copy names, dates,
+amounts or identifiers into it.
 Examples:
 "I've been retired for years and turn 65 in November" -> beneficiary self,
 timing focus; NO retiree coverage, NO job end, NO desired coverage start.
@@ -182,6 +215,11 @@ do NOT add Original Medicare as a separate current delivery arrangement.
         self.local.concept_ids=list(result['fact_ids']) if result['mode']=='answer' else []
         return result
 
+    def settle_incomplete(self, response, stage):
+        if (stage and self.client.model != 'gpt-5.4' and response.get('status') == 'incomplete'
+                and isinstance(response.get('usage'), dict)):
+            stage.settle(response)
+
     def run(self,owner,message,guide,eligible,request_id,emit=lambda *x:None):
         self.local.provider_failure=None
         validate_guide(guide,self.contract)
@@ -201,6 +239,7 @@ do NOT add Original Medicare as a separate current delivery arrangement.
             if self.max_calls is not None and self.calls>=self.max_calls:raise ModelUnavailable('The configured live-request budget is reached. Manual guidance remains available.')
             self.active.add(key)
         reservation=None;completed_response=None
+        phase = 'preflight'
         # A local two-stage caller can reserve the whole turn before either
         # request. The pinned shared runner is unchanged; never reserve twice.
         budget_stage=getattr(self.local,'budget_stage',None)
@@ -231,40 +270,57 @@ do NOT add Original Medicare as a separate current delivery arrangement.
                 if self.on_call:self.on_call(len(raw),output_limit)
                 self.calls+=1
             emit('status',{'message':'Daylight is preparing a grounded response…'})
+            phase = 'stream'
             if self.client.transport:
                 if budget_stage:budget_stage.issued()
                 result=self.client.transport(payload)
                 if result.get('status') in {'failed','incomplete'}:
                     self.local.provider_failure=provider_failure_diagnostic({'type':'response.'+result['status'],'response':result})
+                    self.settle_incomplete(result, budget_stage)
                     raise ModelUnavailable(provider_failure_message(self.local.provider_failure))
                 completed_response=result;self.usage.append(result.get('usage',{}));text=''.join(c.get('text','') for o in result.get('output',[]) for c in o.get('content',[]) if c.get('type')=='output_text')
             else:
                 request=Request('https://api.openai.com/v1/responses',data=raw,headers={'Authorization':'Bearer '+self.client.key,'Content-Type':'application/json'},method='POST');text='';complete=False;count=0
+                self.local.stream_status={'terminal':False,'delta_events':0,'text_chars':0}
                 if budget_stage:budget_stage.issued()
                 with urlopen(request,timeout=40) as response:
                     for line in response:
                         if len(line)>200000:raise ModelUnavailable('The response exceeded its bound.')
                         if not line.startswith(b'data: '):continue
+                        if line[6:].strip()==b'[DONE]':break
                         event=json.loads(line[6:]);kind=event.get('type')
                         if kind=='response.output_text.delta':
                             text+=event.get('delta','');count+=1
+                            self.local.stream_status.update(delta_events=count,text_chars=len(text))
                             if len(text)>20000:raise ModelUnavailable('The response exceeded its bound.')
                             if count%12==0:emit('status',{'message':'Checking the response before showing it…'})
                         elif kind=='response.completed':
                             complete=True;completed_response=event.get('response',{});self.usage.append(completed_response.get('usage',{}))
+                            self.local.stream_status['terminal']=True
+                            final_text=''.join(c.get('text','') for o in completed_response.get('output',[]) for c in o.get('content',[]) if c.get('type')=='output_text')
+                            if final_text:text=final_text
+                            self.local.stream_status['text_chars']=len(text)
+                            if len(text)>20000:raise ModelUnavailable('The response exceeded its bound.')
+                            break
                         elif kind in {'response.failed','response.incomplete','error'}:
                             self.local.provider_failure=provider_failure_diagnostic(event)
+                            self.settle_incomplete(event.get('response') or {}, budget_stage)
                             raise ModelUnavailable(provider_failure_message(self.local.provider_failure))
                 if not complete:raise ModelUnavailable('The response ended early. Your guide is unchanged.')
-            if self.budget:
+            if budget_stage:
+                budget_stage.settle(completed_response)
+            elif self.budget:
                 self.budget.settle(reservation,completed_response)
-                if budget_stage:budget_stage.settled()
+            if completed_response.get('structured_output_error'):
+                raise ModelUnavailable('The reply could not be checked. Your information is unchanged.')
+            phase = 'decode'
             answer=self.validate_output(json.loads(text),message,guide,facts,eligible,owner)
             with self.lock:
                 if len(self.cache)>100:self.cache.clear()
                 self.cache[key]={'signature':signature,'result':answer,'expires':time.time()+600}
             return answer
-        except (HTTPError,URLError,TimeoutError,json.JSONDecodeError,KeyError,TypeError) as error:raise ModelUnavailable('Live AI could not complete this request. Retry or use the manual guide; your details are unchanged.') from error
+        except (HTTPError, URLError, TimeoutError, SSLError, ConnectionError, json.JSONDecodeError, KeyError, TypeError) as error:
+            raise ExtractionTransportFailure(error, phase) from error
         finally:
             if budget_stage:budget_stage.finish()
             elif reservation:self.budget.uncertain(reservation)

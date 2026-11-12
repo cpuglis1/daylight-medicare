@@ -38,9 +38,8 @@ class ProviderHttpTests(unittest.TestCase):
             conversation_class=advisor_server.ChatConversation,
             profile_gate_class=advisor_server.ProfileReadiness,
             adaptive_class=advisor_server.NaturalConversation)
-        budget = AdvisorDailyBudget.adopt(self.service.budget, policy_path=HERE/'budget-policy.json')
-        # Fake transport + disposable ledger: anchor this fixture to its reviewed
-        # pricing date. Never extend production pricing approval to keep CI green.
+        budget = AdvisorDailyBudget.adopt(self.service.budget, policy_path=HERE/'budget-policy.json',
+                                          pricing_review_path=HERE/'pricing-review.json')
         verified_at = datetime.fromisoformat(budget.rates['verified_at']).timestamp()
         budget.clock = lambda: verified_at
         self.assertEqual(Path(self.service.budget.path).resolve(), (temporary/'budget.sqlite3').resolve())
@@ -153,9 +152,9 @@ class ProviderHttpTests(unittest.TestCase):
         json.dumps(after, allow_nan=False)
         fields = after['guide']['fields']
         self.assertEqual(fields['needs.providersStatus']['value'], 'list')
-        # The retained engine rebuilds the baseline provider summary from its
-        # structured RC21 practice list when those details are supplied.
-        self.assertEqual(fields['needs.providers']['value'], 'Example Primary Care')
+        # Office detail must retain the independently reported clinician name.
+        self.assertIn('Dr Example Person',fields['needs.providers']['value'])
+        self.assertIn('Example Primary Care',fields['needs.providers']['value'])
         self.assertEqual(fields['situation.age65']['value'], {'month': 11, 'year': None})
         self.assertEqual(fields['coverage.current']['value'], ['cobra'])
         self.assertEqual(fields['comparison.scope.zip']['value'], '34102')

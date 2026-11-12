@@ -1,5 +1,12 @@
 # Developer setup and commands
 
+## Separate chat-first alternative (:8891)
+
+Canonical editable source now lives in [alternatives/chat-first/](../alternatives/chat-first/README.md). The :8890 original still uses the root `cms-slice/`. The alternative's existing launchd runtime remains `/Users/cep4u/daylight-chat-alternative-runtime`; guest records, cookie namespace, original `.env` lookup and the shared $1/UTC-day ledger stay in place.
+
+From the main root, run `PYTHONDONTWRITEBYTECODE=1 python3 alternatives/chat-first/runtime/sync_runtime.py --check` to compare source without mutation. After an authorized alternative edit, `--apply --restart` deploys source only with before-images and a verified 8891 service identity. Use the linked guide for focused synthetic tests and temporary fixture startup. Never edit the old Documents fallback or start a live profile store inside the nested source.
+
+
 Run commands from the stated directory. Read [PRODUCT](../PRODUCT.md), [requirements](../DAYLIGHT_REQUIREMENTS.md), and [AGENTS](../AGENTS.md) before app changes. Preserve uncommitted work; do not clean/reset this repository.
 
 ## Runtime

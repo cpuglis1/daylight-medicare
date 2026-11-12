@@ -1,0 +1,547 @@
+{
+  "base": "7d15873e98875dca7940d07903c141d19d5da333",
+  "counts": {
+    "deleted_paths": 0,
+    "engine_locks_checked": 0,
+    "findings": 0,
+    "selected_paths": 12,
+    "snapshot_paths": 231,
+    "text_blobs_scanned": 12
+  },
+  "evidence_acceptance_changed": false,
+  "findings": [],
+  "git_modified": false,
+  "history": {
+    "changed_text_blobs_scanned": 0,
+    "commits_checked": 0,
+    "scope": "not_checked"
+  },
+  "limitations": [
+    "Pattern scanning cannot prove absence of secrets or personal information.",
+    "Python and JSON syntax are checked; application behavior and other languages require their own tests.",
+    "Incremental checks do not certify inherited files or commits preceding the selected base.",
+    "Publication rights, independent evidence review and product release authority remain separate."
+  ],
+  "owners": {
+    "status": "checked",
+    "unassigned_roles": [
+      "consumer_release_authority",
+      "data_evidence_review",
+      "infrastructure_recovery",
+      "privacy_security_review"
+    ]
+  },
+  "passed": true,
+  "policy_changed_requires_full_review": false,
+  "preexisting_metadata_debt": [
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/.gitignore"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/DAYLIGHT_AESTHETIC_PLAN.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/DAYLIGHT_DESIGN_BRIEF.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/DAYLIGHT_GUIDE_REDESIGN.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/DAYLIGHT_JOURNEY_PLAN.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/DAYLIGHT_LEVELS_PLAN.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/DAYLIGHT_REQUIREMENTS.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/PRODUCT.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/README.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "archive/cleanup-2026-10-21/originals/cms-slice/README.md"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "cms-slice/.python-version"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/audit-2026-10-17.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/carrier-provider-probe.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/cms-release-discovery.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-benchmark.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-boundary-tests-20261017.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-browser-qa.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-execution-receipt.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-quality-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-quality.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/demo-tests-20261017.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/devoted-drug-validation.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/drug-validation-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/drug-validation.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/evidence-review-bundle.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/full-tests-20261017-demo.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/portable-tests-20261017.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/prescription-rebuild-20261017.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/provider-api-discovery.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/release-tests-20261017.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/source-diligence/manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/source-diligence/missing-pbp-followup.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/source-diligence/observations.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/test-run-20261017.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/upstream-demo-verification.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/field-mapping.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/landscape-readme.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/landscape-without-pbp.jsonl"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/market-12021-2027-profile.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/market-12021-2027-sources.zip"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/market-12021-2027.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/market-36061-2027.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/market-51179-2027.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/pbp-only.jsonl"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/quality.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-1/run-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-2/catalog.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-2/comparison-desktop.png"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-2/read-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-2/source-mobile.png"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-2/validation.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/browser-qa.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/cms-agreement-accepted.png"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/cms-use-agreement.png"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/premium-discrepancies.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/prescription-desktop.png"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/prescription-mobile.png"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/quality.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/query-example.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/query-source-audit.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "cms-slice/reports/work-package-3/replay-verification.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "docs/reviews/2026-10-21/cms-verify-baseline.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "docs/reviews/2026-10-21/frontend-baseline.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "docs/reviews/2026-10-21/frontend-final.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "docs/reviews/2026-10-21/prototype-baseline.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "docs/reviews/2026-10-21/python-baseline.log"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "docs/reviews/2026-10-21/python-final.log"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/rollback.py"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/actual-backend-validation-pending.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/after-desktop-arrival.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/after-desktop-basics.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/after-phone-coverage.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/after-tablet-location.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/before-desktop-arrival.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/before-desktop-basics.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/before-desktop-help.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/before-phone-coverage.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/before-phone-help.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/before-tablet-location.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/phone-beginner-unknown-checklist.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/static-comparison-unavailable.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/synthetic-desktop-catalog.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/synthetic-desktop-comparison.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/screenshots/synthetic-phone-next-steps.jpg"
+    },
+    {
+      "check": "metadata:uncategorized",
+      "path": "docs/reviews/2026-10-21/verify_retention.py"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/BUNDLE_MANIFEST.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/README.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/.env.example"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/.gitignore"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/DESIGN.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/README.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/VERIFICATION.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/data/catalog.example.jsonl"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/data/manifest.example.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/eval/cases.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/eval/run.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/package.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/prompts/advisor.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/public/app.js"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/public/index.html"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/public/styles.css"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/src/agent.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/src/domain.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/src/fixtures.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/src/server.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/test/agent.test.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/test/domain.test.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/test/server.test.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/archived-prototype/tools/ingest.mjs"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-ai-evidence-bank.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-ai-landscape.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/ARCHITECTURE.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/BUILD_PLAN.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/CONTRACTS.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/DATABASE.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/README.md"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/evidence/landscape-profile.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/evidence/pbp-profile.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/medicare-company-architecture/evidence/source-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/source-recon/landscape-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/source-recon/landscape-profile.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/source-recon/landscape-readme.txt"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/source-recon/pbp-manifest.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/source-recon/pbp-profile.json"
+    },
+    {
+      "check": "metadata:archive_or_bulk_artifact",
+      "path": "medicare-project-2026-10-17-v1.2/source-recon/profile_landscape.py"
+    }
+  ],
+  "preexisting_metadata_debt_count": 126,
+  "safe_to_publish": false,
+  "schema": "daylight-baseline-checks/v1",
+  "scope": "incremental",
+  "source": "index"
+}

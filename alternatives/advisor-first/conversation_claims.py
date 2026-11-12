@@ -218,6 +218,12 @@ def personal_intake_question(text):
     """
     for clause in clauses(text):
         lower = clause.casefold()
+        # Desired-start questions remain personal intake even when politely
+        # phrased as "Would you like ..." or presented as an ASAP/month choice.
+        # Keep invitations to explain timing free: they do not ask for a date.
+        if re.search(r'\b(?:do|would) you (?:want|like|prefer)\s+(?:your\s+)?'
+                     r'(?:medicare(?: coverage)?|coverage|insurance)\s+to\s+(?:start|begin)\b', lower):
+            return True
         if re.match(r'(?:would you like|want me to|should we|shall we)\b', lower) or re.search(r'\b(?:help (?:you )?understand|help clarify)\b', lower):
             continue
         if re.search(r'\b(?:what|which|when|where|whose|how much|how many|do you|are you|have you|did you|tell me|tell us)\b', lower) and re.search(

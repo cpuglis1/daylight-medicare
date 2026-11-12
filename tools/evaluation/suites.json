@@ -1,0 +1,47 @@
+{
+  "schema": "daylight-evaluation-suites/1",
+  "note": "Offline, network-forbidden checks on fictional data. No live model conversations or paid probes; the owner assesses conversation quality.",
+  "suites": [
+    {
+      "suite_id": "persona_journeys",
+      "measures": "Fourteen synthetic personas through the current :8893 extraction, resolution and composition contract, with injected model responses; expected profiles authored separately.",
+      "gaps": ["Injected responses: says nothing about real-model conversation quality."],
+      "commands": [
+        {"cwd": "alternatives/advisor-first/tests", "argv": ["{python}", "persona_runner.py", "--output", "{report_dir}/persona_journeys.json"]}
+      ]
+    },
+    {
+      "suite_id": "checklist_coverage",
+      "measures": "Scoring of the twelve CMS pre-enrollment checklist items in a decision record's receipt.",
+      "gaps": ["The advisor does not emit checklist receipts yet, so no real decision is scored. This suite tests the scorer and receipt format only."],
+      "commands": [
+        {"cwd": "infrastructure/daylight-operations", "argv": ["{python}", "-m", "pytest", "-q", "-p", "no:cacheprovider", "tests/test_checklist.py"], "requires": ["pytest"]}
+      ]
+    },
+    {
+      "suite_id": "factual_grounding",
+      "measures": "Pinned educational statements and published references re-verify against their retained sources; generic teaching stays within supported claims.",
+      "gaps": ["Checks the statements and verifiers, not each sentence a live model writes."],
+      "commands": [
+        {"cwd": "alternatives/advisor-first/tests", "argv": ["{python}", "-m", "unittest", "test_understanding", "test_reference_view", "test_generic_coverage_teaching"]}
+      ]
+    },
+    {
+      "suite_id": "commission_counterfactual",
+      "measures": "I01: zeroed, multiplied, swapped, adversarial and removed payouts leave rankings, ties and reason codes identical. I02: no commercial value in outputs; commercial keys refused by decision records.",
+      "gaps": ["Covers the ranking functions and decision records. Model-request serialization (rest of I02) is not yet checked with canaries."],
+      "commands": [
+        {"cwd": "alternatives/advisor-first/tests", "argv": ["{python}", "-m", "unittest", "test_independence_counterfactual", "test_plans_workspace.RankingTests"]},
+        {"cwd": "infrastructure/daylight-operations", "argv": ["{python}", "-m", "pytest", "-q", "-p", "no:cacheprovider", "tests/test_records.py"], "requires": ["pytest"]}
+      ]
+    },
+    {
+      "suite_id": "abstention",
+      "measures": "Missing or failed evidence holds the affected conclusion instead of guessing: explicit stops, failed responses, comparison-engine holds.",
+      "gaps": ["Offline fault injection; does not observe a live model choosing to abstain."],
+      "commands": [
+        {"cwd": "alternatives/advisor-first/tests", "argv": ["{python}", "-m", "unittest", "test_explicit_stop", "test_response_failures", "test_comparison_engine"]}
+      ]
+    }
+  ]
+}

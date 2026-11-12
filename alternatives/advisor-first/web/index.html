@@ -13,24 +13,32 @@
   <link rel="stylesheet" href="/adaptive.css">
   <link rel="stylesheet" href="/advisor.css">
   <link rel="stylesheet" href="/identity-view.css">
+  <link rel="stylesheet" href="/understanding.css">
+  <link rel="stylesheet" href="/plans-workspace.css">
   <script src="/ten-state.js" defer></script>
   <script src="/comparison-view.js" defer></script>
   <script src="/identity-view.js" defer></script>
+  <script src="/visit-artifacts.js" defer></script>
+  <script src="/understanding-view.js" defer></script>
+  <script src="/plans-handoff.js" defer></script>
+  <script src="/plans-workspace.js" defer></script>
   <script src="/advisor.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="wordmark" href="/" aria-label="Daylight Medicare home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">Daylight<span class="brand-category">Medicare</span></span></a>
+    <a class="wordmark" href="/" aria-label="Daylight home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">Daylight</span></a>
+    <button id="plans-tab" class="text-button" type="button" disabled>Plans</button>
   </header>
   <main id="main">
     <section id="landing" class="landing" aria-labelledby="landing-title">
       <div class="approved-hero">
-        <div class="landing-inner"><h1 id="landing-title" class="landing-title">Your coverage,<br>plain as day</h1><p class="landing-sub">Understand Medicare and explore your options, at your pace.</p><div class="approved-entry-actions"><button id="start" class="primary-button landing-cta" disabled>Get started</button></div></div>
+        <div class="landing-inner"><h1 id="landing-title" class="landing-title">Medicare,<br>plain as day.</h1><p class="landing-sub">Understand your coverage options and prepare to enroll, at your pace.</p><div class="approved-entry-actions"><button id="start" class="primary-button landing-cta" disabled>Get started</button></div></div>
         <figure class="approved-arrival-photo"><img src="/art/arrival-option-a.jpg" width="1400" height="933" fetchpriority="high" alt="A woman with short silver hair and an ochre cardigan facing the camera outdoors against green foliage."></figure>
       </div>
     </section>
     <section id="workspace" class="stage" tabindex="-1" hidden>
+      <section id="plans-panel" aria-label="Plans workspace" hidden></section>
       <div class="chat-workspace">
         <nav id="phases" class="chat-progress" aria-label="Your progress"></nav>
         <div id="reading" class="chat-reading">
@@ -48,7 +56,7 @@
           <p id="status" class="chat-status" role="status"></p>
           <p id="fixture" class="chat-small" hidden>Synthetic preview · AI replies are mocked.</p>
         </form>
-        <nav class="chat-tools" aria-label="Conversation controls"><button id="back" class="text-button" hidden>Back</button><button id="review" class="text-button" hidden>Review information</button><button id="prepare" class="text-button" hidden>Prepare next steps</button><button id="samples" class="text-button" hidden>Browse sample plans</button><button id="privacy" class="text-button" disabled>Privacy &amp; saving</button></nav>
+        <nav class="chat-tools" aria-label="Conversation controls"><button id="back" class="text-button" hidden>Back</button><button id="review" class="text-button" hidden>Review information</button><button id="prepare" class="text-button" hidden>Prepare next steps</button><button id="samples" class="text-button" hidden>Browse sample plans</button><label id="model-control" class="chat-model" hidden>AI model<select id="ai-model" aria-describedby="model-transfer"></select><span id="model-transfer" class="chat-small"></span></label><button id="privacy" class="text-button" disabled>Privacy &amp; saving</button></nav>
       </div>
     </section>
   </main>

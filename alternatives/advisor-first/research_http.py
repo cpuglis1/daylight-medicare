@@ -13,9 +13,10 @@ from urllib.parse import urlsplit
 from guest_profiles import ProfileError
 from comparison_research import RESEARCH_SCOPE, RepositoryEvidenceSource, validate_research_scope
 from comparison_service import ComparisonService
+from comparison_preview import preview_for_snapshot
 
 
-def install_research_routes(server, repository=None, reference_adapter=None):
+def install_research_routes(server, repository=None, reference_adapter=None, *, previews=None, catalog=None):
     base = server.RequestHandlerClass
     slots = threading.BoundedSemaphore(2)
     research_comparisons = ComparisonService(
@@ -66,6 +67,7 @@ def install_research_routes(server, repository=None, reference_adapter=None):
                 return self.respond(200, {
                     'configured': repository is not None,
                     'exact_reference_configured': reference_adapter is not None,
+                    'comparison_catalog_configured': catalog is not None,
                     'scope': copy.deepcopy(RESEARCH_SCOPE),
                     'purpose': 'internal_research_review',
                     'consumer_release': False, 'personal_comparison': False,
@@ -87,14 +89,20 @@ def install_research_routes(server, repository=None, reference_adapter=None):
                 acquired = True
                 if path == '/api/comparison/review':
                     allowed = {'guide', 'record', 'continuation', 'requestId', 'scope'}
+                    if previews is not None:
+                        allowed.add('preview_days')
                     if (set(payload) - allowed or
                             not {'guide', 'record', 'requestId', 'continuation'} <= set(payload)):
                         raise ProfileError('Use the current comparison review request.')
                     scope = payload.get('scope')
+                    if 'preview_days' in payload and scope is not None:
+                        raise ProfileError('The preview has a fixed 2026 Collier County scope.', 422)
                     if scope is not None:
                         validate_research_scope(scope)
                     owner = server.profiles.digest(self.token())
                     out, journal_binding = owned_snapshot(owner, payload)
+                    preview = (preview_for_snapshot(previews, payload['preview_days'], out)
+                               if 'preview_days' in payload else None)
                     try:
                         comparison_service = research_comparisons if scope is not None else ComparisonService()
                         out['comparison'] = comparison_service.evaluate(
@@ -102,11 +110,15 @@ def install_research_routes(server, repository=None, reference_adapter=None):
                             next_question=out['assessment'].get('nextQuestion'),
                             requested_scope=scope)
                     except Exception:
+                        if preview is not None:
+                            raise ProfileError('The comparison preview needs a fresh check.', 503)
                         # Optional research failure cannot change the controller
                         # snapshot or expose exception/source/customer values.
                         out['comparison']['research'] = {
                             'state': 'unavailable', 'reason_codes': ['RESEARCH_UNAVAILABLE'],
                             'scope': copy.deepcopy(scope), 'consumer_evaluated_count': 0}
+                    if preview is not None:
+                        out['comparison']['educational_preview'] = preview
                     continuation = out.get('continuation')
                     if continuation:
                         chain = continuation.split('.')[0]
@@ -128,6 +140,15 @@ def install_research_routes(server, repository=None, reference_adapter=None):
                     return self.respond(200, {'comparison':out['comparison'],
                                               'continuation':continuation})
                 operation = payload.get('operation')
+                if operation == 'catalog':
+                    if (set(payload) - {'operation', 'scope', 'offering_id', 'expected_catalog_sha256'}
+                            or ('offering_id' in payload and not isinstance(payload['offering_id'], str))):
+                        raise ProfileError('Use the supported comparison catalog request.')
+                    if catalog is None:
+                        raise ProfileError('The local comparison catalog is not connected.', 503)
+                    return self.respond(200, catalog.query(payload.get('scope'),
+                        offering_id=payload.get('offering_id'),
+                        expected_catalog_sha256=payload.get('expected_catalog_sha256')))
                 if operation == 'reference':
                     if set(payload) - {'operation', 'offering_id', 'year', 'entry_ids'}:
                         raise ProfileError('Use the exact accepted-reference request.')

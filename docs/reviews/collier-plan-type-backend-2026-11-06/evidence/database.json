@@ -1,0 +1,703 @@
+{
+  "observed_at_utc": "2026-11-06T20:06:34.266208+00:00",
+  "meaning": "Research transport/shape inspection, not new data acceptance",
+  "queries": {
+    "target_and_release": {
+      "sql": "SELECT current_database() AS database,\n      current_setting('server_version') AS server_version,\n      current_setting('transaction_read_only') AS read_only,\n      (SELECT count(*) FROM dl_review.acceptance_binding) AS acceptance_bindings,\n      (SELECT count(*) FROM dl_review.release) AS releases,\n      (SELECT count(*) FROM dl_review.active_release) AS active_releases,\n      (SELECT count(*) FROM dl_released.offerings) AS released_offerings",
+      "rows": [
+        {
+          "database": "daylight_research_2026_r2",
+          "server_version": "18.6",
+          "read_only": "on",
+          "acceptance_bindings": 0,
+          "releases": 0,
+          "active_releases": 0,
+          "released_offerings": 0
+        }
+      ],
+      "elapsed_seconds": 0.0053914999589324
+    },
+    "selected_source_counts": {
+      "sql": "SELECT s.layer_id,ss.source_set_id,\n      ss.derivation_id,ss.source_table,s.original_path,s.artifact_sha256,\n      s.source_use_state,\n      (SELECT count(*) FROM dl_compact.source_record r\n        WHERE r.source_set_id=ss.source_set_id) AS raw_rows,\n      (SELECT count(*) FROM dl_compact.observation o\n        WHERE o.source_set_id=ss.source_set_id) AS observation_rows\n      FROM dl_compact.source_set ss\n      JOIN dl_control.derivation d USING(derivation_id)\n      JOIN dl_control.source_snapshot s USING(snapshot_id)\n      WHERE s.layer_id IN ('L04','L10')\n      ORDER BY s.layer_id,ss.source_set_id",
+      "rows": [
+        {
+          "layer_id": "L04",
+          "source_set_id": 65,
+          "derivation_id": "3a584aa6bfc55c88e298768cbbffcbef420ed1597b3b85ad3f959cd296d7236f",
+          "source_table": "pdp_records",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/records.json",
+          "artifact_sha256": "bb706ac4d32f4efe16689ae452e6c4bb519f7287f65f4182b25b03ce800fd547",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 10,
+          "observation_rows": 320
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 94,
+          "derivation_id": "568585c828f7879770ffcc34143464ec45a3e69a472a9205e7fb4554e324af2c",
+          "source_table": "secondary",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+          "artifact_sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 10613,
+          "observation_rows": 10613
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 112,
+          "derivation_id": "67be5ecd06731c447ed96f940595ec8aca78d99fb619eaa472975fc0f24c65c7",
+          "source_table": "restriction_records",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/records.json",
+          "artifact_sha256": "171f8da237d9ccdf94a345f268a0e3a83142743bf37005a991a25ecc191070bf",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 10,
+          "observation_rows": 10
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 220,
+          "derivation_id": "ba7a92b93f09e88e1a8922e0541448588e3c960cb7cd22b57d84fcb6cb9497fd",
+          "source_table": "restriction_gaps",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/restriction-check-r3/gaps.json",
+          "artifact_sha256": "4ff2df31e1b82c9b251fd0f7fa1b94af64d1a19f965652bbfd8a95a8cc6eea0a",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 250,
+          "derivation_id": "cc238183a312e32fbeb066dd2b74c2fbf77e8ad5356bbd3631a3e0e67520cfe7",
+          "source_table": "comparisons",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+          "artifact_sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 165,
+          "observation_rows": 165
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 289,
+          "derivation_id": "e991f89b3f45a0969317ec5f7b724d6103142cc33faffb4f7df8822465fe14e8",
+          "source_table": "ledger",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+          "artifact_sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 253833,
+          "observation_rows": 253833
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 290,
+          "derivation_id": "ea0f3dcab98ef42fc62eb0386e39ab43726ed28e71001869f67ce529423de487",
+          "source_table": "catalog",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+          "artifact_sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 549,
+          "observation_rows": 549
+        },
+        {
+          "layer_id": "L04",
+          "source_set_id": 297,
+          "derivation_id": "f1be617d7f2ed0963293411f1ff9c72ec349383e89b9aa8ef8e3fddfe15a1141",
+          "source_table": "counties",
+          "original_path": "docs/data/l04-pdp-availability-2026-10-25/build-r4/inventory.sqlite3",
+          "artifact_sha256": "07b744e9a504e9c329be1f0481f185aa9633dd67fec8c5c1c2f9777152756c90",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 67,
+          "observation_rows": 67
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 4,
+          "derivation_id": "042b8083968b80994ba807aa469b9faaf3d9e51e36552718a4aa96392b905116",
+          "source_table": "illustrations",
+          "original_path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+          "artifact_sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 115500,
+          "observation_rows": 115500
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 7,
+          "derivation_id": "090305d33e514c90bd7ea79f1c3ebb9bef2262c3a22d05a373cc9c97209de705",
+          "source_table": "listings",
+          "original_path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+          "artifact_sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 305,
+          "observation_rows": 305
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 12,
+          "derivation_id": "0c95c68bbe83ab9671a1affcba8f2cfa28dd6b03b28b841e8f0d5d89e6088f70",
+          "source_table": "schedules",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/schedules.json",
+          "artifact_sha256": "9add19576a8829717722c64ff65308719c3068326da676154dc61f501e626f45",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 251,
+          "observation_rows": 251
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 25,
+          "derivation_id": "180c82b142702f35a6c23db9f21e84fe8da94bb4ac187aaff68e94ba75c10156",
+          "source_table": "insurers",
+          "original_path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+          "artifact_sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 188,
+          "observation_rows": 188
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 30,
+          "derivation_id": "1ab69e8583e10016e955c6264a978b8e1ba843e30b65b0eb33d74004dd8a7bd6",
+          "source_table": "carrier-published-claims",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/carrier-published-claims.json",
+          "artifact_sha256": "ba8d8059a940fdce597ef8dc8576b7de8c5e0559ca584f9bd83c95dd971e4744",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 5,
+          "observation_rows": 5
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 42,
+          "derivation_id": "2160293c0d80c4e50a210901c74a8a8eabe42e35c09a63801594f0d65d490363",
+          "source_table": "schedule-block-leads",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/schedule-block-leads.json",
+          "artifact_sha256": "72bc6c965c2bf374686d5ee180f5293f344f23abc9a1b34ec27b1ce0b910e7f2",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 2095,
+          "observation_rows": 2095
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 43,
+          "derivation_id": "220fefbf36b43edacdbb3d07c503db824d554760d8218ab2abbdcdda4ca63547",
+          "source_table": "filing_metadata",
+          "original_path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+          "artifact_sha256": "7dc249a05729aa04bfe08a9d92c0f117973afd2c91f817bf4b4292b98e832950",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 74671,
+          "observation_rows": 74671
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 51,
+          "derivation_id": "2a790c7b55430efbfe7ca094a233c1e5a59c0d24cb9737520dbfd9153d4a4f9f",
+          "source_table": "gaps",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/gaps.json",
+          "artifact_sha256": "79ef4a819aeb39650a98ab04a66e832251195ebf75d785f5f49eda681ee6afea",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 6,
+          "observation_rows": 6
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 52,
+          "derivation_id": "2aa3998b2df13d04108c40eafb353e2e83793b7248029ec0ac17b81591bbb51d",
+          "source_table": "comparison-summary",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/comparison-summary.json",
+          "artifact_sha256": "191b6b6d8b90eaa0887b420361048802d457e7d6c9fcaddfc2ebeca0db062588",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 53,
+          "derivation_id": "2ae5bd86ad376cc78e48450e4fd99683fd6e951dbc0c4bbb50d9ebd5373eab1d",
+          "source_table": "conditions",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/conditions.json",
+          "artifact_sha256": "0d2744f92424b63c35a2860c6c5cdf7d5e973f6a5c3639407f56bb589699f3ec",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 20,
+          "observation_rows": 20
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 70,
+          "derivation_id": "3e9bd916fd177edbae1030bcbeb13460de39442337a80b97b6d5ddd13e9b7ada",
+          "source_table": "conditions",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/conditions.json",
+          "artifact_sha256": "d38b7122df03fb05b1f3713903934db94a8b8192f9eac1e401fd8a82be7b63dc",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 21,
+          "observation_rows": 21
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 72,
+          "derivation_id": "43bafc1570e10895d8071e8264ace0c9e42ee4e04f0a3290ca98a6e03f89fc20",
+          "source_table": "page-inventory",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/page-inventory.json",
+          "artifact_sha256": "cc4416fa99e8c90657e9a2f685e03e9291d2459d55b6a206793b831a1139e1fc",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1133,
+          "observation_rows": 1133
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 74,
+          "derivation_id": "453e5cac21e51f3529ced7d30eaa3b2f21d1b62c215d2d3a7255feb4c5ff9088",
+          "source_table": "group-conditions",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/group-conditions.json",
+          "artifact_sha256": "4170ad701839c0a7cdeba8c9c34d08908b344e04a2ef6e8e53635057c6533555",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 8,
+          "observation_rows": 8
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 90,
+          "derivation_id": "5222ecb491bd69cba31be82bbaa8f710d0c190880b00a0335faa5b0c98a51da0",
+          "source_table": "document-registry",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/document-registry.json",
+          "artifact_sha256": "eee09e94758941568e8357be28252a4c766a79eafa72bd9d6a382ef0c2c755bc",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 10584,
+          "observation_rows": 10584
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 97,
+          "derivation_id": "572c7c8b856ed6c1822b96e50abfc4d21316ae5d7f516860c89f342b0943dd35",
+          "source_table": "coverage",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/coverage.json",
+          "artifact_sha256": "2f189d7fb672aa40dbfbf024cb6757083dd12e6a2e71b5aa37c530c9854e71df",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 106,
+          "derivation_id": "61e2caefa51c934c3e799170d2e6154f49e40b526f1aa38d20f96b2a96444e3c",
+          "source_table": "approval-letters",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/approval-letters.json",
+          "artifact_sha256": "a43d9c3878531068b799bef07862ff079dc25617646ccb5160ece3b1deae0616",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 4,
+          "observation_rows": 4
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 119,
+          "derivation_id": "6e8f28e05d36de14a8e1bb837eb52c6d3da35a70760c4570925d1a9a6ec8077b",
+          "source_table": "schedules",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/schedules.json",
+          "artifact_sha256": "bb8afc81c3411f86ad47bd1174206000809723da2ba4fe354f5c81c7b1f9d0ce",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 377,
+          "observation_rows": 377
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 138,
+          "derivation_id": "7e3da7d80aa33e81d3e10883c757dee3419f7339619d402d4a3a3edf4f67590d",
+          "source_table": "download-items",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/download-items.json",
+          "artifact_sha256": "9af112dd5a4250b8e440e9dad5b4503ee628d9b82096022b64009884f558b8f7",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 87,
+          "observation_rows": 87
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 140,
+          "derivation_id": "7ed80c77a20449481e8b686439811bcf2eda208ef7352a9e043010710b926e88",
+          "source_table": "group-rate-observations",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/group-rate-observations.json",
+          "artifact_sha256": "aa240b3ba9df47b0095390c35ec569da0fcb10a0c97e3048281bdffa8907e74f",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 72,
+          "observation_rows": 72
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 156,
+          "derivation_id": "8bfcf81833bd24f19295e84bedfbb3387e5c3f32e5de877179138fcae8225e5b",
+          "source_table": "nonworksheet-candidates",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/nonworksheet-candidates.json",
+          "artifact_sha256": "19a9e85501a4bafd87948cc70709ad527f62a74d30312dd5b0f9a1e68ea3e777",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 9,
+          "observation_rows": 9
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 161,
+          "derivation_id": "9323c7a97970fb1bdc2c48c4ce61dc52d9aae5f09d3a022fdb6c2e0fd90adc14",
+          "source_table": "rate-cells",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/rate-cells.json",
+          "artifact_sha256": "ff33d8009eb3d24405e3dc54c5070845af2110805140e5a83db0163bf0bf3783",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 22496,
+          "observation_rows": 22496
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 174,
+          "derivation_id": "99ce1ce4e403bc5842d9a10e7a3efdbf399f0f494854ec52b0d9a75d6d647f23",
+          "source_table": "carrier-form-crosswalk",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/carrier-form-crosswalk.json",
+          "artifact_sha256": "34a4db5fa59093cd20f9a0e6dfc34a30ca6ca625bc30461935ec449be4957f12",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 19,
+          "observation_rows": 19
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 179,
+          "derivation_id": "9c19674028985a5482d3a03b4921547d2358e28b08d10584a0f1823ddb19e7a5",
+          "source_table": "page-inventory",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/page-inventory.json",
+          "artifact_sha256": "06a4666eb5190b3a229ab35c053b1df39db7e75c25a285b279550a09f26c9b53",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 3696,
+          "observation_rows": 3696
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 181,
+          "derivation_id": "9d0ac2759c89873be0a7a00fc0e7ac49ff33debd75a14cc67aeabb543ceb2b92",
+          "source_table": "filing-records",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/filing-records.json",
+          "artifact_sha256": "5ef14ac0e34eff9a58fa711b30e8f9394a018187e85a94d63bc518532b8aacfe",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 426,
+          "observation_rows": 426
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 188,
+          "derivation_id": "a1989fd618b18aed7f9e11f1fc72a8b2144c8d4355500815998f509941801bfe",
+          "source_table": "future-cycle-holds",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/future-cycle-holds.json",
+          "artifact_sha256": "b244c0b6701c9974c6abafa1225a2f042d93c3c5c2c8e80bd8f3d052ded83c1d",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 7,
+          "observation_rows": 7
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 204,
+          "derivation_id": "af23873f28e3f1983be7f179ebe8851672a9df90ea6c0bdfe38a49f14f174218",
+          "source_table": "earlier-carryforward-reserve",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/earlier-carryforward-reserve.json",
+          "artifact_sha256": "e83457d964bb7fb74f70e9140f706cda2141ff95e8c8ca5cdc8641dd8582203c",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 50,
+          "observation_rows": 50
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 211,
+          "derivation_id": "b55e1ffcf07ff7f68b51569085ed0286d6804dcaa63332092723088ea8c4dcc5",
+          "source_table": "company-source-queue",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/company-source-queue.json",
+          "artifact_sha256": "5d0df9e5bd5d2010559ac1786dc0e64e8daaab5d82e58ded17545b9448e2310f",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 188,
+          "observation_rows": 188
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 226,
+          "derivation_id": "bcb97316c283d534e662ac60af899bab040b586a72eb920cfe476b34416b19bf",
+          "source_table": "original-form-bindings",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/original-form-bindings.json",
+          "artifact_sha256": "f6831d5987c1809453a784e9f755f91e4d145f341f1a9867dab3a7fef24edb04",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 19,
+          "observation_rows": 19
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 235,
+          "derivation_id": "c24e9aacf10804cb41742516a29e790c24cbb650e3803dcd341aab3ba9e68049",
+          "source_table": "approval-letters",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/approval-letters.json",
+          "artifact_sha256": "958baadb925ad22dfc98571dccefbcd3ba3792226d7321add8328d6121cf5941",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 4,
+          "observation_rows": 4
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 241,
+          "derivation_id": "c6060adf7a8ba8b9a41dabd0e5955a1d49da00f2e2e441890db9a66e39fd4152",
+          "source_table": "published-discount-questionnaire",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/published-discount-questionnaire.json",
+          "artifact_sha256": "8ce9c16eff0c631f03d7c0b8517574b3b5107cb4b0004451b3e839e33967ea8e",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 4,
+          "observation_rows": 4
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 242,
+          "derivation_id": "c6bb48ccc736180eb695aeb83393866541048a94727a404c285d359ec0e90d76",
+          "source_table": "company-evidence-matrix",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/company-evidence-matrix.json",
+          "artifact_sha256": "2f45e347c055a0137a0bbf7428d4aa2585b78e8a160f23c90daf05682e4339f0",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 188,
+          "observation_rows": 188
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 245,
+          "derivation_id": "c8243eec4ca19e0aed7aedf0c54505150c98d18313c4385b53060b7259589a17",
+          "source_table": "blue-carrier-comparisons",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/blue-carrier-comparisons.json",
+          "artifact_sha256": "8efd882b33fcb7be2bc9eef2536d99852c6785a120409ee6126f34b54973eecd",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 680,
+          "observation_rows": 680
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 247,
+          "derivation_id": "c8a2876ee19e332b3eef09982eaf095ac0b0886c0017bd22f61be5c87efd0469",
+          "source_table": "broader-census-classification-queue",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/broader-census-classification-queue.json",
+          "artifact_sha256": "913ad198790604e5d727d822e51049daed7815959dff3f44ba5f0c0018bbf26e",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 278,
+          "observation_rows": 278
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 249,
+          "derivation_id": "cae9a8be4613bf8136f0bf48e0396b756030f90a01eed02bcd5e7f764bd7de6f",
+          "source_table": "coverage",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/coverage.json",
+          "artifact_sha256": "a82df51b4489b71767a91dac40739469940de3c93cd47c112654067e602623b2",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 251,
+          "derivation_id": "ccd964689cd54d08b9bfbfa6e9f902afc52ee08ac0e4202aea97d73f0588c106",
+          "source_table": "group-comparisons",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/group-comparisons.json",
+          "artifact_sha256": "ea83b3e38f7d2ccf1686cee1278437c0ac2dd1d78e2d80e36302b1082244f612",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 42,
+          "observation_rows": 42
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 265,
+          "derivation_id": "d5d24c3090659c04c21ce8969367cc30394f069d597b8b71e1bfd8031f87f561",
+          "source_table": "rate-cells",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/rate-cells.json",
+          "artifact_sha256": "78939b99159e8a8ba76c4fc52650a0af2d7271923961b5761c12feae398f80d4",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 40700,
+          "observation_rows": 40700
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 278,
+          "derivation_id": "dfe3ceeb409c07129fe93e5aa3370d9e7df48b4774add4a65afae9e00dadce5a",
+          "source_table": "filed-product-census",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/filed-product-census.json",
+          "artifact_sha256": "b08c2bf30d86d2b295128e4fdcc3f424dcdead078ac04549d38fba645902de51",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 53,
+          "observation_rows": 53
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 282,
+          "derivation_id": "e1c3014b1ca522dbf64db8235b76c93cb6d3c91e76723829678665efb2ccc41a",
+          "source_table": "interval-continuity",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/interval-continuity.json",
+          "artifact_sha256": "878d9cc9e8c4d5a8dfcb5309a8290be3c362df441859b8341e488e7a8b0fd5ef",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 67,
+          "observation_rows": 67
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 298,
+          "derivation_id": "f2ee4a31a1a45dac1cff5a8d019046b1dce9fc800080b99625a349e4fad2d8e6",
+          "source_table": "before-after",
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/before-after.json",
+          "artifact_sha256": "6deb128389eded76a547610071270d0d97146ec0f0b6080716297ffddee049ed",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 302,
+          "derivation_id": "f40f0feb1f7840af79f8a418eef07b28be1d8588c7977f43d592dd7ae22bb39b",
+          "source_table": "coverage",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/coverage.json",
+          "artifact_sha256": "0effd749b6ded0d5ae597aca60619c262645e872901b224168c6ca28459c2a04",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 305,
+          "derivation_id": "f6d622719f7f70c8ba4a4198b055a69442494c7f611db615503a120b613e36e2",
+          "source_table": "reconciliation-summary",
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/reconciliation-summary.json",
+          "artifact_sha256": "63af062caad6791d3834bdd1279906f0f22b685cc23c660821c16e2362bf8681",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 1,
+          "observation_rows": 1
+        },
+        {
+          "layer_id": "L10",
+          "source_set_id": 309,
+          "derivation_id": "fac73c7680a7ae4ae125afdcf7b32af4695c59e9985562a0d53f04bf405cff6d",
+          "source_table": "exact-form-leads",
+          "original_path": "docs/data/l10-medigap-2026-10-28/gap-resolution-r4/build-r1/exact-form-leads.json",
+          "artifact_sha256": "9c1efa7d0d876e6f9a7815dcc535fde7e775eb7047598ead33d37b000ae8f959",
+          "source_use_state": "not_newly_reviewed",
+          "raw_rows": 315,
+          "observation_rows": 315
+        }
+      ],
+      "elapsed_seconds": 0.16485791601007804
+    },
+    "pdp_collier_join": {
+      "sql": "WITH selected AS MATERIALIZED (\n      SELECT ss.source_set_id,ss.source_table\n      FROM dl_compact.source_set ss\n      JOIN dl_control.derivation d USING(derivation_id)\n      JOIN dl_control.source_snapshot s USING(snapshot_id)\n      WHERE s.layer_id='L04' AND ss.source_table IN ('pdp_records','counties')),\n      counties AS MATERIALIZED (\n      SELECT o.county_fips,o.fields->>'region_code' AS region\n      FROM dl_compact.observation o JOIN selected ss USING(source_set_id)\n      JOIN dl_compact.symbol t ON t.symbol_id=o.entity_type_id\n      WHERE ss.source_table='counties' AND t.value='pdp_region_county'),\n      plans AS MATERIALIZED (\n      SELECT o.offering_id,o.fields->>'region_code' AS region\n      FROM dl_compact.observation o JOIN selected ss USING(source_set_id)\n      JOIN dl_compact.symbol t ON t.symbol_id=o.entity_type_id\n      WHERE ss.source_table='pdp_records' AND t.value='offering')\n      SELECT c.county_fips,c.region,count(*) AS published_plan_relationships,\n      count(DISTINCT p.offering_id) AS distinct_pdp_ids,\n      count(*) FILTER(WHERE p.offering_id IS NULL) AS unmatched\n      FROM counties c LEFT JOIN plans p USING(region)\n      WHERE c.county_fips='12021' GROUP BY c.county_fips,c.region",
+      "rows": [
+        {
+          "county_fips": "12021",
+          "region": "11",
+          "published_plan_relationships": 10,
+          "distinct_pdp_ids": 10,
+          "unmatched": 0
+        }
+      ],
+      "elapsed_seconds": 0.009736667037941515
+    },
+    "pdp_fields": {
+      "sql": "SELECT t.value AS entity_type,count(*) AS rows,\n      count(o.amount) AS typed_amount_rows,count(o.offering_id) AS offering_id_rows,\n      count(o.county_fips) AS county_rows\n      FROM dl_compact.observation o\n      JOIN dl_compact.source_set ss USING(source_set_id)\n      JOIN dl_control.derivation d USING(derivation_id)\n      JOIN dl_control.source_snapshot s USING(snapshot_id)\n      JOIN dl_compact.symbol t ON t.symbol_id=o.entity_type_id\n      WHERE s.layer_id='L04' AND ss.source_table='pdp_records'\n      GROUP BY t.value ORDER BY t.value",
+      "rows": [
+        {
+          "entity_type": "offering",
+          "rows": 10,
+          "typed_amount_rows": 0,
+          "offering_id_rows": 10,
+          "county_rows": 0
+        },
+        {
+          "entity_type": "pdp_field_observation",
+          "rows": 310,
+          "typed_amount_rows": 70,
+          "offering_id_rows": 310,
+          "county_rows": 0
+        }
+      ],
+      "elapsed_seconds": 0.00385262502823025
+    },
+    "medigap_rate_shape": {
+      "sql": "SELECT s.original_path,t.value AS entity_type,\n      count(*) AS rows,count(o.amount) AS typed_amount_rows,\n      count(o.offering_id) AS cms_offering_id_rows,\n      count(o.county_fips) AS material_county_rows,\n      count(o.benefit_year) AS material_benefit_year_rows,\n      count(*) FILTER(WHERE o.fields->>'source_status'='REPLACED') AS replaced_rows,\n      count(*) FILTER(WHERE o.amount=0) AS source_zero_rows,\n      count(*) FILTER(WHERE o.fields->>'rate_effective_from' IS NULL\n         OR o.fields->>'rate_effective_through' IS NULL) AS incomplete_period_rows,\n      count(*) FILTER(WHERE o.conditions ? 'schedule_id') AS schedule_condition_rows\n      FROM dl_compact.observation o\n      JOIN dl_compact.source_set ss USING(source_set_id)\n      JOIN dl_control.derivation d USING(derivation_id)\n      JOIN dl_control.source_snapshot s USING(snapshot_id)\n      JOIN dl_compact.symbol t ON t.symbol_id=o.entity_type_id\n      WHERE s.layer_id='L10' AND ss.source_table IN\n        ('illustrations','carrier_premiums','rate-cells','schedules')\n      GROUP BY s.original_path,t.value ORDER BY s.original_path,t.value",
+      "rows": [
+        {
+          "original_path": "docs/data/l10-medigap-2026-10-28/build-r2/inventory.sqlite3",
+          "entity_type": "medigap_illustrations",
+          "rows": 115500,
+          "typed_amount_rows": 115500,
+          "cms_offering_id_rows": 0,
+          "material_county_rows": 0,
+          "material_benefit_year_rows": 0,
+          "replaced_rows": 0,
+          "source_zero_rows": 0,
+          "incomplete_period_rows": 115500,
+          "schedule_condition_rows": 0
+        },
+        {
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/rate-cells.json",
+          "entity_type": "medigap_rate_cells",
+          "rows": 22496,
+          "typed_amount_rows": 22496,
+          "cms_offering_id_rows": 0,
+          "material_county_rows": 0,
+          "material_benefit_year_rows": 0,
+          "replaced_rows": 6512,
+          "source_zero_rows": 42,
+          "incomplete_period_rows": 12580,
+          "schedule_condition_rows": 22496
+        },
+        {
+          "original_path": "docs/data/l10-medigap-2026-10-28/filing-reconciliation-r3/build-r1/schedules.json",
+          "entity_type": "medigap_schedules",
+          "rows": 251,
+          "typed_amount_rows": 0,
+          "cms_offering_id_rows": 0,
+          "material_county_rows": 0,
+          "material_benefit_year_rows": 0,
+          "replaced_rows": 0,
+          "source_zero_rows": 0,
+          "incomplete_period_rows": 184,
+          "schedule_condition_rows": 0
+        },
+        {
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/rate-cells.json",
+          "entity_type": "medigap_rate_cells",
+          "rows": 40700,
+          "typed_amount_rows": 40700,
+          "cms_offering_id_rows": 0,
+          "material_county_rows": 0,
+          "material_benefit_year_rows": 0,
+          "replaced_rows": 15540,
+          "source_zero_rows": 36,
+          "incomplete_period_rows": 30784,
+          "schedule_condition_rows": 40700
+        },
+        {
+          "original_path": "docs/data/l10-medigap-2026-10-28/targeted-filings-r5/build-r1/schedules.json",
+          "entity_type": "medigap_schedules",
+          "rows": 377,
+          "typed_amount_rows": 0,
+          "cms_offering_id_rows": 0,
+          "material_county_rows": 0,
+          "material_benefit_year_rows": 0,
+          "replaced_rows": 0,
+          "source_zero_rows": 0,
+          "incomplete_period_rows": 310,
+          "schedule_condition_rows": 0
+        }
+      ],
+      "elapsed_seconds": 0.7557847499847412
+    },
+    "layer_evidence_states": {
+      "sql": "SELECT s.layer_id,e.source_use_state,\n      e.semantic_review_state,e.freshness_state,e.output_acceptance_state,\n      count(*) AS observations\n      FROM dl_compact.observation o\n      JOIN dl_compact.source_set ss USING(source_set_id)\n      JOIN dl_control.derivation d USING(derivation_id)\n      JOIN dl_control.source_snapshot s USING(snapshot_id)\n      JOIN dl_compact.evidence_state e USING(state_id)\n      WHERE s.layer_id IN ('L04','L10')\n      GROUP BY s.layer_id,e.source_use_state,e.semantic_review_state,\n        e.freshness_state,e.output_acceptance_state ORDER BY s.layer_id",
+      "rows": [
+        {
+          "layer_id": "L04",
+          "source_use_state": "existing_source_policy_applies",
+          "semantic_review_state": "not_newly_reviewed",
+          "freshness_state": "historical_2026_snapshot",
+          "output_acceptance_state": "research_only",
+          "observations": 265558
+        },
+        {
+          "layer_id": "L10",
+          "source_use_state": "existing_source_policy_applies",
+          "semantic_review_state": "not_newly_reviewed",
+          "freshness_state": "historical_2026_snapshot",
+          "output_acceptance_state": "research_only",
+          "observations": 274574
+        }
+      ],
+      "elapsed_seconds": 8.486044083023444
+    }
+  }
+}

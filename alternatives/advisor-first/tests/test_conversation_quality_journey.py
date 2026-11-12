@@ -59,7 +59,7 @@ class ConversationQualityJourneyTests(unittest.TestCase):
         message = self.spec['events'][index]['message']
         out = self.case.message(message, extraction=extraction, compose=response)
         self.assertEqual(out['generated']['status'], 'complete', out.get('generated'))
-        self.assertEqual(out['reply'], response['reply'], 'Validated useful prose survives controller processing.')
+        self.assertTrue(out['reply'].startswith(response['reply']), 'Validated useful prose survives with its follow-up.')
         self.assertFalse(out['assessment']['personalizedRecommendationAllowed'])
         self.assertFalse(out['assessment']['externalVerificationReady'])
         self.assertNotIn('review', out, 'No routine capture confirmation is inserted.')

@@ -57,9 +57,12 @@ class AdvisorPlanningTests(unittest.TestCase):
                 'education':self.teaching('provider_checks','checks')}
         out=self.message(text,extraction=self.extraction(agenda=self.agenda([concern])),compose=compose)
         self.assertEqual(out['advisor']['kind'],'teach')
-        self.assertEqual(out['advisor']['topic'],'doctors')
-        self.assertIsNone(out['assessment']['nextQuestion'])
-        self.assertTrue(out['assessment']['intakePaused'])
+        # Owner direction (November 8, 2026): every active turn ends with a
+        # question. Teaching on an explicit concern keeps the pending practical
+        # question as its return point instead of pausing intake.
+        self.assertIsNotNone(out['assessment']['nextQuestion'])
+        self.assertEqual(out['advisor']['teachingFactIds'],['checks'])
+        self.assertFalse(out['assessment']['intakePaused'])
         self.assertEqual(self.flow.assess(self.g,self.r)['nextQuestion']['id'],'T04')
         self.assertNotIn('needs.priorities',self.g['fields'])
         self.assertFalse(out['assessment']['personalizedRecommendationAllowed'])
@@ -111,8 +114,10 @@ class AdvisorPlanningTests(unittest.TestCase):
             return {'question_target':None,'reply':'We can put doctor access first in the checks we prepare.',
                 'question':'','report_refs':['guide.needs.priorities']}
         out=self.message(text,extraction=self.extraction([update],agenda=self.agenda(reason=reason)),compose=compose)
-        self.assertEqual(out['advisor']['kind'],'answer')
-        self.assertIsNone(out['assessment']['nextQuestion'])
+        # November 8, 2026: an answer-only draft gains the pending approved
+        # question rather than ending the turn without one.
+        self.assertEqual(out['advisor']['kind'],'ask')
+        self.assertIsNotNone(out['assessment']['nextQuestion'])
         stored=self.r['natural']['agenda']['priorityReasons'][0]
         self.assertEqual(stored['priorityRevision'],self.g['fields']['needs.priorities']['revision'])
         self.assertEqual(stored['reason'],reason['reason'])

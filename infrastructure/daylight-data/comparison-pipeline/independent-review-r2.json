@@ -1,0 +1,252 @@
+{
+  "accepted_for_reference": false,
+  "actual_batch_accounting": {
+    "all_offerings_originals_without_candidate_inputs": 390812,
+    "first_plan_originals_with_candidate_inputs": 1758,
+    "first_plan_originals_without_candidate_inputs": 2917,
+    "first_plan_required_originals": 4675,
+    "first_plan_task_statuses": {
+      "awaiting_source_review": 693,
+      "comparison_held": 625
+    },
+    "global_required_originals": 392570,
+    "mechanical_outcomes": {
+      "agreement_through_reviewed_mapping": 266,
+      "conflict": 16,
+      "exact_agreement": 167,
+      "insufficient_evidence": 627,
+      "supported_carrier_statement": 292
+    },
+    "new_reference_acceptances": 0,
+    "normalized_tasks": 1318,
+    "offerings": 72,
+    "prepared_catalog_record_occurrences": 1384,
+    "same_existing_source_gap_tasks": 16,
+    "source_reviews_automatically_migrated": 0,
+    "strict_components": 1368,
+    "whole_originals_completed_by_pipeline": 0
+  },
+  "bindings": {
+    "actual_v1_restored_run_id": "d3220e8bd0024d54b70a222b8b0c969f",
+    "actual_v2_restored_run_id": "1132805f3faf4f4dbf20f36e7b433920",
+    "all15_v2_snapshot_and_current_source_files_byte_verified": true,
+    "benchmark_r3": {
+      "path": "infrastructure/daylight-data/comparison-pipeline/benchmark-r3/benchmark.json",
+      "sha256": "4a54a2d4fb0bfc0276a3e51d80606cc6edb8488ef95fe02d1e73f3f1efe3b642"
+    },
+    "pipeline_module_sha256": {
+      "__init__.py": "d69e73abb0c1d372aada94ff3774ed2662b28e83f3ddd35d28fd4dd0ce61f754",
+      "__main__.py": "fcfa929f3f6e0809c360d1c8cda534f85035dbac31bf9e72624bffcf7e860054",
+      "adapters.py": "80e1d8840de5ddc3fec2f5bac33ae8b4916005ee2062bc90275c331da589fd81",
+      "common.py": "3e9c8459e2b29df114409861452a0740478fb6c785f4658156489d81c3a1d486",
+      "engine.py": "08e2a8888f12462dc7b904f2d94594159d3c9a582745ce654556b54e1f4bbbb6",
+      "inventory.py": "f4b6dbcbe16c8ead60443049bb5b292a1e46c7753d52efe9682cb9fcb7b65939",
+      "planning.py": "d2631f2a9f6a8da2949c16201510cd7e7c74f714f2ce340d54febf133bbb2eef",
+      "preparation.py": "1b51a8abb0ca394d13ef4498f9da3e12c6b60f376c1ac54bcaa9ee9ce2f75714",
+      "reviews.py": "107b9c3e75f5acd5a16102c0d482ab7396dceac9d915567e324525bf4e2a5662",
+      "runner.py": "49c1434e5bab75c19ff2b10fcca1d222413ad2d7193b351d99fa7617e7574564",
+      "source_catalog.py": "8144ee3dba4160f107ae647f0693175382d78b636b46606cb80c729bae916a76",
+      "store.py": "7ef481eb7e8b815a5bc736e2736cfb1de85de519b663f7bbbb24125f32b662de"
+    },
+    "preparation_provenance": {
+      "path": "infrastructure/daylight-data/comparison-pipeline/prepared-r1/preparation-provenance.json",
+      "sha256": "dbd81a7823352d6d288d9d84685cf291ad4812641a90777c426b5c671b6877bb"
+    },
+    "prepared_manifest": {
+      "path": "infrastructure/daylight-data/comparison-pipeline/prepared-r1/batch-manifest.json",
+      "sha256": "5a16d45f473086f9dcf54064363a3924a9d988d5c59501b7842bc92909c7dce3"
+    },
+    "python": [
+      3,
+      14,
+      7
+    ],
+    "retained_v1_code_snapshot": {
+      "path": "infrastructure/daylight-data/comparison-pipeline/code-r1/MANIFEST.json",
+      "sha256": "7f921ba74bf3e84bf5bb235dd50045bcdf67fbe113b5ac1f80d505a51d3e431e"
+    },
+    "retained_v1_independent_review": {
+      "path": "infrastructure/daylight-data/comparison-pipeline/independent-review.json",
+      "sha256": "f55643014e116ce513fbde1aa0bede2adb3d7c8370d57951bad77246b26c095c"
+    },
+    "retained_v2_code_snapshot": {
+      "path": "infrastructure/daylight-data/comparison-pipeline/code-r2/MANIFEST.json",
+      "sha256": "f7afa3e1fb0f2d81f6993db08882309afafde525f68d77fa0f3a76273d07e6fb"
+    },
+    "rule_fingerprint": "fcff83aabc0787b86b7e05e4027e3220d4fba3d3db2011a5a8b5ef9890002ecc",
+    "runtime_dependencies": {
+      "attrs": "26.1.0",
+      "jsonschema": "4.25.1",
+      "jsonschema-specifications": "2025.9.1",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.9.1"
+    },
+    "sealed_r9_pins": {
+      "code/l03_comparison_contract.py": "a5440048e43f53447f46fd51c17a91422d34c8fd415b5ebf06c66a1e78108d47",
+      "code/l03_r9_comparison.py": "0bd222621e4ede985505b7a70ba9f11a8dcf738ea66065ea7cc0bfb925414994",
+      "comparison-record.schema.json": "37e66820165e819baf6113955c54e727615e440ad655ac8fbea1ef519740140d"
+    },
+    "semantic_contract": {
+      "complete_meaning_contract_id": "l03-comparison/1",
+      "condition_family_ids": [
+        "authorization",
+        "referral",
+        "network_and_setting",
+        "deductible",
+        "frequency_and_quantity",
+        "covered_days",
+        "shared_allowance",
+        "qualification",
+        "exclusion",
+        "waiver_and_replacement"
+      ],
+      "schema_id": "urn:daylight:l03:comparison:1",
+      "schema_sha256": "37e66820165e819baf6113955c54e727615e440ad655ac8fbea1ef519740140d",
+      "source_scope_guard_contract_id": "l03-meaning-comparison-r9/1"
+    },
+    "source_binding_count": 48,
+    "source_binding_set_sha256": "69f56fac09641654bc7929260de16086fcc11286055807f511bc41d9b17adfff",
+    "tests": [
+      {
+        "path": "infrastructure/daylight-data/tests/test_pipeline_reviews.py",
+        "sha256": "9ab8dcd8a71aacffc185396606196eb6ba12c1b5e9028aedd823e267b61fb275"
+      },
+      {
+        "path": "infrastructure/daylight-data/tests/test_pipeline_runner.py",
+        "sha256": "e3c034c0464d3df93213576109d3004cae7f6c49bb1b2caf2245babe6220e0e0"
+      },
+      {
+        "path": "infrastructure/daylight-data/tests/test_pipeline_security_review.py",
+        "sha256": "9591ada16f373fbbc2b21344f07b9e91f17797180f0a444581f387f5ad398450"
+      }
+    ],
+    "v1_task_source_meaning_catalog_sha256": "425f77f487fc2cca0837394c1e49c8cad642ca1597af141edef138984d6af507"
+  },
+  "checks": {
+    "complete_inventory_rows_compared": 392570,
+    "explicit_check_total": 26545,
+    "failures": 0,
+    "focused_existing_automated_tests_rerun": {
+      "test_pipeline_reviews.py": 16,
+      "test_pipeline_runner.py": 14,
+      "test_pipeline_security_review.py": 7
+    },
+    "independent_final_actual_r3_replay": {
+      "all14_retained_v1_code_files_unchanged": 14,
+      "all392570_original_rows_exactly_preserved": 1,
+      "all_tasks_no_wholeoriginal_release_credit": 1,
+      "allfour_runs_exact_code": 4,
+      "allfour_runs_false_acceptance": 4,
+      "allfour_runs_summary_bound_to_benchmark": 4,
+      "current_all_source_binding_bytes_verified": 48,
+      "delta_exactly_one_evaluation_changed": 1,
+      "delta_exactly_same_one_source_meaning_changed": 1,
+      "delta_has_stable_task_ids": 1,
+      "delta_reused1317_tasks_evaluated1": 1,
+      "exact_all266_reviewed_mappings": 1,
+      "exact_current_rule_fingerprint": 1,
+      "firstplan4675_preserved": 1,
+      "full392570_72_preserved": 1,
+      "full_mapping_pair_lookup_matches_current_optimized_lookup": 1368,
+      "mechanical_totals_exact": 1,
+      "query_measured_real20rows": 1,
+      "r2_r3_actual_mechanical_outputs_equal": 1318,
+      "r2_r3_actual_source_bindings_identical": 1,
+      "r2_r3_all_component_content_and_order_same": 1318,
+      "r2_r3_all_original_and_source_context_same": 1318,
+      "r2_r3_exact_same_scope": 1,
+      "r2_r3_exact_source_meaning_same": 1318,
+      "r3_all_material_adapter_holds_retained": 1318,
+      "r3_cold_warm_restored_all_task_records_identical": 2,
+      "r3_every_current_component_mechanically_replayed": 1318,
+      "r3_every_required_gap_visible": 16,
+      "r3_false_acceptance_flags": 1318,
+      "r3_no_legacy_review_auto_import": 1318,
+      "r3_source_meaning_hash_recomputed": 1318,
+      "same1368_components": 1,
+      "same16_source_gap_tasks": 1,
+      "v1_review_unchanged": 1,
+      "warm_reused_all_evaluations": 1
+    },
+    "independent_reading_contract_and_integration": {
+      "all1318_actual_tasks_reviewed": 1,
+      "all1368_components_present": 1,
+      "all_real_original_binding_changes_stale": 1318,
+      "all_real_source_dependency_changes_stale": 1318,
+      "all_real_tasks_same_reading_after_technical_only_changes": 1318,
+      "all_real_tasks_v2_receipt_survives_technical_only_changes": 1318,
+      "conforming_v1_receipt_results_equal_retained_v1": 2636,
+      "independent_material_mutation_component_interpretation": 1,
+      "independent_material_mutation_component_order": 1,
+      "independent_material_mutation_decimal_source_type_proof": 1,
+      "independent_material_mutation_full_condition": 1,
+      "independent_material_mutation_future_unknown_metadata": 1,
+      "independent_material_mutation_nested_technical_name": 1,
+      "independent_material_mutation_offering_identity": 1,
+      "independent_material_mutation_source_provenance": 1,
+      "independent_material_mutation_source_record_identity": 1,
+      "independent_material_mutation_whole_raw_artifact": 1,
+      "integration_actual_source_bytes_stale_v2": 1,
+      "integration_all_safe_flags_false": 1,
+      "integration_mapping_current_never_reference_or_consumer_credit": 1,
+      "integration_mapping_current_plus_reading_allows_only_scoped_component_status": 1,
+      "integration_mapping_withdrawal_changes_evaluation_and_recomputes": 1,
+      "integration_mapping_withdrawal_conflict_cannot_be_waived_by_reading": 1,
+      "integration_mapping_withdrawal_preserves_exact_source_reading": 1,
+      "integration_native_gap_reading_can_reuse_without_interpretive_credit": 1,
+      "integration_required_gap_hold_not_removed": 1,
+      "integration_technical_change_re_evaluates": 1,
+      "integration_unknown_native_hold_not_removed": 1,
+      "integration_zero_original_completion": 1,
+      "real_tasks_not_mutated": 1318,
+      "same16_gap_tasks_present": 1,
+      "stale_v1_receipt_results_equal_retained_v1": 3954
+    }
+  },
+  "consumer_usable": false,
+  "findings": [],
+  "independence_and_exposure": [
+    "Reviewer authored the adapters.py implementation/tests and some earlier exact clinical mapping proofs. Neither changed for V2. This is not blind review of those earlier source facts.",
+    "Reviewer did not author reviews.py, its focused tests, runner integration, preparation, inventory/cache, or benchmark implementation. Reviewed their current code and ran independent mutations and exact stored-result replays.",
+    "Synthetic source-reading/mapping receipts were created only inside disposable temporary repositories to test behavior. They approve no actual source interpretation or published benefit."
+  ],
+  "measured_r3_execution": {
+    "actual_20_row_query_seconds": 0.03154737499426119,
+    "claims_future_plan_end_to_end_latency": false,
+    "cold_scope": "New application inventory/cache workspace, not an OS-cache-cold or isolated-hardware measurement.",
+    "measures_human_review_time": false,
+    "query_row_count": 20,
+    "timings_seconds": {
+      "cold": 48.43078108300688,
+      "restored_actual_inputs": 33.35873624999658,
+      "synthetic_delta": 33.26312720801798,
+      "warm": 32.709373249992495
+    }
+  },
+  "mutations": "No production code, frozen source, prepared input, cache or benchmark data was modified during independent review. Only this new durable review JSON was written in the repository; synthetic tests used temporary repositories.",
+  "remaining_limits_and_work": [
+    "No historical source-review receipt importer is implemented. Earlier independent source readings remain in their sealed formats; exact explicit migration or newly authored V2 receipts are still required. All 1,318 actual benchmark tasks currently remain unreviewed under the generic reading receipt contract.",
+    "V2 supports future reuse for byte-identical complete source meaning across technical implementation changes. It does not infer semantic equivalence between reauthored, relocated or differently represented artifacts; input_fingerprint, exact paths, source metadata and interpretation proofs remain conservatively material.",
+    "The fingerprint operates on runner-validated normalized tasks. It is not a proof that every real-world condition was extracted or interpreted correctly, and the reading decision does not resolve a source/model/native-authority hold.",
+    "Mechanical/mapping changes still require current exact proofs and replay. New technical rule implementations remain subject to code review; a reading receipt alone cannot validate them.",
+    "The benchmark measures machine execution for one prepared offering within the full inventory. It does not measure human review, complete the first plan, process the other offerings source meanings, or promise full future-offering verification in seconds.",
+    "No personal applicability, price calculation, recommendation, UI, database migration, deployment, reference acceptance or consumer release was performed or authorized by this receipt."
+  ],
+  "research_only": true,
+  "result": "pass_with_explicit_limits",
+  "review_id": "D85-D87-comparison-pipeline-source-reading-v2-independent-review-r2",
+  "reviewer_role": "Cross-review agent /root/complete_dental_plan",
+  "schema": "daylight-independent-backend-review/2",
+  "scope": "Read-only review of the additive exact-source-reading V2 contract and runner integration, plus final R3 batch replay. This is an implementation/execution review, not source-fact approval.",
+  "source_fact_approval": false,
+  "verified_behavior": [
+    "V2 recomputes its source-meaning hash from complete normalized components, every original ID/hash binding, full source_artifacts, actual source dependency/archive-member descriptors, full retained metadata and the fixed semantic contract. A caller-supplied source_meaning_sha256 cannot mask a condition change.",
+    "Only enumerated top-level runtime fields are excluded. Nested source fields with technical-looking names and unknown future top-level metadata remain material. Component order, source record identity, original/source bytes, conditional parent/child scope and interpretation metadata remain bound.",
+    "All 1,318 real prepared tasks preserve their exact reading after technical-only changes. Changing original/source bindings invalidates the receipt. Conforming V1 receipts and stale outcomes match the retained original V1 function.",
+    "Temporary end-to-end checks show technical changes recompute mechanics while an unchanged V2 reading survives; changed actual source bytes stale the reading. Required gaps and unknown native meanings remain comparison_held even when their exact reading is reviewed.",
+    "A separate synthetic actual-r9 mapping test withdraws the mapping registry without changing source meaning. The V2 reading remains current, but the evaluation key changes, mechanics rerun and the actual conflict returns with comparison_held. Reading reuse does not approve a mapping.",
+    "The 48 current input/source/registry/review bindings were byte-verified, including the Landscape archive and unique exact member SHA/length. All 1,368 current component results and 266 exact complete-observation mappings reproduce the stored mechanical results.",
+    "R3 cold, warm and restored full task records are equal. The synthetic condition-only delta changes exactly one source-meaning hash and evaluation key, evaluates one task and reuses 1,317. No original or reference credit is granted."
+  ],
+  "whole_original_completion_authority": false
+}

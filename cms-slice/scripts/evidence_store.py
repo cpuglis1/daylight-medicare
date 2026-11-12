@@ -19,7 +19,9 @@ PUBLIC_HOSTS = {"nchmd.org", "www.physiciansregional.com", "www.physiciansregion
                 "www.medicare.gov", "www.cms.gov", "data.cms.gov", "rxnav.nlm.nih.gov",
                 "npiregistry.cms.hhs.gov", "directory.cms.gov", "assets.humana.com",
                 "www.devoted.com", "cdn.devoted.com", "assets.devoted.com", "www.aetnamedicare.com",
-                "www.uhc.com", "www.wellcare.com", "files.guidewell.com", "www.floridablue.com"}
+                "www.uhc.com", "www.wellcare.com", "files.guidewell.com", "www.floridablue.com",
+                "hopepace.org", "www.floridashine.org", "aaaswfl.org", "ahca.myflorida.com",
+                "www.va.gov", "tricare.mil", "www.tricare.mil", "newsroom.tricare.mil"}
 
 
 class VisibleHTML(HTMLParser):

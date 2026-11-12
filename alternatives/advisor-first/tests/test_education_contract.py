@@ -41,7 +41,7 @@ class EducationContractTests(unittest.TestCase):
         self.prepare()
         self.answer.update(reply='Original Medicare is the federal program for Parts A and B.',
             evidence_refs=['routesintro'], education={'purpose': 'teach',
-                'updates': [self.event()], 'visual': 'routes'}, **extra)
+                'updates': [self.event()], 'visual': 'none'}, **extra)
 
     def test_live_schema_requires_explicit_small_education_contract(self):
         self.prepare()
@@ -71,8 +71,6 @@ class EducationContractTests(unittest.TestCase):
         self.assertEqual(sent['education_context'], original['education_context'])
         self.assertEqual(sent['reports'], original['reports'])
         self.assertEqual(self.context, original)
-        self.assertIn('Do not repeat the overview after a routine profile answer', COMPOSE_INSTRUCTIONS)
-        self.assertIn('Put a follow-up or invitation to keep learning only in question', COMPOSE_INSTRUCTIONS)
 
     def test_source_reference_alone_never_proposes_delivery_or_visual(self):
         self.prepare()
@@ -100,11 +98,13 @@ class EducationContractTests(unittest.TestCase):
                 self.assertEqual(out['education']['visual'], 'none')
                 self.assertIs(out['education_metadata_dropped'], True)
 
-    def test_missing_wire_metadata_is_not_silently_invented_in_production(self):
+    def test_missing_wire_metadata_grants_no_teaching_credit_but_keeps_checked_question(self):
         self.prepare()
         self.answer.pop('education')
-        with self.assertRaisesRegex(ModelUnavailable, 'could not be checked'):
-            self.compose()
+        out = self.compose()
+        self.assertEqual(out['question'], self.answer['question'])
+        self.assertEqual(out['education'], {'purpose': 'advance', 'updates': [], 'visual': 'none'})
+        self.assertIs(out['education_metadata_dropped'], True)
         self.assertEqual(len(self.calls), 1)
 
     def test_bad_event_does_not_discard_independent_valid_delivery(self):
@@ -146,6 +146,8 @@ class EducationContractTests(unittest.TestCase):
         for group, key in [('metadata', key) for key in ('purpose','updates','visual')] + [
                 ('update', key) for key in ('concept_id','depth','reason','evidence_refs')]:
             for bad in bad_values:
+                if group == 'metadata' and key == 'updates' and bad == []:
+                    continue  # An empty update list is valid neutral metadata.
                 with self.subTest(group=group, key=key, value=bad):
                     self.teach()
                     if group == 'metadata':

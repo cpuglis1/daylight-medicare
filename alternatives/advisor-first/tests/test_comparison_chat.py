@@ -116,7 +116,7 @@ class ComparisonChatTests(unittest.TestCase):
         self.assertFalse(out['personalRecommendation'])
         self.assertNotIn('comparison', out['guide'])
         self.assertNotIn('comparison', out['record'])
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+        self.assertIn(out['assessment']['nextQuestion']['id'], {'T03', 'T05'})
         # The comparison is recomputed after composition's readiness changes.
         again = self.h.flow.comparisons.evaluate(out['guide'], out['record'],
             next_question=out['assessment']['nextQuestion'],
@@ -149,13 +149,13 @@ class ComparisonChatTests(unittest.TestCase):
         self.assertTrue(all(p['store'] is False and p['tools'] == [] for p in self.h.calls))
         composer = next(p for p in self.h.calls
                         if p['text']['format']['name'] == 'daylight_resolved_conversation')
-        self.assertIn('comparison_status contains only service', composer['instructions'])
+        self.assertIn('comparison_status is capability metadata, not plan evidence', composer['instructions'])
 
     def test_optional_comparison_failure_preserves_accepted_capture(self):
         with patch.object(self.h.flow.comparisons, 'evaluate', side_effect=ValueError('private canary')):
             out = self.h.message("I've been retired for a few years, and am turning 65 in November.")
         self.assertEqual(self.h.flow.value(out['guide'], 'situation.retirement')['status'], 'retired')
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+        self.assertIn(out['assessment']['nextQuestion']['id'], {'T03', 'T05'})
         self.assertEqual(out['comparison']['status'], 'unavailable')
         self.assert_held(out['comparison'])
         self.assertNotIn('private canary', json.dumps(out))

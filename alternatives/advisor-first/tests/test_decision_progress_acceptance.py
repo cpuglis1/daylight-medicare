@@ -95,16 +95,19 @@ class DecisionProgressAcceptanceTests(unittest.TestCase):
             self.assertEqual([tuple(row) for row in db.execute('SELECT * FROM ai_charges')],
                              original)
 
-    def test_failed_choice_prose_keeps_the_report_and_usable_next_question(self):
+    def test_failed_choice_prose_keeps_the_report_without_starting_more_intake(self):
         self.case.compositions.append(ModelUnavailable('A synthetic interrupted reply.'))
         out = self.case.take(self.selected_start(aiConsent=True,
                                                 contextPolicy=CONTEXT_POLICY))
         self.assertEqual(self.case.flow.value(self.case.g, 'coverage.requestedStart'),
                          'soonest')
-        self.assertEqual(out['reply'], '')
+        # Never-blank floor (November 8, 2026): one reviewed statement and the
+        # server-selected approved question replace the empty reply.
+        self.assertTrue(out['reply'])
+        self.assertEqual(out['advisor']['reason'], 'recovery')
         self.assertEqual(out['generated']['status'], 'unavailable')
         self.assertTrue(out['notice'])
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
+        self.assertIsNotNone(out['assessment']['nextQuestion'])
         self.assertNotIn('review', out)
         self.assertEqual(len(self.case.calls), 1)
 

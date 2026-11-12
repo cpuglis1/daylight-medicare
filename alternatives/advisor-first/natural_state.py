@@ -10,6 +10,7 @@ import json
 import math
 import re
 from timing_language import end_date_refinement
+from medigap_profile import FIELDS as MEDIGAP_FIELDS
 
 VERSION = 1
 CONTEXT_VERSION = 'natural-context-v1'
@@ -19,16 +20,18 @@ SAFE_FIELDS = frozenset({'intent.goal', 'knowledge.general', 'subject.role', 'co
 SENSITIVE_GUIDE_FIELDS = frozenset({'coverage.requestedStartMonth', 'needs.medicationDetails',
     'intent.goalDetail', 'needs.priorityOther', 'subject.displayLabel', 'coverage.birth',
     'coverage.birth.firstDay', 'needs.medications', 'needs.pharmacies', 'needs.providers',
-    'outcome.drafts', 'comparison.requestedNames', 'situation.retirement', 'situation.age65'})
+    'outcome.drafts', 'comparison.requestedNames', 'situation.retirement', 'situation.age65', *MEDIGAP_FIELDS.values()})
 CONFIRMATIONS = {'user_reported': 'reported_by_user', 'explicitly_confirmed': 'explicitly_confirmed'}
-METHODS = {'direct_report', 'structured', 'explicit_confirmation'}
+# plans_filter: a structured answer entered on the Plans page (D97). It is a
+# user report like any structured answer; the conversation confirms it once.
+METHODS = {'direct_report', 'structured', 'explicit_confirmation', 'plans_filter'}
 SCOPES = {'current', 'intended', 'historical', 'unknown'}
 SUBJECTS = {'beneficiary', 'learner', 'unclear'}
 UNRESOLVED = {'unknown', 'deferred', 'not sure', 'check later', 'later', ''}
 TASKS = {'', 'learn', 'browse', 'compare', 'review', 'timing', 'providers',
          'drug_coverage', 'drug_pricing', 'medigap', 'snp', 'costs'}
 ENTITY = re.compile(r'(?:profile|(?:doctor|medicine)-(?:extra-)?[0-9]{1,3})\Z')
-QUESTION = re.compile(r'(?:T(?:0[1-9]|10)|RC(?:0[1-9]|1[0-9]|2[0-8])|RC11\.C1|RC16\.C[12])\Z')
+QUESTION = re.compile(r'(?:T(?:0[1-9]|10)|RC(?:0[1-9]|1[0-9]|2[0-8])|RC11\.C1|RC16\.C[12]|MG_(?:AGE|SEX|TOBACCO))\Z')
 REF = re.compile(r'(?:guide\.[A-Za-z][A-Za-z0-9_.]{0,99}|readiness\.RC(?:0[1-9]|1[0-9]|2[0-8])(?:\.(?:profile|(?:doctor|medicine)-(?:extra-)?[0-9]{1,3})\.[A-Za-z][A-Za-z0-9]{0,29})?)\Z')
 FIELD_NAMES = {
     'T01': {'choice', 'text'}, 'T02': {'choice'}, 'T03': {'zip', 'county'},
@@ -50,6 +53,7 @@ FIELD_NAMES = {
 # Clarification-only targets. They do not extend the original question inventory
 # or make a life circumstance a required intake item.
 SITUATION_TARGETS = {'S_AGE65': {'month', 'year'}, 'S_RETIREMENT': {'status', 'when'}}
+FIELD_NAMES.update({key: {'choice'} for key in MEDIGAP_FIELDS})
 _LOCATION = {'comparison.scope.zip', 'comparison.scope.county'}
 _PRIORITIES = {'needs.costPreference', 'needs.priorities'}
 _TIMING = {'coverage.requestedStart', 'coverage.requestedStartMonth',
@@ -61,7 +65,7 @@ GUIDE_ALLOWLIST = {
     'providers': _LOCATION | _PROVIDERS,
     'drug_coverage': _LOCATION | _MEDICINES,
     'drug_pricing': _LOCATION | _MEDICINES | {'needs.pharmacies'},
-    'medigap': _LOCATION | _TIMING,
+    'medigap': _LOCATION | _TIMING | set(MEDIGAP_FIELDS.values()),
     'compare': _LOCATION | _PRIORITIES | _PROVIDERS | _MEDICINES,
     'review': _LOCATION | _PRIORITIES | _PROVIDERS | _MEDICINES,
     'snp': _LOCATION,
@@ -435,6 +439,8 @@ def classify_update(update, message, existing=None):
     open_preference = identifier=='T04' and fields.get('choice') in {'soonest','after_coverage'} and update['scope']=='intended'
     if update['uncertain'] or not explicit_unknown and not open_preference and re.search(r'\b(?:I think|maybe|might|probably|not sure|I guess)\b', quote, re.I):
         return decision('clarify', 'tentative')
+    if identifier in MEDIGAP_FIELDS and update['scope'] != 'current':
+        return decision('reject', 'not_current_pricing_report')
     if identifier == 'T05' and update['scope'] != 'current':
         return decision('reject', 'not_current_insurance')
     if identifier in {'RC04', 'RC07', 'RC09'} and update['scope'] != 'current':
@@ -466,6 +472,8 @@ def classify_update(update, message, existing=None):
                 return decision('clarify', 'missing_correction_target')
             old = matched or {}
     def equivalent(key, left, right):
+        if identifier == 'MG_AGE' and key == 'choice':
+            return str(left) == str(right)
         if key == 'choice' and identifier in {'T05', 'T08', 'T10'}:
             tokens = lambda x: {str(v).strip().casefold() for v in (x if isinstance(x, list) else str(x).split(','))}
             return tokens(left) == tokens(right)
@@ -494,13 +502,66 @@ def classify_update(update, message, existing=None):
         and isinstance(old.get('choice'), str) and bool(old['choice'])
         and set(old['choice'].split(',')) <= positive_programs
         and bool(fields['choice']) and set(fields['choice'].split(',')) <= positive_programs)
-    if changed and not start_refinement and not date_refinement and not program_addition and not update['correction'] and not (isinstance(existing, dict) and (existing.get('stale') or existing.get('status') in {'unknown', 'skipped', 'stale'})):
+    # The retained provider-list operation appends a named provider to an
+    # existing positive list. Naming that doctor after saying "cardiologist"
+    # does not retract the earlier list or require a correction confirmation.
+    provider_addition = (identifier == 'T06' and old.get('choice') == 'list'
+        and fields.get('choice', 'list') == 'list' and set(fields) <= {'choice', 'text'}
+        and bool(fields.get('text')) and fields['text'].strip().casefold() not in UNRESOLVED
+        and update['subject'] == 'beneficiary' and update['scope'] in {'current', 'intended'})
+    # A medicine named after an existing list ("I also take lisinopril") adds to
+    # it, exactly like a doctor (Nov 9, 2026: Plans-tab chat would not add a
+    # second medicine). A correction still replaces; "no prescriptions" is a
+    # choice change and still needs confirmation.
+    medicine_addition = (identifier == 'T07' and old.get('choice') in {'yes', 'list'}
+        and fields.get('choice', 'yes') in {'yes', 'list'} and set(fields) <= {'choice', 'text'}
+        and bool(fields.get('text')) and fields['text'].strip().casefold() not in UNRESOLVED
+        and update['subject'] == 'beneficiary' and update['scope'] in {'current', 'intended'})
+    provider_addition = provider_addition or medicine_addition
+    if changed and not start_refinement and not date_refinement and not program_addition and not provider_addition and not update['correction'] and not (isinstance(existing, dict) and (existing.get('stale') or existing.get('status') in {'unknown', 'skipped', 'stale'})):
         return decision('clarify', 'conflicting_report')
     if start_refinement:
         return decision('accept', 'explicit_start_refinement')
     if program_addition:
         return decision('accept', 'explicit_program_addition')
     return decision('accept', 'explicit_partial' if any(x.casefold().strip() in UNRESOLVED for x in fields.values()) else 'explicit_report')
+
+
+_RETIREMENT_NEGATED_WORK = re.compile(r"\b(?:not|no longer|never|stopped|quit|done|haven['\u2019]?t been|isn['\u2019]?t|am not|i['\u2019]m not|ain['\u2019]?t)\b[^.;,]{0,24}\bworking\b|\bnot\s+working\b", re.I)
+_RETIREMENT_NOT_RETIRED = re.compile(r"\b(?:not|never|haven['\u2019]?t|isn['\u2019]?t|am not|i['\u2019]m not)\s+(?:yet\s+)?retired\b", re.I)
+_RETIREMENT_RETIRING = re.compile(r"\bretiring\b|\b(?:plan(?:ning)?|going|about|hoping|expect(?:ing)?|intend(?:ing)?|want(?:ing)?|hope)\s+to\s+retire\b|\bwill\s+(?:be\s+)?retir(?:e|ing)\b|\bretire\s+(?:in|next|this|on|by|at|around|soon|early|later)\b", re.I)
+
+
+def retirement_clause_status(clause):
+    """Name the retirement status one clause states, or None when it states none.
+
+    This reads only the person's own words for consistency checks; it never
+    supplies a status the clause does not state.
+    """
+    if not isinstance(clause, str):
+        return None
+    if _RETIREMENT_NOT_RETIRED.search(clause):
+        return 'working'
+    if _RETIREMENT_NEGATED_WORK.search(clause):
+        return 'retired'
+    if _RETIREMENT_RETIRING.search(clause):
+        return 'retiring'
+    if re.search(r'\bworking\b', clause, re.I):
+        return 'working'
+    if re.search(r'\bretired\b', clause, re.I):
+        return 'retired'
+    return None
+
+
+def retirement_status_from_text(text, limit=160):
+    """One consistent retirement status stated across a short message, else None."""
+    if not isinstance(text, str) or not text.strip() or len(text) > limit or '?' in text:
+        return None
+    if re.search(r"\b(?:if|suppose|hypothetically|for example|I think|maybe|might|probably|not sure|I guess)\b", text, re.I):
+        return None
+    clauses = [x.strip() for x in re.split(r'(?<=[.!?;])\s+|\n|,|\b(?:and|but)\b', text, flags=re.I) if x.strip()]
+    statuses = {retirement_clause_status(clause) for clause in clauses} - {None}
+    return statuses.pop() if len(statuses) == 1 else None
 
 
 def classify_situation(message, kind, value, existing=None):
@@ -543,7 +604,14 @@ def classify_situation(message, kind, value, existing=None):
     if not selected:
         return result('reject', 'missing_supporting_clause')
     if len(selected) > 1:
-        return result('clarify', 'multiple_situation_clauses')
+        # "Retired, and not working anywhere" states one status twice. Only
+        # clauses that all agree with the proposed status merge; any mixed
+        # or unreadable combination still asks for clarification.
+        stated = {retirement_clause_status(fragment) for fragment in selected} if kind == 'retirement' else {None}
+        if stated == {value['status']}:
+            selected = [' '.join(selected)]
+        else:
+            return result('clarify', 'multiple_situation_clauses')
     clause = selected[0]
     if re.search(r'\b(?:if|suppose|hypothetically|for example)\b', clause, re.I):
         return result('reject', 'hypothetical')

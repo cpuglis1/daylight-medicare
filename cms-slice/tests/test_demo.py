@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import cms_slice as cms
 import prescription as rx
 from chat import Chat, ResponsesClient, ModelUnavailable
-from demo import make_server
+from research_http import make_research_test_server as make_server
 from demo_tools import DemoTools
 from evidence_store import PublicSources
 from identity_lookup import IdentityLookup
@@ -30,7 +30,7 @@ import chat as chat_module
 class DemoEvidenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.tools = DemoTools()
+        cls.tools = DemoTools(research_mode=True)
 
     def test_ma_only_pharmacy_argument_remains_inapplicable(self):
         result = self.tools.rx.lookup("H5434-042-000-2027", rxcui="1551300", npi="1609197854")
@@ -117,7 +117,7 @@ class DemoEvidenceTests(unittest.TestCase):
 
     def test_explicit_all_plans_request_is_not_narrowed_by_old_selection(self):
         response = Chat(self.tools).answer("Compare this medicine across all plans", selections={"rxcui": "1551300", "plan_id": "H5434-002-000-2027"})
-        self.assertEqual(len(response["facts"]), 38)
+        self.assertEqual(len(response["facts"]), 70)
 
     def test_actual_pharmacy_search_does_not_confirm_network(self):
         result = self.tools.pharmacy_candidates("CVS")
@@ -253,7 +253,7 @@ class DemoEvidenceTests(unittest.TestCase):
 class ModelBoundaryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.tools = DemoEvidenceTests.tools if hasattr(DemoEvidenceTests, "tools") else DemoTools()
+        cls.tools = DemoEvidenceTests.tools if hasattr(DemoEvidenceTests, "tools") else DemoTools(research_mode=True)
 
     def client(self, outputs, payloads=None):
         sequence = iter(outputs)

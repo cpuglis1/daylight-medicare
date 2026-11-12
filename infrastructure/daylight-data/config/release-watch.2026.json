@@ -1,0 +1,61 @@
+{
+  "schema": "daylight-release-watch/1",
+  "coverage_year": 2026,
+  "purpose": "Discovery only. Lists newer official releases next to the pinned file each layer was built from. Never downloads or imports data, never changes a pinned revision, and is run by hand: scope.2026.json keeps routine network connectors off.",
+  "allowed_hosts": ["www.cms.gov", "cms.gov", "data.cms.gov", "www.nlm.nih.gov", "download.nlm.nih.gov"],
+  "families": [
+    {
+      "family_id": "ma_pdp_landscape",
+      "layers": ["L02"],
+      "label": "CMS MA and PDP Landscape files",
+      "method": "page_links",
+      "page_url": "https://www.cms.gov/medicare/prescription-drug-coverage/prescriptiondrugcovgenin",
+      "link_pattern": "/files/zip/cy(?P<year>\\d{4})-landscape-[A-Za-z0-9-]+\\.zip",
+      "version_kind": "coverage_year",
+      "pinned_url": "https://www.cms.gov/files/zip/cy2026-landscape-202609.zip"
+    },
+    {
+      "family_id": "pbp_benefits_json",
+      "layers": ["L03"],
+      "label": "CMS Plan Benefit Package data, JSON edition",
+      "method": "page_links",
+      "page_url": "https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-advantagepart-d-contract-and-enrollment-data/benefits-data/pbp-benefits-2026-json",
+      "link_pattern": "/files/zip/pbp-benefits-(?:(?P<year>\\d{4})-json|json-(?P<year_alt>\\d{4}))[A-Za-z0-9.-]*\\.zip(?:-\\d+)?",
+      "version_kind": "coverage_year",
+      "pinned_url": "https://www.cms.gov/files/zip/pbp-benefits-2026-json.zip"
+    },
+    {
+      "family_id": "star_ratings_tables",
+      "layers": ["L09"],
+      "label": "CMS Part C and D Star Ratings data tables",
+      "method": "page_links",
+      "page_url": "https://www.cms.gov/medicare/prescription-drug-coverage/prescriptiondrugcovgenin/performancedata",
+      "link_pattern": "/files/zip/(?P<year>\\d{4})-star-ratings-data-tables[A-Za-z0-9-]*\\.zip",
+      "version_kind": "rating_year",
+      "pinned_url": "https://www.cms.gov/files/zip/2026-star-ratings-data-tables.zip"
+    },
+    {
+      "family_id": "rxnorm_prescribe",
+      "layers": ["L05"],
+      "label": "NLM RxNorm prescribable content, full release",
+      "method": "page_links",
+      "page_url": "https://www.nlm.nih.gov/research/umls/rxnorm/docs/rxnormfiles.html",
+      "link_pattern": "RxNorm_full_prescribe_(?P<date>\\d{8})\\.zip",
+      "version_kind": "release_date_mmddyyyy",
+      "pinned_url": "https://download.nlm.nih.gov/rxnorm/RxNorm_full_prescribe_10052026.zip"
+    },
+    {
+      "family_id": "part_d_formulary_monthly_quarterly",
+      "layers": ["L05", "L06", "L07"],
+      "label": "CMS Part D formulary, pharmacy network and pricing files",
+      "method": "delegated",
+      "delegate": "cms-slice/scripts/source_refresh.py",
+      "note": "Already covered by the existing catalog-based discovery; not duplicated here."
+    }
+  ],
+  "not_yet_covered": [
+    "Medicare Plan Finder benefit summary (docs/data/mpf-benefit-summary-2026-11-04-r1): upstream release location not recorded in config.",
+    "Doctors and Clinicians and hospital provider-data datasets (L08): no pinned release identifier recorded in config.",
+    "Carrier SB/EOC documents (L03): carrier-specific, outside a national release check."
+  ]
+}

@@ -1,5 +1,7 @@
 # Daylight company identity and narrative
 
+**Updated plan · November 5, 2026:** [AI-native brokerage plan](AI_NATIVE_BROKERAGE_PLAN_2026-11-05.md) covers the moat thesis, the four-step critical path, the open human-involvement decision, the competitive test, stack recommendations and questions for counsel. It is strategy only, with no new requirement or release.
+
 Owner direction, November 2, 2026. This is the company narrative and navigation map. [Principles](../../PRINCIPLES.md) govern decisions; [the strategic thesis](../product/STRATEGIC_THESIS.md) governs strategic hypotheses; [product requirements](../../DAYLIGHT_REQUIREMENTS.md) and the applicable variant contract govern implementation. The [project hub](../project/README.md) reports actual maturity.
 
 ## Primary narrative
