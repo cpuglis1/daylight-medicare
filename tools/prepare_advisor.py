@@ -19,7 +19,7 @@ JOURNEY_TARGET = "audit-evidence/advisor-conversation-quality-20261102/journey-s
 JOURNEY_DIGEST = "d7877739311401ad870cb6f7d6359348c8988c741fa52b922dbd3ee020c103b9"
 EVALUATOR_SOURCE = "alternatives/advisor-first/tests/journey_evaluator.py"
 EVALUATOR_TARGET = "audit-evidence/advisor-conversation-quality-20261102/evaluate_journey.py"
-EVALUATOR_DIGEST = "fd9fb8013ad0f8b2d2115e9592758120eebb50af5d69b6fce709cf6284f24504"
+EVALUATOR_DIGEST = "937dd564ac475cfb8272b35b80fb7d92ad17bce78a60933d49ee5c14cd0c7faf"
 
 
 def checked_path(root: Path, relative: str) -> Path:
