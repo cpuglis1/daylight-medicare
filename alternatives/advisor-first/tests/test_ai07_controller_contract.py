@@ -67,8 +67,8 @@ class ReplyIsCheckedBeforeAnyOutput(Harness):
     CASES = {
         'unsupported personal finding': ({'reply': 'You are eligible for a Special Enrollment Period when that job ends.'},
                                          'eligible for a Special'),
-        'personal cost claim': ({'reply': 'Your premium will be $412 a month.'}, '412'),
-        'amount outside the sources': ({'reply': 'Plans in this area often cost about $412 a month.'}, '412'),
+        'personal cost claim': ({'reply': 'Your premium will be $412 a month.'}, '$412'),
+        'amount outside the sources': ({'reply': 'Plans in this area often cost about $412 a month.'}, '$412'),
         'claimed research': ({'reply': "I've checked the plans and doctors near you for this."}, 'checked the plans'),
         'unknown evidence': ({'reply': NEUTRAL_REPLY, 'evidence_refs': ['fabricated-source']}, 'fabricated'),
         'unknown report': ({'reply': NEUTRAL_REPLY, 'report_refs': ['fabricated-report']}, 'fabricated'),
