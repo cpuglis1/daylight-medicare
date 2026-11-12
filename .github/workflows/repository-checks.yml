@@ -34,6 +34,12 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '22'
+      - name: Install the pinned JSON Schema validator used by the Claude adapter
+        # Exact versions from infrastructure/daylight-data/requirements.lock.
+        run: >-
+          python -m pip install --disable-pip-version-check --no-deps
+          jsonschema==4.25.1 jsonschema-specifications==2025.9.1 attrs==26.1.0
+          referencing==0.37.0 rpds-py==2026.9.1 typing_extensions==4.16.0
       - name: Test the repository controls
         env:
           PYTHONDONTWRITEBYTECODE: '1'

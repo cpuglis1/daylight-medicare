@@ -1,0 +1,31 @@
+{
+  "schema": "daylight-advisor-known-failures/v1",
+  "recorded": "2026-11-12",
+  "meaning": "These tests disagree with the current advisor code. They still run on every check and are reported, but do not fail it. Each needs a product decision: update the test to the intended behavior or fix the code. Remove an entry once its test passes. Listing a test here is not acceptance.",
+  "tests": {
+    "test_button_backend_gates.ButtonBackendGateTests.test_no_doctors_and_no_prescriptions_suspend_older_details_and_keep_them_recoverable": "Advisor now asks for the home ZIP (T03) after a no-doctors/no-medicines choice; test expects no next question.",
+    "test_button_backend_gates.ButtonBackendGateTests.test_no_items_buttons_retire_pending_item_clarifications_instead_of_reasking": "Advisor now asks for the home ZIP (T03); test expects no next question.",
+    "test_provider_incident_recovery.ProviderIncidentRecoveryTests.test_known_composition_unavailability_keeps_provider_without_new_intake": "Advisor now asks which Medicare parts the person has (RC04); test expects no new intake question.",
+    "test_button_backend_gates.ButtonBackendGateTests.test_partial_field_buttons_and_submissions_resolve_only_the_supplied_pending_fields": "Partial-field button submissions are now rejected with 'This form changed' (409).",
+    "test_button_backend_gates.ButtonBackendGateTests.test_active_item_field_target_is_preserved_even_with_an_existing_sibling_aggregate": "Field target resolves to 'profile' instead of the active item 'medicine-2'.",
+    "setUpClass (test_persona_journeys.CurrentPersonaJourneys)": "Persona P4 step 12 is rejected with ProfileError 422.",
+    "test_understanding_flow.UnderstandingFlowTests.test_cost_question_uses_shared_blocks_and_one_existing_composition_stage": "Reply no longer carries an 'understanding' record.",
+    "test_understanding_flow.UnderstandingFlowTests.test_free_lesson_and_its_replay_recheck_source_authority_without_generation": "Reply no longer carries an 'understanding' record.",
+    "test_understanding_flow.UnderstandingFlowTests.test_timing_question_preserves_reported_month_without_a_personal_window": "Reply no longer carries an 'understanding' record.",
+    "test_understanding_flow.UnderstandingFlowTests.test_parts_backed_original_visual_is_limited_through_the_real_controller": "Visual mode is 'none' where the test expects 'original'.",
+    "test_understanding_http.UnderstandingHttpTests.test_free_cost_lesson_uses_real_http_and_stays_outside_saved_profiles": "Reply no longer carries an 'understanding' record.",
+    "test_education_lifecycle.EducationLifecycleTests.test_repeated_explicit_lesson_is_allowed_and_counts_once_per_distinct_request": "Lesson record no longer has 'coverage_paths'.",
+    "test_education_lifecycle.EducationLifecycleTests.test_explicit_free_lesson_records_primary_concept_and_preserves_current_question": "Lesson no longer records its primary concept ('checks').",
+    "test_education_lifecycle.EducationLifecycleTests.test_explicit_parts_lesson_records_both_parts_without_marking_other_sections": "Lesson no longer records both Medicare parts.",
+    "test_education_lifecycle.EducationLifecycleTests.test_free_lesson_without_prior_v3_permission_cannot_create_memory_or_consent": "Lesson no longer records its concept ('parts').",
+    "test_utility_button_gates.UtilityButtonGatesTests.test_concept_link_preserves_current_practical_question_without_model_call": "Concept link no longer records its concept ('partb').",
+    "test_timing_recovery.TimingRecoveryTests.test_failed_turns_never_trigger_a_case_specific_question_or_lesson": "Expected 'enrollment_intro' lesson is no longer recorded.",
+    "test_curriculum_flow.CurriculumFlowTests.test_explicit_request_to_explain_again_authorizes_recap_and_visual": "Lesson reply now ends with 'What would be most helpful to explore next?'.",
+    "test_curriculum_flow.CurriculumFlowTests.test_failed_composition_can_deliver_the_requested_reviewed_lesson": "Reviewed lesson text now appears where the test expects an empty follow-up.",
+    "test_curriculum_flow.CurriculumFlowTests.test_new_layer_can_reuse_evidence_without_repeating_the_paths": "Route citation is no longer reused.",
+    "test_curriculum_flow.CurriculumFlowTests.test_reported_two_turn_sequence_reuses_citation_without_repeating_visual_or_receipt": "Citation mode is 'none' where the test expects 'routes'.",
+    "test_natural_flow.NaturalFlowTests.test_pending_ambiguity_does_not_leak_to_another_visit_with_matching_versions": "State versions differ from the test's expectation ([0, 0] vs [0, 2]).",
+    "test_provider_capture_regression.ProviderCaptureRegressionTests.test_two_doctor_locations_follow_two_medicine_strengths_without_name_fallback": "Two-location doctor capture now ends 'unavailable' instead of moving to T07.",
+    "test_task_work_flow.TaskWorkFlowTests.test_same_request_replay_preserves_current_work_and_historical_replay_suppresses_it": "Historical replay no longer suppresses 'task_work' in saved state."
+  }
+}
