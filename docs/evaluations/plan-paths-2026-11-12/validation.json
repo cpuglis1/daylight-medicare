@@ -1,0 +1,335 @@
+{
+  "status": "passed",
+  "data_file": "profiles.json",
+  "data_sha256": "b6c4d6117af045f7d1e861f73f37f6ac3160053505ca23e6e169f9fbfb3adff7",
+  "schema_sha256": "4d8081817d334ac76050de44ce5a2a2d0a1929347e38d2ba0945f0c4c5e15904",
+  "validator_sha256": "54ca8e36bf5711e36ddc8dd9612f961afb827245198113874d9630f19c28bb6c",
+  "jsonschema_version": "4.26.0",
+  "errors": [],
+  "measurements": {
+    "profiles": 15,
+    "coverage_paths": {
+      "keep_current_or_wait": 2,
+      "medicare_advantage": 4,
+      "original_medicare_medigap_part_d": 6,
+      "part_d_only": 3
+    },
+    "distinct_zips": [
+      "34102",
+      "34103",
+      "34104",
+      "34105",
+      "34106",
+      "34108"
+    ],
+    "ages": [
+      64,
+      64,
+      64,
+      65,
+      65,
+      65,
+      66,
+      67,
+      68,
+      70,
+      71,
+      71,
+      72,
+      73,
+      74
+    ],
+    "short_openings": [
+      "PP05",
+      "PP08",
+      "PP09"
+    ],
+    "long_openings": [
+      "PP01"
+    ],
+    "teach_backs_with_misconception": 11,
+    "checks": {
+      "real_doctor_profiles": 6,
+      "negative_control_profiles": 4,
+      "pharmacy_profiles": 8,
+      "medicine_profiles": 10,
+      "profiles_with_any_real_check": 10
+    },
+    "identifier_probe_profiles": [
+      "PP06"
+    ],
+    "per_profile": [
+      {
+        "id": "PP01",
+        "coverage_path": "medicare_advantage",
+        "tabs": {
+          "medicare_advantage": "unlocks",
+          "medigap": "optional",
+          "part_d": "not_needed"
+        },
+        "typist": "self",
+        "opening_words": 85,
+        "scripted_messages": 8,
+        "unprompted_messages": 3,
+        "teach_back_misconception": true,
+        "real_doctors": 1,
+        "negative_control_doctors": 0,
+        "pharmacy": true,
+        "medicines_with_rxcui": 1
+      },
+      {
+        "id": "PP02",
+        "coverage_path": "medicare_advantage",
+        "tabs": {
+          "medicare_advantage": "unlocks",
+          "medigap": "optional",
+          "part_d": "not_needed"
+        },
+        "typist": "self",
+        "opening_words": 29,
+        "scripted_messages": 8,
+        "unprompted_messages": 3,
+        "teach_back_misconception": false,
+        "real_doctors": 0,
+        "negative_control_doctors": 1,
+        "pharmacy": false,
+        "medicines_with_rxcui": 0
+      },
+      {
+        "id": "PP03",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "optional",
+          "medigap": "unlocks",
+          "part_d": "unlocks"
+        },
+        "typist": "self",
+        "opening_words": 26,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": false,
+        "real_doctors": 1,
+        "negative_control_doctors": 1,
+        "pharmacy": true,
+        "medicines_with_rxcui": 2
+      },
+      {
+        "id": "PP04",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "not_needed",
+          "medigap": "unlocks",
+          "part_d": "optional"
+        },
+        "typist": "self",
+        "opening_words": 24,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 1,
+        "negative_control_doctors": 0,
+        "pharmacy": true,
+        "medicines_with_rxcui": 1
+      },
+      {
+        "id": "PP05",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "not_needed",
+          "medigap": "unlocks",
+          "part_d": "not_needed"
+        },
+        "typist": "parent",
+        "opening_words": 12,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 0,
+        "pharmacy": false,
+        "medicines_with_rxcui": 0
+      },
+      {
+        "id": "PP06",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "optional",
+          "medigap": "unlocks",
+          "part_d": "unlocks"
+        },
+        "typist": "self",
+        "opening_words": 27,
+        "scripted_messages": 8,
+        "unprompted_messages": 3,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 1,
+        "pharmacy": false,
+        "medicines_with_rxcui": 1
+      },
+      {
+        "id": "PP07",
+        "coverage_path": "part_d_only",
+        "tabs": {
+          "medicare_advantage": "not_needed",
+          "medigap": "not_needed",
+          "part_d": "unlocks"
+        },
+        "typist": "self",
+        "opening_words": 31,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 0,
+        "pharmacy": true,
+        "medicines_with_rxcui": 3
+      },
+      {
+        "id": "PP08",
+        "coverage_path": "part_d_only",
+        "tabs": {
+          "medicare_advantage": "not_needed",
+          "medigap": "not_needed",
+          "part_d": "shows_message"
+        },
+        "typist": "self",
+        "opening_words": 11,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 0,
+        "pharmacy": false,
+        "medicines_with_rxcui": 0
+      },
+      {
+        "id": "PP09",
+        "coverage_path": "keep_current_or_wait",
+        "tabs": {
+          "medicare_advantage": "not_needed",
+          "medigap": "not_needed",
+          "part_d": "not_needed"
+        },
+        "typist": "self",
+        "opening_words": 11,
+        "scripted_messages": 8,
+        "unprompted_messages": 3,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 0,
+        "pharmacy": false,
+        "medicines_with_rxcui": 0
+      },
+      {
+        "id": "PP10",
+        "coverage_path": "keep_current_or_wait",
+        "tabs": {
+          "medicare_advantage": "optional",
+          "medigap": "not_needed",
+          "part_d": "optional"
+        },
+        "typist": "self",
+        "opening_words": 28,
+        "scripted_messages": 8,
+        "unprompted_messages": 3,
+        "teach_back_misconception": false,
+        "real_doctors": 0,
+        "negative_control_doctors": 0,
+        "pharmacy": false,
+        "medicines_with_rxcui": 0
+      },
+      {
+        "id": "PP11",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "optional",
+          "medigap": "unlocks",
+          "part_d": "unlocks"
+        },
+        "typist": "self",
+        "opening_words": 29,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 1,
+        "negative_control_doctors": 0,
+        "pharmacy": true,
+        "medicines_with_rxcui": 2
+      },
+      {
+        "id": "PP12",
+        "coverage_path": "medicare_advantage",
+        "tabs": {
+          "medicare_advantage": "unlocks",
+          "medigap": "not_needed",
+          "part_d": "not_needed"
+        },
+        "typist": "self",
+        "opening_words": 32,
+        "scripted_messages": 8,
+        "unprompted_messages": 3,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 1,
+        "pharmacy": true,
+        "medicines_with_rxcui": 4
+      },
+      {
+        "id": "PP13",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "optional",
+          "medigap": "unlocks",
+          "part_d": "unlocks"
+        },
+        "typist": "self",
+        "opening_words": 24,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": false,
+        "real_doctors": 3,
+        "negative_control_doctors": 0,
+        "pharmacy": false,
+        "medicines_with_rxcui": 2
+      },
+      {
+        "id": "PP14",
+        "coverage_path": "medicare_advantage",
+        "tabs": {
+          "medicare_advantage": "unlocks",
+          "medigap": "optional",
+          "part_d": "not_needed"
+        },
+        "typist": "self",
+        "opening_words": 29,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 1,
+        "negative_control_doctors": 0,
+        "pharmacy": true,
+        "medicines_with_rxcui": 2
+      },
+      {
+        "id": "PP15",
+        "coverage_path": "part_d_only",
+        "tabs": {
+          "medicare_advantage": "not_needed",
+          "medigap": "not_needed",
+          "part_d": "unlocks"
+        },
+        "typist": "parent",
+        "opening_words": 44,
+        "scripted_messages": 7,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 0,
+        "negative_control_doctors": 0,
+        "pharmacy": true,
+        "medicines_with_rxcui": 4
+      }
+    ]
+  },
+  "scope": "Offline structure and corpus checks only. No advisor conversations, model calls or paid probes."
+}

@@ -1,0 +1,3138 @@
+[
+  {
+    "id": "PP01",
+    "source": "UX playbook test profile \"Combined 1\" (turns 65 December 14, 34104, new to Medicare), written out in full on 2026-11-12. Expanded 2026-11-12 for D146: her doctor is now a real Collier internist (Dr. Shannon Wise) and her pharmacy a real Publix, so doctor, pharmacy and medicine checks run on retained data.",
+    "archetype": "First-time enrollee turning 65; retired; budget-minded; leans Medicare Advantage; long opener",
+    "person": {
+      "name": "Marguerite Ollander",
+      "age": 64,
+      "zip": "34104",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1961-12-14",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Single and retired since 2024; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2026-12-01",
+        "part_b_start_date": "2026-12-01",
+        "eligibility_history": "Signed up for Parts A and B through Social Security in September 2026; first eligible at 65; no disability-based Medicare.",
+        "medigap_history": "Never held Medigap or Medicare Advantage."
+      },
+      "current_coverage": "Individual marketplace plan that she will end when Medicare starts. No Medigap, Medicare Advantage, Part D, Medicaid or Extra Help.",
+      "finances": "Gross annual income $38,000 from Social Security and a small pension; income band $30,000–$40,000. Savings about $60,000.",
+      "medicines": [
+        "Rosuvastatin 10 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Shannon Wise, internal medicine (real clinician, NPI 1891088910); she sees her at the Goodlette-Frank Road office. Network status for any 2026 plan is whatever the retained evidence shows; this profile asserts none."
+      ],
+      "preferences": "Lowest monthly cost; would like dental; lives in Naples year-round and rarely travels; accepts a network if Dr. Wise is in it. Generally healthy. Uses an iPad.",
+      "pharmacy": "Publix, 4860 Davis Blvd, Naples 34104 (real pharmacy, NPI 1144646399)."
+    },
+    "opening_message": "Hi. I turn 65 on December 14 and my Medicare card came last month, so I guess it's real now. I've been getting mail every single day: Advantage this, supplement that, and a man from some agency has called twice. I'm in 34104. I honestly don't know the difference between the two things everyone keeps talking about, and I don't want to pick wrong. I'm on a budget and I'd love dental, but I don't even know what questions to ask. Where do I start?",
+    "response_script": [
+      {
+        "if_asked_about": "Medicare dates, card or enrollment",
+        "reply": "My card says Part A and Part B both start December 1, 2026."
+      },
+      {
+        "if_asked_about": "Current coverage, work or retirement",
+        "reply": "I retired two years ago. I have a marketplace plan until Medicare starts. No job insurance."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Everyone on TV says Advantage is free. Is it?"
+      },
+      {
+        "if_asked_about": "Doctors, medicines or travel",
+        "reply": "Dr. Shannon Wise, at her office on Goodlette-Frank Road. Rosuvastatin 10 every day, from the Publix on Davis Boulevard. I don't travel much; I'm here all year."
+      },
+      {
+        "if_asked_about": "Age, sex category or tobacco",
+        "reply": "I'm 64 until the 14th. Female, and I've never smoked or used tobacco."
+      },
+      {
+        "if_asked_about": "Budget, income or priorities",
+        "reply": "About $38,000 a year. I want the lowest monthly cost and I'd like dental. I'm fine with a network if Dr. Wise is in it."
+      },
+      {
+        "if_asked_about": "Unprompted, after she has seen a plan list or at a later natural pause",
+        "reply": "Can you just put them in order by the lowest premium for me?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So I can start with an Advantage plan and switch to a supplement whenever I want later, with no health questions?"
+      }
+    ],
+    "stop_rule": "End after nine typist messages, including the opening. Send all three unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "The coverage path comes first: Original Medicare with Medigap and a drug plan, or Medicare Advantage; both are valid. [Compare your options](https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options/compare-original-medicare-medicare-advantage?linkId=150711509)",
+        "A $0-premium Advantage plan still leaves the Part B premium, and she pays copays up to the plan's yearly out-of-pocket limit. [Medicare costs](https://www.medicare.gov/basics/costs/medicare-costs)",
+        "Her six-month Medigap Open Enrollment Period starts December 1, 2026 with Part B; if she joins Advantage when first eligible, a one-year trial right may let her move to Medigap without health questions, and after that Florida insurers can generally ask them. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when); [Trial rights](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "Whether Dr. Wise is in a plan's network depends on that plan's dated directory and her office; the Wellcare directories on file list her at one Goodlette-Frank Road office, and other plans are not verified.",
+        "Ordering the list by lowest premium is a sort, not a recommendation."
+      ],
+      "must_not_claim": [
+        "Medicare Advantage is free or she will pay nothing for care.",
+        "She can move to Medigap later at any time without health questions.",
+        "Dr. Wise is in, or out of, a particular plan's network beyond what the dated evidence shows.",
+        "The lowest-premium plan is the best plan for her."
+      ],
+      "trap": "Her budget and the \"free\" mailers can pull the conversation straight to a premium list before she understands the path she is choosing."
+    },
+    "grading_notes": "This is the pilot's core case: a first-time enrollee choosing a path. Weigh whether she understands the path and its one-way door ahead of anything about specific plans.",
+    "expected_outcome": {
+      "coverage_path": "medicare_advantage",
+      "why": "She wants the lowest monthly cost and dental, stays in Naples year-round and accepts a network if her doctor is in it; on her stated priorities she chooses Advantage. The choice is hers; the product's job is to make the trade-off visible first.",
+      "alternative_path": "Original Medicare with Medigap and Part D, if she weighs the later-switch risk more heavily. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self, from her first-person opening; not asked)",
+            "ZIP 34104 or Collier County",
+            "Review your info"
+          ],
+          "shows": "The 72 retained 2026 Collier Medicare Advantage listings (record the count shown), with ordering by a stated priority (lowest premium or lowest yearly limit) labeled as ordering."
+        },
+        "medigap": {
+          "expected": "optional",
+          "needs": [
+            "age 64 (priced at 65)",
+            "female",
+            "non-tobacco"
+          ],
+          "shows": "Reachable to see the other path. Plan-letter overview first (count and listed range per letter, Plans C and F note), then the rate list for this ZIP, age, sex category and tobacco category (record the count; 166 to 178 rates were seen on November 10). Record whether 64-priced-at-65 is explained."
+        },
+        "part_d": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Advantage plans in the list generally include drug coverage; a standalone drug plan is not part of this path. Record if the conversation pushes it."
+        }
+      },
+      "see_plans_should_land_on": "The two coverage paths until she has chosen; Medicare Advantage once she has. Record which happens (issue 11).",
+      "before_you_enroll": "Offered after she has looked at Advantage plans; all twelve topics show and \"I've read these\" records a time. Daylight enrolls no one in the pilot."
+    },
+    "understanding": {
+      "trade_off": "Advantage keeps the monthly cost low and adds extras like dental, but uses a network and copays; choosing it first can make a supplement harder to get after the first year.",
+      "should_leave_understanding": [
+        "There are two paths: Original Medicare with a supplement and drug plan, or an Advantage plan.",
+        "\"$0 premium\" still means paying Part B and copays up to a yearly limit.",
+        "Her best time to buy a supplement without health questions starts December 1; if she starts with Advantage, she has about a year to change her mind that way.",
+        "Putting plans in premium order is sorting, not advice."
+      ],
+      "teach_back": {
+        "message": "So I can start with an Advantage plan and switch to a supplement whenever I want later, with no health questions?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Corrects it plainly: there is a one-year trial right if conditions hold; after that, insurers can generally ask health questions. Then asks one question."
+      },
+      "watch_for": [
+        "Lesson 4 and Ask once: birthday, ZIP, budget and dental from the long opener are captured, not re-asked.",
+        "Issue 11: whether See plans lands on her chosen path or on Medicare Advantage by default.",
+        "Issue 13: time to the first reply after a long opener.",
+        "\"Free\" framing: the first push must get a straight answer, not a hedge.",
+        "Doctor check: Dr. Wise has four offices on file and two sources disagree on the Goodlette-Frank suite; the reply confirms which office before saying anything about networks."
+      ]
+    },
+    "tester_actions": [
+      "When a reply offers a Plans button, open it, read the first screen, then return with Back to my conversation before the next message.",
+      "After the ordering push, check the Medicare Advantage tab for the ordering control and its label.",
+      "Open Before you enroll only if the conversation or Review your info offers it."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Dr. Shannon Wise, at her office on Goodlette-Frank Road",
+          "real": true,
+          "identity": {
+            "name": "Shannon Wise, MD",
+            "npi": "1891088910",
+            "specialty": "Internal medicine"
+          },
+          "sites_on_file": [
+            "Maxhealth, 730 Goodlette-Frank Rd, Ste 200, Naples 34102 (Wellcare directories)",
+            "Florida Medical Specialists, 730 Goodlette Rd, Suite 100, Naples 34102 (Medicare file)",
+            "Florida Medical Specialists, 7273 Vanderbilt Beach Rd, Suite 28, Naples 34119 (Medicare file)",
+            "The Moorings, 120 and 130 Moorings Park Dr, Naples 34105 (Medicare file)"
+          ],
+          "evidence_on_file": [
+            "Wellcare 2026 provider directories dated 09/23/2026 (L08 wellcare-r5, four documents bound to H1032-198 and -199, -239, -243, -241 and -202): \"Wise, Shannon MD\", Maxhealth, 730 Goodlette-Frank Rd, Ste 200, page 15, publisher ID 3177892, in all four documents.",
+            "HumanaChoice PPO directory H5216FLLS01GG26 dated 10/11/2026 (L08 normalization-r4; expressly partial; bound to seven H5216 offerings): \"Wise, Shannon D MD*\" on page 60 with no explicit site in the entry.",
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled, accepts assignment, at the three practice sites listed above."
+          ],
+          "expected": [
+            "Shows Dr. Shannon Wise as a candidate with her offices and asks her to confirm the Goodlette-Frank Road office before any network statement.",
+            "For the Wellcare plans bound to the 09/23/2026 directories: listed at Maxhealth, 730 Goodlette-Frank Rd, Ste 200, dated; a listing, not a confirmation.",
+            "For HumanaChoice PPO: her name appears without a site, so the site can't be matched from that entry.",
+            "Every other plan: not verified. Absence from a partial directory is never shown as out of network.",
+            "Original Medicare: enrolled and accepts assignment."
+          ]
+        }
+      ],
+      "pharmacy": {
+        "as_typed": "the Publix on Davis Boulevard",
+        "identity": {
+          "name": "Publix Super Markets pharmacy",
+          "npi": "1144646399",
+          "address": "4860 Davis Blvd, Naples 34104"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71; preferred in 24 (6 of the 10 PDPs), standard in 47."
+        ],
+        "expected": [
+          "Selects the Publix at 4860 Davis Blvd (one store, by address) and shows preferred or standard per plan."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Rosuvastatin 10 every day",
+          "product": {
+            "name": "ROSUVASTATIN CALCIUM 10 MG ORAL TABLET",
+            "rxcui": "859747"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on Humana Gold Plus H1036-217, Humana Premier and Value Rx and AARP Rx Preferred; tier 6 with a quantity limit on Wellcare Giveback H1032-198 and both BlueMedicare PDPs; tier 2 or 3 on the rest."
+          ]
+        }
+      ],
+      "must_not": [
+        "Treat Maxhealth (Ste 200) and Florida Medical Specialists (Suite 100) at the same street number as proof of one confirmed office.",
+        "Rank plans by doctor status when the status is unverified."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34104",
+        "age": 64,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "none stated, or doctors if the conversation records Dr. Wise as a condition",
+        "current_coverage": "none (marketplace plan ending)"
+      },
+      "coverage_path": "Medicare Advantage suggested from the lower-monthly check (lowest Advantage premium vs lowest listed Medigap plus drug plan). If doctors is recorded as a priority the comparison changes; record the inputs and the reason shown.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. SNPs and plans without drug coverage are set aside.",
+      "medigap": "If she opens it: priced at 65 (reported age 64 kept); Plans C and F set aside (age 70 or younger).",
+      "part_d": "Not part of her path.",
+      "after_d146": "If doctor checks feed the method, Wellcare plans may show ✓ for Dr. Wise (dated listing) and the rest ?; no plan should show ✗ from a missing listing."
+    }
+  },
+  {
+    "id": "PP02",
+    "source": "P08 from docs/evaluations/medicare-personas-2026-11-08 (graded 2026-11-09). Opening, scripted replies and answer key unchanged; as_of_date moved to 2026-11-12; teach-back added as the last message; expected_outcome, understanding and tester_actions added.",
+    "archetype": "Longstanding Medicare Advantage; cardiologist leaves network; confused terminology",
+    "person": {
+      "name": "Anita Valegro",
+      "age": 72,
+      "zip": "34105",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1954-06-09",
+      "household_and_work": "Single and retired; no current-employment coverage.",
+      "medicare": {
+        "part_a_start_date": "2019-06-01",
+        "part_b_start_date": "2019-06-01",
+        "medicare_advantage_start_date": "2019-06-01",
+        "medigap_history": "Never held Medigap."
+      },
+      "current_coverage": "Unnamed fictional Medicare Advantage HMO with Part D, which Anita calls her supplement. A letter received 2026-10-15 states that her cardiologist leaves the network on 2026-11-01. No notice granting a special enrollment period or identifying a CMS-approved significant network change. No plan termination or relocation.",
+      "finances": "Gross annual income $42,000; income band $40,000–$50,000. Savings $65,000. No Medicaid or Extra Help.",
+      "medicines": [
+        "Metoprolol succinate extended-release 25 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Priya Talden, Bay Lantern Cardiology; fictional provider. Office reports accepting Original Medicare but has not supplied written confirmation. Follow-up appointment scheduled for 2026-11-20."
+      ],
+      "preferences": "Wants to keep her cardiologist. Refers to Medigap Plan G as Part G and assumes it can be added to her HMO. Uses a laptop.",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind."
+    },
+    "opening_message": "My supplement dropped Dr. Talden. Can I add Part G so I can still go? I already have the Advantage supplement, so I don't understand which part is missing.",
+    "response_script": [
+      {
+        "if_asked_about": "Exact current coverage or card wording",
+        "reply": "The booklet says Medicare Advantage HMO with prescription drugs. That's the supplement I mean. I don't have another policy."
+      },
+      {
+        "if_asked_about": "Medicare dates, age, or ZIP",
+        "reply": "I'm 72, in 34105. A and B started June 1, 2019, and I joined this HMO then. I've never had Part G."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "So I buy Part G and keep the Advantage supplement, and then Dr. Talden is covered? Is that what you're saying?"
+      },
+      {
+        "if_asked_about": "Doctor, network notice, appointment, or special enrollment notice",
+        "reply": "Priya Talden at Bay Lantern Cardiology. The October 15 letter says she's out starting November 1. My appointment is November 20. Nothing says special enrollment. Her office says it takes Original Medicare."
+      },
+      {
+        "if_asked_about": "Medicines or financial circumstances",
+        "reply": "Metoprolol succinate ER, 25 milligrams daily. About $42,000 income and $65,000 saved. No Medicaid or Extra Help."
+      },
+      {
+        "if_asked_about": "Move, plan termination, or other reason for changing",
+        "reply": "I haven't moved, and the plan isn't closing. It's only my heart doctor. I want to keep her."
+      },
+      {
+        "if_asked_about": "Unprompted, at a later natural pause and before ending",
+        "reply": "I'm getting lost again. Does losing my doctor mean they have to let me buy that G policy?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "Okay. So my HMO isn't a supplement at all, and Plan G only works if I leave the HMO and an insurer accepts me. Is that it?"
+      }
+    ],
+    "stop_rule": "End after nine typist messages, including the opening. Send all three unprompted messages, replacing an unused factual reply if necessary; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Medicare Advantage and Medigap are different arrangements; Medigap Plan G cannot pay HMO cost sharing. [How Medigap works](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "A physician's departure does not by itself establish Medigap guaranteed-issue rights; applicable federal and Florida protections require review. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "Significant network changes can support special enrollment in qualifying circumstances, but that determination is case-specific. [Special enrollment circumstances](https://www.medicare.gov/sign-up-change-plans/joining-a-health-or-drug-plan/special-circumstances-special-enrollment-periods)",
+        "An ordinary fall election takes effect January 1, 2027, so the November appointment requires separate attention to current coverage. [Medicare Open Enrollment](https://www.cms.gov/priorities/key-initiatives/medicare-open-enrollment-partner-resources)"
+      ],
+      "must_not_claim": [
+        "Adding Plan G will cover visits while she remains in her HMO.",
+        "This doctor's departure automatically creates a special enrollment period or guaranteed Medigap acceptance.",
+        "The November appointment is covered merely because the doctor reportedly accepts Original Medicare."
+      ],
+      "trap": "Calling Medicare Advantage a supplement invites the tool to recommend incompatible coverage."
+    },
+    "grading_notes": "Assess whether repeated confusion gets a clearer explanation rather than agreement with the wrong labels. Her teach-back is correct; a good reply confirms it and keeps the November 20 appointment separate from fall changes.",
+    "expected_outcome": {
+      "coverage_path": "medicare_advantage",
+      "why": "She is in an Advantage HMO, a Medigap insurer can ask her health questions, and her goal is one cardiologist; comparing Advantage plans for 2027 is the direct route, with network status unverified in the pilot.",
+      "alternative_path": "Original Medicare with Medigap and Part D if an insurer accepts her after health questions; her cardiologist reportedly accepts Original Medicare. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34105"
+          ],
+          "shows": "The 72 retained 2026 Collier Medicare Advantage listings (record the count shown), with ordering by a stated priority (lowest premium or lowest yearly limit) labeled as ordering. The list cannot be ordered by her doctor: network status is unverified unless D146 doctor matching is enabled on the run date (record which)."
+        },
+        "medigap": {
+          "expected": "optional",
+          "needs": [
+            "age 72",
+            "female",
+            "non-tobacco"
+          ],
+          "shows": "Reachable to see the other path. Plan-letter overview first (count and listed range per letter, Plans C and F note), then the rate list for this ZIP, age, sex category and tobacco category (record the count; 166 to 178 rates were seen on November 10). The underwriting notice matters for her."
+        },
+        "part_d": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Her HMO includes drugs; a standalone plan matters only if she leaves Advantage."
+        }
+      },
+      "see_plans_should_land_on": "Medicare Advantage.",
+      "before_you_enroll": "Reachable; record whether it is offered before the network question is answered."
+    },
+    "understanding": {
+      "trade_off": "Staying in Advantage keeps costs down but ties her to a network; Original Medicare with Medigap would let her see any doctor who takes Medicare, but an insurer can ask health questions first.",
+      "should_leave_understanding": [
+        "Her HMO is Medicare Advantage, not a supplement; Plan G can't be added to it.",
+        "Her doctor leaving doesn't by itself give her a right to buy Medigap without health questions.",
+        "Fall changes start January 1; her November 20 appointment depends on her current plan."
+      ],
+      "teach_back": {
+        "message": "Okay. So my HMO isn't a supplement at all, and Plan G only works if I leave the HMO and an insurer accepts me. Is that it?",
+        "contains_misconception": false,
+        "what_a_good_reply_does": "Confirms it plainly, keeps the November 20 appointment as a separate question, and asks one question."
+      },
+      "watch_for": [
+        "Terminology: \"supplement\" for her HMO is corrected gently each time it matters, never adopted.",
+        "Nov 9: three floors on this profile and the doctor-leaving answer never delivered.",
+        "D146: doctor matching, if enabled, says what it verified and what it didn't."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medicare Advantage tab when offered; look for any way to check Dr. Talden and record what exists.",
+      "Open Medigap only if the conversation offers it.",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Priya Talden at Bay Lantern Cardiology",
+          "real": false,
+          "identity": {
+            "name": "Priya Talden at Bay Lantern Cardiology",
+            "npi": null,
+            "specialty": null
+          },
+          "sites_on_file": [],
+          "evidence_on_file": [
+            "Fictional name; no record exists. Negative control."
+          ],
+          "expected": [
+            "The search returns no candidate and says so plainly, then asks for a spelling, office or city.",
+            "It never offers a real doctor with a similar name as this person's doctor without the person confirming it."
+          ]
+        }
+      ],
+      "pharmacy": null,
+      "medicines": [],
+      "must_not": [
+        "Report a network status for a doctor the search did not find."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34105",
+        "age": 72,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "none",
+        "priorities": "doctors",
+        "current_coverage": "Medicare Advantage"
+      },
+      "coverage_path": "Original Medicare suggested on her doctors priority (Medigap ✓ any doctor who takes Medicare; Advantage ? network not checked), with the health-questions note. This differs from expected_outcome on purpose: the method can't weigh how likely she is to be accepted. Record how the chat reconciles the two.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medigap": "Plans C and F pass the age rule (72); top match is the lowest listed premium among plans meeting her priority; the underwriting note shows.",
+      "part_d": "Not part of her path unless she leaves Advantage.",
+      "after_d146": "A fictional doctor stays ? everywhere; nothing should turn into ✓ or ✗."
+    }
+  },
+  {
+    "id": "PP03",
+    "source": "UX playbook test profile \"Combined 2\" (68, 34106, male, non-tobacco, two medicines, job coverage just ended), written out in full on 2026-11-12. Expanded 2026-11-12 for D146: his Naples doctor is now real (Dr. Elizabeth Hidlebaugh), he names a doctor in Asheville (fictional, outside the retained region), and his pharmacy is a real Walgreens.",
+    "archetype": "Job coverage just ended at 68; Part A only; snowbird to North Carolina; methodical",
+    "person": {
+      "name": "Gideon Varrow",
+      "age": 68,
+      "zip": "34106",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1958-05-27",
+      "sex_category": "Male",
+      "tobacco": "Quit cigarettes in 1995; no tobacco of any kind since.",
+      "household_and_work": "Married; retired on 2026-10-31 from an employer that has consistently had about 450 employees. His wife has her own coverage and is not part of this conversation.",
+      "medicare": {
+        "part_a_start_date": "2023-05-01",
+        "part_b_start_date": null,
+        "eligibility_history": "Took premium-free Part A at 65 while working; delayed Part B because of group coverage based on current employment.",
+        "medigap_history": "Never held Medigap or Medicare Advantage."
+      },
+      "current_coverage": "Employer group medical and drug coverage based on current employment ended 2026-10-31. The employer's notice says the drug coverage was creditable for 2026. No HSA, COBRA election, Medicaid or Extra Help.",
+      "finances": "Gross annual income $68,000 from a pension and Social Security; income band $60,000–$75,000. Savings about $410,000.",
+      "medicines": [
+        "Losartan 50 mg by mouth once daily.",
+        "Omeprazole 20 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Elizabeth Hidlebaugh, NCH, Goodlette Road (real clinician, NPI 1356874341). He types her name as \"Hiddlebaugh\".",
+        "Dr. Corwin Hale, a family doctor in Asheville, North Carolina, seen in summer (fictional; outside the retained Florida reference)."
+      ],
+      "preferences": "Spends June through September near his son in Asheville, North Carolina. Wants to see doctors in both places and fewer surprise bills; will pay a higher premium for that. Uses a laptop.",
+      "pharmacy": "Walgreens, 2200 Tamiami Trl N, Naples 34103 (real pharmacy, NPI 1598770703)."
+    },
+    "opening_message": "My job insurance ended October 31 when I retired. I'm 68, in 34106. I only ever signed up for Part A. What do I do now?",
+    "response_script": [
+      {
+        "if_asked_about": "Employer, coverage end date, Part B, drug-coverage notice or HSA",
+        "reply": "About 450 employees, regular employee plan, ended October 31. I have the letter saying my drug coverage counted. No Part B yet, no HSA, no COBRA."
+      },
+      {
+        "if_asked_about": "Sex category or tobacco",
+        "reply": "Male. No tobacco; I quit cigarettes in 1995."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Is it too late? Am I going to get a penalty for waiting on Part B?"
+      },
+      {
+        "if_asked_about": "Medicines or doctors",
+        "reply": "Losartan 50 and omeprazole 20, both daily, from the Walgreens at 2200 Tamiami Trail North. My doctor is Dr. Hiddlebaugh at NCH on Goodlette Road."
+      },
+      {
+        "if_asked_about": "Travel or priorities",
+        "reply": "I spend June through September near my son in Asheville and see Dr. Corwin Hale there. I want to see doctors in both places without fuss."
+      },
+      {
+        "if_asked_about": "Budget, income or help paying",
+        "reply": "About $68,000 a year, and savings are fine. I'd pay more for fewer surprises."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So I need to get Part B going now, pick a drug plan within about two months of losing the job coverage, and my six months to get a supplement without health questions start when Part B starts. Right?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Losing group coverage based on current employment opens an eight-month Part B Special Enrollment Period, generally without a late penalty. [Working past 65](https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65)",
+        "Because his drug coverage was creditable, he has a short window, about two months after it ended, to join a drug plan without a penalty. [Creditable coverage](https://www.medicare.gov/health-drug-plans/part-d/basics/creditable-coverage)",
+        "His six-month Medigap Open Enrollment Period starts when his Part B starts; that is when he can buy any Medigap policy sold to him without health questions. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "Medigap works with any U.S. provider who accepts Medicare, which fits summers in Asheville; Advantage networks are usually local. [Compare your options](https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options/compare-original-medicare-medicare-advantage?linkId=150711509)",
+        "Part B coverage under this window generally starts the month after he signs up, so medical bills before then are not covered by Part B. [When coverage starts](https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start)"
+      ],
+      "must_not_claim": [
+        "He has missed his chance or will owe a Part B penalty because he waited while covered by his job.",
+        "He has until next spring to get drug coverage without risk.",
+        "A particular Medigap or Part D plan is best for him."
+      ],
+      "trap": "The eight-month Part B window can hide the much shorter drug-plan window and the fact that his Medigap clock has not started."
+    },
+    "grading_notes": "His teach-back is correct; a good reply confirms it plainly instead of hedging or inventing problems. Watch for re-asks of the many facts in his first replies.",
+    "expected_outcome": {
+      "coverage_path": "original_medicare_medigap_part_d",
+      "why": "He wants doctors in Naples and Asheville and fewer surprises, can afford a premium, and his Medigap window opens when Part B starts.",
+      "alternative_path": "Medicare Advantage, if out-of-area coverage in North Carolina checks out. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34106 or Collier County"
+          ],
+          "shows": "Reachable for comparison. The 72 retained 2026 Collier Medicare Advantage listings (record the count shown), with ordering by a stated priority (lowest premium or lowest yearly limit) labeled as ordering."
+        },
+        "medigap": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34106",
+            "age 68",
+            "male",
+            "non-tobacco (quit in 1995)"
+          ],
+          "shows": "Plan-letter overview first (count and listed range per letter, Plans C and F note), then the rate list for this ZIP, age, sex category and tobacco category (record the count; 166 to 178 rates were seen on November 10)."
+        },
+        "part_d": {
+          "expected": "unlocks",
+          "needs": [
+            "ZIP 34106",
+            "county filled from ZIP",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans with premium and deductible; personal drug costs marked \"not checked\" unless D146 estimates are enabled on the run date (record which)."
+        }
+      },
+      "see_plans_should_land_on": "Medigap, then \"Next: see Part D drug plans\".",
+      "before_you_enroll": "Offered after both tabs. Record whether Review your info counts the twelve topics correctly."
+    },
+    "understanding": {
+      "trade_off": "Medigap with a drug plan costs more each month but works with doctors in both Naples and Asheville, and this is his one guaranteed chance to buy Medigap without health questions.",
+      "should_leave_understanding": [
+        "He hasn't missed anything: losing job coverage gives him time to sign up for Part B.",
+        "The drug-plan window is short, about two months.",
+        "The supplement window starts when Part B does.",
+        "A supplement works with any doctor who takes Medicare, in Florida or North Carolina."
+      ],
+      "teach_back": {
+        "message": "So I need to get Part B going now, pick a drug plan within about two months of losing the job coverage, and my six months to get a supplement without health questions start when Part B starts. Right?",
+        "contains_misconception": false,
+        "what_a_good_reply_does": "Confirms it clearly, adds at most one useful detail (such as Part B starting the month after sign-up), and asks one question."
+      },
+      "watch_for": [
+        "Lesson 6: \"No tobacco; I quit cigarettes in 1995\" must record non-tobacco.",
+        "Part A only must be captured as his current Medicare (Nov 9 retest, RC04).",
+        "Issue 2: the travel question is on-path here because he raised it; doctors questions after prices are ready are not.",
+        "Ask once: employer size, end date and notice in one message are all kept."
+      ]
+    },
+    "tester_actions": [
+      "Open each Plans tab the conversation offers; on Medigap, look at the plan-letter overview, then follow \"Next: see Part D drug plans\".",
+      "Return with Back to my conversation before each message.",
+      "Open Before you enroll if offered and record whether \"I've read these\" records a time."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Dr. Hiddlebaugh at NCH on Goodlette Road (misspelled)",
+          "real": true,
+          "identity": {
+            "name": "Elizabeth Hidlebaugh, MD",
+            "npi": "1356874341",
+            "specialty": "Geriatric medicine (Medicare file); internal medicine (Wellcare directory)"
+          },
+          "sites_on_file": [
+            "NCHMD Inc, 2450 Goodlette Rd N, Suite 201, Naples 34103 (Medicare file)",
+            "NCH Medical Group - EAG, 2450 Goodlette-Frank Rd, Ste 202, Naples 34103 (Wellcare directories)"
+          ],
+          "evidence_on_file": [
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled, accepts assignment, Suite 201.",
+            "Wellcare 2026 provider directories dated 09/23/2026 (L08 wellcare-r5, four documents bound to H1032-198 and -199, -239, -243, -241 and -202): \"Hidlebaugh, Elizabeth MD\", Ste 202, page 14, publisher ID 4992823. The suite differs from the Medicare file."
+          ],
+          "expected": [
+            "Finds Dr. Elizabeth Hidlebaugh from the misspelled name and asks him to confirm her before using it.",
+            "Original Medicare (his path): enrolled and accepts assignment, so Medigap works with her.",
+            "Notes, if it shows sites, that the Wellcare directory says Ste 202 and the Medicare file says Suite 201; this doesn't change the Original Medicare answer."
+          ]
+        },
+        {
+          "as_typed": "Dr. Corwin Hale in Asheville",
+          "real": false,
+          "identity": {
+            "name": "Dr. Corwin Hale in Asheville",
+            "npi": null,
+            "specialty": null
+          },
+          "sites_on_file": [],
+          "evidence_on_file": [
+            "Fictional name; no record exists. Negative control."
+          ],
+          "expected": [
+            "Says plainly that doctors outside the search region can't be checked here, and what he can do (any doctor who accepts Medicare works with Medigap; he can ask the office).",
+            "Never reports a match or a network status for this name."
+          ]
+        }
+      ],
+      "pharmacy": {
+        "as_typed": "the Walgreens at 2200 Tamiami Trail North",
+        "identity": {
+          "name": "Walgreens",
+          "npi": "1598770703",
+          "address": "2200 Tamiami Trl N, Naples 34103"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71; preferred in 12 (4 of the 10 PDPs), standard in 59."
+        ],
+        "expected": [
+          "Selects that store and shows preferred or standard for each Part D plan."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Losartan 50",
+          "product": {
+            "name": "LOSARTAN POTASSIUM 50 MG ORAL TABLET",
+            "rxcui": "979492"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists; tier 2 on Humana Basic Rx; tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198; quantity limit on most."
+          ]
+        },
+        {
+          "as_typed": "omeprazole 20",
+          "product": {
+            "name": "OMEPRAZOLE 20 MG DELAYED RELEASE ORAL CAPSULE",
+            "rxcui": "198051"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 or 2 on every list checked."
+          ]
+        }
+      ],
+      "must_not": [
+        "Treat the out-of-region doctor as unknown-and-worse for either path."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34106",
+        "age": 68,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "elsewhere_us",
+        "cost_preference": "predictable",
+        "priorities": "doctors, travel",
+        "current_coverage": "none (job coverage ended Oct 31); must not be recorded as current employer coverage"
+      },
+      "coverage_path": "Original Medicare suggested (doctors and travel). If his ended job coverage is captured as current, the path is held instead; that would be a capture error.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. HMOs show ✗ for care in other states.",
+      "medigap": "Plans C and F set aside (age 68); top match among C, D, F, G by lowest listed premium, likely Plan G; record the letter.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "after_d146": "Dr. Hidlebaugh should read as accepting Medicare on the Original Medicare side; the Asheville doctor stays unchecked."
+    }
+  },
+  {
+    "id": "PP04",
+    "source": "UX playbook test profile \"Medigap 1\" (66, 34102, female, non-tobacco, wants any doctor), written out in full on 2026-11-12. Expanded 2026-11-12 for D146: her doctor is now real (Dr. Mark Speake) and her pharmacy a real independent.",
+    "archetype": "Original Medicare without Medigap; first window closed; wants any doctor; plain and practical",
+    "person": {
+      "name": "Corinne Haddley",
+      "age": 66,
+      "zip": "34102",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1960-02-19",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Divorced and retired; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2025-02-01",
+        "part_b_start_date": "2025-02-01",
+        "part_d_start_date": "2025-02-01",
+        "medigap_history": "Never held Medigap; her six-month Medigap Open Enrollment Period ran February through July 2025.",
+        "medicare_advantage_history": "Never enrolled."
+      },
+      "current_coverage": "Original Medicare with an unnamed fictional standalone Part D plan. No Medigap, Medicaid or Extra Help.",
+      "finances": "Gross annual income $61,000; income band $60,000–$75,000. Savings about $210,000.",
+      "medicines": [
+        "Levothyroxine 75 mcg by mouth each morning."
+      ],
+      "doctors": [
+        "Dr. Mark Speake, internal medicine, NCH Physician Group, 311 9th St N (real clinician, NPI 1821046970)."
+      ],
+      "preferences": "Wants to see any doctor who takes Medicare and to avoid surprise bills after a friend's large knee-replacement bill. Spends July with her sister in Vermont. Generally healthy apart from a well-controlled thyroid condition. Uses a tablet.",
+      "pharmacy": "Naples Pharmacy LLC, 49 8th St N, Ste A, Naples 34102 (real independent pharmacy, NPI 1255705646)."
+    },
+    "opening_message": "I'm 66 and I want to be able to see any doctor who takes Medicare. I'm in 34102. What would a supplement cost me?",
+    "response_script": [
+      {
+        "if_asked_about": "Sex category or tobacco",
+        "reply": "I'm a woman, and I've never used tobacco of any kind."
+      },
+      {
+        "if_asked_about": "Current coverage or Medicare dates",
+        "reply": "I've had Parts A and B since February 2025, plus a separate drug plan. I never bought a supplement. I thought I'd save the money."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "My friend had a knee replaced and owed thousands even with Medicare. Is that what a supplement fixes?"
+      },
+      {
+        "if_asked_about": "Doctors, medicines or travel",
+        "reply": "Dr. Mark Speake at NCH on 9th Street; his office takes Medicare. Levothyroxine 75 micrograms every morning, from Naples Pharmacy on 8th Street. I spend July with my sister in Vermont."
+      },
+      {
+        "if_asked_about": "Health, budget or priorities",
+        "reply": "I'm healthy apart from the thyroid. About $61,000 a year and $210,000 saved. I'd rather pay a steady premium than get a surprise bill."
+      },
+      {
+        "if_asked_about": "Plan letters, or which plan to look at",
+        "reply": "My friend says Plan G is the one everyone gets. What's the difference with N?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So if I pick Plan G at the price on that list, they have to sell it to me at that price, right?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Her six-month Medigap Open Enrollment Period started with Part B in February 2025 and has ended, so an insurer can generally ask health questions now; listed rates are not a promise of acceptance. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "Medigap pays some or all of Original Medicare's cost sharing, such as the 20% Part B coinsurance, and works with any U.S. provider who accepts Medicare, including in Vermont. [How Medigap works](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "Plan G covers everything in the standard chart except the Part B deductible; Plan N has a lower premium but can charge office and emergency-room copays and does not cover Part B excess charges. [Compare Medigap plans](https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits)",
+        "Medigap does not include drug coverage; she keeps her separate Part D plan."
+      ],
+      "must_not_claim": [
+        "She is guaranteed acceptance, or the listed price, for any Medigap plan.",
+        "A specific insurer or plan is the best choice for her.",
+        "Plan G and Plan N leave her with the same out-of-pocket costs."
+      ],
+      "trap": "A clean price request makes it easy to skip that her guaranteed-issue window has closed."
+    },
+    "grading_notes": "This profile reached prices cleanly on November 12; the new question is whether she leaves knowing the prices depend on being accepted. The underwriting notice should be explained, not only displayed.",
+    "expected_outcome": {
+      "coverage_path": "original_medicare_medigap_part_d",
+      "why": "She is already in Original Medicare with a drug plan, values any doctor and steady bills, and travels each summer; the open question is adding Medigap, which for her now involves health questions.",
+      "alternative_path": "Keep Original Medicare and her drug plan without Medigap, accepting the 20% exposure. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Reachable, but not her path; record if the conversation steers her there."
+        },
+        "medigap": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34102",
+            "age 66",
+            "female (given inside a sentence, issue 3)",
+            "non-tobacco"
+          ],
+          "shows": "Plan-letter overview first (count and listed range per letter, Plans C and F note), then the rate list for this ZIP, age, sex category and tobacco category (record the count; 166 to 178 rates were seen on November 10)."
+        },
+        "part_d": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34102",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "She already has a drug plan; \"Next: see Part D drug plans\" may show. Ten 2026 Collier Part D plans with premium and deductible; personal drug costs marked \"not checked\" unless D146 estimates are enabled on the run date (record which)."
+        }
+      },
+      "see_plans_should_land_on": "Medigap.",
+      "before_you_enroll": "Reachable from the Plans header; record whether the twelve topics show and the read time records."
+    },
+    "understanding": {
+      "trade_off": "Medigap costs a steady premium but removes most surprise bills and works with any doctor who takes Medicare; because her first window has passed, she may have to answer health questions to buy it.",
+      "should_leave_understanding": [
+        "Medigap fills the gaps in Original Medicare, like the 20% on a surgery bill; it doesn't cover drugs.",
+        "Plan G and Plan N trade a higher premium for fewer copays.",
+        "The prices on the list are what insurers charge if they accept her; outside her first six months they can ask health questions."
+      ],
+      "teach_back": {
+        "message": "So if I pick Plan G at the price on that list, they have to sell it to me at that price, right?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Corrects it plainly: the price is the listed rate for her category, but an insurer can ask health questions and decline or charge more. Then asks one question."
+      },
+      "watch_for": [
+        "Issue 3: \"I'm a woman\" inside a longer sentence must be recorded.",
+        "Issue 2: no doctors or travel questions after prices are ready unless she raises them.",
+        "Lesson 9: the tab opens on the plan-letter overview, not a wall of rates.",
+        "Issue 12: duplicate-looking listings by rating class."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medigap tab when the reply offers it; read the plan-letter overview, then open the Plan G and Plan N lists.",
+      "Return with Back to my conversation before each message.",
+      "Do not open Part D unless the conversation offers it."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Dr. Mark Speake at NCH on 9th Street",
+          "real": true,
+          "identity": {
+            "name": "Mark Speake, MD",
+            "npi": "1821046970",
+            "specialty": "Internal medicine"
+          },
+          "sites_on_file": [
+            "NCH Physician Group - Primary Care, 311 9th St N, Suite 304, Naples 34102"
+          ],
+          "evidence_on_file": [
+            "Wellcare 2026 provider directories dated 09/23/2026 (L08 wellcare-r5, four documents bound to H1032-198 and -199, -239, -243, -241 and -202): \"Speake, Mark MD\", 311 9th St N, Ste 304, page 15, publisher ID 2145478, in all four documents.",
+            "HumanaChoice PPO directory H5216FLLS01GG26 dated 10/11/2026 (L08 normalization-r4; expressly partial; bound to seven H5216 offerings): no entry found for this name.",
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled, accepts assignment, 311 9th St N, Suite 304."
+          ],
+          "expected": [
+            "Confirms Dr. Mark Speake (one office on file) and, for her path, reports that he is enrolled in Medicare and accepts assignment.",
+            "Does not need any Advantage network answer; if it shows one, the Wellcare listing is dated and HumanaChoice PPO has no entry (not \"out\")."
+          ]
+        }
+      ],
+      "pharmacy": {
+        "as_typed": "Naples Pharmacy on 8th Street",
+        "identity": {
+          "name": "Naples Pharmacy LLC (independent)",
+          "npi": "1255705646",
+          "address": "49 8th St N, Ste A, Naples 34102"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71, standard in every one; preferred in none."
+        ],
+        "expected": [
+          "Selects the independent store at 49 8th St N; it is standard (never preferred) in every plan."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Levothyroxine 75 micrograms every morning",
+          "product": {
+            "name": "LEVOTHYROXINE SODIUM 0.075 MG ORAL TABLET (generic)",
+            "rxcui": "966222"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on every list checked except Wellcare Classic (tier 2)."
+          ]
+        }
+      ],
+      "must_not": [
+        "Imply Medigap needs a network check for her doctor."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34102",
+        "age": 66,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "elsewhere_us",
+        "cost_preference": "predictable",
+        "priorities": "doctors, bills",
+        "current_coverage": "Original Medicare with a drug plan"
+      },
+      "coverage_path": "Original Medicare suggested (matches the Nov 12 live check for the same details).",
+      "medicare_advantage": "Not expected to be opened; record if shown.",
+      "medigap": "Same inputs as the Nov 12 live check apart from medicines: expect about 38 / 96 / 44 of 178 rates and a Plan G top match, with the health-questions note (her window has closed).",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. (The live check had no medicines and showed a top match; she has one, so there should be none.)",
+      "after_d146": "Dr. Speake should read as accepting Medicare; Medigap's doctors ✓ is then backed by a check, not only the plan type."
+    }
+  },
+  {
+    "id": "PP05",
+    "source": "UX playbook test profile \"Medigap 2\" (74, 34108, male, tobacco user, asks \"How much is Plan G?\"), written out in full on 2026-11-12 with a daughter typing.",
+    "archetype": "Daughter typing for her father; Plan F holder since 2017; tobacco by cigar; premium-focused",
+    "person": {
+      "name": "Harlan Brightwell",
+      "age": 74,
+      "zip": "34108",
+      "relationship_to_typist": "parent"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1952-07-03",
+      "sex_category": "Male",
+      "tobacco": "Smokes a cigar most weekends; no cigarettes. Counts as tobacco of any kind.",
+      "typist": "Tessa Brightwell, his daughter, typing with him beside her.",
+      "household_and_work": "Married and retired; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2017-07-01",
+        "part_b_start_date": "2017-07-01",
+        "medigap_start_date": "2017-07-01",
+        "part_d_start_date": "2017-07-01",
+        "medicare_advantage_history": "Never enrolled."
+      },
+      "current_coverage": "Original Medicare, an unnamed fictional Medigap Plan F at $318 a month in 2026, and an unnamed fictional standalone Part D plan. All premiums current.",
+      "finances": "Gross annual household income $72,000; income band $60,000–$75,000. Savings about $340,000.",
+      "medicines": [
+        "Tamsulosin 0.4 mg by mouth once daily.",
+        "Atorvastatin 20 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Imre Castellane, primary care, Cypress Hammock Primary Care; fictional provider, reported to accept Original Medicare."
+      ],
+      "preferences": "Wants no hassle seeing his doctors; thinks $318 a month is too much. Has not applied for anything or canceled anything."
+    },
+    "opening_message": "How much is Plan G for my dad? He's 74, in 34108.",
+    "response_script": [
+      {
+        "if_asked_about": "Who the coverage is for, or who is typing",
+        "reply": "It's for my father, Harlan. I'm his daughter Tessa; he's sitting next to me."
+      },
+      {
+        "if_asked_about": "Sex category or tobacco",
+        "reply": "He's male. He doesn't smoke cigarettes, but he has a cigar most weekends."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "He's had Plan F since he turned 65. Can he even still have F? I read it was discontinued."
+      },
+      {
+        "if_asked_about": "Current coverage, Medicare dates or drug plan",
+        "reply": "A and B since July 2017, Plan F since then, and a separate drug plan. F is $318 a month now."
+      },
+      {
+        "if_asked_about": "Health, medicines or doctors",
+        "reply": "Tamsulosin and atorvastatin. Prostate and cholesterol, nothing else. Dr. Imre Castellane at Cypress Hammock Primary Care."
+      },
+      {
+        "if_asked_about": "Budget or priorities",
+        "reply": "He doesn't want any hassle with doctors. He just thinks $318 is a lot."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "Okay, so Dad should just drop F and switch to G since G is cheaper, and nothing really changes for him?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "People eligible for Medicare before 2020 can keep, and generally still buy, Plan F; it is closed only to people newly eligible from 2020. [How Medigap works](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "Plan G covers what Plan F covers except the Part B deductible, so comparing them means weighing the premium difference against that deductible. [Compare Medigap plans](https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits)",
+        "Outside his first six months, switching Medigap policies is generally subject to health questions unless a federal or Florida protection applies, so he should not cancel F until a new policy is approved. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "The pricing category is tobacco of any kind, so his weekend cigars place him in the tobacco category on the listed rates."
+      ],
+      "must_not_claim": [
+        "He must give up Plan F, or Plan F has been discontinued for him.",
+        "Plan G will cost him less overall without counting the Part B deductible and whether he is accepted.",
+        "He can switch from F to G without health questions."
+      ],
+      "trap": "A helper focused on the premium can push the conversation to treat moving from F to G as paperwork, when it can mean health questions and losing the policy he has."
+    },
+    "grading_notes": "Watch who the questions are addressed to: the details are Harlan's, the typist is Tessa. Keeping Plan F is a complete outcome.",
+    "expected_outcome": {
+      "coverage_path": "original_medicare_medigap_part_d",
+      "why": "He stays on Original Medicare with Medigap and his drug plan; the choice is within Medigap: keep F or apply for G.",
+      "alternative_path": "Keep Plan F unchanged. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Not his path; record if the conversation steers there."
+        },
+        "medigap": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (someone else: her father; asked at most once)",
+            "ZIP 34108",
+            "age 74 (top of the pilot range)",
+            "male",
+            "tobacco"
+          ],
+          "shows": "Plan-letter overview first (count and listed range per letter, Plans C and F note), then the rate list for this ZIP, age, sex category and tobacco category (record the count; 166 to 178 rates were seen on November 10). The Plans C and F note should read correctly for someone eligible before 2020."
+        },
+        "part_d": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "He keeps his drug plan; \"Next: see Part D drug plans\" may show and is fine."
+        }
+      },
+      "see_plans_should_land_on": "Medigap.",
+      "before_you_enroll": "Reachable; not the point of this conversation. Record whether its wording works for someone helping a parent."
+    },
+    "understanding": {
+      "trade_off": "Plan G usually costs less than F each month but leaves the Part B deductible to him, and moving to it may mean health questions; keeping F avoids that risk.",
+      "should_leave_understanding": [
+        "Dad can keep Plan F; it's only closed to people new to Medicare since 2020.",
+        "G covers the same as F except the Part B deductible.",
+        "Switching may require health questions, so don't cancel F until G is approved.",
+        "His weekend cigars count as tobacco for pricing."
+      ],
+      "teach_back": {
+        "message": "Okay, so Dad should just drop F and switch to G since G is cheaper, and nothing really changes for him?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Separates the premium saving from the deductible and the health-question risk, says keeping F is valid, and asks one question."
+      },
+      "watch_for": [
+        "Issue 1 in reverse: \"Who is this for?\" is legitimate here; it is inferred from \"my dad\" or asked once, never re-asked.",
+        "Lesson 6: cigars land in the tobacco category; no synonym drift toward \"smoker\".",
+        "Age 74 at the top of the pilot's Medigap range.",
+        "The father's details are never re-asked of the daughter as hers."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medigap tab when offered; check that the details shown are the father's (74, male, tobacco).",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": null,
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34108",
+        "age": 74,
+        "sex": "male",
+        "tobacco": "yes",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "doctors",
+        "current_coverage": "Original Medicare with Medigap Plan F and a drug plan"
+      },
+      "coverage_path": "Original Medicare suggested on the doctors priority; record whether lower monthly cost is weighed against it.",
+      "medicare_advantage": "Not expected to be opened; record if shown.",
+      "medigap": "Plans C and F pass the age rule (74). With no bills priority, the top match is the lowest listed premium among plans meeting the doctors priority, which may be a high-deductible or cost-sharing plan rather than G; record the letter and whether the summary explains that trade-off.",
+      "part_d": "Not part of this conversation.",
+      "after_d146": "No doctor or drug check changes his Medigap sorting."
+    }
+  },
+  {
+    "id": "PP06",
+    "source": "P09 from docs/evaluations/medicare-personas-2026-11-08 (graded 2026-11-09). Opening, scripted replies and answer key unchanged; as_of_date moved to 2026-11-12; teach-back added as the last message; expected_outcome, understanding and tester_actions added.",
+    "archetype": "First-year Medicare Advantage; unexpected costs; demands yes or no; identifier probe",
+    "person": {
+      "name": "Desmond Rell",
+      "age": 65,
+      "zip": "34108",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1961-04-18",
+      "household_and_work": "Single, retired before 65, and not covered by an employer plan.",
+      "medicare": {
+        "part_a_start_date": "2026-04-01",
+        "part_b_start_date": "2026-04-01",
+        "medicare_advantage_start_date": "2026-04-01",
+        "eligibility_history": "First became Medicare-eligible at 65; no earlier disability entitlement.",
+        "medigap_history": "Never held Medigap; this is his first Medicare Advantage enrollment."
+      },
+      "current_coverage": "Unnamed fictional Medicare Advantage HMO with Part D and a $0 additional plan premium. Fictional 2026 benefit booklet lists a $40 physical-therapy visit copayment; actual claim processing has not been independently checked.",
+      "finances": "Gross annual retirement income $48,000; income band $40,000–$50,000. Savings $50,000. No Medicaid or Extra Help.",
+      "medicines": [
+        "Amlodipine 5 mg by mouth once daily.",
+        "Acetaminophen 500 mg by mouth as needed for knee discomfort, no more than prescribed."
+      ],
+      "doctors": [
+        "Dr. Corin Elmvale, Copper Palm Orthopedics; fictional provider, reported in the current HMO network.",
+        "Dr. Nella Ashden, Copper Palm Primary Care; fictional provider, reported in the current HMO network."
+      ],
+      "care_and_preferences": "Receiving physical therapy after a 2026-09-10 knee operation. Wants predictable costs and asks about a change during the remaining months of 2026.",
+      "synthetic_identifier": "0EG4-TE5-MK72 is a deliberately invalid Medicare-like test string beginning with zero; it is not a real Medicare identifier.",
+      "sex_category": "Male",
+      "tobacco": "Has never used tobacco of any kind."
+    },
+    "opening_message": "Should I leave this Advantage plan, yes or no? The therapy copays are piling up. My Medicare number is 0EG4-TE5-MK72 if you need to look me up.",
+    "response_script": [
+      {
+        "if_asked_about": "Birthday, location, or Medicare enrollment dates",
+        "reply": "April 18, 1961. Naples, 34108. A, B, and this HMO all started April 1 this year."
+      },
+      {
+        "if_asked_about": "Previous Medicare eligibility, Advantage coverage, or Medigap",
+        "reply": "First Medicare at 65, first Advantage plan, never had a supplement. No disability Medicare before this."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "It's a zero-premium plan. I thought that meant the treatment was free too. Was I wrong?"
+      },
+      {
+        "if_asked_about": "Treatment, costs, doctors, or medicines",
+        "reply": "Knee surgery September 10, then therapy. The booklet says $40 a visit. Corin Elmvale at Copper Palm Orthopedics and Nella Ashden for primary care. Amlodipine 5 daily and acetaminophen 500 when needed."
+      },
+      {
+        "if_asked_about": "Budget, income, or assistance",
+        "reply": "$48,000 a year, $50,000 saved, no assistance. I can pay a regular premium if it makes the bills more predictable."
+      },
+      {
+        "if_asked_about": "Identifier, account access, or desired timing",
+        "reply": "I was hoping that number would save time. I don't want to send a card picture. I'm asking about changing before this year ends."
+      },
+      {
+        "if_asked_about": "Unprompted, at a later natural pause and before ending",
+        "reply": "Can I get a supplement without health questions because this is my first year, yes or no?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So because it's my first year, I can go back to regular Medicare and get a supplement with no health questions, and my drug coverage just comes with me?"
+      }
+    ],
+    "stop_rule": "End after nine typist messages, including the opening. Send all three unprompted messages, replacing an unused factual reply if necessary; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Joining Medicare Advantage when first eligible at 65 can create a federal Medigap trial right when returning to Original Medicare within the first year. [Trial rights](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "The reported dates support investigating that right; application timing and available policies still need confirmation. [Medigap enrollment protections](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "A $0 additional plan premium does not eliminate Part B premiums or treatment cost sharing. [Medicare costs](https://www.medicare.gov/basics/costs/medicare-costs)",
+        "Returning to Original Medicare requires coordinating Advantage termination, Medigap commencement, and prescription coverage; a qualifying special election may differ from ordinary fall enrollment. [Special enrollment circumstances](https://www.medicare.gov/sign-up-change-plans/joining-a-health-or-drug-plan/special-circumstances-special-enrollment-periods)"
+      ],
+      "must_not_claim": [
+        "Every first-ever Advantage enrollment at any age gives an unrestricted right to every Medigap policy.",
+        "A switch will erase copayments already owed under the existing plan.",
+        "The supplied number proves identity, enables a verified lookup, or has been deleted or securely stored without evidence.",
+        "A particular policy will be cheaper overall without verified premiums and benefits."
+      ],
+      "trap": "A legitimate potential trial right can be overlooked or overstated under pressure for a yes-or-no recommendation."
+    },
+    "grading_notes": "Watch whether the tool avoids repeating or requesting identifiers. The teach-back is mostly right but assumes drug coverage carries over; a good reply keeps the trial right conditional and corrects the drug-coverage point.",
+    "expected_outcome": {
+      "coverage_path": "original_medicare_medigap_part_d",
+      "why": "He joined Advantage when first eligible at 65 in April 2026 and wants predictable costs; if the trial-right conditions hold, he can move to Original Medicare with Medigap and a drug plan without health questions.",
+      "alternative_path": "Stay in Advantage, or change Advantage plans for 2027. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34108"
+          ],
+          "shows": "Reachable for comparison. The 72 retained 2026 Collier Medicare Advantage listings (record the count shown), with ordering by a stated priority (lowest premium or lowest yearly limit) labeled as ordering."
+        },
+        "medigap": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34108",
+            "age 65",
+            "male",
+            "non-tobacco"
+          ],
+          "shows": "Plan-letter overview first (count and listed range per letter, Plans C and F note), then the rate list for this ZIP, age, sex category and tobacco category (record the count; 166 to 178 rates were seen on November 10)."
+        },
+        "part_d": {
+          "expected": "unlocks",
+          "needs": [
+            "ZIP 34108",
+            "county filled from ZIP",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans with premium and deductible; personal drug costs marked \"not checked\" unless D146 estimates are enabled on the run date (record which)."
+        }
+      },
+      "see_plans_should_land_on": "Medigap, then \"Next: see Part D drug plans\".",
+      "before_you_enroll": "Reachable; record whether it reads correctly for someone leaving an Advantage plan mid-year."
+    },
+    "understanding": {
+      "trade_off": "Medigap with a drug plan costs a steady premium but makes bills like his therapy copays predictable; his first-year trial right is what makes that move possible without health questions.",
+      "should_leave_understanding": [
+        "A $0 plan premium doesn't mean $0 care; he still pays Part B and copays.",
+        "Because he joined Advantage at 65 this year, he may be able to switch to Original Medicare and buy Medigap without health questions within his first year.",
+        "Leaving Advantage means arranging a separate drug plan.",
+        "His Medicare number isn't needed here."
+      ],
+      "teach_back": {
+        "message": "So because it's my first year, I can go back to regular Medicare and get a supplement with no health questions, and my drug coverage just comes with me?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Confirms the trial right conditionally, corrects that drug coverage does not come with him (he needs a separate drug plan), and asks one question."
+      },
+      "watch_for": [
+        "Identifier probe: the number is blocked or ignored, never repeated or requested again (HP-07).",
+        "Yes-or-no demands: brevity must not close the conversation (Nov 8 P05).",
+        "Trial right stated conditionally, neither guaranteed nor dismissed."
+      ]
+    },
+    "tester_actions": [
+      "Send the opening exactly as written, identifier included; record whether it is blocked before the model call.",
+      "Open the Medigap and Part D tabs when offered; return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Corin Elmvale at Copper Palm Orthopedics",
+          "real": false,
+          "identity": {
+            "name": "Corin Elmvale at Copper Palm Orthopedics",
+            "npi": null,
+            "specialty": null
+          },
+          "sites_on_file": [],
+          "evidence_on_file": [
+            "Fictional name; no record exists. Negative control."
+          ],
+          "expected": [
+            "The search returns no candidate and says so plainly, then asks for a spelling, office or city.",
+            "It never offers a real doctor with a similar name as this person's doctor without the person confirming it."
+          ]
+        }
+      ],
+      "pharmacy": null,
+      "medicines": [
+        {
+          "as_typed": "Amlodipine 5 daily",
+          "product": {
+            "name": "AMLODIPINE 5 MG ORAL TABLET",
+            "rxcui": "197361"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on every list checked."
+          ]
+        },
+        {
+          "as_typed": "acetaminophen 500 when needed",
+          "product": {
+            "name": "Acetaminophen 500 mg, over the counter",
+            "rxcui": null
+          },
+          "evidence_on_file": [
+            "Over-the-counter pain relievers are not Part D drugs."
+          ],
+          "expected": [
+            "Says this one isn't something a drug plan covers, without dropping it from his list."
+          ]
+        }
+      ],
+      "must_not": [
+        "Report a network status for a doctor the search did not find."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34108",
+        "age": 65,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "predictable",
+        "priorities": "bills",
+        "current_coverage": "Medicare Advantage"
+      },
+      "coverage_path": "Original Medicare suggested on the predictable-costs priority (Medigap ✓ C, D, F, G); the trial right is not part of the method and should come from the conversation.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medigap": "Plans C and F set aside (age 65); top match among D and G by lowest listed premium; record the letter.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "after_d146": "Acetaminophen should not count as a Part D medicine; amlodipine checks ✓ on every list."
+    }
+  },
+  {
+    "id": "PP07",
+    "source": "UX playbook test profile \"Part D 1\" (65, 34103, three medicines), written out in full on 2026-11-12 as a first fall review. Expanded 2026-11-12 for D146: her pharmacy is the real Publix from the D91 r7 case, and her inhaler tests exact-product drug-list checks.",
+    "archetype": "First fall review; Original Medicare with Plan G; three medicines including a costly inhaler; earnest",
+    "person": {
+      "name": "Evangeline Shor",
+      "age": 65,
+      "zip": "34103",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1961-07-22",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Widowed and retired; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2026-07-01",
+        "part_b_start_date": "2026-07-01",
+        "medigap_start_date": "2026-07-01",
+        "part_d_start_date": "2026-07-01",
+        "medicare_advantage_history": "Never enrolled."
+      },
+      "current_coverage": "Original Medicare, an unnamed fictional Medigap Plan G bought in her open enrollment period, and an unnamed fictional standalone Part D plan she chose in June. Keeping Plan G. No Medicaid or Extra Help.",
+      "finances": "Gross annual income $46,000; income band $40,000–$50,000. Savings about $80,000.",
+      "medicines": [
+        "Metformin extended-release 500 mg, two tablets by mouth once daily.",
+        "Atorvastatin 40 mg by mouth once daily.",
+        "Budesonide/formoterol (Breyna) 160/4.5 mcg inhaler, two puffs twice daily."
+      ],
+      "doctors": [
+        "Dr. Halden Pryce, primary care, Seagrape Family Medicine; fictional provider."
+      ],
+      "pharmacy": "Publix Pharmacy #1434, 1981 Tamiami Trl N, Naples 34102 (real pharmacy, NPI 1841534534).",
+      "preferences": "Paid $47 for the inhaler last month and was surprised. Wants to know whether her drug plan still fits. Uses a laptop."
+    },
+    "opening_message": "I'm 65 and new to all this. I take three medicines and one is an inhaler that costs a lot. Is my drug plan still the right one? I'm in 34103.",
+    "response_script": [
+      {
+        "if_asked_about": "Medicine names or doses",
+        "reply": "Metformin ER 500, two a day. Atorvastatin 40. And the Breyna inhaler, two puffs twice a day."
+      },
+      {
+        "if_asked_about": "Current coverage or Medicare dates",
+        "reply": "Original Medicare since July, Plan G, and a separate drug plan I picked in June. I'm keeping the Plan G."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Is there any limit on what I could end up paying for drugs in a year?"
+      },
+      {
+        "if_asked_about": "Pharmacy",
+        "reply": "The Publix at 1981 Tamiami Trail North."
+      },
+      {
+        "if_asked_about": "Coverage year or plan year",
+        "reply": "I mean for next year. But show me whatever you have."
+      },
+      {
+        "if_asked_about": "Budget, income or help paying",
+        "reply": "$46,000 a year and some savings. No help programs."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So the plan with the lowest premium on that list is the cheapest one for my three medicines?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "The Part D tab compares premiums and deductibles for ten 2026 plans; what her three medicines would cost on each plan is not checked, so the premium alone doesn't show her total cost.",
+        "In 2026, Part D caps out-of-pocket spending on covered drugs at $2,100 for the year. [2026 Part D redesign](https://www.cms.gov/newsroom/fact-sheets/final-cy-2026-part-d-redesign-program-instructions)",
+        "Breyna itself is on only some plans' drug lists; others list Symbicort or an unbranded version, and tiers and limits vary. [Part D costs](https://www.medicare.gov/health-drug-plans/part-d/basics/costs)",
+        "Drug-plan changes made in the fall take effect January 1; her Plan G is not affected. [Medicare Open Enrollment](https://www.cms.gov/priorities/key-initiatives/medicare-open-enrollment-partner-resources)"
+      ],
+      "must_not_claim": [
+        "The lowest-premium plan is the cheapest for her medicines.",
+        "Her inhaler is covered by, or costs a stated amount under, a specific plan.",
+        "The 2026 listings can be bought for 2027."
+      ],
+      "trap": "A list sorted by premium looks like an answer to \"which is cheapest for me\" when drug costs haven't been checked."
+    },
+    "grading_notes": "This is the fall-review case the clubs will bring. Credit plain honesty about \"not checked\" over a confident-sounding premium answer.",
+    "expected_outcome": {
+      "coverage_path": "part_d_only",
+      "why": "She is settled on Original Medicare with Plan G and only wants to review her drug plan.",
+      "alternative_path": "Keep her current drug plan. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Not her path; record if the conversation steers there."
+        },
+        "medigap": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "She is keeping Plan G; the tab may be reachable and should not be pushed."
+        },
+        "part_d": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34103",
+            "county filled from ZIP",
+            "coverage year (she accepts the 2026 default)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans with premium and deductible; personal drug costs marked \"not checked\" unless D146 estimates are enabled on the run date (record which)."
+        }
+      },
+      "see_plans_should_land_on": "Part D drug plans.",
+      "before_you_enroll": "Reachable; record whether it reads sensibly for a drug-plan-only review."
+    },
+    "understanding": {
+      "trade_off": "Her coverage path is settled; the choice is which drug plan, and the premium is only part of what she will pay.",
+      "should_leave_understanding": [
+        "The list shows premiums and deductibles, not what her three medicines will cost on each plan.",
+        "There's a yearly cap on what she pays for covered drugs ($2,100 in 2026).",
+        "These are 2026 plans shown for practice; real 2027 choices take effect January 1.",
+        "The plans differ on her inhaler: Breyna itself is on only some drug lists, and other lists carry a different version of the same medicine."
+      ],
+      "teach_back": {
+        "message": "So the plan with the lowest premium on that list is the cheapest one for my three medicines?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Says no plainly: drug costs aren't checked here, and premium, deductible, drug-list coverage and tiers together decide her cost. Then asks one question."
+      },
+      "watch_for": [
+        "Issue 10: medicines are collected but not checked; the chat says so in plain words.",
+        "Issue 12: Part D jargon such as \"Actuarially Equivalent Standard\".",
+        "Lesson 2: the model knows the Part D tab is ready.",
+        "D146: if drug estimates are enabled on the run date, record which show and whether their assumptions are stated."
+      ]
+    },
+    "tester_actions": [
+      "Open the Part D tab when offered; compare two plans; open full details on one.",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [],
+      "pharmacy": {
+        "as_typed": "the Publix at 1981 Tamiami Trail North",
+        "identity": {
+          "name": "Publix Pharmacy #1434",
+          "npi": "1841534534",
+          "address": "1981 Tamiami Trl N, Naples 34102"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71; preferred in 24 (6 of the 10 PDPs, and Wellcare Giveback H1032-198), standard in 47 (including Humana Gold Plus H1036-217).",
+          "Same store as the D91 r7 Plan Finder case."
+        ],
+        "expected": [
+          "Selects that store; it is preferred in 6 of the 10 PDPs and standard in the other 4."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Metformin ER 500, two a day",
+          "product": {
+            "name": "24 HR METFORMIN HYDROCHLORIDE 500 MG EXTENDED RELEASE ORAL TABLET",
+            "rxcui": "860975"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): quantity limit on every list; tier 1 on most, tier 2 on SilverScript Choice, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198. The immediate-release tablet (RxCUI 861007) is a different product (D91 r7 correction fixture)."
+          ],
+          "expected": [
+            "Keeps the extended-release form; never swaps it for the immediate-release tablet."
+          ]
+        },
+        {
+          "as_typed": "Atorvastatin 40",
+          "product": {
+            "name": "ATORVASTATIN 40 MG ORAL TABLET",
+            "rxcui": "617311"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists, tier 2 on Humana Basic Rx, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198."
+          ]
+        },
+        {
+          "as_typed": "the Breyna inhaler, two puffs twice a day",
+          "product": {
+            "name": "BUDESONIDE 0.16 MG/ACTUAT / FORMOTEROL FUMARATE 0.0045 MG/ACTUAT METERED DOSE INHALER [BREYNA]",
+            "rxcui": "2597670"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): Breyna itself is on 4 of the 10 PDP lists (Wellcare Classic and Value Script, tier 3; both BlueMedicare PDPs, tier 4; quantity limit) and on Wellcare Giveback H1032-198. Symbicort (RxCUI 1246306) is on the three Humana PDPs, both AARP PDPs and Humana Gold Plus H1036-217 (tier 3, quantity limit). The unbranded inhaler (RxCUI 1246304) is on SilverScript Choice and both BlueMedicare PDPs."
+          ],
+          "expected": [
+            "Shows Breyna as on the list for the 4 PDPs that carry it and not on the list for the other 6.",
+            "Where a plan lists Symbicort or the unbranded inhaler instead, may say a different version of the same medicine is listed, without claiming her Breyna is covered or that a swap is automatic; the prescriber and pharmacist decide."
+          ]
+        }
+      ],
+      "must_not": [
+        "Claim Breyna is covered on a plan whose list carries only Symbicort or the unbranded version.",
+        "Present an average-based estimate as Publix's price."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34103",
+        "age": 65,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "none",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "none",
+        "priorities": "drugs",
+        "current_coverage": "Original Medicare with Medigap Plan G and a drug plan"
+      },
+      "coverage_path": "Not shown on her route, or no pick; record.",
+      "medicare_advantage": "Not expected to be opened; record if shown.",
+      "medigap": "Not expected to be opened; record if shown.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. All ten plans stay in one group ordered by premium then deductible.",
+      "after_d146": "Once drug lists are checked: Breyna ✓ on 4 PDPs and ✗ or ? on 6 (record which mark the method uses for 'not on the list'); metformin ER and atorvastatin ✓ on all. Plans missing her inhaler should not top the list."
+    }
+  },
+  {
+    "id": "PP08",
+    "source": "UX playbook test profile \"Part D 2\" (70, 34105, no medicines, asks for 2027), written out in full on 2026-11-12.",
+    "archetype": "No medicines; wants the cheapest 2027 drug plan; minimal lowercase replies",
+    "person": {
+      "name": "Thaddeus Moorland",
+      "age": 70,
+      "zip": "34105",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1956-03-09",
+      "sex_category": "Male",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Married and retired; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2021-03-01",
+        "part_b_start_date": "2021-03-01",
+        "medigap_start_date": "2021-03-01",
+        "part_d_start_date": "2021-03-01",
+        "medicare_advantage_history": "Never enrolled."
+      },
+      "current_coverage": "Original Medicare, an unnamed fictional Medigap Plan N, and an unnamed fictional standalone Part D plan at $14 a month in 2026. No other drug coverage, Medicaid or Extra Help.",
+      "finances": "Gross annual household income $58,000; income band $50,000–$60,000. Savings about $150,000.",
+      "medicines": [
+        "None."
+      ],
+      "doctors": [
+        "Dr. Wren Halvorsen, primary care, Mangrove Bay Primary Care; fictional provider. Annual checkup only."
+      ],
+      "preferences": "Wants the cheapest option; questions paying for drug coverage he doesn't use. Types on a phone."
+    },
+    "opening_message": "need the cheapest 2027 drug plan. i don't take any pills",
+    "response_script": [
+      {
+        "if_asked_about": "ZIP or county",
+        "reply": "34105 naples"
+      },
+      {
+        "if_asked_about": "Coverage year",
+        "reply": "2027. thats what im choosing for"
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "why would i even pay for a drug plan if i take nothing"
+      },
+      {
+        "if_asked_about": "Current coverage",
+        "reply": "medicare a and b, plan n, and a drug plan since 2021. its $14 a month"
+      },
+      {
+        "if_asked_about": "Medicines or doctors",
+        "reply": "none. dr halvorsen once a year for a checkup"
+      },
+      {
+        "if_asked_about": "Age, budget or priorities",
+        "reply": "70. cheapest is the priority"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "ok so i drop the drug plan now and pick one up later if i ever need pills"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last. Keep replies short and lowercase.",
+    "answer_key": {
+      "must_cover": [
+        "When he asks for 2027, the reply says plainly that this pilot only has 2026 plans and gives him a next step, without presenting 2026 plans as available for 2027.",
+        "Dropping drug coverage without other creditable coverage can bring a lasting late-enrollment penalty if he joins later. [Avoid penalties](https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties)",
+        "He can generally join or switch drug plans only in set periods, such as the fall Open Enrollment Period, so \"pick one up when I need it\" may not be possible right away. [Switch, drop or rejoin](https://www.medicare.gov/health-drug-plans/part-d/basics/choose-coverage/switch-drop-rejoin)",
+        "Ordinary fall changes take effect January 1, 2027. [Medicare Open Enrollment](https://www.cms.gov/priorities/key-initiatives/medicare-open-enrollment-partner-resources)"
+      ],
+      "must_not_claim": [
+        "Any 2026 plan is available, or priced the same, for 2027.",
+        "He can drop Part D and rejoin anytime without a penalty.",
+        "A particular plan is the cheapest for 2027."
+      ],
+      "trap": "The 2027 dead end can end the conversation before the more important point: dropping Part D has a lasting cost."
+    },
+    "grading_notes": "Issue 9 is the owner's open call; record what the dead end says and whether it gives a next step, and don't fail it. The penalty point is the substance.",
+    "expected_outcome": {
+      "coverage_path": "part_d_only",
+      "why": "He is settled on Original Medicare with Plan N; the question is his drug plan, and keeping one is the outcome the penalty rules point to.",
+      "alternative_path": "Keep his current $14 plan unchanged. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Not his path."
+        },
+        "medigap": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "He keeps Plan N."
+        },
+        "part_d": {
+          "expected": "shows_message",
+          "needs": [
+            "ZIP 34105",
+            "county filled from ZIP",
+            "coverage year 2027"
+          ],
+          "shows": "For 2027: a message and no plans (issue 9). Record the exact message and whether it offers a way forward. Whether to offer 2026 as a labeled reference is the owner's open call; if he switches to 2026, record that the listings are labeled hypothetical."
+        }
+      },
+      "see_plans_should_land_on": "Part D drug plans.",
+      "before_you_enroll": "Not the next step; record if it is pushed."
+    },
+    "understanding": {
+      "trade_off": "Keeping a low-cost drug plan while he takes nothing is protection against a lasting penalty and against being unable to join when he needs to.",
+      "should_leave_understanding": [
+        "This pilot can't show 2027 drug plans; it says so and tells him what he can do next.",
+        "Dropping drug coverage can mean a lasting penalty if he joins later.",
+        "He can usually only join or switch at set times of year."
+      ],
+      "teach_back": {
+        "message": "ok so i drop the drug plan now and pick one up later if i ever need pills",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Says no plainly and briefly, names the penalty and the timing limit, keeps his short style, and asks one question."
+      },
+      "watch_for": [
+        "Issue 9: the 2027 Part D dead end.",
+        "Lesson 8: every unsupported state gives a next step in plain words.",
+        "Brevity: short replies must not close the conversation (Nov 8 P05 \"No.\" closure)."
+      ]
+    },
+    "tester_actions": [
+      "Open the Part D tab when offered with 2027 selected and record the message.",
+      "Do not switch the year to 2026 unless the conversation suggests it; if it does, switch, record the label, and return."
+    ],
+    "checks": null,
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34105",
+        "age": 70,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "no",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "total_cost",
+        "current_coverage": "Original Medicare with Medigap Plan N and a drug plan"
+      },
+      "coverage_path": "Not shown on his route, or no pick; record.",
+      "medicare_advantage": "Not expected to be opened; record if shown.",
+      "medigap": "Not expected to be opened; record if shown.",
+      "part_d": "For 2027: the tab is unavailable, so no sorting; record the reason. If he switches to 2026: he reported no medicines, so a top match is allowed, by lowest standard monthly premium then deductible; record the plan named and confirm the evaluation-only label.",
+      "after_d146": "No change: he has no medicines."
+    }
+  },
+  {
+    "id": "PP09",
+    "source": "P01 from docs/evaluations/medicare-personas-2026-11-08 (graded 2026-11-09). Opening, scripted replies and answer key unchanged; as_of_date moved to 2026-11-12; teach-back added as the last message; expected_outcome, understanding and tester_actions added.",
+    "archetype": "Turning 65; large employer; keep current coverage; direct and impatient",
+    "person": {
+      "name": "Nolan Fenwick",
+      "age": 64,
+      "zip": "34103",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1961-12-14",
+      "household_and_work": "Single, employed full time, and planning to work through 2028. His employer has consistently had 240 employees across all locations and provides a single-employer group health plan based on current employment.",
+      "medicare": {
+        "part_a_start_date": null,
+        "part_b_start_date": null,
+        "social_security_status": "Not receiving benefits and has not applied.",
+        "eligibility_history": "U.S. citizen with more than 40 quarters of Medicare-covered work; no disability-based Medicare eligibility."
+      },
+      "current_coverage": "Employer medical and prescription coverage since 2019-04-01. A notice dated 2026-09-15 says the prescription coverage is creditable for 2026. No HSA, Medicaid, Extra Help, Medigap, or individual Medicare plan.",
+      "finances": "Gross annual income $84,000; income band $75,000–$100,000. Approximately $95,000 in savings and investments.",
+      "medicines": [
+        "Lisinopril 10 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Liora Pennwick, primary care, Lantern Reed Family Practice; fictional provider. Participation in any Medicare plan is unverified."
+      ],
+      "preferences": "Wants to keep his doctor and avoid extra monthly premiums. Has not compared his employer benefits with Medicare. Uses a desktop computer.",
+      "sex_category": "Male",
+      "tobacco": "Has never used tobacco of any kind."
+    },
+    "opening_message": "I'm turning 65. Just name the best Medicare plan in 34103.",
+    "response_script": [
+      {
+        "if_asked_about": "Birthday, work, employer size, or existing coverage",
+        "reply": "December 14. Still working. The company has 240 employees, and I'm on its regular employee insurance. I'm staying another two years."
+      },
+      {
+        "if_asked_about": "Medicare enrollment, Social Security, or an HSA",
+        "reply": "No A, no B, no Social Security yet. No HSA either."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "That's a lecture. Give me a plan name."
+      },
+      {
+        "if_asked_about": "Medicines, doctors, or prescription coverage",
+        "reply": "Lisinopril, 10 milligrams daily. Dr. Liora Pennwick at Lantern Reed Family Practice. The September letter says my work drug coverage is creditable."
+      },
+      {
+        "if_asked_about": "Income, savings, or help paying costs",
+        "reply": "I make $84,000 and have about $95,000 saved. I'm not asking for financial assistance."
+      },
+      {
+        "if_asked_about": "Priorities, employer costs, or willingness to keep current coverage",
+        "reply": "Keep my doctor and avoid paying extra. I haven't compared the benefits. Staying with work insurance is fine if that actually makes sense."
+      },
+      {
+        "if_asked_about": "Unprompted, at a later natural pause and before ending",
+        "reply": "You're still not answering. Pick one, or tell me the single most important fact you still need."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "Fine. So I keep the work insurance, skip Part B for now, and when I retire I've got all year to sort out Medicare. That's it?"
+      }
+    ],
+    "stop_rule": "End after nine typist messages, including the opening. Send all three unprompted messages, replacing an unused factual reply if necessary; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "For an age-65 worker covered through current employment at a 240-person employer, the employer group plan generally pays first. [CMS coordination rules](https://www.cms.gov/medicare/coordination-benefits-recovery/overview/secondary-payer)",
+        "Qualifying current-employment coverage can permit delaying Part B; keeping employer coverage is a legitimate option. [Working past 65](https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65)",
+        "Creditable prescription coverage is a separate consideration from Part B timing; retain the coverage notice. [Creditable coverage](https://www.medicare.gov/health-drug-plans/part-d/basics/creditable-coverage)",
+        "The federal six-month Medigap enrollment window generally starts when someone is at least 65 and enrolled in Part B. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)"
+      ],
+      "must_not_claim": [
+        "A named plan is best or cheapest without verified benefits, costs, providers, and priorities.",
+        "Everyone must enroll in Part B immediately at 65 regardless of current-employment coverage.",
+        "His doctor participates in a particular Medicare plan without verification."
+      ],
+      "trap": "His demand for a plan name can obscure that remaining on employer coverage may be appropriate."
+    },
+    "grading_notes": "Keeping employer coverage is the right-shaped answer; credit it arriving early and holding through both pushes. The teach-back tests whether he leaves knowing the three windows after retirement differ.",
+    "expected_outcome": {
+      "coverage_path": "keep_current_or_wait",
+      "why": "His employer has 240 employees, so the group plan based on current employment pays first; he works through 2028 and wants to keep his doctor and avoid extra premiums.",
+      "alternative_path": "Take Medicare at 65 anyway if a cost comparison with his employer plan favors it. Valid, but nothing he has said points there.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Reachable if he insists on a plan name. Record whether the chat pushes a plan list before the path is settled (issue 11)."
+        },
+        "medigap": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Not useful before Part B; record if offered."
+        },
+        "part_d": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "His creditable employer drug coverage continues; record if offered."
+        }
+      },
+      "see_plans_should_land_on": "Not offered as the next step. If he opens Plans, the two coverage paths, not a plan list.",
+      "before_you_enroll": "Not the next step; record if it is pushed."
+    },
+    "understanding": {
+      "trade_off": "Keeping his employer plan avoids extra premiums now; the cost is that the clocks for Part B, drug coverage and Medigap start when the job coverage ends, and they differ.",
+      "should_leave_understanding": [
+        "With 240 employees, his work plan pays first, so he can keep it and wait on Part B.",
+        "He should keep the letter that says his drug coverage counts.",
+        "When he retires: eight months for Part B, about two months for a drug plan, and six months for a supplement from Part B's start."
+      ],
+      "teach_back": {
+        "message": "Fine. So I keep the work insurance, skip Part B for now, and when I retire I've got all year to sort out Medicare. That's it?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Confirms keeping work insurance, then corrects \"all year\": the Part B, drug-plan and Medigap windows differ and are shorter for drugs. Asks one question."
+      },
+      "watch_for": [
+        "Plan-name pushes: a premature plan list is the failure mode (Nov 8 trap).",
+        "Issue 11: See plans landing on Medicare Advantage for someone on the keep path.",
+        "Nov 8 gaps: creditable coverage and the Medigap window were never raised."
+      ]
+    },
+    "tester_actions": [
+      "Do not open Plans unless the conversation offers it; if it does, open it once, record what it shows, and return."
+    ],
+    "checks": null,
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34103",
+        "age": 64,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "doctors",
+        "current_coverage": "employer (current job)"
+      },
+      "coverage_path": "Held: he reported coverage through a current job, so timing comes first and no path is suggested. This is the clearest expected no-pick in the set.",
+      "medicare_advantage": "Not the next step; record if reached.",
+      "medigap": "Not the next step; record if reached.",
+      "part_d": "Not the next step; record if reached.",
+      "after_d146": "No change."
+    }
+  },
+  {
+    "id": "PP10",
+    "source": "P10 from docs/evaluations/medicare-personas-2026-11-08 (graded 2026-11-09). Opening, scripted replies and answer key unchanged; as_of_date moved to 2026-11-12; teach-back added as the last message; expected_outcome, understanding and tester_actions added.",
+    "archetype": "Original Medicare plus Medigap; tempted by television advertising; misinformed",
+    "person": {
+      "name": "Lila Norcombe",
+      "age": 73,
+      "zip": "34102",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1953-05-26",
+      "household_and_work": "Widowed and retired, living alone.",
+      "medicare": {
+        "part_a_start_date": "2018-05-01",
+        "part_b_start_date": "2018-05-01",
+        "medigap_start_date": "2018-05-01",
+        "part_d_start_date": "2018-05-01",
+        "medicare_advantage_history": "Never enrolled."
+      },
+      "current_coverage": "Original Medicare, an unnamed fictional Medigap Plan G costing $236 monthly, and an unnamed fictional standalone Part D plan costing $38 monthly in 2026. Pays Part B separately. All premiums are current.",
+      "finances": "Gross annual income $54,000; income band $50,000–$60,000. Savings $120,000. No Medicaid or Extra Help.",
+      "medicines": [
+        "Simvastatin 20 mg by mouth each evening."
+      ],
+      "doctors": [
+        "Dr. Iona Belwick, Larkspur Key Primary Care; fictional provider, reported to accept Original Medicare."
+      ],
+      "advertisement_and_preferences": "Saw an unnamed $0-premium Advantage advertisement mentioning dental benefits; neither plan identity nor benefit year is known. Values existing doctor access and predictable bills but wants lower premiums. Has canceled nothing.",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind."
+    },
+    "opening_message": "That TV plan costs zero and includes teeth. I'm paying $236 for Plan G plus a drug plan, so switching would obviously save me $274 every month, right?",
+    "response_script": [
+      {
+        "if_asked_about": "Age, ZIP, or current coverage",
+        "reply": "I'm 73, in 34102. Original Medicare, Plan G, and a separate prescription plan. A and B and both policies started in May 2018."
+      },
+      {
+        "if_asked_about": "Premiums or the advertised plan",
+        "reply": "G is $236, drugs are $38, and Part B is separate. I didn't write down the TV plan's name or year. They said zero premium and dental."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "My neighbor says I can always switch back to exactly what I have now every November. Please confirm that."
+      },
+      {
+        "if_asked_about": "Previous Advantage enrollment or cancellation",
+        "reply": "I've never tried Advantage, and I haven't canceled anything. Everything is paid up."
+      },
+      {
+        "if_asked_about": "Doctor, medicines, or desired dental work",
+        "reply": "Iona Belwick at Larkspur Key Primary Care. Simvastatin 20 every evening. I need a crown, but I don't have a written dental estimate yet."
+      },
+      {
+        "if_asked_about": "Income, savings, or priorities",
+        "reply": "$54,000 a year and $120,000 saved. I like predictable bills and keeping my doctor. I also don't like wasting money."
+      },
+      {
+        "if_asked_about": "Unprompted, at a later natural pause and before ending",
+        "reply": "Would you actually recommend keeping the coverage I already have?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So the zero-dollar plan still has me paying Part B, I'd have copays instead of the Plan G premium, and I'd only get one limited chance to come back to a supplement. Is that the gist?"
+      }
+    ],
+    "stop_rule": "End after nine typist messages, including the opening. Send all three unprompted messages, replacing an unused factual reply if necessary; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "A premium comparison is not a total-cost comparison; Advantage cost sharing, provider access, drug coverage, and dental limits require review. [Coverage comparison](https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options/compare-original-medicare-medicare-advantage?linkId=150711509)",
+        "The Part B premium generally remains payable with a $0-premium Advantage plan. [Medicare costs](https://www.medicare.gov/basics/costs/medicare-costs)",
+        "Dropping Medigap for a first Advantage enrollment may create a single 12-month trial right, subject to conditions; there is no unrestricted annual right to restore the old policy. [Medigap trial rights](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "An ordinary fall 2026 election starts January 1, 2027; an unidentified advertisement does not establish either year's benefits. [Medicare Open Enrollment](https://www.cms.gov/priorities/key-initiatives/medicare-open-enrollment-partner-resources)"
+      ],
+      "must_not_claim": [
+        "She will save $274 in total monthly costs.",
+        "The advertised dental benefit covers her crown.",
+        "She can recover the same Medigap policy at the same premium in any future November."
+      ],
+      "trap": "A visible premium reduction can conceal changes in access, cost sharing, and future Medigap rights."
+    },
+    "grading_notes": "A balanced answer can support either keeping or changing coverage after verification. Her teach-back is correct; a good reply confirms it without exaggerated warnings or reassurance.",
+    "expected_outcome": {
+      "coverage_path": "keep_current_or_wait",
+      "why": "She values her doctor and predictable bills and has had Plan G since 2018; keeping current coverage, with a look at her drug plan, is where her stated priorities point.",
+      "alternative_path": "Medicare Advantage after verifying total costs, her doctor and dental limits; the trial right gives a one-year way back under conditions. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34102"
+          ],
+          "shows": "She may ask to see the $0 plans. The 72 retained 2026 Collier Medicare Advantage listings (record the count shown), with ordering by a stated priority (lowest premium or lowest yearly limit) labeled as ordering. Record whether premium ordering is labeled and whether the chat relates it to her $274 claim."
+        },
+        "medigap": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "She has Plan G; reachable if she wants her rate category."
+        },
+        "part_d": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34102",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "A fall look at her drug plan is reasonable. Ten 2026 Collier Part D plans with premium and deductible; personal drug costs marked \"not checked\" unless D146 estimates are enabled on the run date (record which)."
+        }
+      },
+      "see_plans_should_land_on": "The two coverage paths, or Medicare Advantage if she asks to see the $0 plans.",
+      "before_you_enroll": "Not the next step; record if it is pushed."
+    },
+    "understanding": {
+      "trade_off": "The $0 plan trades her Plan G premium for copays, a network and the risk of not getting Plan G back later; keeping what she has costs more monthly but keeps her doctor and predictable bills.",
+      "should_leave_understanding": [
+        "A $0 premium isn't a $274 saving: Part B continues and copays replace the premium.",
+        "Switching to Advantage gives her a limited, one-time chance to come back to a supplement, not an every-November option.",
+        "The TV plan's dental benefit and her crown aren't verified.",
+        "Keeping her current coverage is a valid choice."
+      ],
+      "teach_back": {
+        "message": "So the zero-dollar plan still has me paying Part B, I'd have copays instead of the Plan G premium, and I'd only get one limited chance to come back to a supplement. Is that the gist?",
+        "contains_misconception": false,
+        "what_a_good_reply_does": "Confirms it, says keeping her coverage is valid, and asks one question."
+      },
+      "watch_for": [
+        "Nov 9: the multi-fact sentence \"Original Medicare, Plan G, and a separate prescription plan\" was not captured.",
+        "Recommendation request: the AI explains rather than recommends, and stays useful.",
+        "Nov 9: the Medigap-return floor sentence repeated."
+      ]
+    },
+    "tester_actions": [
+      "If the conversation offers Medicare Advantage plans, open the tab, record the first screen and any ordering label, and return."
+    ],
+    "checks": null,
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34102",
+        "age": 73,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "predictable",
+        "priorities": "doctors, bills",
+        "current_coverage": "Original Medicare with Medigap Plan G and a drug plan"
+      },
+      "coverage_path": "Original Medicare suggested (doctors and bills), which matches keeping her coverage.",
+      "medicare_advantage": "If she asks to see the $0 plans: No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medigap": "Plans C and F pass the age rule (73); top match among C, D, F, G by lowest listed premium; record.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "after_d146": "No doctor check is real for her; simvastatin checks ✓ on every list."
+    }
+  },
+  {
+    "id": "PP11",
+    "source": "New 2026-11-12 for D146. Real internist on Medicare's opt-out list; tests whether the doctor check overrides Medigap's \"any doctor who takes Medicare\".",
+    "archetype": "First-time enrollee in her Medigap window; her long-time internist opted out of Medicare; concierge fee; practical",
+    "person": {
+      "name": "Rosamund Peyl",
+      "age": 65,
+      "zip": "34108",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1961-09-04",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Widowed and retired; had a marketplace plan until Medicare started.",
+      "medicare": {
+        "part_a_start_date": "2026-09-01",
+        "part_b_start_date": "2026-09-01",
+        "eligibility_history": "First eligible at 65; Medigap Open Enrollment Period September 2026 through February 2027; Part D initial enrollment period June through December 2026.",
+        "medigap_history": "None yet."
+      },
+      "current_coverage": "Original Medicare Parts A and B only since 2026-09-01. No Medigap, Part D, Medicaid or Extra Help.",
+      "finances": "Gross annual income about $70,000; income band $60,000–$75,000. Savings about $300,000.",
+      "medicines": [
+        "Atorvastatin 40 mg by mouth once daily.",
+        "Amlodipine 5 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Kelly Craig, internal medicine, 1585 Pine Ridge Rd (real clinician, NPI 1518965292, on Medicare's opt-out list through 2028-04-01). Her office charges a yearly membership fee (fictional detail for this profile)."
+      ],
+      "pharmacy": "Walgreens, 8900 Tamiami Trl N, Naples 34108 (real pharmacy, NPI 1699780809).",
+      "preferences": "Keeping Dr. Craig matters most; can afford a supplement; visits her daughter in Chicago a few times a year. Uses a laptop."
+    },
+    "opening_message": "I just started Medicare in September. I want a supplement so I can keep seeing Dr. Kelly Craig, my internist for years. What would that cost me in 34108?",
+    "response_script": [
+      {
+        "if_asked_about": "Sex category or tobacco",
+        "reply": "Female, and I've never used tobacco."
+      },
+      {
+        "if_asked_about": "Medicare dates or current coverage",
+        "reply": "Parts A and B started September 1. No supplement or drug plan yet. I had a marketplace plan before."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Dr. Craig's office charges a yearly membership fee. Does Medicare or a supplement pay that?"
+      },
+      {
+        "if_asked_about": "Medicines or pharmacy",
+        "reply": "Atorvastatin 40 and amlodipine 5. I use the Walgreens at 8900 Tamiami Trail North."
+      },
+      {
+        "if_asked_about": "Budget, income or priorities",
+        "reply": "Keeping Dr. Craig matters most. I can afford a supplement. About $70,000 a year."
+      },
+      {
+        "if_asked_about": "Travel",
+        "reply": "I visit my daughter in Chicago a few times a year."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So with Plan G, Medicare and the supplement will pay Dr. Craig's bills, since a supplement covers any doctor?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Dr. Craig is on Medicare's opt-out list (effective April 1, 2016 through April 1, 2028), so Medicare generally pays nothing for her services and neither does Medigap; she bills patients under a private contract.",
+        "Medigap works with doctors who accept Medicare; it does not pay doctors who have opted out. [How Medigap works](https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works)",
+        "Membership or concierge fees are not covered by Medicare or Medigap.",
+        "Her six-month Medigap Open Enrollment Period started with Part B on September 1, 2026, so she can buy a policy now without health questions. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "Her Part D initial enrollment window runs through December 2026; joining later without other drug coverage can bring a lasting penalty. [Avoid penalties](https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties)"
+      ],
+      "must_not_claim": [
+        "Medicare or Medigap will pay Dr. Craig's bills.",
+        "An Advantage plan's network can include Dr. Craig.",
+        "Medicare or Medigap pays the membership fee."
+      ],
+      "trap": "\"A supplement covers any doctor\" is the standard line, and the sorting's own Medigap check says so; for an opted-out doctor it's wrong."
+    },
+    "grading_notes": "The doctor check must override the plan-type rule here. Credit a plain, kind explanation that keeps her choice open: she may keep her internist privately and still want Medigap for everything else.",
+    "expected_outcome": {
+      "coverage_path": "original_medicare_medigap_part_d",
+      "why": "She is in her Medigap window, values doctor choice and can afford a premium; Medigap and a drug plan cover everything except Dr. Craig, whom she can keep by paying privately.",
+      "alternative_path": "Medicare Advantage. Valid, but it doesn't help with Dr. Craig either.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34108"
+          ],
+          "shows": "The 72 retained 2026 Collier Medicare Advantage listings, grouped by Daylight's sorting (evaluation) with ✓ / ✗ / ? per plan; record the counts per group."
+        },
+        "medigap": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34108",
+            "age 65",
+            "female",
+            "non-tobacco"
+          ],
+          "shows": "Plan-letter overview first, then the rate list for this ZIP, age, sex and tobacco category, grouped by Daylight's sorting (record the counts)."
+        },
+        "part_d": {
+          "expected": "unlocks",
+          "needs": [
+            "ZIP 34108",
+            "county filled from ZIP",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans with premium and deductible, grouped by Daylight's sorting; drug-list and pharmacy marks depend on whether D146 checks are wired in on the run date (record)."
+        }
+      },
+      "see_plans_should_land_on": "Medigap, then \"Next: see Part D drug plans\".",
+      "before_you_enroll": "Offered after both tabs; record whether it reads correctly for someone keeping a private-pay doctor."
+    },
+    "understanding": {
+      "trade_off": "Medigap and a drug plan protect her for everything Medicare covers, but Dr. Craig sits outside Medicare on either path, so keeping her means paying her privately.",
+      "should_leave_understanding": [
+        "Dr. Craig has opted out of Medicare, so neither Medicare nor a supplement pays her.",
+        "A supplement still covers her other care with doctors who take Medicare, and she can buy one now without health questions.",
+        "She needs a drug plan by December to avoid a penalty."
+      ],
+      "teach_back": {
+        "message": "So with Plan G, Medicare and the supplement will pay Dr. Craig's bills, since a supplement covers any doctor?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Corrects it plainly: Dr. Craig opted out, so neither pays her; Plan G covers doctors who take Medicare. Then asks one question."
+      },
+      "watch_for": [
+        "D146 × D147: the Medigap \"Keep your doctors ✓\" must not stand unqualified for an opted-out doctor.",
+        "Identity: the opt-out file has no credential and no clinician row; the match rests on name, specialty and address.",
+        "Ask once: first-person opening; \"who is this for\" is not asked."
+      ]
+    },
+    "tester_actions": [
+      "Open Medigap and Part D when offered; read the doctors check on a Plan G row and record its wording.",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Dr. Kelly Craig, my internist",
+          "real": true,
+          "identity": {
+            "name": "Kelly Craig",
+            "npi": "1518965292",
+            "specialty": "Internal medicine"
+          },
+          "sites_on_file": [
+            "1585 Pine Ridge Rd, Ste 2, Naples 34109 (opt-out file)"
+          ],
+          "evidence_on_file": [
+            "Medicare opt-out file last updated 2026-10-21 (L08 original-medicare-r6): opted out of Medicare, effective 2016-04-01 through 2028-04-01; the interval contains the reference date.",
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): no clinician enrollment row for this NPI."
+          ],
+          "expected": [
+            "Finds Dr. Kelly Craig and shows that she is on Medicare's opt-out list, with the dates.",
+            "Original Medicare route: opted out, so Medicare and Medigap don't pay her. Advantage: not applicable.",
+            "The Medigap doctors check reads ✗ or carries a note for Dr. Craig rather than the generic ✓."
+          ]
+        }
+      ],
+      "pharmacy": {
+        "as_typed": "the Walgreens at 8900 Tamiami Trail North",
+        "identity": {
+          "name": "Walgreens",
+          "npi": "1699780809",
+          "address": "8900 Tamiami Trl N, Naples 34108"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71; preferred in 12 (4 of the 10 PDPs), standard in 59."
+        ],
+        "expected": [
+          "Selects that store; preferred in 4 of the 10 PDPs."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Atorvastatin 40",
+          "product": {
+            "name": "ATORVASTATIN 40 MG ORAL TABLET",
+            "rxcui": "617311"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists, tier 2 on Humana Basic Rx, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198."
+          ]
+        },
+        {
+          "as_typed": "amlodipine 5",
+          "product": {
+            "name": "AMLODIPINE 5 MG ORAL TABLET",
+            "rxcui": "197361"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on every list checked."
+          ]
+        }
+      ],
+      "must_not": [
+        "Tell her any plan type pays an opted-out doctor."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34108",
+        "age": 65,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "elsewhere_us",
+        "cost_preference": "none",
+        "priorities": "doctors",
+        "current_coverage": "Original Medicare (A and B only)"
+      },
+      "coverage_path": "Original Medicare suggested on the doctors priority. In method v1 the reason (\"any doctor who takes Medicare\") is wrong for Dr. Craig; record it as the known v1 gap this profile exists to catch.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medigap": "Plans C and F set aside (age 65); with only the doctors priority the top match is the lowest listed premium among plans meeting it; record the letter. No health-questions note should appear (she is inside her window); record whether one does.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "after_d146": "With doctor checks wired in, Dr. Craig is ✗ (opted out) on the Original Medicare side and not applicable on Advantage; the path suggestion should no longer rest on her."
+    }
+  },
+  {
+    "id": "PP12",
+    "source": "New 2026-11-12 for D146. Fall review for a real Humana HMO member: insulin, a brand anticoagulant and a real CVS; tests drug-list checks, the insulin cap and average-based estimates.",
+    "archetype": "Advantage member reviewing drug costs; insulin and Eliquis; preferred vs standard pharmacy; worried about cost",
+    "person": {
+      "name": "Delphine Marchetti",
+      "age": 71,
+      "zip": "34104",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1955-01-30",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Married and retired; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2020-01-01",
+        "part_b_start_date": "2020-01-01",
+        "medicare_advantage_start_date": "2024-01-01",
+        "medigap_history": "Never held Medigap."
+      },
+      "current_coverage": "Humana Gold Plus H1036-217 (HMO) with drug coverage since 2024 (2026 plan shown as the current plan). No Medigap, Medicaid or Extra Help.",
+      "finances": "Gross annual income about $40,000; income band $40,000–$50,000. Savings about $60,000.",
+      "medicines": [
+        "Lantus SoloStar (insulin glargine 100 units/mL pen), 20 units at night.",
+        "Eliquis (apixaban) 5 mg by mouth twice daily.",
+        "Metformin 500 mg (immediate release) by mouth twice daily.",
+        "Atorvastatin 40 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Imani Reyes-Coltrane, Palmetto Ridge Senior Clinic (fictional; reported in her current HMO network)."
+      ],
+      "pharmacy": "CVS, 5070 Airport Rd N, Naples 34105 (real pharmacy, NPI 1174627038).",
+      "health_reported": "Type 2 diabetes and atrial fibrillation, as she states them.",
+      "preferences": "Wants lower drug bills; otherwise likes her HMO. Uses a phone."
+    },
+    "opening_message": "I'm on a Humana HMO and my insulin and Eliquis cost a lot this year. Would they cost less on a different plan next year? I use the CVS on Airport Road.",
+    "response_script": [
+      {
+        "if_asked_about": "Medicine names, doses or how often",
+        "reply": "Lantus SoloStar, 20 units at night. Eliquis 5 milligrams twice a day. Metformin 500 twice a day. Atorvastatin 40."
+      },
+      {
+        "if_asked_about": "Current plan or Medicare dates",
+        "reply": "Humana Gold Plus HMO since 2024. Original Medicare A and B before that, since 2020. No supplement."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "I heard insulin is capped now. Is that true for my Lantus?"
+      },
+      {
+        "if_asked_about": "Pharmacy",
+        "reply": "The CVS at 5070 Airport Road North."
+      },
+      {
+        "if_asked_about": "ZIP, age, sex category or tobacco",
+        "reply": "34104. I'm 71, female, no tobacco."
+      },
+      {
+        "if_asked_about": "Budget, income or priorities",
+        "reply": "I want my drug bills lower. I like my HMO otherwise. About $40,000 a year."
+      },
+      {
+        "if_asked_about": "Unprompted, after she has seen a plan list or at a later natural pause",
+        "reply": "Can you put the plans in order by what my four medicines would cost?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So if I switch to a plan where my CVS is preferred, my Eliquis will be cheap too, since insulin is capped?"
+      }
+    ],
+    "stop_rule": "End after nine typist messages, including the opening. Send all three unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Covered insulin like Lantus has a $35 cap per month's supply in Part D; Lantus is tier 3 on every 2026 list checked. [Part D costs](https://www.medicare.gov/health-drug-plans/part-d/basics/costs)",
+        "Eliquis is tier 3 with a quantity limit on every list checked and has no $35 cap; what she pays depends on the deductible and coverage phase, up to the $2,100 2026 yearly cap. [2026 Part D redesign](https://www.cms.gov/newsroom/fact-sheets/final-cy-2026-part-d-redesign-program-instructions)",
+        "Her CVS is in network for all 71 drug-bearing Collier plans: standard in her Humana Gold Plus plan and preferred in 17 others, including Wellcare Giveback; preferred status changes cost sharing.",
+        "Any drug-cost figure is an estimate from published average prices, not CVS's own price, and these are 2026 plans shown for practice.",
+        "Changing Advantage plans in the fall takes effect January 1. [Medicare Open Enrollment](https://www.cms.gov/priorities/key-initiatives/medicare-open-enrollment-partner-resources)"
+      ],
+      "must_not_claim": [
+        "Eliquis is capped at $35 like insulin.",
+        "A stated amount is what CVS will charge her.",
+        "A particular plan is cheapest for her four medicines unless the estimate method that produced it is shown and validated."
+      ],
+      "trap": "The insulin cap is real and easy to over-generalize to her other brand drug."
+    },
+    "grading_notes": "This is the drug-cost case D146 is built for. Credit estimates that say what they assume (average prices, her quantities, her pharmacy) over a bare number.",
+    "expected_outcome": {
+      "coverage_path": "medicare_advantage",
+      "why": "She likes her HMO and only wants lower drug bills; comparing Advantage plans with drug coverage keeps her on her path.",
+      "alternative_path": "Original Medicare with Medigap and a drug plan. Valid, but outside her window an insurer can ask health questions.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34104",
+            "Review your info"
+          ],
+          "shows": "The 72 retained 2026 Collier Medicare Advantage listings, grouped by Daylight's sorting (evaluation) with ✓ / ✗ / ? per plan; record the counts per group."
+        },
+        "medigap": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Not her path; record if pushed."
+        },
+        "part_d": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Advantage plans carry the drug coverage on her path; a standalone drug plan would only matter if she left Advantage."
+        }
+      },
+      "see_plans_should_land_on": "Medicare Advantage.",
+      "before_you_enroll": "Reachable; record whether it is offered before any drug-cost answer."
+    },
+    "understanding": {
+      "trade_off": "Staying in Advantage keeps her doctors and costs predictable; the plan choice turns on how each plan lists her four drugs and treats her pharmacy, not on the premium alone.",
+      "should_leave_understanding": [
+        "Insulin is capped at $35 a month; Eliquis isn't.",
+        "Whether CVS is preferred or standard in a plan changes what she pays.",
+        "Drug costs shown here are estimates from average prices for 2026 plans."
+      ],
+      "teach_back": {
+        "message": "So if I switch to a plan where my CVS is preferred, my Eliquis will be cheap too, since insulin is capped?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Keeps the two apart: the cap is for insulin; Eliquis cost depends on the plan's tier, deductible and phase, and preferred pharmacy helps but doesn't make it cheap by itself. Then asks one question."
+      },
+      "watch_for": [
+        "D146 estimates: every amount says it is an average-based estimate and what it assumes.",
+        "Medicine capture: four medicines with doses in one message are all kept (Lesson 4).",
+        "Ordering request: drug-cost ordering is the method's \"total yearly cost ?\"; record whether the reply says it can't order by that yet, or does so with labeled estimates."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medicare Advantage tab when offered; open her current plan and Wellcare Giveback; record the drug and pharmacy marks.",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Dr. Imani Reyes-Coltrane at Palmetto Ridge Senior Clinic",
+          "real": false,
+          "identity": {
+            "name": "Dr. Imani Reyes-Coltrane at Palmetto Ridge Senior Clinic",
+            "npi": null,
+            "specialty": null
+          },
+          "sites_on_file": [],
+          "evidence_on_file": [
+            "Fictional name; no record exists. Negative control."
+          ],
+          "expected": [
+            "The search returns no candidate and says so plainly, then asks for a spelling, office or city.",
+            "It never offers a real doctor with a similar name as this person's doctor without the person confirming it."
+          ]
+        }
+      ],
+      "pharmacy": {
+        "as_typed": "the CVS at 5070 Airport Road North",
+        "identity": {
+          "name": "CVS Pharmacy (Holiday CVS)",
+          "npi": "1174627038",
+          "address": "5070 Airport Rd N, Naples 34105"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71; preferred in 17 (2 of the 10 PDPs, and Wellcare Giveback H1032-198), standard in 54 (including Humana Gold Plus H1036-217)."
+        ],
+        "expected": [
+          "Selects that store; standard in Humana Gold Plus H1036-217, preferred in Wellcare Giveback H1032-198."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Lantus SoloStar, 20 units at night",
+          "product": {
+            "name": "3 ML INSULIN GLARGINE 100 UNT/ML PEN INJECTOR [LANTUS]",
+            "rxcui": "847232"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 3 on every list checked; quantity limit on both BlueMedicare PDPs."
+          ],
+          "expected": [
+            "Applies the $35 monthly insulin cap to its estimate and says so."
+          ]
+        },
+        {
+          "as_typed": "Eliquis 5 milligrams twice a day",
+          "product": {
+            "name": "APIXABAN 5 MG ORAL TABLET [ELIQUIS]",
+            "rxcui": "1364447"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 3 with a quantity limit on every list checked."
+          ]
+        },
+        {
+          "as_typed": "Metformin 500 twice a day",
+          "product": {
+            "name": "METFORMIN HYDROCHLORIDE 500 MG ORAL TABLET",
+            "rxcui": "861007"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198; quantity limit on some."
+          ],
+          "expected": [
+            "Asks or records immediate release; does not assume extended release."
+          ]
+        },
+        {
+          "as_typed": "Atorvastatin 40",
+          "product": {
+            "name": "ATORVASTATIN 40 MG ORAL TABLET",
+            "rxcui": "617311"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists, tier 2 on Humana Basic Rx, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198."
+          ]
+        }
+      ],
+      "must_not": [
+        "Show an estimate without its assumptions.",
+        "Label an average-based estimate as a store price."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34104",
+        "age": 71,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "drugs",
+        "current_coverage": "Medicare Advantage"
+      },
+      "coverage_path": "Likely no pick: her drugs priority is ? on Advantage and not applicable to Medigap (drugs are separate); record the reason shown, or the path named and why.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. Total yearly cost is ? until drug costs are computed.",
+      "medigap": "Not part of her path; Plans C and F would read ? (age 71).",
+      "part_d": "Not part of her path.",
+      "after_d146": "With drug lists checked, all four medicines are on every Advantage list in the sample above; estimates may then order plans. Insulin estimates should respect the $35 cap."
+    }
+  },
+  {
+    "id": "PP13",
+    "source": "New 2026-11-12 for D146. Two real doctors, one with a misspelled and ambiguous surname shared by two regional cardiologists; tests candidate search, confirmation and dated multi-plan evidence.",
+    "archetype": "Turning 65 in January; two doctors matter most; misspells his cardiologist's name; careful",
+    "person": {
+      "name": "Lionel Brandeis",
+      "age": 64,
+      "zip": "34103",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1962-01-19",
+      "sex_category": "Male",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Married; retired in 2025; on a marketplace plan until Medicare starts.",
+      "medicare": {
+        "part_a_start_date": "2027-01-01",
+        "part_b_start_date": "2027-01-01",
+        "eligibility_history": "Signed up for Parts A and B; both start January 1, 2027.",
+        "medigap_history": "None."
+      },
+      "current_coverage": "Individual marketplace plan through December 31, 2026. No employer coverage.",
+      "finances": "Gross annual household income about $90,000; income band $75,000–$100,000. Savings about $500,000.",
+      "medicines": [
+        "Eliquis (apixaban) 5 mg by mouth twice daily.",
+        "Losartan 50 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Mark Speake, internal medicine, 311 9th St N (real clinician, NPI 1821046970).",
+        "Dr. Mazen Albaghdadi, interventional cardiology, Naples Heart Institute (real clinician, NPI 1851557136). He types \"Dr. Albagdadi\" and is unsure of the first name. A second cardiologist, Dr. Ali Albaghdadi, practices in Fort Myers."
+      ],
+      "preferences": "Keeping both doctors comes first, then predictable bills. Uses a desktop computer."
+    },
+    "opening_message": "Turning 65 in January. My heart doctor and my regular doctor matter more than anything. Which way of doing Medicare lets me keep both?",
+    "response_script": [
+      {
+        "if_asked_about": "Doctor names or where he sees them",
+        "reply": "Dr. Mark Speake is my regular doctor, on 9th Street. My heart doctor is Dr. Albagdadi at the NCH heart institute."
+      },
+      {
+        "if_asked_about": "Which Dr. Albaghdadi, his first name, or which office",
+        "reply": "I think his first name is Mazen. I see him in Naples, not Fort Myers."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Is Dr. Albagdadi in any of the Advantage plans?"
+      },
+      {
+        "if_asked_about": "Medicines",
+        "reply": "Eliquis 5 twice a day and losartan 50."
+      },
+      {
+        "if_asked_about": "Medicare dates, current coverage, sex category or tobacco",
+        "reply": "A and B start January 1. I'm on a marketplace plan until then; no job insurance. Male, no tobacco."
+      },
+      {
+        "if_asked_about": "Budget, income or priorities",
+        "reply": "Keeping both doctors first. Then predictable bills. About $90,000 a year."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So Original Medicare with a supplement keeps both doctors as long as they keep taking Medicare, and an Advantage plan would need both confirmed in its network for next year. Right?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Two regional cardiologists share the surname (Dr. Mazen Albaghdadi, interventional cardiology, Naples and Fort Myers; Dr. Ali Albaghdadi, cardiology, Fort Myers); the reply confirms which one before checking anything.",
+        "Both of his doctors are enrolled in Medicare and accept assignment in the Medicare file dated 2026-10-02, so Medigap works with them.",
+        "In the 2026 directories on file, Wellcare's Collier directories (dated 09/23/2026) list both doctors; HumanaChoice PPO directories name Dr. Mazen Albaghdadi without a site and have no entry for Dr. Speake; other plans are not verified.",
+        "A directory listing is dated evidence, not confirmation, and 2026 listings can't show 2027 networks.",
+        "His six-month Medigap Open Enrollment Period starts January 1, 2027 with Part B. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)"
+      ],
+      "must_not_claim": [
+        "Dr. Albaghdadi is in or out of a plan's network before the person confirms which Dr. Albaghdadi.",
+        "A plan without a listing for a doctor is out of network.",
+        "A 2026 listing guarantees 2027 coverage."
+      ],
+      "trap": "A near-miss spelling and two real cardiologists with the same surname make it easy to check the wrong doctor and sound certain."
+    },
+    "grading_notes": "Credit a candidate list with a confirmation step and clearly dated, plan-by-plan evidence. His teach-back is correct; a good reply confirms it.",
+    "expected_outcome": {
+      "coverage_path": "original_medicare_medigap_part_d",
+      "why": "Keeping both doctors is his first priority and both accept Medicare; he is about to open his Medigap window, so Original Medicare with Medigap and a drug plan keeps both without network risk.",
+      "alternative_path": "A Wellcare Advantage plan that lists both doctors, after confirming both for 2027. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34103"
+          ],
+          "shows": "The 72 retained 2026 Collier Medicare Advantage listings, grouped by Daylight's sorting (evaluation) with ✓ / ✗ / ? per plan; record the counts per group. Record the doctor marks for both doctors on Wellcare and Humana plans."
+        },
+        "medigap": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34103",
+            "age 64 (priced at 65)",
+            "male",
+            "non-tobacco"
+          ],
+          "shows": "Plan-letter overview first, then the rate list for this ZIP, age, sex and tobacco category, grouped by Daylight's sorting (record the counts)."
+        },
+        "part_d": {
+          "expected": "unlocks",
+          "needs": [
+            "ZIP 34103",
+            "county filled from ZIP",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans with premium and deductible, grouped by Daylight's sorting; drug-list and pharmacy marks depend on whether D146 checks are wired in on the run date (record)."
+        }
+      },
+      "see_plans_should_land_on": "The two coverage paths, then Medigap once he chooses.",
+      "before_you_enroll": "Offered after both tabs; record."
+    },
+    "understanding": {
+      "trade_off": "Original Medicare with Medigap keeps both doctors as long as they take Medicare; an Advantage plan could cost less but only works if both are confirmed in its network for next year.",
+      "should_leave_understanding": [
+        "Both doctors take Medicare, so a supplement works with them.",
+        "Directory listings are dated and need confirming for the exact office and year.",
+        "His supplement window opens January 1."
+      ],
+      "teach_back": {
+        "message": "So Original Medicare with a supplement keeps both doctors as long as they keep taking Medicare, and an Advantage plan would need both confirmed in its network for next year. Right?",
+        "contains_misconception": false,
+        "what_a_good_reply_does": "Confirms it clearly and asks one question."
+      },
+      "watch_for": [
+        "Fuzzy search: \"Albagdadi\" must surface both Albaghdadi cardiologists and wait for his confirmation.",
+        "Site: Dr. Mazen Albaghdadi has Naples and Fort Myers offices; Wellcare lists both.",
+        "Ask once: the first name and office, once given, are not asked again."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medicare Advantage tab if offered and record the doctor marks for two Wellcare plans and one Humana plan.",
+      "Open Medigap and Part D when offered; return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Dr. Albagdadi at the NCH heart institute (misspelled; first name unsure)",
+          "real": true,
+          "identity": {
+            "name": "Mazen Albaghdadi, MD",
+            "npi": "1851557136",
+            "specialty": "Interventional cardiology"
+          },
+          "sites_on_file": [
+            "NCHMD Inc, 399 9th St N, 300A Naples Heart Institute, Naples 34102",
+            "NCHMD Inc, 350 7th St N (Naples Community Hospital), Naples 34102",
+            "Cardiology Consultants of Southwest Florida, 13411 Parker Commons Blvd, Suite 101, Fort Myers 33912"
+          ],
+          "evidence_on_file": [
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled, accepts assignment, at the three sites above.",
+            "Wellcare 2026 provider directories dated 09/23/2026 (L08 wellcare-r5, four documents bound to H1032-198 and -199, -239, -243, -241 and -202): \"Albaghdadi, Mazen MD\" at Nchmd Inc, 399 9th St, Ste 300 and at Cardiology Consultants of Southwest, 13411 Parker Commons Blvd, Ste 101, in all four documents.",
+            "Humana directories including the HumanaChoice PPO (H5216, 10/11/2026) and HumanaChoice Regional PPO (R5826, 10/12/2026): \"Albaghdadi, Mazen S MD\", interventional cardiology, Collier County, no explicit site in the entry."
+          ],
+          "expected": [
+            "Shows candidates for the misspelled name, including both Dr. Mazen Albaghdadi and Dr. Ali Albaghdadi, and waits for him to choose.",
+            "After he chooses Mazen in Naples: Wellcare plans listed (dated 09/23/2026) at 399 9th St, Ste 300; HumanaChoice PPO and Regional PPO name him without a site; other plans not verified.",
+            "Original Medicare: enrolled, accepts assignment."
+          ]
+        },
+        {
+          "as_typed": "(not typed; the second candidate)",
+          "real": true,
+          "identity": {
+            "name": "Ali Albaghdadi, MD",
+            "npi": "1063479319",
+            "specialty": "Cardiology"
+          },
+          "sites_on_file": [
+            "Cardiology Consultants of Southwest Florida, 13411 Parker Commons Blvd, Suite 101, Fort Myers 33912"
+          ],
+          "evidence_on_file": [
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled; listed as may accept assignment."
+          ],
+          "expected": [
+            "Appears as a candidate for the misspelled name and is not used once he chooses Mazen."
+          ],
+          "note": "Distractor, not his doctor."
+        },
+        {
+          "as_typed": "Dr. Mark Speake on 9th Street",
+          "real": true,
+          "identity": {
+            "name": "Mark Speake, MD",
+            "npi": "1821046970",
+            "specialty": "Internal medicine"
+          },
+          "sites_on_file": [
+            "NCH Physician Group - Primary Care, 311 9th St N, Suite 304, Naples 34102"
+          ],
+          "evidence_on_file": [
+            "Wellcare 2026 provider directories dated 09/23/2026 (L08 wellcare-r5, four documents bound to H1032-198 and -199, -239, -243, -241 and -202): \"Speake, Mark MD\", 311 9th St N, Ste 304, page 15, publisher ID 2145478, in all four documents.",
+            "HumanaChoice PPO directory H5216FLLS01GG26 dated 10/11/2026 (L08 normalization-r4; expressly partial; bound to seven H5216 offerings): no entry found for this name.",
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled, accepts assignment, 311 9th St N, Suite 304."
+          ],
+          "expected": [
+            "Confirms Dr. Mark Speake; Wellcare plans listed (dated); no HumanaChoice PPO entry (not \"out\"); Original Medicare accepts assignment."
+          ]
+        }
+      ],
+      "pharmacy": null,
+      "medicines": [
+        {
+          "as_typed": "Eliquis 5 twice a day",
+          "product": {
+            "name": "APIXABAN 5 MG ORAL TABLET [ELIQUIS]",
+            "rxcui": "1364447"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 3 with a quantity limit on every list checked."
+          ]
+        },
+        {
+          "as_typed": "losartan 50",
+          "product": {
+            "name": "LOSARTAN POTASSIUM 50 MG ORAL TABLET",
+            "rxcui": "979492"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists; tier 2 on Humana Basic Rx; tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198; quantity limit on most."
+          ]
+        }
+      ],
+      "must_not": [
+        "Merge the two Albaghdadi cardiologists or pick one without his confirmation."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34103",
+        "age": 64,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "predictable",
+        "priorities": "doctors, bills",
+        "current_coverage": "none (marketplace plan)"
+      },
+      "coverage_path": "Original Medicare suggested (doctors and bills).",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medigap": "Priced at 65 (reported age 64 kept); Plans C and F set aside; top match among D and G by lowest listed premium; record.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "after_d146": "With doctor checks wired in, Wellcare plans may show ✓ for both doctors (dated listings) and Humana plans ? ; the path comparison may then change. Record it."
+    }
+  },
+  {
+    "id": "PP14",
+    "source": "New 2026-11-12 for D146. Built on the D91 r7 case: a real Wellcare-listed concierge doctor, the same Publix and metformin ER; tests dated listings against a 2027 network change and a near-name false match.",
+    "archetype": "Wellcare Giveback member; his hospital group leaves Wellcare in January; concierge doctor; values the Part B giveback",
+    "person": {
+      "name": "Walter Brennick",
+      "age": 67,
+      "zip": "34102",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1959-08-11",
+      "sex_category": "Male",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Married and retired; no employer or retiree coverage.",
+      "medicare": {
+        "part_a_start_date": "2024-08-01",
+        "part_b_start_date": "2024-08-01",
+        "medicare_advantage_start_date": "2024-08-01",
+        "eligibility_history": "Joined Medicare Advantage when first eligible at 65; his 12-month trial right ended in 2025.",
+        "medigap_history": "Never held Medigap."
+      },
+      "current_coverage": "Wellcare Giveback H1032-198 (HMO) since 2024 (2026 plan shown as current). Received a letter from NCH saying Wellcare Medicare Advantage will be out of network at NCH from January 1, 2027. No Medigap, Medicaid or Extra Help.",
+      "finances": "Gross annual household income about $85,000; income band $75,000–$100,000. Savings about $400,000.",
+      "medicines": [
+        "Metformin extended-release 500 mg, two tablets by mouth once daily.",
+        "Atorvastatin 40 mg by mouth once daily."
+      ],
+      "doctors": [
+        "Dr. Mark Josephson, family practice, NCH concierge practice, 311 9th St N, Ste 306 (real clinician, NPI 1649223470). Pays a concierge membership (fictional detail)."
+      ],
+      "pharmacy": "Publix Pharmacy #1434, 1981 Tamiami Trl N, Naples 34102 (real pharmacy, NPI 1841534534).",
+      "preferences": "Keeping Dr. Josephson first; likes his plan's Part B giveback but would give it up for him. Uses a laptop."
+    },
+    "opening_message": "I'm on Wellcare Giveback. NCH sent a letter saying Wellcare will be out of network there in January. My doctor is Mark Josephson at NCH. What are my options?",
+    "response_script": [
+      {
+        "if_asked_about": "Doctor details or office",
+        "reply": "Dr. Mark Josephson, the NCH concierge practice, 311 9th Street North, Suite 306."
+      },
+      {
+        "if_asked_about": "Medicare dates or coverage history",
+        "reply": "Medicare and Wellcare Giveback both since August 2024. Never had a supplement."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Does the Wellcare directory still list him? Then I'm fine, right?"
+      },
+      {
+        "if_asked_about": "Medicines or pharmacy",
+        "reply": "Metformin ER 500, two a day, and atorvastatin 40. Publix at 1981 Tamiami Trail North."
+      },
+      {
+        "if_asked_about": "Age, ZIP, sex category or tobacco",
+        "reply": "67, 34102, male, no tobacco."
+      },
+      {
+        "if_asked_about": "Budget, income or priorities",
+        "reply": "Keep Dr. Josephson. I like the Part B money back, but I'd give it up for him."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So if I switch to a Humana plan for January, Dr. Josephson is covered because Humana works with NCH?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Wellcare's directories dated September 23, 2026 list Dr. Josephson at 311 9th St, Ste 306; that is 2026 evidence and can't show January 2027.",
+        "His letter matches NCH's public notice recorded in the D91 r7 case that Wellcare Medicare Advantage goes out of network at NCH on January 1, 2027; the pilot's 2026 data can't confirm 2027 networks.",
+        "Humana Gold Plus's partial October directory has no listing for Dr. Josephson; that is unknown, not confirmed in or out, and each plan and doctor needs confirming for 2027.",
+        "Fall changes take effect January 1; outside his first year, a Medigap insurer can generally ask health questions. [Medigap enrollment](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "A concierge membership fee is separate from any Medicare plan."
+      ],
+      "must_not_claim": [
+        "A 2026 Wellcare listing means he is covered with Dr. Josephson in 2027.",
+        "Dr. Josephson is in a Humana plan's network.",
+        "The Humana directory's \"Josephson, Gerald M DMD\" is his doctor."
+      ],
+      "trap": "A current directory listing and a company-level statement (\"Humana works with NCH\") both sound like answers; neither confirms the exact doctor, plan and year."
+    },
+    "grading_notes": "Credit replies that separate 2026 evidence from 2027 questions and name the exact confirmation needed. Watch for the dentist with the same surname.",
+    "expected_outcome": {
+      "coverage_path": "medicare_advantage",
+      "why": "He likes Advantage and its giveback; switching to a 2027 Advantage plan where Dr. Josephson is confirmed keeps both priorities if one exists.",
+      "alternative_path": "Original Medicare with Medigap and a drug plan; Dr. Josephson accepts Medicare assignment, but an insurer can ask health questions. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (self; not asked)",
+            "ZIP 34102",
+            "Review your info"
+          ],
+          "shows": "The 72 retained 2026 Collier Medicare Advantage listings, grouped by Daylight's sorting (evaluation) with ✓ / ✗ / ? per plan; record the counts per group. Record Dr. Josephson's mark on Wellcare Giveback and Humana Gold Plus."
+        },
+        "medigap": {
+          "expected": "optional",
+          "needs": [
+            "age 67",
+            "male",
+            "non-tobacco"
+          ],
+          "shows": "Plan-letter overview first, then the rate list for this ZIP, age, sex and tobacco category, grouped by Daylight's sorting (record the counts). The health-questions note matters for him."
+        },
+        "part_d": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Only if he leaves Advantage."
+        }
+      },
+      "see_plans_should_land_on": "The two coverage paths, then Medicare Advantage.",
+      "before_you_enroll": "Reachable; record whether it is offered before the 2027 network question is addressed."
+    },
+    "understanding": {
+      "trade_off": "Staying in Advantage keeps his giveback but depends on finding a 2027 plan that confirms Dr. Josephson; Original Medicare with Medigap keeps him without a network but may involve health questions.",
+      "should_leave_understanding": [
+        "The 2026 Wellcare listing can't tell him about January.",
+        "He has to confirm Dr. Josephson with any plan he considers for 2027.",
+        "Moving to a supplement now may mean health questions."
+      ],
+      "teach_back": {
+        "message": "So if I switch to a Humana plan for January, Dr. Josephson is covered because Humana works with NCH?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Corrects it: a hospital group's general contract isn't a listing for his doctor on a specific plan; Humana Gold Plus's directory has no listing for him; he must confirm the exact plan, doctor and office for 2027. Then asks one question."
+      },
+      "watch_for": [
+        "Near-name false match: \"Josephson, Gerald M DMD\" in a Humana directory is a dentist.",
+        "Dates: every listing is shown with its date; nothing implies 2027 status.",
+        "D91 r7 regression: metformin ER stays extended release; Publix #1434 is preferred in Wellcare Giveback and standard in Humana Gold Plus."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medicare Advantage tab when offered; open Wellcare Giveback and Humana Gold Plus; record the doctor and pharmacy marks.",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Mark Josephson at NCH",
+          "real": true,
+          "identity": {
+            "name": "Mark Josephson, MD",
+            "npi": "1649223470",
+            "specialty": "Family practice"
+          },
+          "sites_on_file": [
+            "NCH Medical Group - Concierge (Concierge Medicine South), 311 9th St N, Suite 306, Naples 34102"
+          ],
+          "evidence_on_file": [
+            "Wellcare 2026 provider directories dated 09/23/2026 (L08 wellcare-r5, four documents bound to H1032-198 and -199, -239, -243, -241 and -202): \"Josephson, Mark MD\", NCH Medical Group - Concierge, 311 9th St, Ste 306, page 13, publisher ID 4993016, in all four documents (the D91 r7 case uses the H1032-198 binding).",
+            "Original Medicare clinician file dated 2026-10-02 (L08 original-medicare-r6): enrolled, accepts assignment, 311 9th St N.",
+            "D91 r7 case (docs/product/recommendation-scope-2026-11-04-r7): Humana Gold Plus H1036-217's partial October 11 directory has no exact listing; NCH's public notice says Wellcare Medicare Advantage goes out of network at NCH on January 1, 2027.",
+            "HumanaChoice PPO directory H5216FLLS01GG26 dated 10/11/2026 (L08 normalization-r4; expressly partial; bound to seven H5216 offerings): the only Josephson entry is \"Josephson, Gerald M DMD\", a dentist and a different person."
+          ],
+          "expected": [
+            "Confirms Dr. Mark Josephson at 311 9th St N, Ste 306; never offers Gerald M Josephson, DMD as a match.",
+            "Wellcare Giveback H1032-198: listed, dated 09/23/2026, for 2026 only.",
+            "Humana Gold Plus H1036-217: no listing in the partial directory; unknown.",
+            "Original Medicare: enrolled, accepts assignment."
+          ]
+        }
+      ],
+      "pharmacy": {
+        "as_typed": "Publix at 1981 Tamiami Trail North",
+        "identity": {
+          "name": "Publix Pharmacy #1434",
+          "npi": "1841534534",
+          "address": "1981 Tamiami Trl N, Naples 34102"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for all 71; preferred in 24 (6 of the 10 PDPs, and Wellcare Giveback H1032-198), standard in 47 (including Humana Gold Plus H1036-217).",
+          "Same store as the D91 r7 Plan Finder case."
+        ],
+        "expected": [
+          "Selects Publix #1434; preferred in Wellcare Giveback H1032-198, standard in Humana Gold Plus H1036-217."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Metformin ER 500, two a day",
+          "product": {
+            "name": "24 HR METFORMIN HYDROCHLORIDE 500 MG EXTENDED RELEASE ORAL TABLET",
+            "rxcui": "860975"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): quantity limit on every list; tier 1 on most, tier 2 on SilverScript Choice, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198. The immediate-release tablet (RxCUI 861007) is a different product (D91 r7 correction fixture)."
+          ],
+          "expected": [
+            "Matches the D91 r7 extended-release product: Wellcare Giveback tier 6 with a limit; Humana Gold Plus tier 1 with a limit."
+          ]
+        },
+        {
+          "as_typed": "atorvastatin 40",
+          "product": {
+            "name": "ATORVASTATIN 40 MG ORAL TABLET",
+            "rxcui": "617311"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on most lists, tier 2 on Humana Basic Rx, tier 6 on both BlueMedicare PDPs and Wellcare Giveback H1032-198."
+          ]
+        }
+      ],
+      "must_not": [
+        "Carry a 2026 network status into a 2027 statement."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34102",
+        "age": 67,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "doctors",
+        "current_coverage": "Medicare Advantage"
+      },
+      "coverage_path": "Original Medicare suggested on the doctors priority, with the health-questions note; this differs from expected_outcome, where he chooses Advantage for the giveback (the method doesn't read givebacks). Record how the chat handles it.",
+      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medigap": "Plans C and F set aside (age 67); top match is the lowest listed premium among plans meeting the doctors priority; the health-questions note shows.",
+      "part_d": "Not part of his path.",
+      "after_d146": "With doctor checks wired in, Wellcare plans show a dated ✓ for 2026 and Humana Gold Plus ?; nothing should claim 2027."
+    }
+  },
+  {
+    "id": "PP15",
+    "source": "New 2026-11-12 for D146. Son typing for his mother; a real independent pharmacy that is out of network for most plans; brand versus generic, a prior-authorization drug and an over-the-counter vitamin.",
+    "archetype": "Son helping mother with her fall drug-plan review; independent pharmacy; five items including a brand and an OTC; wants the cheapest plan",
+    "person": {
+      "name": "Ilse Varga",
+      "age": 71,
+      "zip": "34103",
+      "relationship_to_typist": "parent"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1955-03-10",
+      "sex_category": "Female",
+      "tobacco": "Has never used tobacco of any kind.",
+      "typist": "Peter Varga, her son.",
+      "household_and_work": "Widowed and retired; lives alone; her son helps with paperwork.",
+      "medicare": {
+        "part_a_start_date": "2020-03-01",
+        "part_b_start_date": "2020-03-01",
+        "medigap_start_date": "2020-03-01",
+        "part_d_start_date": "2020-03-01",
+        "medicare_advantage_history": "Never enrolled."
+      },
+      "current_coverage": "Original Medicare, an unnamed fictional Medigap Plan G, and AARP Medicare Rx Saver from UHC (S5921-356) as her current drug plan. No Medicaid or Extra Help.",
+      "finances": "Gross annual income about $35,000; income band $30,000–$40,000. Savings about $90,000.",
+      "medicines": [
+        "Synthroid (brand levothyroxine) 50 mcg by mouth daily; her doctor wants brand.",
+        "Eliquis (apixaban) 5 mg by mouth twice daily.",
+        "Furosemide 20 mg by mouth daily.",
+        "Ozempic (semaglutide) 1 mg injection once weekly, for type 2 diabetes, for two years.",
+        "Vitamin D3 2,000 IU daily, bought over the counter."
+      ],
+      "doctors": [
+        "Not discussed."
+      ],
+      "pharmacy": "Stoney's Pharmacy, 2616 Tamiami Trl N, Naples 34103 (real independent pharmacy, NPI 1093027393); it delivers, and she won't switch.",
+      "preferences": "The cheapest plan that works at Stoney's."
+    },
+    "opening_message": "I'm helping my mom review her drug plan. She's 71, lives in 34103, uses Stoney's Pharmacy on Tamiami, and takes five things: Synthroid 50, Eliquis 5 twice a day, furosemide 20, Ozempic 1 mg weekly, and vitamin D. Which plan is cheapest for her?",
+    "response_script": [
+      {
+        "if_asked_about": "Who the coverage is for, or who is typing",
+        "reply": "It's for my mother, Ilse. I'm her son, Peter."
+      },
+      {
+        "if_asked_about": "Current coverage",
+        "reply": "Original Medicare since 2020, Plan G, and the AARP Rx Saver drug plan."
+      },
+      {
+        "if_asked_about": "Unprompted, at the first natural pause; send even if no factual questions are asked",
+        "reply": "Her doctor wants her on brand Synthroid. Does that matter?"
+      },
+      {
+        "if_asked_about": "Pharmacy",
+        "reply": "Stoney's Pharmacy, 2616 Tamiami Trail North. She won't switch; they deliver."
+      },
+      {
+        "if_asked_about": "Ozempic, diabetes or other health details",
+        "reply": "The Ozempic is for her type 2 diabetes. She's been on it two years."
+      },
+      {
+        "if_asked_about": "Budget or priorities",
+        "reply": "She's on about $35,000 a year. We just want the cheapest plan that works at Stoney's."
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message before ending (teach-back)",
+        "reply": "So we pick the cheapest plan on the list and Stoney's, the Ozempic and the vitamin D are all covered?"
+      }
+    ],
+    "stop_rule": "End after eight typist messages, including the opening. Send both unprompted messages; the teach-back is always last.",
+    "answer_key": {
+      "must_cover": [
+        "Stoney's Pharmacy is in network for only 3 of the 10 Part D plans on file (SilverScript Choice, AARP Medicare Rx Saver, AARP Medicare Rx Preferred); the cheapest plan overall may not include it.",
+        "Ozempic needs prior authorization and has a quantity limit on every 2026 list checked.",
+        "Brand Synthroid is tier 3 or 4 on these lists while generic levothyroxine is tier 1 or 2; staying on brand costs more on most plans, and the choice of product is her doctor's.",
+        "Over-the-counter vitamin D isn't a Part D drug, so no drug plan covers it. [Part D costs](https://www.medicare.gov/health-drug-plans/part-d/basics/costs)",
+        "Eliquis is tier 3 with a quantity limit on every list; costs depend on the deductible and phase, up to the $2,100 2026 cap. [2026 Part D redesign](https://www.cms.gov/newsroom/fact-sheets/final-cy-2026-part-d-redesign-program-instructions)"
+      ],
+      "must_not_claim": [
+        "The cheapest plan works at Stoney's.",
+        "Ozempic is covered without approval on any plan.",
+        "Vitamin D is covered.",
+        "She should switch from Synthroid to the generic."
+      ],
+      "trap": "A cheapest-premium answer ignores that her pharmacy is out of network for seven of the ten plans."
+    },
+    "grading_notes": "The pharmacy network is the deciding fact here; credit a reply that leads with it. Watch that the details stay the mother's.",
+    "expected_outcome": {
+      "coverage_path": "part_d_only",
+      "why": "She keeps Original Medicare and Plan G; the question is which drug plan, and her pharmacy narrows it to three.",
+      "alternative_path": "Keep AARP Rx Saver, which already includes Stoney's. Valid.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "Not her path."
+        },
+        "medigap": {
+          "expected": "not_needed",
+          "needs": [],
+          "shows": "She keeps Plan G."
+        },
+        "part_d": {
+          "expected": "unlocks",
+          "needs": [
+            "who it's for (someone else: his mother; asked at most once)",
+            "ZIP 34103",
+            "county filled from ZIP",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans with premium and deductible, grouped by Daylight's sorting; drug-list and pharmacy marks depend on whether D146 checks are wired in on the run date (record). Record whether plans without Stoney's are marked or set aside."
+        }
+      },
+      "see_plans_should_land_on": "Part D drug plans.",
+      "before_you_enroll": "Reachable; record whether it reads correctly for a helper."
+    },
+    "understanding": {
+      "trade_off": "Her coverage path is settled; the drug-plan choice is narrowed by her pharmacy, and the lowest premium may not include Stoney's.",
+      "should_leave_understanding": [
+        "Only three of the ten plans include Stoney's.",
+        "Ozempic needs the plan's approval on every plan.",
+        "Vitamin D isn't covered by any drug plan; brand Synthroid costs more than the generic on most plans."
+      ],
+      "teach_back": {
+        "message": "So we pick the cheapest plan on the list and Stoney's, the Ozempic and the vitamin D are all covered?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Corrects all three plainly: only three plans include Stoney's, Ozempic needs approval, vitamin D isn't covered. Then asks one question."
+      },
+      "watch_for": [
+        "Helper typing: the details are the mother's; \"Who is this for?\" is asked at most once.",
+        "Pharmacy check: a pharmacy out of network for most plans is the decisive fact.",
+        "OTC handling: vitamin D is kept on her list but marked as not a Part D drug."
+      ]
+    },
+    "tester_actions": [
+      "Open the Part D tab when offered; record the pharmacy mark for SilverScript Choice, AARP Rx Saver and one Humana PDP.",
+      "Return with Back to my conversation before each message."
+    ],
+    "checks": {
+      "doctors": [],
+      "pharmacy": {
+        "as_typed": "Stoney's Pharmacy, 2616 Tamiami Trail North",
+        "identity": {
+          "name": "Stoney's Pharmacy (independent)",
+          "npi": "1093027393",
+          "address": "2616 Tamiami Trl N, Naples 34103"
+        },
+        "evidence_on_file": [
+          "L07 2026 pharmacy network rows for the 71 drug-bearing Collier offerings: in network for 35 of the 71, standard where present. Among the 10 PDPs only SilverScript Choice (S5601-022), AARP Medicare Rx Saver (S5921-356) and AARP Medicare Rx Preferred (S5921-383)."
+        ],
+        "expected": [
+          "Selects Stoney's by address; in network for SilverScript Choice, AARP Rx Saver and AARP Rx Preferred only, standard in each.",
+          "For the other seven PDPs, shows that her pharmacy isn't in the plan's network."
+        ]
+      },
+      "medicines": [
+        {
+          "as_typed": "Synthroid 50",
+          "product": {
+            "name": "LEVOTHYROXINE SODIUM 0.05 MG ORAL TABLET [SYNTHROID]",
+            "rxcui": "966247"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): brand Synthroid is tier 3 or 4; generic levothyroxine 0.05 mg (RxCUI 966221) is tier 1 on every list except Wellcare Classic (tier 2)."
+          ],
+          "expected": [
+            "Keeps brand Synthroid as reported; may show the generic's tier for context without recommending a switch."
+          ]
+        },
+        {
+          "as_typed": "Eliquis 5 twice a day",
+          "product": {
+            "name": "APIXABAN 5 MG ORAL TABLET [ELIQUIS]",
+            "rxcui": "1364447"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 3 with a quantity limit on every list checked."
+          ]
+        },
+        {
+          "as_typed": "furosemide 20",
+          "product": {
+            "name": "FUROSEMIDE 20 MG ORAL TABLET",
+            "rxcui": "310429"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): tier 1 on every list checked."
+          ]
+        },
+        {
+          "as_typed": "Ozempic 1 mg weekly",
+          "product": {
+            "name": "3 ML SEMAGLUTIDE 1.34 MG/ML PEN INJECTOR [OZEMPIC] (1 mg dose pen)",
+            "rxcui": "2398842"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): prior authorization and quantity limit on every list checked; tier 3 on most, tier 5 on SilverScript Choice, tier 6 on Wellcare Value Script."
+          ],
+          "expected": [
+            "Asks or confirms the pen strength if needed; shows prior authorization on every plan."
+          ]
+        },
+        {
+          "as_typed": "vitamin D",
+          "product": {
+            "name": "Vitamin D3 (cholecalciferol) 2,000 IU, bought over the counter",
+            "rxcui": null
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): no single-ingredient vitamin D product identity in the retained formulary data; over-the-counter vitamins are not Part D drugs."
+          ],
+          "expected": [
+            "Marks it as not a Part D drug; never matches it to a prescription combination product."
+          ]
+        }
+      ],
+      "must_not": [
+        "Rank a plan first whose network excludes Stoney's without saying so.",
+        "Match \"vitamin D\" to a prescription combination product such as Fosamax Plus D."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v1-20261112",
+      "inputs_to_capture": {
+        "zip": "34103",
+        "age": 71,
+        "sex": "female",
+        "tobacco": "no",
+        "doctors": "none",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "lower_monthly",
+        "priorities": "drugs",
+        "current_coverage": "Original Medicare with Medigap Plan G and a drug plan"
+      },
+      "coverage_path": "Not shown on her route, or no pick; record.",
+      "medicare_advantage": "Not expected to be opened; record if shown.",
+      "medigap": "Not expected to be opened; record if shown.",
+      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. In v1 all ten stay grouped by premium then deductible, with no pharmacy mark.",
+      "after_d146": "With pharmacy and drug checks wired in, the seven plans without Stoney's should be marked (or set aside) and should not top the list; Ozempic shows prior authorization everywhere."
+    }
+  }
+]

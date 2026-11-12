@@ -198,6 +198,11 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
                             local_review=research_catalog is not None)
     service = install_medigap(service, medigap_repository)
     service = install_part_d(service, part_d_repository)
+    if local_demo:
+        # D147: evaluation-only tiered recommendation. The local demo cannot run
+        # with the pilot gate (checked above), so participants never see it.
+        from recommendation_http import install_recommendation
+        service = install_recommendation(service, medigap_repository, part_d_repository)
     if pilot:
         service.adaptive.agent.budget = pilot_budget
         # Owner direction (DQ-01 pilot scope): replies say this is a pilot on 2026 sample data.

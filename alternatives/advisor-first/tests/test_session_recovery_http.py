@@ -136,6 +136,56 @@ class RecoveryHttpTests(unittest.TestCase):
         self.start_service()
         self.assertEqual(self.request('/api/conversation/resume', reference)[1], {'status': 'expired'})
 
+    def test_reload_returns_prior_replies_in_order_after_a_silent_action(self):
+        owner = next(iter(self.service.adaptive.current_chain))
+        chain = self.state['continuation'].split('.')[0]
+        from advisor_memory import CONTEXT_POLICY
+        turns = []
+        for words, reply in (('I am learning about Medicare.', 'Fictional reply one.'),
+                             ('What are the two paths?', 'Fictional reply two.')):
+            payload = self.action({'type': 'message', 'message': words})
+            payload.update(aiConsent=True, contextPolicy=CONTEXT_POLICY)
+            code, self.state = self.request('/api/conversation/turn', payload)
+            self.assertEqual(code, 200, self.state)
+            # The HTTP fixture bypasses composition. Seed a completed reply
+            # and the bounded exchange without an external model request.
+            self.service.adaptive.turn_journal[(owner, payload['requestId'])]['response'].update(
+                reply=reply, generated={'status': 'complete'})
+            self.service.adaptive.memory.remember(owner, chain, CONTEXT_POLICY,
+                words, reply, '', request_id=payload['requestId'])
+            turns.append((payload['requestId'], words, reply))
+        silent = self.action({'type': 'before_enroll_open'})
+        code, self.state = self.request('/api/conversation/turn', silent)
+        self.assertEqual(code, 200, self.state)
+        code, resumed = self.request('/api/conversation/resume', {'requestId': turns[0][0]})
+        self.assertEqual(code, 200, resumed)
+        self.assertEqual(resumed['requestId'], silent['requestId'])
+        self.assertEqual([(turn['requestId'], turn['user'], turn['reply'])
+                          for turn in resumed['history'] if turn.get('reply')], turns)
+        self.assertTrue(all('guide' not in turn and 'continuation' not in turn for turn in resumed['history']))
+        self.service.adaptive.turn_journal[(owner, turns[0][0])]['response']['plansContext'] = {'old_view': True}
+        code, resumed = self.request('/api/conversation/resume', {'requestId': turns[0][0]})
+        self.assertEqual(code, 200, resumed)
+        self.assertNotIn(turns[0][2], json.dumps(resumed['history']))
+        self.assertEqual(resumed['history'][0]['notice'], 'This earlier reply used a previous Plans view.')
+
+    def test_free_opening_choices_retain_the_selected_goal_and_next_question(self):
+        for choice in ('learn', 'compare', 'review'):
+            with self.subTest(choice=choice):
+                _, initial = self.request('/api/conversation/initial')
+                payload = {'guide': initial['guide'], 'record': initial['record'],
+                           'action': {'type': 'choice', 'id': 'T01', 'fields': {'choice': choice}},
+                           'requestId': str(uuid.uuid4()), 'aiConsent': False}
+                code, result = self.request('/api/conversation/turn', payload)
+                self.assertEqual(code, 200, result)
+                self.assertEqual(result['openingChoice'], choice)
+                self.assertEqual(result['guide']['fields']['intent.goal']['value'], choice)
+                self.assertEqual(result['metrics']['llmCalls'], 0)
+                self.assertTrue(result['assessment']['nextQuestion']['question'])
+                code, resumed = self.request('/api/conversation/resume', {'requestId': payload['requestId']})
+                self.assertEqual(code, 200, resumed)
+                self.assertEqual([turn.get('openingChoice') for turn in resumed['history']], [choice])
+
     def test_reload_reference_requires_same_guest_csrf_and_origin(self):
         reference = {'requestId': self.payload['requestId']}
         self.assertEqual(self.request('/api/conversation/resume', reference, csrf=False)[0], 403)

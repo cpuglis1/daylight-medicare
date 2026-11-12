@@ -9,6 +9,7 @@ from unittest.mock import patch
 import test_natural_flow as fixtures
 from chat import ModelUnavailable
 from natural_flow import CONTEXT_POLICY, LEGACY_CONTEXT_POLICY, VISIT_HISTORY_LIMIT
+from session_recovery import resume_visit
 
 
 class ConversationContinuityTests(unittest.TestCase):
@@ -71,6 +72,21 @@ class ConversationContinuityTests(unittest.TestCase):
         self.assertEqual(len(self.calls), calls)
         memory = self.flow.visit_memory[(self.owner, self.flow.current_chain[self.owner])]
         self.assertEqual(len(memory['exchanges']), 1)
+
+    def test_resume_projects_completed_replies_without_recomposing(self):
+        first = self.payload({'type': 'message', 'message': 'Please keep things simple.'})
+        self.extractions.append(self.extraction())
+        first_result = self.take(first)
+        second = self.payload({'type': 'message', 'message': 'Help me understand my choices.'})
+        self.extractions.append(self.extraction())
+        second_result = self.take(second)
+        calls = len(self.calls)
+        restored = resume_visit(self.flow, self.owner, {'requestId': second['requestId']})
+        self.assertEqual([(row['user'], row['reply']) for row in restored['history']], [
+            (first['action']['message'], first_result['reply']),
+            (second['action']['message'], second_result['reply']),
+        ])
+        self.assertEqual(len(self.calls), calls)
 
     def test_new_refresh_chain_and_other_owner_cannot_read_prior_dialogue(self):
         self.message('Please keep things simple.')

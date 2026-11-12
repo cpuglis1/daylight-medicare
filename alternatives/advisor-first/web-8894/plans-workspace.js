@@ -122,6 +122,7 @@
 
   function render() {
     if (!data) return;
+    window.DaylightRecommend?.update(prof().recommendation); // D147: inert unless the local demo turns it on
     const host = $('plans-panel'), rec = data.recommendation, scope = data.scope || {};
     host.replaceChildren();
     // Order: sticky header (plan kinds, way back), then the page for this view.
@@ -198,6 +199,8 @@
       pr.append(label, button(rec.priority_source === 'confirmed' ? 'Confirmed' : 'Confirm', async () => {if (!select.value) return; try {data = await api('/api/plans/priorities', {token, order: select.value.split(','), confirmed: true}); render();} catch (e) {status(e.message);}}, 'btn-secondary'));
       host.append(pr, el('p', 'These two costs do not measure total spending. Doctor, medicine and eligibility checks stay separate.', 'plans-help'));
     }
+    const fitSummary = window.DaylightRecommend?.summary('advantage', Object.fromEntries(data.plans.map(p => [p.id, p.name])));
+    if (fitSummary) host.append(fitSummary); // D147
     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
 
     // Tabs: no tab ever reads (0).
@@ -225,7 +228,7 @@
   // The conversation's Review your info step produces a handoff; only then is
   // "Check plans for me" offered here. Until then, the review belongs in the chat.
   function reviewedHandoff() {return !!(token || prof().handoff);}
-  function showView(next) {view = next; window.DaylightVisitResume?.rememberPage(view);render(); scrollTo({top: 0}); $('plans-panel').querySelector('h1')?.focus?.();}
+  function showView(next) {view = next;render(); scrollTo({top: 0}); $('plans-panel').querySelector('h1')?.focus?.();}
   function headerOffset() {
     const header = document.querySelector('.site-header'), host = $('plans-panel');
     if (header && host) host.style.setProperty('--plans-header-h', header.offsetHeight + 'px');
@@ -256,13 +259,17 @@
   }
   function renderPaths(host) {
     const h = el('h1', 'Two ways to get Medicare', 'plans-title'); h.tabIndex = -1; host.append(h);
-    host.append(el('p', 'Choose a path to see what is available. Nothing here is a recommendation.', 'plans-lede'));
+    const R = window.DaylightRecommend; // D147: evaluation-only sorting
+    host.append(el('p', R?.active() ? 'Choose a path to see what is available. Daylight’s tiered sorting is on for evaluation.'
+      : 'Choose a path to see what is available. Nothing here is a recommendation.', 'plans-lede'));
+    const fitSummary = R?.summary('path', Object.fromEntries(PATHS.map(p => [p.id, p.title]))); if (fitSummary) host.append(fitSummary);
     const cards = el('div', undefined, 'path-cards');
     for (const p of PATHS) {
       const card = el('section', undefined, 'path-card'), title = el('h2', p.title); title.id = 'path-' + p.id; card.setAttribute('aria-labelledby', title.id);
       const list = el('ul', undefined, 'path-points'); for (const text of p.points) list.append(el('li', text));
       const src = el('a', 'Medicare.gov source', 'path-source'); src.href = p.source; src.target = '_blank'; src.rel = 'noopener noreferrer';
-      card.append(title, list, src, button(p.action, () => showView(p.view), 'btn-secondary path-action')); cards.append(card);
+      card.append(title, list, src, button(p.action, () => showView(p.view), 'btn-secondary path-action'));
+      R?.decorate('path', p.id, card, src, 'Suggested path for what you told Daylight'); cards.append(card);
     }
     host.append(cards);
     const told = toldSoFar();
@@ -293,6 +300,7 @@
     host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
     const partD = el('section',undefined,'part-d-workspace'); host.append(partD);
     window.DaylightPartD.render(partD, {request:api, profile:prof().partD, context:prof().visit,
+      prescriptionPreview: opts.prescriptionPreview ? openPrescriptionPreview : null,
       conversation:async id => {
         if (!await opts.partDConversation(id)) {
           status('The conversation could not open. Your details and draft are kept; try again.'); return;
@@ -304,6 +312,11 @@
       }});
     if (prof().medigap?.status === 'ready') host.append(button('Back to Medigap prices', () => showView('supplement'), 'btn-secondary'));
     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+  }
+
+  function openPrescriptionPreview(plan) {
+    if (!opts.prescriptionPreview(plan))
+      status('Open the current conversation before checking fictional prescription costs.');
   }
 
   function rail() {
@@ -328,12 +341,21 @@
     queueMicrotask(clearState); return aside;
   }
   function clearState() {const c = $('rail-clear'); if (c) c.hidden = !(query.trim() || filters.type !== 'any' || filters.drugs !== 'any' || premiumMax !== 'any' || benefits.size);}
+  // D147: with evaluation sorting on, it is the default order until the person picks another.
+  let sortTouched = false;
+  function fitReady() {return !!window.DaylightRecommend?.tab('advantage');}
+  function sortChoice() {
+    if (mode === 'costs') return 'costs';
+    if (!sortTouched && fitReady()) return 'fit';
+    return filters.sort === 'fit' && !fitReady() ? 'premium' : filters.sort;
+  }
   function sortControl() {
     const wrap = el('label', 'Sort by', 'plans-sort'), s = el('select'); s.id = 'plans-sort';
-    for (const [v, t] of [['premium', 'Lowest monthly premium'], ['limit', 'Lowest yearly limit'], ['name', 'Plan name, A to Z'],
+    for (const [v, t] of [...(fitReady() ? [['fit', 'Daylight’s sorting (evaluation)']] : []),
+      ['premium', 'Lowest monthly premium'], ['limit', 'Lowest yearly limit'], ['name', 'Plan name, A to Z'],
       ...(data.reference_comparison?.state === 'available' ? [['costs', 'Published cost order']] : [])]) {const o = el('option', t); o.value = v; s.append(o);}
-    s.value = mode === 'costs' ? 'costs' : filters.sort;
-    s.onchange = () => {mode = s.value === 'costs' ? 'costs' : 'all'; filters.sort = s.value; renderCards();};
+    s.value = sortChoice();
+    s.onchange = () => {sortTouched = true; mode = s.value === 'costs' ? 'costs' : 'all'; filters.sort = s.value; renderCards();};
     wrap.append(s); return wrap;
   }
 
@@ -694,6 +716,25 @@
     const joinable = shown.filter(p => !p.retained_restrictions.length), ruled = shown.filter(p => p.retained_restrictions.length);
         const count = $('plans-result-count');
     if (count) count.textContent = shown.length < data.plans.length ? `${shown.length} of ${data.plans.length} plans match` : `${data.plans.length} plans`;
+    // D147: evaluation-only groups from the backend replace the joining-rule split.
+    const fitGroups = (mode === 'all' || mode === 'costs') ? window.DaylightRecommend?.arrange('advantage', shown) : null;
+    if (fitGroups) {
+      if (!shown.length) list.append(el('p', 'No plans match these choices. Try “Any type” or clear the search.', 'plans-help'));
+      const fit = sortChoice() === 'fit';
+      for (const g of fitGroups) {
+        const rows = fit ? g.rows : sorted(g.rows);
+        if (g.id === 'excluded') {
+          const d = el('details', undefined, 'plans-group plans-ruled'); d.open = !!q || rows.some(p => p.id === selected || compared.has(p.id));
+          const s = el('summary'); s.append(el('span', `${g.label} (${rows.length})`, 'plans-ruled-title'),
+            el('span', 'Set aside by who can join or by something you need. Each plan shows why.', 'plans-ruled-help'));
+          d.append(s); rows.forEach(p => d.append(card(p))); list.append(d); continue;
+        }
+        const section = el('section', undefined, 'plans-group'), h = el('h2', g.label, 'rec-group-title'); h.id = 'rec-group-' + g.id;
+        h.append(el('span', `${rows.length} ${rows.length === 1 ? 'plan' : 'plans'}`, 'rec-count'));
+        section.setAttribute('aria-labelledby', h.id); section.append(h); rows.forEach(p => section.append(card(p))); list.append(section);
+      }
+      return tray(list);
+    }
     const section = el('section', undefined, 'plans-group'); section.setAttribute('aria-labelledby', 'group-open');
     const h = el('h2', `Plans most people can join (${joinable.length})`); h.id = 'group-open'; section.append(h);
     if (!joinable.length) section.append(el('p', 'No plans match these choices. Try “Any type” or clear the search.', 'plans-help'));
@@ -730,11 +771,15 @@
     if (giveback && !/no reduction/i.test(giveback)) add('Part B giveback each month', giveback);
     else add('Medical deductible each year', value(p, 'medical_deductible'));
     c.append(amounts);
-    const checks = personalChecks(); if (checks) c.append(checks);
+    const fitted = window.DaylightRecommend?.plan('advantage', p.id); // D147: its checks replace the generic not-checked line
+    const checks = fitted ? null : personalChecks(); if (checks) c.append(checks);
+    window.DaylightRecommend?.decorate('advantage', p.id, c);
     const actions = el('div', undefined, 'plan-actions');
     const cmp = button(compared.has(p.id) ? 'Added to compare' : 'Add to compare', () => toggleCompare(p), 'btn-secondary');
     cmp.setAttribute('aria-pressed', String(compared.has(p.id))); if (compared.has(p.id)) withIcon(cmp, 'check', false);
     actions.append(cmp, withIcon(button('See full details', () => details(p)), 'chevron'));
+    if (opts.prescriptionPreview && drugs(p) && p.id.startsWith('2026:'))
+      actions.append(button('Check fictional drug costs', () => openPrescriptionPreview(p)));
     c.append(actions); return c;
   }
 
@@ -847,7 +892,7 @@
   function about() {
     const d = el('details', undefined, 'plans-about'); d.append(el('summary', 'About this plan data'));
     const scope = data.scope || {}, dated = scope.landscape_data_date ? new Date(scope.landscape_data_date + 'T12:00:00').toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}) : null;
-    d.append(el('p', `${scope.year} plans from Medicare’s public plan data${dated ? ', dated ' + dated : ''}. The list is not ranked for you; sorting only changes the order.${scope.year === 2026 ? ' 2027 plans are not loaded yet.' : ''}`));
+    d.append(el('p', `${scope.year} plans from Medicare’s public plan data${dated ? ', dated ' + dated : ''}. ${window.DaylightRecommend?.active() ? 'Daylight’s tiered sorting is on for evaluation; the other sort choices only change the order.' : 'The list is not ranked for you; sorting only changes the order.'}${scope.year === 2026 ? ' 2027 plans are not loaded yet.' : ''}`));
     d.append(el('p', `“${HELD}” means the published data didn’t settle that amount yet. Ask Daylight about it, or check with the plan.`));
     d.append(el('p', data.notice));
     const cov = data.coverage;
@@ -864,7 +909,6 @@
     // The person asked for it; Medicare Advantage stays one click away.
     const asked = target || {medigap: 'supplement', drug_pricing: 'part-d'}[prof().task] || null;
     token = handoff?.token || null; opened = true; view = asked || (token ? 'advantage' : 'paths'); activate();
-    window.DaylightVisitResume?.rememberPage(view);
     const ws = $('workspace'); document.body.classList.add('plans-page'); ws.classList.add('plans-open'); ws.classList.toggle('chat-closed', drawer());
     $('plans-backdrop').hidden = true; $('plans-fab').hidden = false; $('plans-tab').setAttribute('aria-current', 'page');
     $('plans-panel').hidden = false; $('plans-panel').replaceChildren(el('p', 'Loading plans…', 'plans-lede'));
@@ -872,7 +916,6 @@
     await refresh(); scrollTo({top: 0}); return !!data;
   }
   function close(focusId = 'message') {
-    window.DaylightVisitResume?.rememberPage('conversation');
     opened = false; openDialog()?.close(); $('workspace').classList.remove('plans-open', 'chat-closed'); document.body.classList.remove('plans-page');
     $('plans-panel').hidden = true; $('plans-backdrop').hidden = true; $('plans-fab').hidden = true; document.body.classList.remove('plans-chat-open', 'plans-has-tray'); $('plans-tab').removeAttribute('aria-current');
     if (focusId === 'current') $('current').focus({preventScroll:true}); else $('message').focus();
@@ -884,6 +927,9 @@
   }
   window.DaylightPlans = Object.freeze({init(options) {
     api = options.request; activate = options.activate; ask = options.ask; opts = options;
+    // D147: evaluation-only sorting results arrive after the page renders; draw them when they do.
+    window.DaylightRecommend?.configure(api);
+    window.DaylightRecommend?.onChange(() => {if (opened && data && !openDialog() && !saving) render();});
     // Reviewed question wording, reasons and teaching notes explain each filter.
     Promise.all([fetch('/baseline-content.json').then(r => r.json()), fetch('/readiness-content.json').then(r => r.json())]).then(([base, rc]) => {
       for (const q of base) content[q.id] = {question: q.question, why: q.why, teach: q.teach, options: q.options, multi: q.multi, max: q.max};

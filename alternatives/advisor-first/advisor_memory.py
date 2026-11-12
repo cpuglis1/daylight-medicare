@@ -65,6 +65,14 @@ class VisitMemory:
             key = self._permitted(owner, chain, policy)
             return copy.deepcopy(self._visits.get(key, {}).get('exchanges', []))
 
+    def display_inputs(self, owner, chain):
+        """Match already-retained inputs to receipts for the authorized visit."""
+        with self._lock:
+            self._prune()
+            visit = self._visits.get(self._key(owner, chain), {})
+            return {key: item['user'] for key, item in
+                    zip(visit.get('request_ids', []), visit.get('exchanges', [])) if key}
+
     def brief(self, owner, chain, policy):
         """Return a non-authoritative working brief, separate from the profile."""
         with self._lock:
@@ -132,7 +140,7 @@ class VisitMemory:
     def remember(self, owner, chain, policy, user, reply, question,
                  question_target=None, agenda_update=None, goal=None,
                  candidate_ids=(), education_record=None, task_work_record=None,
-                 learner_record=None, continuation=None, discourse_note=None):
+                 learner_record=None, continuation=None, discourse_note=None, request_id=None):
         """Remember one completed exchange after the caller validates its reports.
 
         ``goal`` is an optional explicit-user-report patch supplied by the caller;
@@ -214,10 +222,13 @@ class VisitMemory:
 
             exchanges = memory['exchanges']
             if sum(map(len, exchange.values())) <= HISTORY_LIMIT:
+                request_ids = memory.get('request_ids', [None] * len(exchanges))
                 exchanges.append(exchange)
+                request_ids.append(request_id)
                 exchanges = exchanges[-HISTORY_EXCHANGES:]
                 while sum(len(text) for item in exchanges for text in item.values()) > HISTORY_LIMIT:
                     exchanges.pop(0)
+                memory['request_ids'] = request_ids[-len(exchanges):]
             memory.update(exchanges=exchanges,
                           expires=self._clock() + HISTORY_TTL)
             self._visits.pop(key, None)

@@ -1,0 +1,43 @@
+{
+  "package_id": "collier-pilot-foundation-2026-r1",
+  "year": 2026,
+  "plan_county_fips": "12021",
+  "care_search_counties": {"12021": "Collier", "12071": "Lee", "12051": "Hendry", "12015": "Charlotte", "12043": "Glades", "12087": "Monroe"},
+  "technical_read_until_utc": "2026-11-24T00:00:00+00:00",
+  "technical_read_until_basis": "Local candidate recheck deadline aligned to the existing PDP review checkpoint. This is an upper bound for offline research, not a source expiry or accepted use.",
+  "purpose": "offline_research",
+  "acceptance": {"source_for_participant_use": null, "method": null, "participant_output": null, "participant_release": false},
+  "source_review_expiry": {
+    "L05": null, "L06": null, "L07": null, "L08": null
+  },
+  "source_review_expiry_basis": "No accepted review window is established for these L05–L08 capabilities. Source publications and dates remain in the evidence.",
+  "capabilities": {
+    "provider_identity": {"layers": ["L08"], "state": "offline_candidate", "qualification": "Dated literal names, source identifiers and explicit role/site edges. Deliberate confirmation required. No site, person or affiliation is inferred from a name."},
+    "provider_network": {"layers": ["L08"], "state": "offline_candidate", "qualification": "Dated exact, family, named-network, conflict and held observations. Nonmatch stays unknown. Network, appointments and new-patient access require their own evidence."},
+    "original_medicare": {"layers": ["L08"], "state": "offline_candidate", "qualification": "Separate source observations of assignment, enrollment, opt-out and hospital identity. Presence does not establish current personal applicability."},
+    "pharmacy": {"layers": ["L07"], "state": "offline_candidate", "qualification": "Native plan/NPI/ZIP/retail/mail relationships and separate location observations. No substitution of chain, address, outlet or mail/retail channel."},
+    "drug_formulary": {"layers": ["L05"], "state": "offline_candidate", "qualification": "September 2026 CMS tiers and PA/ST/QL flags with separate dated criteria and unit evidence. Supplemental contract/PBP observations cannot silently become segment-exact."},
+    "drug_cost_inputs": {"layers": ["L06"], "state": "offline_candidate", "qualification": "Q3 2026 plan-level in-area retail average unit prices and published no-subsidy schedules. Native fees, units, blank and zero values remain distinct."},
+    "personal_estimate": {"layers": ["L05", "L06", "L07"], "state": "held", "qualification": "Deterministic multi-drug method, exact quantities, phase/fee rules, scenario validation and acceptance remain open."},
+    "exact_store_price": {"layers": ["L06", "L07"], "state": "held", "qualification": "Exact-product/store price evidence and permitted use are missing."}
+  },
+  "inherited_stops": {
+    "registry": "docs/data/l08-provider-networks-2026-10-27/acquisition-r1/stopped-hosts.json",
+    "additional_recorded_domains": ["uhc.com", "wellcare.com"],
+    "additional_record": "docs/data/l05-drug-coverage-2026-10-25/CLOSEOUT.md",
+    "policy": "Existing acquisition/source-use STOPs remain binding. Retained research observations and gap states are available for internal inspection only. This package performs no acquisition or external requests."
+  },
+  "external_evidence": [
+    "Exact applicable 2026 UHC/Flex and Florida Blue CMS contract/PBP/segment bridges and selected Humana PPO network bridges. Permitted dated roster evidence for omitted sites/specialties and unresolved publisher counts.",
+    "Dated targeted exact clinician/site/plan confirmation when consequential, including availability or conflicting observations where relevant.",
+    "Aetna/SilverScript dated evidence linking masked-ZIP NPI 1285263780 to the exact dispensing outlet. Never substitute retail NPI 1427893932.",
+    "Exact applicable PA/ST version bridges, detailed criteria and explicit physical units where absent. Later documents retain their original applicability.",
+    "Permitted dated official-price observations for identical fictional scenarios. Exact-store pricing rights and evidence are a separate dependency."
+  ],
+  "internal_work": [
+    "Regional spelling-tolerant candidate search and confirmation flow; exact plan/site resolution, conflict handling and denominator/review fixtures.",
+    "Product and outlet confirmation, channel eligibility, report revision binding and correction invalidation.",
+    "Deterministic multi-drug estimate, exact arithmetic and reconciliation fixtures; independent source/method/output review and separate participant-scope decision.",
+    "Demo adapter, device verification, DQ-26 renewals or disablement, source-control propagation, target-host restore and launch gates."
+  ]
+}

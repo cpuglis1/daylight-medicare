@@ -1,0 +1,584 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fictional plan-path profiles, 2026-11-12 (15)",
+  "description": "Fifteen fictional profiles for watching how a person moves through teach, coverage path, plans and Before you enroll, what they understand at the end, how D147 sorting answers them and, where `checks` is present, how the D146 doctor, pharmacy and medicine checks treat real 2026 records. validate.py adds corpus checks. This schema does not certify Medicare advice.",
+  "type": "array",
+  "minItems": 15,
+  "maxItems": 15,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "source",
+      "archetype",
+      "person",
+      "ground_truth",
+      "opening_message",
+      "response_script",
+      "stop_rule",
+      "answer_key",
+      "grading_notes",
+      "expected_outcome",
+      "understanding",
+      "tester_actions",
+      "checks",
+      "expected_sorting"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^PP(0[1-9]|1[0-5])$"
+      },
+      "source": {
+        "$ref": "#/$defs/text"
+      },
+      "archetype": {
+        "$ref": "#/$defs/text"
+      },
+      "person": {
+        "type": "object",
+        "required": [
+          "name",
+          "age",
+          "zip",
+          "relationship_to_typist"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/text"
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 64,
+            "maximum": 74,
+            "description": "Pilot Medigap pricing covers ages 65 to 74; 64 is priced at 65."
+          },
+          "zip": {
+            "type": "string",
+            "enum": [
+              "34101",
+              "34102",
+              "34103",
+              "34104",
+              "34105",
+              "34106",
+              "34107",
+              "34108"
+            ],
+            "description": "Pilot Medigap pricing ZIPs."
+          },
+          "relationship_to_typist": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      },
+      "ground_truth": {
+        "type": "object",
+        "required": [
+          "as_of_date",
+          "plan_year",
+          "date_of_birth",
+          "sex_category",
+          "tobacco",
+          "household_and_work",
+          "medicare",
+          "current_coverage",
+          "finances",
+          "medicines",
+          "doctors"
+        ],
+        "description": "Hidden fictional facts. The tester answers unscripted questions briefly from these, in the persona's voice."
+      },
+      "opening_message": {
+        "$ref": "#/$defs/text"
+      },
+      "response_script": {
+        "type": "array",
+        "minItems": 6,
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "required": [
+            "if_asked_about",
+            "reply"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "if_asked_about": {
+              "$ref": "#/$defs/text"
+            },
+            "reply": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        },
+        "contains": {
+          "type": "object",
+          "required": [
+            "if_asked_about"
+          ],
+          "properties": {
+            "if_asked_about": {
+              "type": "string",
+              "pattern": "^Unprompted,"
+            }
+          }
+        },
+        "minContains": 2,
+        "maxContains": 3,
+        "description": "Unconditional messages start with Unprompted,. The last item is always the teach-back."
+      },
+      "stop_rule": {
+        "$ref": "#/$defs/text"
+      },
+      "answer_key": {
+        "type": "object",
+        "required": [
+          "must_cover",
+          "must_not_claim",
+          "trap"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "must_cover": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "must_not_claim": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "trap": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      },
+      "grading_notes": {
+        "$ref": "#/$defs/text"
+      },
+      "expected_outcome": {
+        "type": "object",
+        "required": [
+          "coverage_path",
+          "why",
+          "alternative_path",
+          "tabs",
+          "see_plans_should_land_on",
+          "before_you_enroll"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "coverage_path": {
+            "type": "string",
+            "enum": [
+              "medicare_advantage",
+              "original_medicare_medigap_part_d",
+              "part_d_only",
+              "keep_current_or_wait"
+            ],
+            "description": "Where this person's facts and stated priorities lead. The person decides; the product makes the trade-off visible."
+          },
+          "why": {
+            "$ref": "#/$defs/text"
+          },
+          "alternative_path": {
+            "$ref": "#/$defs/text"
+          },
+          "tabs": {
+            "type": "object",
+            "required": [
+              "medicare_advantage",
+              "medigap",
+              "part_d"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "medicare_advantage": {
+                "$ref": "#/$defs/tab"
+              },
+              "medigap": {
+                "$ref": "#/$defs/tab"
+              },
+              "part_d": {
+                "$ref": "#/$defs/tab"
+              }
+            }
+          },
+          "see_plans_should_land_on": {
+            "$ref": "#/$defs/text"
+          },
+          "before_you_enroll": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      },
+      "understanding": {
+        "type": "object",
+        "required": [
+          "trade_off",
+          "should_leave_understanding",
+          "teach_back",
+          "watch_for"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "trade_off": {
+            "$ref": "#/$defs/text"
+          },
+          "should_leave_understanding": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "teach_back": {
+            "type": "object",
+            "required": [
+              "message",
+              "contains_misconception",
+              "what_a_good_reply_does"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "message": {
+                "$ref": "#/$defs/text"
+              },
+              "contains_misconception": {
+                "type": "boolean"
+              },
+              "what_a_good_reply_does": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          },
+          "watch_for": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        }
+      },
+      "tester_actions": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 4,
+        "items": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "checks": {
+        "description": "Real-data checks for D146 (null when the profile has none). Real identities come from retained 2026 sources; fictional entries are negative controls.",
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "doctors",
+              "pharmacy",
+              "medicines",
+              "must_not"
+            ],
+            "properties": {
+              "doctors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/doctor_check"
+                }
+              },
+              "pharmacy": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/pharmacy_check"
+                  }
+                ]
+              },
+              "medicines": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/medicine_check"
+                }
+              },
+              "must_not": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/text"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected_sorting": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "method",
+          "inputs_to_capture",
+          "coverage_path",
+          "medicare_advantage",
+          "medigap",
+          "part_d",
+          "after_d146"
+        ],
+        "properties": {
+          "method": {
+            "const": "daylight-tiered-v1-20261112"
+          },
+          "inputs_to_capture": {
+            "type": "object",
+            "required": [
+              "zip",
+              "age",
+              "sex",
+              "tobacco",
+              "doctors",
+              "medicines",
+              "travel",
+              "cost_preference",
+              "priorities",
+              "current_coverage"
+            ]
+          },
+          "coverage_path": {
+            "$ref": "#/$defs/text"
+          },
+          "medicare_advantage": {
+            "$ref": "#/$defs/text"
+          },
+          "medigap": {
+            "$ref": "#/$defs/text"
+          },
+          "part_d": {
+            "$ref": "#/$defs/text"
+          },
+          "after_d146": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "tab": {
+      "type": "object",
+      "required": [
+        "expected",
+        "needs",
+        "shows"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "expected": {
+          "type": "string",
+          "enum": [
+            "unlocks",
+            "shows_message",
+            "optional",
+            "not_needed"
+          ],
+          "description": "unlocks: the conversation should get the person there. shows_message: the tab exists but the request is outside pilot data, so it should say so with a next step. optional: reachable and reasonable, not required. not_needed: should not be pushed."
+        },
+        "needs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "shows": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "doctor_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "as_typed",
+        "real",
+        "identity",
+        "sites_on_file",
+        "evidence_on_file",
+        "expected"
+      ],
+      "properties": {
+        "as_typed": {
+          "$ref": "#/$defs/text"
+        },
+        "real": {
+          "type": "boolean"
+        },
+        "identity": {
+          "type": "object",
+          "required": [
+            "name",
+            "npi",
+            "specialty"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/text"
+            },
+            "npi": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^[0-9]{10}$"
+            },
+            "specialty": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "sites_on_file": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "evidence_on_file": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "expected": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "note": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "pharmacy_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "as_typed",
+        "identity",
+        "evidence_on_file",
+        "expected"
+      ],
+      "properties": {
+        "as_typed": {
+          "$ref": "#/$defs/text"
+        },
+        "identity": {
+          "type": "object",
+          "required": [
+            "name",
+            "npi",
+            "address"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/text"
+            },
+            "npi": {
+              "type": "string",
+              "pattern": "^[0-9]{10}$"
+            },
+            "address": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        },
+        "evidence_on_file": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "expected": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "medicine_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "as_typed",
+        "product",
+        "evidence_on_file"
+      ],
+      "properties": {
+        "as_typed": {
+          "$ref": "#/$defs/text"
+        },
+        "product": {
+          "type": "object",
+          "required": [
+            "name",
+            "rxcui"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/text"
+            },
+            "rxcui": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        "evidence_on_file": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "expected": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    }
+  }
+}

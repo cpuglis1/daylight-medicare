@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fbf9f4">
+  <title>Check a doctor | Daylight</title>
+  <link rel="icon" href="/daylight.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/doctor-check/flow.css">
+  <script src="/doctor-check/flow.js" defer></script>
+</head>
+<body class="doctor-demo">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Daylight home"><img class="brand-mark" src="/daylight.svg" alt="" width="36" height="36"><span class="brand-name">Daylight</span></a>
+  </header>
+  <main id="main" class="doctor-flow">
+    <p class="doctor-scope">2026 Collier plans · Local research demo</p>
+    <h1 id="doctor-question" tabindex="-1">What’s your doctor’s name?</h1>
+    <form id="doctor-form" aria-labelledby="doctor-question">
+      <div id="doctor-fields"></div>
+      <p id="doctor-status" role="status" hidden></p>
+      <p id="doctor-error" role="alert" hidden></p>
+      <div class="doctor-actions">
+        <button id="doctor-continue" class="primary-button" type="submit">Continue</button>
+        <button id="doctor-back" class="text-button" type="button" hidden>Back</button>
+      </div>
+      <div id="doctor-options" class="doctor-options"></div>
+    </form>
+    <details class="doctor-help">
+      <summary>Help with this check</summary>
+      <p>Use the name on the office website or an appointment reminder. If several records look alike, the city, practice name or street address can help you choose the right office.</p>
+      <p>Use fictional situations in this demo. The check uses retained 2026 records. Appointment availability is a separate question for the office.</p>
+    </details>
+  </main>
+</body>
+</html>

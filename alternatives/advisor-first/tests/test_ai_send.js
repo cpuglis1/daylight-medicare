@@ -12,7 +12,8 @@ const start = source.indexOf('  function turnCandidate(');
 const end = source.indexOf('  function concept(', start);
 assert.ok(start > 0 && end > start, 'Load the actual production request builder and turn.');
 const noticeHelpers = ['PAUSED', 'plain'].map(name => source.match(new RegExp('^  const '+name+' = .*$', 'm'))?.[0] || '').join('\n');
-const production = source.match(/^  const OPENING_QUESTION = .*$/m)?.[0]+'\n'+noticeHelpers+'\n'+source.slice(start, end);
+const openingSource = source.match(/^  const OPENING_CHOICES = Object\.freeze\(\{[\s\S]*?^  \}\);\n  const OPENING_REPLY_DELAY = .*$/m)?.[0] || '';
+const production = source.match(/^  const OPENING_QUESTION = .*$/m)?.[0]+'\n'+openingSource+'\n'+noticeHelpers+'\n'+source.slice(start, end);
 const visualSource = source.slice(source.indexOf('  function turnVisual('),source.indexOf('  function inlineGuide('));
 const plain = value => JSON.parse(JSON.stringify(value));
 
@@ -39,7 +40,7 @@ function harness(failure) {
     q: () => context.state.assessment.nextQuestion,
     $: element, failedRequest: null, lastRequest: null, frames: [], history: [],
     reviewMessage: '', preparedVersions: [], selectedGoal: '', parkedMessages: [],
-    drafts:new Map(),selected:[],currentSignature:'',setTimeout:resolve=>resolve(),
+    drafts:new Map(),selected:[],currentSignature:'',setTimeout:resolve=>resolve(),performance,
     metrics: {turns: 0, llmCalls: 0},
     setBusy(value) { context.busy = value; }, note(value) { notices.push(value); },
     beginPending(words, usingAI) { pending.push({kind:'begin',words,usingAI}); },
@@ -65,7 +66,7 @@ function harness(failure) {
     failTransport(error) {transportFailure = error;},
     failRenderOnce(error) {renderFailure = error;},
     candidate: (action,deliberate) => context.turnCandidate(action,deliberate),
-    turn: (action,words,deliberate) => context.turn(action,words,deliberate)};
+    turn: (action,words,deliberate,options) => context.turn(action,words,deliberate,options)};
 }
 
 test('plan-review actions preserve an unsent draft and do not authorize AI',async()=>{
@@ -120,6 +121,7 @@ for (const status of ['reset','resumed']) test(`${status} session installs curre
   assert.equal(h.context.state.continuation,'current-binding');
   assert.equal(h.element('message').value,words);
   assert.equal(h.context.review,null);assert.equal(h.context.failedRequest,null);
+  if (openingSource) assert.equal(h.context.history[0].reply,'Earlier conversation');
   assert.equal(h.calls.length,1,'Recovery never resubmits against a changed question.');
   assert.doesNotMatch(h.notices.at(-1),/Your conversation changed|resume the latest state/);
   assert.equal(h.context.busy,false);
@@ -423,16 +425,38 @@ test('the actual answer submitter sends precise coverage only after refinement a
   }
 });
 
-test('the actual goal Send grants composition permission without auto-sending a goal selection', async () => {
+test('the actual goal Send waits for deliberate submission and uses the local opening when supported', async () => {
   const submitSource = source.slice(source.indexOf('  async function submitCurrent('),source.indexOf('  function renderForm('));
   const calls = [];
   const context = vm.createContext({composing:false,busy:false,review:null,selectedGoal:'compare',state:{assessment:{narrative:{opener:true}}},$:() => ({value:''}),syncSend() {},turn:async (...args) => {calls.push(args);return true;}});
-  vm.runInContext(submitSource,context);
+  vm.runInContext(openingSource+'\n'+submitSource,context);
   assert.equal(calls.length,0);
   await context.submitCurrent();
   assert.deepEqual(plain(calls[0][0]),{type:'choice',id:'T01',fields:{choice:'compare'}});
-  assert.equal(calls[0][2],true);
+  assert.equal(calls[0][2],!openingSource);
+  if (openingSource) assert.deepEqual(plain(calls[0][3]),{opening:true});
   assert.equal(context.selectedGoal,'');
+});
+
+test('the local opening shows pending briefly and sends no AI context', {skip: !openingSource}, async () => {
+  const h = harness();
+  let finishDelay;
+  h.context.performance = {now: () => 10};
+  h.context.setTimeout = (resolve, delay) => {
+    assert.equal(delay,350);
+    finishDelay = resolve;
+  };
+  h.initial.assessment.narrative = {opener:true};
+  h.response.openingChoice = 'learn';h.response.reply = '';
+  const turn = h.turn({type:'choice',id:'T01',fields:{choice:'learn'}},'Understand Medicare',false,{opening:true});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.calls[0].payload.aiConsent,false);
+  assert.equal(h.calls[0].payload.contextPolicy,null);
+  assert.deepEqual(h.pending,[{kind:'begin',words:'Understand Medicare',usingAI:true}]);
+  assert.equal(typeof finishDelay,'function');
+  finishDelay();
+  assert.equal(await turn,true);
+  assert.equal(h.context.history[0].reply,'We can start with the Medicare basics.');
 });
 
 test('selected teaching citations are retained without adding a duplicate lesson body', async () => {
