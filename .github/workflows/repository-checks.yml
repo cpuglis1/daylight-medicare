@@ -60,7 +60,15 @@ jobs:
           fi
       - name: Prepare exact development metadata and fictional journey
         run: python -B tools/prepare_advisor.py
+      - name: Decide whether the advisor suite is needed
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        # Pull requests touching only docs or repository config skip the ~13-minute
+        # suite. Pushes, manual runs and anything else run it in full.
+        run: python -B tools/advisor_tests_needed.py ${BASE_SHA:+--base "$BASE_SHA"}
       - name: Check the public advisor with fictional inputs
+        if: steps.scope.outputs.needed == 'true'
         run: python -B tools/run_advisor_checks.py
       - name: Check profile contracts and whole-offering safety with fictional records
         run: |
