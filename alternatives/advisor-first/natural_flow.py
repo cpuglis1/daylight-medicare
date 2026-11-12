@@ -37,6 +37,7 @@ from datetime import datetime, timezone
 
 import cms_checklist
 import medigap_profile
+import recommendation_engine
 import part_d_profile
 # Local additions only: never mutate the imported 41-question engine catalogs.
 Q = {**Q, **medigap_profile.CATALOG}
@@ -191,6 +192,9 @@ class NaturalConversation(AdvisorConversation):
         out['planReadiness'] = plan_readiness(g, r)
         out['medigapProfile'] = medigap_profile.profile(g)
         out['partDProfile'] = part_d_profile.profile(g, r)
+        if getattr(self, 'eval_recommendations', False):
+            # D147: the reported details the evaluation-only sorting reads.
+            out['recommendationInputs'] = recommendation_engine.inputs(g, r, out['medigapProfile'], out['partDProfile'])
         return out
 
     def recent_exchanges(self, owner, task, policy):
@@ -198,7 +202,7 @@ class NaturalConversation(AdvisorConversation):
         # permission never silently expands to this new conversation context.
         return self.memory.recent(owner, self.current_chain.get(owner), policy)
 
-    def remember_exchange(self, owner, message, out, policy):
+    def remember_exchange(self, owner, message, out, policy, request_id):
         if self.fixture:
             return
         if self._plans_context.get():
@@ -224,7 +228,7 @@ class NaturalConversation(AdvisorConversation):
             education_record=working.get('education_record'),
             task_work_record=working.get('task_work_record'),
             learner_record=working.get('learner_record'), continuation=working.get('continuation'),
-            discourse_note=working.get('discourse_note'))
+            discourse_note=working.get('discourse_note'), request_id=request_id)
 
     def pending_for(self, owner):
         return self.clarifications.get((owner,self.current_chain.get(owner)))
@@ -2143,7 +2147,7 @@ class NaturalConversation(AdvisorConversation):
             self.validate(out['guide'], out['record'])
             if goal_quote and len(goal_quote) <= 200:
                 out.setdefault('_advisor_memory', {})['goal'] = goal_quote
-            self.remember_exchange(owner, message, out, policy)
+            self.remember_exchange(owner, message, out, policy, payload['requestId'])
             return out
         finally:
             if reservation:reservation.close()
@@ -2331,7 +2335,7 @@ class NaturalConversation(AdvisorConversation):
         if self.pending_for(owner):
             self.pending_for(owner)['revision']=[out['guide']['stateVersion'],out['record']['stateVersion']]
         self.validate(out['guide'],out['record'])
-        self.remember_exchange(owner,message,out,CONTEXT_POLICY)
+        self.remember_exchange(owner,message,out,CONTEXT_POLICY,payload['requestId'])
         return out
 
     def replay_response(self, owner, response):
@@ -2728,6 +2732,16 @@ class NaturalConversation(AdvisorConversation):
                 elif action.get('type') in {'choice','stage','edit','resume','task','next'}:
                     set_target(out['record'],out['assessment'].get('nextQuestion'),orientation='answered' if ensure_state(out['record'])['dialogue']['orientation']=='progress' else None)
                 sync_agenda(out['guide'],out['record'])
+                if (not plans_filter and payload.get('aiConsent') is not True
+                        and action.get('type') == 'choice' and action.get('id') == 'T01'
+                        and self.assess(g, r)['narrative']['opener']):
+                    choice = action['fields'].get('choice')
+                    if choice in {'learn', 'compare', 'review'}:
+                        out['openingChoice'] = choice
+                        if choice == 'learn' and not out['assessment'].get('nextQuestion'):
+                            question = self.question('T02')
+                            out['assessment']['nextQuestion'] = question
+                            set_target(out['record'], question, orientation='familiarity')
                 if action.get('type') in {'choice','stage','unknown','defer'}:
                     out=self.compose_choice(owner,payload,out,g,r)
             self.comparisons.attach(out)
@@ -2750,6 +2764,9 @@ class NaturalConversation(AdvisorConversation):
             out['planReadiness'] = plan_readiness(out['guide'], out['record'], pending=self.pending_for(owner))
             out['medigapProfile'] = medigap_profile.profile(out['guide'])
             out['partDProfile'] = part_d_profile.profile(out['guide'], out['record'])
+            if getattr(self, 'eval_recommendations', False):
+                out['recommendationInputs'] = recommendation_engine.inputs(
+                    out['guide'], out['record'], out['medigapProfile'], out['partDProfile'])
             if payload.get('contextPolicy') == CONTEXT_POLICY:
                 # D138: a deterministic account of the twelve CMS pre-enrollment
                 # items, from delivered reviewed teaching only. Reading visit
@@ -2769,7 +2786,8 @@ class NaturalConversation(AdvisorConversation):
                 if len(self.state_heads)>1024:self.state_heads.pop(next(iter(self.state_heads)))
                 self.state_heads[(owner,chain)] = out['continuation']
                 if len(self.turn_journal) >= 128:self.turn_journal.pop(next(iter(self.turn_journal)))
-                self.turn_journal[key] = {'signature':signature, 'response':copy.deepcopy(out), 'expires':time.time()+3600}
+                self.turn_journal[key] = {'signature':signature, 'response':copy.deepcopy(out), 'expires':time.time()+3600,
+                    'starts_visit': not binding, 'silent': plans_filter or action['type'] in {'before_enroll_open', 'before_enroll_ack'}}
             return out
         except (ProfileError, ModelUnavailable):
             raise

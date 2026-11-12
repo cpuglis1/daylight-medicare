@@ -6,9 +6,16 @@
   const button = (text, fn, cls = 'text-button') => { const b = el('button', text, cls); b.type = 'button'; b.onclick = fn; return b; };
   const clone = value => structuredClone(value);
   const OPENING_QUESTION = 'What has you thinking about Medicare today?';
+  const OPENING_CHOICES = Object.freeze({
+    learn: {label:'Understand Medicare',reply:'We can start with the Medicare basics.'},
+    compare: {label:'Find coverage',reply:'Let’s work through the coverage options for your situation.'},
+    review: {label:'Review my coverage',reply:'Let’s start with the coverage you have today.'}
+  });
+  const OPENING_REPLY_DELAY = 350;
   const labels = {choice:'Answer',month:'Month and year',jobEnd:'Job ends',coverageEnd:'Work insurance ends',start:'Advantage coverage started',priorMedigap:'Left Medigap for that Advantage plan',name:'Medicine',strength:'Strength',form:'Form',practice:'Doctor or practice',city:'Office location',quantity:'Quantity and units',daysSupply:'Days supply',pharmacy:'Pharmacy',channel:'Retail or mail order',location:'Routine care location',gap:'Drug coverage gap',event:'Coverage change',eventDate:'Date',includes:'What the amount includes',year:'Coverage year',entity:'Item'};
   let session, state, service, config, baseline, sampleData;
-  let active = false, busy = false, composing = false, selectedGoal = '', review = null, prepared = null;
+  let active = false, conversationStarted = false, busy = false, composing = false, selectedGoal = '', review = null, prepared = null;
+  let conversationScroll = 0;
   let savedVersion = 0, readinessVersion = 0, pendingSave = null, saveText = 'Visit only', showGuide = true;
   let history = [], frames = [], selected = [], currentSignature = '', lastRequest = null, failedRequest = null;
   let renderedHistory = 0, firstHistory = null;
@@ -22,9 +29,13 @@
   const metrics = {turns:0,llmCalls:0,started:Date.now()};
   const visitResume = window.DaylightVisitResume;
   let pendingTimer = 0;
+  let dialogCount = 0;
+  let doctorComposer = null, doctorDraft = '';
 
   async function api(path, body, method) {
-    const response = await fetch(path, {method:method || (body ? 'POST' : 'GET'),credentials:'same-origin',
+    const previewPath = location.pathname === '/d146/' &&
+      (path.startsWith('/api/') || path === '/ten-config.json') ? '/d146' + path : path;
+    const response = await fetch(previewPath, {method:method || (body ? 'POST' : 'GET'),credentials:'same-origin',
       headers:{'Content-Type':'application/json',...(session ? {'X-Daylight-CSRF':session.csrf} : {})},
       ...(body ? {body:JSON.stringify(body)} : {})});
     const value = await response.json();
@@ -52,7 +63,7 @@
   function q() { return state && usableQuestion(state); }
   function dialog(title) {
     const opener = document.activeElement, d = el('dialog', undefined, 'dialog'), h = el('h2',title);
-    h.id = 'dialog-heading'; d.setAttribute('aria-labelledby',h.id); d.append(h); document.body.append(d);
+    h.id = 'dialog-heading-'+ ++dialogCount; d.setAttribute('aria-labelledby',h.id); d.append(h); document.body.append(d);
     d.addEventListener('close',() => { d.remove(); if (opener?.isConnected) opener.focus(); },{once:true});
     return d;
   }
@@ -446,6 +457,11 @@
     updateScrollCue();
   }
   function messageInput() {
+    if (doctorComposer) {
+      window.DaylightDoctorCheck.setName($('message').value);
+      resizeComposer();syncSend();
+      return;
+    }
     if ($('message').value.trim()) {
       const question = q(), draft = question && draftFor(question);
       if (selectedGoal || draft && (draft.choice.length || draft.resolution || Object.keys(draft.fields).length || draft.coverageGroup)) {
@@ -458,6 +474,11 @@
   }
   function syncSend() {
     const send = $('send'), words = $('message').value.trim(), slot = $('selection');
+    if (doctorComposer) {
+      send.textContent = 'Continue';
+      send.disabled = doctorComposer.busy || !doctorComposer.composer || !words;
+      return;
+    }
     const selectedAnswer = state?.assessment.narrative.opener ? selectedGoal && selectedGoal !== 'unresolved' : hasFormAnswer(q());
     const contextual = !words && (review || selectedAnswer) && !prepared;
     const target = contextual && slot ? slot : $('composer-input');
@@ -478,6 +499,17 @@
   async function submitCurrent() {
     if (composing || busy) return;
     const words = $('message').value.trim();
+    if (doctorComposer) {
+      if (doctorComposer.composer && words) await window.DaylightDoctorCheck.submitName();
+      return;
+    }
+    if (words && service?.local_demo?.doctor_chat) {
+      const named = words.match(/^(?:please\s+)?check\s+(Dr\.?\s+[^\r\n]{1,125})[.!]?$/i);
+      if (/^(?:(?:can you|please)\s+)?check\s+(?:a|my)\s+doctor[.!?]?$/i.test(words) || named) {
+        openDoctorCheck(named?.[1] || '', true);
+        return;
+      }
+    }
     if (words) { await turn({type:'message',message:words},words); return; }
     if (review) {
       const signature = q()?.signature;
@@ -486,8 +518,8 @@
       if (ok && signature) drafts.delete(signature);
     } else if (state.assessment.narrative.opener && selectedGoal && selectedGoal !== 'unresolved') {
       const goal = selectedGoal;
-      const label = {learn:'Understand Medicare',compare:'Find coverage',review:'Review my coverage'}[goal];
-      if (await turn({type:'choice',id:'T01',fields:{choice:goal}},label,true)) {selectedGoal = '';syncSend();}
+      const {label} = OPENING_CHOICES[goal];
+      if (await turn({type:'choice',id:'T01',fields:{choice:goal}},label,false,{opening:true})) {selectedGoal = '';syncSend();}
     } else if (q()) await submitForm(q());
   }
   function renderForm(host,question,presentation) {
@@ -659,8 +691,23 @@
     // Keep one persistent Send control while replacing the inline task.
     $('composer-input').append($('send')); host.replaceChildren();
     const opening = state.assessment.narrative.opener && !review && !prepared && !state.comparisonViewOpen;
+    const setup = $('chat-prescription-setup');
+    if (setup) setup.hidden = !!doctorComposer || state.record.conversation?.task === 'drug_pricing'
+      || state.partDProfile?.status === 'ready';
     let openingPresentation;
     $('composer').hidden = !!prepared;
+    if (window.DaylightDoctorCheck?.render(host)) {
+      $('shortcuts').replaceChildren();
+      for (const id of ['back','review','prepare','samples']) $(id).hidden = true;
+      $('reference').hidden = true;
+      return;
+    }
+    if (window.DaylightPrescriptionPreview?.render(host)) {
+      $('composer').hidden = true;
+      if ($('chat-doctor-check')) $('chat-doctor-check').hidden = true;
+      return;
+    }
+    if ($('chat-doctor-check')) $('chat-doctor-check').hidden = false;
     if (prepared) renderPrepared(host);
     else if (review) renderReview(host);
     else if (state.identityViewOpen && typeof DaylightIdentity !== 'undefined') {
@@ -701,6 +748,9 @@
       if (q().why && (state.generated?.status !== 'complete' || q().id.startsWith('MG_')
           || state.record?.conversation?.task === 'drug_pricing' && ['RC01','T03','RC02','RC03'].includes(q().id))) presentText(host,q().why,presentation,'p','why');
       renderForm(host,q(),presentation);
+      if (service?.local_demo?.doctor_chat && ['T06','RC21'].includes(q().id)) {
+        host.append(button('Check a doctor’s office',() => openDoctorCheck()));
+      }
       if (state.record.conversation.editing) host.append(button('Return to my current task',() => turn({type:'resume'})));
     } else if (!conversationPaused()) {
       const presentation = questionPresentation(state.assessment);
@@ -722,6 +772,8 @@
         host.append(button('See your Medigap prices',() => DaylightPlans.openView('supplement')));
       if (['medigap','drug_pricing'].includes(task) && state.partDProfile?.status === 'ready')
         host.append(button('See your Part D drug plans',() => DaylightPlans.openView('part-d')));
+      if (!opening && window.DaylightPrescriptionPreview && state.partDProfile?.status === 'ready')
+        host.append(button('Check fictional drug costs',() => openPrescriptionPreview()));
     }
     if (state.planReadiness?.canReview && !review && !prepared && !state.comparisonViewOpen
         && !state.identityViewOpen && !state.record.conversation.editing && !state.assessment.journey.samplesVisible) {
@@ -742,7 +794,8 @@
     $('shortcuts').replaceChildren();
     if (opening) {
       presentText($('shortcuts'),'Need a starting point?',openingPresentation,'p','small'); const row = el('div',undefined,'shortcut-row');
-      for (const [id,label] of [['learn','Understand Medicare'],['compare','Find coverage'],['review','Review my coverage'],['unresolved','Something else']]) { const b = button(label,() => { if (!choiceMayChange()) return;selectedGoal = selectedGoal === id ? '' : id; renderCurrent(); revealSend(); if (id === 'unresolved') $('message').focus(); },'shortcut'); b.setAttribute('aria-pressed',String(selectedGoal === id)); row.append(presentControl(b,openingPresentation)); }
+      const choices = [...Object.entries(OPENING_CHOICES), ['unresolved',{label:'Something else'}]];
+      for (const [id,{label}] of choices) { const b = button(label,() => { if (!choiceMayChange()) return;selectedGoal = selectedGoal === id ? '' : id; renderCurrent(); revealSend(); if (id === 'unresolved') $('message').focus(); },'shortcut'); b.setAttribute('aria-pressed',String(selectedGoal === id)); row.append(presentControl(b,openingPresentation)); }
       $('shortcuts').append(row);
       selectionSlot($('shortcuts'),() => {selectedGoal = '';renderCurrent();});
     }
@@ -760,6 +813,45 @@
     const reading=$('reading'),current=$('current');
     reading.scrollTop += current.getBoundingClientRect().top - reading.getBoundingClientRect().top - 18;
     current.setAttribute('tabindex','-1');current.focus({preventScroll:true});updateScrollCue();
+  }
+  function openDoctorCheck(name = '', consumed = false) {
+    if (!active || busy || !service?.local_demo?.doctor_chat || !window.DaylightDoctorCheck || doctorComposer) return;
+    doctorDraft = consumed ? '' : $('message').value;
+    $('chat-doctor-check').hidden = true;
+    if ($('chat-prescription-rehearsal')) $('chat-prescription-rehearsal').hidden = true;
+    window.DaylightDoctorCheck.open({initialName:name, onExit:() => closeDoctorCheck(), onView:view => {
+      doctorComposer = view;
+      $('composer').hidden = !view.composer;
+      $('message-label').textContent = 'Doctor’s name';
+      $('message').placeholder = 'Type your doctor’s name…';
+      $('message').value = view.composer ? view.name : '';
+      $('message').disabled = view.busy;
+      $('restore-draft').hidden = $('resume').hidden = true;
+      syncSend();
+      if (view.composer) resizeComposer();
+      if (view.focus) {
+        focusCurrentReview();
+        if (view.composer) $('message').focus({preventScroll:true});
+      }
+    }});
+    renderCurrent();
+    showCurrentQuestion($('reading'));
+    $('message').focus();
+    if (name) void window.DaylightDoctorCheck.submitName();
+  }
+  function closeDoctorCheck(repaint = true) {
+    if (!doctorComposer) return;
+    window.DaylightDoctorCheck.close();
+    doctorComposer = null;
+    $('message').disabled = false;
+    $('message').value = doctorDraft;
+    doctorDraft = '';
+    $('chat-doctor-check').hidden = false;
+    if ($('chat-prescription-rehearsal')) $('chat-prescription-rehearsal').hidden = false;
+    if (repaint) {
+      render();
+      $('message').focus();
+    }
   }
   async function reviewComparison() {
     if (busy) return;
@@ -831,6 +923,18 @@
     if (['T07','RC22','RC23'].includes(question.id)) return 'Tell me the prescription details you know…';
     return 'Type your answer or ask a question…';
   }
+  function openPrescriptionPreview(plan) {
+    if (!window.DaylightPrescriptionPreview || !state.continuation || busy) return false;
+    window.DaylightPlans?.close('current');
+    window.DaylightPrescriptionPreview.open(plan, api, () => state.continuation, () => {
+      window.DaylightPrescriptionPreview.close();
+      renderCurrent();
+      $('message').focus();
+    }, state.partDProfile?.inputs);
+    renderCurrent();
+    showCurrentQuestion($('reading'));
+    return true;
+  }
   function renderPrepared(host) {
     const panel = el('section',undefined,'prepared');panel.append(el('h1','Your next steps, ready to use'),el('p','Edit this checklist, then copy or print it. Nothing has been sent.'));
     if (prepared.guideRevision !== state.guide.stateVersion || prepared.recordRevision !== state.record.stateVersion) panel.append(el('p','Your details have changed since this was prepared. Review the checklist before using it.','notice'));
@@ -839,7 +943,30 @@
     const actions = el('div',undefined,'task-actions');actions.append(button('Copy checklist',async () => { try { await navigator.clipboard.writeText(prepared.text); note('Checklist copied.'); } catch { text.focus();text.select();note('Select and copy the checklist text.'); } },'primary'),button('Print',() => { print.textContent = prepared.text;window.print(); },'secondary'),button('Return to my conversation',() => { prepared = null;renderCurrent(); }));
     panel.append(label,text,actions,el('p','Prepared from your reports. Personal coverage checks remain open.','small'),print);host.append(panel);
   }
-  function render() { document.body.classList.toggle('chat-mode',active);phaseTrack();paintHistory();renderCurrent();$('save-status').textContent = saveText;$('save-status').hidden = saveText === 'Visit only';$('resume').hidden = $('landing-resume').hidden = !session.hasSaved && (active || !visitResume?.read());if(active && !$('composer').hidden) resizeComposer(); }
+  function render() {
+    document.body.classList.toggle('chat-mode',active);
+    const visitAvailable = !!visitResume?.read();
+    $('start').textContent = conversationStarted || visitAvailable ? 'Continue the conversation' : 'Get started';
+    phaseTrack();paintHistory();renderCurrent();
+    $('save-status').textContent = saveText;$('save-status').hidden = saveText === 'Visit only';
+    $('resume').hidden = !session.hasSaved || visitAvailable;
+    $('landing-resume').hidden = !session.hasSaved;
+    $('landing-resume').textContent = visitAvailable ? 'Visit options' : 'Resume saved information';
+    if(active && !$('composer').hidden) resizeComposer();
+  }
+  function showConversation(focus = true) {
+    conversationStarted = active = true;
+    $('landing').hidden = true;$('workspace').hidden = false;
+    render();window.scrollTo({top:0,behavior:'instant'});
+    if (focus) $('workspace').focus({preventScroll:true});
+  }
+  function showHome() {
+    closeDoctorCheck(false);
+    if (document.body.classList.contains('plans-page')) window.DaylightPlans?.close();
+    conversationScroll = $('reading').scrollTop;
+    active = false;$('workspace').hidden = true;$('landing').hidden = false;
+    render();window.scrollTo({top:0,behavior:'instant'});$('start').focus({preventScroll:true});
+  }
   function turnCandidate(action,deliberateAnswer = false) {
     const sendingToAI = action.type === 'message' || deliberateAnswer && ['choice','stage','unknown','defer'].includes(action.type);
     const model = sendingToAI && config.models?.find(item => item.available && item.id === $('ai-model')?.value);
@@ -871,6 +998,7 @@
           if (['resumed','reset'].includes(recovered.status) && recovered.response?.continuation) {
             if (recovered.requestId) visitResume?.write(recovered.requestId, recovered.response.guide.preferences);
             error.recoveredState = recovered.response;error.recoveredStatus = recovered.status;
+            error.recoveredRequestId = recovered.requestId;
             error.message = recovered.status === 'reset'
               ? 'We’ve reconnected. Your details are still here. Send your message when you’re ready.'
               : 'You’re back at the latest reply. Review it, then send your message when you’re ready.';
@@ -917,7 +1045,9 @@
     // A recovery turn (advisor.reason === 'recovery') carries one reviewed
     // statement that must stay visible even though generation was unavailable.
     const recovery = result.advisor?.reason === 'recovery';
-    const reply = generationUnavailable(result) && !recovery ? '' : result.reply || '';
+    const opening = result.openingChoice ? OPENING_CHOICES[result.openingChoice] : null;
+    const reply = opening?.reply || (generationUnavailable(result) && !recovery ? '' : result.reply || '');
+    userWords ||= opening?.label || '';
     const sources = generationUnavailable(result) && !recovery ? [] : result.advisor?.sources || [];
     const notice = typeof result.notice === 'string' ? plain(result.notice.trim()) : '';
     const appended = !!(userWords || reply || result.facts?.length || sources.length || notice);
@@ -935,6 +1065,7 @@
     // chat reply acknowledges them once.
     const silent = !!options.silent;
     if (busy) return false;
+    closeDoctorCheck();
     if (state.sessionRebindRequired) {try {await refreshVisitAuthority();} catch(error) {note(error.message+' Your current visit and draft are preserved.');return false;}}
     if (['accept_review','review_preparation','run_preparation','review_plans','confirm_plan_review','get_plan_handoff'].includes(action.type) && $('message').value.trim()) {note('Send or clear your unsent message before confirming this step. Your draft is still here.');return false;}
     const before = state, previous = q(), fromReview = review, previousQuestion = visibleQuestion();
@@ -946,10 +1077,16 @@
     const submittedDraft = action.type === 'message' && $('message').value.trim() === userWords.trim() ? $('message').value : '';
     const pane = $('reading'), following = pane.scrollHeight - pane.clientHeight - pane.scrollTop < 120;
     if (submittedDraft) {$('message').value = '';resizeComposer();}
-    lastRequest = payload;setBusy(true);beginPending(silent ? '' : userWords,candidate.aiConsent);note(silent ? 'Saving…' : candidate.aiConsent ? 'Daylight is preparing a reply.' : 'Working…');
+    const showingPending = candidate.aiConsent || options.opening === true;
+    const openingStarted = options.opening ? performance.now() : 0;
+    lastRequest = payload;setBusy(true);beginPending(silent ? '' : userWords,showingPending);note(silent ? 'Saving…' : showingPending ? 'Daylight is preparing a reply.' : 'Working…');
     updateScrollCue();
+    let pending = true;
     try {
       const result = await requestConversationTurn(payload);
+      if (options.opening && !result.openingChoice && result.guide.fields?.['intent.goal']?.value === action.fields.choice) {
+        result.openingChoice = action.fields.choice;
+      }
       failedRequest = null;
       state = result;review = result.review || null;prepared = result.preparation || null;
       if (review?.kind === 'interpretation' && userWords) reviewMessage = userWords;
@@ -963,12 +1100,17 @@
       if (action.type === 'discard_review' && fromReview?.kind === 'interpretation' && !$('message').value.trim()) $('message').value = reviewMessage;
       if (action.type === 'accept_review') reviewMessage = '';
       metrics.turns++;metrics.llmCalls += result.metrics?.llmCalls || 0;
-      let saveWarning = '';
-      if (state.guide.preferences.saveGuide && !review) {try {await save();} catch(error) {saveWarning = error.message+' Your current visit is still here.';}}
-      note([silent ? '' : generationNotice(result),saveWarning].filter(Boolean).join(' '));render();
+      if (options.opening) {
+        const remaining = OPENING_REPLY_DELAY - (performance.now() - openingStarted);
+        if (remaining > 0) await new Promise(resolve => setTimeout(resolve,remaining));
+      }
+      endPending();pending = false;note(silent ? '' : generationNotice(result));render();
+      const saving = state.guide.preferences.saveGuide && !review ? save().catch(error => {
+        note([silent ? '' : generationNotice(result),error.message+' Your current visit is still here.'].filter(Boolean).join(' '));
+      }) : null;
       if (result.cmsChecklist) cmsChecklist = result.cmsChecklist; // D138: keep the latest account for the review.
       if (typeof DaylightPlans !== 'undefined') DaylightPlans.afterTurn(result);
-      if (silent) return true;
+      if (silent) {await saving;return true;}
       if (fromReview && fromReview.kind!=='preparation' && !review && action.type === 'discard_review') note('Your draft is still here. Make edits and continue when ready.');
       const last = appended && $('history').lastElementChild;
       const latestReply = last && (last.querySelector('.chat-daylight:last-child') || last.querySelector('.chat-daylight'));
@@ -983,6 +1125,7 @@
         setTimeout(() => {showCurrentQuestion(reading,shown);updateScrollCue();},settle);
       }
       if (action.type === 'confirm_plan_review' && result.plansHandoff) await openPlansWorkspace();
+      await saving;
       return true;
     } catch (error) {
       if (!error.code || error.checkAgain) failedRequest = payload;
@@ -990,11 +1133,10 @@
       if (error.recoveredState) {
         prepared = null;failedRequest = lastRequest = null;selectedGoal = '';
         frames = [];drafts.clear();selected = [];currentSignature = '';
-        history = [];
-        if (error.recoveredStatus !== 'reset' && !generationUnavailable(state) && (state.reply || state.facts?.length)) {
+        if (error.recoveredStatus === 'resumed' && error.recoveredRequestId) {
           // Display the actual latest server reply without claiming this draft
           // was accepted or relabeling its original question/user message.
-          history = [{reply:state.reply || '',facts:state.facts || [],sources:state.advisor?.sources || [],visual:turnVisual(state)}];
+          appendTurnHistory(error.recoveredRequestId,'','',state);
         }
       }
       if (error.code === 401) {
@@ -1012,7 +1154,7 @@
       if (error.recoveredState || error.code === 401) render();
       note(error.message+(parkedMessages.includes(submittedDraft) ? ' Your earlier message is available in Restore draft. Your current input is preserved.' : ' Your input is preserved.'));return false;
     }
-    finally {endPending();setBusy(false);resizeComposer();}
+    finally {if (pending) endPending();setBusy(false);resizeComposer();}
   }
   function concept(id, label = id) {
     if (busy) return;
@@ -1116,14 +1258,22 @@
   }
   function privacy() {
     const d = dialog('Your information & privacy');
-    d.append(el('p','When you choose Send, your message, recent conversation and relevant profile details go to '+(config?.models?.find(m => m.id === $('ai-model')?.value)?.provider || 'the AI provider')+', the AI provider. On the Plans page, Send also shares the plans you are viewing. Browsing plans makes no AI call. This can include birthday timing, coverage dates, doctors, medicines and pharmacy. Daylight holds recent conversation only for this visit. Saving your profile stores the reported details you choose. Saving is a separate choice.'),el('p','Refreshing this tab can reopen your recent reported details and latest reply while the visit is active. Unsent drafts stay on this page. Saving is optional, for this browser, for '+(session.retentionDays || 7)+' days from session creation. Anyone sharing this browser may reopen saved reports. Raw messages, conversation history and unsent drafts are not saved.'));
+    d.append(el('p','When you send a question or answer for an AI reply, Daylight shares it, recent conversation and relevant profile details with '+(config?.models?.find(m => m.id === $('ai-model')?.value)?.provider || 'the AI provider')+'. On the Plans page, an AI message also shares the plans you are viewing. The first three starting options and browsing plans work without AI. Saving your profile is a separate choice.'),el('p','Refreshing this tab can reopen your conversation and reported details while this visit is available. Unsent drafts stay on this page. Optional profile saving keeps the reported details you choose for '+(session.retentionDays || 7)+' days from session creation. Anyone sharing this browser may reopen those reports. Conversation and drafts stay out of the saved profile.'));
     const saving = el('label'),saveBox = el('input');saveBox.type = 'checkbox';saveBox.checked = state.guide.preferences.saveGuide;saving.append(saveBox,document.createTextNode('Save my reported information in this browser'));
     const sensitive = el('label'),sensitiveBox = el('input');sensitiveBox.type = 'checkbox';sensitiveBox.checked = state.guide.preferences.saveSensitive;sensitive.append(sensitiveBox,document.createTextNode('Also save sensitive details, such as birthday timing, work status, doctors and prescriptions'));
     d.append(saving,sensitive,button('Apply privacy choices',async () => {state.guide.preferences.saveGuide = saveBox.checked;state.guide.preferences.saveSensitive = sensitiveBox.checked;visitResume?.preferences(state.guide.preferences);try {if (state.sessionRebindRequired) await refreshVisitAuthority();if (pendingSave) await reconcilePendingSave();if (saveBox.checked) await save();else saveText = session.hasSaved ? 'Saving paused · saved copy remains until deleted or expired' : 'Visit only';d.close();render();}catch(error){d.append(el('p',error.message));}},'primary'));
     if (pendingSave) d.append(button('Check the pending save',async () => {try {await reconcilePendingSave();d.close();render();note('The saved copy was checked without resending your earlier information. Apply privacy choices to save current changes.');}catch(error){d.append(el('p',error.message));}},'secondary'));
     if (session.hasSaved) d.append(button('Delete this variant’s saved information',() => {const confirm = dialog('Delete saved advisor information?');confirm.append(el('p','This permanently removes this browser’s saved advisor reports and session. Other app variants are unaffected.'),button('Cancel',() => confirm.close(),'secondary'),button('Delete saved information',async () => {try {if(await deleteSavedInformation()){confirm.close();d.close();}}catch(error){confirm.append(el('p',error.message+(state.deletionUncertain ? ' Deletion could not be confirmed. Saving is paused and your current visit is preserved; the next action will check the saved copy and reconnect.' : state.sessionRebindRequired ? ' Saved information was deleted. Your current visit is preserved; the next action will retry reconnecting.' : '')));}},'primary'));confirm.showModal();}));
-    // D138: a visible way to begin again. With saving off, a reload starts a fresh visit.
-    if (!state.guide.preferences.saveGuide) d.append(button('Start over',() => {const confirm = dialog('Start over?');confirm.append(el('p','This clears this conversation and the details you reported in this visit. It cannot be undone.'),button('Keep this conversation',() => confirm.close(),'secondary'),button('Start over',() => location.reload(),'primary'));confirm.showModal();}));
+    if (!state.guide.preferences.saveGuide) d.append(button('Start over',() => {
+      const confirm = dialog('Start over?');
+      confirm.append(el('p','This clears this conversation and the details you reported in this visit.'),
+        button('Keep this conversation',() => confirm.close(),'secondary'),
+        button('Start over',async () => {
+          try {await startFreshVisit();confirm.close();d.close();}
+          catch {confirm.append(el('p','A new conversation could not start. Try again.','notice'));}
+        },'primary'));
+      confirm.showModal();
+    }));
     const details = el('details');details.append(el('summary','Scope and service details'),el('p','Plan cards are five unvalidated 2027 Collier County samples. Recommendations, eligibility, prices, exact doctor/drug fit and enrollment remain independently held. This advisor variant has a $5/UTC-day AI cap within the shared usage ledger. No automatic retries. Production vendor/retention review remains separate.'),el('p',metrics.turns+' turns · '+metrics.llmCalls+' AI calls in this visit. These are diagnostics, not a consumer study.'));d.append(details,button('Close',() => d.close(),'secondary'));d.showModal();
   }
   async function restoreVisit() {
@@ -1134,28 +1284,57 @@
       const restored = await visitResume.restore(api);
       if (!restored || restored.status !== 'resumed') {
         const text = restored?.status === 'working'
-          ? 'Your reply is still being prepared. Choose Resume visit to check again.'
+          ? 'Your reply is still being prepared. Choose Continue the conversation to check again.'
           : 'This visit is no longer available. You can start again or reopen any saved reports.';
         const notice = el('p',text,'notice');notice.id = 'resume-status';notice.setAttribute('role','status');$('landing').append(notice);
         return;
       }
-      if (session.hasSaved) {
-        const saved = await api('/api/guest/readiness');readinessVersion = saved.version;
-      }
       state = restored.response;review = state.review || null;prepared = state.preparation || null;
       cmsChecklist = state.cmsChecklist || null;
       failedRequest = lastRequest = pendingSave = null;
-      selectedGoal = '';frames = [];drafts.clear();history = [];
-      appendTurnHistory(restored.requestId,'','',state);
+      selectedGoal = '';frames = [];drafts.clear();
+      if (Array.isArray(restored.history)) {
+        history = restored.history.map(item => {
+          const opening = item.openingChoice ? OPENING_CHOICES[item.openingChoice] : null;
+          return {...item,user:opening?.label || item.user,reply:opening?.reply || item.reply,notice:plain(item.notice || '')};
+        });
+      } else {
+        history = [];
+        appendTurnHistory(restored.requestId,'','',state);
+      }
+      reviewMessage = review?.kind === 'interpretation' ? history.find(item => item.requestId === restored.requestId)?.user || '' : '';
       showGuide = state.guide.flow.guideOpen !== false;
-      active = true;$('landing').hidden = true;$('workspace').hidden = false;
       saveText = state.guide.preferences.saveGuide ? 'Saving enabled for this browser' : 'Visit only';
-      render();
-      if (restored.page !== 'conversation') await window.DaylightPlans?.openView(restored.page);
-      note('Your current details and latest reply are restored. Earlier chat and unsent drafts are not saved.');
+      showConversation(false);
+      $('reading').scrollTop = $('reading').scrollHeight;
+      updateScrollCue();
+      note('Your conversation is ready to continue.');
+      if (session.hasSaved) {
+        try {const saved = await api('/api/guest/readiness');readinessVersion = saved.version;}
+        catch {note('Your conversation is open. The saved copy could not be checked.');}
+      }
     } catch (error) {
       if (error.code === 401) visitResume.clear();
-      const notice = el('p','Your visit could not reopen just now. Choose Resume visit to try again.','notice');notice.id = 'resume-status';notice.setAttribute('role','status');$('landing').append(notice);
+      const notice = el('p','Your visit could not reopen just now. Choose Continue the conversation to try again.','notice');notice.id = 'resume-status';notice.setAttribute('role','status');$('landing').append(notice);
+    } finally {setBusy(false);render();}
+  }
+  async function startFreshVisit() {
+    if (busy) return;
+    setBusy(true);
+    try {
+      const fresh = await api('/api/conversation/initial');
+      const requestId = crypto.randomUUID();
+      const result = await api('/api/conversation/turn',{guide:fresh.guide,record:fresh.record,action:{type:'start'},requestId});
+      visitResume?.clear();
+      visitResume?.write(requestId,result.guide.preferences);
+      state = result;history = [];frames = [];drafts.clear();parkedMessages.length = 0;
+      review = prepared = pendingSave = failedRequest = lastRequest = cmsChecklist = null;
+      reviewMessage = '';preparedVersions = [];selectedGoal = '';selected = [];currentSignature = '';
+      lastFocus = 0;conversationScroll = 0;openingRevealed = false;saveText = 'Visit only';
+      showGuide = state.guide.flow.guideOpen !== false;
+      $('message').value = '';$('restore-draft').hidden = true;$('resume-status')?.remove();
+      if (document.body.classList.contains('plans-page')) window.DaylightPlans?.close();
+      showConversation();$('reading').scrollTop = 0;note('');
     } finally {setBusy(false);render();}
   }
   // D138: all twelve CMS pre-enrollment topics with their reviewed statements.
@@ -1178,22 +1357,36 @@
   async function resume() {
     if (visitResume?.read()) {
       const d = dialog('Resume this visit?');
-      d.append(el('p','Your recent reported details and latest reply may still be available in this tab. Open them only if it is appropriate on this device.'),
+      d.append(el('p','Your conversation and reported details may still be available in this tab. Open them only if it is appropriate on this device.'),
         button('Cancel',() => d.close(),'secondary'),
         button('Resume visit',async () => {d.close();await restoreVisit();},'primary'),
         button('Start a separate visit',async () => {
           try {
-            const fresh = await api('/api/conversation/initial');
-            visitResume.clear();state = fresh;history = [];frames = [];drafts.clear();
-            review = prepared = pendingSave = failedRequest = lastRequest = null;
-            selectedGoal = '';$('message').value = '';saveText = 'Visit only';
-            window.DaylightPlans?.close();active = true;$('landing').hidden = true;$('workspace').hidden = false;
-            d.close();render();
+            await startFreshVisit();d.close();
           } catch {d.append(el('p','A separate visit could not start. Your current visit is still available.'));}
         },'secondary'));
       d.showModal();return;
     }
-    const d = dialog('Resume saved information?');d.append(el('p','Only open this if it is appropriate to show the saved reports on this device. Conversation and drafts were not saved.'),button('Keep this visit',() => d.close(),'secondary'),button('Resume saved reports',async () => {try {const g = await api('/api/guest/profile'),r = await api('/api/guest/readiness');if (!g.guide) throw Error('No saved reports were found.');const result = await api('/api/conversation/turn',{guide:g.guide,record:r.record || state.record,action:{type:'refresh'},requestId:crypto.randomUUID()});state = result;savedVersion = g.version;readinessVersion = r.version;pendingSave = failedRequest = lastRequest = null;selectedGoal = '';history = [];review = prepared = null;drafts.clear();showGuide = state.guide.flow.guideOpen !== false;active = true;$('landing').hidden = true;$('workspace').hidden = false;d.close();saveText = 'Resumed · omitted sensitive details remain open';render();}catch(error){d.append(el('p',error.message+' Your current visit is preserved.'));}},'primary'));d.showModal();
+    const d = dialog('Resume saved information?');
+    d.append(el('p','Only open this if it is appropriate to show the saved reports on this device. Conversation and drafts were not saved.'),
+      button('Keep this visit',() => d.close(),'secondary'),
+      button('Resume saved reports',async () => {
+        if (busy) return;
+        setBusy(true);
+        try {
+          const [g,r] = await Promise.all([api('/api/guest/profile'),api('/api/guest/readiness')]);
+          if (!g.guide) throw Error('No saved reports were found.');
+          const requestId = crypto.randomUUID();
+          const result = await api('/api/conversation/turn',{guide:g.guide,record:r.record || state.record,action:{type:'refresh'},requestId});
+          visitResume?.write(requestId,result.guide.preferences);
+          state = result;savedVersion = g.version;readinessVersion = r.version;
+          pendingSave = failedRequest = lastRequest = null;selectedGoal = '';history = [];review = prepared = null;drafts.clear();
+          showGuide = state.guide.flow.guideOpen !== false;saveText = 'Resumed · omitted sensitive details remain open';
+          d.close();showConversation();
+        } catch(error) {d.append(el('p',error.message+' Your current visit is preserved.'));}
+        finally {setBusy(false);render();}
+      },'primary'));
+    d.showModal();
   }
   $('composer').onsubmit = e => {e.preventDefault();void submitCurrent();};
   $('chat-down').onclick = jumpDown;
@@ -1204,8 +1397,17 @@
   $('restore-draft').onclick = () => {if($('message').value.trim()){note('Send or clear the current message before restoring your earlier draft.');return;}$('message').value = parkedMessages.pop() || '';renderCurrent();messageInput();$('message').focus();note('Draft restored. It has not been sent.');};
   $('message').addEventListener('compositionstart',() => { composing = true; });$('message').addEventListener('compositionend',() => { composing = false; });
   $('message').addEventListener('keydown',e => {if(e.key === 'Enter' && !e.shiftKey && !e.isComposing && !composing){e.preventDefault();$('composer').requestSubmit();}});
-  $('start').onclick = () => {lastFocus = 0;active = true;$('landing').hidden = true;$('workspace').hidden = false;render();resizeComposer();window.scrollTo({top:0,behavior:'instant'});$('workspace').focus({preventScroll:true});};
-  $('back').onclick = async () => {if(review){await turn({type:'discard_review',token:review.token});return;}if(frames.length){await turn({type:'edit',id:frames.pop()});return;}$('workspace').hidden = true;$('landing').hidden = false;active = false;document.body.classList.remove('chat-mode');};
+  $('start').onclick = () => {
+    if (busy) return;
+    if (!conversationStarted && visitResume?.read()) {void restoreVisit();return;}
+    showConversation();$('reading').scrollTop = conversationScroll;updateScrollCue();
+  };
+  $('daylight-home').onclick = event => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (state && !busy) showHome();
+  };
+  $('back').onclick = async () => {if(review){await turn({type:'discard_review',token:review.token});return;}if(frames.length){await turn({type:'edit',id:frames.pop()});return;}showHome();};
   $('review').onclick = reviewInformation;$('privacy').onclick = $('landing-privacy').onclick = privacy;$('resume').onclick = $('landing-resume').onclick = resume;
   $('prepare').onclick = () => turn({type:'review_preparation'});$('samples').onclick = () => turn({type:'next',step:'samples'});
   window.addEventListener('resize',() => {if(active) resizeComposer();});
@@ -1232,7 +1434,29 @@
       $('model-control').classList.toggle('model-dev', new URLSearchParams(location.search).has('models'));
     }
     baseline = b;sampleData = p;savedVersion = s.version;state = await api('/api/conversation/initial');state.reportedRows = [];showGuide = state.guide.flow.guideOpen !== false;$('start').disabled = false;$('privacy').disabled = $('landing-privacy').disabled = false;$('fixture').hidden = !config.mockAI;$('resume').hidden = $('landing-resume').hidden = !session.hasSaved;
-    window.DaylightPlans?.init({request:api,activate:()=>{active=true;$('landing').hidden=true;$('workspace').hidden=false;render();},ask:text=>{
+    if (service?.local_demo?.doctor_chat && window.DaylightDoctorCheck) {
+      const check = button('Check a doctor', () => openDoctorCheck());
+      check.id = 'chat-doctor-check';
+      document.querySelector('.chat-tools').prepend(check);
+    }
+    if (service?.local_demo?.prescription_rehearsal) {
+      const link = el('a', 'Try fictional drug costs', 'text-button');
+      link.id = 'chat-prescription-rehearsal';
+      link.href = '/d146/';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.setAttribute('aria-label', 'Try fictional drug costs in a separate tab');
+      document.querySelector('.chat-tools').append(link);
+    } else if (window.DaylightPrescriptionPreview) {
+      const scope = 'Fictional visit. Use invented details only.';
+      document.querySelector('.landing-sub').after(el('p', scope, 'chat-small'));
+      $('fixture').textContent = scope;
+      const setup = button('Set up a fictional drug cost check', () =>
+        turn({type:'task',task:'drug_pricing',preparing:true},'',false,{silent:true}));
+      setup.id = 'chat-prescription-setup';
+      document.querySelector('.chat-tools').append(setup);
+    }
+    window.DaylightPlans?.init({request:api,activate:()=>{closeDoctorCheck(false);active=true;$('landing').hidden=true;$('workspace').hidden=false;render();},ask:text=>{
       const previous=$('message').value;
       if(previous.trim()&&previous!==text&&!parkedMessages.includes(previous)){
         parkedMessages.push(previous);$('restore-draft').hidden=false;
@@ -1255,12 +1479,14 @@
       selectedGoal = '';
       return id ? turn({type:'edit',id},'',false,{silent:true}) : true;
     },
+    prescriptionPreview: window.DaylightPrescriptionPreview ? openPrescriptionPreview : null,
     profile:() => ({fields:clone(state.guide.fields),facts:clone(state.record.facts || {}),provenance:clone(state.record.natural?.provenance || {}),
-      readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),medigap:clone(state.medigapProfile || null),partD:clone(state.partDProfile || null),task:state.record.conversation?.task || '',visit:state.continuation?.split('.')[0] || '',busy}),
+      readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),medigap:clone(state.medigapProfile || null),partD:clone(state.partDProfile || null),
+      // D147: evaluation-only sorting inputs; present only when the local demo turns it on.
+      recommendation:service?.eval_recommendations ? clone(state.recommendationInputs || null) : null,task:state.record.conversation?.task || '',visit:state.continuation?.split('.')[0] || '',busy}),
     review:() => turn({type:'review_plans'}),
     beforeEnroll,
     privacy});
-    for (const id of ['resume','landing-resume']) $(id).textContent = 'Resume visit';
     render();
     if (performance.getEntriesByType('navigation')[0]?.type === 'reload') await restoreVisit();
   }).catch(error => {note(error.message);$('landing').append(el('p','Daylight could not load. Reload to try again. Existing saved information is unchanged.','notice'));});

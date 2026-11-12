@@ -1,6 +1,6 @@
 # Daylight: current state
 
-Living document · last updated November 12, 2026 (America/New_York), through D145. Edit this
+Living document · last updated November 12, 2026 (America/New_York), through D153. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 
@@ -75,7 +75,7 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
 
 | Port | Source | Status |
 | --- | --- | --- |
-| :8895 | `alternatives/advisor-first/demo_server.py`, current `web-8894/` assets | D145 unified local demo: one loopback process serves the UI and API directly, using the D144 195 MB database. Independent guest store/cookies; shared existing development model budget. No :8893/:8894 proxy. Start with `Start Daylight Demo.command`. [Runbook and checks](../../audit-evidence/unified-demo-8895-20261112/README.md). |
+| :8895 | `alternatives/advisor-first/demo_server.py`, current `web-8894/` assets | D145 unified local demo: one loopback process serves the UI and API directly, using the D144 195 MB database. Independent guest store/cookies; shared existing development model budget. No :8893/:8894 proxy. Start with `Start Daylight Demo.command` (restart: `Restart Daylight Demo.command`). D147 turns on evaluation-only tiered sorting here only. [Runbook and checks](../../audit-evidence/unified-demo-8895-20261112/README.md). |
 | :8893 | `alternatives/advisor-first/` | Daylight advisor backend (D137 restores the name). The reference `web/` frontend retains Daylight branding. Scoped rules in its [AGENTS.md](../../alternatives/advisor-first/AGENTS.md). |
 | :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | Daylight consumer interface (D137), with “Medicare, plain as day.” and “Understand your coverage options and prepare to enroll, at your pace.” Retains D93/D109 layout and behavior. Forwards API requests to :8893; D137 restores Daylight model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile and refreshes prices automatically. D131 replaces duplicate Medigap-page intake with “Talk to Daylight”; missing questions and corrections use the existing chat buttons/free text, preserving known reports and drafts. [Conversation entry](../../audit-evidence/medigap-conversation-entry-20261110/README.md). [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). D134 connects the Part D tab to the ten dated 2026 Collier PDP offerings, using the shared chat profile and the same conversation-first entry, cards/details/comparison. Published premiums/deductibles are available; personal drug costs and enrollment checks remain held. [Part D verification](../../audit-evidence/part-d-ui-8894-20261110/README.md). Internal identifiers, saved data and MA logic remain unchanged. |
 | :8890 | `cms-slice/apps/ten-question/` | Protected original ten-question journey. |
@@ -94,6 +94,53 @@ error checks retain Daylight. No further app edit or restart was needed.
 
 ## Current milestone and data
 
+- **Evaluation-only tiered recommendation (D147):** on :8895 only, a
+  deterministic method sorts Medicare Advantage, Medigap and Part D plans and the
+  two coverage paths into “Matches your priorities”, “Meets your needs, not all
+  your priorities” and a set-aside group, with ✓ / ✗ / ? checks on each plan.
+  Doctors, networks and drug lists are not checked yet, so no drug-coverage pick
+  is named while medicines are unchecked. For fictional profile evaluation; not a
+  consumer recommendation. [Method](../product/tiered-recommendation-2026-11-12/METHOD.md).
+- **Pilot doctor, pharmacy and cost priority (D146):** Bring the necessary
+  2026 identity search, pharmacy/drug normalization, network evidence, deterministic
+  cost validation and serving/freshness work into the November pilot. The owner
+  selects directories first with targeted confirmation and validated average-based
+  estimates first. The [concrete plan](../planning/pilot-data-2026-11-12/PLAN.md)
+  maps existing DQ tasks to a November 16 first-session readiness checkpoint and
+  November 20–23 expanded-candidate/review checkpoints. The first foundation
+  increment has a separate local PostgreSQL package
+  `daylight_pilot_foundation_2026_r1` with 46 evidence datasets, 2,742,964
+  source-parity records, and bound offline-only Python reads. The database is
+  2.39 GB with a 165.30 MB compressed export. Wrong year, missing acceptance,
+  stale evidence and source withdrawal fail closed. The 195 MB display database
+  still runs :8895. [Evidence and handoff](../../audit-evidence/pilot-data-foundation-20261112/README.md).
+  DQ-16 and DQ-20 now have a regional doctor index, exact dated Medicare
+  Advantage and separate Original Medicare evidence, and correction invalidation
+  in an opt-in loopback fixture. The 67-query fixture found the expected
+  identities in the top five for 64/64 known-answer queries. All 72 MA offerings
+  are accounted for, with qualified dated edges for 43. D152 enables **Check a
+  doctor** inside :8895 chat using `Start Daylight Demo.command`. The chat
+  composer collects the name and the current question area handles clarification,
+  exact doctor and office confirmation, and dated coverage evidence. The task
+  is visit only. The standalone D150 preview at :8898 remains available.
+  Independent review and participant use remain held.
+  [Chat verification](../../audit-evidence/pilot-doctor-chat-8895-20261112/README.md).
+  [Doctor review packet](../../audit-evidence/pilot-doctors-20261112/README.md).
+  DQ-12/13/18/19/27/33 have an offline prescription candidate for exact
+  product and outlet selection and deterministic average-based estimates.
+  Thirteen priced comparisons matched independent arithmetic across 213 fills,
+  and 15 comparisons stayed held. D153 makes :8895 the shared working demo.
+  **Try fictional drug costs** opens its model-free chat rehearsal at
+  `/d146/`. The task reuses that visit's reports and checks corrections,
+  expiry and source STOPs. The :8894 rehearsal remains available as earlier
+  evidence. Participant use remains held for official comparisons,
+  exact-purpose approval and hosted verification.
+  [Prescription candidate and review pack](../../audit-evidence/d146-drug-estimate-20261112/README.md) ·
+  [Shared :8895 chat verification](../../audit-evidence/d146-chat-8895-20261112/README.md).
+  Exact-store prices, unresolved network crosswalks,
+  missing criteria/units, independent review and host readiness remain distinct
+  dependencies. H01's first-target choice is decided; personal cost serving and
+  recommendation holds remain until their exact gates pass. Later 2027 work remains.
 - **Lean local demo database (D144):** `daylight_pilot_collier_2026_r1` is a
   separate 195 MB PostgreSQL display subset; the original research database is
   preserved (now measured at 31.01 GB after later imports). It retains the
@@ -110,13 +157,15 @@ error checks retain Daylight. No further app edit or restart was needed.
   compressed export passed full decompression/hash verification. AWS deployment,
   target-host recovery, source acceptance and budget changes remain separate.
   [Evidence and local connection](../../audit-evidence/collier-pilot-subset-20261112/README.md).
-- **Demo continuity and AWS launch workstream (D140–D141):** Keep the consumer
-  tool login-free. :8894 source now recovers accepted reports, the latest reply
-  and the current plan tab after an ordinary reload, using a cookie-bound
-  reference to the existing one-hour memory journal. Drafts and earlier chat
-  remain unsaved; restart, expiry and eviction can end recovery. Fictional
-  HTTP tests and desktop/tablet/phone inspection passed. The local :8893/:8894
-  services were restarted and health/free-recovery checks passed. D141 selects
+- **Demo continuity and AWS launch workstream (D140–D141, D148):** Keep the consumer
+  tool login-free. The shared :8894/:8895 UI returns to chat on reload and
+  reconstructs earlier replies and available recent inputs from the existing
+  cookie-bound, one-hour visit memory. The logo opens Home in place, where
+  **Continue the conversation** preserves drafts. Three named opening choices
+  show a fixed local reply after a 350 ms pending state. Durable profile saving
+  is opt-in. Restart, expiry and eviction can end recovery. See
+  [D148 verification and runtime status](../../audit-evidence/conversation-continuity-d148-20261112/README.md).
+  D141 selects
   AWS CloudFront and AWS WAF and reconfirms one $100 cumulative invite-only
   model budget, with public access and its allowance re-evaluated afterward.
   Public access remains a post-demo 2027 target. The
@@ -157,9 +206,11 @@ error checks retain Daylight. No further app edit or restart was needed.
   [execution record](../reviews/pilot-security-stage1-2026-11-07/README.md).
   AWS CLI access and exact hosted verification remain open. Participant
   admission follows deployment review and the applicable launch gates.
-  The owner approved private GitHub Free and the temporary manual review
-  exception. Require a PR, documented founder review and passing checks on the
-  final revision, with separate deployment approval. See the
+  The owner approved private GitHub Free. Changes reach `main` by PR. Under D149,
+  a PR merges automatically once both checks pass on its final revision
+  (`.github/workflows/auto-merge.yml`). Exceptions: Dependabot proposals,
+  drafts and PRs labeled `no-auto-merge` still need founder review.
+  Deployment needs separate approval. See the
   [P0 execution record](../../audit-evidence/pilot-p0-security-20261107/README.md)
   for local checks and remaining deployment and account evidence.
 - **Counts that are not interchangeable:** L03 r9 freezes 392,570 claim and

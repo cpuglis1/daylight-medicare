@@ -5,7 +5,7 @@
   const DATE = '2026-11-10', VARIANTS = ['A','B','C','D','F','HDF','G','HDG','K','L','M','N'];
   const chosen = new Set();
   let input = {zipcode:'',age:'',gender:'',tobacco:''}, result = null, error = '', pending = false, revision = 0;
-  let host, request, context = null, search = '', variant = 'all', order = 'premium', compare = false;
+  let host, request, context = null, search = '', variant = 'all', order = 'premium', compare = false, orderTouched = false;
   let profile, conversation, attempt = null, activeDialog = null;
   const el = (tag, text, cls) => {const n = document.createElement(tag); if (text != null) n.textContent = text; if (cls) n.className = cls; return n;};
   const money = cents => cents == null ? 'Not supplied' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents / 100);
@@ -28,6 +28,9 @@
     return box;
   }};
   const LETTER_LIMIT = {C:true, F:true, HDF:true};
+  // D147: evaluation-only sorting (local demo only) is the default order until the person picks another.
+  const fitReady = () => !!window.DaylightRecommend?.tab('medigap');
+  const orderChoice = () => !orderTouched && fitReady() ? 'fit' : order === 'fit' && !fitReady() ? 'premium' : order;
   function button(label, run, cls = 'btn-quiet') {const b = el('button',label,cls); b.type = 'button'; b.onclick = run; return b;}
   function clearResult() {revision++; result = null; error = ''; pending = false; chosen.clear(); compare = false;}
   function ageMessage() {
@@ -103,6 +106,8 @@
     // listed premiums say nothing about acceptance.
     output.append(el('p','Outside the 6-month Medigap Open Enrollment Period that starts with Part B at 65 or older, an insurer can usually ask health questions and may decline or charge more. These listed premiums do not show whether an insurer would accept an application.','plans-help'));
     const strip = picks.strip(); if (strip) output.append(strip);
+    const fitSummary = window.DaylightRecommend?.summary('medigap', Object.fromEntries(result.plans.map(p => [p.id, name(p)])));
+    if (fitSummary) output.append(fitSummary); // D147
     // D138: the plan letters at a glance, so the list is not one long wall.
     const glance = el('section',null,'medigap-glance'); glance.append(el('h2','Plan letters at a glance'));
     const table = el('ul',null,'medigap-letters');
@@ -121,7 +126,7 @@
     const searchLabel = el('label','Company name','plans-field'), searchBox = el('input'); searchBox.type = 'search'; searchBox.value = search;
     searchBox.oninput = () => {search = searchBox.value; renderList();}; searchLabel.append(searchBox);
     filters.append(searchLabel, select('Plan letter',[['all','All plan letters'],...VARIANTS.map(v=>[v,planName(v)])],variant,v=>{variant=v;renderList();}),
-      select('Sort by',[['premium','Lowest monthly premium'],['name','Company name']],order,v=>{order=v;renderList();})); output.append(filters);
+      select('Sort by',[...(fitReady()?[['fit','Daylight’s sorting (evaluation)']]:[]),['premium','Lowest monthly premium'],['name','Company name']],orderChoice(),v=>{order=v;orderTouched=true;renderList();})); output.append(filters);
     const controls = el('div',null,'plans-row medigap-actions'); controls.id = 'medigap-actions'; output.append(controls);
     const count = el('p','', 'plans-count'); count.id = 'medigap-count'; count.tabIndex = -1; count.setAttribute('aria-live','polite');
     const list = el('div'); list.id = 'medigap-list'; output.append(count,list);
@@ -143,10 +148,27 @@
     if (chosen.size) controls.append(button(`Compare selected (${chosen.size})`,()=>{compare=true;renderList();},compare?'btn-secondary':'btn-quiet'));
     list.replaceChildren();
     const rows = result.plans.filter(p => compare ? chosen.has(p.id) : (variant === 'all' || p.variant === variant) && p.company.toLowerCase().includes(search.toLowerCase().trim()));
-    rows.sort((a,b) => (order === 'premium' ? (a.monthly_cents ?? Infinity) - (b.monthly_cents ?? Infinity) : 0) || a.company.localeCompare(b.company) || a.variant.localeCompare(b.variant) || sourceClass(a).localeCompare(sourceClass(b)) || a.id.localeCompare(b.id));
+    const effective = orderChoice();
+    rows.sort((a,b) => (effective === 'premium' ? (a.monthly_cents ?? Infinity) - (b.monthly_cents ?? Infinity) : 0) || a.company.localeCompare(b.company) || a.variant.localeCompare(b.variant) || sourceClass(a).localeCompare(sourceClass(b)) || a.id.localeCompare(b.id));
     document.getElementById('medigap-count').textContent = `${rows.length} of ${result.plans.length} listed rates${compare?' selected for comparison':''}`;
     if (!rows.length) {list.append(el('p','No listed rates match these filters. Try all plan letters or clear the company name.','plans-help'));return;}
-    if (compare) return comparison(list,rows); for (const p of rows) list.append(card(p));
+    if (compare) return comparison(list,rows);
+    const groups = effective === 'fit' ? window.DaylightRecommend?.arrange('medigap', rows) : null;
+    if (groups) {return fitList(list, groups, card, 'rate');} // D147
+    for (const p of rows) list.append(card(p));
+  }
+  // D147: backend groups, in order; the set-aside group starts closed.
+  function fitList(list, groups, make, noun) {
+    for (const g of groups) {
+      const count = `${g.rows.length} ${noun}${g.rows.length === 1 ? '' : 's'}`;
+      if (g.id === 'excluded') {
+        const d = el('details',null,'plans-group plans-ruled'), s = el('summary');
+        s.append(el('span',`${g.label} (${g.rows.length})`,'plans-ruled-title'),el('span','Set aside by who can buy it or by something you need. Each one shows why.','plans-ruled-help'));
+        d.append(s); for (const p of g.rows) d.append(make(p)); list.append(d); continue;
+      }
+      const section = el('section',null,'plans-group'), h = el('h2',g.label,'rec-group-title'); h.append(el('span',count,'rec-count'));
+      section.append(h); for (const p of g.rows) section.append(make(p)); list.append(section);
+    }
   }
   function addAmount(dl,label,value) {const box = el('div',null,'amount'); box.append(el('dt',label,'amount-label'),el('dd',value,'amount-value')); dl.append(box);}
   function card(p) {
@@ -157,6 +179,7 @@
     addAmount(amounts,'Listed monthly premium',money(p.monthly_cents)); addAmount(amounts,'Listed annual premium',money(p.annual_cents));
     addAmount(amounts,'Listed policy fee',text(p.policy_fee)); c.append(amounts);
     const actions = el('div',null,'plan-actions'), add = button(chosen.has(p.id)?'Added to compare':'Add to compare',()=>toggle(p),'btn-secondary');
+    window.DaylightRecommend?.decorate('medigap', p.id, c); // D147
     add.setAttribute('aria-pressed',String(chosen.has(p.id))); actions.append(add,button('See full details',e=>details(p,e)));
     if (p.monthly_cents != null) {
       const mine = picks.medigap?.id === p.id, use = button(mine ? 'In my monthly total' : 'Use in my monthly total',()=>{picks.medigap = mine ? null : {id:p.id,label:name(p),cents:p.monthly_cents};renderResults();});

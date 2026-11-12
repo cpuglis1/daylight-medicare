@@ -1,4 +1,4 @@
-"""Daylight :8894 UI refresh preview.
+"""Daylight :8894 chat and optional fictional D146 rehearsal.
 
 Serves the refreshed front end in ``web-8894/`` and forwards every other
 request, unchanged, to the running :8893 advisor backend. It adds no backend,
@@ -10,9 +10,13 @@ Run from the repository root while :8893 is running:
     python3 alternatives/advisor-first/ui-8894/serve.py
 """
 import argparse
+from contextlib import ExitStack
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import sys
+from tempfile import TemporaryDirectory
+from threading import Thread
 from urllib.parse import urlsplit
 import urllib.error
 import urllib.request
@@ -29,6 +33,17 @@ SECURITY = {'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'R
             'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'}
 FORWARD = ('Content-Type', 'Cookie', 'X-Daylight-CSRF', 'Accept', 'Sec-Fetch-Site')
 HOP = {'connection', 'keep-alive', 'transfer-encoding', 'content-length', 'server', 'date'}
+D146 = '/d146'
+BACKEND_COOKIE = 'daylight_demo_8895_fixture'
+PREVIEW_COOKIE = 'daylight_d146_8894_fixture'
+D146_GET = {'/', '/prescription-profile-preview.js', '/api/status', '/api/guest/session',
+            '/api/guest/profile', '/api/guest/readiness', '/api/conversation/initial',
+            '/ten-config.json', '/api/sample-plans'}
+D146_POST = {'/api/conversation/turn', '/api/conversation/recover', '/api/conversation/resume',
+             '/api/conversation/save', '/api/plans/handoff', '/api/plans/catalog', '/api/plans/part-d',
+             '/api/plans/medigap', '/api/plans/priorities', '/api/plans/workspace',
+             '/api/recommendation', '/api/prescription-preview/profile'}
+D146_ROUTES = {'GET': D146_GET, 'HEAD': D146_GET, 'POST': D146_POST, 'DELETE': {'/api/guest/profile'}}
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -36,13 +51,19 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 
-def handler(upstream):
+def local_origin(upstream):
     target = urlsplit(upstream)
     if (target.scheme != 'http' or target.hostname not in {'localhost', '127.0.0.1'}
             or target.username is not None or target.password is not None
             or target.path or target.query or target.fragment):
         raise ValueError('The preview requires a loopback HTTP origin.')
-    opener = urllib.request.build_opener(NoRedirect)
+    return target
+
+
+def handler(upstream, d146_upstream=None):
+    target = local_origin(upstream)
+    fixture = local_origin(d146_upstream) if d146_upstream else None
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect)
 
     class Handler(BaseHTTPRequestHandler):
         server_version = 'Daylight8894'
@@ -109,7 +130,7 @@ def handler(upstream):
                 return self.reject(400, 'This request cannot include a body.')
             return True
 
-        def forward(self):
+        def forward(self, destination=target, path=None, *, d146=False):
             try:
                 body = self.rfile.read(self.body_length) if self.body_length else None
             except TimeoutError:
@@ -117,24 +138,57 @@ def handler(upstream):
             if body is not None and len(body) != self.body_length:
                 return self.reject(400, 'Request body is incomplete.')
             headers = {name: self.headers[name] for name in FORWARD if self.headers.get(name)}
-            headers['Host'] = target.netloc
+            if d146:
+                cookies = headers.pop('Cookie', '').split(';')
+                session = [piece.strip() for piece in cookies
+                           if piece.strip().startswith(PREVIEW_COOKIE + '=')]
+                if session:
+                    headers['Cookie'] = '; '.join(
+                        BACKEND_COOKIE + piece[len(PREVIEW_COOKIE):] for piece in session)
+            headers['Host'] = destination.netloc
             if self.headers.get('Origin'):
-                headers['Origin'] = f'{target.scheme}://{target.netloc}'
-            request = urllib.request.Request(upstream + self.path, data=body, method=self.command, headers=headers)
+                headers['Origin'] = destination.geturl()
+            request = urllib.request.Request(destination.geturl() + (path or self.path),
+                                             data=body, method=self.command, headers=headers)
             try:
                 response = opener.open(request, timeout=180)
             except urllib.error.HTTPError as error:
                 response = error
             except OSError:
-                payload = b'{"error":"The Daylight service on :8893 is not reachable. Start it, then try again."}'
-                return self.send(502, payload, [('Content-Type', 'application/json; charset=utf-8'), *SECURITY.items()])
+                message = ('The fictional prescription rehearsal is unavailable.'
+                           if d146 else 'The Daylight service on :8893 is not reachable. Start it, then try again.')
+                return self.reject(502, message)
             with response:
                 payload = response.read()
                 kept = [(k, v) for k, v in response.headers.items() if k.lower() not in HOP]
+                if d146:
+                    kept = [(k, v) for k, v in kept if k.lower() != 'set-cookie'
+                            or (v.startswith(BACKEND_COOKIE + '=') and '; Path=/;' in v)]
+                    kept = [(k, PREVIEW_COOKIE + v[len(BACKEND_COOKIE):].replace(
+                        '; Path=/;', f'; Path={D146}/;', 1)) if k.lower() == 'set-cookie'
+                        else (k, v) for k, v in kept]
                 self.send(response.status, payload, kept)
+
+        def d146_route(self):
+            path = urlsplit(self.path).path
+            if path != D146 and not path.startswith(D146 + '/'):
+                return False
+            route = path.removeprefix(D146)
+            allowed = D146_ROUTES.get(self.command, ())
+            if fixture is None or self.path != path:
+                self.reject(404, 'The fictional prescription rehearsal is unavailable.')
+            elif not route and self.command in {'GET', 'HEAD'}:
+                self.send(308, b'', [('Location', D146 + '/'), *SECURITY.items()])
+            elif route in allowed:
+                self.forward(fixture, route, d146=True)
+            else:
+                self.reject(404, 'This route is unavailable in the fictional rehearsal.')
+            return True
 
         def do_GET(self):
             if not self.validate_request():
+                return
+            if self.d146_route():
                 return
             found = self.static_file()
             if found is None:
@@ -144,7 +198,7 @@ def handler(upstream):
         do_HEAD = do_GET
 
         def do_POST(self):
-            if self.validate_request():
+            if self.validate_request() and not self.d146_route():
                 self.forward()
 
         do_PUT = do_DELETE = do_POST
@@ -152,21 +206,54 @@ def handler(upstream):
     return Handler
 
 
+def start_d146_backend(stack, *, candidate=None):
+    """Private fixture server. The ordinary :8893 session is never forwarded here."""
+    sys.path.insert(0, str(HERE.parent))
+    from demo_server import REPO, build_demo
+    from part_d_visit_http import install_profile_preview
+
+    temp = stack.enter_context(TemporaryDirectory(prefix='daylight-d146-8894-'))
+    demo = stack.enter_context(build_demo(0, fixture=True, database=Path(temp) / 'guest.sqlite3'))
+    if candidate is None:
+        from daylight_data.serving.part_d_local import local_candidate
+        candidate = local_candidate(REPO)
+    install_profile_preview(demo, candidate)
+    Thread(target=demo.serve_forever, daemon=True).start()
+    stack.callback(demo.shutdown)
+    return f'http://127.0.0.1:{demo.server_port}'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--port', type=int, default=8894)
     parser.add_argument('--upstream', default='http://127.0.0.1:8893')
+    parser.add_argument('--d146-preview', action='store_true',
+                        help='Enable the fictional prescription rehearsal at /d146/.')
     args = parser.parse_args()
     if args.port in PROTECTED_PORTS:
         raise SystemExit('That port belongs to a preserved Daylight surface.')
     if urlsplit(args.upstream).hostname not in {'127.0.0.1', 'localhost'}:
         raise SystemExit('The preview forwards only to a local Daylight service.')
-    server = ThreadingHTTPServer(('127.0.0.1', args.port), handler(args.upstream.rstrip('/')))
-    print(f'Daylight UI refresh at http://localhost:{args.port}/ (backend {args.upstream})', flush=True)
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        pass
+    with ExitStack() as stack:
+        fixture = None
+        if args.d146_preview:
+            with ExitStack() as rehearsal:
+                try:
+                    fixture = start_d146_backend(rehearsal)
+                except Exception as error:
+                    # Fixture data availability cannot prevent ordinary chat startup.
+                    print(f'D146 rehearsal unavailable ({type(error).__name__}).', file=sys.stderr, flush=True)
+                else:
+                    stack.enter_context(rehearsal.pop_all())
+        server = stack.enter_context(ThreadingHTTPServer(
+            ('127.0.0.1', args.port), handler(args.upstream.rstrip('/'), fixture)))
+        print(f'Daylight chat at http://localhost:{args.port}/ (backend {args.upstream})', flush=True)
+        if fixture:
+            print(f'Fictional D146 chat at http://localhost:{args.port}{D146}/', flush=True)
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            pass
 
 
 if __name__ == '__main__':

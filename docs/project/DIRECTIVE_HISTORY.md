@@ -211,3 +211,118 @@ sealed history, consent, independent inclusion and all acceptance gates. This
 local service does not implement the hosted invitation gate or cumulative pilot
 budget and does not authorize participant admission or cloud provisioning.
 [Verification and operating instructions](../../audit-evidence/unified-demo-8895-20261112/README.md).
+
+
+## D146 · November 12, 2026 · Pilot doctor, pharmacy and drug-cost readiness
+
+“Let's bring this forward for the pilot. Put together a concrete plan using what
+we already have, identify what you can build now and what needs outside data or
+my input, and update the brain and planning sheet.”
+
+The owner then chose “Directories first; targeted confirmation” and “Validated
+average-based estimates first.” Move the relevant 2026 work into the pilot
+sequence while retaining the later 2027 obligations. Reuse L05–L08 and the
+D144/D145 local baseline; identify the additional serving package needed because
+the 195 MB display subset excludes these research services. Record exact build,
+external-evidence, owner/reviewer and deployment dependencies. The approach is
+decided; individual source/method/output acceptance and lawful participant use
+remain gated. No source STOP, sealed revision, protected variant, commercial
+independence, permission or budget boundary changes. No purchase, outreach,
+paid/live test or consumer recommendation release is implied.
+[Plan and acceptance evidence required](../planning/pilot-data-2026-11-12/PLAN.md).
+
+## D147 · November 12, 2026 · Evaluation-only tiered recommendation
+
+“I would say for the decision, lets try to create a rudimentary deterministic
+recommendation. it filters and scores how many of your preferences are met by a
+plan, and a users preferences that are categorical are also accounted for as
+well. so a tiered filtering scoring system, that prioritizes the preferences
+dynamically. sounds pretty basic. and run that for all MA, Medigap, Part D.”
+
+“sure, i agree. Why dont we go ahead and implement. tiers is spot on. Rank by
+priority order will probably just be "priority group" "filtered, but not stated
+priority" and "not-filtered to" part D, yes. Yes. Explain recommendations and
+model in each plan with little checkmarks in ui if possible. you can build it
+right? And evaluation will be fictional, we will return to those profiles
+shortly after this is implemented.”
+
+Build method v1 for fictional evaluation on the unified local demo (:8895) only:
+eligibility and needs set plans aside, stated priorities split the rest into two
+groups, priorities met, other preferences met, then cost order rank within a
+group, unknown is never a
+miss, and drug coverage names no pick while medicines are unchecked. Show the
+checks on each plan and the method on each page. Preserve D64 independence (no
+commercial input), D129 (no rates in model context), D143 (counsel before real
+recommendations), the pilot gate, protected variants, sealed revisions and source
+STOPs. No consumer release, paid/live test or profile write follows.
+[Method](../product/tiered-recommendation-2026-11-12/METHOD.md) ·
+[Checks](../../audit-evidence/tiered-recommendation-d147-20261112/README.md).
+
+## D148 · November 12, 2026 · Keep the conversation through refresh and Home
+
+The owner reports that refresh preserved only the latest reply and once opened
+Plans. Refresh should return to chat with the earlier replies available during
+the visit. The logo may open Home, whose main action should say **Continue the
+conversation** after a conversation has started. The first response from a
+named starting option should be quick with a short pending state. Apply this
+to the existing named starting options, retaining deliberate Send and an
+approved follow-up question. Faster starts improving retention is a hypothesis.
+Keep visit recovery within existing memory limits and profile saving explicit.
+[Implementation and checks](../../audit-evidence/conversation-continuity-d148-20261112/README.md).
+
+## D149 · November 12, 2026 · Auto-merge clean pull requests
+
+“can you auto merge prs if they are clean so we have no backlog of prs.”
+
+A pull request merges automatically once both repository checks
+(`repository-checks`, `dependency-security`) pass on its final revision. This
+replaces documented founder review before merge. GitHub Free private repositories
+offer no branch protection or native auto-merge, so
+`.github/workflows/auto-merge.yml` enforces the conditions: same repository, not
+a draft, no `no-auto-merge` label, and mergeable. Dependabot proposals stay
+manual because pinned locks, including the pilot data's runtime pins, need
+deliberate review. Passing checks are not source, method, release or participant
+acceptance, and deployment approval remains separate.
+
+## D150 · November 12, 2026 · Doctor confirmation in the local demo
+
+The owner asks to wire the D146 doctor lookup into the Daylight demo: ask
+for the doctor’s name first, ask for city or practice if it is unclear, and
+let the person confirm both the doctor and office before checking a plan.
+The new **Check a doctor** flow runs on the isolated fictional demo at :8898
+with a temporary guest store. It uses the existing Collier plan catalog,
+Original Medicare route, evidence controls and correction checks. Participant
+use, independent source/method review and connection to the shared chat
+profile remain separate.
+[Implementation and verification](../../audit-evidence/pilot-doctor-demo-20261112/README.md).
+
+## D151 · November 12, 2026 · D146 prescription checks in the :8894 chat
+
+“Yes, please finish wiring D146 into the :8894 chat. Verify corrections, expiry,
+and STOP handling end to end there, and keep participant release held pending
+official comparisons and review.”
+
+The local rehearsal uses the existing :8894 chat and a separate fictional guest
+session. It reads current chat reports and collects missing prescription
+details in the conversation.
+[Implementation and verification](../../audit-evidence/d146-chat-8894-20261112/README.md).
+
+## D152 · November 12, 2026 · Doctor checks inside the :8895 chat
+
+The owner clarifies that the complete D150 lookup must run inside the chat on
+:8895. The name uses the chat composer. Clarification, doctor and office
+selection, and dated coverage evidence appear in the same conversation pane.
+The local lookup uses the existing exact source controls and holds. Returning
+to the conversation restores its draft. The standalone :8898 surface remains
+the earlier preview. No participant release or evidence acceptance follows.
+[Implementation and checks](../../audit-evidence/pilot-doctor-chat-8895-20261112/README.md).
+
+## D153 · November 12, 2026 · Shared D146 demo on :8895
+
+The owner clarifies the common development surface: “8895 is a version of
+94+93 with lighter backend. we are working out of 8895”. The unified demo
+chat offers the doctor task and the fictional prescription rehearsal. The
+rehearsal keeps its own model-free guest visit on the same port. Earlier
+previews remain reference evidence. Participant release is held pending
+official comparisons and review.
+[Implementation and verification](../../audit-evidence/d146-chat-8895-20261112/README.md).

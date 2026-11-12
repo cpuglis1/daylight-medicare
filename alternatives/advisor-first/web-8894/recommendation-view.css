@@ -1,0 +1,27 @@
+/* D147: evaluation-only sorting marks. Same paper, sage and olive as the plan cards. */
+.rec-summary { margin:20px 0; padding:18px 22px; background:var(--sage); border-radius:var(--radius-card); max-width:62rem; }
+.rec-summary p { margin:6px 0; font-size:var(--text-help); line-height:1.5; color:var(--ink); }
+.rec-summary .rec-lead { font-size:var(--text-label); font-weight:700; }
+.rec-summary .rec-fine, .rec-method .rec-fine { color:var(--muted); font-size:var(--text-fine); }
+.rec-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; }
+#plans-panel .rec-head h2 { font:450 var(--text-item)/1.2 var(--font-display); margin:0; color:var(--ink); }
+.rec-eval { font-size:var(--text-fine); font-weight:700; padding:2px 10px; border:1px solid var(--control-edge); border-radius:var(--radius-pill); color:var(--ink); background:var(--paper-raised); }
+.rec-method { margin-top:10px; }
+.rec-method > summary { cursor:pointer; font-weight:700; font-size:var(--text-help); min-height:32px; }
+.rec-method ol { margin:8px 0; padding-left:22px; font-size:var(--text-help); line-height:1.5; }
+.rec-method li { margin:4px 0; }
+.rec-fit { margin:4px 0 14px; }
+.rec-badge, #plans-panel .rec-badge { display:inline-block; margin:0 0 8px; padding:4px 12px; border-radius:var(--radius-pill); background:var(--olive); color:var(--paper-raised); font-size:var(--text-help); font-weight:700; }
+.plan-card.rec-recommended, .path-card.rec-recommended { border-color:var(--olive); box-shadow:0 0 0 2px var(--olive), var(--elev-1); }
+.rec-checks { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.rec-check { display:grid; grid-template-columns:24px 1fr; gap:10px; align-items:start; font-size:var(--text-help); line-height:1.4; color:var(--ink); }
+.rec-mark { width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; line-height:1; }
+.rec-met .rec-mark { background:var(--ok-bg); color:var(--ok); border:1px solid var(--ok); }
+.rec-not_met .rec-mark { background:var(--now-bg); color:var(--now); border:1px solid var(--now); }
+.rec-unknown .rec-mark { background:var(--wait-bg); color:var(--wait); border:1px dashed var(--wait); }
+.rec-words strong { font-weight:700; }
+.rec-tag { margin-left:8px; font-size:var(--text-fine); font-weight:700; color:var(--gold-ink); }
+.rec-note { display:block; color:var(--muted); }
+.rec-group-title { font:450 var(--text-section)/1.2 var(--font-display); margin:32px 0 16px; letter-spacing:-.01em; color:var(--ink); }
+.rec-group-title .rec-count { font-family:var(--font-ui); font-size:var(--text-label); color:var(--muted); margin-left:8px; }
+@container plans (max-width:560px) { .rec-summary { padding:16px; } }

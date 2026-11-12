@@ -1,8 +1,7 @@
 /* A tab keeps request references only. Guest cookies authorize server reads. */
 (() => {
   'use strict';
-  const KEY = 'daylight-visit-reference-v1';
-  const pages = new Set(['conversation', 'paths', 'advantage', 'supplement', 'part-d']);
+  const KEY = window.location?.pathname === '/d146/' ? 'daylight-d146-visit-reference-v1' : 'daylight-visit-reference-v1';
   const validId = value => typeof value === 'string' && /^[A-Za-z0-9-]{10,80}$/.test(value);
 
   function clear() {
@@ -12,7 +11,7 @@
     try {
       const value = JSON.parse(sessionStorage.getItem(KEY));
       if (!value || !validId(value.requestId) || !Number.isFinite(value.expiresAt)
-          || value.expiresAt <= Date.now() || !pages.has(value.page)
+          || value.expiresAt <= Date.now()
           || value.previousRequestId && !validId(value.previousRequestId)) return null;
       return value;
     } catch {return null;}
@@ -23,18 +22,11 @@
     const value = {
       requestId,
       ...(pending && previous ? {previousRequestId: previous.previousRequestId || previous.requestId} : {}),
-      page: previous?.page || 'conversation',
       saveGuide: preferences?.saveGuide === true,
       saveSensitive: preferences?.saveGuide === true && preferences?.saveSensitive === true,
       expiresAt: Date.now() + 3600000,
     };
     try {sessionStorage.setItem(KEY, JSON.stringify(value));return true;} catch {return false;}
-  }
-  function rememberPage(page) {
-    const value = read();
-    if (!value || !pages.has(page)) return;
-    value.page = page;
-    try {sessionStorage.setItem(KEY, JSON.stringify(value));} catch {}
   }
   function preferences(value) {
     const marker = read();
@@ -56,7 +48,7 @@
         result.response.guide.preferences.saveGuide = current?.saveGuide === true;
         result.response.guide.preferences.saveSensitive = current?.saveGuide === true && current?.saveSensitive === true;
         write(result.requestId, result.response.guide.preferences);
-        return {...result, page: marker.page};
+        return result;
       }
       if (['expired', 'superseded'].includes(result.status)) {clear();return result;}
       if (result.status !== 'working') throw Error('The current visit could not be reopened.');
@@ -64,5 +56,5 @@
     }
     return {status: 'working'};
   }
-  window.DaylightVisitResume = Object.freeze({read, write, clear, rememberPage, preferences, restore});
+  window.DaylightVisitResume = Object.freeze({read, write, clear, preferences, restore});
 })();
