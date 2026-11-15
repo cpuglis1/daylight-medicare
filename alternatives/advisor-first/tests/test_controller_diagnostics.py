@@ -27,9 +27,16 @@ class ControllerDiagnosticsTests(unittest.TestCase):
             raise RuntimeError('Private Doctor Canary, request-secret-123')
         harness.flow.message = fail
         payload = harness.payload({'type': 'message', 'message': 'Private Doctor Canary'})
+        from chat import ModelUnavailable
+        import natural_flow
         with self.assertLogs('natural_flow', level='ERROR') as logs:
-            with self.assertRaisesRegex(RuntimeError, 'Private Doctor Canary'):
+            # November 13, 2026: a typed message never ends in a bare server error. The person gets one
+            # calm line and can send again; the original exception is kept as the cause and never shown.
+            with self.assertRaises(ModelUnavailable) as caught:
                 harness.take(payload)
+        self.assertEqual(str(caught.exception), natural_flow.TURN_FAILED)
+        self.assertIsInstance(caught.exception.__cause__, RuntimeError)
+        self.assertNotIn('Canary', str(caught.exception))
         output = '\n'.join(logs.output)
         self.assertIn('code=unexpected_exception type=RuntimeError', output)
         self.assertRegex(output, r'natural_flow\.py:[0-9]+')

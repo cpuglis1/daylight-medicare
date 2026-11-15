@@ -71,8 +71,10 @@ class AdvisorFrameworkTests(unittest.TestCase):
         out = self.send(item['quote'], [item], compose={'question_target': None,
             'question': '', 'reply': 'We can leave it there for today.',
             'agenda_update': {'current_concern': '', 'pause': True}})
-        self.assertEqual(out['reply'], 'We can leave it there for today.\n\nWhat would you like to understand next?')
-        self.assertIsNone(out['assessment']['nextQuestion'])
+        # D157 (CV-25): the turn still ends with a question, but it is the next
+        # real question, not a menu of topics appended to the reply.
+        self.assertEqual(out['reply'], 'We can leave it there for today.')
+        self.assertTrue(out['assessment']['nextQuestion'])
         self.assertEqual(out['advisor']['teachingFactIds'], [])
 
     def test_person_requested_pause_is_honoured_without_a_question(self):

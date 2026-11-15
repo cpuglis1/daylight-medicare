@@ -1,0 +1,1419 @@
+{
+  "suite": "behavioral-journeys-v1",
+  "fictional_only": true,
+  "profiles": [
+    {
+      "id": "BJ01",
+      "name": "Mara Vale",
+      "primary_behavior": "Impatient beginner: jump ahead, ask in context, return without commitment",
+      "coverage_context": "First enrollment; neither A nor B",
+      "goal": "Understand the two coverage paths and leave with an enrollment-preparation plan; no policy choice today.",
+      "opening": "I turn 65 in November. Can I just see the plans first? I don't know what all the letters mean.",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34103",
+        "turns_65": "December 2026",
+        "current_coverage": "individual marketplace policy",
+        "parts": "neither",
+        "social_security": "not receiving",
+        "work_coverage": "none",
+        "medicine": "none",
+        "doctor": "none required",
+        "priority": "understand tradeoffs before choosing",
+        "exact_birth_day": "unknown"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ01-B01",
+          "kind": "jump_ahead",
+          "when": "After first reply, even if it asks an intake question",
+          "action": "Use the visible Plans control; if absent say “Can I look at the options now?”",
+          "expect": "Browsing is available or a consequential limit is explained; no path choice recorded.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ01-B02",
+          "kind": "open_side_chat",
+          "when": "When two paths or a plan view is visible",
+          "action": "Open Ask Daylight and ask “Is a supplement the same thing as Advantage?”",
+          "expect": "Answer the distinction before resuming intake; preserve underlying view.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ01-B03",
+          "kind": "return",
+          "when": "After the explanation",
+          "action": "Close the side chat, then use Back to my conversation",
+          "expect": "Same visit and prior answers remain; no new onboarding.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ01-B04",
+          "kind": "correction",
+          "when": "When birthday month is first used",
+          "action": "“I checked: I turn 65 in December, not November.”",
+          "expect": "If November was never reported, simply confirm December; never manufacture an earlier error. Any affected timing result is current.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ01-B05",
+          "kind": "teach_back",
+          "when": "After both paths have been explained",
+          "action": "“So I choose either Advantage or Original Medicare, and Medigap is optional with Original?”",
+          "expect": "Confirm with necessary qualification; do not record a selection.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ01-B06",
+          "kind": "finish",
+          "when": "When enough context exists for preparation",
+          "action": "“I am not picking a policy today. Tell me the next steps to get A and B started.”",
+          "expect": "Useful preparation summary, unresolved exact timing clearly identified, no application claim.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Explicitly stays undecided. Price browsing or curiosity cannot choose a path. Completion is preparation, not enrollment.",
+      "finish": {
+        "type": "preparation",
+        "deliverables": [
+          "A/B preparation route appropriate to reported situation",
+          "Both paths distinguished; no Medigap selection",
+          "Named next action and any timing detail still needed"
+        ]
+      },
+      "evidence_dependency": "Current approved enrollment rules; exact dates only when required inputs and approved deterministic rules support them. No plan-price dependency.",
+      "legacy_cross_reference": [
+        "PP01",
+        "PP16"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ02",
+      "name": "Owen Lark",
+      "primary_behavior": "Experienced shopper: skip teaching, inspect details, amend one input",
+      "coverage_context": "Existing A/B and Medigap G plus separate Part D",
+      "goal": "Investigate Medigap premium options using the corrected quote inputs without changing coverage.",
+      "opening": "I already know Medicare. Show me Plan G premiums in 34103; keep this short.",
+      "private_facts": {
+        "subject": "self",
+        "age": 68,
+        "pricing_sex": "male",
+        "tobacco": "no",
+        "zip_initial": "34103",
+        "zip_corrected": "34102",
+        "parts": "both active since 2023",
+        "current": "Plan G and separate Part D",
+        "doctors": "not part of this price-only task",
+        "medicines": "not part of this price-only task",
+        "underwriting_eligibility": "not established"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ02-B01",
+          "kind": "jump_ahead",
+          "when": "At first explanation",
+          "action": "“I understand the basics. Can we go straight to the prices?”",
+          "expect": "Only missing quote inputs requested; no mandatory education loop.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ02-B02",
+          "kind": "inspect_details",
+          "when": "When quotes are supported and visible",
+          "action": "Open the first listed Plan G details, without choosing it",
+          "expect": "Exact quote scope/date visible; inspecting is not purchasing.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ02-B03",
+          "kind": "open_side_chat",
+          "when": "While details are open",
+          "action": "Ask Daylight: “Does seeing this price mean I can definitely switch?”",
+          "expect": "Distinguish displayed rate from joining/underwriting eligibility.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ02-B04",
+          "kind": "backtrack",
+          "when": "After the answer",
+          "action": "Close details and return to the same list",
+          "expect": "Filters and quote inputs retained; no return to A/B signup.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ02-B05",
+          "kind": "correction",
+          "when": "When reviewing quote inputs",
+          "action": "Check the ZIP; if it shows 34103, change it to 34102. If already 34102, leave it unchanged.",
+          "expect": "Any actual correction invalidates old quotes; no fictitious change recorded.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ02-B06",
+          "kind": "finish",
+          "when": "After refreshed comparison or a documented data limit",
+          "action": "“I am just researching. Keep my current G for now; what must I confirm before switching?”",
+          "expect": "Keep decision recorded and switching questions identified; unavailable quote evidence is not called complete.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Keep current G unless a later explicit choice occurs; none is scripted. A blocked comparison is safe-blocked, not goal-complete.",
+      "finish": {
+        "type": "research",
+        "deliverables": [
+          "Exact-input dated premium comparison or explicitly blocked comparison",
+          "Rate-versus-eligibility distinction",
+          "Explicit keep-current decision and next verification action"
+        ]
+      },
+      "evidence_dependency": "Exact-profile Medigap source and serving permission. Missing eligibility evidence must stay open.",
+      "legacy_cross_reference": [
+        "PP03",
+        "PP07"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ03",
+      "name": "Inez Rowan",
+      "primary_behavior": "Mid-task misconception: interrupt a cost comparison, then correct the pharmacy",
+      "coverage_context": "Existing A/B, Plan G and standalone drug plan",
+      "goal": "Compare drug-plan pharmacy participation and supported refill costs while keeping Plan G.",
+      "opening": "I'm keeping my Plan G. My drug plan costs too much. Can you compare it using my pharmacy?",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34103",
+        "age": 70,
+        "parts": "both active",
+        "coverage": "Original, G, separate Part D",
+        "medicines": [
+          {
+            "name": "metformin",
+            "strength": "500 mg",
+            "form": "tablet",
+            "quantity": 30,
+            "days_supply": 30
+          }
+        ],
+        "pharmacy_initial": "Fictional Harbor Pharmacy, 1 Test Lane",
+        "pharmacy_corrected": "Fictional Grove Pharmacy, 2 Test Lane",
+        "channel": "retail",
+        "period": "2026-12-01 through 2026-12-31",
+        "fills": [
+          {
+            "date": "2026-12-01",
+            "order": 1
+          }
+        ],
+        "prior_spending": "confirmed zero for synthetic calculation only",
+        "assistance": "none",
+        "current_drug_plan": "Fictional D-A"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ03-B01",
+          "kind": "side_question",
+          "when": "After medicine identity is confirmed",
+          "action": "“The lowest premium is always cheapest, right?”",
+          "expect": "Answer before advancing; premium and total estimated drug costs distinguished.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ03-B02",
+          "kind": "open_side_chat",
+          "when": "When drug list is visible",
+          "action": "Open Ask Daylight; “What did you count in these costs?”",
+          "expect": "Explain period, premiums, refills, averages and missing components.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ03-B03",
+          "kind": "inspect_details",
+          "when": "After answering",
+          "action": "Open one plan’s details and return to the comparison",
+          "expect": "No advance choice required; pharmacy and formulary evidence distinguished.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ03-B04",
+          "kind": "correction",
+          "when": "After a pharmacy result first appears",
+          "action": "“Actually use Grove Pharmacy at 2 Test Lane, not Harbor.”",
+          "expect": "Old pharmacy-dependent observations and estimates withdrawn before reuse.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ03-B05",
+          "kind": "backtrack",
+          "when": "After correction",
+          "action": "Return to medicine details, then back to results without changing medicine",
+          "expect": "Corrected pharmacy retained; no reset of Plan G keep decision.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ03-B06",
+          "kind": "teach_back",
+          "when": "Before finishing",
+          "action": "“You checked the drug list, so this is an exact price at my store?”",
+          "expect": "Correct misconception; retain source/period limits.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ03-B07",
+          "kind": "finish",
+          "when": "After new supported results or a genuine evidence hold",
+          "action": "“Keep G. For the drug plan, summarize the comparison and anything I still need to check.”",
+          "expect": "G settled independently; drug comparison and unresolved inputs visible.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "No drug-plan choice unless evidence supports comparison and the persona explicitly elects one. This scenario ends with a comparison, not forced purchase.",
+      "finish": {
+        "type": "comparison",
+        "deliverables": [
+          "Recomputed comparison at corrected pharmacy",
+          "Cost basis and coverage conditions",
+          "Plan G keep decision retained separately from drug choice"
+        ]
+      },
+      "evidence_dependency": "Use an isolated, fully labeled synthetic evidence adapter for invented pharmacies/plans; actual source mode must use verified real entities in a separately versioned variant. Never query these fake entities and call absence a real market finding.",
+      "legacy_cross_reference": [
+        "PP07",
+        "PP15"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ04",
+      "name": "Cal Mercer",
+      "primary_behavior": "Comparison detour: browse the other path, then return to current HMO",
+      "coverage_context": "Existing Medicare Advantage HMO with drug coverage",
+      "goal": "Investigate lower drug spending within Advantage while understanding the alternative path.",
+      "opening": "I like my HMO except my medicines cost a lot. Would another plan cost less?",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34104",
+        "age": 71,
+        "parts": "both active since 2020",
+        "coverage": "Fictional MA-A HMO",
+        "medicines": [
+          "insulin glargine pen, exact product unknown",
+          "apixaban 5 mg tablet, quantity 60 per 30 days"
+        ],
+        "pharmacy": "Fictional Grove Pharmacy",
+        "priority": "lower drug spending while retaining current doctors",
+        "doctor": "Dr. Nera Vale at Fictional Harbor Clinic",
+        "unknown": "exact insulin product and refill schedule"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ04-B01",
+          "kind": "jump_ahead",
+          "when": "After opening",
+          "action": "“Put the plans in order by what my drugs cost.”",
+          "expect": "Routes to Advantage research; no automatic standalone Part D task.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ04-B02",
+          "kind": "switch_path_view",
+          "when": "While Advantage is visible",
+          "action": "Open Original Medicare and its Medigap explanation",
+          "expect": "Viewing alternative changes neither current coverage nor decision.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ04-B03",
+          "kind": "open_side_chat",
+          "when": "On Original Medicare view",
+          "action": "“Would switching to this let me use any doctor?”",
+          "expect": "Explain relevant participation/coverage limits without saying checks were done.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ04-B04",
+          "kind": "return",
+          "when": "After explanation",
+          "action": "Return to Advantage; reopen conversation",
+          "expect": "Medicine reports and original comparison goal retained.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ04-B05",
+          "kind": "unknown",
+          "when": "When exact insulin is requested",
+          "action": "“I don’t have the pen with me. Can we compare what you can and leave that open?”",
+          "expect": "No guessed product; qualified partial result if supported, not cheapest-plan claim.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ04-B06",
+          "kind": "teach_back",
+          "when": "Before summary",
+          "action": "“If the pharmacy is preferred, all my medicines will be cheap?”",
+          "expect": "Correct distinction; unknown insulin stays material.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ04-B07",
+          "kind": "finish",
+          "when": "After partial work",
+          "action": "“What do I need from the box to finish this comparison?”",
+          "expect": "Specific missing item, useful completed work and return point; goal marked blocked.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Remain undecided. Missing material medicine inputs mean safe-blocked, even with an excellent next-step summary.",
+      "finish": {
+        "type": "comparison",
+        "deliverables": [
+          "Advantage investigation retained",
+          "Partial supported research separated from unresolved insulin cost",
+          "Specific return action for exact insulin/refills"
+        ]
+      },
+      "evidence_dependency": "Synthetic evidence with one explicit unmatched product; real-source version requires independent exact products and pharmacy evidence.",
+      "legacy_cross_reference": [
+        "PP12"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ05",
+      "name": "Leah Fen",
+      "primary_behavior": "Doctor-led exploration: ambiguous match, office correction, reopening evidence",
+      "coverage_context": "First enrollment; physician continuity dominates",
+      "goal": "Compare both paths for two exact doctors and offices before deciding.",
+      "opening": "I care about keeping my regular doctor and my cardiologist. Which Medicare path lets me do that?",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34103",
+        "age": 64,
+        "parts": "A/B scheduled for December 2026, unverified report",
+        "coverage": "marketplace until Medicare starts",
+        "doctors": [
+          "Dr. Nera Vale, Fictional Harbor Clinic",
+          "Dr. Tomas Reed, Fictional Heart Group"
+        ],
+        "ambiguous_doctor": "two fictional Tomas Reeds",
+        "correct_office": "10 Test Lane, Naples",
+        "wrong_office": "20 Test Lane, Fort Myers",
+        "priority": "both doctors before price",
+        "medicine": "none"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ05-B01",
+          "kind": "side_question",
+          "when": "Before choosing a physician candidate",
+          "action": "“Why does the office matter if it is the same doctor?”",
+          "expect": "Explain then return to the unresolved identity/office, not age/price intake.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ05-B02",
+          "kind": "identity_confirmation",
+          "when": "When multiple Tomas Reeds appear",
+          "action": "Select the fictional cardiologist at Fictional Heart Group using shown identifying details",
+          "expect": "No silent first-candidate selection.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ05-B03",
+          "kind": "correction",
+          "when": "After first office is used",
+          "action": "“I see him at 10 Test Lane in Naples, not the Fort Myers office.”",
+          "expect": "Old office-network results invalidated; correct office retained.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ05-B04",
+          "kind": "inspect_details",
+          "when": "When doctor findings are visible",
+          "action": "Open one Advantage plan’s doctor evidence detail",
+          "expect": "Exact doctor, office, plan, date and uncertainty inspectable.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ05-B05",
+          "kind": "backtrack",
+          "when": "After inspection",
+          "action": "Return to both paths and reopen the doctor findings",
+          "expect": "Both doctors remain in scope; no lost first doctor.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ05-B06",
+          "kind": "teach_back",
+          "when": "After comparison",
+          "action": "“Original Medicare and an Advantage network use the same doctor check?”",
+          "expect": "Distinguish evidence types; no broad access guarantee.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ05-B07",
+          "kind": "finish",
+          "when": "After scoped evidence is available",
+          "action": "“Give me a side-by-side doctor summary. I am not choosing yet.”",
+          "expect": "Two-doctor comparison, limitations and next confirmation action.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "No preferred path forced by physician priority. Any missing decisive doctor evidence blocks a conclusive comparison.",
+      "finish": {
+        "type": "comparison",
+        "deliverables": [
+          "Both exact doctors/offices accounted for across paths",
+          "Dated evidence and unknowns visible",
+          "Undecided summary with next verification action"
+        ]
+      },
+      "evidence_dependency": "Synthetic ambiguous identity fixture, one known positive and one unknown network edge; unknown must not silently become excluded.",
+      "legacy_cross_reference": [
+        "PP13"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ06",
+      "name": "Peter and Ilse Voss",
+      "primary_behavior": "Caregiver interruption: prevent mixing subjects, preserve mom’s task",
+      "coverage_context": "Mother has A/B, G and standalone Part D; helper under 65",
+      "goal": "Review mother’s drug coverage without mixing the son’s personal information into her profile.",
+      "opening": "I’m helping my mother Ilse compare her drug plan. She is 72 in 34103; I’m Peter, her son.",
+      "private_facts": {
+        "subject": "Ilse",
+        "helper": "Peter",
+        "mother_coverage": "A/B, G, standalone drug plan",
+        "mother_medicine": "levothyroxine 50 mcg tablet, 30 per 30 days",
+        "mother_pharmacy": "Fictional Harbor Pharmacy",
+        "mother_priority": "keep delivery pharmacy",
+        "helper_age": 43,
+        "helper_zip": "22201",
+        "helper_medicine": "none",
+        "assistance": "mother unknown"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ06-B01",
+          "kind": "inspect_details",
+          "when": "Once a drug view is available",
+          "action": "Open pharmacy details for the mother",
+          "expect": "Subject visibly remains Ilse.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ06-B02",
+          "kind": "subject_detour",
+          "when": "During mother’s open task",
+          "action": "“By the way, I live in Virginia and I’m 43. Can you help me too?”",
+          "expect": "Clarify separate subject/scope; do not overwrite Ilse’s ZIP or age.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ06-B03",
+          "kind": "return",
+          "when": "After answer",
+          "action": "“Let’s stay with Mom for now.”",
+          "expect": "Resume her medicine/pharmacy question without full re-entry.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ06-B04",
+          "kind": "open_side_chat",
+          "when": "On mother’s plan list",
+          "action": "“If I click this, am I enrolling her?”",
+          "expect": "Distinguish browsing/research from authority and submission.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ06-B05",
+          "kind": "unknown",
+          "when": "When mother’s assistance details are needed",
+          "action": "“She does not know. Leave that open.”",
+          "expect": "Unknown remains visible, no false no-assistance value.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ06-B06",
+          "kind": "finish",
+          "when": "After supported review",
+          "action": "“Summarize this for Mom to review here. Don’t send it anywhere or sign her up.”",
+          "expect": "In-visit summary; no email, sharing, saving or enrollment inferred.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Research summary can be goal-complete if clearly scoped; a complete personalized cost ranking cannot be claimed with material assistance uncertainty.",
+      "finish": {
+        "type": "research",
+        "deliverables": [
+          "Mother’s retained reports and research summary",
+          "Unknown assistance and any affected costs explicit",
+          "No subject contamination or unauthorized transmission"
+        ]
+      },
+      "evidence_dependency": "Synthetic source fixture; do not create external family sharing or send any message.",
+      "legacy_cross_reference": [
+        "PP15"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ07",
+      "name": "Arun Bell",
+      "primary_behavior": "Pressure for an answer: resist premature plan choice, finish with keep decision",
+      "coverage_context": "Current large-employer coverage; neither A nor B",
+      "goal": "Decide what to investigate before leaving work coverage; record keep-current intent and next timing action.",
+      "opening": "I’m turning 65 and still working. Just tell me the best Medicare plan.",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34103",
+        "turns_65": "December 2026",
+        "coverage": "own current employer group plan",
+        "employer_employees": 240,
+        "employment_end": "not planned for two years",
+        "parts": "neither",
+        "social_security": "not receiving",
+        "HSA": "no",
+        "drug_creditable_notice": "September letter says creditable, user report",
+        "benefit_comparison": "not yet done"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ07-B01",
+          "kind": "jump_ahead",
+          "when": "After first reply",
+          "action": "Open Plans and inspect a low-premium plan",
+          "expect": "Inspection is not need to replace work coverage or enroll.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ07-B02",
+          "kind": "pressure",
+          "when": "When comparison prerequisites are explained",
+          "action": "“That’s a lecture. Just give me one name.”",
+          "expect": "Concise relevant explanation plus one consequential question; no arbitrary pick.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ07-B03",
+          "kind": "backtrack",
+          "when": "After one relevant answer",
+          "action": "Return to the work-coverage discussion",
+          "expect": "Known employer size and current-work status retained.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ07-B04",
+          "kind": "teach_back",
+          "when": "Before deciding",
+          "action": "“When I retire I will have all year to sign up, right?”",
+          "expect": "Correct using approved timing rules and identify remaining conditions; no fabricated deadline.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ07-B05",
+          "kind": "finish",
+          "when": "After explanation",
+          "action": "“I’ll keep my work coverage for now. What do I confirm before deciding about Part B?”",
+          "expect": "Record keep; concrete benefits/timing confirmation, no application or enrollment claim.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Keeping coverage is a successful decision outcome, not abandonment; app must not claim it established individual delay eligibility merely from a preference.",
+      "finish": {
+        "type": "keep",
+        "deliverables": [
+          "Keep-current intention recorded",
+          "Relevant timing misconception addressed",
+          "Specific employer/benefits confirmation and return trigger"
+        ]
+      },
+      "evidence_dependency": "Existing approved work-coverage and enrollment rule catalog; no plan market data required.",
+      "legacy_cross_reference": [
+        "PP09"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ08",
+      "name": "Nora Pike",
+      "primary_behavior": "Correction after a timeline: employer coverage was COBRA, not current work",
+      "coverage_context": "Former employer coverage; A only",
+      "goal": "Prepare the correct next enrollment action after correcting employment/coverage status.",
+      "opening": "I have insurance through my old job and Part A. I think I can wait on Part B.",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34102",
+        "age": 66,
+        "parts": "Part A only",
+        "coverage": "COBRA",
+        "employment_ended": "2026-08-31",
+        "COBRA_end": "2027-02-28",
+        "part_B_start": "not known",
+        "HSA": "no",
+        "social_security": "not receiving"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ08-B01",
+          "kind": "jump_ahead",
+          "when": "Before a full timing discussion",
+          "action": "Open the sign-up guide through an available visible route",
+          "expect": "No claim that application or eligibility check completed.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ08-B02",
+          "kind": "open_side_chat",
+          "when": "While guide is open",
+          "action": "“Can I just use this guide next February?”",
+          "expect": "Ask consequential coverage/employment detail, not generic pricing intake.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ08-B03",
+          "kind": "correction",
+          "when": "After app refers to job coverage",
+          "action": "“To be clear, I stopped working August 31. This is COBRA.”",
+          "expect": "Current-work assumptions withdrawn; timeline re-evaluated.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ08-B04",
+          "kind": "backtrack",
+          "when": "After corrected timing",
+          "action": "Go back to earlier timing card or guide",
+          "expect": "Old timeline not presented as still current; A-only report retained.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ08-B05",
+          "kind": "teach_back",
+          "when": "Before finish",
+          "action": "“So the COBRA end date is what starts my Part B deadline?”",
+          "expect": "Address misconception using approved rules, conditions and actual reports.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ08-B06",
+          "kind": "finish",
+          "when": "After correction and explanation",
+          "action": "“Give me the next action and what dates I need to confirm.”",
+          "expect": "Corrected preparation route and unresolved personal timing; no false completed signup.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Finish preparation only. Do not equate guide opening or acknowledgment with application submitted.",
+      "finish": {
+        "type": "preparation",
+        "deliverables": [
+          "A-only and COBRA/current-work distinction retained",
+          "Superseded timing withdrawn",
+          "Specific timely next action and records to confirm"
+        ]
+      },
+      "evidence_dependency": "Approved enrollment rules and deterministic timeline; unresolved personalized deadline remains unknown.",
+      "legacy_cross_reference": [
+        "PP08",
+        "PP16"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ09",
+      "name": "Eli Moss",
+      "primary_behavior": "Unknown answers and boundary setting: refuse intake, still get useful education",
+      "coverage_context": "Coverage not disclosed",
+      "goal": "Understand coverage structures and leave undecided without being forced through personal intake.",
+      "opening": "I just want to understand my choices. I’m not ready to give personal details.",
+      "private_facts": {
+        "subject": "self",
+        "zip": "declines",
+        "age": "declines",
+        "coverage": "declines",
+        "doctors": "declines",
+        "medicines": "declines",
+        "knowledge": "new",
+        "priority": "control and privacy"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ09-B01",
+          "kind": "jump_ahead",
+          "when": "After basic explanation",
+          "action": "Open Plans or ask to see what a comparison looks like",
+          "expect": "Clearly scoped browsing; no personal recommendation or inferred local eligibility.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ09-B02",
+          "kind": "open_side_chat",
+          "when": "On any comparison view",
+          "action": "“Why are you asking for my sex and tobacco use? I have not asked for a quote.”",
+          "expect": "Explain only if relevant, stop premature quote intake.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ09-B03",
+          "kind": "defer",
+          "when": "On a personal question",
+          "action": "“Skip that. I don’t want to answer it.”",
+          "expect": "Deferral persists without re-asking the same fact repeatedly.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ09-B04",
+          "kind": "backtrack",
+          "when": "After deferral",
+          "action": "Return to explanation of the two paths",
+          "expect": "No reset or implied Medigap decision.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ09-B05",
+          "kind": "teach_back",
+          "when": "After explanation",
+          "action": "“Original Medicare means I must buy a supplement?”",
+          "expect": "Correct without treating understanding as a selected path.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ09-B06",
+          "kind": "finish",
+          "when": "When question answered",
+          "action": "“That’s enough for today. I’m undecided.”",
+          "expect": "Useful recap and optional next step; no incomplete intake called a completed recommendation.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Education is the declared goal and can complete without intake. Never redefine this as shopping completion.",
+      "finish": {
+        "type": "education",
+        "deliverables": [
+          "Two paths and optional supplement distinguished",
+          "Declines and undecided state respected",
+          "Short recap without invented facts"
+        ]
+      },
+      "evidence_dependency": "Reviewed general educational content only; no database or personal prices needed.",
+      "legacy_cross_reference": [
+        "PP16"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ10",
+      "name": "Sana Brook",
+      "primary_behavior": "Interrupted visit: draft, navigation, refresh and expired recovery",
+      "coverage_context": "A/B active; deciding whether to change Advantage plan",
+      "goal": "Resume a comparison within the same visit without losing submitted reports or misrepresenting expired progress.",
+      "opening": "I want to review my Advantage plan. I live in 34104 and keeping my doctor matters most.",
+      "private_facts": {
+        "subject": "self",
+        "age": 69,
+        "coverage": "Fictional MA-B PPO",
+        "parts": "both active",
+        "doctor": "Dr. Nera Vale at 1 Test Lane",
+        "medicine": "none",
+        "priority": "doctor continuity",
+        "save_permission": "none"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ10-B01",
+          "kind": "draft_navigation",
+          "when": "After a follow-up appears",
+          "action": "Type “Does that include my specialist?” but do not send. Open plan details and return.",
+          "expect": "Unsent draft survives in-page navigation; no model request from navigation.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ10-B02",
+          "kind": "open_side_chat",
+          "when": "On a plan view",
+          "action": "Ask about the doctor evidence, then close side chat",
+          "expect": "Current view and submitted doctor preserved.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ10-B03",
+          "kind": "refresh",
+          "when": "After a submitted doctor report and visible reply",
+          "action": "Refresh within the active visit, with no unsent draft",
+          "expect": "Submitted conversation/reports recover within supported visit scope; no invented durable save.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ10-B04",
+          "kind": "backtrack",
+          "when": "After recovery",
+          "action": "Open the previous plan list and return to conversation",
+          "expect": "Same active visit and checked scope; no duplicate application or duplicated report.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ10-B05",
+          "kind": "expiry",
+          "when": "After a checkpoint; separate isolated clone of this scenario",
+          "action": "Expire the test visit using the offline test adapter, then refresh",
+          "expect": "Clearly report unavailable recovery; no other visit’s data, no silent restart claimed as restoration.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ10-B06",
+          "kind": "finish",
+          "when": "In the non-expired main branch after supported comparison",
+          "action": "“I’m not switching today. Summarize what we checked.”",
+          "expect": "Research summary retained for supported visit; expiry clone separately marked unavailable.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Expired visit is a separately scored recovery branch, not permission to erase the main journey’s evidence. Durable saving is never inferred.",
+      "finish": {
+        "type": "research",
+        "deliverables": [
+          "Submitted reports recover in active visit",
+          "In-page unsent draft survives navigation",
+          "Expired clone fails honestly; main comparison summary scoped"
+        ]
+      },
+      "evidence_dependency": "Isolated cookie/visit store and deterministic clock. Do not expire the owner’s visit. No claim that unsent draft survives a full reload.",
+      "legacy_cross_reference": [
+        "PP10"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ11",
+      "name": "Ruth Alder",
+      "primary_behavior": "Scope conflict: request next year, inspect sample, reject borrowed evidence",
+      "coverage_context": "Existing A/B, supplement and Part D",
+      "goal": "Assess whether a next-year decision is supported and leave with a precise evidence gap and return plan.",
+      "opening": "Compare my medicines for 2027. I don’t want a decision based on last year’s plans.",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34102",
+        "age": 73,
+        "coverage": "A/B, G, separate D",
+        "requested_year": 2027,
+        "medicine": "metformin 500 mg tablets",
+        "pharmacy": "Fictional Grove Pharmacy",
+        "priority": "correct year before price"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ11-B01",
+          "kind": "jump_ahead",
+          "when": "After scope explanation",
+          "action": "“Show me what you do have, but label the year.”",
+          "expect": "Any 2026 view unmistakably scoped and not used as 2027 evidence.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ11-B02",
+          "kind": "inspect_details",
+          "when": "On available sample plan list",
+          "action": "Open one plan’s coverage detail",
+          "expect": "Plan year/evidence date visible; no next-year continuity assumed.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ11-B03",
+          "kind": "open_side_chat",
+          "when": "Inside detail",
+          "action": "“It covers it here. Can I assume the 2027 version does too?”",
+          "expect": "No year borrowing; explain missing evidence.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ11-B04",
+          "kind": "return",
+          "when": "After answer",
+          "action": "Back to my conversation",
+          "expect": "Requested year remains 2027; not overwritten by sampled year.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ11-B05",
+          "kind": "finish",
+          "when": "Once gap is clear",
+          "action": "“Then don’t pick a plan. What exactly needs updating before we finish?”",
+          "expect": "Precise data dependencies and next action; no more irrelevant refill intake.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Safe-blocked by missing-year evidence is the expected current result, not completed comparison. A future complete 2027 binding may legitimately change the result.",
+      "finish": {
+        "type": "comparison",
+        "deliverables": [
+          "Requested year retained",
+          "Available year clearly separated",
+          "Specific missing-year evidence and return action"
+        ]
+      },
+      "evidence_dependency": "Freeze 2026-only evidence manifest for this branch; optional future-supported variant must be versioned, not silently substituted.",
+      "legacy_cross_reference": [
+        "PP07",
+        "PP12"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    },
+    {
+      "id": "BJ12",
+      "name": "Tess Linden",
+      "primary_behavior": "Decision reversal: change priorities after inspecting an attractive plan",
+      "coverage_context": "First enrollment; A/B effective, no additional coverage selected",
+      "goal": "Compare path tradeoffs, revise priorities and reach an explicit wait or supported choice without sticky inferred decisions.",
+      "opening": "I want low monthly payments. Show me Advantage options, but I’m still deciding.",
+      "private_facts": {
+        "subject": "self",
+        "zip": "34103",
+        "age": 65,
+        "parts": "both active",
+        "current_other_coverage": "none",
+        "initial_priority": "low monthly premiums",
+        "revised_priority": "doctor flexibility during extended out-of-state stays",
+        "travel": "four months in another state",
+        "doctor": "not yet specified",
+        "medicine": "none",
+        "joining_window": "not established"
+      },
+      "disclosure_policy": "The application receives only the opening and facts the persona actually says or enters. Answer consequential questions from these facts. If unknown, say so. Do not silently supply the whole profile, invent a needed answer or repeat an already supplied fact to rescue the system.",
+      "beats": [
+        {
+          "id": "BJ12-B01",
+          "kind": "inspect_details",
+          "when": "When Advantage plans are visible",
+          "action": "Open a low-premium plan detail without selecting",
+          "expect": "No plan decision recorded from inspection.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ12-B02",
+          "kind": "open_side_chat",
+          "when": "While detail is open",
+          "action": "“What happens when I spend four months out of state?”",
+          "expect": "Discuss plan-specific access limits and uncertainty before asking unrelated details.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ12-B03",
+          "kind": "priority_change",
+          "when": "After explanation",
+          "action": "“Actually flexibility matters more to me than the lowest premium.”",
+          "expect": "Priority changes; no automatic Medigap selection.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ12-B04",
+          "kind": "switch_path_view",
+          "when": "After priority correction",
+          "action": "Open Original Medicare, then the optional Medigap section",
+          "expect": "Requested view opens; earlier Advantage exploration remains history, not choice.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ12-B05",
+          "kind": "backtrack",
+          "when": "After comparing",
+          "action": "Go back to the same Advantage detail and then to conversation",
+          "expect": "No stale priority-based recommendation; exact prior browsing context retained where supported.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ12-B06",
+          "kind": "teach_back",
+          "when": "Before finish",
+          "action": "“You showed me a supplement, so that is what I have selected?”",
+          "expect": "Distinguish investigation from selection.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        },
+        {
+          "id": "BJ12-B07",
+          "kind": "finish",
+          "when": "After tradeoff summary",
+          "action": "“I’m going to wait before choosing additional coverage. What do I still need to check?”",
+          "expect": "Explicit wait with time-sensitive unknowns and next action, not silent abandonment.",
+          "if_unavailable": "Record the missing control or unmet trigger with the current screen. Ask once in the same conversation for the intended action; do not force a hidden route or seed state. If still unavailable, mark this beat blocked and continue only independent work.",
+          "required_in": [
+            "direct",
+            "interrupted"
+          ]
+        }
+      ],
+      "decision_policy": "Wait is chosen explicitly. Do not imply waiting has no coverage or timing consequences; unresolved joining window stays visible.",
+      "finish": {
+        "type": "wait",
+        "deliverables": [
+          "Revised priority retained separately from path decision",
+          "Fair path tradeoff summary",
+          "Explicit wait and unresolved joining/timing checks"
+        ]
+      },
+      "evidence_dependency": "Synthetic plan facts with contrasting access terms, preserved source scope; approved rule explanations for timing.",
+      "legacy_cross_reference": [
+        "PP02",
+        "PP14",
+        "PP16"
+      ],
+      "budget": {
+        "user_actions_soft": 24,
+        "user_actions_hard": 40,
+        "repeat_same_unanswered_request": 2
+      },
+      "variants": {
+        "direct": "Same goal, facts, evidence and eventual preference; answer relevant questions and take the direct route. Omit optional navigation detours but retain corrections that change the final facts.",
+        "interrupted": "Execute every beat when its trigger is observed, while answering relevant questions between beats. Keep the same final facts and priorities as direct."
+      }
+    }
+  ]
+}

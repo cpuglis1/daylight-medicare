@@ -12,11 +12,11 @@ from zoneinfo import ZoneInfo
 DATE = '2026-11-10'
 FIELDS = {'MG_AGE': 'medigap.ageOn20261110', 'MG_SEX': 'medigap.pricingSex',
           'MG_TOBACCO': 'medigap.tobaccoCategory'}
-LABELS = {'MG_AGE': 'Age reported for Medigap pricing', 'MG_SEX': 'Sex used for Medigap pricing',
+LABELS = {'MG_AGE': 'Age for Medigap pricing', 'MG_SEX': 'Sex used for Medigap pricing',
           'MG_TOBACCO': 'Medigap tobacco category'}
 DEFINITIONS = {
     'MG_AGE': ('How old are you?',
-        'The pilot prices cover ages 65–74. Your age helps us match the listed prices. For someone who is 64, prices are shown for age 65.', []),
+        'Medigap prices are set by age. Daylight has prices for ages 65–74; someone who is 64 sees the age-65 prices.', []),
     'MG_SEX': ('Which sex category should we use for Medigap prices?',
         'The price source uses Female and Male categories. Choose the category to use for this lookup, or leave it unknown.',
         [['Female', 'Female'], ['Male', 'Male']]),
@@ -98,9 +98,11 @@ def birthday_age(guide):
     if type(month) is not int or not 1 <= month <= 12:
         return None
     if month == 11 and value.get('first_day') is not True:
-        # A later November birthday may be before or after the 10th. Someone
-        # turning 65 that month is priced at 65 either way (D138).
-        return 64 if value['year'] == 2026 else None
+        # A later November birthday may be before or after the 10th, and the
+        # report holds a month, not a day. Someone turning 65 that month is
+        # priced at 65 either way (D138), so 65 is the pricing age; nothing
+        # here claims the person reported an age (D157, PG-01).
+        return 65 if value['year'] == 2026 else None
     years = 65 + 2026 - value['year'] - (month > 11)
     return years if 0 <= years <= 120 else None
 
@@ -111,9 +113,11 @@ def profile(guide):
     # An explicit unknown/correction supersedes birthday arithmetic too.
     age_report = guide.get('fields', {}).get(FIELDS['MG_AGE'], {})
     _, birthday_revision = birthday_source(guide)
+    derived_age = False
     if not age_report or (age_report.get('status') in {'reported', 'stale'}
             and birthday_revision > age_report.get('revision', 0)):
         values['MG_AGE'] = birthday_age(guide)
+        derived_age = values['MG_AGE'] is not None
     zip_code = usable(guide, 'comparison.scope.zip')
     # D138: a 64-year-old turns 65 within the year, so the listed age-65
     # prices are the relevant reference. The reported age stays visible.
@@ -123,11 +127,11 @@ def profile(guide):
     note = TURNING_65_NOTE if turning else ''
     message = ''
     if isinstance(values['MG_AGE'], int) and values['MG_AGE'] >= 75:
-        message = 'Medigap pricing for ages 75+ is not supported in this pilot.'
+        message = 'Daylight doesn’t have Medigap prices for ages 75 and older yet. You can still look at Medicare Advantage and Part D plans.'
     elif isinstance(values['MG_AGE'], int) and values['MG_AGE'] < 64:
-        message = 'Medigap pricing in this pilot supports ages 65–74, and age 64 for people about to turn 65. Younger ages are not supported.'
+        message = 'Daylight has Medigap prices for ages 65 to 74, and for people about to turn 65. You can still look at Medicare Advantage and Part D plans.'
     elif zip_code and zip_code not in {str(z) for z in range(34101, 34109)}:
-        message = 'Medigap pricing in this pilot supports ZIP codes 34101–34108.'
+        message = 'Daylight has Medigap prices for ZIP codes 34101 to 34108 so far. Tell Daylight if your ZIP changes.'
     missing = []
     if role not in {'self', 'someone'}:
         missing.append('RC01')
@@ -141,8 +145,10 @@ def profile(guide):
             'message': message, 'note': '' if message else note, 'missing': missing, 'held': held,
             'questions': [question(key, role) for key in missing if key in FIELDS and key not in held] if not message else [],
             'edit_questions': [question(key, role) for key in FIELDS],
+            'age_basis': 'birthday' if derived_age else 'reported' if values['MG_AGE'] is not None else None,
             'details': [{'id': key, 'label': LABELS[key], 'value': values[key],
-                         'status': guide.get('fields', {}).get(name, {}).get('status', 'missing')}
+                         'status': ('derived' if key == 'MG_AGE' and derived_age else
+                                    guide.get('fields', {}).get(name, {}).get('status', 'missing'))}
                         for key, name in FIELDS.items()]}
 
 

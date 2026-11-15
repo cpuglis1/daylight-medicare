@@ -204,7 +204,8 @@ class FollowupContractTests(unittest.TestCase):
         out = self.case.message('Help me understand Medicare.')
         self.assertEqual(out['generated']['status'], 'complete')
         self.assertTrue(out['reply'].startswith('We can explore that together.'))
-        self.assertTrue(out['reply'].endswith('What would you like to understand next?'))
+        # D157 (CV-25): the continuation is the next real question, never a topic menu.
+        self.assertNotIn('What would you like to understand next?', out['reply'])
         self.assertEqual(out['generated']['validation_recovery']['reason'], 'missing_followup')
         self.assertEqual(out['metrics']['llmCalls'], 2)  # interpretation + one composition
 
@@ -212,7 +213,9 @@ class FollowupContractTests(unittest.TestCase):
         self.case.compositions.extend([{'reply': '', 'question_target': None, 'question': ''} for _ in range(2)])
         out = self.case.message('Help me understand Medicare.')
         self.assertEqual(out['generated']['status'], 'unavailable')
-        self.assertTrue(out['reply'])  # never-blank floor
+        # D157 (CV-03): the turn may carry only the next question card; it is never
+        # blank, since either reply text or a real next question is shown.
+        self.assertTrue(out['reply'] or out['assessment']['nextQuestion']['question'])
         self.assertEqual(out['metrics']['llmCalls'], 3)
 
     def test_educational_followup_and_explicit_pause_are_supported(self):

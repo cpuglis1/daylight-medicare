@@ -10,7 +10,7 @@ from unittest.mock import patch
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
 import test_natural_flow as support
-from advisor_memory import CONTEXT_POLICY, VisitMemory
+from advisor_memory import CONTEXT_POLICY, HISTORY_TTL, VisitMemory
 from natural_agent import NaturalAgent
 from natural_state import prune_for_storage
 from contextual_capture import classify_situation
@@ -231,7 +231,7 @@ class TurnContractTests(unittest.TestCase):
         self.assertEqual(memory.brief('one', 'visit', CONTEXT_POLICY)['continuation'], record)
         self.assertEqual(memory.brief('two', 'visit', CONTEXT_POLICY), {})
         self.assertEqual(memory.brief('one', 'other', CONTEXT_POLICY), {})
-        now[0] = 3601
+        now[0] = HISTORY_TTL + 1  # just past the visit window (24 hours, D157)
         self.assertEqual(memory.brief('one', 'visit', CONTEXT_POLICY), {})
         memory.remember('one', 'visit', CONTEXT_POLICY, 'x', 'y', '', continuation=record)
         self.assertEqual(memory.brief('one', 'visit', 'natural-context-v1'), {})

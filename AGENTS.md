@@ -11,6 +11,9 @@ Read these, in order, before changing anything:
    [alternatives/advisor-first/AGENTS.md](alternatives/advisor-first/AGENTS.md).
 4. Before app changes: `PRODUCT.md`, `DAYLIGHT_REQUIREMENTS.md`, `DESIGN.md` and
    `docs/product/MASTER_DESIGN.md`. Name the requirement IDs a change addresses.
+5. Before interface or conversation changes, read the Daylight Brain's
+   `02 UX playbook.md` (path in CURRENT_STATE) and
+   [conversation implementation rules](docs/product/CONVERSATION_IMPLEMENTATION.md).
 
 For company context (strategy, licensing, pilot, partners, business decisions),
 read the Daylight Brain's `AGENTS.md`; its path is in CURRENT_STATE under
@@ -33,6 +36,9 @@ before changing it.
 
 ## Interface work
 
+- Deliver the user story through the existing conversation: reuse known reports,
+  ask only consequential missing details, perform the supported work and continue
+  in the same visit. A standalone panel or a new launch button is not integration.
 - Keep useful content, user-entered answers and notes, adaptive branches and
   factual safeguards.
 - One prominent Continue per guided page; text-labeled choices, Back, edit and

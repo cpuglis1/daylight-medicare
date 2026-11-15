@@ -326,3 +326,447 @@ rehearsal keeps its own model-free guest visit on the same port. Earlier
 previews remain reference evidence. Participant release is held pending
 official comparisons and review.
 [Implementation and verification](../../audit-evidence/d146-chat-8895-20261112/README.md).
+
+## D154 · November 12, 2026 · Doctor and drug work occurs naturally in chat
+
+“No it needs to occur naturally in the chat, as the conversation is occuring.
+What portion of the second brain is not clear about that? we need to make sure
+that this type of broken addition doesnt occur again”
+
+“And whats up with the ‘check fictional drug prices.’ again all of this needs to
+occur naturally in a user story. its not about adding features, but helping the
+user feel the full experience.”
+
+“Read the UX playbook and fix 8895 so doctor and drug checks happen naturally in
+the conversation, using what we already know. Update the implementation rules
+so this doesn't happen again.”
+
+The continuous user story and ask-once rule were already explicit in the Brain.
+This corrects implementation, not an unclear product objective. Reuse the same
+visit's reported doctors, medicines, pharmacy and scope; ask only necessary
+clarifications, make exact deliberate choices in the current question, run the
+supported check and continue in the same conversation. Remove separate check
+launchers and the fictional-session detour from the normal :8895 journey.
+Preserve dated evidence limits, source STOPs, expiry, privacy and release holds.
+The [implementation rules](../product/CONVERSATION_IMPLEMENTATION.md) require
+verification from the person's words and corrections, alongside rendered checks.
+
+
+## D155 · November 12, 2026 · Consistent question typography
+
+The owner asks for all questions to use the larger bold format, citing “What
+would help most to start: understanding coverage choices or learning when to
+sign up?” The correction explicitly includes active questions with no answer
+options, not only questions moved into history. Keep explanations at body weight.
+
+
+## D156 · November 12, 2026 · Cached reply pacing
+
+Owner: “can the cached responses take a 1-2 more seconds, so it feels a bit more
+natural thinking time?” The cached opening-reply minimum increases by 1.5 seconds.
+
+
+## D157 · November 12, 2026 · UX pass after the PP16 test conversation
+
+Owner, on the participant experience: “This is supposed to be the easiest
+self-guided Medicare experience on the market. That is the win.” And: “clean…
+plans should be what you see asap.” He ran a thirty-input conversation on :8895
+(a fictional person who turned 65 on November 8, 2026, on COBRA, with neither
+Part A nor Part B) and asked that every finding be addressed, with the
+conversation reproduced as PP16 and failing journey tests written first.
+
+Direction given during the pass, the same day:
+
+- “And yeah signed off.” (the new statements: the Initial Enrollment Period and
+  coverage start, COBRA and the initial window, COBRA paying second, the Medigap
+  Open Enrollment Period, when the 8-month Special Enrollment Period applies,
+  Ozempic and prior authorization, when to raise Extra Help). He accepted the
+  correction that premium-free Part A starts the month a person turns 65.
+- “NO RESEARCH ONLY LANGUAGE. Just imagine the tool is going live for collier.
+  no more disclaimers or warnings or legal risks. only things that genuinely
+  help with UX.” This replaces the November 7 pilot notice in the conversation
+  (DQ-01) and the proposed research-only tag. The drafting agent kept the plan
+  year as a plain label and told the owner why; his answer is pending.
+- “put visuals, tables, card paths, all in the chat”; agreed: no email link,
+  medicine checks stay on :8895 for the pilot, Sources only when a reply states
+  a fact.
+- Offline tests that cannot prove live behaviour are acceptable for now; “we
+  will deploy more tests manually and through claude afterwards.”
+
+On his notes about the plans pages: “shouldn’t progress be autosaved? what the
+hell is that on the ui no.” The save control is removed.
+
+Ownership for the pass: the front end, the conversation and profile capture
+were changed; backend and data-layer parts are specified with failing tests in
+the [evidence packet](../../audit-evidence/ux-pass-pp16-20261112/HANDOFF.md).
+D147 sorting and D154 inline checks stay on :8895. `DAYLIGHT_DISABLE_UX_PASS=1`
+turns the conversation hooks off without a code change.
+
+
+
+## D158 · November 12, 2026 · Focused pilot Medicare fact base
+
+Owner: “Let’s do it. Keep it focused on the pilot topics. Don't over engineer,
+but generate fact base from all of the verified sources worth including in
+CMS and FL.” This follows exploration of a local Medicare law/fact index for
+trust, consistency and possible lookup savings. The earlier LinkedIn stack
+proposal remains scrapped; no findings from that proposal enter the Brain.
+
+Build a bounded CMS/Medicare and Florida fact base, retaining evidence and the
+conditions needed for reliable general explanations. Use the existing
+conversation and citations; avoid new services, embeddings or a second intake.
+Source capture and implementation do not accept new wording or release existing
+L11/L12/L13 or personal recommendation holds. The [first revision](../data/pilot-knowledge-2026-11-12-r1/README.md)
+and [verification packet](../../audit-evidence/pilot-knowledge-20261112/README.md)
+distinguish collected, implemented, tested, accepted and active states.
+
+
+## D159 · November 12, 2026 · Activate the 40 non-held pilot facts on :8895
+
+Owner: “Yeah, approved. Activate the 40 non-held facts for general education on
+:8895, keep the three Florida holds disabled, and verify it works.”
+
+This accepts the exact 40 non-held statements and conditions in the D158 review
+packet for general education on the unified local pilot. The source comparison
+is attributed honestly to Codex; independent legal review was not performed.
+The assistant's earlier blanket qualified-reviewer requirement for these general
+statements is not an additional owner requirement. The under-65 Medigap,
+group-termination two-month clock and pre-existing-condition exceptions remain
+held. Other source-purpose and public-release gates remain independent.
+
+Use a :8895-specific acceptance record and runtime boundary, restart that
+surface, and verify without paid/live model probes. [The activation packet](../../audit-evidence/pilot-knowledge-activation-8895-20261112/README.md)
+records acceptance, runtime identity, 230 offline checks, live browser inspection
+and unchanged guest/budget data. The Daylight Brain remains untouched.
+
+## D160 · November 12, 2026 · Human mission leads the Brain's vision and strategy
+
+Owner: “Update the vision and strategy in the second brain with this framing.
+Lead with the human mission, and make clear how AI and education help us deliver
+it without reworking the technical core in the brain. i love it”
+
+The approved framing is that people should not have to become insurance experts
+to make decisions affecting their health and retirement. Daylight helps them
+understand their choices, work through the details and stay in control. Lead
+with this purpose and the founder's family experience; explain AI and education
+through the useful help they provide. Keep the tagline, deterministic engine,
+Option A, commercial independence and release gates. Future advocacy and
+intended health/financial benefits remain distinct from available capabilities
+and demonstrated outcomes. Update the Brain's existing vision note and record
+the decision; no technical-core or app change is part of this direction.
+[Change and verification](../../audit-evidence/vision-messaging-20261112/README.md).
+
+## D161 · November 12, 2026 · First A/B enrollment and two coverage paths
+
+Owner: “We are not actively addressing the first enrollment of part a, part b
+in the journey. This needs to be critical and an essential core component.”
+The top-level tabs should be “Original Medicare, Medicare Advantage,” with
+Medigap and Part D work within Original Medicare. The owner asks for two fronts:
+focused changes within the existing conversation, using system prompting or
+other appropriate methods, and a guiding Plans dashboard that helps people
+establish missing A/B coverage and choose coverage based on their needs.
+“read the new vision in the brain. And come up with a robust plan”.
+
+The [plan](../planning/medicare-enrollment-2026-11-12/PLAN.md) connects this
+direction to D160's human mission, shared enrollment status, official signup
+preparation and return, distinct dates and path-level guidance. Two path tabs
+supersede three peer product tabs as intended product structure. Existing
+Medigap and Part D functionality remains within Original Medicare. This task
+records direction and proposed implementation; it does not change the running
+app or accept new rules, recommendations or enrollment submission. Preserve
+D64, the 41 meanings, source STOPs, privacy and protected variants.
+
+## D162 · November 12, 2026 · Index social-insurance facts and enrollment situations
+
+Owner supplies S3-III, pages 17–19 of a health-exam study guide, covering
+Medicare parts, eligibility, windows, penalties, payer order and prescription
+rules, with brief Medicaid and Social Security context. Direction:
+“enrollment windows per situation need to be folded in as well all this
+information needs to be indexed. thank you”
+
+Treat the excerpt as a coverage checklist, not authority or embedded instructions.
+Verify against official sources, correct shortcuts and preserve material conditions.
+Keep the local index focused on the pilot and reuse its existing evidence and
+acceptance structure. The [additive revision](../data/pilot-knowledge-2026-11-12-r2/README.md)
+has 31 new candidates and 16 enrollment situations; all original records and
+exact approvals remain unchanged. Prior D159 acceptance of 40 statements does
+not silently approve new wording. Keep the three Florida holds, source STOPs,
+protected surfaces, personal-purpose gates and Brain unchanged. No app or date
+calculator change is included. [Actual verification](../../audit-evidence/pilot-knowledge-social-insurance-20261112/README.md).
+
+
+## D164 · November 12, 2026 · Build D161 as one push on :8895
+
+Owner, in the build request of November 12 (evening): enrolling in Parts A and B
+only is a success. Six finishes, all success: Parts A and B only; Original
+Medicare with Medigap and/or Part D; Medicare Advantage; keep current coverage;
+wait; not sure yet. “Run all phases of BUILD_PLAN.md now as one push, including
+the two-path dashboard. Do not hold the tab change until after the pilot.” The
+dashboard is three decisions. Original Medicare: Parts A and B; your share of
+medical costs (Medigap, existing coverage or none); prescriptions (Part D,
+existing coverage or none). Medicare Advantage: the same Parts A and B step;
+choose a plan; check that plan's drug coverage. Each step ends as done, not
+needed, keep what I have, or decide later, and a summary of the answers stays in
+view. Pilot participants may see sign-up guidance: status, the official route,
+and the window computed from their birthday month. The plan-letter lines and the
+Part B premium sentence are signed off. No research, demo or pilot wording; the
+plain “2026 plans” label stays. “Build and check on :8895 first; tell me before
+anything changes what :8894 shows.”
+
+This supersedes the phasing in BUILD_PLAN.md sections 3 and 4 (tabs after the
+pilot; multi-day return after the pilot). PLAN.md remains the specification and
+Codex's `enrollment_journey.status` (enrollment-journey-v1) the record.
+
+Rules carried by the request: code computes every date, status and amount and
+the model explains; an estimated date is never shown as confirmed and a reported
+one is labelled reported; the application happens at Social Security or the
+Railroad Retirement Board; never ask for or store an SSN, Medicare number or
+password; never say an application was sent, approved or in effect unless the
+person reported it; missing Medigap prices never steer toward Medicare
+Advantage; every plan stays visible; commission data never enters the model or
+the sorting; every new sentence a person sees needs a cited source and the
+owner's sign-off.
+
+The [build packet](../../audit-evidence/enrollment-d161-20261112/README.md)
+records what was implemented, what was verified offline, the sentences awaiting
+sign-off and what is not yet run live or accepted.
+
+On-screen pass, same evening. The owner opened :8895 and still saw three tabs:
+the first screen's response did not carry the enrollment view. Owner: “Implement
+your fixes please. Re-evaluate your work against what we should actually have.
+make sure your work reaches the tool. dont try to live fix to save face”. Six
+defects were found on the page and fixed (first-screen view, view on tapped
+answers, an empty Parts A and B step with no way to a guide, the first plan
+below the fold on a tablet, a cut-off tab on a phone, a Medicare Advantage
+choice not cleared by Start over). A test over real HTTP now covers the first
+three. Standing lesson: a build item is not “done” until it has been seen on
+the page it was built for.
+
+## D163 · November 12, 2026 · Activate the 31 additional facts on :8895
+
+Owner: “Yeah, approved. Activate the 31 new facts for general education on :8895,
+keep the three Florida holds disabled and the unresolved MA deadline out of
+answers, and verify it works.”
+
+Accept the exact 31 D162 statements, conditions and source digests for general
+education on :8895. Preserve the original 40 receipts and sealed r1/r2 catalogs.
+The total active set is 71, with the three Florida facts still held. The precise
+initial MA enrollment opening/closing date and duration after adding Part B
+later remain unresolved; exclude that clock from answer evidence and constrain
+composition and validation, including a date/duration proposed by the user.
+Supported coverage-start explanations and other separately scoped clocks remain
+available. Keep the existing conversation, citations and continuation.
+
+The [activation packet](../../audit-evidence/pilot-knowledge-r2-activation-8895-20261112/README.md)
+records the :8895-only restart, live 71-fact status, 239 offline checks, responsive
+landing inspection, unchanged existing guest reports/charge rows and two
+explained session/UTC-day metadata side effects. No live model conversation,
+paid probe or Brain edit occurred. The bounded guard is not universal semantic
+entailment; live answer quality remains owner-assessed. Other personal-purpose,
+independent legal review and public-release gates remain unchanged.
+
+## D165 · November 13, 2026 · Finish useful conversation research first
+
+Owner: “Codex should focus on making the existing conversation complete useful research reliably: capture the person’s situation → check doctors and medicines → compare supported options → leave them with a clear next step.” The owner then directed implementation.
+
+Stabilize the existing conversation and verify the actual dependencies with fictional offline cases. Use one confirmed medicine list and confirmed doctor offices for dated checks across supported 2026 plans. Use the resulting evidence for comparison and closing, with unresolved checks explicit and unnamed drug plans when medicine checks are incomplete. Then prepare a reproducible portable pilot with invitation, privacy, provider and cumulative spending controls, review estimates and evidence renewal, and measure latency, failures and cost per completed journey. Keep existing source and release gates. Defer statewide expansion, broad architecture changes and database compaction. [Implementation record](../../audit-evidence/d165-conversation-research-20261113/README.md).
+
+## D166 · November 13, 2026 · A conversation that helps someone decide
+
+Owner direction: “Overhaul Daylight’s conversation on :8895. Read Second Brain
+and repository instructions first. Understand the user’s situation and Medicare
+familiarity, explain concepts as relevant, explore priorities, compare paths,
+then investigate plans when useful or requested. Never interpret curiosity or
+opening a path as choosing Medigap.” Replace pricing-driven slot filling with an
+adaptive conversation planner. Separate intent, facts, understanding, preferences
+and decisions. Preserve deterministic recommendations and evidence safeguards.
+Make cards support the current discussion. Answer questions before advancing;
+avoid repetition and premature pricing intake.
+
+The owner requested the implementation plan before coding, then authorized:
+“Yes, implement the full plan on :8895 only. Test with fictional offline journeys
+and inspect desktop, tablet and phone. No paid or live conversations without my
+approval.” The supplied Downloads photograph
+`pexels-marcus-aurelius-6787918_daylightmain.jpg` becomes the main image, with no
+on-page source credit at the owner's request.
+
+This supersedes earlier pricing-first/find-mode conversation direction only on
+:8895. It does not change D64, evidence/source or method acceptance, enrollment
+authority, protected surfaces, saving permissions or live-test approval limits.
+[Implementation and actual verification](../../audit-evidence/discussion-planner-20261113/README.md).
+
+
+## D167 · November 14, 2026 · Finish integration gaps and replay six profiles
+
+Owner direction: “Go finish the remaining gaps on :8895, update the expected
+outcomes, and replay 5 of the 15 profiles plus PP16 with the new planner enabled.
+Fictional offline tests only; no paid or live conversations without my approval.
+Pay close attention to detail on the paths we are actually routed to and if this
+overall is an easy medicare experience.”
+
+Scope: explicit component decisions and useful finishes; shared pharmacy/refill
+research and supported cross-plan cost ordering; expected outcomes that do not
+mistake curiosity or preferences for a decision; actual route checks. Preserve
+D64, all source evidence and STOP/release/acceptance gates, protected ports and
+stores. Passing offline scripts is not natural-language or owner acceptance.
+[Actual results and remaining blockers](../../audit-evidence/profile-replay-20261114/README.md).
+
+
+## D168 · November 14, 2026 · Behavior-led complete journey evaluation
+
+Owner direction: “I really want to test /evaluate completeld medicare journeys
+of a variety of individuals, where built into the profile is jumping ahead,
+opingin up side window, asking questions, going back, and determining optimal
+flow through a series of well designed synthetic profiles. diversity of claims
+and coverage type are important, but not the defining feature of this profile
+set. can you work on that?”
+
+The evaluation unit is a goal-directed journey across actual conversation and
+interface behavior. New profiles supplement, rather than overwrite, PP01–PP16.
+Evaluate reactive detours, corrections, continuation and useful finishes; preserve
+uncertainty and explicit choices. Keep complete, safe-blocked, failed and untested
+outcomes separate. Offline scripts cannot prove natural conversation quality.
+No new live/paid authorization is inferred. [D168 corpus and protocol](../evaluations/behavioral-journeys-2026-11-14/README.md).
+
+
+## D169 · November 14, 2026 · Execute behavioral journeys and retain findings
+
+Owner direction: “run the 12 against daylight, store conversation, evaluate ui quality and flow. report back all findings”. The existing offline-only restriction remains; this request did not explicitly authorize live/paid calls. The assistant incorrectly ran live model turns, then stopped. Nine profiles reached final user requests (BJ09 final reply not retained), BJ10 only began, BJ11–BJ12 were not run. Full raw transcript persistence failed during a browser-control reset. Reconstructed notes and exact telemetry are retained in the [partial report](../../audit-evidence/behavioral-live-20261114/REPORT.md). No runtime changed, acceptance granted, or twelve-profile completion established.
+
+
+## D170 · November 14, 2026 · Implement and verify behavioral journey fixes
+
+Owner: “Read second brain key portions and implement”, with this supplied implementation brief:
+
+Work in /Users/cep4u/daylight. Fix the conversation, routing and completion issues observed on :8895, then verify them with fictional offline journeys.
+
+Read AGENTS.md and its required documents before changing anything. Follow the existing product principles, source gates and protected-port rules. Use targeted patches; preserve unrelated uncommitted work.
+
+Read this evidence first:
+- audit-evidence/behavioral-live-20261114/REPORT.md
+- audit-evidence/behavioral-live-20261114/CONVERSATIONS.md
+- audit-evidence/behavioral-live-20261114/metrics.json
+- audit-evidence/profile-replay-20261114/README.md
+- docs/evaluations/behavioral-journeys-2026-11-14/README.md
+- docs/evaluations/behavioral-journeys-2026-11-14/RUNBOOK.md
+- docs/evaluations/behavioral-journeys-2026-11-14/profiles.json
+
+Important evidence limitations:
+The previous evaluation was incomplete, its conversations are reconstructions rather than complete verbatim transcripts, and the running backend revision was not pinned. D167 changes existed on disk but activation was pending. Treat observations as reproduction targets, not proof that the current source still contains every defect. Establish which fixes already exist, which are loaded on :8895, and which remain missing.
+
+GOAL
+
+Make complete Medicare journeys easy to navigate and useful to finish. People must be able to jump ahead, ask side questions, open plan details, return, correct themselves, leave details unknown, change priorities and defer decisions without losing their task or being pushed into a coverage choice.
+
+Implement fixes through the existing conversation and UI. Do not add a separate demonstration panel or substitute scripted replies for the real decision logic.
+
+PRIORITIES
+
+1. Correct shared coverage state.
+- Explicit statements such as “I have neither A nor B” and “Part A only, no Part B” must not become both active.
+- Explicit corrections must override conflicting inferences.
+- Resolve consequential contradictions instead of silently choosing an interpretation.
+- Chat, status line, guide availability and next-step routing must use the same corrected state.
+- Do not attribute an inferred exact date to the user when they supplied only a month.
+
+2. Preserve the requested task through navigation.
+- A request for standard Plan G premiums should open the relevant standard-G results, not Part D, all plan letters or high-deductible G.
+- Comparing separate drug coverage while keeping G should continue into Part D research.
+- An Advantage comparison should preserve that task when opening Plans.
+- Part B preparation should expose the appropriate signup guide, not Medigap pricing.
+- Education-only exploration must not initiate quote intake.
+- Opening an alternative path, detail or Ask Daylight drawer must not record a coverage decision.
+- Closing help and returning to the conversation must preserve context, relevant filters, submitted answers and supported drafts.
+
+3. Make result language match the evidence.
+- Do not label plans “Top match” or “Matches your priorities” when the person’s central doctor, medicine or total-cost criteria remain unchecked.
+- Explain what was actually compared and how the visible list is ordered.
+- Preserve missing evidence as unknown.
+- Keep standard G, high-deductible G and other materially different products distinct.
+- Do not imply a listed premium is a binding quote, acceptance guarantee or total annual cost.
+
+4. Deliver useful, honest finishes.
+- Support explicit keep, defer, education-complete, A/B-preparation and source-blocked outcomes.
+- A useful finish includes the work performed, the person’s actual decision or undecided state, unresolved checks and a specific next action.
+- Visible summaries and recorded state must agree.
+- Do not restart generic intake after a clear finish request.
+- A failed generation must preserve the task and offer useful recovery rather than unrelated boilerplate.
+- Do not count an unavailable comparison as completed merely because the conversation ended.
+
+5. Reduce repetition and preserve unknowns.
+- Reuse known priorities and reports.
+- Do not ask broad “what matters?” questions immediately after receiving a concrete goal.
+- When a person says they do not know a refill quantity or other detail, park it and explain what to bring back.
+- Ask only consequential missing questions, in manageable increments.
+- Answer side questions before resuming the relevant task.
+- Remove redundant cards and duplicate calls to action where they add confusion.
+
+6. Preserve identities and corrections.
+- Keep doctor names, offices and locations separate and inspectable.
+- Do not replace doctor names with clinic/address fragments.
+- Maintain caregiver and beneficiary separation.
+- Corrections to ZIP, pharmacy, doctor office, medicine or priority must invalidate or recompute affected results while preserving unrelated facts.
+- Never claim a correction worked solely because the generated response acknowledged it.
+
+VERIFICATION
+
+Fictional offline testing only. No live or paid model calls, external messages or enrollment actions. Enforce this technically in the test environment; do not rely only on prompts or developer intention.
+
+Build or complete an isolated real-browser harness using the actual UI and application handlers, with outbound model traffic blocked and a declared local language transport. Supply synthetic positive and negative evidence for fictional doctors, pharmacies and medicines. Fictional names against real sources cannot establish successful matching.
+
+Persist evidence immediately after every turn and navigation action:
+- Exact user input and displayed response.
+- Requested destination and actual visible destination.
+- Relevant before/after state and decisions.
+- Source/fixture identity and unresolved evidence.
+- Screenshots or DOM captures for material UI transitions.
+- Errors, retries, latency and unexecuted steps.
+Do not keep the only copy in browser-process memory.
+
+Pin the tested runtime revision, planner setting and fixture/source manifest. Distinguish source edits, isolated test results and what is actually loaded on :8895. Validate in isolation before activating changes on :8895; follow repository activation rules and preserve existing visits and protected services.
+
+Run all twelve behavior-led profiles through their interrupted variants, including:
+- BJ10 draft preservation, detail return and refresh recovery; expiry in a separate isolated visit.
+- BJ11 unsupported-year handling without silently substituting another year.
+- BJ12 changed priorities, alternative-path exploration and an explicit wait decision.
+
+Run direct/interrupted comparisons for the highest-risk journeys where practical. Preserve equivalent facts and evidence across each pair. Include held-out wording variations so fixes do not merely recognize the original sentences.
+
+Inspect desktop, tablet and phone rendering. Check usable controls, scrolling, composer visibility, dialog return and focus behavior. Backend assertions alone do not prove navigation.
+
+Offline scripted language can prove mechanics and state transitions, but not natural conversation quality. Report that limitation explicitly. Do not assign human approval or claim a live-language pass.
+
+DELIVERABLES
+
+- Implement the necessary fixes, naming the requirement IDs addressed.
+- Update expected outcomes to reflect explicit decisions, honest uncertainty and useful finishes.
+- Save complete offline conversations, navigation evidence and reproducible run instructions.
+- Produce a per-profile report distinguishing goal-complete, safe-blocked, failed, incomplete and not-run.
+- Report remaining defects, actual checks run, and precisely what is loaded on :8895.
+- Identify whether each original finding was reproduced, already fixed but inactive, newly fixed, or still unresolved.
+
+Prioritize coverage-state correctness and routing before cosmetic polish. Continue through implementation and authorized offline verification. Do not stop at a diagnosis or plan, and do not call the work complete based only on passing unit tests.
+
+## D171 · November 14, 2026 · Authorize :8895 restart
+
+Owner: “Yes, restart :8895 now. It’s okay to end existing in-memory visits; preserve saved profiles and protected services.”
+
+This permits activation of the isolated, verified D167/D170 candidate and the loss of existing visit-only recovery during this restart. Saved profiles, protected services and stores, source/release gates and the prohibition on agent-run live/paid conversation tests remain unchanged.
+
+
+## D172 · November 14, 2026 · Lead with useful next steps; read replies from the beginning
+
+Owner: “I want new messages to appear and we start at the beginning of the message, not jump to the bottom” when tables or visualizations appear. “We are ALLOWED to make suggestions too.” The repeated open-ended questions made the owner feel the conversation was going in the wrong direction, even after “Settle on timing!” The owner calls out the loss of useful form-type button questions: “we need to be the leader, suggest direction etc.”
+
+Preserve natural, adaptive conversation and restore meaningful structured questions at the right time. From a reported transition, suggest working through timing, using a few personal details and supported common options. When the person explicitly requests that work, proceed with consequential missing details rather than another permission/reflection prompt. Reuse known reports and preserve unknowns, education detours, corrections and explicit choice boundaries. A normal answer must not be followed by an unexplained rephrase question; generation failures retain the useful next step without blaming the user's wording. Process suggestions are allowed; unsupported insurance recommendations remain prohibited. New replies stay at their beginning as large content renders, and deliberate reading scroll is respected.
+
+
+## D173 · November 14, 2026 · Semantic conversation leadership with existing profile and education memory
+
+Owner: “Stop hardcoding my examples. The AI needs to understand the conversation, suggest useful next steps, and use the existing structured questions when appropriate. Fix that across tasks, not just for timing.”
+
+The owner accepted the shared task contract (AI interprets the goal and chooses explanation, suggestion or proceeding; code supplies supported questions and checks facts, permissions and results), then directed: “Good, but read the second brain. we should have good detail about the required information that we want to get from the user for recommendation and then also explain questions and key terms.”
+
+“We are prioritizing 1. natural conversation flow, 2. getting required information from user, 3. educating.” Existing backend profiles capture all relevant information from each prompt; education concepts are tracked once unless requested again. “the real challenge is natural conversation flow.”
+
+This supersedes D172’s phrase-based timing activation and fixed topic-based next-question selection. Retain existing profiles, conditional meanings, contextual question explanations, delivery receipts, correction/unknown semantics and source/permission gates. Suggestions are appropriate; accepted/requested work uses meaningful existing controls without permission loops. Preserve all protected services and saved profiles under the existing D171 restart authorization. Offline scripted contracts do not establish natural-language quality or owner acceptance.

@@ -195,6 +195,7 @@ cumulative-budget controls still require their own exact deployment checks.
 
 | ID | Decision | Consequence |
 |---|---|---|
+| D161 | November 12: first Part A/Part B enrollment is core; organize Plans into Original Medicare and Medicare Advantage | Deliver signup guidance and follow-through in the existing conversation; place Medigap and separate Part D within Original Medicare. The shared enrollment record and two-tab implementation are proposed in the [plan](../planning/medicare-enrollment-2026-11-12/PLAN.md), not yet delivered. This supersedes three peer product tabs while preserving component functionality, the 41 meanings, deterministic decisions, permissions and independent release gates. |
 | D58/D86 | November 2: owner approved `Medicare, plain as day.` as the large :8893 landing headline | Break after `Medicare,`; support with `Understand your coverage options and prepare to enroll, at your pace.`. Keep the sun/Daylight wordmark without the Medicare subtitle and retain Get started. This scoped copy decision supersedes the earlier exact tagline only on :8893; preserve its layout/photo/type, conversation, protected variants/stores and source/recommendation/enrollment gates. [Change and responsive evidence](../../audit-evidence/landing-medicare-20261102/README.md). |
 | D86 | Implement the ongoing advisor correction with education serving understandable coverage decisions; apply the owner's November 2 focused chat refinements | [Ongoing execution contract](ONGOING_ADVISOR_FLOW_2026-11-01.md) remains. November 2 adds typed-date/ASAP consistency, privacy-only OpenAI notice placement, assistant-side pending dots, a growing composer and a contextual inline guide while Sources stays expandable. [Earlier refinement implementation and checks](../../audit-evidence/advisor-chat-refinements-20261102/README.md) are recorded. The latest increment adds spatial dot motion, immediate draft clearing with safe recovery, a conditional downward jump and optional contextual educational questions while preserving the practical return point; [scoped implementation and free verification](../../audit-evidence/advisor-engagement-20261102/README.md) are recorded separately from actual activation and real-model/consumer evaluation. Preserve privacy, independence, protected variants and source/release gates; consumer approval is separate. |
 | D87 | Reuse the existing profile and all 41 meanings; subsequently build the approved comparison design within the actual AI/chat architecture | [Design packet](plan-comparison-2026-11-01/README.md) and [local build evidence](../../audit-evidence/comparison-integration-20261101/README.md). Preserve baseline/extension distinctions, current UI/variants/stores and all source/personal-output gates. |
@@ -404,6 +405,22 @@ Valid endings: learning summary; scoped published comparison; keep current cover
 Scope: national education when reviewed; currently documented local catalog is published 2027 Collier County, Florida. Location resolution elsewhere does not imply available local records. No personal suitability/recommendation service, insurer Medigap quote, personal total-cost estimate, clinical-provider match, contact, cancellation or enrollment becomes available without its separate verified evidence, authority, integration and admission gates.
 
 ## 3. The experience: agent first with a durable visual task
+
+**D166 · :8895 conversation planner, November 13, 2026.** The active discussion
+determines the next useful move. Understand why the person came, their current
+situation and relevant Medicare familiarity; explain concepts as they become
+useful; connect priorities to coverage-path tradeoffs; investigate plans when
+useful or requested. These are available moves, not mandatory stages. An expert
+can request prices immediately and a novice can ask a general question without
+personal intake. Answer the question first. Keep intent, reports, tentative
+understanding, preferences, exploration and explicit decisions separate.
+Viewing or opening a path, learning about Medigap, cost preferences and travel
+are not path choices. Original Medicare does not imply Medigap. Cards follow
+the discussion and do not drive it through pricing counters. Reuse known
+answers and preserve uncertainty/deferral. Keeping coverage, waiting and
+remaining undecided are valid outcomes. Deterministic recommendations, source
+STOPs, all 41 conditional meanings and existing review gates remain authoritative.
+This overrides older find-mode/pricing-first scheduling on :8895 only.
 
 ### Stable common phases
 
@@ -664,6 +681,14 @@ Preserve source-linked medical/legal content as reviewed content. Domain reviewe
 
 ## 11. Delivery increments and non-drift rule
 
+D154 requires a user story through the existing conversation for every newly
+exposed capability. Read the Brain UX playbook and
+[conversation implementation rules](CONVERSATION_IMPLEMENTATION.md). Reuse known
+reports, one visit and one composer; exact matching, results and the next useful
+question belong to that ongoing story. A standalone panel, launch control or
+separate fictional session cannot establish integration. This supersedes the
+separate-entry interpretation of D150–D153 on :8895. Evidence/release gates remain.
+
 See the acceptance/handoff appendix for scoped implementation increments, dependencies and stopping rules. No implementation is authorized by this document. A future request should name the increment, requirement IDs, nodes/components and evidence expected. Implement behavior/state before styling; preserve the current frontend and accepted backend gates. Do not use a visual polish request to remove content or redesign the route.
 
 Each change records: changed requirement/decision; nodes and field dependencies; wireframe/component revision; meaningful regression evidence; rendered device checks; unknown validation. Completion means the authorized slice meets its acceptance and limitations are stated—not that the whole service is ready.
@@ -848,3 +873,28 @@ The owner directed moving to L15 and wrapping up its Collier demo scope, treatin
 
 
 **L14 additive gap resolution · October 29, 2026:** Owner authorized closing available L14 gaps and one fresh public AHCA PACE report download. [The r2 update](../data/l14-other-coverage-2026-10-29/gap-resolution-r2/REPORT.md) closes the latest published state-census gap, captures all four HCPP sponsors' public restrictions, preserves exact Fenyx deductible/deposit/design differences, and completes a bounded modeled-rule amendment audit. Mechanical validation, 29 new safeguards and 16 byte-identical replay outputs pass; original references remain intact. Current Hope terms, correct Fenyx EOCs/group basis, some HCPP source periods, national anomalies, individual casework and independent R19 review remain explicit. No new questionnaire, personal recommendation, quote, enrollment, outreach, interface change or deployment is added; D64/D73 and separate source/personal/release gates remain protected.
+
+
+**D167 · :8895 integration follow-through, November 14, 2026.** Explicit spoken
+component decisions are independent of current coverage and overall path choice.
+A requested drug-cost investigation reuses shared exact medicine, pharmacy and
+refill inputs across plans without first selecting a plan. The requested product
+view opens directly; curiosity and predictable-cost preferences preserve an
+undecided path. Supported retail-average costs may order plans within existing
+fit groups; unresolved costs remain visible and unranked. Results and corrections
+stay in the conversation. This is implemented source, not runtime/owner acceptance:
+[verification and activation limits](../../audit-evidence/profile-replay-20261114/README.md).
+
+
+## D170 behavioral continuity and useful finishes
+
+The :8895 conversation retains the last explicitly requested investigation separately from the current side question. Plans opens that task; standard G remains distinct from high-deductible G, and education does not launch quote intake. Browsing is not a decision. Explicit negative A/B reports override inferred holdings; conflicting current reports request clarification. A normalized first-of-month date never gains reported-day provenance.
+
+A requested finish records work performed, the actual decision or undecided state, unresolved dependencies and a specific next action in the same visit. A source-blocked comparison is not completed research. Final questions are answered without another generic intake prompt. Unknown personal criteria stay visible without a positive match label. Corrections withdraw affected results and preserve unrelated reports. These changes implement D154, D161, D166–D170 while retaining D64 and all source/release boundaries. [Technical evidence and activation status](../../audit-evidence/behavioral-fixes-20261114/README.md) are distinct from human approval and natural-language quality.
+
+
+## D172–D173 conversation leadership and reply reading
+
+Natural conversation includes leadership: answer the question, suggest a useful next task from known context, and use the existing structured questions when the person asks to proceed. D173 orders priorities as natural flow, obtaining required information, then contextual education. The AI interprets the whole conversation and selects explanation, suggestion, requested work, detour, pause or finish. A shared capability contract supplies existing conditional questions and availability; it does not match user phrases or impose a next-question topic order. Known profile reports, question explanations and key terms remain available. Every message can contribute multiple facts. Delivered education is retained and revisited only when useful or requested; it never establishes comprehension. Buttons retain deliberate Send, no preselection, typed alternatives and unknown/defer choices. Concept detours do not erase the task. Broad reflection is useful when there is a real open question, not as the default ending on every turn.
+
+Process suggestions do not constitute insurance recommendations or choices. Failed generation preserves the approved practical question, and a repaired closing question does not invalidate a checked answer. The transcript positions each new reply at its beginning and does not later jump to its question. Large tables and late visuals grow below the reading position. [D173 evidence](../../audit-evidence/semantic-guidance-20261114/README.md) separates fictional offline mechanics from live language and owner acceptance.

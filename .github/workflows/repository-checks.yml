@@ -60,19 +60,58 @@ jobs:
           fi
       - name: Prepare exact development metadata and fictional journey
         run: python -B tools/prepare_advisor.py
-      - name: Decide whether the advisor suite is needed
-        id: scope
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        # Pull requests touching only docs or repository config skip the ~13-minute
-        # suite. Pushes, manual runs and anything else run it in full.
-        run: python -B tools/advisor_tests_needed.py ${BASE_SHA:+--base "$BASE_SHA"}
-      - name: Check the public advisor with fictional inputs
-        if: steps.scope.outputs.needed == 'true'
-        run: python -B tools/run_advisor_checks.py
       - name: Check profile contracts and whole-offering safety with fictional records
         run: |
           python -B -m unittest discover -s infrastructure/daylight-data/tests -p test_profile_contract_export.py -v
           python -B -m unittest discover -s infrastructure/daylight-data/tests -p test_whole_offering.py -v
       - name: Launch the fixture advisor and check HTTP plus assets
         run: python -B tools/smoke_advisor.py
+
+  # The public advisor suite, split into four parallel parts. The workflow run
+  # succeeds only when every part does, so auto-merge still waits for all of it.
+  advisor-tests:
+    name: advisor-tests (${{ matrix.shard }}/4)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+      - name: Install the pinned JSON Schema validator used by the Claude adapter
+        # Exact versions from infrastructure/daylight-data/requirements.lock.
+        run: >-
+          python -m pip install --disable-pip-version-check --no-deps
+          jsonschema==4.25.1 jsonschema-specifications==2025.9.1 attrs==26.1.0
+          referencing==0.37.0 rpds-py==2026.9.1 typing_extensions==4.16.0
+      - name: Install the pinned Postgres driver imported by the doctor and medicine checks
+        # Exact versions from infrastructure/daylight-data/requirements.lock. No database
+        # is started; the advisor tests use fictional in-memory directories.
+        run: >-
+          python -m pip install --disable-pip-version-check --no-deps
+          psycopg==3.3.6 psycopg-binary==3.3.6
+      - name: Decide whether the advisor suite is needed
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        # Pull requests touching only docs or repository config skip the suite.
+        # Pushes, manual runs and anything else run it in full.
+        run: python -B tools/advisor_tests_needed.py ${BASE_SHA:+--base "$BASE_SHA"}
+      - name: Prepare exact development metadata and fictional journey
+        if: steps.scope.outputs.needed == 'true'
+        run: python -B tools/prepare_advisor.py
+      - name: Check the public advisor with fictional inputs
+        if: steps.scope.outputs.needed == 'true'
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: python -B tools/run_advisor_checks.py --shard "$SHARD/4"

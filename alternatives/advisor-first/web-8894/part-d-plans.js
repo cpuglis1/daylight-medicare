@@ -32,23 +32,33 @@
     } catch(e){if(current===revision)error=e.message||'Part D plan information is temporarily unavailable. Try again.';}
     finally{if(current===revision){pending=false;renderResults();}}
   }
+  // X-03 (D157): the standard-premium range for the two-path card in the chat.
+  const ranges = new Map();
+  function range(send, profileValue) {
+    if (profileValue?.status !== 'ready') return Promise.resolve(null);
+    const key = JSON.stringify(profileValue.inputs);
+    if (!ranges.has(key)) ranges.set(key, send('/api/plans/part-d',{...profileValue.inputs}).then(v => {
+      const rates = (v.plans || []).map(p => value(p,'total_premium')).filter(n => typeof n === 'number');
+      return rates.length ? {low:Math.min(...rates), high:Math.max(...rates), count:rates.length} : null;
+    }).catch(() => {ranges.delete(key); return null;}));
+    return ranges.get(key);
+  }
   function render(target,settings) {
     host=target;options=settings;sync(settings.profile,settings.context);
     const title=el('h1','Part D drug plans','plans-title');title.tabIndex=-1;
-    host.append(title,el('p','Stand-alone prescription drug plans for Collier County, Florida.','plans-lede'),
-      el('p','2026 pilot data · Published plan premiums and deductibles. Personal prescription costs and current enrollment availability still need checking.','plans-help'));
+    host.append(title);
     if(!profile||profile.status==='missing'){
-      const intro=el('section',null,'medigap-invitation');intro.append(el('h2','Looking for Part D coverage?'),
-        el('p','Talk with Daylight so we can show plan information for your area and coverage year. We’ll use what you’ve already shared and ask only for what’s missing.','plans-lede'),
-        button('Talk to Daylight',()=>options.conversation(),'primary-button'));
-      if(profile?.held.length)intro.append(el('p','Details you left unknown or chose to check later stay open. You can update them in the conversation whenever you’re ready.','plans-help'));
+      const next=profile?.questions?.[0],count=(profile?.missing||[]).length;
+      const intro=el('section',null,'medigap-invitation');intro.append(el('h2',count?`${count} detail${count===1?'':'s'} left to see your Part D drug plans`:'A few details to see your Part D drug plans'));
+      if(next)intro.append(el('p',next.why||'','plans-lede'),button(next.question,()=>options.conversation(next.id),'primary-button'));
+      else intro.append(button('Continue in the conversation',()=>options.conversation(profile?.missing?.[0]),'primary-button'));
       host.append(intro);
     }
     if(profile){
-      const details=el('details',null,'medigap-editor');details.append(el('summary','Your Part D details'));
-      for(const item of profile.details){const row=el('div',null,'plans-row medigap-profile-row');row.append(el('p',`${item.label}: ${item.value ?? 'Not yet provided'}`),button('Edit '+item.label+' in conversation',()=>options.conversation(item.id)));details.append(row);}
-      details.append(el('p','These are the details you shared in chat. Sensitive details are saved only if you choose to save them. Plan data is not saved in your profile.','plans-help'));host.append(details);
-      if(profile.status==='ready')host.append(el('p','Your medicines and pharmacy can affect which plan works for you. Personal drug-cost estimates are not available in this pilot yet.','plans-help'),button('Talk about Part D',()=>options.conversation()));
+      const edits=el('div',null,'plans-row medigap-edit-row');edits.hidden=true;
+      for(const item of profile.details)edits.append(button(item.label,()=>options.conversation(item.id),'btn-quiet'));
+      const edit=button('Edit details',()=>{edits.hidden=!edits.hidden;edit.setAttribute('aria-expanded',String(!edits.hidden));},'btn-quiet');edit.setAttribute('aria-expanded','false');
+      const line=el('div',null,'plans-row medigap-pricing-line');line.append(edit);host.append(line,edits);
     }
     const notice=el('p','', 'plans-notice');notice.id='part-d-status';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');
     const output=el('div');output.id='part-d-results';host.append(notice,output);renderResults();
@@ -59,14 +69,15 @@
     output.replaceChildren();notice.textContent=profile?.message||error||(pending?'Finding Part D plan information…':result?.message||'');
     if(error&&profile?.status==='ready')output.append(button('Try Part D plans again',load));
     if(profile?.status!=='ready'||!result||result.status!=='published_plans')return;
-    output.append(el('p',`2026 · Collier County · ZIP ${result.profile.zipcode}`,'plans-count'),el('p',result.notice,'plans-help'));
+    output.append(el('p',`ZIP ${result.profile.zipcode} · 2026 plans`,'plans-count'),el('p','Your medicines aren’t checked against each drug list yet.','plans-help'));
     const strip=window.DaylightPicks?.strip();if(strip)output.append(strip); // D138: Medigap plus Part D monthly total.
-    const fitSummary=window.DaylightRecommend?.summary('part_d',Object.fromEntries(result.plans.map(p=>[p.id,p.name])));if(fitSummary)output.append(fitSummary); // D147
+    const fitSummary=window.DaylightRecommend?.summary('part_d',Object.fromEntries(result.plans.map(p=>[p.id,p.name])));
     const filters=el('div',null,'plans-filters');
     const label=el('label','Plan or company name','plans-field'),search=el('input');search.type='search';search.value=query;search.oninput=()=>{query=search.value;renderList();};label.append(search);
-    const orderLabel=el('label','Sort by','plans-field'),order=el('select');if(fitReady())order.append(new Option('Daylight’s sorting (evaluation)','fit'));order.append(new Option('Lowest standard monthly premium','premium'),new Option('Plan name','name'));order.value=sortChoice();order.onchange=()=>{sort=order.value;sortTouched=true;renderList();};orderLabel.append(order);filters.append(label,orderLabel);output.append(filters);
+    const orderLabel=el('label','Sort by','plans-field'),order=el('select');if(fitReady())order.append(new Option('Daylight’s sorting','fit'));order.append(new Option('Lowest standard monthly premium','premium'),new Option('Plan name','name'));order.value=sortChoice();order.onchange=()=>{sort=order.value;sortTouched=true;renderList();};orderLabel.append(order);filters.append(label,orderLabel);output.append(filters);
     const actions=el('div',null,'plans-row');actions.id='part-d-actions';const count=el('p','', 'plans-count');count.id='part-d-count';count.setAttribute('aria-live','polite');
     const list=el('div');list.id='part-d-list';output.append(actions,count,list);
+    if(fitSummary)output.append(fitSummary); // CN-04: one link below the list
     const about=el('details',null,'plans-about');about.append(el('summary','About this Part D information'),
       el('p','Source: CMS September 2026 published plan snapshot, with a restriction check through October 25, 2026. This dated reference contains ten Florida stand-alone PDP offerings mapped to Collier County; it does not confirm today’s enrollment availability.'),
       el('p','All listed plans are included regardless of commercial relationships. Sorting changes display order only. Standard premiums do not include your medicine costs or establish your subsidy-adjusted payment. A Part D premium is not the total cost of Original Medicare and Medigap.'),
@@ -79,7 +90,8 @@
   }
   function renderList(){
     const list=document.getElementById('part-d-list');if(!list||!result)return;
-    const actions=document.getElementById('part-d-actions');actions.replaceChildren(button('All listed plans',()=>{compare=false;renderList();},compare?'btn-quiet':'btn-secondary'));
+    const actions=document.getElementById('part-d-actions');actions.replaceChildren();
+    if(chosen.size)actions.append(button('All listed plans',()=>{compare=false;renderList();},compare?'btn-quiet':'btn-secondary'));
     if(chosen.size)actions.append(button(`Compare selected (${chosen.size})`,()=>{compare=true;renderList();},compare?'btn-secondary':'btn-quiet'));
     const rows=result.plans.filter(p=>compare?chosen.has(p.id):`${p.name} ${p.company}`.toLowerCase().includes(query.trim().toLowerCase()));
     const effective=sortChoice();
@@ -103,7 +115,7 @@
       if(options.prescriptionPreview)controls.append(button('Check fictional drug costs',()=>options.prescriptionPreview(p)));
       const premium=value(p,'total_premium'),picks=window.DaylightPicks;
       if(picks&&premium!=null&&p.fields.total_premium.value_encoding==='integer_cents'){
-        const mine=picks.partD?.id===p.id,use=button(mine?'In my monthly total':'Use in my monthly total',()=>{picks.partD=mine?null:{id:p.id,label:p.name,cents:premium};renderResults();});
+        const mine=picks.partD?.id===p.id,use=button(mine?'In my monthly total':'Use in my monthly total',()=>{picks.partD=mine?null:{id:p.id,label:p.name,cents:premium};renderResults();},'btn-secondary');
         use.setAttribute('aria-pressed',String(mine));controls.append(use);
       }
       window.DaylightRecommend?.decorate('part_d',p.id,card); // D147
@@ -127,5 +139,5 @@
     const dl=el('dl');for(const [key,f] of Object.entries(p.fields))dl.append(el('dt',f.basis),el('dd',fieldText(p,key)));source.append(dl,el('p',`CMS · ${p.source.member} · record ${p.source.record_ordinal} · plan ID ${p.id}`,'sheet-note'));dialog.append(source);
     dialog.addEventListener('close',()=>{activeDialog=null;dialog.remove();if(opener.isConnected)opener.focus();},{once:true});document.body.append(dialog);dialog.showModal();close.focus();
   }
-  window.DaylightPartD=Object.freeze({render});
+  window.DaylightPartD=Object.freeze({render,range});
 })();

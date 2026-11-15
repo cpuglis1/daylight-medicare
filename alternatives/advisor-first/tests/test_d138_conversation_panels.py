@@ -26,7 +26,7 @@ class D138Tests(unittest.TestCase):
         pages = self.flow.context(self.g, self.r, CONTEXT_POLICY)['plans_pages']
         self.assertEqual(pages['medigap']['status'], 'missing')
         self.assertEqual(pages['medigap']['still_needed'],
-                         ['age', 'sex category used by the price source', 'tobacco category'])
+                         ['age', 'sex (Female or Male)', 'tobacco use'])   # D157: plain words
         self.assertEqual(pages['part_d']['status'], 'ready')
         self.ready()
         pages = self.flow.context(self.g, self.r, CONTEXT_POLICY)['plans_pages']

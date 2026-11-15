@@ -7,7 +7,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from task_work import (CHECK_IDS, VERSION, attach_result, build_context, empty_record,
     neutral_selection, plan, unsupported_action_claim, validate_record)
-from advisor_memory import CONTEXT_POLICY, VisitMemory
+from advisor_memory import CONTEXT_POLICY, HISTORY_TTL, VisitMemory
 
 
 def context(*reports, task='providers', goal='Can I see this doctor with my coverage?'):
@@ -165,7 +165,7 @@ class TaskWorkTests(unittest.TestCase):
         self.assertEqual(memory.task_work('owner','visit',CONTEXT_POLICY), record)
         self.assertEqual(memory.task_work('other','visit',CONTEXT_POLICY), empty_record())
         self.assertEqual(memory.task_work('owner','other',CONTEXT_POLICY), empty_record())
-        now[0] = 3601
+        now[0] = HISTORY_TTL + 1  # just past the visit window (24 hours, D157)
         self.assertEqual(memory.task_work('owner','visit',CONTEXT_POLICY), empty_record())
         memory.remember('owner','visit',CONTEXT_POLICY,'Question','Response','',task_work_record=record)
         memory.forget_owner('owner')

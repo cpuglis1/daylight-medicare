@@ -29,6 +29,7 @@ FLAGS = ('guest_chat', 'all_chat', 'paid_features')
 GET_ROUTES = {'/api/status', '/api/guest/session', '/api/conversation/initial', '/api/sample-plans'}
 POST_ROUTES = {'/api/conversation/turn', '/api/conversation/recover', '/api/conversation/resume',
                '/api/comparison/journey', '/api/comparison/review', '/api/profile/readiness'}
+DISPLAY_ROUTES = frozenset({'/api/plans/catalog', '/api/plans/detail', '/api/plans/medigap', '/api/plans/part-d'})
 ACCESS_EVENTS = GET_ROUTES | POST_ROUTES | {'/pilot/redeem'}
 access_log = logging.getLogger('daylight.pilot.access')
 
@@ -198,7 +199,7 @@ class PilotAccess:
             return flags.get('all_chat') == flags.get('guest_chat') == 1
 
 
-def install_pilot_gate(server, access, *, hosted_origin=False):
+def install_pilot_gate(server, access, *, hosted_origin=False, plan_display=False):
     parent = server.RequestHandlerClass
     pacing = PilotTurnPacing()
 
@@ -232,6 +233,8 @@ def install_pilot_gate(server, access, *, hosted_origin=False):
 
         def _dispatch(self, callback):
             try:
+                if plan_display and not self.validate_request():
+                    return
                 if not self.safe() or self.headers.get('Sec-Fetch-Site') == 'cross-site':
                     raise ProfileError('Request origin rejected.', 403)
                 if '?' in self.path or not self.path.startswith('/') or self.path.startswith('//'):
@@ -254,6 +257,8 @@ def install_pilot_gate(server, access, *, hosted_origin=False):
                 is_message = False
                 if self.path.startswith('/api/'):
                     routes = GET_ROUTES if self.command == 'GET' else POST_ROUTES
+                    if self.command == 'POST' and plan_display:
+                        routes = routes | DISPLAY_ROUTES
                     if self.path not in routes:
                         raise ProfileError('This capability is unavailable in the pilot.', 404)
                     token = self.token()
