@@ -13,6 +13,7 @@ from unittest.mock import patch
 
 from test_conversation_planner import ConversationPlannerTests as Harness
 import conversation_planner as planner
+from legacy_discussion_fixture import scripted_proposal
 import enrollment_flow
 from conversation_checks import ConversationChecks
 
@@ -65,7 +66,7 @@ class Replays(unittest.TestCase):
         if text == 'Metoprolol !': add('T07', text='Metoprolol')
         if 'Dr. Mark Speake is' in text: add('T06', text=text)
         if text == 'Ashley Tunkle in Naples' or text == 'Dr. Henry Biggs is my orthopedist': add('T06', text=text)
-        p = planner.conservative_request(text)
+        p = scripted_proposal(text)
         if p['purpose'] == 'none':
             p.update(purpose='review', quote=text, focus='medicines' if pid in ('PP07','PP12','PP15') else 'coverage_paths')
         # Script the semantic interpreter separately; no fact/decision is
@@ -131,7 +132,10 @@ class Replays(unittest.TestCase):
         self.choice('RC01', choice='self')
         self.choice('T03', zip='34104')
         self.choice('T05', choice='advantage')
-        out = self.message('Can you put the plans in order by what my four medicines would cost?')
+        text='Can you put the plans in order by what my four medicines would cost?'
+        p=self.proposal(text,purpose='investigate',focus='advantage',request_quote=text,investigate=['advantage','medicines'])
+        p['guidance']=dict(mode='work',task='review',checks=[],quote=text,finish='')
+        out = self.message(text,extraction=self.extraction(discussion=p))
         self.assertEqual(out['conversationPlanner']['plans_view'], 'advantage')
         self.assertEqual(out['coveragePath']['state'], 'undecided')
 

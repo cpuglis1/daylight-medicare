@@ -26,6 +26,7 @@ from catalog_research import CatalogResearch, CRITICAL_BENEFITS_PATH
 from comparison_research import RESEARCH_SCOPE
 import enrollment_flow
 import conversation_planner as planner
+from legacy_discussion_fixture import scripted_proposal
 from conversation_checks import ConversationChecks
 from situation import observations
 from test_medigap_pilot import FictionalRepository as GapRepository
@@ -120,7 +121,7 @@ def interpret(text, context):
                   for k, v in observations(text, role).items()] if not helper_detour else []
     return dict(updates=updates, requests=[], fact_ids=[], situation_proposals=situations, goal_quote='',
                 agenda={'concerns':[], 'priorityReason':{}},
-                education_request={'kind':'none','concept_ids':[],'quote':''}, discussion=planner.conservative_request(text))
+                education_request={'kind':'none','concept_ids':[],'quote':''}, discussion=scripted_proposal(text))
 
 
 def transport(payload):

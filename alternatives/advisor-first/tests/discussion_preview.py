@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from server import build
 from chat import ResponsesClient
 import conversation_planner as planner
+from legacy_discussion_fixture import scripted_proposal
 import enrollment_flow
 from demo_http import install
 
@@ -22,7 +23,7 @@ def transport(payload):
     sent = json.loads(payload['input'][0]['content'])
     if payload['text']['format']['name'] == 'daylight_guide_commands':
         text = sent['submitted_text']
-        p = planner.conservative_request(text)
+        p = scripted_proposal(text)
         value = {'updates': [], 'requests': [], 'fact_ids': [], 'situation_proposals': [],
                  'goal_quote': '', 'agenda': {'concerns': [], 'priorityReason': {}},
                  'education_request': {'kind': 'none', 'concept_ids': [], 'quote': ''}, 'discussion': p}

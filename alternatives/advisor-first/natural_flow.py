@@ -1481,8 +1481,10 @@ class NaturalConversation(AdvisorConversation):
             r"(?:i'm|i am|we're|we are) done|enough for (?:now|today)|let's stop|leave it (?:here|there)|talk (?:later|tomorrow)|"
             r"come back (?:later|tomorrow|another (?:day|time))|good(?:bye|night)|bye for now|don't ask (?:me )?(?:any ?more|another)|"
             r"no (?:more|further) questions)\b", message))
-        if conversation_planner.enabled(self) and conversation_planner.state(self, owner).get('finish_requested'):
-            pause_allowed = True
+        if conversation_planner.enabled(self):
+            direction = conversation_planner.state(self, owner)
+            pause_allowed = bool(direction.get('finish_requested') or direction['guidance']['mode'] == 'pause')
+            stop_questions = pause_allowed
         observations = learner_state.observations(learner_observations, message) if policy == CONTEXT_POLICY else []
         learner = learner_state.merge(self.memory.learner(owner, self.current_chain.get(owner), policy), observations)
         open_concepts = [item['concept_id'] for item in learner['observations']
@@ -1979,7 +1981,9 @@ class NaturalConversation(AdvisorConversation):
                     context['discussion_instructions'] = conversation_planner.INTERPRETATION
                     prior = conversation_planner.state(self, owner)
                     context['discussion_context'] = {key: copy.deepcopy(prior[key])
-                        for key in ('purpose', 'focus', 'exploring', 'investigate', 'decision')}
+                        for key in ('purpose', 'focus', 'exploring', 'investigate', 'decision',
+                                    'active_task', 'suggested_task', 'task_checks')}
+                    context['discussion_capabilities'] = conversation_planner.conversation_tasks.context(self, g, r)
                 if self._plans_context.get():
                     pc = self._plans_context.get()
                     context['plans_view'] = {k: copy.deepcopy(pc[k]) for k in
@@ -2868,7 +2872,6 @@ class NaturalConversation(AdvisorConversation):
                 out['metrics'] = {'llmCalls':0,'synthetic':self.fixture}
             elif (checks and action.get('type') == 'message' and binding
                   and (not conversation_planner.enabled(self) or conversation_planner.checks_relevant(self, owner, g))
-                  and (not conversation_planner.enabled(self) or not conversation_planner.conservative_request(action.get('message', ''))['question_quote'])
                   and checks.text_answer(owner,g,r,action.get('message',''))):
                 out = self.response(g,r,'Thanks, I have that.')
                 out['advisor'] = {'reason':'tool_result', 'sources':[], 'visual':'none'}

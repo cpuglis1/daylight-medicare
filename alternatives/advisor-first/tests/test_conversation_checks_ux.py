@@ -4,9 +4,14 @@ The controller is exercised with a stub directory, so these run without the
 local database. The real directory search is the data layer's (see the handoff
 spec for what it must return for the PP16 names).
 """
+from pathlib import Path
 import sys
 import types
 import unittest
+
+ROOT_SRC = Path(__file__).resolve().parents[3] / 'infrastructure' / 'daylight-data' / 'src'
+if str(ROOT_SRC) not in sys.path:
+    sys.path.insert(0, str(ROOT_SRC))  # the local data package (needs psycopg)
 
 import test_natural_flow as harness
 

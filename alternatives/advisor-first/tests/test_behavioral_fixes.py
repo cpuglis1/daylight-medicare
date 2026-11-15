@@ -32,7 +32,8 @@ class BehavioralFixes(unittest.TestCase):
     def test_sign_up_request_does_not_create_active_parts(self):
         self.choice('RC01',choice='self')
         self.message('I have neither Part A nor Part B.')
-        out=self.message('Tell me the next steps to get A and B started.')
+        text='Tell me the next steps to get A and B started.'
+        out=self.message(text,extraction=self.extraction(discussion=Harness.proposal(text,purpose='problem',focus='enrollment')))
         self.assertEqual([v['state'] for v in out['enrollment']['record']['parts'].values()], ['needed','needed'])
         self.assertEqual(out['conversationPlanner']['plans_view'],'ab')
 
@@ -59,7 +60,9 @@ class BehavioralFixes(unittest.TestCase):
 
     def test_task_and_standard_g_filter_survive_side_question(self):
         self.message('Please show standard Plan G premiums in 34103.')
-        out=self.message('Does that price guarantee acceptance?')
+        text='Does that price guarantee acceptance?'
+        out=self.message(text,extraction=self.extraction(discussion=Harness.proposal(text,
+            focus='medigap',question_quote=text)))
         self.assertEqual(out['conversationPlanner']['plans_view'],'supplement')
         self.assertEqual(out['conversationPlanner']['medigap_variant'],'G')
         self.assertEqual(out['coveragePath']['state'],'undecided')
@@ -74,7 +77,8 @@ class BehavioralFixes(unittest.TestCase):
         self.assertEqual(out['conversationPlanner']['plans_view'],'part-d')
         self.assertEqual(out['enrollment']['record']['components']['medigap'],'keep_existing')
         text='Lowest total cost using my pharmacy. I have Parts A and B, my Plan G and a separate drug plan.'
-        out=self.message(text,[self.update('T05',{'choice':'drug'},text)])
+        p=Harness.proposal(text,purpose='investigate',focus='part_d',request_quote=text,investigate=['part_d','medicines'])
+        out=self.message(text,extraction=self.extraction([self.update('T05',{'choice':'drug'},text)],discussion=p))
         self.assertEqual(out['conversationPlanner']['plans_view'],'part-d')
 
     def test_finish_is_recorded_and_does_not_restart_intake(self):

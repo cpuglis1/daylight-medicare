@@ -752,3 +752,21 @@ Prioritize coverage-state correctness and routing before cosmetic polish. Contin
 Owner: “Yes, restart :8895 now. It’s okay to end existing in-memory visits; preserve saved profiles and protected services.”
 
 This permits activation of the isolated, verified D167/D170 candidate and the loss of existing visit-only recovery during this restart. Saved profiles, protected services and stores, source/release gates and the prohibition on agent-run live/paid conversation tests remain unchanged.
+
+
+## D172 · November 14, 2026 · Lead with useful next steps; read replies from the beginning
+
+Owner: “I want new messages to appear and we start at the beginning of the message, not jump to the bottom” when tables or visualizations appear. “We are ALLOWED to make suggestions too.” The repeated open-ended questions made the owner feel the conversation was going in the wrong direction, even after “Settle on timing!” The owner calls out the loss of useful form-type button questions: “we need to be the leader, suggest direction etc.”
+
+Preserve natural, adaptive conversation and restore meaningful structured questions at the right time. From a reported transition, suggest working through timing, using a few personal details and supported common options. When the person explicitly requests that work, proceed with consequential missing details rather than another permission/reflection prompt. Reuse known reports and preserve unknowns, education detours, corrections and explicit choice boundaries. A normal answer must not be followed by an unexplained rephrase question; generation failures retain the useful next step without blaming the user's wording. Process suggestions are allowed; unsupported insurance recommendations remain prohibited. New replies stay at their beginning as large content renders, and deliberate reading scroll is respected.
+
+
+## D173 · November 14, 2026 · Semantic conversation leadership with existing profile and education memory
+
+Owner: “Stop hardcoding my examples. The AI needs to understand the conversation, suggest useful next steps, and use the existing structured questions when appropriate. Fix that across tasks, not just for timing.”
+
+The owner accepted the shared task contract (AI interprets the goal and chooses explanation, suggestion or proceeding; code supplies supported questions and checks facts, permissions and results), then directed: “Good, but read the second brain. we should have good detail about the required information that we want to get from the user for recommendation and then also explain questions and key terms.”
+
+“We are prioritizing 1. natural conversation flow, 2. getting required information from user, 3. educating.” Existing backend profiles capture all relevant information from each prompt; education concepts are tracked once unless requested again. “the real challenge is natural conversation flow.”
+
+This supersedes D172’s phrase-based timing activation and fixed topic-based next-question selection. Retain existing profiles, conditional meanings, contextual question explanations, delivery receipts, correction/unknown semantics and source/permission gates. Suggestions are appropriate; accepted/requested work uses meaningful existing controls without permission loops. Preserve all protected services and saved profiles under the existing D171 restart authorization. Offline scripted contracts do not establish natural-language quality or owner acceptance.

@@ -60,6 +60,13 @@ SLOW_ATTEMPT = 20   # seconds; a slower failed request is not sent a second time
 FIRST_PERSON_PICK = re.compile(
     r"(?i)\bI(?:['’]d| would)(?: personally| probably| still| just)? (?:keep|stay|switch|choose|pick|go with|drop|leave|recommend|suggest|stick with|get|buy)\b"
     r"|\bI (?:recommend|suggest|advise)\b|\bmy (?:recommendation|advice|pick|suggestion)\b|\bif I were you\b")
+# D172: proposing the next piece of work is different from choosing insurance.
+# Only complete, bounded process sentences receive this exception. All factual,
+# source, action and insurance-choice guards still inspect the original text.
+PROCESS_SUGGESTION = re.compile(
+    r"(?i)\bI (?:recommend|suggest) (?:working through|clarifying|reviewing|comparing|checking|starting with) "
+    r"(?:your |the |our )?(?:Medicare timing|coverage end dates|current coverage|coverage options|doctors|medicines|drug costs|reported details|open questions|next steps)"
+    r"(?: together)?(?: first| next)?[.!]")
 LOGGER = logging.getLogger(__name__)
 EXTRACTION_ERROR_CODES = {
     'The reply could not be checked. Your information is unchanged.':'invalid_structure',
@@ -2049,6 +2056,13 @@ No weights, inferred motives or commercial considerations.'''
             # No open meaning, but a referral offer is still not an answer.
             reply = _remove_trailing_question_copy(reply, question)
             question = 'What would you like to understand next?'
+        plan = context.get('discussion_plan', {})
+        if plan.get('require_structured') and not agenda['pause'] and move is None and moves:
+            # Only recover an absent/unbound question. The model's valid choice
+            # among approved consequential candidates is never reordered here.
+            practical = next((item for item in moves if item.get('required')), moves[0])
+            reply = _remove_trailing_question_copy(reply, question)
+            move, target, question = practical, practical['id'], _question_text(practical)
         canonical = _question_text(move) if move else ''
         if canonical and not self._valid_question(question, move):
             question = canonical
@@ -2070,8 +2084,10 @@ No weights, inferred motives or commercial considerations.'''
             raise ModelUnavailable('The insurance explanation needs reviewed evidence.')
         if unsupported_action_claim(combined):
             raise ModelUnavailable('The response included an unsupported personal finding or action.')
-        # The AI never recommends: "I'd keep your current coverage" reached a person on November 13, 2026.
-        if FIRST_PERSON_PICK.search(combined):
+        # Insurance choices remain guarded. A grounded conversation may lead
+        # with a process suggestion without treating it as a policy selection.
+        pick_text = PROCESS_SUGGESTION.sub('', combined) if context.get('discussion_plan') else combined
+        if FIRST_PERSON_PICK.search(pick_text):
             raise ModelUnavailable('The response included an unsupported personal finding or action.')
         if re.search(r"(?i)\b(?:you(?:'re| are)? (?:eligible|qualify|owe)|your (?:deadline|premium|copay|deductible|costs?) (?:is|are|will|comes? to)|you(?:'ll| will| must| should) (?:enroll|switch|choose|pay)|you can (?:enroll|join|switch|replace|drop)|(?:medicare|plan|policy|insurance) (?:will )?(?:covers?|pays? for) your|(?:I|we)(?:'ve| have)? (?:enrolled|submitted|contacted|verified|confirmed your|ranked)|best plan for you|guaranteed (?:coverage|approval))\b", combined):
             raise ModelUnavailable('The response included an unsupported personal finding or action.')

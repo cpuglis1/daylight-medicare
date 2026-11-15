@@ -1,6 +1,6 @@
 # Daylight: current state
 
-Living document · last updated November 14, 2026 (America/New_York), through D171. Edit this
+Living document · last updated November 14, 2026 (America/New_York), through D173. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 
@@ -63,7 +63,20 @@ D166 changes how the :8895 conversation decides what to do next. A bounded,
 visit-only planner separates current purpose, established reports, tentative
 understanding, preferences, explored paths and explicit decisions. It answers
 questions before advancing, permits requested pricing without a teaching
-interview, and suppresses premature pricing intake and unrelated cards. Opening
+interview, and suppresses premature pricing intake and unrelated cards. D173
+replaces phrase-triggered task activation and fixed topic-based question selection
+with a shared semantic task contract. Priority is natural conversation flow, then
+required information, then education. The AI chooses explanation, suggestion or
+requested work; code supplies existing conditional questions and capability state.
+All relevant profile reports are captured and reused. Concept delivery receipts
+prevent repeated introductions without claiming comprehension. Structured controls,
+unknowns, detours, corrections and checked recovery remain. D172’s reply-start
+scrolling is retained. [D173 evidence](../../audit-evidence/semantic-guidance-20261114/README.md)
+records offline checks. D173 is active on :8895 (PID 9088, revision
+`ffa3527495e6`); loaded source matches the final offline browser build. Saved-profile
+bytes and rows and all 753 protected files are unchanged across the authorized
+restart. Language quality and owner acceptance remain open.
+Opening
 Original Medicare, asking about Medigap or preferring predictable costs does
 not choose a path. Deterministic recommendation methods and exact-purpose
 evidence gates remain unchanged. The owner-supplied laptop photograph is the
@@ -113,8 +126,8 @@ temporary stores, declared local language and synthetic positive/negative source
 with backend socket/DNS/subprocess and browser-origin restrictions. Each action is flushed
 to durable evidence. See the [D170 packet](../../audit-evidence/behavioral-fixes-20261114/README.md)
 for exact checks, per-profile outcomes and runtime hashes. Under D171, the owner
-explicitly authorized a restart and ending existing in-memory visits. :8895 now
-runs the verified backend (PID 93906; revision
+explicitly authorized a restart and ending existing in-memory visits. That activation ran
+the verified backend (PID 93906; revision
 `7e2ab919e4935398e34f75cc5eafa352a65286e67a50aa81eef19b9026c09bb0`).
 Read-only checks confirmed the frontend hashes, unchanged saved-profile bytes,
 753 unchanged protected files, source gates and unchanged model-call counters.

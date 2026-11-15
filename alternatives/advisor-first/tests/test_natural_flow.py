@@ -61,6 +61,12 @@ class NaturalFlowTests(unittest.TestCase):
                              'goal_quote': value.get('goal_quote', goal)}
                 if isinstance(value, dict):
                     value.setdefault('education_request', {'kind': 'none', 'concept_ids': [], 'quote': ''})
+                    if getattr(self, 'script_legacy_discussion', False) and getattr(self.flow, 'd166', False):
+                        from legacy_discussion_fixture import scripted_proposal, bind_guidance
+                        request = json.loads(payload['input'][0]['content'])
+                        text, prior = request['submitted_text'], request['confirmed_context'].get('discussion_context', {})
+                        value['discussion'] = (bind_guidance(value['discussion'], text, prior)
+                            if value.get('discussion') else scripted_proposal(text, prior))
             elif name == 'daylight_resolved_conversation':
                 sent = json.loads(payload['input'][0]['content'])
                 self.assertIn('question_candidates', sent)

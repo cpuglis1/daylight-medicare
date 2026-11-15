@@ -3,13 +3,20 @@ from collections import defaultdict
 from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
+from pathlib import Path
+import sys
+
+ROOT_SRC = Path(__file__).resolve().parents[3] / 'infrastructure' / 'daylight-data' / 'src'
+if str(ROOT_SRC) not in sys.path:
+    sys.path.insert(0, str(ROOT_SRC))  # the local data package (needs psycopg)
+import test_natural_flow  # noqa: F401  sets the advisor import paths
 
 from daylight_data.serving.pilot_doctors import DoctorIndex
 from conversation_checks import ConversationChecks, original_medicare_evidence
 
 
 def directory(*locations):
-    corpus = SimpleNamespace(actors={}, sites={}, edges=defaultdict(dict))
+    corpus = SimpleNamespace(actors={}, sites={}, edges=defaultdict(dict), identity_conflicts={})
     for number, city in enumerate(locations):
         key = f'clinician-{number}'
         site = f'office-{number}'

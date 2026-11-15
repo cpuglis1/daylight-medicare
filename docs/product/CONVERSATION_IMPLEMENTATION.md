@@ -1,5 +1,29 @@
 # Implement the person's journey
 
+D173 · November 14, 2026: prioritize natural conversation flow, then required
+information, then contextual education. The AI interprets goals and continuation
+from the whole exchange and chooses whether to explain, suggest or proceed.
+Supported task identifiers are capability boundaries, not wording triggers or a
+curriculum. Code supplies existing conditional questions; the model selects the
+consequential question and its structured controls. Only mandatory clarification,
+explicit non-AI controls or failed composition use deterministic question selection.
+Keep the existing profile capture for every relevant report and its subject,
+unknowns and corrections. Keep concept delivery receipts: introduce once, deepen
+when useful, revisit on request or confusion. Delivery never proves understanding.
+Question explanations and key terms belong beside the work that makes them useful.
+[Implementation and offline evidence](../../audit-evidence/semantic-guidance-20261114/README.md).
+
+D172 · November 14, 2026: Daylight leads as well as listens. Recommend a useful
+next piece of work from the person's context, and let them redirect. Once they
+ask to work out a practical task, use the appropriate existing question and its
+answer buttons; do not substitute repeated broad reflections or ask permission
+again. Answer conceptual detours and resume using known reports. Unknowns remain
+unknown. A process suggestion does not choose insurance. Generation failure is
+not a reason to ask the person to rephrase clear input: keep the approved useful
+next step and accurately state what was not delivered. Start new replies at their
+beginning, including tables and visuals; never scroll past them later to expose
+the next question automatically.
+
 D154 · November 12, 2026. Applies to every interface, conversation and backend
 capability exposed by the advisor. Read the Daylight Brain's **02 UX playbook**
 first; its location is in `docs/project/CURRENT_STATE.md`.

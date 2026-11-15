@@ -1,7 +1,7 @@
 """D166: discussion-led planning for the unified demo only.
 
-The interpreter proposes meaning; this module validates it and selects the
-conversation's next useful move. It neither ranks plans nor admits evidence.
+The interpreter proposes meaning and the composer selects a useful supported
+question; this module validates their contracts. It neither ranks plans nor admits evidence.
 Planning memory is bounded, visit-only and never part of a saved profile.
 """
 from collections import OrderedDict
@@ -12,12 +12,13 @@ import re
 import threading
 import time
 
-from adaptive_flow import metadata
+from adaptive_flow import AdaptiveConversation, metadata
 from advisor_memory import HISTORY_TTL, VISIT_LIMIT
 import enrollment_flow
 import medigap_profile
 import part_d_profile
 import journey_completion
+import conversation_tasks
 
 VERSION = 'discussion-planner-v1'
 DECISION_VERSION = 'intent.decisionVersion'
@@ -39,56 +40,79 @@ DISCUSSION_QUESTIONS = {
     'CP_PARTS': ('Your reports about Parts A and B conflict. Which parts are in effect now?', ''),
     'CP_COVERAGE': ('You reported an Advantage or Medigap policy and a Medicare part that is not in effect. Which coverage is current?', ''),
 }
-INTERPRETATION = '''
-On this surface, discussion proposes the conversational meaning of this message.
-Keep intent, facts, understanding, preferences, exploration and decisions distinct.
-purpose is what the person wants help doing, not the product they mentioned.
-focus is a topic, never a choice. reason_quote is an explicitly stated reason for
-seeking help now; do not re-ask that reason when supplied. question_quote is the exact question/concern to
-answer first (including requests without a question mark). quote supports purpose.
-investigate lists only explicitly requested plan/price/doctor/drug investigations;
-request_quote supports them. Explaining Medigap or comparing coverage structures
-is not requesting Medigap prices. Prices on both paths are a legitimate inquiry
-without a path preference. An unexplained 'show plans' has no inferred category.
-decision has stance none/leaning/chosen/undecided and path. Only explicit current
-first-person intentions of the beneficiary or helper support a decision. Asking
-what a choice means, hypothetical/conditional choices, a named product, a priority,
-or viewing a path cannot support it. Quote the full decisive clause. 'I want to
-understand Medigap' is understand, not a decision. 'I want Original Medicare' does
-not choose Medigap. Choosing a path never says an application was submitted.
-If uncertain, leave decision none and uncertainty true. Familiarity stays in
-learner_observations; preferences stay in validated reports. An answer to a CP_
-question is a discussion response, not a new insurance fact unless independently
-stated. Do not put any CP_ identifier in report updates.
-'''
-COMPOSITION = '''
-discussion_plan is the authoritative conversation plan on this surface. It
-replaces find mode, pricing-first intake and any fixed teaching sequence.
-Answer the latest question first, with supported evidence and necessary
-conditions. Then connect that answer to the person's situation or tradeoff and
-ask the selected follow-up. Do not acknowledge merely filling fields. Use the
-length the answer needs; there is no fixed sentence count. No quizzes or lesson
-menu. A direct prices request does not require a completed education interview.
-An explanation, a card viewed, an investigation and a reported preference are
-not a choice. Only decisions explicitly reported by the person are choices.
-Exploration is reversible and can cover both paths. General education needs no
-ZIP, age, pricing sex or tobacco answer. Do not ask a price input unless the
-discussion plan includes that investigation. Facts already reported and deferred
-questions stay respected; confusion permits explanation again, never mastery
-credit. Any uncertainty about a personal finding remains explicit.
-For a requested investigation, explain its supplied unsupported/held limit and
-useful alternatives. Do not keep collecting details that cannot enable it.
-Use a ready tab only when relevant to the current discussion; its availability
-is not an instruction to move the person to pricing.
-software_cards names only cards actually attached to this turn. Describe their
-purpose if useful; do not duplicate their numbers or dates. Do not announce a
-price list just because it exists. Comparisons and recommendations still come
-only from deterministic, authorized results; you cannot invent a preference,
-recommendation, check or result. A pending check cannot hijack another question.
-When finish_requested is present, answer any final question and close without
-another intake question. Software supplies the recorded work, decision, open
-checks and next action; do not claim an unresolved comparison is complete.
-'''
+INTERPRETATION = """
+Priorities: (1) natural conversation flow, (2) collect consequential required
+information using the existing profile, (3) educate in context. Interpret the
+whole message and recent conversation, including indirect references, answers,
+corrections and changes of mind. Extract EVERY relevant report independently of
+the current question or task. A conversational detour must not discard reports.
+
+Keep purpose, focus, facts, understanding, preferences and decisions distinct.
+Purpose describes the help sought; focus is a topic, never a coverage choice.
+Quote the person's actual words supporting each interpretation. question_quote
+is the concern to answer first, including requests without a question mark.
+reason_quote captures why they came; do not ask again when already supplied.
+
+Use guidance to propose the next conversational stance from context:
+- discuss: answer/explain/explore, with no personal intake this turn;
+- suggest: propose one useful supported task and explain its value, without
+  assuming the person agreed to it;
+- work: advance a task they requested, accepted or are already answering;
+- detour: answer a side question while retaining the active task;
+- pause: respect their wish to stop questions or personal intake;
+- finish: produce a requested summary using recorded work and remaining limits.
+Task identifiers and conditional check meanings come from discussion_capabilities.
+They describe capabilities, not required words or a script. Interpret acceptance,
+refusal and continuation from the conversation. A blank task on work resumes the
+active task; accepting an offered task uses that task. A task change must be
+supported by the message. Select only relevant checks; do not request all fields.
+Guidance.quote grounds the stance in this message; uncertain intent stays discuss.
+A suggestion can arise from their stated goal and circumstances; do not claim it
+is a request. Finish is a conversational outcome, never a policy choice.
+
+investigate identifies the plan/price/doctor/drug work actually requested, not
+products mentioned while learning. request_quote supports it in context. Product
+research can cover both paths without a preference. Decisions have stance and
+path; only explicit current beneficiary/helper intentions support a choice.
+Curiosity, hypothetical choices, current coverage, a priority or a viewed path
+cannot establish one. A path choice does not choose every component or say an
+application was submitted. Leave uncertain decisions unset. Keep familiarity in
+learner_observations, reports in updates, and CP_ identifiers out of updates.
+"""
+COMPOSITION = """
+Priorities, in order: natural conversation flow; obtaining consequential required
+information; contextual education. Respond to what the person just said and lead
+toward their goal. Answering, explaining and asking can coexist in one turn.
+Do not force an intake sequence or repeat generic reflection prompts.
+
+Use discussion_plan, the profile's known/unknown/deferred reports, the existing
+education/learner records and actual capability states together. The AI chooses
+which supplied question is most useful now; their order is not a curriculum.
+When asking a personal detail, select its approved question_target so the existing
+controls are shown. Explain why it matters and help with unfamiliar terms. Reuse
+all known reports, including facts supplied while answering a different question.
+Never call a recorded fact missing or infer an unknown value.
+
+For suggest, write a natural, specific offer of useful supported work connected
+to the person's goal. Do not begin its intake until accepted or requested. For
+work, use a consequential question from the supplied candidates, or explain the
+available result/hold when no useful input remains. A direct request does not
+need permission again. For discuss/detour, answer first and keep the practical
+return point available; do not force a questionnaire into the explanation.
+For pause/finish, do not append another intake or reflection question.
+
+Teach only what helps this exchange or decision. The education ledger records
+what was already explained: do not repeat introductions as a checklist. Revisit
+when requested or clarification is needed; delivery never proves understanding.
+General education needs no pricing inputs. Process suggestions are permitted;
+insurance recommendations and personal findings require authorized evidence.
+
+Cards are only those in software_cards. Use the relevant ready results without
+inventing prices, identities, calculations, checks or fulfillment. Missing and
+held evidence stays explicit. Neither browsing, explanation nor investigation
+chooses a path. Finish summaries distinguish work performed, actual decisions,
+open checks and next actions. No unsupported completion or personal fit claim.
+"""
 
 
 def enabled(flow):
@@ -113,6 +137,7 @@ def schema(make):
         'investigate': {'type': 'array', 'maxItems': 5, 'items': {'type': 'string', 'enum': list(INVESTIGATIONS)}},
         'request_quote': {'type': 'string', 'maxLength': 600},
         'uncertain': {'type': 'boolean'},
+        'guidance': conversation_tasks.schema(make),
         'decision': make({'stance': {'type': 'string', 'enum': ['none', 'leaning', 'chosen', 'undecided']},
                           'path': {'type': 'string', 'enum': list(PATHS)},
                           'quote': {'type': 'string', 'maxLength': 600}}),
@@ -121,7 +146,7 @@ def schema(make):
 
 def empty_proposal():
     return dict(purpose='none', focus='', quote='', reason_quote='', question_quote='', investigate=[],
-                request_quote='', uncertain=False, decision=dict(stance='none', path='', quote=''))
+                request_quote='', uncertain=False, guidance=conversation_tasks.empty(), decision=dict(stance='none', path='', quote=''))
 
 
 def supported(quote, message):
@@ -187,17 +212,14 @@ action guards fail closed; a rejected hint never rejects independent reports.
         out['question_quote'] = value['question_quote']
     if supported(value['reason_quote'], message):
         out['reason_quote'] = value['reason_quote']
-    request = value['request_quote']
-    inv = value['investigate']
-    if (isinstance(inv, list) and len(inv) <= 5 and all(isinstance(k, str) and k in INVESTIGATIONS for k in inv)
-            and supported(request, message) and not value['uncertain'] and not UNREAL.search(request)
-            and not NEGATED.search(request) and INVESTIGATING.search(request)
-            and not (LEARNING.search(request) and not re.search(r'\b(?:price|pricing|premium|quote|how much)\w*\b', request, re.I))):
-        both = bool(re.search(r'\bboth (?:paths|options)\b', request, re.I))
-        anaphora = bool(re.search(r'\b(?:those|these|that|it|them)\b', request, re.I))
-        grounded = [k for k in inv if PRODUCTS[k].search(request) or anaphora and k == focus
-                    or both and k in ('medigap', 'advantage', 'part_d')]
-        out.update(investigate=list(dict.fromkeys(grounded)), request_quote=request)
+    out['guidance'] = conversation_tasks.validate(value['guidance'], message)
+    if value['uncertain']:
+        out['guidance'] = conversation_tasks.empty()
+    request, inv = value['request_quote'], value['investigate']
+    if (isinstance(inv, list) and len(inv) <= 5
+            and all(isinstance(k, str) and k in INVESTIGATIONS for k in inv)
+            and supported(request, message) and not value['uncertain']):
+        out.update(investigate=list(dict.fromkeys(inv)), request_quote=request)
     decision = value['decision']
     if (isinstance(decision, dict) and set(decision) == {'stance', 'path', 'quote'}
             and decision['stance'] in ('none', 'leaning', 'chosen', 'undecided') and decision['path'] in PATHS
@@ -205,6 +227,10 @@ action guards fail closed; a rejected hint never rejects independent reports.
         text = decision['quote']
         if decision['stance'] == 'undecided' and re.search(r"not (?:sure|decided)|undecided|haven.t (?:chosen|decided)", text, re.I):
             out['decision'] = dict(stance='undecided', path='', quote=text)
+        elif (decision['stance'] == 'chosen' and decision['path'] in ('keep_current', 'wait')
+              and journey_completion.request(text) == decision['path']):
+            # This validates a decision; it never routes conversational work.
+            out['decision'] = copy.deepcopy(decision)
         elif (decision['path'] and '?' not in message and not UNREAL.search(message) and not NEGATED.search(message)
               and not LEARNING.search(message) and not re.search(r'\b(?:prices?|quotes?|pricing|premiums?|says?|said)\b', message, re.I)
               and (DECIDING.search(text) or decision['stance'] == 'leaning' and re.search(r"\bI(?:['’]m| am) leaning\b", text, re.I))):
@@ -218,52 +244,6 @@ action guards fail closed; a rejected hint never rejects independent reports.
     return out
 
 
-def conservative_request(message):
-    """Fallback for missing/malformed interpreter metadata; never a choice."""
-    out = empty_proposal()
-    text = message[:600]
-    if '?' in message or LEARNING.search(message) or re.match(r'\s*(?:why|how|what|which|when|where|is|does|can|could|should|would|do)\b', message, re.I):
-        out.update(question_quote=text, purpose='understand', quote=text)
-    if re.search(r'\b(?:sign[ -]?up|part [ab].*prepar\w*|a and b.*start\w*|enroll.*part [ab])\b', message, re.I):
-        out['focus'] = 'enrollment'
-    elif re.search(r'\b(?:two .*paths|both (?:paths|options)|advantage.*medigap|medigap.*advantage|original.*advantage|advantage.*original)\b', message, re.I):
-        out['focus'] = 'coverage_paths'
-    elif re.search(r'\boriginal medicare\b', message, re.I) and not PRODUCTS['medigap'].search(message):
-        out['focus'] = 'original'
-    else:
-        out['focus'] = next((k for k, p in PRODUCTS.items() if p.search(message)), '')
-        if not out['focus'] and re.search(r'\b(?:options|paths)\b', message, re.I):
-            out['focus'] = 'coverage_paths'
-    drug_cost = bool(re.search(r'\b(?:cost\w*|cheap\w*|price\w*|pay|order)\b', message, re.I)
-                    and re.search(r'\b(?:medicine\w*|drug\w*|prescription\w*|pharmacy)\b', message, re.I))
-    if (not UNREAL.search(message) and not NEGATED.search(message)
-            and (re.search(r'\b(?:prices?|pricing|premiums?|quotes?|how much)\b', message, re.I)
-                 or drug_cost or re.search(r'\b(?:show|see|find|compare|review|look at)\b.{0,50}\b(?:plans?|options|advantage)\b', message, re.I))):
-        inv = [k for k in ('medigap', 'advantage', 'part_d') if PRODUCTS[k].search(message)]
-        # A held supplement is context for separate drug research, not a
-        # request to price that supplement again.
-        if drug_cost and 'part_d' in inv and re.search(r'\bkeep\w*\b.{0,20}\b(?:plan g|medigap|supplement)\b', message, re.I):
-            inv = [k for k in inv if k != 'medigap']
-        if re.search(r'\bboth (?:paths|options)\b', message, re.I):
-            inv = ['medigap', 'advantage', 'part_d']
-        out.update(purpose='investigate', quote=text, investigate=inv, request_quote=text)
-        if drug_cost:
-            out['investigate'] = list(dict.fromkeys(inv + ['medicines']))
-    if (re.search(r'(?:^\s*(?:please )?|\b(?:can|could|would) you )(?:check|compare|research)\b.{0,35}\b(?:doctors?|medicines?)\b', message, re.I)
-            and not UNREAL.search(message) and not NEGATED.search(message)):
-        inv = [k for k in ('doctors', 'medicines') if PRODUCTS[k].search(message)]
-        out.update(purpose='investigate', quote=text, investigate=inv, request_quote=text)
-    clauses = re.split(r'(?<=[.!?])\s+|;', message)
-    if len(clauses) > 1:
-        # A negative factual report elsewhere must not cancel an explicit
-        # investigation request (e.g. “Compare 2027. I don't want old plans”).
-        requests = [conservative_request(clause) for clause in clauses if clause.strip()]
-        explicit = [p for p in requests if p['purpose'] == 'investigate' and p['investigate']]
-        if explicit:
-            latest = explicit[-1]
-            out.update(purpose='investigate', investigate=latest['investigate'],
-                       request_quote=latest['request_quote'], quote=latest['quote'])
-    return out
 
 
 class VisitPlans:
@@ -281,6 +261,7 @@ class VisitPlans:
             if key not in self.visits:
                 self.visits[key] = {'purpose': 'none', 'focus': '', 'investigate': [], 'exploring': [],
                     'decision': {'stance': 'undecided', 'path': ''}, 'latest': empty_proposal(),
+                    'guidance': conversation_tasks.empty(), 'active_task': '', 'suggested_task': '', 'task_checks': [],
                     'asked': {}, 'deferred': [], 'reason_known': False, 'cards': {}, 'plan': {}, 'expires': now + HISTORY_TTL}
             self.visits.move_to_end(key)
             while len(self.visits) > VISIT_LIMIT:
@@ -304,83 +285,63 @@ def question(identifier):
     if identifier not in DISCUSSION_QUESTIONS:
         return None
     words, why = DISCUSSION_QUESTIONS[identifier]
-    return dict(id=identifier, entity='profile', question=words, why=why, fields=[], choices=[],
-                multi=False, signature=VERSION + ':' + identifier, conversational=True)
+    q = dict(id=identifier, entity='profile', question=words, why=why, fields=[], choices=[],
+             multi=False, signature=VERSION + ':' + identifier, conversational=True)
+    return q
 
 
 def observe(flow, owner, g, r, message, result, current=None):
     s = state(flow, owner)
     s.pop('outcome', None)
-    s['finish_requested'] = journey_completion.request(message)
-    checks = getattr(flow, 'conversation_checks', None)
-    if checks and re.search(r"\b(?:don['’]t know|do not know|not sure|don['’]t have|leave (?:it|that|this) open)\b", message, re.I):
-        visit = checks.visits.get(owner) or {}
-        pending = visit.get('question')
-        if pending and pending.get('field') in ('quantity', 'days_supply', 'rxcui', 'formulary_product', 'fills', 'assistance', 'drug_details'):
-            checks.answer(owner, g, r, pending['token'], '__later__', parked=True)
     p = validate_proposal(result.get('discussion'), message, s['focus'])
-    fallback = conservative_request(message)
-    if p['purpose'] == 'none':
-        p = {**fallback, 'decision': p['decision'], 'reason_quote': p['reason_quote'],
-             'question_quote': p['question_quote'] or fallback['question_quote']}
-    if (p['purpose'] == 'investigate' and not p['investigate'] and s['focus'] in INVESTIGATIONS
-            and re.search(r'\b(?:those|these|that|it|them)\b', p['request_quote'], re.I)):
-        p['investigate'] = [s['focus']]
-    if p['purpose'] == 'investigate' and not p['investigate'] and s.get('task_investigate'):
-        p['investigate'] = list(s['task_investigate'])
-    elif not p['question_quote']:
-        p['question_quote'] = fallback['question_quote']
-    research_reports = {u.get('id') for u in result.get('updates', [])} & {'RC21', 'RC22', 'RC23', 'T06', 'T07'}
-    if research_reports and not p['question_quote'] and s.get('task_investigate'):
-        p.update(purpose='investigate', investigate=list(s['task_investigate']))
     s['latest'] = p
-    if re.search(r"\b(?:matters? (?:most|more)|priority|too (?:much|expensive)|lowest total|keep\w* my doctor)\b", message, re.I):
-        s['reason_known'] = True
-    if re.search(r"\b(?:education only|just want to understand|not ready to give personal|skip personal details|not asked for a quote)\b", message, re.I):
-        s['education_only'] = True
-    if p['purpose'] == 'investigate' and p['investigate']:
-        s['education_only'] = False
-    if p['purpose'] == 'investigate' and 'medicines' in p['investigate']:
-        held = flow.value(g, 'coverage.current') or []
-        if not set(p['investigate']) & {'advantage', 'part_d'}:
-            if 'advantage' in held: p['investigate'].append('advantage')
-            elif 'drug' in held or PRODUCTS['part_d'].search(message): p['investigate'].append('part_d')
-    if p['reason_quote']:
-        s['reason_known'] = True
-    s['clarify_understanding'] = any(item.get('signal') in ('uncertain', 'misconception', 'unfamiliar')
-        and supported(item.get('quote'), message) for item in result.get('learner_observations', []))
-    if (current or {}).get('id') in DISCUSSION_QUESTIONS and not p['question_quote']:
-        s['asked'][(current or {})['id']] = 2
-        if current['id'] == 'CP_REASON':
-            s['reason_known'] = True
-    if re.search(r"\b(?:leave|skip|defer|later|don['’]t know|not sure)\b", message, re.I) and current and not p['question_quote']:
-        if current['id'] not in s['deferred']:
-            s['deferred'].append(current['id'])
-            s['deferred'] = s['deferred'][-24:]
-    if p['purpose'] != 'none':
-        s['purpose'] = p['purpose']
-    if p['focus']:
-        s['focus'] = p['focus']
-    if s['finish_requested'] == 'ab_preparation':
-        s['focus'] = 'enrollment'
-    if p['purpose'] == 'investigate':
-        s['investigate'] = p['investigate']
-        if p['investigate']:
-            s['task_investigate'] = list(p['investigate'])
-            products = [v for v in p['investigate'] if v in ('medigap', 'part_d', 'advantage')]
-            if products: s['plans_products'] = products
-        match = re.search(r'\b(?:standard )?plan ([a-dfgk-n])\b', p['request_quote'], re.I)
-        if match and 'medigap' in p['investigate']:
-            s['medigap_variant'] = ('HD' if re.search(r'high[ -]deductible', p['request_quote'], re.I) else '') + match.group(1).upper()
-        s['exploring'] = list(dict.fromkeys(s['exploring'] + p['investigate']))[-5:]
-    elif p['purpose'] in ('understand', 'review', 'problem', 'compare') and p['quote']:
-        # A question interrupts an investigation. The old target is retained as
-        # exploration, but technical intake does not resume until it is useful.
+    guide = p['guidance']
+    # Invalid/missing interpretation cannot start a task or invent a response
+    # meaning. Accepted reports still survive and the existing task is retained.
+    if guide['quote']:
+        s['guidance'] = copy.deepcopy(guide)
+        mode = guide['mode']
+        if mode == 'work':
+            task = guide['task'] or s['active_task'] or s['suggested_task']
+            if task:
+                if task != s['active_task']:
+                    s['task_checks'] = []
+                    s['task_investigate'] = []
+                    s['plans_products'] = []
+                    s['focus'] = p['focus'] or conversation_tasks.FOCI[task]
+                s['active_task'] = task
+                s['task_checks'] = list(dict.fromkeys(s['task_checks'] + guide['checks']))
+                s['suggested_task'] = ''
+        elif mode == 'suggest':
+            s['suggested_task'] = guide['task']
+        s['education_only'] = mode in ('discuss', 'suggest', 'detour', 'pause')
+    else:
+        s['guidance'] = conversation_tasks.empty()
+    s['finish_requested'] = (guide['finish'] or 'summary') if guide['mode'] == 'finish' else None
+    # Finishing does not authorize a coverage decision.
+    if s['finish_requested'] in ('keep_current', 'wait') and p['decision'].get('path') != s['finish_requested']:
+        s['finish_requested'] = 'summary'
+    if p['purpose'] != 'none': s['purpose'] = p['purpose']
+    if p['focus']: s['focus'] = p['focus']
+    if p['reason_quote']: s['reason_known'] = True
+    if guide['mode'] == 'work' and s['active_task']:
+        # The semantic task is separate from the conversational topic.
+        allowed = conversation_tasks.INVESTIGATIONS[s['active_task']]
+        s['investigate'] = [v for v in p['investigate'] if v in allowed]
+        if not s['investigate']:
+            s['investigate'] = [v for v in s.get('task_investigate', []) if v in allowed]
+        if not s['investigate']:
+            s['investigate'] = list(conversation_tasks.DEFAULT_INVESTIGATIONS.get(s['active_task'], []))
+        s['task_investigate'] = list(s['investigate'])
+        products = [v for v in s['investigate'] if v in ('medigap','advantage','part_d')]
+        if products: s['plans_products'] = products
         s['exploring'] = list(dict.fromkeys(s['exploring'] + s['investigate']))[-5:]
+        match = re.search(r'\b(?:standard )?plan ([a-dfgk-n])\b', p['request_quote'], re.I)
+        if match and 'medigap' in s['investigate']:
+            s['medigap_variant'] = ('HD' if re.search(r'high[ -]deductible', p['request_quote'], re.I) else '') + match.group(1).upper()
+    else:
         s['investigate'] = []
     d = p['decision']
-    if s['finish_requested'] in ('keep_current', 'wait'):
-        d = {'stance': 'chosen', 'path': s['finish_requested'], 'quote': message}
     if d['stance'] != 'none':
         s['decision'] = {k: d[k] for k in ('stance', 'path')}
         if d['stance'] in ('chosen', 'undecided') or d['stance'] == 'leaning' and flow.value(g, enrollment_flow.PATH_FIELD):
@@ -401,16 +362,14 @@ def observe(flow, owner, g, r, message, result, current=None):
             flow.put(g, enrollment_flow.PATH_FIELD, 'original', 'user_text')
             flow.put(g, DECISION_VERSION, VERSION, 'user_text')
             s['decision'] = {'stance': 'chosen', 'path': 'original'}
-    # Task is an evidence/dependency lens. It is never the authority to ask a
-    # price question; refine() checks the explicit investigation independently.
-    focus_task = {'enrollment': 'timing', 'doctors': 'providers', 'medicines': 'drug_coverage',
-                  'costs': 'costs', 'medigap': 'medigap', 'part_d': 'drug_pricing'}
-    task = ('medigap' if 'medigap' in s['investigate'] else 'drug_pricing' if 'part_d' in s['investigate']
-            else focus_task.get(s['focus'], 'review' if s['purpose'] == 'review' else 'compare'))
-    # Education about a product must not invoke its legacy preparation mode.
-    if not s['investigate'] and task in ('medigap', 'drug_pricing'):
-        task = 'compare'
-    metadata(r).update(task=task, preparing=bool(s['investigate']))
+    task = s['active_task'] if guide['mode'] == 'work' else ''
+    report_task = 'compare' if task == 'advantage' else task
+    if report_task in ('compare', 'review') and flow.value(g, 'intent.goal') != report_task:
+        # This is a requested work goal, never an insurance choice. Use the
+        # existing profile capture so review readiness and provenance agree.
+        flow.capture(g, r, dict(id='T01', entity='profile', fields={'choice':report_task},
+            quote=guide['quote'], scope='current', subject='learner'))
+    metadata(r).update(task=report_task or 'learn', preparing=bool(task))
 
 
 def path(flow, owner, g, r):
@@ -445,113 +404,48 @@ def candidate(flow, g, r, identifier, purpose='', priority=1):
 
 def refine(flow, owner, g, r, candidates):
     s = state(flow, owner)
-    if s.get('finish_requested'):
-        return []
+    if s.get('finish_requested') or s['guidance']['mode'] == 'pause': return []
+    if metadata(r).get('editing'): return candidates
     reports = [flow.value(g, field) or {} for field in enrollment_flow.PART_FIELDS.values()]
     if any(report.get('status') == 'conflicting' for report in reports):
-        return [candidate(flow, g, r, 'CP_PARTS')]
-    if (set(flow.value(g, 'coverage.current') or []) & {'advantage', 'medigap'}
-            and any(report.get('status') == 'not_enrolled' for report in reports)
-            and not s['asked'].get('CP_COVERAGE')):
-        return [candidate(flow, g, r, 'CP_COVERAGE')]
-    if metadata(r).get('editing'):
-        return candidates
-    required = [c for c in candidates if c.get('required')]
-    if required and not (s['latest']['question_quote'] and s['purpose'] == 'understand'):
-        return required
-    selected = []
-    dispositions = {**metadata(r).get('baselineDispositions', {}), **r.get('dispositions', {})}
-    def add(identifier, purpose=''):
-        limit = 1 if identifier in DISCUSSION_QUESTIONS else 2
-        if identifier in dispositions or identifier in s['deferred'] or s['asked'].get(identifier, 0) >= limit:
-            return
-        c = next((copy.deepcopy(x) for x in candidates if x['id'] == identifier), None)
-        c = c or candidate(flow, g, r, identifier, purpose)
-        if c and not any(x['id'] == identifier for x in selected):
-            if purpose: c['purpose'] = purpose
-            selected.append(c)
-    purpose, focus = s['purpose'], s['focus']
-    investigation = s['investigate'] if purpose == 'investigate' else []
-    role = flow.value(g, 'subject.role')
-    coverage = flow.value(g, 'coverage.current')
-    if purpose == 'none' and not role:
-        add('CP_PURPOSE')
-    elif purpose == 'investigate':
-        if not investigation:
-            add('CP_INVESTIGATE')
-        for product in investigation:
-            if product == 'medigap':
-                view = medigap_profile.profile(g)
-                if view['status'] != 'unsupported':
-                    for identifier in view['missing']:
-                        if identifier not in view['held']:
-                            add(identifier, 'This detail is needed for the Medigap prices the person requested; explain why.')
-            elif product in ('advantage', 'part_d'):
-                view = part_d_profile.profile(g, r)
-                if view['status'] != 'unsupported':
-                    for identifier in view['missing']:
-                        if identifier not in view['held']:
-                            add(identifier, 'Locate the dated plan list the person requested.')
-            elif product in ('doctors', 'medicines'):
-                identifier = 'T06' if product == 'doctors' else 'T07'
-                if not flow.value(g, 'needs.providersStatus' if product == 'doctors' else 'needs.medicinesStatus'):
-                    add(identifier)
-                if not flow.value(g, 'comparison.scope.zip'): add('T03')
-        if not selected: add('CP_REACTION')
-    elif s['decision']['stance'] == 'chosen' and s['decision']['path'] in ('keep_current', 'wait') and not s['latest']['question_quote']:
-        add('CP_NEXT', 'Respect the decision; leave further investigation optional.')
-    elif focus == 'enrollment':
-        for c in candidates:
-            if c['id'] in ('RC01', 'RC04', 'S_AGE65', 'RC05', 'RC06', 'RC09', 'RC10', 'RC11', 'RC12', 'RC13', 'RC14'):
-                add(c['id'])
-        if not selected: add('CP_NEXT')
-    elif purpose == 'understand' or s.get('clarify_understanding'):
-        add('CP_UNDERSTANDING', 'Answer the concept question; invite clarification without requiring personal intake.')
-        if not selected: add('CP_REACTION', 'Connect this explanation to what the person is weighing; avoid repeating the previous follow-up.')
-    elif purpose == 'compare' and s['latest']['question_quote'] and not role:
-        add('CP_REACTION', 'Explain the paths first; discover which tradeoff matters to this person.')
-    else:
-        # Understand the present situation before asking what to buy. A/B
-        # enrollment alone does not answer which other coverage is held.
-        if not role:
-            add('RC01')
-        elif not coverage:
-            add('T05', 'Understand current coverage, including anything alongside A and B, before comparing changes.')
-        elif not s['reason_known'] and purpose in ('review', 'problem', 'compare', 'understand'):
-            add('CP_REASON')
-        if not selected and not flow.value(g, 'needs.priorities'):
-            add('T10', 'Explore what matters to this person, not which product they should choose.')
-        if not selected:
-            priorities = set(flow.value(g, 'needs.priorities') or [])
-            for identifier, relevant, value in (
-                ('T06', bool(priorities & {'doctors', 'flexibility'}), flow.value(g, 'needs.providersStatus')),
-                ('T08', bool(priorities & {'travel', 'flexibility'}), flow.value(g, 'needs.travel')),
-                ('T07', bool(priorities & {'drugs', 'medicines'}), flow.value(g, 'needs.medicinesStatus')),
-                ('T09', bool(priorities & {'bills', 'total_cost'}), flow.value(g, 'needs.costPreference'))):
-                if relevant and not value: add(identifier)
-        if not selected: add('CP_REACTION')
-    if not selected:
-        # No endlessly repeated fixed question: allow a contextual educational
-        # follow-up. The model cannot use a null target for personal intake.
+        return [{**candidate(flow, g, r, 'CP_PARTS'), 'required':True}]
+    if (set(flow.value(g, 'coverage.current') or []) & {'advantage','medigap'}
+            and any(report.get('status') == 'not_enrolled' for report in reports)):
+        return [{**candidate(flow, g, r, 'CP_COVERAGE'), 'required':True}]
+    if s['guidance']['mode'] != 'work' or not s['active_task']:
         return []
-    return selected[:8]
+    required = [c for c in candidates if c.get('required')]
+    if required: return required
+    selected = conversation_tasks.candidates(flow, g, r, s['active_task'], s['task_checks'])
+    # Existing product profiles own their required inputs and supported scope.
+    for product in s['investigate']:
+        if product not in ('medigap','part_d','advantage'): continue
+        view = medigap_profile.profile(g) if product == 'medigap' else part_d_profile.profile(g, r)
+        if view['status'] == 'unsupported':
+            selected = []
+            continue
+        for identifier in view['missing']:
+            if identifier not in view['held'] and not any(c['id'] == identifier for c in selected):
+                c = candidate(flow, g, r, identifier)
+                if c: selected.append(c)
+    dispositions = {**metadata(r).get('baselineDispositions', {}), **r.get('dispositions', {})}
+    return [c for c in selected if c['id'] not in dispositions and c['id'] not in s['deferred']][:24]
 
 
 def target(flow, owner, g, r, moves, required_id, required_reason):
-    selected = next((m for m in moves if m.get('required')), None) or next(iter(moves), None)
-    return (selected['id'], 'discussion') if selected else (None, None)
+    # Mandatory ambiguity is code-owned; otherwise the model selects a useful
+    # approved meaning, not the first item in a fixed topic branch.
+    required = next((m for m in moves if m.get('required')), None)
+    return (required['id'], 'clarification') if required else (None, None)
 
 
 def checks_relevant(flow, owner, g=None):
     s = state(flow, owner)
-    if s.get('finish_requested') or s.get('outcome'):
-        return False
-    if s['purpose'] == 'understand':
-        return False
-    if (set(s['investigate']) & {'doctors', 'medicines'} or s['focus'] in ('doctors', 'medicines')):
-        return True
-    return bool(g and not s['latest']['question_quote'] and any(
-        flow.value(g, field) for field in ('needs.providers', 'needs.medications')))
+    return (not s.get('finish_requested') and not s.get('outcome')
+        and s['guidance']['mode'] == 'work'
+        and (bool(set(s['investigate']) & {'doctors','medicines','part_d','advantage'})
+             or s['active_task'] in ('compare','review') and bool(g and any(
+                 flow.value(g, field) for field in ('needs.providers','needs.medications')))))
 
 
 def note_message(flow, owner, g, message, submitted_answer=None, r=None):
@@ -574,10 +468,16 @@ def action_done(flow, owner, out, action):
     """Free controls convey only what their labels actually authorize."""
     s = state(flow, owner)
     kind = action.get('type')
+    if kind in ('choice', 'stage', 'unknown', 'defer') and s['active_task']:
+        s['guidance'] = {**s['guidance'], 'mode':'work', 'task':s['active_task']}
+        s['education_only'] = False
+        s['investigate'] = list(s.get('task_investigate') or
+                               conversation_tasks.DEFAULT_INVESTIGATIONS.get(s['active_task'], []))
     if kind == 'enrollment_decision':
         if 'start_with' in action:
             focus = {'original_medigap': 'original', 'medicare_advantage': 'advantage', 'both': 'coverage_paths'}[action['start_with']]
             s.update(purpose='understand', focus=focus, investigate=[], latest=empty_proposal())
+            s['guidance'] = conversation_tasks.empty()
             s['exploring'] = list(dict.fromkeys(s['exploring'] + [focus]))[-5:]
         elif 'path' in action:
             s['decision'] = {'stance': 'undecided' if action['path'] == 'undecided' else 'chosen',
@@ -592,6 +492,12 @@ def action_done(flow, owner, out, action):
             s.update(purpose={'learn': 'understand', 'review': 'review', 'compare': 'compare'}.get(task, 'problem'),
                      focus={'timing': 'enrollment', 'providers': 'doctors', 'drug_coverage': 'medicines'}.get(task, 'coverage_paths'),
                      investigate=[])
+        if task in conversation_tasks.TASKS:
+            s.update(active_task=task, guidance={**conversation_tasks.empty(), 'mode':'work','task':task}, education_only=False)
+            s['investigate'] = list(conversation_tasks.DEFAULT_INVESTIGATIONS.get(task, []))
+            s['task_investigate'] = list(s['investigate'])
+        else:
+            s['guidance'] = conversation_tasks.empty()
     elif kind in ('unknown', 'defer'):
         identifier = action.get('id')
         if identifier and identifier not in s['deferred']: s['deferred'].append(identifier)
@@ -634,13 +540,16 @@ def prepare(flow, owner, g, r, moves, context):
         if timing: cards.append(timing)
         cards.extend(enrollment_flow.cards(flow, owner, flow.current_chain.get(owner), g, r,
                                            s['latest']['question_quote'], cards))
+        if s['guidance']['mode'] == 'work' and moves:
+            # Do not put fulfillment ahead of the pending information request.
+            cards = [c for c in cards if c['kind'] != 'signup_route']
     elif 'advantage' in (flow.value(g, 'coverage.current') or []) and (
             re.search(r'\btrial right\b', s['latest']['question_quote'], re.I)):
         trial = enrollment_flow.trial_right(flow, g, r, enrollment_flow._today())
         if trial:
             cards.append(trial)
     pages = flow.plans_pages(g, r)
-    if s['purpose'] == 'investigate':
+    if s['guidance']['mode'] == 'work':
         names = {'medigap': ('See Medigap prices', 'supplement'), 'advantage': ('See Medicare Advantage plans', 'advantage'),
                  'part_d': ('See Part D plans', 'part-d')}
         for name in s['investigate']:
@@ -661,14 +570,19 @@ def prepare(flow, owner, g, r, moves, context):
              or context.get('education_context', {}).get('requested_revisit')]
     s['turn_cards'] = cards[:3] if all(c['kind'] == 'plans_ready' for c in cards) else cards[:1]
     plan = {'version': VERSION, 'purpose': s['purpose'], 'focus': s['focus'],
+        'direction_version': 'semantic-guidance-v2',
+        'guidance': {k:copy.deepcopy(v) for k,v in s['guidance'].items() if k != 'quote'},
+        'active_task': s['active_task'], 'suggested_task': s['suggested_task'],
+        'require_structured': s['guidance']['mode'] == 'work' and bool(moves),
         'finish_requested': s.get('finish_requested'),
         'answer_first': bool(s['latest']['question_quote']), 'question_to_answer': s['latest']['question_quote'],
         'investigations': list(s['investigate']), 'exploring': list(s['exploring']),
-        'decision': path(flow, owner, g, r), 'next_question': moves[0]['id'] if moves else None,
+        'decision': path(flow, owner, g, r), 'next_question': None, 'available_questions': [m['id'] for m in moves],
         'deferred_questions': list(s['deferred']), 'software_cards': [c['kind'] for c in s['turn_cards']],
         'understanding_is_not_delivery': True}
     s['plan'] = plan
     context['discussion_plan'] = copy.deepcopy(plan)
+    context['discussion_capabilities'] = conversation_tasks.context(flow, g, r)
     context['plans_pages']['purpose'] = (
         'Availability evidence only. Use the status and supplied limits for products '
         'in discussion_plan.investigations. Unrequested ready tabs do not trigger intake '
@@ -683,19 +597,23 @@ def prepare(flow, owner, g, r, moves, context):
 
 def finish(flow, owner, out, message, moves, **kwargs):
     s = state(flow, owner)
+    if s['guidance']['mode'] == 'pause':
+        out['assessment'].update(nextQuestion=None, intakePaused=True, conversationOpen=True)
     q = out['assessment'].get('nextQuestion')
     if q:
         s['asked'][q['id']] = s['asked'].get(q['id'], 0) + 1
     cards = copy.deepcopy(s.get('turn_cards', []))
-    if (out.get('generated', {}).get('status') != 'complete'
-            or out.get('generated', {}).get('validation_recovery', {}).get('component') == 'question'):
+    if out.get('generated', {}).get('status') != 'complete':
         # Never pretend a failed answer satisfied the outstanding question.
         s['plan']['answer_state'] = 'unresolved'
         if not out.get('reply'):
             out['reply'] = 'I don’t have a checked answer to that question here yet, so I won’t guess.'
-        if 'couldn’t finish' in (out.get('notice') or ''): out.pop('notice', None)
-        if s['latest']['question_quote'] and not out['assessment'].get('intakePaused'):
-            out['assessment']['nextQuestion'] = question('CP_RETRY')
+        # A generation failure is ours, not a request for the person to reword
+        # a clear goal. Keep the approved next question and any useful controls.
+        if not out['assessment'].get('intakePaused') and moves:
+            out['assessment']['nextQuestion'] = copy.deepcopy(moves[0]['question'])
+            suffix = '\n\nWhat would you like to understand next?'
+            if out['reply'].endswith(suffix): out['reply'] = out['reply'][:-len(suffix)]
     else:
         s['plan']['answer_state'] = 'delivered' if s['latest']['question_quote'] else 'not_requested'
     for card in cards:

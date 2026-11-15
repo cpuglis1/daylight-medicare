@@ -8,7 +8,12 @@ import os
 from pathlib import Path
 import unittest
 from unittest.mock import patch
+import sys
 
+ROOT_SRC = Path(__file__).resolve().parents[3] / 'infrastructure' / 'daylight-data' / 'src'
+if str(ROOT_SRC) not in sys.path:
+    sys.path.insert(0, str(ROOT_SRC))  # the local data package (needs psycopg)
+import test_natural_flow  # noqa: F401  sets the advisor import paths
 from test_profile_replay_20261114 import Replays
 from conversation_checks import ConversationChecks
 from daylight_data.serving.part_d_local import local_candidate
@@ -18,8 +23,10 @@ import recommendation_engine as engine
 from test_recommendation_engine import inputs, part_d
 
 ROOT = Path(__file__).resolve().parents[3]
+LOCAL_BINDING = ROOT / 'infrastructure/daylight-data/.state/pilot-foundation-2026-r1/binding.json'
 
 
+@unittest.skipUnless(LOCAL_BINDING.exists(), 'needs the local pilot foundation database (not in Git)')
 class ResearchJourney(unittest.TestCase):
     for name in ('payload','take','turn','message','choice','task','stage_payloads','extracted_context','composed_context'):
         locals()[name] = getattr(Replays, name)
@@ -39,16 +46,21 @@ class ResearchJourney(unittest.TestCase):
 
     def test_cost_comparison_from_words_reaches_all_ten_plans_and_correction_withdraws(self):
         self.attach_sources()
+        def interpreted(text, updates):
+            p=self.proposal(text,purpose='investigate',focus='part_d',
+                investigate=['part_d','medicines'],request_quote=text)
+            p['guidance']=dict(mode='work',task='drug_pricing',checks=[],quote=text,finish='')
+            return self.extraction(updates,discussion=p)
         text = 'I want to compare drug plan costs. I have Original Medicare and a drug plan. I live in 34102.'
-        out = self.message(text, [self.update('RC01', {'choice':'self'}, text),
-            self.update('T05', {'choice':'original,drug'}, text), self.update('T03', {'zip':'34102'}, text)])
+        out = self.message(text, extraction=interpreted(text,[self.update('RC01', {'choice':'self'}, text),
+            self.update('T05', {'choice':'original,drug'}, text), self.update('T03', {'zip':'34102'}, text)]))
         text = 'I take Metformin.'
-        self.message(text, [self.update('T07', {'text':'Metformin'}, text)])
+        self.message(text, extraction=interpreted(text,[self.update('T07', {'text':'Metformin'}, text)]))
         text = 'Metformin 500 mg tablets. I fill 30 tablets every 30 days at Publix in Naples, FL 34102, retail. I have no help with drug costs.'
-        out = self.message(text, [
+        out = self.message(text, extraction=interpreted(text,[
             self.update('RC22', {'name':'Metformin','strength':'500 mg','form':'tablet'}, text, entity='medicine-1'),
             self.update('RC23', {'quantity':'30 tablets','daysSupply':'30','pharmacy':'Publix in Naples, FL 34102','channel':'retail'}, text, entity='medicine-1'),
-            self.update('RC18', {'choice':'none'}, text)])
+            self.update('RC18', {'choice':'none'}, text)]))
         seen = []
         for _ in range(12):
             q = self.controller.visits[self.owner]['question']

@@ -54,7 +54,7 @@ FIELD_NAMES = {
 # or make a life circumstance a required intake item.
 SITUATION_TARGETS = {'S_AGE65': {'month', 'year'}, 'S_RETIREMENT': {'status', 'when'}}
 # Conversation-only meanings. They carry no fields and cannot write reports.
-DISCUSSION_TARGETS = frozenset({'CP_PURPOSE', 'CP_REASON', 'CP_REACTION', 'CP_UNDERSTANDING', 'CP_INVESTIGATE', 'CP_NEXT', 'CP_RETRY', 'CP_PARTS', 'CP_COVERAGE'})
+DISCUSSION_TARGETS = frozenset({'CP_PURPOSE', 'CP_REASON', 'CP_REACTION', 'CP_UNDERSTANDING', 'CP_INVESTIGATE', 'CP_NEXT', 'CP_TIMING', 'CP_RETRY', 'CP_PARTS', 'CP_COVERAGE'})
 FIELD_NAMES.update({key: {'choice'} for key in MEDIGAP_FIELDS})
 _LOCATION = {'comparison.scope.zip', 'comparison.scope.county'}
 _PRIORITIES = {'needs.costPreference', 'needs.priorities'}

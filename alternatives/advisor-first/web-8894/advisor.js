@@ -119,18 +119,6 @@
     const workspace = reading.parentElement.getBoundingClientRect();
     cue.style.setProperty('--chat-down-bottom',Math.max(0,workspace.bottom - bounds.bottom + 10)+'px');
   }
-  // After a reply, a reader who was following the conversation should see the
-  // next question and its answer buttons, not only the down arrow. Scroll just
-  // enough for #current to fit, never past its top, and never when the reader
-  // had scrolled up or has moved since this was scheduled.
-  function showCurrentQuestion(reading, expectedTop = null) {
-    const current = $('current');
-    if (!current.childElementCount || (expectedTop !== null && Math.abs(reading.scrollTop - expectedTop) > 2)) return reading.scrollTop;
-    const bounds = reading.getBoundingClientRect(), rect = current.getBoundingClientRect();
-    const overflow = rect.bottom - (bounds.bottom - 32), room = rect.top - bounds.top - 18;
-    if (overflow > 0 && room > 0) reading.scrollTop += Math.min(overflow,room);
-    return reading.scrollTop;
-  }
   function jumpDown() {
     const reading = $('reading'), bounds = reading.getBoundingClientRect();
     const questionBelow = q() && $('current').getBoundingClientRect().top > bounds.bottom - 44;
@@ -634,7 +622,14 @@
     } else if (q()) await submitForm(q());
   }
   function renderForm(host,question,presentation) {
-    if (question.conversational) return;
+    if (question.conversational) {
+      if (question.suggestions?.length) {
+        const row = el('div',undefined,'choices');
+        for (const words of question.suggestions) row.append(button(words,() => {if (choiceMayChange()) stageWords(words);},'choice'));
+        host.append(row);
+      }
+      return;
+    }
     const draft = draftFor(question), form = el('form',undefined,'task-form'); form.id = 'detail-form';
     // Owner, November 13: a confirmation is "Yes, that's right" or "No, let me fix it". Drawing the original
     // question's six choices beside it read as a new question (profiles PP02, PP10 and PP13).
@@ -926,7 +921,9 @@
       if (!opening && window.DaylightPrescriptionPreview && state.partDProfile?.status === 'ready')
         host.append(button('Check fictional drug costs',() => openPrescriptionPreview()));
     }
-    if ((!state.conversationPlanner || state.conversationPlanner.purpose === 'investigate')
+    if ((!state.conversationPlanner || (state.conversationPlanner.guidance
+          ? state.conversationPlanner.guidance.mode === 'work'
+          : state.conversationPlanner.purpose === 'investigate'))
         && state.planReadiness?.canReview && !review && !prepared && !state.comparisonViewOpen
         && !state.identityViewOpen && !state.record.conversation.editing && !state.assessment.journey.samplesVisible) {
       const action = button('Review your info',() => turn({type:'review_plans'}),'primary');
@@ -1228,7 +1225,6 @@
     const prior = failedRequest && {...failedRequest};if(prior) delete prior.requestId;
     const payload = prior && JSON.stringify(prior) === JSON.stringify(candidate) ? failedRequest : {...candidate,requestId:crypto.randomUUID()};
     const submittedDraft = action.type === 'message' && $('message').value.trim() === userWords.trim() ? $('message').value : '';
-    const pane = $('reading'), following = pane.scrollHeight - pane.clientHeight - pane.scrollTop < 120;
     if (submittedDraft) {$('message').value = '';resizeComposer();}
     const showingPending = candidate.aiConsent || options.opening === true;
     const openingStarted = options.opening ? performance.now() : 0;
@@ -1268,16 +1264,14 @@
       if (fromReview && fromReview.kind!=='preparation' && !review && action.type === 'discard_review') note('Your draft is still here. Make edits and continue when ready.');
       const last = appended && $('history').lastElementChild;
       const latestReply = last && (last.querySelector('.chat-daylight:last-child') || last.querySelector('.chat-daylight'));
-      const target = last ? (action.type === 'read_concept' ? latestReply : last.querySelector('.chat-user') || latestReply) || last : $('current');
+      const target = latestReply || last || $('current');
       const reading = $('reading');
-      // Scroll the transcript only; the submitted answer stays in view above the reply.
+      // Start at the reply, including replies with large tables or visuals.
+      // Never schedule a second scroll to its question: reading comes first.
+      // Content growing below this anchor leaves the beginning in view.
       if (target) reading.scrollTop += target.getBoundingClientRect().top - reading.getBoundingClientRect().top - 18;
       target?.setAttribute('tabindex','-1');target?.focus({preventScroll:true});
-      if (following && q()) {
-        const shown = showCurrentQuestion(reading);
-        const settle = textDuration([history.at(-1)?.reply,...(history.at(-1)?.facts || []).map(fact => fact.text)].filter(Boolean).join(' ')) + 400;
-        setTimeout(() => {showCurrentQuestion(reading,shown);updateScrollCue();},settle);
-      }
+      updateScrollCue();
       if (action.type === 'confirm_plan_review' && result.plansHandoff) await openPlansWorkspace();
       await saving;
       return true;

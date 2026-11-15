@@ -142,7 +142,8 @@ class ConversationContinuityTests(unittest.TestCase):
         self.assertEqual(out['generated']['status'], 'complete')
         self.assertEqual(out['reply'], '')
         self.assertTrue(out['assessment']['nextQuestion']['question'])
-        self.assertEqual(set(out['metrics']['stageMs']), {'extraction', 'composition'})
+        # Evidence retrieval and the checker are timed stages too since the planner work.
+        self.assertLessEqual({'extraction', 'composition'}, set(out['metrics']['stageMs']))
         self.assertTrue(all(type(value) is int and value >= 0 for value in out['metrics']['stageMs'].values()))
 
     def test_familiarity_generation_cannot_fall_back_to_vague_progress(self):

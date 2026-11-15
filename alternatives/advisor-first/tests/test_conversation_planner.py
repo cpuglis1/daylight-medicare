@@ -31,6 +31,7 @@ class ConversationPlannerTests(unittest.TestCase):
 
     def setUp(self):
         harness.NaturalFlowTests.setUp(self)
+        self.script_legacy_discussion = True
         enrollment_flow.enable(self.flow)
         planner.enable(self.flow)
         def forbidden(*args, **kwargs):
@@ -63,6 +64,7 @@ class ConversationPlannerTests(unittest.TestCase):
         import conversation_planner
 
         self.choice('RC01', choice='self')
+        self.task('providers')
         self.choice('T06', text='Dr. Fiction')
         self.assertTrue(conversation_planner.checks_relevant(self.flow, self.owner, self.g))
         self.message('What does Medigap cover?', extraction=self.extraction())
@@ -72,13 +74,13 @@ class ConversationPlannerTests(unittest.TestCase):
         text = 'What are the two Medicare paths?'
         out = self.message(text, extraction=self.extraction(discussion=self.proposal(text,
             focus='coverage_paths', question_quote=text)))
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'CP_UNDERSTANDING')
+        self.assertIsNone(out['assessment']['nextQuestion'])
         self.assertEqual([c['kind'] for c in out['cards']], ['discussion_paths'])
         self.assertTrue(all(line for c in out['cards'][0]['columns'] for line in c['lines']))
         self.assertFalse(out['whatsLeft'])
         self.assertNotIn(text, json.dumps(self.r))
         self.assertEqual(len(self.calls), 2)
-        self.assertIn('discussion proposes', self.calls[0]['instructions'])
+        self.assertIn('natural conversation flow', self.calls[0]['instructions'])
         self.assertNotIn('mode find means', self.calls[-1]['instructions'])
         self.assertEqual(self.composed_context()['discussion_plan']['question_to_answer'], text)
 
@@ -139,14 +141,16 @@ class ConversationPlannerTests(unittest.TestCase):
         self.choice('T03', zip='34102')
         text = 'What does Medigap mean?'
         out = self.message(text)
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'CP_UNDERSTANDING')
+        self.assertIsNone(out['assessment']['nextQuestion'])
         self.assertEqual(out['conversationPlanner']['investigations'], [])
         self.assertEqual(self.flow.value(self.g, 'comparison.scope.zip'), '34102')
         self.assertNotIn('plans_ready', [c['kind'] for c in out.get('cards', [])])
 
     def test_unknown_plan_category_is_clarified_without_medigap_guess(self):
-        out = self.message('Show me plans.')
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'CP_INVESTIGATE')
+        text = 'Show me plans.'
+        out = self.message(text, extraction=self.extraction(discussion=self.proposal(text, focus='')),
+            compose={'question_target':None,'question':'Which coverage would you like to explore?'})
+        self.assertIsNone(out['assessment']['nextQuestion'])
         self.assertEqual(out['coveragePath']['state'], 'undecided')
 
     def test_current_coverage_does_not_mean_keep_it(self):
@@ -191,13 +195,15 @@ class ConversationPlannerTests(unittest.TestCase):
         text = 'Show me Medicare Advantage plans.'
         p = self.proposal(text, purpose='investigate', focus='advantage',
             request_quote=text, investigate=['advantage','medigap'])
-        self.assertEqual(planner.validate_proposal(p, text)['investigate'], ['advantage'])
+        p['guidance'] = dict(mode='work',task='advantage',checks=[],quote=text,finish='')
+        out = self.message(text, extraction=self.extraction(discussion=p))
+        self.assertEqual(out['conversationPlanner']['investigations'], ['advantage'])
 
     def test_failed_answer_keeps_question_open_without_price_intake(self):
         from chat import ModelUnavailable
         out = self.message('What does Medigap mean?', compose=ModelUnavailable('Offline fictional failure'))
         self.assertEqual(out['conversationPlanner']['answer_state'], 'unresolved')
-        self.assertEqual(out['assessment']['nextQuestion']['id'], 'CP_RETRY')
+        self.assertIsNone(out['assessment']['nextQuestion'])
 
     def test_legacy_surface_does_not_get_the_planner(self):
         self.flow.d166 = False
@@ -231,7 +237,8 @@ class ConversationPlannerTests(unittest.TestCase):
                    self.update('T10', {'choice':'doctors'}, 'her doctor is important to her')]
         self.message(text, extraction=self.extraction(updates, discussion=self.proposal(text, purpose='review',
             focus='coverage_paths', reason_quote='her doctor is important to her')))
-        out = self.message('She has Medicare Advantage.', [self.update('T05', {'choice':'advantage'}, 'She has Medicare Advantage.')])
+        out = self.message('She has Medicare Advantage.', [self.update('T05', {'choice':'advantage'}, 'She has Medicare Advantage.')],
+            compose=lambda sent: dict(question_target='T06',question=next(c['question']['question'] for c in sent['question_candidates'] if c['id']=='T06')))
         self.assertEqual(self.flow.value(self.g, 'subject.role'), 'someone')
         self.assertEqual(out['assessment']['nextQuestion']['id'], 'T06')
         self.assertEqual(out['coveragePath']['state'], 'undecided')
@@ -256,7 +263,9 @@ class ConversationPlannerTests(unittest.TestCase):
 
     def test_reference_to_prices_can_use_the_topic_without_choosing_it(self):
         self.message('Explain Medigap.')
-        out = self.message('Show me those prices.')
+        text = 'Show me those prices.'
+        p = self.proposal(text,purpose='investigate',focus='medigap',request_quote=text,investigate=['medigap'])
+        out = self.message(text, extraction=self.extraction(discussion=p))
         self.assertEqual(out['conversationPlanner']['investigations'], ['medigap'])
         self.assertEqual(out['coveragePath']['state'], 'undecided')
 
@@ -289,7 +298,7 @@ class ConversationPlannerTests(unittest.TestCase):
         self.choice('RC01', choice='self')
         self.choice('MG_AGE', choice='80')
         out = self.message('Show me Medigap prices.')
-        self.assertNotIn(out['assessment']['nextQuestion']['id'], ['MG_SEX','MG_TOBACCO','T03'])
+        self.assertNotIn((out['assessment']['nextQuestion'] or {}).get('id'), ['MG_SEX','MG_TOBACCO','T03'])
         self.assertEqual(out['medigapProfile']['status'], 'unsupported')
         self.assertNotIn('plans_ready', [c['kind'] for c in out.get('cards',[])])
 
@@ -304,7 +313,7 @@ class ConversationPlannerTests(unittest.TestCase):
         self.message('What are the two Medicare paths?')
         out = self.message('Help me understand Original Medicare and its options.')
         self.assertEqual(out['conversationPlanner']['focus'], 'original')
-        self.assertNotEqual(out['assessment']['nextQuestion']['id'], 'CP_UNDERSTANDING')
+        self.assertIsNone(out['assessment']['nextQuestion'])
 
     def test_explicit_parts_a_and_b_only_retains_the_valid_finish(self):
         text = 'I want Parts A and B only.'
