@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Fictional plan-path profiles, 2026-11-12 (15)",
-  "description": "Fifteen fictional profiles for watching how a person moves through teach, coverage path, plans and Before you enroll, what they understand at the end, how D147 sorting answers them and, where `checks` is present, how the D146 doctor, pharmacy and medicine checks treat real 2026 records. validate.py adds corpus checks. This schema does not certify Medicare advice.",
+  "title": "Fictional plan-path profiles, 2026-11-12 (16)",
+  "description": "Sixteen fictional profiles for watching how a person moves through teach, coverage path, plans and Before you enroll, what they understand at the end, how D147 sorting answers them and, where `checks` is present, how the D146 doctor, pharmacy and medicine checks treat real 2026 records. validate.py adds corpus checks. This schema does not certify Medicare advice.",
   "type": "array",
-  "minItems": 15,
-  "maxItems": 15,
+  "minItems": 16,
+  "maxItems": 16,
   "items": {
     "type": "object",
     "required": [
@@ -28,7 +28,7 @@
     "properties": {
       "id": {
         "type": "string",
-        "pattern": "^PP(0[1-9]|1[0-5])$"
+        "pattern": "^PP(0[1-9]|1[0-6])$"
       },
       "source": {
         "$ref": "#/$defs/text"
@@ -184,7 +184,8 @@
               "medicare_advantage",
               "original_medicare_medigap_part_d",
               "part_d_only",
-              "keep_current_or_wait"
+              "keep_current_or_wait",
+              "undecided"
             ],
             "description": "Where this person's facts and stated priorities lead. The person decides; the product makes the trade-off visible."
           },
@@ -343,7 +344,7 @@
         ],
         "properties": {
           "method": {
-            "const": "daylight-tiered-v1-20261112"
+            "const": "daylight-tiered-v3-20261114"
           },
           "inputs_to_capture": {
             "type": "object",
@@ -374,6 +375,48 @@
           },
           "after_d146": {
             "$ref": "#/$defs/text"
+          }
+        }
+      },
+      "reproduction": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Optional. A recorded run to replay: the person's inputs in order, the baseline measures from that run and the done-when criteria (PP16, D157).",
+        "required": [
+          "run",
+          "inputs",
+          "baseline",
+          "done_when"
+        ],
+        "properties": {
+          "run": {
+            "$ref": "#/$defs/text"
+          },
+          "inputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "after_inputs": {
+            "$ref": "#/$defs/text"
+          },
+          "baseline": {
+            "type": "object"
+          },
+          "done_when": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "offline_tests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/text"
+            }
           }
         }
       }

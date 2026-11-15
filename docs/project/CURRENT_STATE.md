@@ -1,15 +1,125 @@
 # Daylight: current state
 
-Living document · last updated November 12, 2026 (America/New_York), through D153. Edit this
+Living document · last updated November 14, 2026 (America/New_York), through D171. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 
 ## What Daylight is today
 
-Daylight is a local advisor and research platform for an AI-native Medicare
-brokerage. Its first target is a **2026 controlled pilot in Collier County,
+Daylight's mission is to help people understand Medicare choices, work through
+the details and stay in control of decisions affecting their health and retirement.
+AI and contextual education serve that mission (D160); the current product is a
+local advisor and research platform for an AI-native Medicare brokerage. Its
+first target is a **2026 controlled pilot in Collier County,
 Florida** for first-time Medicare enrollees. It is not yet a released advice,
 recommendation or enrollment service. Consumer recommendation purposes are held.
+
+D161 makes first Part A/Part B enrollment an essential core journey and directs
+two top-level Plans tabs: **Original Medicare** and **Medicare Advantage**, with
+Medigap and separate Part D within Original Medicare. The
+[conversation and dashboard plan](../planning/medicare-enrollment-2026-11-12/PLAN.md)
+keeps the existing conversation and adds shared enrollment status, signup
+preparation, return/follow-through and coordinated coverage steps. D161 changes
+the intended structure; it does not release recommendations, application
+submission or consumer use.
+
+D164 builds D161 as one push for :8895 only. **Running on :8895. The two path
+tabs, the three decisions and the sign-up guides were checked on the real page
+at desktop, tablet and phone widths with no model call. The status line, the
+chat cards, the recorded finishes and status updates are verified offline only,
+because seeing them on the page takes a conversation. Not run live and not
+owner accepted.** The first report of this build called it done after offline
+tests; six defects then turned up on the page (the old three tabs first) and
+are listed in the build packet's ledger. After the owner's own test conversation on
+November 13 (evening): fifteen profiles were run live on :8895 and evaluated (`audit-evidence/enrollment-d161-20261112/profile-runs-20261113/EVALUATION.md`), and the fixes were built the same evening: a coverage reader for what people already have, Parts A and B derived from a Medicare Advantage plan or a Medigap policy, a two-shows-then-park question budget, doctor entries split before the search, no silent or doubled fallback turns, cards and plan buttons triggered from the state of the conversation, word-group matching for the approved catalog, near-miss identifier rules, a checker rule against first-person recommendations, and a per-turn trace. **Built, passing offline and loaded on :8895 (restarted that evening, after the server log was read: the two 93-second failures and most dropped replies were traced and fixed; see `LOG-FINDINGS.md`). Not yet run live.** What was not built and which fixes sit in files :8893 also loads: `BUILD.md` in the same folder.
+
+November 13, quick fixes followed on :8895 (no text between the top of a plans page
+and the plans beyond tabs, steps and filters; a tab opens at step 1, then where the
+person left off; the repeat Parts A and B question; date and address formats on the
+doctor card); the rest of his comments are design work, tracked in the Brain's UX
+playbook, issues 32 to 44. With the :8895 switch on (`enrollment_flow.enable`,
+called by `demo_server.py`): a Part A / Part B status line with the next step in
+the chat and on the plans pages; a sign-up route card; “Parts A and B only”,
+keep current coverage and wait as recorded finishes with a summary; status
+updates from the person's own words (`enrollment.partA`, `enrollment.partB`,
+`intent.components`, extended `intent.coveragePath`); two path tabs (Original
+Medicare, Medicare Advantage) with three decisions each over the existing
+Medigap, Part D and Medicare Advantage panels; three sign-up guides served from
+`enrollment-content.json`; coordinated dates. The record is Codex's
+`enrollment_journey.status`. **:8893/:8894 are unchanged:** the switch is off
+there, so they keep the three plan tabs and none of the new wording. The new
+sentences await the owner's sign-off. [Build packet](../../audit-evidence/enrollment-d161-20261112/README.md).
+
+D165 connects the doctor and medicine checks to the existing :8895 conversation
+and evaluation sorting. The local matrices cover 72 MA offerings for networks
+and 71 drug-bearing offerings for formularies, with separate Original Medicare
+assignment evidence. The latest build and review limits are recorded in the
+[implementation packet](../../audit-evidence/d165-conversation-research-20261113/README.md).
+The hosted fictional display rehearsal uses the existing invite gate and a
+portable archive. Live-provider approval, release review and host verification
+remain open.
+
+D166 changes how the :8895 conversation decides what to do next. A bounded,
+visit-only planner separates current purpose, established reports, tentative
+understanding, preferences, explored paths and explicit decisions. It answers
+questions before advancing, permits requested pricing without a teaching
+interview, and suppresses premature pricing intake and unrelated cards. Opening
+Original Medicare, asking about Medigap or preferring predictable costs does
+not choose a path. Deterministic recommendation methods and exact-purpose
+evidence gates remain unchanged. The owner-supplied laptop photograph is the
+:8895 main image, with no on-page photo credit at the owner's request. These
+overrides are enabled by `conversation_planner.enable` only on :8895 and
+isolated fixtures. :8893/:8894 and protected ports retain their behavior.
+Implementation, activation and actual checks are recorded in the
+[D166 packet](../../audit-evidence/discussion-planner-20261113/README.md).
+D167 adds explicit spoken component decisions, direct investigation routing and
+shared pharmacy/refill research across plans, with supported retail-average
+premium-plus-drug amounts as an optional within-group ordering. Missing estimates
+remain visible and unranked; estimates do not release recommendations or establish
+exact-store prices. Expected outcomes now preserve PP16's undecided state.
+138 offline checks passed, including six scripted profile replays (PP07, PP09,
+PP12, PP13, PP15 and PP16). A separate synthetic ten-plan journey exercises
+cost collection, sorting and correction/source-STOP withdrawal. D170 reran the two retained local-source
+journeys successfully with read-only local database access and model sockets
+blocked. D171 explicitly authorized ending in-memory visits and activated the
+verified D167/D170 backend on :8895; saved profiles and protected services were preserved.
+The [D167 packet](../../audit-evidence/profile-replay-20261114/README.md) separates
+implemented behavior from verification limits. Live model quality, full actual-source
+journeys and owner acceptance are not established by these offline tests.
+
+D168 changes the evaluation unit to complete behavior-led journeys across chat
+and actual navigation. The [new corpus](../evaluations/behavioral-journeys-2026-11-14/README.md)
+contains twelve reactive fictional personas, each with direct/interrupted variants,
+private facts, observable detours, decision boundaries and useful-finish criteria.
+The prior PP01–PP16 corpus remains coverage regression evidence. The corpus, run protocol and evidence grader are prepared; corpus validation and
+18 grader tests pass. D169 requested actual runs and retained conversation/UI findings.
+The attempted evaluation incorrectly used live models despite the offline restriction:
+37 messages across ten started visits, nine reaching final user requests; BJ10 only
+began and BJ11–BJ12 were not run. Full transcript capture failed during a browser
+reset; reconstructed notes and exact telemetry are retained in the
+[partial report](../../audit-evidence/behavioral-live-20261114/REPORT.md). No runtime
+was changed. False A/B status, wrong destinations and incomplete finishes were
+observed on the running build, whose exact revision was not pinned. D170 supplies an isolated
+offline browser/source binding and retained replay evidence; human review remains open.
+No passing profile rate, completed twelve-profile run or optimal flow is claimed for D169;
+live/paid restrictions are unchanged.
+
+D170 repairs explicit A/B precedence, contradiction handling and date precision;
+retains the requested investigation through side questions and Plans; suppresses
+personal-match labels with unchecked criteria; and records useful visit summaries
+without restarting intake. Partial medicine-detail updates retain unresolved siblings. Standard Plan G and education-only exploration have
+separate destinations. The browser harness uses real handlers and UI, fresh
+temporary stores, declared local language and synthetic positive/negative sources,
+with backend socket/DNS/subprocess and browser-origin restrictions. Each action is flushed
+to durable evidence. See the [D170 packet](../../audit-evidence/behavioral-fixes-20261114/README.md)
+for exact checks, per-profile outcomes and runtime hashes. Under D171, the owner
+explicitly authorized a restart and ending existing in-memory visits. :8895 now
+runs the verified backend (PID 93906; revision
+`7e2ab919e4935398e34f75cc5eafa352a65286e67a50aa81eef19b9026c09bb0`).
+Read-only checks confirmed the frontend hashes, unchanged saved-profile bytes,
+753 unchanged protected files, source gates and unchanged model-call counters.
+Existing pages need a refresh. [Activation evidence](../../audit-evidence/behavioral-fixes-20261114/activation/README.md).
+Live-language quality and owner acceptance remain open.
 
 ## Authority, in order
 
@@ -84,6 +194,9 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
 | — | `infrastructure/daylight-data/` | Research database and private read-only API for public evidence; separate private CSG schema and exact-profile repository (D128), read by D129's bounded app-price endpoint. |
 | — | `infrastructure/daylight-operations/` | Customer-plane operations schema and model-call traces (added November 5; not wired into :8893). |
 
+D155 gives active free-text questions, questions with choices and retained chat
+questions the same bold, larger type on the shared :8894/:8895 frontend.
+
 Protected variants and their guest stores are not edited or migrated. D137 restores
 Daylight branding after D121/D122/D125, preserving current functionality and
 saved data. D139's final pass found no leftover MidMorning branding in the
@@ -94,13 +207,50 @@ error checks retain Daylight. No further app edit or restart was needed.
 
 ## Current milestone and data
 
+- **Pilot Medicare fact base (D158–D159, D162–D163):** 71 of the [74 source-backed statements](../data/pilot-knowledge-2026-11-12-r2/REVIEW.md)
+  are owner-accepted for general education and active on :8895 only: the original
+  40 plus 31 additions. Exact acceptance lives in
+  `alternatives/advisor-first/pilot-knowledge-review-8895-r2.json`; the original
+  approval file and both sealed catalogs remain unchanged. The
+  [16-situation enrollment reference](../data/pilot-knowledge-2026-11-12-r2/ENROLLMENT.md)
+  distinguishes windows, actions, coverage starts and prerequisites.
+  `pk_fl_under65`, `pk_fl_group` and `pk_fl_waiting` remain disabled with legal holds.
+  The exact initial MA opening/closing date and duration after adding Part B later
+  remain withheld because official summaries differ. Composition receives that
+  restriction; bounded validation rejects tested numeric/date/worded deadline
+  claims, including user-suggested clocks and cached answers.
+  Local selection uses the existing conversation and Sources disclosure, with no
+  extra model stage or service. Live status confirms 71 available facts after the
+  :8895 restart. All 239 offline checks pass; desktop/tablet/phone landing screens
+  were inspected. Existing guest reports and all charge/reservation rows remain
+  unchanged; the checks added one empty anonymous guest and advanced UTC-day
+  metadata. :8893 and protected listeners were unchanged. No Brain edit or
+  paid/live model conversation occurred. Live answer quality remains owner-assessed;
+  this is general education, not personal deadline or recommendation authority.
+  [Acceptance, verification and limits](../../audit-evidence/pilot-knowledge-r2-activation-8895-20261112/README.md).
+- **UX pass after the PP16 test conversation (D157):** the shared :8894/:8895 conversation and Plans pages were
+  reworked toward the owner's goal (“the easiest self-guided Medicare experience on the market”). Deterministic
+  legacy helpers live in `ux_pass.py` (enrollment timing, say-once record, reply clean-up, coverage path) and
+  `ux_flow.py` (the four hooks `natural_flow.py` calls); five signed-off statements are in
+  `pilot-rules-r4-ux-pass.json`. The conversation no longer shows pilot, demo or research wording; the plan year
+  stays as a plain label pending the owner's confirmation. The coverage path is a profile field
+  (`intent.coveragePath`). On :8895, D166 supersedes inferred path leans, fixed reply cleanup and pricing-first selection;
+  it keeps actual enrollment reports and the existing evidence/check services. `DAYLIGHT_DISABLE_UX_PASS=1` turns the legacy hooks off. **State: implemented and offline
+  verified; current code is running on :8895 after D159's restart.** D159 checked the live landing at
+  three widths; the complete PP16 experience still needs browser/live review and owner acceptance.
+  :8893 has not been restarted for these changes. Six backend and data-layer items are handed off with failing tests. Eight
+  older tests that script the removed familiarity and COBRA-start questions are in `tests/known-failures.json`.
+  [Evidence](../../audit-evidence/ux-pass-pp16-20261112/README.md) ·
+  [Handoff](../../audit-evidence/ux-pass-pp16-20261112/HANDOFF.md).
 - **Evaluation-only tiered recommendation (D147):** on :8895 only, a
   deterministic method sorts Medicare Advantage, Medigap and Part D plans and the
   two coverage paths into “Matches your priorities”, “Meets your needs, not all
   your priorities” and a set-aside group, with ✓ / ✗ / ? checks on each plan.
-  Doctors, networks and drug lists are not checked yet, so no drug-coverage pick
-  is named while medicines are unchecked. For fictional profile evaluation; not a
-  consumer recommendation. [Method](../product/tiered-recommendation-2026-11-12/METHOD.md).
+  D165 feeds dated exact-product formulary and clinician-office observations into
+  local evaluation sorting. Individual plan checks may remain unknown. Named
+  drug suggestions with reported prescriptions still await evidence and method
+  review. [Method](../product/tiered-recommendation-2026-11-12/METHOD.md) ·
+  [D165 verification](../../audit-evidence/d165-conversation-research-20261113/README.md).
 - **Pilot doctor, pharmacy and cost priority (D146):** Bring the necessary
   2026 identity search, pharmacy/drug normalization, network evidence, deterministic
   cost validation and serving/freshness work into the November pilot. The owner
@@ -118,23 +268,31 @@ error checks retain Daylight. No further app edit or restart was needed.
   Advantage and separate Original Medicare evidence, and correction invalidation
   in an opt-in loopback fixture. The 67-query fixture found the expected
   identities in the top five for 64/64 known-answer queries. All 72 MA offerings
-  are accounted for, with qualified dated edges for 43. D152 enables **Check a
-  doctor** inside :8895 chat using `Start Daylight Demo.command`. The chat
-  composer collects the name and the current question area handles clarification,
-  exact doctor and office confirmation, and dated coverage evidence. The task
-  is visit only. The standalone D150 preview at :8898 remains available.
-  Independent review and participant use remain held.
+  are accounted for, with qualified dated edges for 43. D154 replaces the D152
+  doctor launcher with checks that follow doctor reports in the ordinary :8895
+  conversation. Known names and locations are reused; software asks for the
+  remaining exact identity, office, coverage and date and presents dated evidence
+  inline. The task remains visit only. The standalone D150 preview at :8898 is
+  historical evaluation tooling. Independent review and participant use remain held.
   [Chat verification](../../audit-evidence/pilot-doctor-chat-8895-20261112/README.md).
   [Doctor review packet](../../audit-evidence/pilot-doctors-20261112/README.md).
   DQ-12/13/18/19/27/33 have an offline prescription candidate for exact
   product and outlet selection and deterministic average-based estimates.
   Thirteen priced comparisons matched independent arithmetic across 213 fills,
-  and 15 comparisons stayed held. D153 makes :8895 the shared working demo.
-  **Try fictional drug costs** opens its model-free chat rehearsal at
-  `/d146/`. The task reuses that visit's reports and checks corrections,
-  expiry and source STOPs. The :8894 rehearsal remains available as earlier
-  evidence. Participant use remains held for official comparisons,
-  exact-purpose approval and hosted verification.
+  and 15 comparisons stayed held. :8895 remains the shared working demo.
+  D154 removes the separate fictional-cost entry and parallel `/d146/` visit
+  from its normal launcher. Drug checks now use the same conversation's medicines,
+  refill quantities, days supply, pharmacy and assistance reports, asking only for
+  missing exact selections or calculation inputs. The result appears inline and
+  changed inputs, expiry and source STOPs withdraw it. The earlier rehearsals remain
+  historical evidence. These local checks do not authorize participant use or
+  supply accepted results to D147 sorting; official comparisons, exact-purpose
+  approval and hosted verification remain open.
+  [D154 journey verification and limits](../../audit-evidence/conversation-checks-8895-20261112/README.md).
+  The Brain UX playbook and [implementation rules](../product/CONVERSATION_IMPLEMENTATION.md)
+  now explicitly require delivery through the person's existing story, not a tool
+  entry, separate setup or repeated intake. Runtime and offline checks are distinct
+  from owner acceptance of live conversation quality.
   [Prescription candidate and review pack](../../audit-evidence/d146-drug-estimate-20261112/README.md) ·
   [Shared :8895 chat verification](../../audit-evidence/d146-chat-8895-20261112/README.md).
   Exact-store prices, unresolved network crosswalks,
@@ -162,7 +320,7 @@ error checks retain Daylight. No further app edit or restart was needed.
   reconstructs earlier replies and available recent inputs from the existing
   cookie-bound, one-hour visit memory. The logo opens Home in place, where
   **Continue the conversation** preserves drafts. Three named opening choices
-  show a fixed local reply after a 350 ms pending state. Durable profile saving
+  show a fixed local reply after a minimum 1.85-second pending state (D156). Durable profile saving
   is opt-in. Restart, expiry and eviction can end recovery. See
   [D148 verification and runtime status](../../audit-evidence/conversation-continuity-d148-20261112/README.md).
   D141 selects

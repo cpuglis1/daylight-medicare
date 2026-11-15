@@ -95,7 +95,9 @@ class MedigapProfileTests(unittest.TestCase):
         self.assertIn('MG_AGE', result['medigapProfile']['held'])
         self.choice('MG_AGE', choice='75')
         self.assertEqual(pricing.profile(self.g)['questions'], [])
-        self.assertIn('75+', pricing.profile(self.g)['message'])
+        # D157: plain words, no pilot wording, and a next step.
+        self.assertIn('ages 75 and older', pricing.profile(self.g)['message'])
+        self.assertNotIn('pilot', pricing.profile(self.g)['message'])
         self.assertFalse(self.flow.medigap_questions(self.g, self.r))
 
     def test_exact_birthday_age_and_changed_birthday(self):

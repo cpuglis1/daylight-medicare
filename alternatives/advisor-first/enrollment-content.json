@@ -1,0 +1,788 @@
+{
+ "version": "enrollment-content-2026-11-13-e1",
+ "review_state": "awaiting_owner_sign_off",
+ "last_checked": "2026-11-12",
+ "scope": "D161: sign-up route cards and sign-up guides for Part A and Part B. Shown on :8895 only until the owner signs each sentence. Every date a person sees beside this content is computed in code (enrollment_journey.status); nothing here is a personal date, deadline or penalty. state accepted = wording already accepted (D157 r4 or D159/D163 pilot knowledge, id in origin); state new = awaiting the owner's sign-off; kind tip = practical help with no Medicare claim.",
+ "limits": "Checked November 12, 2026 against the listed ssa.gov, Medicare.gov and CMS pages. The order of the online application's screens comes from Social Security's own published walkthroughs (Publications 05-10531 and 05-10530 and its application video transcript). The live application sits behind a my Social Security sign-in and was not opened, so the order is not confirmed against today's screens.",
+ "sources": {
+  "ssa_signup": {
+   "label": "Social Security: Sign up for Medicare",
+   "url": "https://www.ssa.gov/medicare/sign-up"
+  },
+  "ssa_part_b": {
+   "label": "Social Security: Sign up for Part B only",
+   "url": "https://www.ssa.gov/medicare/sign-up/part-b-only"
+  },
+  "ssa_part_b_how": {
+   "label": "Social Security: Sign up for Medicare Part B online, by fax, or by mail",
+   "url": "https://www.ssa.gov/blog/en/posts/2024-10-17.html"
+  },
+  "ssa_apply_online": {
+   "label": "Social Security: Apply Online for Medicare (Publication 05-10530)",
+   "url": "https://www.ssa.gov/pubs/EN-05-10530.pdf"
+  },
+  "ssa_apply_steps": {
+   "label": "Social Security: How to Apply Online for Medicare Only (Publication 05-10531)",
+   "url": "https://www.ssa.gov/pubs/EN-05-10531.pdf"
+  },
+  "ssa_benefits_medicare": {
+   "label": "Social Security: Medicare benefits",
+   "url": "https://www.ssa.gov/benefits/medicare/"
+  },
+  "ssa_status": {
+   "label": "Social Security: How do I check the status of a pending application?",
+   "url": "https://www.ssa.gov/faqs/en/questions/KA-01729.html"
+  },
+  "ssa_locator": {
+   "label": "Social Security: Find a local office",
+   "url": "https://www.ssa.gov/locator/"
+  },
+  "cms_40b": {
+   "label": "CMS-40B: Request for Enrollment in Medicare Part B",
+   "url": "https://www.cms.gov/cms40b-application-enrollment-part-b"
+  },
+  "medicare_ready": {
+   "label": "Medicare.gov: Ready to sign up for Part A & Part B",
+   "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/ready-to-sign-up-for-part-a-part-b"
+  },
+  "medicare_before65": {
+   "label": "Medicare.gov: I’m getting Social Security benefits before 65",
+   "url": "https://www.medicare.gov/basics/get-started-with-medicare/before-65"
+  },
+  "medicare_join": {
+   "label": "Medicare.gov: Joining a plan",
+   "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan"
+  },
+  "medicare_welcome": {
+   "label": "Medicare.gov: “Welcome to Medicare” package",
+   "url": "https://www.medicare.gov/basics/forms-publications-mailings/mailings/signing-up/welcome-to-medicare-package"
+  },
+  "medicare_welcome_booklet": {
+   "label": "Medicare: Welcome to Medicare booklet (2026)",
+   "url": "https://www.medicare.gov/media/12020-Welcome-to-Medicare.pdf"
+  },
+  "medicare_start": {
+   "label": "Medicare.gov: When does Medicare coverage start?",
+   "url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start"
+  },
+  "medicare_work": {
+   "label": "Medicare.gov: Working past 65",
+   "url": "https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65"
+  },
+  "medicare_compare": {
+   "label": "Medicare.gov: Compare Original Medicare and Medicare Advantage",
+   "url": "https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options/compare-original-medicare-medicare-advantage"
+  },
+  "medicare_penalties": {
+   "label": "Medicare.gov: Avoid late enrollment penalties",
+   "url": "https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties"
+  },
+  "cms_premiums": {
+   "label": "CMS: 2026 Medicare Parts A & B premiums and deductibles",
+   "url": "https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles"
+  },
+  "medigap_basics": {
+   "label": "Medicare.gov: How Medigap works",
+   "url": "https://www.medicare.gov/health-drug-plans/medigap/basics"
+  },
+  "medigap_costs": {
+   "label": "Medicare.gov: Medigap costs",
+   "url": "https://www.medicare.gov/health-drug-plans/medigap/basics/costs"
+  },
+  "medigap_how": {
+   "label": "Medicare.gov: Learn how Medigap works",
+   "url": "https://www.medicare.gov/health-drug-plans/medigap/basics/how-medigap-works"
+  },
+  "medigap_when": {
+   "label": "Medicare.gov: When to buy Medigap",
+   "url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when"
+  },
+  "medicare_insulin": {
+   "label": "Medicare.gov: Insulin",
+   "url": "https://www.medicare.gov/coverage/insulin"
+  },
+  "medigap_overview": {
+   "label": "Medicare.gov: Medicare Supplement Insurance, an overview",
+   "url": "https://www.medicare.gov/publications/11575-Getting-Started-Medicare-Supplement-Insurance.pdf"
+  },
+  "medigap_compare": {
+   "label": "Medicare.gov: Compare Medigap plan benefits",
+   "url": "https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits"
+  }
+ },
+ "statements": {
+  "signup_routes": {
+   "state": "new",
+   "sources": [
+    "ssa_signup",
+    "medicare_ready"
+   ],
+   "text": "You sign up for Part A and Part B through Social Security: online, by phone at 1-800-772-1213, or at a local office. Call first for an office appointment."
+  },
+  "automatic": {
+   "state": "new",
+   "sources": [
+    "medicare_before65"
+   ],
+   "text": "If you’re getting Social Security benefits at least 4 months before you turn 65, you get Part A and Part B automatically when you turn 65."
+  },
+  "automatic_check": {
+   "state": "new",
+   "kind": "tip",
+   "sources": [
+    "medicare_before65"
+   ],
+   "text": "You said you get Social Security benefits. Check with Social Security before you apply, so you don’t apply twice."
+  },
+  "add_part_b": {
+   "state": "new",
+   "sources": [
+    "ssa_part_b"
+   ],
+   "text": "If you already have Part A, you can add Part B through Social Security during certain enrollment periods."
+  },
+  "part_a_only": {
+   "state": "new",
+   "sources": [
+    "ssa_signup"
+   ],
+   "text": "You sign up for Part A through Social Security. Its online application covers Part A and Part B, or Part A only."
+  },
+  "medigap_needs_both": {
+   "state": "new",
+   "sources": [
+    "medicare_welcome_booklet"
+   ],
+   "text": "In most cases, you need both Part A and Part B to buy a Medigap policy."
+  },
+  "railroad": {
+   "state": "new",
+   "sources": [
+    "medicare_ready"
+   ],
+   "text": "If you or your spouse worked for a railroad, you sign up through the Railroad Retirement Board: 1-877-772-5772."
+  },
+  "never_ids": {
+   "state": "new",
+   "kind": "tip",
+   "sources": [],
+   "text": "Daylight never needs your Social Security number, Medicare number or passwords. You give those to Social Security only."
+  },
+  "confirm_ssa": {
+   "state": "new",
+   "kind": "tip",
+   "sources": [
+    "ssa_signup"
+   ],
+   "text": "Social Security can confirm the dates that apply to you: 1-800-772-1213, Monday through Friday, 8 a.m. to 7 p.m."
+  },
+  "join_needs": {
+   "state": "accepted",
+   "origin": "pk_join (D159)",
+   "sources": [
+    "medicare_join"
+   ],
+   "text": "Medicare Advantage requires both Parts A and B. A standalone Part D plan requires Part A or Part B."
+  },
+  "no_limit": {
+   "state": "accepted",
+   "origin": "pk_costs (D159)",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "Original Medicare has no annual out-of-pocket limit unless other coverage limits what you pay."
+  },
+  "part_d_penalty": {
+   "state": "accepted",
+   "origin": "pk_creditable (D159)",
+   "sources": [
+    "medicare_penalties"
+   ],
+   "text": "The Part D late-enrollment penalty can apply after 63 consecutive days without Part D or other creditable drug coverage after the initial enrollment opportunity."
+  },
+  "part_b_premium": {
+   "state": "accepted",
+   "origin": "two-path card (owner, November 12, 2026)",
+   "sources": [
+    "cms_premiums"
+   ],
+   "text": "Most people pay $202.90 a month for Part B in 2026; people with higher incomes pay more."
+  },
+  "current_work": {
+   "state": "accepted",
+   "origin": "pk_work_sep (D159)",
+   "sources": [
+    "medicare_start",
+    "medicare_work"
+   ],
+   "text": "A person covered by a group health plan through their own or their spouse’s current work may qualify to enroll in Part B while covered or during an eight-month Special Enrollment Period after employment or that coverage ends, whichever ends first. COBRA does not extend that window."
+  },
+  "window_passed": {
+   "state": "accepted",
+   "origin": "pk_gep (D159)",
+   "sources": [
+    "medicare_start"
+   ],
+   "text": "The General Enrollment Period for Part B and premium-Part A runs January 1 through March 31 each year, with coverage starting the following month. A late-enrollment penalty may apply if no qualifying exception or Special Enrollment Period applies."
+  },
+  "not_age_based": {
+   "state": "accepted",
+   "origin": "pk_disability_eligibility (D163)",
+   "sources": [
+    "medicare_start"
+   ],
+   "text": "People under 65 generally get Medicare automatically after 24 months of entitlement to Social Security disability benefits, with coverage beginning in the 25th month, or at 65 if that comes first."
+  },
+  "plan_start": {
+   "state": "accepted",
+   "origin": "pk_initial_plan_window (D163)",
+   "sources": [
+    "medicare_join"
+   ],
+   "text": "If the plan request is made before the required Medicare coverage starts, plan coverage starts with it; a request after that start generally takes effect the first of the month after the plan receives it."
+  },
+  "original_what": {
+   "state": "accepted",
+   "origin": "pk_routes (D159)",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "Original Medicare is Parts A and B, with the option of separate Part D drug coverage and supplemental coverage such as Medigap."
+  },
+  "trade_medigap_helps": {
+   "state": "accepted",
+   "origin": "pk_medigap (D163), shortened under its column heading; signed off November 13, 2026",
+   "sources": [
+    "medigap_basics"
+   ],
+   "text": "Medigap helps pay some Original Medicare deductibles, coinsurance and copayments."
+  },
+  "trade_medigap_premium": {
+   "state": "accepted",
+   "origin": "pk_medigap_premium (D163)",
+   "sources": [
+    "medigap_costs"
+   ],
+   "text": "A Medigap premium is paid to the insurer in addition to the Medicare Part B premium."
+  },
+  "trade_original_access": {
+   "state": "accepted",
+   "origin": "pk_access (D163), shortened under its column heading; signed off November 13, 2026",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "You can use doctors and hospitals that take Medicare across the U.S."
+  },
+  "trade_medigap_drugs": {
+   "state": "accepted",
+   "origin": "pk_medigap_drug_exclusion (D163), shortened under its column heading; signed off November 13, 2026",
+   "sources": [
+    "medigap_how"
+   ],
+   "text": "Medigap has no drug coverage; Part D is separate."
+  },
+  "trade_ma_limit": {
+   "state": "accepted",
+   "origin": "pk_costs (D163), shortened under its column heading; signed off November 13, 2026",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "Plans have an annual limit for covered Medicare services, with plan-specific network rules."
+  },
+  "trade_ma_premium": {
+   "state": "accepted",
+   "origin": "pk_costs (D163)",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "A zero-dollar plan premium does not mean zero health costs: Part B premiums and other plan costs can still apply."
+  },
+  "trade_ma_network": {
+   "state": "accepted",
+   "origin": "pk_access (D163), shortened under its column heading; signed off November 13, 2026",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "A plan may require its network and service area for non-emergency care."
+  },
+  "trade_ma_drugs": {
+   "state": "accepted",
+   "origin": "two-path card (D157)",
+   "sources": [
+    "medicare_compare"
+   ],
+   "text": "Most include drug coverage."
+  },
+  "medigap_clock": {
+   "state": "accepted",
+   "origin": "pk_medigap_window_scope (D163), first and third sentences",
+   "sources": [
+    "medigap_basics",
+    "medigap_when"
+   ],
+   "text": "The federal Medigap Open Enrollment Period lasts six months starting the first month a person is at least 65 and enrolled in Part B. Starting Part B while still working can start this clock; retirement does not automatically restart it."
+  }
+ },
+ "guides": [
+  {
+   "id": "online_ab",
+   "title": "Sign up online for Part A and Part B",
+   "official": "ssa_signup",
+   "routes": [
+    "sign_up_a_and_b",
+    "add_part_a"
+   ],
+   "lead": [
+    {
+     "id": "g1_time",
+     "sources": [
+      "ssa_apply_online"
+     ],
+     "text": "Social Security says the online application normally takes 10 to 30 minutes."
+    },
+    {
+     "id": "g1_break",
+     "sources": [
+      "ssa_apply_online"
+     ],
+     "text": "You don’t have to finish in one sitting. You can stop and come back without losing what you entered."
+    }
+   ],
+   "ready": [
+    {
+     "id": "g1_ssn",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Your Social Security number. You type it on Social Security’s website only, never here."
+    },
+    {
+     "id": "g1_birthplace",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Where you were born: city, state and country."
+    },
+    {
+     "id": "g1_plan_now",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Start and end dates for any health plan from a job that covers you now."
+    },
+    {
+     "id": "g1_plan_65",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Start and end dates for any health plan from a job since you turned 65."
+    }
+   ],
+   "steps_title": "What Social Security asks, in order",
+   "steps": [
+    {
+     "id": "g1_s1",
+     "drawing": "browser",
+     "sources": [
+      "ssa_signup"
+     ],
+     "title": "Start",
+     "text": "Go to ssa.gov/medicare/sign-up and choose “Apply for myself.”"
+    },
+    {
+     "id": "g1_s2",
+     "drawing": "check",
+     "sources": [
+      "ssa_apply_steps"
+     ],
+     "title": "Terms",
+     "text": "Read and agree to the terms of service."
+    },
+    {
+     "id": "g1_s3",
+     "drawing": "lock",
+     "sources": [
+      "ssa_apply_online"
+     ],
+     "title": "Sign in",
+     "text": "Sign in to your my Social Security account, or create one. This is how Social Security knows it is you."
+    },
+    {
+     "id": "g1_s4",
+     "drawing": "person",
+     "sources": [
+      "ssa_apply_steps"
+     ],
+     "title": "About you",
+     "text": "Your name, Social Security number, date of birth and sex."
+    },
+    {
+     "id": "g1_s5",
+     "drawing": "choice",
+     "sources": [
+      "ssa_apply_steps"
+     ],
+     "title": "Medicare only, or retirement too",
+     "text": "You can sign up for Medicare only, or for Medicare and monthly retirement benefits. Choose Medicare only if you aren’t ready to start retirement benefits."
+    },
+    {
+     "id": "g1_s6",
+     "drawing": "parts",
+     "sources": [
+      "ssa_benefits_medicare",
+      "ssa_signup"
+     ],
+     "title": "Part A and Part B",
+     "text": "The application covers Part A and Part B. Part B has a monthly premium, so the application lets you turn it down. If you want Part B, keep it."
+    },
+    {
+     "id": "g1_s7",
+     "drawing": "calendar",
+     "sources": [
+      "ssa_apply_steps"
+     ],
+     "title": "Your health coverage",
+     "text": "Questions about any group health plan, your employment and your health insurance, with their dates."
+    },
+    {
+     "id": "g1_s8",
+     "drawing": "send",
+     "sources": [
+      "ssa_apply_steps"
+     ],
+     "title": "Review and send",
+     "text": "Go over the summary, then select “Submit Now.” That sends the application to Social Security."
+    },
+    {
+     "id": "g1_s9",
+     "drawing": "receipt",
+     "sources": [
+      "ssa_apply_online"
+     ],
+     "title": "Keep the receipt",
+     "text": "Print or save the receipt. It has an application number you can use to check your status."
+    }
+   ],
+   "after": [
+    "after_review",
+    "after_letter",
+    "after_status",
+    "after_card",
+    "after_tell"
+   ]
+  },
+  {
+   "id": "add_part_b",
+   "title": "Add Part B when you already have Part A",
+   "official": "ssa_part_b",
+   "routes": [
+    "add_part_b"
+   ],
+   "lead": [
+    {
+     "id": "g2_when",
+     "sources": [
+      "cms_40b"
+     ],
+     "text": "You can use the Part B form during your Initial Enrollment Period, during the General Enrollment Period from January 1 through March 31, or if you qualify for a Special Enrollment Period."
+    },
+    {
+     "id": "g2_job",
+     "sources": [
+      "ssa_part_b"
+     ],
+     "text": "If a health plan from your or your spouse’s current job has covered you since you turned 65 and it ended within the last 8 months, you can apply any time of year."
+    }
+   ],
+   "ready": [
+    {
+     "id": "g2_card",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Your Medicare card. Social Security’s form asks for your Medicare number. You type it there, never here."
+    },
+    {
+     "id": "g2_email",
+     "sources": [
+      "ssa_part_b_how"
+     ],
+     "text": "An email address, if you apply online."
+    },
+    {
+     "id": "g2_l564",
+     "sources": [
+      "ssa_part_b",
+      "medicare_ready"
+     ],
+     "text": "If coverage from a job is ending: form CMS-L564, which the employer fills in to show you had that coverage."
+    },
+    {
+     "id": "g2_proof",
+     "sources": [
+      "ssa_part_b_how"
+     ],
+     "text": "If the employer can’t fill it in, one proof of that coverage, such as pay stubs showing premium deductions, a W-2 showing pre-tax medical contributions, a tax return showing premiums paid, or an insurance card with its start date."
+    }
+   ],
+   "steps_title": "What the Part B form (CMS-40B) asks, in order",
+   "steps": [
+    {
+     "id": "g2_s1",
+     "drawing": "person",
+     "sources": [
+      "cms_40b"
+     ],
+     "title": "About you",
+     "text": "Your Medicare number, name, mailing address, phone number and email."
+    },
+    {
+     "id": "g2_s2",
+     "drawing": "choice",
+     "sources": [
+      "cms_40b"
+     ],
+     "title": "Job coverage since 65",
+     "text": "Whether you have, or had, coverage through an employer or union group health plan since you turned 65."
+    },
+    {
+     "id": "g2_s3",
+     "drawing": "calendar",
+     "sources": [
+      "cms_40b"
+     ],
+     "title": "Dates",
+     "text": "The dates of that job and of that coverage, as month and year."
+    },
+    {
+     "id": "g2_s4",
+     "drawing": "check",
+     "sources": [
+      "cms_40b"
+     ],
+     "title": "Were you told to sign up",
+     "text": "Whether an employer, insurer or anyone else asked or required you to sign up for Part B."
+    },
+    {
+     "id": "g2_s5",
+     "drawing": "parts",
+     "sources": [
+      "ssa_part_b_how"
+     ],
+     "title": "Your start date",
+     "text": "The month you want Part B to start. Social Security asks you to write “I want Part B coverage to begin (MM/YY)” in the remarks."
+    },
+    {
+     "id": "g2_s6",
+     "drawing": "send",
+     "sources": [
+      "ssa_part_b"
+     ],
+     "title": "Sign and send",
+     "text": "Sign the form. Apply online at ssa.gov/medicare/sign-up/part-b-only when coverage from a job is ending, or fax or mail the forms to your local Social Security office."
+    }
+   ],
+   "after": [
+    "after_b_start",
+    "after_b_card",
+    "after_tell"
+   ]
+  },
+  {
+   "id": "phone",
+   "title": "Call Social Security",
+   "official": "ssa_signup",
+   "routes": [
+    "sign_up_a_and_b",
+    "add_part_b",
+    "add_part_a",
+    "confirm_with_social_security"
+   ],
+   "lead": [
+    {
+     "id": "g3_number",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Call 1-800-772-1213, Monday through Friday, 8 a.m. to 7 p.m. TTY: 1-800-325-0778."
+    }
+   ],
+   "ready": [
+    {
+     "id": "g3_ssn",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Your Social Security number, for Social Security only. Give it only on a call you made to this number."
+    },
+    {
+     "id": "g3_birthplace",
+     "sources": [
+      "ssa_signup"
+     ],
+     "text": "Where you were born, and the dates of any health plan from a job."
+    },
+    {
+     "id": "g3_pen",
+     "kind": "tip",
+     "sources": [],
+     "text": "A pen and paper."
+    }
+   ],
+   "steps_title": "What to say",
+   "steps": [
+    {
+     "id": "g3_s1",
+     "drawing": "phone",
+     "sources": [
+      "ssa_signup"
+     ],
+     "title": "Say why you’re calling",
+     "text": "“I want to sign up for Medicare Part A and Part B.”",
+     "variants": {
+      "add_part_a": "“I want to sign up for Medicare Part A only.”",
+      "add_part_b": "“I have Part A and I want to sign up for Part B.”",
+      "confirm_with_social_security": "“I’d like to check when I can sign up for Medicare and when it would start.”"
+     }
+    },
+    {
+     "id": "g3_s2",
+     "drawing": "calendar",
+     "kind": "tip",
+     "sources": [],
+     "title": "If they offer an appointment",
+     "text": "Ask whether it is by phone or at the office, and its date and time."
+    },
+    {
+     "id": "g3_s3",
+     "drawing": "choice",
+     "kind": "tip",
+     "sources": [],
+     "title": "Before you hang up",
+     "text": "Ask: “What happens next, and when will I hear?”"
+    }
+   ],
+   "write_down": [
+    {
+     "id": "g3_w1",
+     "kind": "tip",
+     "sources": [],
+     "text": "The date and time you called."
+    },
+    {
+     "id": "g3_w2",
+     "kind": "tip",
+     "sources": [],
+     "text": "The name of the person you spoke with."
+    },
+    {
+     "id": "g3_w3",
+     "kind": "tip",
+     "sources": [],
+     "text": "Any appointment date, and any application or confirmation number."
+    },
+    {
+     "id": "g3_w4",
+     "kind": "tip",
+     "sources": [],
+     "text": "What they said happens next."
+    }
+   ],
+   "after": [
+    "after_review",
+    "after_letter",
+    "after_card",
+    "after_tell"
+   ]
+  }
+ ],
+ "after": {
+  "after_review": {
+   "sources": [
+    "ssa_apply_online"
+   ],
+   "text": "Social Security reviews the application and contacts you if it needs anything else."
+  },
+  "after_letter": {
+   "sources": [
+    "ssa_apply_online"
+   ],
+   "text": "Social Security mails you a letter with its decision."
+  },
+  "after_status": {
+   "sources": [
+    "ssa_status"
+   ],
+   "text": "You can check the status in your my Social Security account, or by calling 1-800-772-1213."
+  },
+  "after_card": {
+   "sources": [
+    "medicare_welcome"
+   ],
+   "text": "About 2 weeks after you sign up, Medicare mails a welcome package with your Medicare card."
+  },
+  "after_b_start": {
+   "sources": [
+    "ssa_part_b"
+   ],
+   "text": "Part B generally starts the first day of the month after you sign up."
+  },
+  "after_b_card": {
+   "sources": [
+    "ssa_part_b_how"
+   ],
+   "text": "Once Social Security processes the application, a new Medicare card comes in the mail."
+  },
+  "after_tell": {
+   "kind": "tip",
+   "sources": [
+    "medicare_welcome_booklet"
+   ],
+   "text": "Your card shows which parts you have and when each starts. Tell me those dates and I’ll update your next step. Leave out the Medicare number."
+  }
+ },
+ "evidence": {
+  "ev_insulin_cap": {
+   "title": "Insulin: the $35 monthly limit",
+   "text": "A Medicare drug plan charges no more than $35 for a one-month supply of each insulin it covers, and the deductible doesn’t apply to insulin. The $35 limit is for covered insulin; other medicines follow the plan’s own costs.",
+   "sources": [
+    "medicare_insulin"
+   ],
+   "state": "owner_approved_2026-11-13_checked_against_source",
+   "match": [
+    [
+     "insulin|lantus|humalog|novolog|basaglar|tresiba|toujeo"
+    ]
+   ]
+  },
+  "ev_medigap_c_f": {
+   "title": "Medigap Plans C and F",
+   "text": "Plans C and F aren’t sold to people who became new to Medicare on or after January 1, 2020. Someone who already has Plan C or Plan F can keep it.",
+   "sources": [
+    "medigap_overview"
+   ],
+   "state": "owner_approved_2026-11-13_checked_against_source",
+   "match": [
+    [
+     "plan f\\b|plan c\\b"
+    ]
+   ]
+  },
+  "ev_medigap_g_n": {
+   "title": "Medigap Plan G and Plan N",
+   "text": "Plan G covers everything Medigap can cover except the yearly Part B deductible. Plan N covers what Plan G covers, except you pay up to $20 for some office visits, up to $50 for some emergency room visits, and any excess charges.",
+   "sources": [
+    "medigap_compare"
+   ],
+   "state": "plan-letter lines signed off 2026-11-12 (C27)",
+   "match": [
+    [
+     "plan g\\b|\\bg\\b"
+    ],
+    [
+     "plan n\\b|\\bn\\b|difference|compare|versus|\\bvs\\b|\\bor\\b"
+    ]
+   ]
+  }
+ }
+}

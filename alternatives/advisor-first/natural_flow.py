@@ -37,8 +37,11 @@ from datetime import datetime, timezone
 
 import cms_checklist
 import medigap_profile
+import conversation_planner
 import recommendation_engine
 import part_d_profile
+import ux_flow
+import enrollment_flow
 # Local additions only: never mutate the imported 41-question engine catalogs.
 Q = {**Q, **medigap_profile.CATALOG}
 FIELD = {**FIELD, **medigap_profile.FIELDS}
@@ -46,6 +49,7 @@ from comparison_service import ComparisonService
 from plan_review import PlanReviewService, readiness as plan_readiness, OPEN_STATES, input_digest as plans_input_digest
 from plans_context import rehydrate as plans_rehydrate, context_evidence as plans_evidence, public_binding as plans_binding
 from conversation_output import generated_conversation
+from pilot_knowledge import PilotKnowledge, held_deadline_claim
 from turn_contract import question_binding, working_assessment, outcome
 from contextual_capture import classify_situation
 from controller_diagnostics import unexpected_failure
@@ -88,6 +92,11 @@ LESSON_EDITORIAL_SENTENCES = {
     'enrollment_intro': ' Do not turn this general explanation into a personal start date, deadline, eligibility decision or permission to delay Part B.',
     'cobra_timing': ' Use actual Medicare enrollment status and the applicable official enrollment rules to establish a personal next step; do not calculate a personal deadline or effective date from the COBRA end alone.',
 }
+
+
+# Owner sign-off November 13, 2026 (first line); the second follows its wording for a failure that was not slow.
+TURN_TOO_LONG = 'That took too long, so I stopped. Your message is still here. Send again?'
+TURN_FAILED = 'Something went wrong on our side, so I stopped. Your message is still here. Send again?'
 
 
 def list_items(text, doctors=False):
@@ -142,6 +151,7 @@ class NaturalConversation(AdvisorConversation):
         # Later sets (pilot-rules-r2.json, …) load only once the owner has set
         # their review_state to owner_accepted_<date>; a pending draft is inert.
         self.rule_facts = {}
+        self.pilot_knowledge = PilotKnowledge()
         if not os.environ.get('DAYLIGHT_DISABLE_PILOT_RULES'):
             for rules_path in sorted(Path(__file__).parent.glob("pilot-rules*.json")):
                 document = json.loads(rules_path.read_text())
@@ -184,6 +194,9 @@ class NaturalConversation(AdvisorConversation):
         self.plans_service = None
         self._plans_context = ContextVar('plans_context', default=None)
         self.understanding = UnderstandingRegistry()
+        # D157: one additive profile field (the coverage path) and the
+        # visit-only say-once ledger.
+        ux_flow.register(self)
 
     def response(self, g, r, reply='', **extras):
         # Derived comparison data stays outside the two saved profile records.
@@ -195,7 +208,9 @@ class NaturalConversation(AdvisorConversation):
         if getattr(self, 'eval_recommendations', False):
             # D147: the reported details the evaluation-only sorting reads.
             out['recommendationInputs'] = recommendation_engine.inputs(g, r, out['medigapProfile'], out['partDProfile'])
-        return out
+        # D157: the recorded coverage path, what is left before a tab and the
+        # personal Medigap window travel with every response.
+        return ux_flow.status(self, out, g, r)
 
     def recent_exchanges(self, owner, task, policy):
         # v3 grants bounded visit continuity across topic changes. Older scoped
@@ -243,6 +258,9 @@ class NaturalConversation(AdvisorConversation):
                 raise ProfileError('A message is still processing. Try deleting after it finishes.', 409)
             self.revoked_owners[owner] = time.time() + VISIT_HISTORY_TTL
             self.memory.forget_owner(owner)
+            self.ux.forget_owner(owner)
+            if hasattr(self, 'discussion_visits'):
+                self.discussion_visits.clear(owner)
             for store in (self.plans_additions, self.last_floor):
                 for key in [key for key in store if key[0] == owner]:
                     store.pop(key, None)
@@ -336,10 +354,12 @@ class NaturalConversation(AdvisorConversation):
         return out
 
     def question(self, id, fields=None, entity='profile', text=None):
+        if conversation_planner.enabled(self) and id in conversation_planner.DISCUSSION_QUESTIONS:
+            return conversation_planner.question(id)
         if id in medigap_profile.FIELDS:
             return medigap_profile.question(id)
         if id in {'orientation','S_AGE65','S_RETIREMENT'}:
-            wording={'orientation':'Where are you with Medicare so far?', 'S_AGE65':'What month and year will you turn 65, and does your birthday fall on the first of that month?',
+            wording={'orientation':'Where are you with Medicare so far?', 'S_AGE65':'What month and year do you turn 65?',
                      'S_RETIREMENT':'Are you retired, planning to retire, or still working?'}[id]
             return {'id':id, 'entity':'profile', 'question':text or wording,
                     'why':'', 'fields':[], 'choices':[], 'multi':False,
@@ -416,7 +436,7 @@ class NaturalConversation(AdvisorConversation):
 
     def part_d_questions(self, guide, record):
         # Reuse existing meanings for the drug-price task; no second intake.
-        if metadata(record)['task'] != 'drug_pricing':
+        if conversation_planner.enabled(self) or metadata(record)['task'] != 'drug_pricing':
             return []
         view = part_d_profile.profile(guide, record)
         missing = [key for key in view['missing'] if key not in view['held']]
@@ -436,12 +456,12 @@ class NaturalConversation(AdvisorConversation):
                 question['fields'][0].update(type='select', options=[[x[0], x[1]+', '+x[2]] for x in choices])
         elif identifier == 'RC03':
             question['question'] = 'Which coverage year should we use for Part D plans?'
-            question['why'] = 'Plans and their costs can change each year. This pilot has 2026 plan information.'
+            question['why'] = 'Plans and their costs can change each year. Daylight has 2026 plans.'
         return [{'id': identifier, 'question': question, 'topic': 'drugs', 'priority': 0, 'required': False,
                  'purpose': 'Ask only this missing detail to locate dated Part D plan information. Reuse reported facts and explain why. Published premiums do not establish personal prescription costs.'}]
 
     def medigap_questions(self, guide, record):
-        if metadata(record)['task'] != 'medigap':
+        if conversation_planner.enabled(self) or metadata(record)['task'] != 'medigap':
             return []
         view = medigap_profile.profile(guide)
         if view['status'] == 'unsupported':
@@ -624,6 +644,11 @@ class NaturalConversation(AdvisorConversation):
         pending = self.pending_for(owner)
         targets = ([pending['update'], *pending.get('remaining', [])] if pending else [])
         for update in updates:
+            if update.get('entity') in ('new', ''):
+                # A report about a list entry that does not exist yet is held as a question about the
+                # list. Held as 'new' it became a question no target can name, the whole turn failed and
+                # the medicine list was lost (profiles PP07 and PP14, November 13, 2026).
+                update = {**update, 'entity': 'profile'}
             if not any(self.matches_pending({'update':target}, update)
                        and self.matches_pending({'update':update}, target) for target in targets):
                 targets.append(copy.deepcopy(update))
@@ -725,8 +750,40 @@ class NaturalConversation(AdvisorConversation):
         provider_text = (self.value(guide, 'needs.providers')
             if identifier == 'RC21' and not retired else None)
         previous_offices = copy.deepcopy(record['facts'].get('RC21', {}).get('value', {}).get('items', []))
+        medicine_text = (self.value(guide, 'needs.medications')
+            if identifier == 'RC22' and not retired else None)
+        previous_medicines = copy.deepcopy(record['facts'].get('RC22', {}).get('value', {}).get('items', []))
+        def names_item(name, item):
+            return bool(name and re.search(r'(?<!\w)' + re.escape(name) + r'(?!\w)', item, re.I))
+        if medicine_text and update.get('entity') in (None, '', 'new', 'profile'):
+            # A newly detailed medicine may already occupy a slot in T07.
+            # Bind only an unambiguous named entry; do not attach its strength
+            # to the first, still-unresolved medicine merely because RC22 is empty.
+            name = update.get('fields', {}).get('name', '')
+            matches = [i for i, item in enumerate(list_items(medicine_text), 1) if names_item(name, item)]
+            if len(matches) == 1:
+                entity = 'medicine-' + str(matches[0])
+                occupied = next((item for item in previous_medicines if item.get('entity') == entity), None)
+                if not occupied:
+                    update = {**update, 'entity': entity}
         try:
             result = super().apply(guide, record, update, source)
+            if isinstance(medicine_text, str) and medicine_text:
+                items = list_items(medicine_text)
+                if update.get('correction'):
+                    old = next((item.get('name') for item in previous_medicines
+                                if item.get('entity') == update.get('entity')), None)
+                    new = update.get('fields', {}).get('name')
+                    matches = [i for i, item in enumerate(items) if names_item(old, item)]
+                    if new and len(matches) == 1 and old.casefold() != new.casefold():
+                        items[matches[0]] = new
+                projection = self.value(guide, 'needs.medications') or ''
+                for name in list_items(projection):
+                    if not any(names_item(name, item) for item in items):
+                        items.append(name)
+                retained = '; '.join(items)
+                if retained != projection:
+                    self.put(guide, 'needs.medications', retained, source)
             if isinstance(provider_text, str) and provider_text:
                 # RC21 owns office detail. Its practice-only convenience
                 # projection must not erase the independently reported T06
@@ -774,7 +831,12 @@ class NaturalConversation(AdvisorConversation):
         else:ids+=['basics','parts','routesintro']
         return list(dict.fromkeys(id for id in ids if id in self.facts))[:3]
 
-    def eligible(self, owner, g, r, *, allow_orientation=False, answer_only=False, facts=(), priority_changed=False):
+    def eligible(self, owner, g, r, **options):
+        """D157: the dependency engine proposes; ux_flow.refine drops questions whose
+        answer changes nothing the person sees and orders the rest toward their plans."""
+        return ux_flow.refine(self, owner, g, r, self._eligible(owner, g, r, **options))
+
+    def _eligible(self, owner, g, r, *, allow_orientation=False, answer_only=False, facts=(), priority_changed=False):
         """Consequential question candidates, never exclusive speech actions.
 
         The advisor may answer/teach with any candidate or stay with the current
@@ -808,6 +870,9 @@ class NaturalConversation(AdvisorConversation):
             if not question or any(item['question']['id'] == question['id'] for item in candidates):
                 return
             identifier = question['id']
+            if (getattr(self,'conversation_checks',None) and not metadata(r).get('editing')
+                    and identifier in self.conversation_checks.answered_locally(owner,g,r)):
+                return
             if identifier == 'T04' and current_medicare and not metadata(r).get('editing'):
                 return
             question = self.contextual_question(g,r,question)
@@ -961,11 +1026,13 @@ class NaturalConversation(AdvisorConversation):
                 'purpose': 'The Medigap tab automatically shows dated source prices when these reported details are complete. This is not eligibility or a guaranteed quote. Never invent rates.'}
         if policy == CONTEXT_POLICY:
             context['plans_pages'] = self.plans_pages(g, r)
+            if getattr(self, 'conversation_checks', None):
+                context['conversation_checks'] = self.conversation_checks.context()
         return context
 
     PLANS_PAGE_LABELS = {'RC01': 'who the coverage is for', 'T03': 'home ZIP code', 'RC02': 'county',
-                         'RC03': 'coverage year', 'MG_AGE': 'age', 'MG_SEX': 'sex category used by the price source',
-                         'MG_TOBACCO': 'tobacco category'}
+                         'RC03': 'coverage year', 'MG_AGE': 'age', 'MG_SEX': 'sex (Female or Male)',
+                         'MG_TOBACCO': 'tobacco use'}
 
     def plans_pages(self, g, r):
         """D138: what the Plans page can show for this profile right now.
@@ -980,7 +1047,7 @@ class NaturalConversation(AdvisorConversation):
         return {
             'medigap': page(medigap_profile.profile(g), 'Medicare Supplement (Medigap)',
                             'listed Medigap premiums for the reported ZIP, age, sex category and tobacco category; '
-                            'pilot list covers ages 65–74 (age 64 is shown age-65 prices) in ZIPs 34101–34108, dated November 10, 2026'),
+                            'the list covers ages 65–74 (age 64 is shown age-65 prices) in ZIPs 34101–34108, dated November 10, 2026'),
             'part_d': page(part_d_profile.profile(g, r), 'Part D drug plans',
                            'published 2026 stand-alone Part D plans for Collier County with premiums and deductibles'),
             'purpose': ('What the Plans page can show for this person right now. ready: that tab is showing the '
@@ -1381,7 +1448,13 @@ class NaturalConversation(AdvisorConversation):
     def compose_response(self, owner, out, message, moves, policy, request_id, reservation, previous_dialogue=None,
                          submitted_answer=None, goal=None, priority_changed=False, accepted_reports=(), resolved_changes=(),
                          education_request=None, learner_observations=(), capture_outcomes=(), answer_context=None):
+        if policy == CONTEXT_POLICY:
+            # D157: intent and an explicit path choice are read from the person's
+            # own words before the reply is composed; the order follows.
+            ux_flow.note_message(self, owner, out['guide'], message, submitted_answer, out['record'])
+            moves = ux_flow.refine(self, owner, out['guide'], out['record'], moves)
         learning = self.memory.education(owner, self.current_chain.get(owner), policy)
+        retrieval_started = time.monotonic()
         # Only current explicit explanation requests can authorize a revisit.
         # Generic evidence made available below and an ordinary button answer
         # do not constitute such a request.
@@ -1408,6 +1481,8 @@ class NaturalConversation(AdvisorConversation):
             r"(?:i'm|i am|we're|we are) done|enough for (?:now|today)|let's stop|leave it (?:here|there)|talk (?:later|tomorrow)|"
             r"come back (?:later|tomorrow|another (?:day|time))|good(?:bye|night)|bye for now|don't ask (?:me )?(?:any ?more|another)|"
             r"no (?:more|further) questions)\b", message))
+        if conversation_planner.enabled(self) and conversation_planner.state(self, owner).get('finish_requested'):
+            pause_allowed = True
         observations = learner_state.observations(learner_observations, message) if policy == CONTEXT_POLICY else []
         learner = learner_state.merge(self.memory.learner(owner, self.current_chain.get(owner), policy), observations)
         open_concepts = [item['concept_id'] for item in learner['observations']
@@ -1435,6 +1510,8 @@ class NaturalConversation(AdvisorConversation):
                 lambda identifier: self.report(out['record'], identifier),
                 lambda path: self.value(out['guide'], path),
                 focus=decision.get('practical_focus', ''), concern=concern,
+                trial_at_first_eligibility=(enrollment_flow.trial_at_first_eligibility(
+                    self, out['guide'], out['record']) if enrollment_flow.enabled(self) else None),
                 plans_view=bool(self._plans_context.get()))
             rules = []
             for rule in selected_rules:
@@ -1465,11 +1542,40 @@ class NaturalConversation(AdvisorConversation):
                 moves.insert(0, {'id': identifier, 'question': ask, 'topic': QUESTION_TOPICS.get(identifier, ''),
                                  'purpose': 'Acknowledge the Plans-page entries and ask whether there are others to include.',
                                  'priority': 0, 'required': False})
+        checks = getattr(self, 'conversation_checks', None)
+        if (checks and not pause_allowed and not stop_questions and not self.pending_for(owner)
+                and (not conversation_planner.enabled(self) or conversation_planner.checks_relevant(self, owner, out['guide']))):
+            check_view = checks.reconcile(owner, out['guide'], out['record'])
+            check_question = check_view.get('question')
+            if check_question:
+                identifier = ('RC21' if check_question['kind'] == 'doctor' else
+                              'RC22' if check_question['field'] == 'rxcui' else 'RC23')
+                question = self.question(identifier)
+                # Exact candidate labels and source values stay in the local UI.
+                question.update(question=check_question['question'], why=check_question['why'],
+                                entity=check_question.get('item') or 'profile')
+                moves = [{'id':identifier, 'question':question, 'topic':'doctors' if identifier=='RC21' else 'drugs',
+                          'purpose':'Clarify the one missing detail for the local check already underway in this conversation.',
+                          'priority':0, 'required':True}]
+                required_id, required_reason = identifier, 'current_conversation_check'
+        if policy == CONTEXT_POLICY:
+            if conversation_planner.enabled(self):
+                # The old guidance and check hooks may add candidates. Resolve
+                # the discussion once more before assigning the final target.
+                moves = conversation_planner.refine(self, owner, out['guide'], out['record'], moves)
+            required_id, required_reason = ux_flow.target(self, owner, out['guide'], out['record'], moves,
+                                                           required_id, required_reason)
         recovery_question = self.continuation_question(moves, pending_id)
         if recovery_question is None and required_id:
             recovery_question = copy.deepcopy(next(item['question'] for item in moves if item['id'] == required_id))
         context_question = recovery_question
         context = self.context(out['guide'], out['record'], policy, context_question)
+        if checks and policy == CONTEXT_POLICY:
+            state = checks.visits.get(owner,{})
+            context['conversation_checks']['current'] = {
+                'pending_detail': (state.get('question') or {}).get('field'),
+                'displayed_results': [r['kind'] for r in state.get('results',[])],
+                'deferred': bool(state.get('skipped'))}
         context['education_context'] = {
             'catalog': catalog_context(), 'learning': learning_context(learning),
             'requested_revisit': requested_revisit, 'revisit_concepts': revisit_concepts,
@@ -1539,7 +1645,26 @@ class NaturalConversation(AdvisorConversation):
         for identifier in list(dict.fromkeys(ids))[:8]:
             if identifier in self.facts:
                 evidence[identifier] = self.facts[identifier]
+        # D158: local, exact-reviewed general education. This never creates a
+        # report or an applicable rule, and leaves the pinned teaching intact.
+        if not os.environ.get('DAYLIGHT_DISABLE_PILOT_KNOWLEDGE'):
+            county = self.value(out['guide'], 'comparison.scope.county')
+            state = county.get('state') if isinstance(county, dict) else None
+            year_report = self.report(out['record'], 'RC03')
+            year = year_report.get('year') or 2026
+            for fact in self.pilot_knowledge.select(message, state=state, year=year):
+                evidence[fact['id']] = fact
+        if enrollment_flow.enabled(self):
+            for fact in enrollment_flow.extra_evidence(message):
+                evidence[fact['id']] = fact
         context['evidence'] = copy.deepcopy(list(evidence.values()))
+        timings = getattr(self.agent.local, 'stage_timings', {})
+        timings['evidence_retrieval'] = round((time.monotonic() - retrieval_started) * 1000)
+        self.agent.local.stage_timings = timings
+        knowledge_limits = self.pilot_knowledge.response_limits(message, context['evidence'])
+        if knowledge_limits:
+            context['knowledge_limits'] = knowledge_limits
+            out['knowledgeLimits'] = copy.deepcopy(knowledge_limits)
         pending = self.pending_for(owner)
         context['uncertainties'] = [{'id': pending['update']['id'], 'status': 'needs_clarification'}] if pending else []
         if pending:
@@ -1568,6 +1693,10 @@ class NaturalConversation(AdvisorConversation):
         context['task_work'] = task_work_context(context, work_before)
         if policy == CONTEXT_POLICY:
             context['working_assessment'] = working_assessment(context, capture_outcomes, answer_context)
+            # Codes only (which report, accepted or not, and why), for the per-turn trace.
+            out.setdefault('metrics', {})['capture'] = [
+                {key: item.get(key) for key in ('target', 'status', 'reason') if item.get(key) is not None}
+                for item in capture_outcomes if isinstance(item, dict)][:24]
             readiness = plan_readiness(out['guide'], out['record'], pending=self.pending_for(owner))
             # Status and meanings only; this adds no personal model values.
             context['plan_review'] = {'can_offer_review': readiness['canReview'],
@@ -1590,8 +1719,17 @@ class NaturalConversation(AdvisorConversation):
             context['evidence'].extend(plans_evidence(plans_context))
         out['assessment']['conversationOpen'] = True
         out['assessment']['intakePaused'] = False
+        if policy == CONTEXT_POLICY:
+            ux_flow.brief(self, owner, out['guide'], out['record'], context, moves, message=message)
         try:
             composed = self.agent.compose(owner, context, moves, request_id, reservation)
+            knowledge_receipts = {identifier: evidence[identifier]['knowledge_digest']
+                for identifier in composed['evidence_refs']
+                if identifier in evidence and evidence[identifier].get('knowledge_digest')}
+            if not self.pilot_knowledge.current(knowledge_receipts):
+                raise ModelUnavailable('The supporting source needs to be checked again.')
+            if knowledge_receipts:
+                out['knowledgeReceipts'] = knowledge_receipts
             if stop_questions:
                 composed = copy.deepcopy(composed)
                 composed.update(question_target=None, question='', education_followups=[])
@@ -1767,6 +1905,10 @@ class NaturalConversation(AdvisorConversation):
         stage = reservation.stage('compose') if reservation else None
         out['metrics']['llmCalls'] += stage.attempts if stage else 0
         out['metrics']['stageMs'] = copy.deepcopy(getattr(self.agent.local, 'stage_timings', {}))
+        if policy == CONTEXT_POLICY:
+            # D157: tidy the reply, attach code-built cards, record what was said.
+            ux_flow.finish(self, owner, out, message, moves, rules=rules, required_reason=required_reason,
+                           accepted_reports=accepted_reports, submitted_answer=submitted_answer)
         return out
 
     def message(self, owner, payload, g, r):
@@ -1832,6 +1974,12 @@ class NaturalConversation(AdvisorConversation):
                 result = {'updates': [], 'requests': [], 'fact_ids': []}
             elif not self.fixture:
                 context = self.context(g, r, policy, current)
+                if conversation_planner.enabled(self) and policy == CONTEXT_POLICY:
+                    context['discussion_enabled'] = True
+                    context['discussion_instructions'] = conversation_planner.INTERPRETATION
+                    prior = conversation_planner.state(self, owner)
+                    context['discussion_context'] = {key: copy.deepcopy(prior[key])
+                        for key in ('purpose', 'focus', 'exploring', 'investigate', 'decision')}
                 if self._plans_context.get():
                     pc = self._plans_context.get()
                     context['plans_view'] = {k: copy.deepcopy(pc[k]) for k in
@@ -1874,7 +2022,7 @@ class NaturalConversation(AdvisorConversation):
                 wanted = self.named_plan_task(message)
             if wanted == 'drug_pricing' and m['task'] == 'medigap' and self.medigap_questions(g, r):
                 wanted = None  # Finish the Medigap details first; they also locate the Part D plans.
-            if wanted:
+            if wanted and not conversation_planner.enabled(self):
                 m['task'], m['preparing'] = wanted, True
             m['checks'] = sorted(set(m['checks']) | {x['id'] for x in result.get('requests', []) if x['id']!='coverage_change' or re.search(r'(?i)\bjoin|drop|cancel|switch|replace',x['quote'])})
             pending_goal = self.pending_for(owner)
@@ -1895,12 +2043,27 @@ class NaturalConversation(AdvisorConversation):
                 updates.append(u)
             if policy == CONTEXT_POLICY:
                 updates.extend(self.direct_choices(message, current, updates))
+                if enrollment_flow.enabled(self):
+                    negatives = enrollment_flow.explicit_parts(message, self.value(g, 'subject.role'))
+                    if negatives:
+                        states = tuple((negatives.get(p) or self.value(g, enrollment_flow.PART_FIELDS[p]) or {}).get('status') for p in ('A', 'B'))
+                        explicit_choice = {('active', 'not_enrolled'): 'a_only', ('not_enrolled', 'active'): 'b_only',
+                                           ('not_enrolled', 'not_enrolled'): 'neither'}.get(states)
+                        updates = [u for u in updates if u.get('id') != 'RC04']
+                        updates.append({'id': 'RC04', 'entity': 'profile', 'fields': {'choice': explicit_choice or 'unknown'},
+                            'quote': message[:600], 'scope': 'current', 'subject': 'beneficiary',
+                            'uncertain': False, 'correction': True, 'direct_choice': True})
                 part_only = self.part_a_coverage_answer(message, current, updates, r)
                 if part_only is not None:
                     updates.append(part_only)
                 part_status = self.part_status_report(message, updates, r)
                 if part_status is not None and (self.value(g, 'subject.role') == 'self' or any(u.get('id') == 'RC01' and u.get('fields', {}).get('choice') == 'self' for u in updates)):
                     updates.append(part_status)
+                elif part_status is None and enrollment_flow.enabled(self):
+                    # D161: "I applied" also answers which parts the person has, so it is not asked again.
+                    reported_parts = enrollment_flow.parts_answer(self, g, r, message, updates)
+                    if reported_parts is not None:
+                        updates.append(reported_parts)
             # Dependencies first, independent of extraction order.
             updates.sort(key=lambda u:0 if u['id'] == 'RC01' else 1 if u['id'] in FIELD else 2)
             # Multiple positive priorities in one message are coequal answers
@@ -2089,6 +2252,8 @@ class NaturalConversation(AdvisorConversation):
                 self.pending_for(owner)['revision'] = [g['stateVersion'], r['stateVersion']]
             sync_agenda(g,r)
             if policy==CONTEXT_POLICY:apply_agenda_reports(g,r,message,result.get('agenda'),accepted_updates)
+            if conversation_planner.enabled(self):
+                conversation_planner.observe(self, owner, g, r, message, result, current)
             priority_changed=bool(priorities_before and any(x['id']=='T10' for x in accepted_updates)
                 and priorities_before.get('value')!=g['fields'].get('needs.priorities',{}).get('value'))
             moves = self.eligible(owner, g, r, facts=facts, priority_changed=priority_changed)
@@ -2110,7 +2275,7 @@ class NaturalConversation(AdvisorConversation):
             with self.lock:
                 key = (owner, payload['requestId'])
                 self.turn_journal[key] = {'signature':hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest(),
-                                         'response':copy.deepcopy(out), 'expires':time.time()+3600, 'stage':'resolved'}
+                                         'response':copy.deepcopy(out), 'expires':time.time()+VISIT_HISTORY_TTL, 'stage':'resolved'}
                 self.state_heads[(owner,self.current_chain[owner])] = out['continuation']
             if self.fixture:
                 out['reply'] = 'Synthetic conversation: the supplied reports are captured.'
@@ -2150,7 +2315,10 @@ class NaturalConversation(AdvisorConversation):
             self.remember_exchange(owner, message, out, policy, payload['requestId'])
             return out
         finally:
-            if reservation:reservation.close()
+            if reservation:
+                reservation.close()
+                if 'out' in locals() and self.turn_trace_enabled():
+                    out.setdefault('metrics', {})['settledUsage'] = reservation.trace_usage()
 
     AFFIRMATIVE = re.compile(
         r"(?i)^(?:yes|yep|yeah|yup|correct|right|exactly|that(?:'|\u2019)?s (?:right|correct|it|all|everything|the (?:complete |whole |full )?list)|"
@@ -2209,6 +2377,66 @@ class NaturalConversation(AdvisorConversation):
             return None
         return kind, copy.deepcopy(target['proposed'])
 
+    def turn_trace_enabled(self):
+        return bool(getattr(self, 'turn_trace', None))
+
+    def trace_turn(self, owner, chain, action, out, started, failure=None):
+        """One line per turn on the local demo: codes, times and counts, never a person's words.
+
+        Three causes in the 15-profile evaluation (November 13, 2026) could not be confirmed because
+        the only record was the Terminal window. Off unless the demo server turns it on."""
+        if not self.turn_trace_enabled():
+            return
+        try:
+            metrics = (out or {}).get('metrics') or {}
+            generated = (out or {}).get('generated') or {}
+            question = ((out or {}).get('assessment') or {}).get('nextQuestion') or {}
+            line = {'at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                    'visit': hashlib.sha256((str(owner) + ':' + str(chain)).encode()).hexdigest()[:10],
+                    'action': action.get('type'), 'ms': round((time.monotonic() - started) * 1000),
+                    'stage_ms': metrics.get('stageMs'), 'calls': metrics.get('llmCalls'),
+                    'settled_usage': metrics.get('settledUsage'),
+                    'finish': ((out or {}).get('enrollment') or {}).get('record', {}).get('finish'),
+                    'generated': generated.get('status'), 'code': generated.get('code'),
+                    'recovery': (generated.get('validation_recovery') or {}).get('reason'),
+                    'capture': metrics.get('capture'), 'ux': metrics.get('ux'),
+                    'question': question.get('id'), 'local_check': bool(question.get('localCheck')),
+                    'cards': [card.get('kind') for card in (out or {}).get('cards') or []],
+                    'reply_chars': len((out or {}).get('reply') or ''), 'notice': bool((out or {}).get('notice'))}
+            if failure:
+                line['failure'] = {key: failure.get(key) for key in ('code', 'type', 'locations')}
+            path = Path(self.turn_trace)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with open(path, 'a', encoding='utf-8') as handle:
+                handle.write(json.dumps(line, sort_keys=True) + '\n')
+        except Exception:
+            LOGGER.warning('Daylight turn trace skipped')
+
+    def park_passed_question(self, owner, chain, out):
+        """One question never owns the conversation: shown once, shown once more, then parked.
+
+        In fifteen live runs (November 13, 2026) 56 of 100 turns ended on the same doctor or
+        medicine question. A parked question is no longer a candidate; a held confirmation
+        behind it is dropped, so the next useful question can be asked."""
+        try:
+            question = out['assessment'].get('nextQuestion')
+            if not question or question.get('localCheck'):
+                return
+            key = ux_flow.question_key(question)
+            # Who the coverage is for and the ZIP code open everything else, so they are never parked.
+            if key.split('|')[0] in ('RC01', 'T03') or self.ux.shown_question(owner, chain, key) <= 2:
+                return
+            self.ux.park(owner, chain, key)
+            pending = self.pending_for(owner)
+            if pending and ux_flow.question_key({'id': pending['update']['id'], 'entity': pending['update'].get('entity')}) == key:
+                self.clear_pending(owner)
+            choices = [item for item in self.eligible(owner, out['guide'], out['record'])
+                       if ux_flow.question_key(item.get('question') or item) != key]
+            out['assessment']['nextQuestion'] = copy.deepcopy(choices[0]['question']) if choices else None
+            out.setdefault('metrics', {}).setdefault('ux', {})['question_parked'] = key
+        except Exception:
+            LOGGER.warning('Daylight question budget skipped', exc_info=True)
+
     def direct_disposition(self, owner, payload, g, r):
         """An exact unknown/defer needs neither transfer nor another model call."""
         if set(payload['action'])!={'type','message'} or not isinstance(payload['action'].get('message'),str):return None
@@ -2225,6 +2453,8 @@ class NaturalConversation(AdvisorConversation):
         orientation=ensure_state(r)['dialogue']['orientation']=='progress'
         target=pending['update'] if pending else None
         current=self.question(target['id'], [key for key in target['fields'] if key!='choice'] or None, target.get('entity','profile')) if pending else self.question('T02') if orientation else self.assess(g,r)['nextQuestion']
+        if conversation_planner.enabled(self) and not pending and presentation is not None:
+            current = presentation.get('nextQuestion')
         if not current:return None
         if current['id'] in Q and pending:
             state='unknown' if kind=='unknown' else 'deferred'
@@ -2250,6 +2480,8 @@ class NaturalConversation(AdvisorConversation):
         if self.pending_for(owner):
             self.pending_for(owner)['revision']=[out['guide']['stateVersion'],out['record']['stateVersion']]
             out['assessment']['nextQuestion']=self.eligible(owner,out['guide'],out['record'])[0]['question']
+        if conversation_planner.enabled(self):
+            conversation_planner.action_done(self, owner, out, {'type': kind, 'id': current['id']})
         set_target(out['record'],out['assessment'].get('nextQuestion'))
         return out
 
@@ -2291,6 +2523,8 @@ class NaturalConversation(AdvisorConversation):
 
     def compose_choice(self,owner,payload,out,before_g,before_r):
         """A deliberate finite answer uses resolution + one composition only."""
+        if conversation_planner.enabled(self):
+            conversation_planner.action_done(self, owner, out, payload['action'])
         if (self.fixture or payload.get('aiConsent') is not True
                 or payload.get('contextPolicy')!=CONTEXT_POLICY):return out
         action=payload['action'];identifier=action.get('id','')
@@ -2330,7 +2564,10 @@ class NaturalConversation(AdvisorConversation):
             out['assessment']['intakePaused']=bool(not moves and self.assess(out['guide'],out['record']).get('nextQuestion'))
             out['assessment']['conversationOpen']=metadata(out['record'])['task']=='learn'
         finally:
-            if reservation:reservation.close()
+            if reservation:
+                reservation.close()
+                if self.turn_trace_enabled():
+                    out.setdefault('metrics', {})['settledUsage'] = reservation.trace_usage()
         set_target(out['record'],out['assessment'].get('nextQuestion'))
         if self.pending_for(owner):
             self.pending_for(owner)['revision']=[out['guide']['stateVersion'],out['record']['stateVersion']]
@@ -2341,6 +2578,21 @@ class NaturalConversation(AdvisorConversation):
     def replay_response(self, owner, response):
         """Recheck derived authority without another interpretation/composition."""
         cached = copy.deepcopy(response)
+        held_deadline = held_deadline_claim(cached.get('reply', ''),
+            {**self.pilot_knowledge.response_limits(), **cached.get('knowledgeLimits', {})})
+        if held_deadline or not self.pilot_knowledge.current(cached.get('knowledgeReceipts', {})):
+            # Keep the approved next question and entered reports. Withdraw the
+            # stale prose, using the already-reviewed foundation as the floor.
+            fact = self.facts['basics']
+            cached['reply'] = fact['summary']
+            cached['facts'] = []
+            cached['advisor'] = {'reason': 'recovery', 'visual': 'none',
+                'teachingFactIds': [], 'educationFollowups': [],
+                'sources': [{'url': fact['source'], 'label': fact['title']}]}
+            cached['generated'] = {'status': 'unavailable', 'retryable': False,
+                                   'code': 'knowledge_claim_held' if held_deadline else 'knowledge_source_stale'}
+            cached['notice'] = 'The source for the earlier answer needs rechecking.'
+            cached.pop('knowledgeReceipts', None)
         continuation = cached.get('continuation')
         chain = continuation.split('.')[0] if continuation else None
         historical = bool(continuation and (
@@ -2350,6 +2602,17 @@ class NaturalConversation(AdvisorConversation):
             self.comparisons.attach(cached, historical=historical, replay=True))
         cached['planReadiness'] = plan_readiness(cached['guide'], cached['record'],
                                                pending=None if historical else self.pending_for(owner))
+        if getattr(self, 'conversation_checks', None):
+            if historical:
+                cached.pop('conversationCheck', None)
+                cached.pop('closingResearch', None)
+            else:
+                self.conversation_checks.attach(owner,cached,
+                    show_question=not cached.get('review') and not metadata(cached['record']).get('editing')
+                    and not cached.get('conversationCheck',{}).get('paused'))
+                if hasattr(self, 'closing_price_read'):
+                    import closing_options
+                    closing_options.attach(self, cached)
         if cached.get('plansContext'):
             binding = cached['plansContext']
             try:
@@ -2513,6 +2776,7 @@ class NaturalConversation(AdvisorConversation):
         if not isinstance(payload, dict) or set(payload) - allowed or not re.fullmatch(r'[A-Za-z0-9-]{10,80}', str(payload.get('requestId', ''))):
             raise ProfileError('Use a current conversation request.')
         key = (owner, payload['requestId'])
+        turn_started = time.monotonic()
         signature = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
         with self.lock:
             self.revoked_owners = {key: expiry for key, expiry in self.revoked_owners.items() if expiry > time.time()}
@@ -2566,17 +2830,50 @@ class NaturalConversation(AdvisorConversation):
                     raise ProfileError('Resume the current conversation before continuing. Your reports are preserved.',409)
                 chain=secrets.token_hex(16)
             self.current_chain[owner]=chain
+            checks = getattr(self, 'conversation_checks', None)
             if self._plans_context.get() and payload['plansContext']['reviewToken'] is not None:
                 # Rebind inside the active-turn boundary. A valid receipt from
                 # another same-owner visit cannot accompany this conversation.
                 self.plan_reviews.resolve(payload['plansContext']['reviewToken'], owner, chain, g, r,
                     plan_readiness(g, r, pending=self.pending_for(owner)))
+            if checks:
+                checks.observe(owner, g, r, action,self._plans_context.get())
             presentation = self.current_presentation(owner, binding)
             if action.get('type') == 'start':
                 self.memory.clear(owner, chain)
+                if hasattr(self, 'discussion_visits'):
+                    self.discussion_visits.clear(owner)
             if action.get('type') in {'run_preparation','accept_review','discard_review'} and self.action_chains.get(action.get('token')) != (owner,chain):
                 raise ProfileError('This authorization belongs to an earlier conversation. Review the current action again.',409)
-            if action.get('type') in {'review_plans', 'confirm_plan_review', 'get_plan_handoff', 'cancel_plan_review'}:
+            if action.get('type') == 'check_back':
+                if not checks or not binding or set(action) != {'type'}:
+                    raise ProfileError('Use the current conversation check.',422)
+                checks.back(owner,g,r)
+                out = self.response(g,r)
+                out['advisor'] = {'reason':'tool_result', 'sources':[], 'visual':'none'}
+                out['metrics'] = {'llmCalls':0,'synthetic':self.fixture}
+            elif action.get('type') == 'check_edit':
+                if not checks or not binding or set(action) != {'type','key','field'}:
+                    raise ProfileError('Use the current conversation check.',422)
+                checks.edit(owner,g,r,action['key'],action['field'])
+                out = self.response(g,r)
+                out['advisor'] = {'reason':'tool_result', 'sources':[], 'visual':'none'}
+                out['metrics'] = {'llmCalls':0,'synthetic':self.fixture}
+            elif action.get('type') == 'check_answer':
+                if not checks or not binding or set(action) != {'type','token','value'}:
+                    raise ProfileError('Use the current conversation question.',422)
+                checks.answer(owner,g,r,action['token'],action['value'])
+                out = self.response(g,r)
+                out['advisor'] = {'reason':'tool_result', 'sources':[], 'visual':'none'}
+                out['metrics'] = {'llmCalls':0,'synthetic':self.fixture}
+            elif (checks and action.get('type') == 'message' and binding
+                  and (not conversation_planner.enabled(self) or conversation_planner.checks_relevant(self, owner, g))
+                  and (not conversation_planner.enabled(self) or not conversation_planner.conservative_request(action.get('message', ''))['question_quote'])
+                  and checks.text_answer(owner,g,r,action.get('message',''))):
+                out = self.response(g,r,'Thanks, I have that.')
+                out['advisor'] = {'reason':'tool_result', 'sources':[], 'visual':'none'}
+                out['metrics'] = {'llmCalls':0,'synthetic':self.fixture}
+            elif action.get('type') in {'review_plans', 'confirm_plan_review', 'get_plan_handoff', 'cancel_plan_review'}:
                 kind = action['type']
                 expected = {'type'} if kind == 'review_plans' else {'type', 'token'}
                 if set(action) != expected:
@@ -2639,6 +2936,17 @@ class NaturalConversation(AdvisorConversation):
                 out = self.response(g, r)
                 self.retain_presentation(out, presentation)
                 out['beforeEnroll'] = step
+            elif action.get('type') == 'enrollment_decision':
+                # D161: a tapped dashboard decision (not needed, keep what I
+                # have, decide later, done). No model call. A tab never comes here.
+                try:
+                    enrollment_flow.decide(self, g, action, r)
+                except ValueError as error:
+                    raise ProfileError(str(error)) from None
+                out = self.response(g, r)
+                self.retain_presentation(out, presentation)
+                if conversation_planner.enabled(self):
+                    conversation_planner.action_done(self, owner, out, action)
             elif action.get('type') == 'read_concept':
                 # Older clients can still open sources without receiving a
                 # prepared lesson or recording undelivered teaching.
@@ -2739,9 +3047,17 @@ class NaturalConversation(AdvisorConversation):
                     if choice in {'learn', 'compare', 'review'}:
                         out['openingChoice'] = choice
                         if choice == 'learn' and not out['assessment'].get('nextQuestion'):
-                            question = self.question('T02')
-                            out['assessment']['nextQuestion'] = question
-                            set_target(out['record'], question, orientation='familiarity')
+                            if ux_flow.disabled():
+                                question = self.question('T02')
+                                out['assessment']['nextQuestion'] = question
+                                set_target(out['record'], question, orientation='familiarity')
+                            else:
+                                # D157 (CV-01): no familiarity warm-up. The reviewed opening
+                                # text teaches; the first real question follows it.
+                                first = self.eligible(owner, out['guide'], out['record'])
+                                if first:
+                                    out['assessment']['nextQuestion'] = copy.deepcopy(first[0]['question'])
+                                    set_target(out['record'], out['assessment']['nextQuestion'])
                 if action.get('type') in {'choice','stage','unknown','defer'}:
                     out=self.compose_choice(owner,payload,out,g,r)
             self.comparisons.attach(out)
@@ -2764,6 +3080,12 @@ class NaturalConversation(AdvisorConversation):
             out['planReadiness'] = plan_readiness(out['guide'], out['record'], pending=self.pending_for(owner))
             out['medigapProfile'] = medigap_profile.profile(out['guide'])
             out['partDProfile'] = part_d_profile.profile(out['guide'], out['record'])
+            if enrollment_flow.enabled(self):
+                # D161: every response carries the enrollment view, whichever path
+                # built it (a tapped answer, a model reply, a silent decision), so
+                # the status line and the two-path dashboard never depend on the
+                # kind of turn that came before.
+                out['enrollment'] = enrollment_flow.view(self, out['guide'], out['record'])
             if getattr(self, 'eval_recommendations', False):
                 out['recommendationInputs'] = recommendation_engine.inputs(
                     out['guide'], out['record'], out['medigapProfile'], out['partDProfile'])
@@ -2772,6 +3094,37 @@ class NaturalConversation(AdvisorConversation):
                 # items, from delivered reviewed teaching only. Reading visit
                 # memory under any other policy would clear it, so do not.
                 out['cmsChecklist'] = cms_checklist.receipt(self.facts, self.memory.education(owner, chain, CONTEXT_POLICY))
+            evidence_started = time.monotonic()
+            if checks:
+                pause = bool(out['assessment'].get('intakePaused') or re.fullmatch(
+                    r'(?:please\s+)?(?:pause|stop|no more questions|goodbye)[.!]?', action.get('message','').strip(), re.I))
+                continuing_check = action.get('type') in {'check_answer', 'check_back', 'check_edit'}
+                checks.attach(owner,out,show_question=not pause and not out.get('review') and not out.get('preparation')
+                              and (continuing_check or not conversation_planner.enabled(self)
+                                   or conversation_planner.checks_relevant(self, owner, out['guide']))
+                              and not metadata(out['record']).get('editing'),
+                              count=action.get('type') == 'message')
+                if pause:
+                    out['conversationCheck']['question'] = None
+            if hasattr(self, 'closing_price_read'):
+                import closing_options
+                closing_options.attach(self, out)
+            if self.turn_trace_enabled() and (checks or hasattr(self, 'closing_price_read')):
+                out.setdefault('metrics', {}).setdefault('stageMs', {})['local_evidence'] = round(
+                    (time.monotonic() - evidence_started) * 1000)
+            if action.get('type') == 'message' and enrollment_flow.enabled(self) and not ux_flow.disabled() and not conversation_planner.enabled(self):
+                self.park_passed_question(owner, chain, out)
+            if conversation_planner.enabled(self):
+                if action.get('type') == 'task':
+                    conversation_planner.action_done(self, owner, out, action)
+                conversation_planner.attach(self, owner, out)
+            if (action.get('type') == 'message' and not str(out.get('reply') or '').strip()
+                    and not out.get('cards') and not out.get('notice') and not out.get('review')
+                    and not out['assessment'].get('nextQuestion')
+                    and not (out.get('conversationCheck') or {}).get('results')):
+                # A typed message never meets silence (15-profile run, November 13, 2026). A reply that
+                # is only the next question is still a reply; nothing at all is not.
+                out['reply'] = 'Okay.'
             out['continuation'] = self.bind(owner, out['guide'], out['record'], chain)
             with self.lock:
                 generated_conversation(out)
@@ -2785,9 +3138,12 @@ class NaturalConversation(AdvisorConversation):
                     action=action.get('type'), preparation_valid=preparation_valid)
                 if len(self.state_heads)>1024:self.state_heads.pop(next(iter(self.state_heads)))
                 self.state_heads[(owner,chain)] = out['continuation']
-                if len(self.turn_journal) >= 128:self.turn_journal.pop(next(iter(self.turn_journal)))
-                self.turn_journal[key] = {'signature':signature, 'response':copy.deepcopy(out), 'expires':time.time()+3600,
-                    'starts_visit': not binding, 'silent': plans_filter or action['type'] in {'before_enroll_open', 'before_enroll_ack'}}
+                # D157: with a 24-hour visit, 128 turns across all visitors would evict a
+                # morning visit by afternoon; 2048 holds a full pilot day.
+                if len(self.turn_journal) >= 2048:self.turn_journal.pop(next(iter(self.turn_journal)))
+                self.turn_journal[key] = {'signature':signature, 'response':copy.deepcopy(out), 'expires':time.time()+VISIT_HISTORY_TTL,
+                    'starts_visit': not binding, 'silent': plans_filter or action['type'] in {'before_enroll_open', 'before_enroll_ack', 'enrollment_decision'}}
+            self.trace_turn(owner, chain, action, out, turn_started)
             return out
         except (ProfileError, ModelUnavailable):
             raise
@@ -2795,6 +3151,12 @@ class NaturalConversation(AdvisorConversation):
             diagnostic = unexpected_failure(error)
             LOGGER.error('Daylight controller failure code=%s type=%s locations=%s',
                          diagnostic['code'], diagnostic['type'], diagnostic['locations'])
+            sent = payload.get('action') if isinstance(payload.get('action'), dict) else {}
+            self.trace_turn(owner, self.current_chain.get(owner) or '', sent, None, turn_started, failure=diagnostic)
+            if sent.get('type') == 'message':
+                # A typed message never ends in a bare server error. Nothing was saved, the
+                # browser keeps the words in the box, and the person can send them again.
+                raise ModelUnavailable(TURN_TOO_LONG if time.monotonic() - turn_started > 30 else TURN_FAILED) from error
             raise
         finally:
             with self.lock:self.natural_active.discard(owner)

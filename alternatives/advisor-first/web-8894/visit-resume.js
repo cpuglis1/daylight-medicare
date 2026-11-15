@@ -24,7 +24,7 @@
       ...(pending && previous ? {previousRequestId: previous.previousRequestId || previous.requestId} : {}),
       saveGuide: preferences?.saveGuide === true,
       saveSensitive: preferences?.saveGuide === true && preferences?.saveSensitive === true,
-      expiresAt: Date.now() + 3600000,
+      expiresAt: Date.now() + 86400000, // D157: 24 hours, matching the server's visit memory
     };
     try {sessionStorage.setItem(KEY, JSON.stringify(value));return true;} catch {return false;}
   }

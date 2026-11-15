@@ -21,15 +21,18 @@ HISTORY_EXCHANGES = 6
 HISTORY_LIMIT = 5000
 DISCOURSE_NOTES = 10
 DISCOURSE_CHARS = 1200
-HISTORY_TTL = 3600
+# D157 (owner, November 12, 2026): a visit restores for 24 hours on the same
+# device. One hour before. Still RAM only and cookie bound.
+HISTORY_TTL = 86400
 VISIT_LIMIT = 128
 _TARGET = re.compile(
     r'(?:T(?:0[1-9]|10)|RC(?:0[1-9]|1[0-9]|2[0-8])|'
-    r'RC11\.C1|RC16\.C[12]|S_AGE65|S_RETIREMENT|MG_(?:AGE|SEX|TOBACCO))\Z')
+    r'RC11\.C1|RC16\.C[12]|S_AGE65|S_RETIREMENT|MG_(?:AGE|SEX|TOBACCO)|'
+    r'CP_(?:PURPOSE|REASON|REACTION|UNDERSTANDING|INVESTIGATE|NEXT|RETRY|PARTS|COVERAGE))\Z')
 
 
 class VisitMemory:
-    """Owner-and-chain isolated, one-hour RAM-only dialogue and working brief."""
+    """Owner-and-chain isolated, 24-hour RAM-only dialogue and working brief."""
 
     def __init__(self, clock=None):
         self._clock = clock or time.monotonic

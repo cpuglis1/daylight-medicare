@@ -95,8 +95,7 @@
           "expected": "unlocks",
           "needs": [
             "who it's for (self, from her first-person opening; not asked)",
-            "ZIP 34104 or Collier County",
-            "Review your info"
+            "ZIP 34104 or Collier County"
           ],
           "shows": "The 72 retained 2026 Collier Medicare Advantage listings (record the count shown), with ordering by a stated priority (lowest premium or lowest yearly limit) labeled as ordering."
         },
@@ -206,7 +205,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34104",
         "age": 64,
@@ -220,10 +219,10 @@
         "current_coverage": "none (marketplace plan ending)"
       },
       "coverage_path": "Medicare Advantage suggested from the lower-monthly check (lowest Advantage premium vs lowest listed Medigap plus drug plan). If doctors is recorded as a priority the comparison changes; record the inputs and the reason shown.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. SNPs and plans without drug coverage are set aside.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "If she opens it: priced at 65 (reported age 64 kept); Plans C and F set aside (age 70 or younger).",
       "part_d": "Not part of her path.",
-      "after_d146": "If doctor checks feed the method, Wellcare plans may show ✓ for Dr. Wise (dated listing) and the rest ?; no plan should show ✗ from a missing listing."
+      "after_d146": "If doctor checks feed the method, Wellcare plans may show ✓ for Dr. Wise (dated listing) and the rest ?; no plan should show ✗ from a missing listing. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -391,7 +390,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34105",
         "age": 72,
@@ -404,11 +403,11 @@
         "priorities": "doctors",
         "current_coverage": "Medicare Advantage"
       },
-      "coverage_path": "Original Medicare suggested on her doctors priority (Medigap ✓ any doctor who takes Medicare; Advantage ? network not checked), with the health-questions note. This differs from expected_outcome on purpose: the method can't weigh how likely she is to be accepted. Record how the chat reconciles the two.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Plans C and F pass the age rule (72); top match is the lowest listed premium among plans meeting her priority; the underwriting note shows.",
       "part_d": "Not part of her path unless she leaves Advantage.",
-      "after_d146": "A fictional doctor stays ? everywhere; nothing should turn into ✓ or ✗."
+      "after_d146": "A fictional doctor stays ? everywhere; nothing should turn into ✓ or ✗. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -639,7 +638,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34106",
         "age": 68,
@@ -653,10 +652,10 @@
         "current_coverage": "none (job coverage ended Oct 31); must not be recorded as current employer coverage"
       },
       "coverage_path": "Original Medicare suggested (doctors and travel). If his ended job coverage is captured as current, the path is held instead; that would be a capture error.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. HMOs show ✗ for care in other states.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Plans C and F set aside (age 68); top match among C, D, F, G by lowest listed premium, likely Plan G; record the letter.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
-      "after_d146": "Dr. Hidlebaugh should read as accepting Medicare on the Original Medicare side; the Asheville doctor stays unchecked."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "Dr. Hidlebaugh should read as accepting Medicare on the Original Medicare side; the Asheville doctor stays unchecked. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -853,7 +852,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34102",
         "age": 66,
@@ -869,8 +868,8 @@
       "coverage_path": "Original Medicare suggested (matches the Nov 12 live check for the same details).",
       "medicare_advantage": "Not expected to be opened; record if shown.",
       "medigap": "Same inputs as the Nov 12 live check apart from medicines: expect about 38 / 96 / 44 of 178 rates and a Plan G top match, with the health-questions note (her window has closed).",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. (The live check had no medicines and showed a top match; she has one, so there should be none.)",
-      "after_d146": "Dr. Speake should read as accepting Medicare; Medigap's doctors ✓ is then backed by a check, not only the plan type."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "Dr. Speake should read as accepting Medicare; Medigap's doctors ✓ is then backed by a check, not only the plan type. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -1012,7 +1011,7 @@
     ],
     "checks": null,
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34108",
         "age": 74,
@@ -1025,11 +1024,11 @@
         "priorities": "doctors",
         "current_coverage": "Original Medicare with Medigap Plan F and a drug plan"
       },
-      "coverage_path": "Original Medicare suggested on the doctors priority; record whether lower monthly cost is weighed against it.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
       "medicare_advantage": "Not expected to be opened; record if shown.",
       "medigap": "Plans C and F pass the age rule (74). With no bills priority, the top match is the lowest listed premium among plans meeting the doctors priority, which may be a high-deductible or cost-sharing plan rather than G; record the letter and whether the summary explains that trade-off.",
       "part_d": "Not part of this conversation.",
-      "after_d146": "No doctor or drug check changes his Medigap sorting."
+      "after_d146": "No doctor or drug check changes his Medigap sorting. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -1231,7 +1230,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34108",
         "age": 65,
@@ -1244,11 +1243,11 @@
         "priorities": "bills",
         "current_coverage": "Medicare Advantage"
       },
-      "coverage_path": "Original Medicare suggested on the predictable-costs priority (Medigap ✓ C, D, F, G); the trial right is not part of the method and should come from the conversation.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Plans C and F set aside (age 65); top match among D and G by lowest listed premium; record the letter.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
-      "after_d146": "Acetaminophen should not count as a Part D medicine; amlodipine checks ✓ on every list."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "Acetaminophen should not count as a Part D medicine; amlodipine checks ✓ on every list. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -1450,7 +1449,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34103",
         "age": 65,
@@ -1463,11 +1462,11 @@
         "priorities": "drugs",
         "current_coverage": "Original Medicare with Medigap Plan G and a drug plan"
       },
-      "coverage_path": "Not shown on her route, or no pick; record.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
       "medicare_advantage": "Not expected to be opened; record if shown.",
       "medigap": "Not expected to be opened; record if shown.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. All ten plans stay in one group ordered by premium then deductible.",
-      "after_d146": "Once drug lists are checked: Breyna ✓ on 4 PDPs and ✗ or ? on 6 (record which mark the method uses for 'not on the list'); metformin ER and atorvastatin ✓ on all. Plans missing her inhaler should not top the list."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "Once drug lists are checked: Breyna ✓ on 4 PDPs and ✗ or ? on 6 (record which mark the method uses for 'not on the list'); metformin ER and atorvastatin ✓ on all. Plans missing her inhaler should not top the list. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -1603,7 +1602,7 @@
     ],
     "checks": null,
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34105",
         "age": 70,
@@ -1616,11 +1615,11 @@
         "priorities": "total_cost",
         "current_coverage": "Original Medicare with Medigap Plan N and a drug plan"
       },
-      "coverage_path": "Not shown on his route, or no pick; record.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
       "medicare_advantage": "Not expected to be opened; record if shown.",
       "medigap": "Not expected to be opened; record if shown.",
       "part_d": "For 2027: the tab is unavailable, so no sorting; record the reason. If he switches to 2026: he reported no medicines, so a top match is allowed, by lowest standard monthly premium then deductible; record the plan named and confirm the evaluation-only label.",
-      "after_d146": "No change: he has no medicines."
+      "after_d146": "No change: he has no medicines. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -1754,7 +1753,7 @@
     ],
     "checks": null,
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34103",
         "age": 64,
@@ -1771,7 +1770,7 @@
       "medicare_advantage": "Not the next step; record if reached.",
       "medigap": "Not the next step; record if reached.",
       "part_d": "Not the next step; record if reached.",
-      "after_d146": "No change."
+      "after_d146": "No change. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -1912,7 +1911,7 @@
     ],
     "checks": null,
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34102",
         "age": 73,
@@ -1925,11 +1924,11 @@
         "priorities": "doctors, bills",
         "current_coverage": "Original Medicare with Medigap Plan G and a drug plan"
       },
-      "coverage_path": "Original Medicare suggested (doctors and bills), which matches keeping her coverage.",
-      "medicare_advantage": "If she asks to see the $0 plans: No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Plans C and F pass the age rule (73); top match among C, D, F, G by lowest listed premium; record.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
-      "after_d146": "No doctor check is real for her; simvastatin checks ✓ on every list."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "No doctor check is real for her; simvastatin checks ✓ on every list. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -2138,7 +2137,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34108",
         "age": 65,
@@ -2152,10 +2151,10 @@
         "current_coverage": "Original Medicare (A and B only)"
       },
       "coverage_path": "Original Medicare suggested on the doctors priority. In method v1 the reason (\"any doctor who takes Medicare\") is wrong for Dr. Craig; record it as the known v1 gap this profile exists to catch.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Plans C and F set aside (age 65); with only the doctors priority the top match is the lowest listed premium among plans meeting it; record the letter. No health-questions note should appear (she is inside her window); record whether one does.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
-      "after_d146": "With doctor checks wired in, Dr. Craig is ✗ (opted out) on the Original Medicare side and not applicable on Advantage; the path suggestion should no longer rest on her."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "With doctor checks wired in, Dr. Craig is ✗ (opted out) on the Original Medicare side and not applicable on Advantage; the path suggestion should no longer rest on her. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -2257,8 +2256,7 @@
           "expected": "unlocks",
           "needs": [
             "who it's for (self; not asked)",
-            "ZIP 34104",
-            "Review your info"
+            "ZIP 34104"
           ],
           "shows": "The 72 retained 2026 Collier Medicare Advantage listings, grouped by Daylight's sorting (evaluation) with ✓ / ✗ / ? per plan; record the counts per group."
         },
@@ -2386,7 +2384,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34104",
         "age": 71,
@@ -2399,11 +2397,11 @@
         "priorities": "drugs",
         "current_coverage": "Medicare Advantage"
       },
-      "coverage_path": "Likely no pick: her drugs priority is ? on Advantage and not applicable to Medigap (drugs are separate); record the reason shown, or the path named and why.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. Total yearly cost is ? until drug costs are computed.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Not part of her path; Plans C and F would read ? (age 71).",
       "part_d": "Not part of her path.",
-      "after_d146": "With drug lists checked, all four medicines are on every Advantage list in the sample above; estimates may then order plans. Insulin estimates should respect the $35 cap."
+      "after_d146": "With drug lists checked, all four medicines are on every Advantage list in the sample above; estimates may then order plans. Insulin estimates should respect the $35 cap. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -2641,7 +2639,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34103",
         "age": 64,
@@ -2655,10 +2653,10 @@
         "current_coverage": "none (marketplace plan)"
       },
       "coverage_path": "Original Medicare suggested (doctors and bills).",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Priced at 65 (reported age 64 kept); Plans C and F set aside; top match among D and G by lowest listed premium; record.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
-      "after_d146": "With doctor checks wired in, Wellcare plans may show ✓ for both doctors (dated listings) and Humana plans ? ; the path comparison may then change. Record it."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "With doctor checks wired in, Wellcare plans may show ✓ for both doctors (dated listings) and Humana plans ? ; the path comparison may then change. Record it. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -2754,8 +2752,7 @@
           "expected": "unlocks",
           "needs": [
             "who it's for (self; not asked)",
-            "ZIP 34102",
-            "Review your info"
+            "ZIP 34102"
           ],
           "shows": "The 72 retained 2026 Collier Medicare Advantage listings, grouped by Daylight's sorting (evaluation) with ✓ / ✗ / ? per plan; record the counts per group. Record Dr. Josephson's mark on Wellcare Giveback and Humana Gold Plus."
         },
@@ -2871,7 +2868,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34102",
         "age": 67,
@@ -2884,11 +2881,11 @@
         "priorities": "doctors",
         "current_coverage": "Medicare Advantage"
       },
-      "coverage_path": "Original Medicare suggested on the doctors priority, with the health-questions note; this differs from expected_outcome, where he chooses Advantage for the giveback (the method doesn't read givebacks). Record how the chat handles it.",
-      "medicare_advantage": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
       "medigap": "Plans C and F set aside (age 67); top match is the lowest listed premium among plans meeting the doctors priority; the health-questions note shows.",
       "part_d": "Not part of his path.",
-      "after_d146": "With doctor checks wired in, Wellcare plans show a dated ✓ for 2026 and Humana Gold Plus ?; nothing should claim 2027."
+      "after_d146": "With doctor checks wired in, Wellcare plans show a dated ✓ for 2026 and Humana Gold Plus ?; nothing should claim 2027. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
     }
   },
   {
@@ -3115,7 +3112,7 @@
       ]
     },
     "expected_sorting": {
-      "method": "daylight-tiered-v1-20261112",
+      "method": "daylight-tiered-v3-20261114",
       "inputs_to_capture": {
         "zip": "34103",
         "age": 71,
@@ -3128,11 +3125,319 @@
         "priorities": "drugs",
         "current_coverage": "Original Medicare with Medigap Plan G and a drug plan"
       },
-      "coverage_path": "Not shown on her route, or no pick; record.",
+      "coverage_path": "Existing MA or Medigap coverage holds an automatic path suggestion. Review the requested component without inferring a coverage change. Record any explicit choice separately.",
       "medicare_advantage": "Not expected to be opened; record if shown.",
       "medigap": "Not expected to be opened; record if shown.",
-      "part_d": "No pick: medicines are reported and drug lists aren't checked yet (method v1). Plans are still grouped and ordered, with the reason shown. In v1 all ten stay grouped by premium then deductible, with no pharmacy mark.",
-      "after_d146": "With pharmacy and drug checks wired in, the seven plans without Stoney's should be marked (or set aside) and should not top the list; Ozempic shows prior authorization everywhere."
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "Confirm Stoney’s exact outlet and pickup/delivery channel. Display dated participation per plan; absent/unresolved rows remain unknown, not verified exclusions. Ozempic approval and vitamin D coverage remain explicit limits. Do not silently omit an item to manufacture a full-cost comparison."
+    }
+  },
+  {
+    "id": "PP16",
+    "source": "New 2026-11-12 (D157). The owner's test conversation on :8895 that day, reproduced as a fixture so its failures can be replayed offline. The person is fictional; the two doctors are real Collier clinicians named in the run, kept so the directory miss (CV-16) can be reproduced.",
+    "archetype": "Just turned 65 on COBRA with neither Part A nor Part B; starts with Understand Medicare, then asks which is best for him and for the best plans for him.",
+    "person": {
+      "name": "Russell Thackeray",
+      "age": 65,
+      "zip": "34102",
+      "relationship_to_typist": "self"
+    },
+    "ground_truth": {
+      "as_of_date": "2026-11-12",
+      "plan_year": 2026,
+      "date_of_birth": "1961-11-08",
+      "sex_category": "Male",
+      "tobacco": "Has never used tobacco of any kind.",
+      "household_and_work": "Left his job in late 2025 and elected COBRA; not working now.",
+      "medicare": {
+        "part_a_start_date": null,
+        "part_b_start_date": null,
+        "note": "Has neither part. His Initial Enrollment Period runs August 1, 2026 through February 28, 2027; signing up in November 2026 starts Part B December 1, 2026 and premium-free Part A November 1, 2026."
+      },
+      "current_coverage": "COBRA from a former employer, running until June 2027. No Medicare yet.",
+      "finances": "Not discussed. No income or affordability concern stated.",
+      "medicines": [
+        "Ozempic (semaglutide) weekly pen.",
+        "Metoprolol, a generic blood pressure medicine; strength not stated."
+      ],
+      "doctors": [
+        "Ashley Tunkle in Naples (primary care).",
+        "Dr. Henry Biggs (orthopedist)."
+      ],
+      "care_location": "Local only.",
+      "preferences": "Named total cost and predictable costs; chose predictable costs when asked which matters more."
+    },
+    "opening_message": "Understand Medicare",
+    "response_script": [
+      {
+        "if_asked_about": "The month and year he turns 65, or his age",
+        "reply": "November 8 2026"
+      },
+      {
+        "if_asked_about": "Current coverage",
+        "reply": "COBRA"
+      },
+      {
+        "if_asked_about": "Whether he has Part A or Part B",
+        "reply": "Neither"
+      },
+      {
+        "if_asked_about": "ZIP code",
+        "reply": "34102"
+      },
+      {
+        "if_asked_about": "Which matters more, lower monthly cost or predictable costs",
+        "reply": "More predictable costs"
+      },
+      {
+        "if_asked_about": "Sex category or tobacco",
+        "reply": "Male. No tobacco."
+      },
+      {
+        "if_asked_about": "Unprompted, once the basics have been explained",
+        "reply": "I want to know which is best for me. I hear good things about MA?"
+      },
+      {
+        "if_asked_about": "Unprompted, as the very last message, after the plans have been offered",
+        "reply": "So as long as I keep COBRA until June, I can wait and sign up for Part B then without a penalty, right?"
+      }
+    ],
+    "stop_rule": "For a reproduction, send the thirty inputs in `reproduction.inputs` in order. For a fresh run, answer what is asked from the script and ground truth, send both unprompted messages, and end with the teach-back.",
+    "answer_key": {
+      "must_cover": [
+        "COBRA is not coverage from a current job, so it does not let someone put off Part B without a penalty; stated once. [CMS: 5 things about signing up](https://www.cms.gov/training-education/find-provider-type/employers-unions/top-five-medicare-enrollment)",
+        "His Initial Enrollment Period runs August 1, 2026 through February 28, 2027; signing up in November starts Part B December 1, 2026, and premium-free Part A starts November 1, 2026. [When does Medicare coverage start?](https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start)",
+        "Once he is 65, Medicare pays first and COBRA pays second, so without Part B he can be left paying most of a bill. [Who pays first?](https://www.medicare.gov/health-drug-plans/coordination/who-pays-first)",
+        "His Medigap Open Enrollment Period is the six months from the month Part B starts: December 2026 through May 2027 if Part B starts December 1. [When can I buy a Medigap policy?](https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when)",
+        "The two coverage paths, explained once, then his own two paths with what was and was not checked."
+      ],
+      "must_not_claim": [
+        "He can wait until COBRA ends in June 2027 to sign up for Part B without a penalty.",
+        "A specific plan or path is the best one for him.",
+        "His doctors or medicines were checked against a plan when they were left open."
+      ],
+      "trap": "He asks what is best for him four times; more teaching, a topic menu or a pointer to Social Security is the wrong answer each time."
+    },
+    "grading_notes": "Count turns to the first plan list, questions asked, repeats and facts collected but never used against the November 12 baseline. The path decision is the product: he should leave with a recorded path and the trade-off stated in plain words.",
+    "expected_outcome": {
+      "coverage_path": "undecided",
+      "why": "Predictable costs are a priority, not a Medigap lean or choice. Explain both paths and answer the current question. The original thirty inputs contain no explicit coverage-path decision.",
+      "alternative_path": "Medicare Advantage, if lower monthly cost comes to matter more. Valid; the two-path card shows both.",
+      "tabs": {
+        "medicare_advantage": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34102"
+          ],
+          "shows": "72 retained 2026 Collier plans; plans first, sorted for predictable costs (lower yearly in-network limit), with medicines and doctors marked not checked."
+        },
+        "medigap": {
+          "expected": "optional",
+          "needs": [
+            "who it's for (self)",
+            "ZIP 34102",
+            "age 65 (from the birthday, not asked again)",
+            "male (asked in the conversation)",
+            "no tobacco (asked in the conversation)"
+          ],
+          "shows": "One pricing line (ZIP 34102 · Age 65 · Male · Non-tobacco), his own window line (December 2026 through May 2027), filters, then the list. Plans C, F and high-deductible F in the closed set-aside group."
+        },
+        "part_d": {
+          "expected": "optional",
+          "needs": [
+            "ZIP 34102",
+            "coverage year (defaults to 2026)"
+          ],
+          "shows": "Ten 2026 Collier Part D plans; medicines marked not checked. Offered as the next piece of the Original Medicare path, not announced right after the ZIP code."
+        }
+      },
+      "see_plans_should_land_on": "Two coverage paths until an explicit investigation identifies a category. A request to investigate Medigap prices opens Medigap directly without choosing that path.",
+      "before_you_enroll": "Offered as the next step below the plans after he has chosen, not as header navigation."
+    },
+    "understanding": {
+      "trade_off": "With Original Medicare, Medigap and a drug plan he pays steady premiums and few surprise bills and can see any doctor who takes Medicare; with Medicare Advantage the premium is usually lower, he pays as he uses care up to the plan's yearly in-network limit, and he uses the plan's network.",
+      "should_leave_understanding": [
+        "COBRA does not protect him from the Part B penalty; he signs up now, during his Initial Enrollment Period.",
+        "If he signs up in November, Part B starts December 1, 2026 and his six-month Medigap window runs December 2026 through May 2027.",
+        "He leans toward Original Medicare with Medigap and Part D because predictable costs matter more to him.",
+        "His doctors and medicines have not been checked against any plan yet."
+      ],
+      "teach_back": {
+        "message": "So as long as I keep COBRA until June, I can wait and sign up for Part B then without a penalty, right?",
+        "contains_misconception": true,
+        "what_a_good_reply_does": "Corrects it plainly, once: COBRA isn't coverage from a current job, so waiting can mean a penalty and bills COBRA won't pay; his window ends February 28, 2027. Then asks one question."
+      },
+      "watch_for": [
+        "No warm-up turn; no familiarity question; no \"When does your COBRA coverage end?\" and no \"When would you like Medicare coverage to start?\".",
+        "The timing card (window, Part B and Part A start, Medigap window) right after \"Neither\".",
+        "COBRA stated once; the two routes explained once; no question asked twice in the same words.",
+        "Sex and tobacco asked in the conversation, one at a time, with the reason; Medigap prices reached without \"Talk to Daylight\".",
+        "No topic menus after input 4; no \"Noted:\"; no internal wording."
+      ]
+    },
+    "tester_actions": [
+      "Open the Medigap tab from the button in the conversation; confirm the pricing line, the window line and that plans are visible without scrolling on desktop.",
+      "Use See plans from Review your info and record which tab it opens.",
+      "List every button on each tab."
+    ],
+    "checks": {
+      "doctors": [
+        {
+          "as_typed": "Ashley Tunkle in Naples",
+          "real": true,
+          "identity": {
+            "name": "Ashley Langford Tunkle, MD",
+            "npi": "1285603670",
+            "specialty": "Family practice"
+          },
+          "sites_on_file": [
+            "Millennium Physician Group LLC, 800 Goodlette Rd, Suite 340, Naples, FL 34102"
+          ],
+          "evidence_on_file": [
+            "Medicare clinician file dated 2026-10-02 (plans/doctors-clinicians_2026-10-15): listed as LANGFORD TUNKLE, ASHLEY, MD, family practice, Millennium Physician Group LLC, 800 Goodlette Rd Suite 340, Naples 34102 (and a second practice location in Fairfield, CT).",
+            "L08 wellcare-r5 providers.sqlite3: Florida Blue practitioner record \"Ashley E Tunkle\" (NPI 1285603670); Freedom Health Plan Collier directory, September 2026, page 228, \"TUNKLE, ASHLEY, MD(F)\" under Millennium Physician Group; Aetna directory page 32, \"Tunkle, Ashley Langford, MD\" under Millennium Physician Group, stored with identifier kind pharmacy_or_other_identifier."
+          ],
+          "expected": [
+            "Found from \"Ashley Tunkle\" with or without \"Naples\"; the compound last name in the Medicare file (Langford Tunkle) must not hide her.",
+            "If not found, asks only for the practice name, then says once what leaving it open means. Never \"What city or practice is Ashley Tunkle in Naples in?\"."
+          ],
+          "note": "In the November 12 live run the list did not contain her and was shown again unchanged."
+        },
+        {
+          "as_typed": "Dr. Henry Biggs is my orthopedist",
+          "real": true,
+          "identity": {
+            "name": "Henry Kurtis Biggs, DO",
+            "npi": "1558326538",
+            "specialty": "Orthopedic surgery"
+          },
+          "sites_on_file": [
+            "Joint Replacement Institute LLC, 3466 Pine Ridge Rd, Suite A, Naples, FL 34109",
+            "Legacy Healthcare Services Inc, 1499 S Brandywine Cir, Fort Myers, FL 33919"
+          ],
+          "evidence_on_file": [
+            "Medicare clinician file dated 2026-10-02: BIGGS, HENRY KURTIS, DO, orthopedic surgery, at both sites.",
+            "L08 wellcare-r5 providers.sqlite3: Erickson directory page 239 \"Biggs, Henry K, DO\" (NPI 1558326538); Aetna directory page 264 \"Biggs, Henry K., MD\" (a different credential in that listing)."
+          ],
+          "expected": [
+            "Found from \"Dr. Henry Biggs\" or \"Henry Biggs\" with the specialty; a same-surname listing (Richard L. Biggs, DO) is not offered as him."
+          ]
+        }
+      ],
+      "pharmacy": null,
+      "medicines": [
+        {
+          "as_typed": "ozempic",
+          "product": {
+            "name": "3 ML SEMAGLUTIDE 1.34 MG/ML PEN INJECTOR [OZEMPIC] (1 mg dose pen)",
+            "rxcui": "2398842"
+          },
+          "evidence_on_file": [
+            "L05 build-r3 2026 basic formularies (10 PDPs; Humana Gold Plus H1036-217; Wellcare Giveback H1032-198; HumanaChoice PPO H5216-072): prior authorization and quantity limit on every list checked (as recorded for PP15)."
+          ],
+          "expected": [
+            "The prior-authorization statement appears once when Ozempic is named.",
+            "Checked against every plan's drug list without asking him to pick a plan; until that exists, one clear not-checked line."
+          ]
+        },
+        {
+          "as_typed": "Metoprolol !",
+          "product": {
+            "name": "Metoprolol (strength and form not stated)",
+            "rxcui": null
+          },
+          "evidence_on_file": [
+            "Not looked up for this fixture: he gave no strength or form (tartrate or succinate ER), so the check should ask for it rather than guess."
+          ]
+        }
+      ],
+      "must_not": [
+        "Ask him to choose a drug plan so a check can run.",
+        "Show a list he already passed over.",
+        "List doctors or medicines as used on a plans page when they were left open."
+      ]
+    },
+    "expected_sorting": {
+      "method": "daylight-tiered-v3-20261114",
+      "inputs_to_capture": {
+        "zip": "34102",
+        "age": 65,
+        "sex": "male",
+        "tobacco": "no",
+        "doctors": "list",
+        "medicines": "yes",
+        "travel": "none",
+        "cost_preference": "predictable",
+        "priorities": "total_cost, bills",
+        "current_coverage": "COBRA"
+      },
+      "coverage_path": "Conversation remains undecided. Deterministic evaluation may compare stated priorities but must not write a lean or choice or start Medigap pricing intake.",
+      "medicare_advantage": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "medigap": "Plans C, F and high-deductible F set aside (first eligible in 2026); a Plan G top match expected among letters that meet predictable costs.",
+      "part_d": "No named drug-plan pick while personal-purpose review is held. Exact confirmed products yield dated formulary marks; restrictions remain explicit. On a requested cost comparison, use the confirmed outlet and refill inputs. Supported retail-average estimates order comparable plans within fit groups; held estimates remain visible and unranked. Premium order is never a cheapest-medicines claim.",
+      "after_d146": "With drug lists checked across every plan, Ozempic's prior authorization shows on each plan and metoprolol's tier after its strength is confirmed; doctor checks show each plan's listing for Dr. Tunkle and Dr. Biggs. D166/D167: current coverage is not a decision to keep it; preference is not a chosen path. Confirm exact identities before using dated evidence. Missing pharmacy/network evidence stays unknown. No 2027 finding may be drawn from the 2026 snapshot."
+    },
+    "reproduction": {
+      "run": "Owner test on :8895 with \"Evaluation mode\" visible, November 12, 2026.",
+      "inputs": [
+        "Understand Medicare (opening button)",
+        "Know a little",
+        "I don't understand my options.",
+        "I want to know which is best for me. I hear good things about MA?",
+        "Total cost · Predictable costs",
+        "COBRA",
+        "June 2027. but i just turned 65",
+        "why do you need to know that?",
+        "November 8 2026",
+        "Neither",
+        "As soon as possible",
+        "Ashley Tunkle in Naples",
+        "I take ozempic and a generic blood pressure medication so both of those need to be covered",
+        "can you jog my memory of common BP medicines? ill know it when i see it.",
+        "Metoprolol !",
+        "34102",
+        "Dr. Henry Biggs is my orthopedist",
+        "Look outside this area",
+        "Use a different city or practice",
+        "Leave this detail open for now (Ashley Tunkle)",
+        "Leave this detail open for now (Dr. Henry Biggs)",
+        "I have no idea, those are a lot of options",
+        "Leave this detail open for now",
+        "Local only",
+        "More predictable costs",
+        "Yeah, i guess, what makes sense for me. and how would those parts fit together",
+        "idk which is better for me",
+        "yes. compare the costs and coverage",
+        "yeah but this isnt specific to me? IDK what is best for me for my situation",
+        "i want to see the best plans for me"
+      ],
+      "after_inputs": "Review your info, then See plans (landed on Medicare Advantage); opened the Medigap tab, was sent to \"Talk to Daylight\", answered sex (Male) and tobacco (none), then saw Medigap prices.",
+      "baseline": {
+        "inputs_before_any_plan_list": 30,
+        "cobra_in_replies": 6,
+        "same_cobra_sentence": 3,
+        "two_routes_explanations": 3,
+        "reasks": 6,
+        "loops": 2,
+        "collected_but_never_used": [
+          "birth month",
+          "COBRA end date",
+          "both medicines",
+          "both doctors"
+        ]
+      },
+      "done_when": [
+        "Every typed message receives a reply; current questions are answered before further intake.",
+        "Known reports and deferred checks persist. No automatic Medigap lean, choice, price questions or route from predictable costs.",
+        "The original 30 inputs finish undecided; general See plans opens the two paths. A separately requested product investigation opens its actual list.",
+        "Enrollment timing remains computed and qualified. Any source-year mismatch remains explicit.",
+        "Desktop, tablet and phone preserve the existing composer, readable results and a route back to conversation."
+      ],
+      "offline_tests": [
+        "alternatives/advisor-first/tests/test_pp16_journey.py",
+        "alternatives/advisor-first/tests/test_conversation_checks_ux.py",
+        "alternatives/advisor-first/tests/test_profile_replay_20261114.py"
+      ]
     }
   }
 ]
