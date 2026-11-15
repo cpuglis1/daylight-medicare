@@ -4,7 +4,10 @@
   'use strict';
   const chosen = new Set();
   let host, options, profile, context, result = null, error = '', pending = false, attempt = null, revision = 0;
-  let query = '', sort = 'premium', compare = false, activeDialog = null;
+  let query = '', sort = 'premium', compare = false, activeDialog = null, sortTouched = false;
+  // D147: evaluation-only sorting (local demo only) is the default order until the person picks another.
+  const fitReady = () => !!window.DaylightRecommend?.tab('part_d');
+  const sortChoice = () => !sortTouched && fitReady() ? 'fit' : sort === 'fit' && !fitReady() ? 'premium' : sort;
   const el = (tag,text,cls) => {const n=document.createElement(tag);if(text!=null)n.textContent=text;if(cls)n.className=cls;return n;};
   const button = (text,run,cls='btn-quiet') => {const n=el('button',text,cls);n.type='button';n.onclick=run;return n;};
   const value = (p,key) => p.fields[key]?.state === 'published' ? p.fields[key].value : null;
@@ -58,9 +61,10 @@
     if(profile?.status!=='ready'||!result||result.status!=='published_plans')return;
     output.append(el('p',`2026 · Collier County · ZIP ${result.profile.zipcode}`,'plans-count'),el('p',result.notice,'plans-help'));
     const strip=window.DaylightPicks?.strip();if(strip)output.append(strip); // D138: Medigap plus Part D monthly total.
+    const fitSummary=window.DaylightRecommend?.summary('part_d',Object.fromEntries(result.plans.map(p=>[p.id,p.name])));if(fitSummary)output.append(fitSummary); // D147
     const filters=el('div',null,'plans-filters');
     const label=el('label','Plan or company name','plans-field'),search=el('input');search.type='search';search.value=query;search.oninput=()=>{query=search.value;renderList();};label.append(search);
-    const orderLabel=el('label','Sort by','plans-field'),order=el('select');order.append(new Option('Lowest standard monthly premium','premium'),new Option('Plan name','name'));order.value=sort;order.onchange=()=>{sort=order.value;renderList();};orderLabel.append(order);filters.append(label,orderLabel);output.append(filters);
+    const orderLabel=el('label','Sort by','plans-field'),order=el('select');if(fitReady())order.append(new Option('Daylight’s sorting (evaluation)','fit'));order.append(new Option('Lowest standard monthly premium','premium'),new Option('Plan name','name'));order.value=sortChoice();order.onchange=()=>{sort=order.value;sortTouched=true;renderList();};orderLabel.append(order);filters.append(label,orderLabel);output.append(filters);
     const actions=el('div',null,'plans-row');actions.id='part-d-actions';const count=el('p','', 'plans-count');count.id='part-d-count';count.setAttribute('aria-live','polite');
     const list=el('div');list.id='part-d-list';output.append(actions,count,list);
     const about=el('details',null,'plans-about');about.append(el('summary','About this Part D information'),
@@ -78,21 +82,32 @@
     const actions=document.getElementById('part-d-actions');actions.replaceChildren(button('All listed plans',()=>{compare=false;renderList();},compare?'btn-quiet':'btn-secondary'));
     if(chosen.size)actions.append(button(`Compare selected (${chosen.size})`,()=>{compare=true;renderList();},compare?'btn-secondary':'btn-quiet'));
     const rows=result.plans.filter(p=>compare?chosen.has(p.id):`${p.name} ${p.company}`.toLowerCase().includes(query.trim().toLowerCase()));
-    rows.sort((a,b)=>(sort==='premium'?(value(a,'total_premium')??Infinity)-(value(b,'total_premium')??Infinity):0)||a.name.localeCompare(b.name)||a.id.localeCompare(b.id));
+    const effective=sortChoice();
+    rows.sort((a,b)=>(effective==='premium'?(value(a,'total_premium')??Infinity)-(value(b,'total_premium')??Infinity):0)||a.name.localeCompare(b.name)||a.id.localeCompare(b.id));
     document.getElementById('part-d-count').textContent=`${rows.length} of ${result.plans.length} published plans${compare?' selected for comparison':''}`;
     list.replaceChildren();if(!rows.length){list.append(el('p','No plans match this search. Clear the plan or company name to see all published plans.','plans-help'));return;}
     if(compare)return comparison(list,rows);
-    for(const p of rows){
+    const groups=effective==='fit'?window.DaylightRecommend?.arrange('part_d',rows):null;
+    if(groups){ // D147: backend groups, in order
+      for(const g of groups){const section=el('section',null,'plans-group'),h=el('h2',g.label,'rec-group-title');h.append(el('span',`${g.rows.length} ${g.rows.length===1?'plan':'plans'}`,'rec-count'));section.append(h);for(const p of g.rows)section.append(cardFor(p));list.append(section);}
+      return;
+    }
+    for(const p of rows)list.append(cardFor(p));
+  }
+  function cardFor(p){
+    {
       const card=el('article',null,'plan-card');card.dataset.partDId=p.id;card.append(el('h3',p.name,'plan-name'),el('p',p.company,'plans-help')); // D138: the source ID stays in full details.
       const amounts=el('dl',null,'plan-amounts');for(const [key,label] of TERMS.slice(0,2)){const box=el('div',null,'amount');box.append(el('dt',label,'amount-label'),el('dd',fieldText(p,key),'amount-value'));amounts.append(box);}card.append(amounts);
       card.append(el('p','Personal medicine and pharmacy costs: not checked. Deductible exceptions may apply by drug tier.','plans-help'));
       const controls=el('div',null,'plan-actions'),add=button(chosen.has(p.id)?'Added to compare':'Add to compare',()=>toggle(p),'btn-secondary');add.setAttribute('aria-pressed',String(chosen.has(p.id)));controls.append(add,button('See full details',event=>details(p,event)));
+      if(options.prescriptionPreview)controls.append(button('Check fictional drug costs',()=>options.prescriptionPreview(p)));
       const premium=value(p,'total_premium'),picks=window.DaylightPicks;
       if(picks&&premium!=null&&p.fields.total_premium.value_encoding==='integer_cents'){
         const mine=picks.partD?.id===p.id,use=button(mine?'In my monthly total':'Use in my monthly total',()=>{picks.partD=mine?null:{id:p.id,label:p.name,cents:premium};renderResults();});
         use.setAttribute('aria-pressed',String(mine));controls.append(use);
       }
-      card.append(controls);list.append(card);
+      window.DaylightRecommend?.decorate('part_d',p.id,card); // D147
+      card.append(controls);return card;
     }
   }
   function comparison(list,rows){

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prescription estimate preview | Daylight</title>
+  <link rel="icon" href="/daylight.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/drug-estimate-preview/screen.css">
+  <script src="/drug-estimate-preview/screen.js" defer></script>
+</head>
+<body>
+  <header><div class="wrap brand"><img src="/daylight.svg" width="34" height="34" alt=""> Daylight</div></header>
+  <main class="wrap">
+    <h1>Prescription estimate preview</h1>
+    <p class="notice">2026 Collier County research with fictional examples. Estimates use published retail averages and the plan’s pharmacy rules. Store prices can differ.</p>
+    <form id="case-form">
+      <div id="choose">
+        <label for="case">Fictional medication list</label>
+        <select id="case" required disabled><option value="">Choose an example</option></select>
+      </div>
+      <div id="quantity-controls" hidden>
+        <label for="quantity">How many tablets are in each 30-day fill of metformin 500 mg?</label>
+        <select id="quantity" disabled>
+          <option value="">Choose a quantity</option><option value="30">30 tablets</option><option value="60">60 tablets</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button type="submit" id="continue" disabled>Continue</button>
+        <button type="button" id="back" hidden>Back</button>
+        <a href="/" id="demo-back">Back to Daylight demo</a>
+      </div>
+    </form>
+    <p id="status" role="status"></p>
+    <section id="results" aria-label="Plan estimates" tabindex="-1" hidden></section>
+    <section id="reports" aria-labelledby="reports-heading" hidden>
+      <h2 id="reports-heading">What this example uses</h2>
+      <div id="facts"></div>
+      <button type="button" id="edit" hidden>Edit fictional quantity</button>
+    </section>
+    <details>
+      <summary>Help with the estimates</summary>
+      <p>Drug spending is what the example pays for its listed fills. Plan premiums are counted separately for the months shown. The sum excludes Part B, medical services and other expenses.</p>
+      <p>Amounts can be unavailable when a product, benefit rule or prior balance needs more evidence. Choose another example to inspect a different scenario.</p>
+    </details>
+  </main>
+</body>
+</html>

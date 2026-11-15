@@ -14,6 +14,53 @@ RECOVERABLE = {
     'Resume the current conversation before continuing. Your reports are preserved.': 'conversation_state',
     'Your earlier message is still being processed. Your work is preserved.': 'conversation_busy',
 }
+OPENING_QUESTION = 'What has you thinking about Medicare today?'
+
+
+def _question(response):
+    assessment = response.get('assessment', {})
+    narrative = assessment.get('narrative', {})
+    if response.get('review') or response.get('preparation') or assessment.get('journey', {}).get('samplesVisible'):
+        return ''
+    if narrative.get('opener'):
+        return OPENING_QUESTION
+    if narrative.get('focus') == 'prepare':
+        return ''
+    text = (assessment.get('nextQuestion') or {}).get('question', '')
+    return '' if response.get('generated', {}).get('status') == 'unavailable' and text == response.get('notice') else text
+
+
+def _visit_history(flow, owner, chain, entries, latest_id, latest_response):
+    """Project existing receipts as dialogue, without exposing past action authority."""
+    inputs = flow.memory.display_inputs(owner, chain)
+    history = []
+    previous_question = ''
+    for request_id, entry in entries:
+        recorded = entry['response']
+        current_question = _question(recorded)
+        asked = previous_question or (OPENING_QUESTION if entry.get('starts_visit') else '')
+        previous_question = current_question
+        if entry.get('silent'):
+            continue
+        response = latest_response if request_id == latest_id else recorded
+        user = inputs.get(request_id, '')
+        turn = {key: response[key] for key in ('openingChoice',) if key in response}
+        if request_id != latest_id and (response.get('plansContext') or response.get('planEvidence')):
+            # A historical Plans answer cannot inherit today's evidence authority.
+            turn['notice'] = 'This earlier reply used a previous Plans view.'
+        else:
+            advisor = response.get('advisor', {})
+            unavailable = response.get('generated', {}).get('status') == 'unavailable'
+            recovery = advisor.get('reason') == 'recovery'
+            turn.update(reply=response.get('reply', '') if not unavailable or recovery else '',
+                        notice=response.get('notice', ''), noticeFirst=recovery,
+                        sources=advisor.get('sources', []) if not unavailable or recovery else [],
+                        educationFollowups=advisor.get('educationFollowups', []) if not unavailable else [])
+        if user or any(turn.get(key) for key in ('openingChoice', 'reply', 'notice', 'sources')):
+            turn.update(requestId=request_id, user=user,
+                        askedQuestion=asked if user or asked != current_question else '')
+            history.append(turn)
+    return history
 
 
 def resume_visit(flow, owner, payload):
@@ -38,17 +85,19 @@ def resume_visit(flow, owner, payload):
         if flow.current_chain.get(owner) != chain:
             return {'status': 'superseded'}
         head = flow.state_heads.get((owner, chain))
-        latest = next(((key, item) for (entry_owner, key), item
-                       in reversed(list(flow.turn_journal.items()))
-                       if entry_owner == owner and item['expires'] > now
-                       and item['response'].get('continuation') == head), None)
+        entries = [(key, item) for (entry_owner, key), item in flow.turn_journal.items()
+                   if entry_owner == owner and item['expires'] > now
+                   and item['response']['continuation'].split('.')[0] == chain]
+        latest = next(((key, item) for key, item in reversed(entries)
+                       if item['response']['continuation'] == head), None)
         if latest is None:
             return {'status': 'expired'}
         request_id, latest_entry = latest
         response = flow.replay_response(owner, latest_entry['response'])
         # The browser must apply its latest explicit choice. A read grants none.
         response['guide']['preferences'].update(saveGuide=False, saveSensitive=False)
-        return {'status': 'resumed', 'requestId': request_id, 'response': response}
+        return {'status': 'resumed', 'requestId': request_id, 'response': response,
+                'history': _visit_history(flow, owner, chain, entries, request_id, response)}
 
 
 def install_session_recovery(server):
