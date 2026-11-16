@@ -62,7 +62,11 @@ if [ "$COUNT" -gt 0 ] && [ "$NOCLAUDE" = 0 ]; then
       "Bash(rm:*)" "Bash(ls:*)" "Bash(wc:*)" "Bash(head:*)" "Bash(jq:*)" \
     --disallowedTools "Bash(git push:*)" "Bash(git remote:*)" "Bash(git config:*)" \
     > "$RUN/claude.txt" 2>&1
-  echo "claude exit: $? (transcript: $RUN/claude.txt)"
+  CLAUDE_EXIT=$?
+  echo "claude exit: $CLAUDE_EXIT (transcript: $RUN/claude.txt)"
+  if [ "$CLAUDE_EXIT" -ne 0 ]; then
+    notify "Claude step failed (exit $CLAUDE_EXIT): $(head -c 120 "$RUN/claude.txt" | tr '\"' "'")"
+  fi
 
   PUSHED=()
   OPENED=0

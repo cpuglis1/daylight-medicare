@@ -75,6 +75,12 @@ def load_state(path: Path) -> dict:
 def select(args) -> None:
     repo = Path(args.repo).resolve()
     private_parts, private_names, bulk = load_policy(repo)
+    roots = list(EXCLUDED_ROOTS)
+    try:  # the publication policy's archive roots are rejected at commit anyway
+        policy = json.loads((repo / "docs/project/publication-policy.json").read_text())
+        roots += [r.rstrip("/") for r in policy.get("archive_roots", [])]
+    except (OSError, ValueError):
+        pass
     state = load_state(Path(args.state))["files"]
 
     paths = set(z(git(repo, "ls-files", "-o", "--exclude-standard", "-z")))
@@ -88,7 +94,7 @@ def select(args) -> None:
     kept: list[tuple[str, int, float]] = []
     for name in sorted(paths):
         pure = PurePosixPath(name)
-        if under(name, EXCLUDED_ROOTS):
+        if under(name, roots):
             skip("data_root"); continue
         if any(part in private_parts for part in pure.parts) or pure.name.lower() in private_names:
             skip("private_path"); continue
@@ -135,6 +141,10 @@ def select(args) -> None:
                 conflict = True  # base changed since we last pushed this file
             elif not previous and touched.get(name, 0) > mtime:
                 dev_newer.append(name); skip("base_newer"); continue
+            elif not previous:
+                # Never pushed by us and both sides differ: a newer local
+                # timestamp does not mean dev's lines are in the local copy.
+                conflict = True
         candidates.append({"path": name, "size": size, "hash": digest,
                            "kind": "update" if base_blob else "new", "conflict": conflict})
 
