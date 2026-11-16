@@ -1,0 +1,19 @@
+#phases:has(.profile-progress) { padding: 8px 0; margin: 0 0 12px; }
+.profile-progress { display:block; width:100%; height:6px; border:0; border-radius:3px; overflow:hidden; appearance:none; background:#e4e8e3; color:#356853; }
+.profile-progress::-webkit-progress-bar { background:#e4e8e3; }
+.profile-progress::-webkit-progress-value { background:#356853; }
+.profile-progress::-moz-progress-bar { background:#356853; }
+.guided-close,.plans-conversation-guide { font-size:18px; line-height:1.55; }
+.guided-close h2,.plans-conversation-guide h2 { font-size:1.45rem; line-height:1.25; margin:0 0 16px; }
+.guided-close h3 { font-size:1.1rem; margin:24px 0 12px; }
+.guided-close details,.retained-check { margin:12px 0; }
+.guided-close summary,.retained-check>summary { cursor:pointer; min-height:44px; padding:8px 0; }
+.guided-close dt { font-weight:600; margin-top:12px; }
+.guided-close dd { margin:4px 0 16px; overflow-wrap:anywhere; }
+.guided-close li { margin:12px 0; padding-left:4px; }
+.guided-close ol,.guided-close ul { padding-left:24px; }
+.guided-close button,.plans-conversation-guide button { white-space:normal; max-width:100%; min-height:44px; }
+.plans-conversation-guide .guide-help { margin:18px 0 0; color:#505c53; }
+.retained-check>.conversation-check-result { margin-top:0; }
+@media(max-width:600px) { .guided-close h2,.plans-conversation-guide h2 { font-size:1.3rem; } }
+.guided-close .close-direction { margin:16px 0 0; font-weight:600; }
