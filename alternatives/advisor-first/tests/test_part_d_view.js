@@ -41,7 +41,7 @@ test('ready shared profile automatically loads all published plans without demog
 });
 test('missing scope invites chat without a duplicate form or price request',async()=>{
   const f=fixture(response,profile({zipcode:null}));assert.equal(f.calls.length,0);assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
-  f.find(n=>n.tagName==='button'&&n.textContent==='Talk to Daylight').onclick();assert.deepEqual(f.conversations,[undefined]);
+  f.find(n=>n.tagName==='button'&&n.textContent==='Continue in the conversation').onclick();assert.deepEqual(f.conversations,['T03']);   // D157 (CN-10)
   f.mount(profile());await f.tick();assert.equal(f.calls.length,1);
 });
 test('chat corrections discard delayed old results and unsupported years clear prices',async()=>{
@@ -50,8 +50,8 @@ test('chat corrections discard delayed old results and unsupported years clear p
   assert.match(f.host.textContent,/another coverage year/);f.mount(profile({zipcode:'34108'}));waiting[1]();await f.tick();assert.match(f.host.textContent,/ZIP 34108/);
 });
 test('unknown answers remain open and corrections return to the specific chat question',async()=>{
-  const f=fixture(response,profile({zipcode:null},['T03']));assert.match(f.host.textContent,/Details you left unknown/);
-  f.find(n=>n.tagName==='button'&&n.textContent==='Edit Home ZIP code in conversation').onclick();assert.deepEqual(f.conversations,['T03']);assert.equal(f.calls.length,0);
+  const f=fixture(response,profile({zipcode:null},['T03']));assert.match(f.host.textContent,/1 detail left to see your Part D drug plans/);
+  f.find(n=>n.tagName==='button'&&n.textContent==='Home ZIP code').onclick();assert.deepEqual(f.conversations,['T03']);assert.equal(f.calls.length,0);
 });
 test('source details preserve negative components and do not assign personal costs',async()=>{
   const f=fixture(response);await f.tick();const b=f.find(n=>n.tagName==='button'&&n.textContent==='See full details');b.onclick({currentTarget:b});

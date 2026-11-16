@@ -49,11 +49,12 @@ from medigap_pilot import install_medigap
 from medigap_profile import FIELDS as MEDIGAP_FIELDS, profile as medigap_profile_view
 from part_d_pilot import install_part_d
 from part_d_profile import profile as part_d_profile_view
+import enrollment_flow
 
 def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=None,
           research_repository=None, reference_adapter=None, identity_service=None,
           comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None,
-          medigap_repository=None, part_d_repository=None, local_demo=False):
+          medigap_repository=None, part_d_repository=None, local_demo=False, pilot_display_binding=None):
     if port in {8890,8891,8896}:
         raise ValueError('That port belongs to a preserved Daylight surface.')
     if pilot_origin is not None:
@@ -71,10 +72,14 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
     if local_demo and not fixture and not db.is_relative_to(demo_store.resolve()):
         raise ValueError('The unified local demo must use its separate private store.')
     pilot = pilot_budget = None
+    if pilot_display_binding and (not pilot_state or not pilot_origin or not fixture
+                                  or not medigap_repository or not part_d_repository):
+        raise ValueError('The hosted display rehearsal requires its HTTPS origin and explicit bound display stores.')
     if pilot_state is not None:
         if (not fixture or comparison_preview or any(option is not None for option in (
                 database, client, count_tokens, research_repository, reference_adapter,
-                identity_service, research_catalog, medigap_repository, part_d_repository))):
+                identity_service, research_catalog)) or
+                not pilot_display_binding and (medigap_repository is not None or part_d_repository is not None)):
             raise ValueError('Pilot rehearsal requires fixture mode and its isolated stores.')
         from pilot_access import GUEST_COOKIE, PilotAccess, install_pilot_gate
         from pilot_budget import PilotBudget
@@ -111,6 +116,9 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
                           else GUEST_COOKIE if pilot else ('daylight_advisor_fixture' if fixture else 'daylight_advisor_dev')),
         ui_config=config, conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
         adaptive_class=NaturalConversation)
+    # D159: the owner's general-education acceptance applies only to :8895.
+    service.adaptive.pilot_knowledge.surface = (
+        'unified-8895' if local_demo and service.server_port == 8895 else None)
     # Keep shared-profile presentation local; the pinned engine's Daylight
     # busy messages now use the current brand without response rewriting.
     parent_handler = service.RequestHandlerClass
@@ -119,6 +127,9 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
             if code == 200 and self.path == '/api/conversation/initial' and isinstance(value, dict) and 'guide' in value:
                 value = {**value, 'medigapProfile': medigap_profile_view(value['guide'])}
                 value['partDProfile'] = part_d_profile_view(value['guide'], value['record'])
+                if enrollment_flow.enabled(service.adaptive):
+                    # D161: the two-path dashboard is there from the first screen, before any turn.
+                    value['enrollment'] = enrollment_flow.view(service.adaptive, value['guide'], value['record'])
             return super().respond(code, value, mime, cookie)
     service.RequestHandlerClass = BrandedResponseHandler
     try:
@@ -208,7 +219,12 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
         # Owner direction (DQ-01 pilot scope): replies say this is a pilot on 2026 sample data.
         for agent in {service.adaptive.agent, *getattr(service.adaptive, 'model_agents', {}).values()}:
             agent.pilot_scope = True
-        service = install_pilot_gate(service, pilot, hosted_origin=pilot_origin is not None)
+        if pilot_display_binding:
+            from demo_http import install
+
+            service = install(service, binding=pilot_display_binding, fixture=True, hosted_origin=pilot_origin)
+        service = install_pilot_gate(service, pilot, hosted_origin=pilot_origin is not None,
+                                     plan_display=bool(pilot_display_binding))
     return service
 
 if __name__ == '__main__':
@@ -226,9 +242,14 @@ if __name__ == '__main__':
                         help='Connect the exact existing private 2026 research build; no consumer release.')
     parser.add_argument('--pilot-data', type=Path,
                         help='Use a verified local display-subset binding and DAYLIGHT_PILOT_DATABASE_URL.')
+    parser.add_argument('--pilot-display-binding', type=Path,
+                        help='Run the hosted fictional display rehearsal with a bound PostgreSQL subset.')
     parser.add_argument('--identity-research',action='store_true',
                         help='Explicit internal-only identity review; no consumer source purpose or personal findings.')
     args=parser.parse_args()
+    if args.pilot_display_binding and (not args.fixture or not args.pilot_state or not args.pilot_origin or any(
+            (args.database, args.pilot_data, args.local_research, args.identity_research, args.comparison_preview))):
+        parser.error('--pilot-display-binding requires --fixture, --pilot-state and --pilot-origin without other data modes')
     if args.pilot_data and (args.local_research or args.identity_research or args.comparison_preview or args.pilot_state):
         parser.error('--pilot-data is a separate local display mode; do not combine research/identity/preview/pilot rehearsal modes')
     if (args.pilot_tls_cert or args.pilot_tls_key) and not (
@@ -259,6 +280,13 @@ if __name__ == '__main__':
         sys.path.insert(0, str(REPO / 'infrastructure/daylight-data/src'))
         from daylight_data.pilot_subset.store import repositories
         medigap_repository, part_d_repository = repositories(args.pilot_data)
+    pilot_display_binding = None
+    if args.pilot_display_binding:
+        sys.path.insert(0, str(REPO / 'infrastructure/daylight-data/src'))
+        from daylight_data.pilot_subset.store import repositories
+
+        pilot_display_binding = json.loads(args.pilot_display_binding.read_text())
+        medigap_repository, part_d_repository = repositories(args.pilot_display_binding)
     if args.identity_research:
         from identity_journey import local_identity_journey
         identity_service=local_identity_journey(internal_research=True)
@@ -266,7 +294,8 @@ if __name__ == '__main__':
                   research_repository=repository,reference_adapter=reference_adapter,identity_service=identity_service,
                   comparison_preview=args.comparison_preview,research_catalog=research_catalog,
                   pilot_state=args.pilot_state,pilot_origin=args.pilot_origin,
-                  medigap_repository=medigap_repository,part_d_repository=part_d_repository)
+                  medigap_repository=medigap_repository,part_d_repository=part_d_repository,
+                  pilot_display_binding=pilot_display_binding)
     try:
         if args.pilot_origin:
             import logging

@@ -41,6 +41,47 @@ class PilotSecurityTests(unittest.TestCase):
         self.access.set_flag('guest_chat', True)
         self.access.set_flag('all_chat', True)
 
+    def test_hosted_display_uses_the_shared_ui_and_admits_only_display_routes(self):
+        from unittest.mock import Mock
+
+        origin = 'https://daylight.example'
+        app = server.build(0, fixture=True, pilot_state=self.root, pilot_origin=origin,
+                           medigap_repository=Mock(), part_d_repository=Mock(),
+                           pilot_display_binding={'snapshot_id': 'fictional'})
+        thread = Thread(target=app.serve_forever, daemon=True)
+        thread.start()
+        self.addCleanup(thread.join)
+        self.addCleanup(app.server_close)
+        self.addCleanup(app.shutdown)
+
+        def request(path, data=None, **headers):
+            connection = http.client.HTTPConnection('127.0.0.1', app.server_port)
+            try:
+                connection.request('POST' if data is not None else 'GET', path,
+                    json.dumps(data) if data is not None else None,
+                    {'Host': 'daylight.example', 'Origin': origin, 'Content-Type': 'application/json', **headers})
+                response = connection.getresponse()
+                return response.status, response.read(), response.headers
+            finally:
+                connection.close()
+
+        self.assertEqual(request('/')[0], 401)
+        _, invitation = self.invite()
+        status, _, headers = request('/pilot/redeem', {'invitation': invitation})
+        self.assertEqual(status, 200)
+        invite_cookie = headers['Set-Cookie'].split(';')[0]
+        status, body, headers = request('/api/guest/session', Cookie=invite_cookie)
+        self.assertEqual(status, 200)
+        cookies = invite_cookie + '; ' + headers['Set-Cookie'].split(';')[0]
+        csrf = json.loads(body)['csrf']
+        self.assertIn(b'/plans-workspace.js', request('/', Cookie=cookies)[1])
+        self.assertEqual(request('/api/plans/catalog', {}, Cookie=cookies,
+                                 **{'X-Daylight-CSRF': csrf})[0], 200)
+        self.assertEqual(request('/api/recommendation', {}, Cookie=cookies,
+                                 **{'X-Daylight-CSRF': csrf})[0], 404)
+        self.assertEqual(request('/api/plans/catalog', {}, Cookie=cookies)[0], 403)
+        self.assertEqual(request('/api/plans/catalog', {}, Cookie=cookies, Host='127.0.0.1')[0], 403)
+
     def test_signed_expiring_single_use_and_revocation(self):
         key, invite = self.invite()
         with self.assertRaises(ProfileError):

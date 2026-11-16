@@ -34,6 +34,25 @@ def words(value):
     return tuple(re.findall(r'[^\W_]+', plain))
 
 
+def place_matches(office, place):
+    """Match the published city, optionally qualified by state or ZIP."""
+    if not place:
+        return False
+    city = words(office.get('city') or '')
+    state = words(office.get('state') or '')
+    postal = (office.get('postal') or '')[:5]
+    requested = words(place)
+    return bool(city and requested in (city, city + state, city + (postal,),
+                                       city + state + (postal,), (postal,)))
+
+
+def place_office(office, place):
+    postal = re.fullmatch(r'(\d{5})(?:-?(\d{4}))?', (office.get('postal') or '').strip())
+    return {'line': office.get('street'), 'city': office.get('city'), 'state': office.get('state'),
+            'zip5': postal[1] if postal else None, 'zip4': postal[2] if postal else None,
+            'place_match': place_matches(office, place)}
+
+
 source_words = lru_cache(maxsize=32768)(words)
 
 
@@ -123,6 +142,7 @@ class DoctorIndex:
         self.facets = defaultdict(set)
         self.deletes = defaultdict(set)
         self.npi_sites = defaultdict(set)
+        self.npi_actors = defaultdict(set)
         self.actor_ordinals = list(corpus.actors)
         self.actor_ordinals.sort()
         self.locality_stats = Counter()
@@ -148,6 +168,8 @@ class DoctorIndex:
                 if actor['kind'] == 'clinician':
                     for npi in actor['npis']:
                         self.npi_sites[npi, office_key(office)].add((key, site))
+                        if len(actor['npis']) == 1 and npi not in corpus.identity_conflicts:
+                            self.npi_actors[npi].add(key)
         for token in self.tokens:
             if len(token) >= 3:
                 for short in deletions(token):
@@ -187,17 +209,37 @@ class DoctorIndex:
                 variants.update(self.deletes.get(deleted, ()))
         return set().union(*(self.tokens.get(w, set()) for w in variants if match_score(token, w)))
 
-    def site_page(self, key, offset):
-        edges = self.corpus.edges.get(key, {})
-        page = sorted(edges)[offset:offset + MAX_RESULTS]
-        return {'sites': [{**self.corpus.sites[site], 'specialties': sorted(edges[site]['specialties']),
+    def identity(self, key):
+        actor = self.corpus.actors[key]
+        npis = actor['npis']
+        return npis[0] if actor['kind'] == 'clinician' and len(npis) == 1 and npis[0] in self.npi_actors else key
+
+    def offices(self, key, place=None, *, combine_identity=False):
+        actors = self.npi_actors.get(self.identity(key), {key}) if combine_identity else {key}
+        ordered = sorted(
+            ((actor, site) for actor in actors for site in self.corpus.edges.get(actor, ())),
+            key=lambda pair: (
+                bool(place) and not place_matches(self.corpus.sites[pair[1]]['address'], place),
+                not pair[0].startswith('CMS:'), pair[0] != key, pair))
+        distinct = {}
+        for actor, site in ordered:
+            address = office_key(self.corpus.sites[site]['address'])
+            identity = address if combine_identity and all(address) else (actor, site)
+            distinct.setdefault(identity, (actor, site))
+        return list(distinct.values())
+
+    def site_page(self, key, offset, place=None, *, combine_identity=False):
+        offices = self.offices(key, place, combine_identity=combine_identity)
+        page = offices[offset:offset + MAX_RESULTS]
+        return {'sites': [{**self.corpus.sites[site], 'evidence_candidate_id': actor,
+                           'specialties': sorted(self.corpus.edges[actor][site]['specialties']),
                            'organizations': [{'candidate_id': org,
                                 'label': next(iter(self.corpus.actors[org]['names']), ''),
                                 'source': self.corpus.actors[org]['source']}
-                               for org in sorted(edges[site]['organizations'])]}
-                          for site in page],
-                'next_offset': offset + len(page) if offset + len(page) < len(edges) else None,
-                'site_count': len(edges)}
+                               for org in sorted(self.corpus.edges[actor][site]['organizations'])]}
+                          for actor, site in page],
+                'next_offset': offset + len(page) if offset + len(page) < len(offices) else None,
+                'site_count': len(offices)}
 
     def describe(self, key, *, matching_sites, matched_name, score):
         actor = self.corpus.actors[key]
@@ -214,13 +256,15 @@ class DoctorIndex:
                 'identity_confirmed': False}
 
     def search(self, *, name=None, location=None, practice=None, specialty=None,
-               region='regional', offset=0, limit=5):
+               region='regional', offset=0, limit=5, prefer_place=False, combine_identity=False):
         if (not isinstance(region, str) or region not in {'regional', 'all_retained'}
                 or type(offset) is not int or not 0 <= offset <= MAX_OFFSET
                 or type(limit) is not int or not 1 <= limit <= MAX_RESULTS):
             raise ResearchServingError('DOCTOR_INVALID_SEARCH')
         asked = validated_words(name, name=True)
         facets = tuple(validated_words(value) for value in (location, practice, specialty))
+        if prefer_place and any(len(token) > 1 for token in asked):
+            facets = ((), *facets[1:])
         name_matches = {w: self.name_postings(w) for w in set(asked)}
         missing = [w for w, postings in name_matches.items() if postings is not None and not postings]
         rescue = (missing[0] if len(missing) == 1 and len(missing[0]) >= 7 and any(
@@ -235,6 +279,8 @@ class DoctorIndex:
             for ordinal in candidates:
                 key = self.actor_ordinals[ordinal]
                 actor = self.corpus.actors[key]
+                if prefer_place and actor['kind'] != 'clinician':
+                    continue
                 variants = self.variants[key]
                 if not variants:
                     continue
@@ -242,29 +288,46 @@ class DoctorIndex:
                                     for name, tokens in variants.items())) if asked else (0, None)
                 if asked and not score:
                     continue
-                sites = [site for site, edge in self.corpus.edges.get(key, {}).items()
-                         if (region == 'all_retained' or self.corpus.sites[site]['address']['regional_search_hint'])
-                         and all(contains(facet, requested)
-                                 for facet, requested in zip(self.edge_facets(actor, site, edge), facets))]
-                if not sites and (region == 'regional' or any(facets)):
+                sites = []
+                for site, edge in self.corpus.edges.get(key, {}).items():
+                    office = self.corpus.sites[site]['address']
+                    local = office['regional_search_hint'] or (prefer_place and place_matches(office, location))
+                    if (region == 'all_retained' or local) and all(
+                            contains(facet, requested)
+                            for facet, requested in zip(self.edge_facets(actor, site, edge), facets)):
+                        sites.append(site)
+                if not sites and (prefer_place or region == 'regional' or any(facets)):
                     continue
                 if not asked and facets[1] and actor['kind'] == 'organization':
                     score = 1
                 elif asked and actor['kind'] == 'clinician' and actor['npis']:
                     score += 11
-                yield (-score, key, label, sorted(sites))
+                sites.sort(key=lambda site: (
+                    prefer_place and not place_matches(self.corpus.sites[site]['address'], location), site))
+                away = prefer_place and not place_matches(self.corpus.sites[sites[0]]['address'], location)
+                yield (away, -score, key, label, sites)
 
         count = 0
+        def identities():
+            if not combine_identity:
+                yield from matches()
+                return
+            best = {}
+            for match in matches():
+                identity = self.identity(match[2])
+                if identity not in best or match < best[identity]:
+                    best[identity] = match
+            yield from best.values()
 
         def counted():
             nonlocal count
-            for match in matches():
+            for match in identities():
                 count += 1
                 yield match
 
         results = heapq.nsmallest(offset + limit, counted())[offset:]
         return {'candidates': [self.describe(key, matching_sites=sites, matched_name=label, score=-score)
-                               for score, key, label, sites in results],
+                               for _, score, key, label, sites in results],
                 'total_source_candidates': count,
                 'next_offset': offset + limit if offset + limit < count and offset + limit <= MAX_OFFSET else None,
                 'search_window_limited': count > MAX_OFFSET + limit,
@@ -351,14 +414,17 @@ class PilotDoctors:
     def search(self, *, year=2026, **query):
         with self.reader.snapshot(**(SCOPE | {'year': year})):
             result = self.index.search(**query)
-        return {**result, 'binding_id': self.binding_id, 'contract': VERSION, 'year': year}
+        return {**result, 'binding_id': self.binding_id, 'contract': VERSION, 'year': year,
+                'clinician_types_searched': 'All clinician types in the retained directories',
+                'radius_or_area_searched': ('Retained directory records flagged as regional'
+                    if result['region'] == 'regional' else 'All retained directory regions')}
 
-    def sites(self, candidate_id, *, offset=0):
+    def sites(self, candidate_id, *, offset=0, place=None, combine_identity=False):
         if (not isinstance(candidate_id, str) or candidate_id not in self.corpus.actors
-                or type(offset) is not int or not 0 <= offset <= len(self.corpus.edges.get(candidate_id, {}))):
+                or type(offset) is not int or not 0 <= offset <= MAX_OFFSET):
             raise ResearchServingError('DOCTOR_INVALID_SITE_PAGE')
         with self.reader.snapshot(**SCOPE):
-            result = self.index.site_page(candidate_id, offset)
+            result = self.index.site_page(candidate_id, offset, place, combine_identity=combine_identity)
         return {**result, 'candidate_id': candidate_id, 'binding_id': self.binding_id}
 
     def selection(self, candidate_id, site_id, offering_id, intended_date, route):
@@ -401,6 +467,16 @@ class PilotDoctors:
             result = {'state': 'stale', 'reason': 'offline_package_expired', 'observations': [],
                       'outside_evidence_needed': ['Renew or withdraw the bound evidence after exact source and scope review.']}
         return base | result
+
+    def network_matrix(self, candidate_id, site_id, intended_date):
+        """Use the exact confirmed office and one source-gated read for both paths."""
+        original = self.selection(candidate_id, site_id, None, intended_date, 'original_medicare')
+        with self.reader.snapshot(**SCOPE) as conn:
+            today = self.reader.clock().date()
+            plans = {plan: {'name': offering['name'], **self.medicare_advantage(
+                Selection(candidate_id, site_id, plan, original.intended_date, 'medicare_advantage'), today)}
+                     for plan, offering in self.corpus.offerings.items()}
+            return {'original_medicare': self.original_medicare(conn, original, today), 'plans': plans}
 
     def medicare_advantage(self, selection, today):
         sel = selection

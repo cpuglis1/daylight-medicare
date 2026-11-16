@@ -71,7 +71,7 @@ textarea,input,select{caret-color:var(--olive)}
 .chat-progress progress::-webkit-progress-bar{background:var(--sage);border-radius:3px}
 .chat-progress progress::-webkit-progress-value{background:var(--olive);border-radius:3px}
 .chat-progress progress::-moz-progress-bar{background:var(--olive)}
-#current h2,#current>h1,.adaptive-suggestions>h2{font:700 21px/1.4 var(--font-ui);letter-spacing:0;color:var(--ink);margin:28px 0 14px;max-width:66ch;text-wrap:pretty}
+#current h2,#current>h1,.adaptive-suggestions>h2,#history .conversation-question{font:700 21px/1.4 var(--font-ui);letter-spacing:0;color:var(--ink);margin:28px 0 14px;max-width:66ch;text-wrap:pretty}
 .adaptive-suggestions>p,.adaptive-suggestions .chat-why{font-size:18px;line-height:1.55;max-width:70ch}
 .shortcuts>p,.shortcuts .small{font-size:17px;color:var(--muted);margin:16px 0 4px}
 .chat-message p{font-size:18px;line-height:1.6;max-width:70ch}
@@ -114,7 +114,7 @@ body.turn-pending #current,body.turn-pending #shortcuts{display:none}
 @media(max-width:600px){
   #workspace:not(.plans-open) .chat-workspace{padding-inline:16px}
   .adaptive-phases{font-size:16px;gap:6px}
-  #current h2,#current>h1,.adaptive-suggestions>h2{font-size:20px}
+  #current h2,#current>h1,.adaptive-suggestions>h2,#history .conversation-question{font-size:20px}
   .dialog{padding:24px 20px}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
@@ -199,3 +199,16 @@ body.chat-mode.plans-page,body.chat-mode:has(#workspace.plans-open){height:auto;
 .reply-table thead th{border-top:0;background:var(--sage);font-weight:700;color:var(--ink)}
 .reply-table tbody th{font-weight:700;color:var(--ink);min-width:9em}
 .reply-table td{font-variant-numeric:tabular-nums}
+/* D154: evidence stays in the conversation, with the next question below it. */
+.conversation-check-result {
+  margin-block: 0 1.5rem;
+  padding-block: 0 1.5rem;
+  border-bottom: 1px solid var(--line, #ccd3c1);
+  overflow-wrap: anywhere;
+}
+.conversation-check-result h3 { margin-block: 0 .5rem; }
+.conversation-check-result > .text-button { margin: .4rem 1rem .4rem 0; }
+#conversation-check-choice { max-width: 100%; width: 100%; font: inherit; min-height: 48px; }
+#conversation-check-choices .choice { text-align: left; white-space: normal; }
+.conversation-check-actions { display:flex; flex-wrap:wrap; align-items:center; gap:.25rem 1rem; }
+.conversation-check-actions button { min-height:44px; text-align:left; }

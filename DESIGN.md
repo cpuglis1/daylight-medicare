@@ -179,6 +179,12 @@ Use words and explicit states alongside color. A selected answer does not advanc
 
 ## Typography
 
+**D155 · :8894/:8895 conversation questions:** use the existing 700-weight,
+21px question style (20px on phone) consistently for active open-ended questions,
+questions with answer options and questions retained in the transcript. Ordinary
+explanation paragraphs remain 18px/400. A question without options is still a
+question, not ordinary reply prose.
+
 **Display font:** self-hosted Fraunces at weight 450, with Georgia/serif fallbacks. **Body font:** self-hosted Atkinson Hyperlegible at weights 400/700, with Arial/sans-serif fallbacks for the approved workspace. Body, controls and numbers use the legible sans face; the retained sheet supplies tabular numerals. Preserve `/fonts/atkinson-400.woff2`, `/fonts/atkinson-700.woff2` and `/fonts/fraunces.woff2` and their SIL OFL provenance.
 
 The frontmatter records desktop display, task headline, body, answer and label roles. The arrival display changes to 54px in the tablet range, 48px on phone and 43px at widths at or below 360px. Phone arrival line height is 1.05. Task headings are 46px in the tablet range and 42px on phone. These responsive exceptions are extracted from the approved sheet, not a replacement type scale.
@@ -196,6 +202,13 @@ Common stable phases are **1 Your goal, 2 Your situation, 3 Your options, 4 Your
 Left: Daylight's contextual task, literal question, why asked, explicit choices and optional first-class text. One prominent Continue. Back, then Ask beneath task actions. Right: the growing Medicare picture, one concept at a time. Phone keeps a compact current concept close to the task. Local definitions remain in the picture; Ask more opens help.
 
 ### Approved arrival and asset
+
+For :8895 only, D166 replaces the main photo with the owner's supplied
+`pexels-marcus-aurelius-6787918_daylightmain.jpg`, copied unchanged to
+`alternatives/advisor-first/web-8894/art/daylight-main.jpg` (5400×3575).
+The demo handler selects it and removes the former photo-credit footer at the
+owner's request. Keep the existing composition, responsive positioning, colors
+and type. :8894 continues to use the earlier approved asset below.
 
 Retain the approved 46/54 sage text/photo composition; phone stacks actions before the image. The approved sheet uses a 47/53 split in the 761–1100px range. The hero spans at most 1440px and has a 600px desktop minimum height (560px in the tablet range).
 
