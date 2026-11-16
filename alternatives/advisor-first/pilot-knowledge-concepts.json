@@ -1,0 +1,205 @@
+{
+ "_note": "Retrieval hints only, written from the 15-profile run of November 13, 2026. They add no wording: each key is a fact in the reviewed catalog, and a fact is used only if it is still approved for the surface. A fact matches when every group has a pattern found in the normalized message (lowercase words and digits).",
+ "pk_part_d_cap": [
+  [
+   "limit",
+   "cap",
+   "capped",
+   "maximum",
+   "most i",
+   "ceiling"
+  ],
+  [
+   "drug",
+   "drugs",
+   "medicine",
+   "medicines",
+   "prescription",
+   "prescriptions",
+   "pills",
+   "part d"
+  ],
+  [
+   "year",
+   "yearly",
+   "annual",
+   "pay",
+   "paying",
+   "spend"
+  ]
+ ],
+ "pk_payer_order": [
+  [
+   "\\d{2,6} (?:employees|people|workers)",
+   "large employer",
+   "small employer",
+   "big company",
+   "employer size",
+   "size of (?:my|the) (?:employer|company)",
+   "how (?:big|large|many)"
+  ],
+  [
+   "employ",
+   "company",
+   "work",
+   "job"
+  ]
+ ],
+ "pk_plan_coverage_loss_window": [
+  [
+   "two months",
+   "2 months",
+   "63 days",
+   "how long",
+   "how much time",
+   "deadline"
+  ],
+  [
+   "drug plan",
+   "part d",
+   "drug coverage",
+   "prescription (?:plan|coverage)"
+  ]
+ ],
+ "pk_penalty_d": [
+  [
+   "drop",
+   "dropping",
+   "go without",
+   "skip",
+   "skipping",
+   "cancel",
+   "without",
+   "pick (?:one|it) up later",
+   "later",
+   "why would i"
+  ],
+  [
+   "drug plan",
+   "part d",
+   "drug coverage",
+   "prescription (?:plan|coverage)"
+  ]
+ ],
+ "pk_medigap_underwriting": [
+  [
+   "switch",
+   "drop",
+   "leave",
+   "go back",
+   "come back",
+   "return",
+   "back to",
+   "have to (?:let|sell)",
+   "always"
+  ],
+  [
+   "medigap",
+   "supplement",
+   "plan [a-n]\\b",
+   "that g policy",
+   "\\bg policy"
+  ]
+ ],
+ "pk_creditable": [
+  [
+   "letter",
+   "notice",
+   "counted",
+   "creditable",
+   "as good as"
+  ],
+  [
+   "drug",
+   "prescription"
+  ]
+ ],
+ "pk_work_sep_start": [
+  [
+   "retire",
+   "retiring",
+   "retirement",
+   "stop working",
+   "leave my job",
+   "job ends",
+   "coverage ends",
+   "coverage ended"
+  ],
+  [
+   "part b",
+   "medicare",
+   "sign up",
+   "enroll"
+  ]
+ ],
+ "pk_formulary": [
+  [
+   "cover",
+   "covers",
+   "covered",
+   "cost less",
+   "cheaper"
+  ],
+  [
+   "medicine",
+   "medicines",
+   "drug",
+   "drugs",
+   "inhaler",
+   "insulin",
+   "eliquis",
+   "ozempic",
+   "metformin",
+   "synthroid"
+  ]
+ ],
+ "pk_pharmacies": [
+  [
+   "preferred",
+   "in network",
+   "network",
+   "works at",
+   "use"
+  ],
+  [
+   "pharmacy",
+   "cvs",
+   "walgreens",
+   "publix",
+   "stoney"
+  ]
+ ],
+ "pk_costs": [
+  [
+   "zero",
+   "\\b0\\b",
+   "free",
+   "no premium"
+  ],
+  [
+   "premium",
+   "plan",
+   "cost",
+   "costs",
+   "dollar"
+  ]
+ ],
+ "pk_aep": [
+  [
+   "switch",
+   "change",
+   "changing",
+   "new plan",
+   "different plan",
+   "leave"
+  ],
+  [
+   "next year",
+   "january",
+   "this fall",
+   "year ends",
+   "open enrollment",
+   "november"
+  ]
+ ]
+}
