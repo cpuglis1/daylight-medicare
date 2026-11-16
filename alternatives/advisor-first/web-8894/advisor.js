@@ -7,11 +7,11 @@
   const clone = value => structuredClone(value);
   const OPENING_QUESTION = 'What has you thinking about Medicare today?';
   const OPENING_CHOICES = Object.freeze({
-    learn: {label:'Understand Medicare',reply:'We can start with the Medicare basics.'},
+    learn: {label:'Understand Medicare',reply:'Medicare is federal health insurance. Part A is hospital insurance. Part B is medical insurance. Together, they are Original Medicare.'},
     compare: {label:'Find coverage',reply:'Let’s work through the coverage options for your situation.'},
     review: {label:'Review my coverage',reply:'Let’s start with the coverage you have today.'}
   });
-  const OPENING_REPLY_DELAY = 350;
+  const OPENING_REPLY_DELAY = 1850;
   const labels = {choice:'Answer',month:'Month and year',jobEnd:'Job ends',coverageEnd:'Work insurance ends',start:'Advantage coverage started',priorMedigap:'Left Medigap for that Advantage plan',name:'Medicine',strength:'Strength',form:'Form',practice:'Doctor or practice',city:'Office location',quantity:'Quantity and units',daysSupply:'Days supply',pharmacy:'Pharmacy',channel:'Retail or mail order',location:'Routine care location',gap:'Drug coverage gap',event:'Coverage change',eventDate:'Date',includes:'What the amount includes',year:'Coverage year',entity:'Item'};
   let session, state, service, config, baseline, sampleData;
   let active = false, conversationStarted = false, busy = false, composing = false, selectedGoal = '', review = null, prepared = null;
@@ -29,13 +29,15 @@
   const metrics = {turns:0,llmCalls:0,started:Date.now()};
   const visitResume = window.DaylightVisitResume;
   let pendingTimer = 0;
+  let pendingProgress = null;
   let dialogCount = 0;
   let doctorComposer = null, doctorDraft = '';
+  let checkTimer = 0, checkRefreshing = false;
 
-  async function api(path, body, method) {
+  async function api(path, body, method, signal) {
     const previewPath = location.pathname === '/d146/' &&
       (path.startsWith('/api/') || path === '/ten-config.json') ? '/d146' + path : path;
-    const response = await fetch(previewPath, {method:method || (body ? 'POST' : 'GET'),credentials:'same-origin',
+    const response = await fetch(previewPath, {method:method || (body ? 'POST' : 'GET'),credentials:'same-origin',signal,
       headers:{'Content-Type':'application/json',...(session ? {'X-Daylight-CSRF':session.csrf} : {})},
       ...(body ? {body:JSON.stringify(body)} : {})});
     const value = await response.json();
@@ -76,7 +78,8 @@
     if (modelSelect && config?.models?.length) modelSelect.disabled = value;
     syncSend();
   }
-  function beginPending(words, usingAI) {
+  function beginPending(words, usingAI, requestId) {
+    pendingProgress?.stop();pendingProgress = null;
     const host = $('pending-turn'); host.replaceChildren(); host.hidden = !usingAI;
     $('status').className = usingAI ? 'chat-status sr-only' : 'chat-status';
     if (!usingAI) return;
@@ -94,13 +97,28 @@
     typing.append(line);
     host.append(typing);
     clearTimeout(pendingTimer);
-    pendingTimer = setTimeout(() => { if (typing.isConnected) typing.append(el('p','Longer answers can take up to half a minute. Your message is safe.','thinking-more')); },10000);
+    if (window.DaylightTurnProgress && requestId) {
+      const more = el('p','','thinking-more');more.hidden = true;typing.append(more);
+      pendingProgress = window.DaylightTurnProgress.start({
+        read: signal => api('/api/conversation/progress',{requestId},'POST',signal),
+        render: status => {
+          if (!typing.isConnected) return;
+          typing.dataset.progress = status.stage;
+          line.querySelector('.thinking-words').textContent = status.text;
+          more.textContent = status.more;more.hidden = !status.more;
+          note([status.text,status.more].filter(Boolean).join(' '));
+        }
+      });
+    } else {
+      pendingTimer = setTimeout(() => { if (typing.isConnected) typing.append(el('p','Longer answers can take up to half a minute. Your message is safe.','thinking-more')); },10000);
+    }
     document.body.classList.add('turn-pending');
     $('send').textContent = 'Sending…';
     $('status').className = 'chat-status sr-only';
     $('reading').scrollTop = $('reading').scrollHeight;
   }
   function endPending() {
+    pendingProgress?.stop();pendingProgress = null;
     clearTimeout(pendingTimer); document.body.classList.remove('turn-pending'); $('send').textContent = 'Send';
     $('pending-turn').replaceChildren(); $('pending-turn').hidden = true;
     $('status').className = 'chat-status';
@@ -117,18 +135,6 @@
     cue.setAttribute('aria-label',label);cue.title = label;
     const workspace = reading.parentElement.getBoundingClientRect();
     cue.style.setProperty('--chat-down-bottom',Math.max(0,workspace.bottom - bounds.bottom + 10)+'px');
-  }
-  // After a reply, a reader who was following the conversation should see the
-  // next question and its answer buttons, not only the down arrow. Scroll just
-  // enough for #current to fit, never past its top, and never when the reader
-  // had scrolled up or has moved since this was scheduled.
-  function showCurrentQuestion(reading, expectedTop = null) {
-    const current = $('current');
-    if (!current.childElementCount || (expectedTop !== null && Math.abs(reading.scrollTop - expectedTop) > 2)) return reading.scrollTop;
-    const bounds = reading.getBoundingClientRect(), rect = current.getBoundingClientRect();
-    const overflow = rect.bottom - (bounds.bottom - 32), room = rect.top - bounds.top - 18;
-    if (overflow > 0 && room > 0) reading.scrollTop += Math.min(overflow,room);
-    return reading.scrollTop;
   }
   function jumpDown() {
     const reading = $('reading'), bounds = reading.getBoundingClientRect();
@@ -206,7 +212,11 @@
       if (/^#{1,6}\s+/.test(line)) {host.append(inlineText(el('p', undefined, 'reply-heading'), line.replace(/^#{1,6}\s+/, '').replace(/\*\*/g, ''))); i++; continue;}
       const buf = [line]; i++;
       while (i < lines.length && lines[i].trim() && !special.test(lines[i].trim())) buf.push(lines[i++].trim());
-      host.append(inlineText(el('p'), buf.join('\n')));
+      const text = buf.join('\n');
+      // Open-ended follow-ups arrive as a separate reply paragraph, without
+      // nextQuestion or answer options. Give them the same question typography.
+      const question = text.replace(/\*\*/g, '').trim().endsWith('?');
+      host.append(inlineText(el('p',undefined,question ? 'conversation-question' : ''), text));
     }
     return host;
   }
@@ -259,6 +269,92 @@
       host.append(el('h2',fact.title),paragraph(fact.text,reveal));
       const links = [...(fact.source ? [{url:fact.source,label:'Medicare.gov source'}] : []),...(fact.sources || [])];
       const sources = withSources && citationBlock(links);if (sources) host.append(sources);
+    }
+    return host;
+  }
+
+  // D157: cards built by software and shown under a reply. The model never
+  // sees or writes what they contain. Listed amounts on the two-path card are
+  // read from the same tab data the Plans page shows.
+  // D161: a suggested sentence goes into the composer; the person presses Send.
+  function stageWords(text) {
+    if (document.body.classList.contains('plans-page') && typeof DaylightPlans !== 'undefined') DaylightPlans.showChat?.();
+    const box = $('message');box.value = text;messageInput();box.focus();box.setSelectionRange?.(text.length,text.length);
+  }
+  // What a card in the conversation can do: open a guide, put the person's sentence in the composer,
+  // or record a tapped answer. A tapped answer is the person's own and needs no model call.
+  function enrollActions() {
+    return {stage:stageWords,view:state?.enrollment,
+      guide:(id,route) => typeof DaylightPlans !== 'undefined' && DaylightPlans.openGuide?.(id,route),
+      decide:fields => turn({type:'enrollment_decision',...fields},'',false,{silent:true}),
+      open:view => typeof DaylightPlans !== 'undefined' && DaylightPlans.openView?.(view),
+      amounts:host => {if (typeof DaylightPlans !== 'undefined' && DaylightPlans.pathAmounts) DaylightPlans.pathAmounts(host);}};
+  }
+  function cardBlock(card) {
+    if (card.kind === 'guided_archive' && window.DaylightGuidedClose) {
+      const saved=el('details',undefined,'guided-close-archive');saved.append(el('summary','Your earlier summary and next steps'));
+      saved.append(window.DaylightGuidedClose.summary(card));return saved;
+    }
+    if (card.kind === 'guided_summary' && window.DaylightGuidedClose)
+      return window.DaylightGuidedClose.summary(card,{open:view=>DaylightPlans.openView(view)});
+    const host = el('section',undefined,'chat-card');host.dataset.kind = card.kind;
+    host.setAttribute('aria-label',card.title || 'Details');
+    if (card.title && !(card.kind === 'plans_ready' && card.title === card.button?.label)) host.append(el('h3',card.title));
+    if (card.kind === 'enrollment_timing') {
+      const list = el('dl');
+      for (const row of card.rows || []) {
+        const item = el('div',undefined,'card-row');
+        item.append(el('dt',row.label),el('dd',row.value));
+        if (row.note) item.append(el('p',row.note,'card-note'));
+        list.append(item);
+      }
+      host.append(list);
+      const split = (card.text || '').split('COBRA isn’t')[1];
+      const cobra = typeof card.cobra === 'string' ? card.cobra : split ? 'COBRA isn’t'+split : '';
+      if (cobra) host.append(el('p',cobra,'card-text'));
+      if (card.footer) host.append(el('p',card.footer,'card-note'));
+      if (card.footnote) host.append(el('p',card.footnote,'card-note'));
+    } else if (card.kind === 'two_paths') {
+      const paths = el('div',undefined,'chat-paths');
+      for (const path of card.paths || []) {
+        const box = el('article',undefined,'chat-path');box.dataset.path = path.id;
+        if (card.lean?.path === path.id) {
+          box.dataset.lean = card.lean.state;
+          box.append(el('p',card.lean.state === 'chosen' ? 'Your choice' : (card.lean.because || [])[0] || '','card-lean'));
+        }
+        box.append(el('h4',path.name),el('p',path.what,'card-note'));
+        const list = el('dl');
+        const left = (path.still_needed || []).length;
+        if (path.general_left && path.status !== 'ready' && left) {
+          // Owner, November 13: one general line until Medigap has come up in the conversation.
+          box.append(el('p',left+' detail'+(left === 1 ? '' : 's')+' left to see plans and prices','card-note card-left'));
+        }
+        for (const amount of path.general_left && path.status !== 'ready' && left ? [] : path.amounts || []) {
+          const item = el('div',undefined,'card-row');
+          const value = el('dd','','card-amount');value.dataset.source = amount.source;
+          value.textContent = path.status === 'ready' ? 'On the tab' : (path.still_needed || []).length
+            ? (path.still_needed.length+' detail'+(path.still_needed.length === 1 ? '' : 's')+' left') : 'On the tab';
+          item.append(el('dt',amount.label),value);list.append(item);
+        }
+        box.append(list);
+        const checks = el('ul',undefined,'card-checks');
+        for (const check of path.checks || []) {
+          const row = el('li',(check.state === 'ok' ? '✓ ' : check.state === 'no' ? '✗ ' : '? ')+check.text);
+          row.dataset.state = check.state;checks.append(row);
+        }
+        box.append(checks);
+        if (typeof DaylightPlans !== 'undefined' && DaylightPlans.openView)
+          box.append(button(path.button,() => DaylightPlans.openView(path.tab === 'medigap' ? (card.choices ? 'original' : 'supplement') : path.tab),'secondary-button'));
+        paths.append(box);
+      }
+      host.append(paths);
+      if (card.both) host.append(el('p',card.both,'card-note'));
+      if (card.choices && window.DaylightEnrollment) host.append(window.DaylightEnrollment.choices(card.choices,stageWords));
+      if (typeof DaylightPlans !== 'undefined' && DaylightPlans.pathAmounts) DaylightPlans.pathAmounts(host);
+    } else if (window.DaylightEnrollment?.card(card,host,enrollActions())) {
+      // D161: the sign-up route and a chosen finish's summary are drawn by enrollment-view.js.
+    } else if (card.text) {
+      host.append(el('p',card.text,'card-text'));
     }
     return host;
   }
@@ -360,22 +456,22 @@
     const block = el('div',undefined,'exchange');
     if (item.askedQuestion) {
       const question = el('article',undefined,'chat-message chat-daylight'); question.setAttribute('aria-label','Daylight');
-      question.append(paragraph(item.askedQuestion,false)); block.append(question);
+      question.append(paragraph(item.askedQuestion,false,'p','conversation-question')); block.append(question);
     }
     if (item.user) { const user = el('article',undefined,'chat-message chat-user'); user.setAttribute('aria-label','You'); user.append(el('p',item.user)); block.append(user); }
-    if (item.reply || item.sources?.length || item.notice) {
+    if (item.reply || item.sources?.length || item.notice || item.cards?.length) {
       const answer = el('article',undefined,'chat-message chat-daylight'); answer.setAttribute('aria-label','Daylight');
       // A recovery turn leads with its one-line notice ("I couldn't finish that
       // answer…") so the statement that follows reads as the part that stands.
-      if (item.notice && item.noticeFirst) answer.append(el('p',item.notice,'chat-small'));
       if (item.reply) answer.append(richReply(item.reply));
+      for (const card of item.cards || []) answer.append(cardBlock(card));
       // A server notice (for example a partial answer) stays with its reply in the
       // transcript; the live status line repeats it once for assistive technology.
-      if (item.notice && !item.noticeFirst) answer.append(el('p',item.notice,'chat-small'));
+      if (item.notice) answer.append(el('p',item.notice,'chat-small'));
       // Conversation prose comes from the model. Prepared lessons, timelines
       // and milestone narration stay out of the chat, including old receipts.
       const followups = educationFollowups(item.educationFollowups);if (followups) answer.append(followups);
-      const links = [...(item.sources || []),...(item.visual?.guide?.sources || []),...(item.facts || []).flatMap(fact => [...(fact.source ? [{url:fact.source,label:'Medicare.gov source'}] : []),...(fact.sources || [])])];
+      const links = [...(item.sources || []),...(item.cards || []).flatMap(card => card.sources || []),...(item.visual?.guide?.sources || []),...(item.facts || []).flatMap(fact => [...(fact.source ? [{url:fact.source,label:'Medicare.gov source'}] : []),...(fact.sources || [])])];
       const sources = citationBlock(links);if (sources) answer.append(sources);
       block.append(answer);
     }
@@ -402,14 +498,38 @@
     return lastFocus;
   }
   function phaseTrack() {
+    // D157 (CV-37): a fixed four-step tracker cannot follow a conversation
+    // that goes where the person takes it. Show only what is left before the
+    // person's plans, from the same list the tabs use; nothing when nothing is left.
     const host = $('phases'); host.replaceChildren();
-    const focus = conversationFocus(), topics = ['Your situation','Medicare basics','Coverage options','Next steps'], list = el('ol',undefined,'adaptive-phases');
-    host.setAttribute('aria-label','Conversation focus: '+topics[focus]);
-    topics.forEach((name,i) => { const n = el('li',name); if (i === focus) n.setAttribute('aria-current','true'); list.append(n); });
-    const bar = el('progress'); bar.max = 4; bar.value = focus + 1;
-    bar.setAttribute('aria-hidden','true'); bar.title = 'Current conversation focus';
-    host.append(list,bar);
+    conversationFocus();
+    const left = state?.whatsLeft;
+    // D161: Part A and Part B status and the next step, one compact line, where the server supplies it.
+    const enrollLine = window.DaylightEnrollment?.statusLine(state?.enrollment);
+    // Cards already in the conversation follow what the person has since tapped.
+    if (state?.enrollment && window.DaylightEnrollment?.live) queueMicrotask(() => window.DaylightEnrollment.live(document,state.enrollment,enrollActions()));
+    if (window.DaylightGuidedClose) {window.DaylightGuidedClose.progress(host,state?.profileProgress);return;}
+    // Approved design, November 13: once a guide has been opened this visit, one button brings it back.
+    const lastGuide = state?.enrollment && typeof DaylightPlans !== 'undefined' && DaylightPlans.lastGuide?.();
+    host.hidden = !left && !enrollLine && !lastGuide;
+    if (host.hidden) return;
+    host.setAttribute('aria-label',enrollLine ? 'Your Medicare status and what is left' : 'What is left before your plans');
+    if (enrollLine) host.append(enrollLine);
+    if (lastGuide) host.append(button('Sign-up guide',() => DaylightPlans.openGuide(lastGuide.id,lastGuide.route),'secondary-button enroll-guide-return'));
+    if (left) host.append(el('p',left.text,'whats-left'));
   }
+  let plansNavigation = null;
+  function revealPlansGuide() {
+    const guide=document.querySelector('.plans-conversation-guide'),reading=$('reading');
+    if(guide?.getClientRects().length)reading.scrollTop+=guide.getBoundingClientRect().top-reading.getBoundingClientRect().top-16;
+  }
+  document.addEventListener('daylight:plans-chat-open',()=>queueMicrotask(revealPlansGuide));
+  document.addEventListener('daylight:plans-navigation',event => {
+    const changed=plansNavigation!==event.detail;
+    plansNavigation=event.detail;
+    if (state && window.DaylightGuidedClose) {renderCurrent();if(changed)queueMicrotask(revealPlansGuide);}
+  });
+  document.addEventListener('daylight:plans-closed',() => {plansNavigation=null;if (state) {phaseTrack();renderCurrent();}});
   function drawReference() {
     const host = $('reference'); host.replaceChildren();
     // Teaching belongs to its explanation in history, never to a later
@@ -435,6 +555,8 @@
     }
     // A saved free-text report must not become an invisible selected answer.
     // Existing reports remain in the profile; new details come through chat.
+    // D181 (:8895): answers the person already gave start selected; nothing is recorded until Send.
+    if (!choice.length && Array.isArray(question.suggestedChoices)) choice = [...question.suggestedChoices];
     choice = choice.filter(value => question.choices.some(([id]) => id === value));
     const draft = {fields,choice}; drafts.set(question.signature,draft); return draft;
   }
@@ -457,6 +579,7 @@
     updateScrollCue();
   }
   function messageInput() {
+    if ($('message').value.trim()) window.DaylightConversationChecks?.clear();
     if (doctorComposer) {
       window.DaylightDoctorCheck.setName($('message').value);
       resizeComposer();syncSend();
@@ -474,6 +597,14 @@
   }
   function syncSend() {
     const send = $('send'), words = $('message').value.trim(), slot = $('selection');
+    if (state?.conversationCheck?.question && window.DaylightConversationChecks) {
+      const answer = window.DaylightConversationChecks.answer(state.conversationCheck.question);
+      const target = !words && answer && slot ? slot : $('composer-input');
+      if (send.parentElement !== target) target.prepend(send);
+      send.textContent = 'Send';send.disabled = busy || !(words || answer);
+      if (slot) slot.hidden = !!words || !answer;
+      return;
+    }
     if (doctorComposer) {
       send.textContent = 'Continue';
       send.disabled = doctorComposer.busy || !doctorComposer.composer || !words;
@@ -499,11 +630,16 @@
   async function submitCurrent() {
     if (composing || busy) return;
     const words = $('message').value.trim();
+    if (!words && state?.conversationCheck?.question && window.DaylightConversationChecks) {
+      const answer = window.DaylightConversationChecks.answer(state.conversationCheck.question);
+      if (answer) await turn({type:'check_answer',token:answer.token,value:answer.value},answer.label);
+      return;
+    }
     if (doctorComposer) {
       if (doctorComposer.composer && words) await window.DaylightDoctorCheck.submitName();
       return;
     }
-    if (words && service?.local_demo?.doctor_chat) {
+    if (words && service?.local_demo?.doctor_chat && !service?.local_demo?.conversation_checks) {
       const named = words.match(/^(?:please\s+)?check\s+(Dr\.?\s+[^\r\n]{1,125})[.!]?$/i);
       if (/^(?:(?:can you|please)\s+)?check\s+(?:a|my)\s+doctor[.!?]?$/i.test(words) || named) {
         openDoctorCheck(named?.[1] || '', true);
@@ -519,13 +655,26 @@
     } else if (state.assessment.narrative.opener && selectedGoal && selectedGoal !== 'unresolved') {
       const goal = selectedGoal;
       const {label} = OPENING_CHOICES[goal];
-      if (await turn({type:'choice',id:'T01',fields:{choice:goal}},label,false,{opening:true})) {selectedGoal = '';syncSend();}
+      // D181 (:8895): a starting point is answered like any other deliberate answer,
+      // by the normal composed turn. No stored reply text.
+      const composed = !!service?.local_demo?.composed_opening;
+      if (await turn({type:'choice',id:'T01',fields:{choice:goal}},label,composed,composed ? {} : {opening:true})) {selectedGoal = '';syncSend();}
     } else if (q()) await submitForm(q());
   }
   function renderForm(host,question,presentation) {
-    if (question.conversational) return;
+    if (question.conversational) {
+      if (question.suggestions?.length) {
+        const row = el('div',undefined,'choices');
+        for (const words of question.suggestions) row.append(button(words,() => {if (choiceMayChange()) stageWords(words);},'choice'));
+        host.append(row);
+      }
+      return;
+    }
     const draft = draftFor(question), form = el('form',undefined,'task-form'); form.id = 'detail-form';
-    if (question.choices.length) {
+    // Owner, November 13: a confirmation is "Yes, that's right" or "No, let me fix it". Drawing the original
+    // question's six choices beside it read as a new question (profiles PP02, PP10 and PP13).
+    const confirming = !!(state.enrollment && question.clarification?.confirmable);
+    if (question.choices.length && !confirming) {
       const choices = el('div',undefined,'choices'); choices.setAttribute('role','group'); choices.setAttribute('aria-label',question.question);
       const view = insuranceChoiceView(question,draft);
       for (const item of view.items) {
@@ -551,7 +700,7 @@
     }
     // Free text belongs in the one chat composer. Only genuine finite options
     // become answer buttons, including any service-owned field options.
-    for (const field of question.fields.filter(field => field.type === 'select')) {
+    for (const field of confirming ? [] : question.fields.filter(field => field.type === 'select')) {
       const group = el('div',undefined,'choices'); group.setAttribute('role','group'); group.setAttribute('aria-label',field.label);
       if (question.fields.length > 1) presentText(form,field.label,presentation,'p','small');
       for (const [value,label] of field.options) {
@@ -572,8 +721,12 @@
       const label = question.clarification.confirmLabel || 'Yes, that’s right';
       const b = button(label,() => {if (!choiceMayChange()) return;void turn({type:'message',message:label+'.'},label,true);},'choice');
       actions.append(presentControl(b,presentation));
+      if (confirming) {
+        const fix = button('No, let me fix it',() => {note('Type the right answer in the message box.');$('message').focus({preventScroll:true});},'choice');
+        actions.append(presentControl(fix,presentation));
+      }
     }
-    for (const [value,label] of [['unknown','I don’t know'],['defer','Check later']]) {
+    for (const [value,label] of confirming ? [] : [['unknown','I don’t know'],['defer','Check later']]) {
       const b = button(label,() => {if (!choiceMayChange()) return;draft.resolution = draft.resolution === value ? '' : value;draft.choice = [];draft.fields = {};draft.coverageGroup = '';renderCurrent();revealSend();},'choice');
       b.setAttribute('aria-pressed',String(draft.resolution === value)); actions.append(presentControl(b,presentation));
     }
@@ -652,13 +805,13 @@
     if (review.kind === 'plan_profile') {
       host.append(el('h1','Review your info'),el('p','Does this reflect what you want to use to compare plans? You can edit a detail or tell Daylight what to change.'));
       const sheet = el('div',undefined,'review-sheet plan-profile-review');rows(sheet,review.rows,true);host.append(sheet);
-      const checks = el('section',undefined,'plan-review-checks');checks.append(el('h2','Still to check'));
+      const checks = el(window.DaylightGuidedClose?'details':'section',undefined,'plan-review-checks');checks.append(el(window.DaylightGuidedClose?'summary':'h2','Still to check'));
       const list = el('ul');
       for (const item of review.readiness.holds) list.append(el('li',item.label));
       checks.append(list,el('p','These are your reported details. Reviewing them keeps the open checks visible when you see plans.','small'));host.append(checks);
       // D138: the fixed pre-enrollment step, with the conversation count as supporting detail.
-      const before = el('section',undefined,'plan-review-checks');
-      before.append(el('h2','Before you enroll'),el('p','Medicare rules list twelve topics to go over before anyone enrolls in a plan.'+(cmsChecklist ? ` ${cmsChecklist.covered} of ${cmsChecklist.total} have come up in this conversation so far.` : ''),'small'),button('Read the twelve topics',beforeEnroll));
+      const before = el(window.DaylightGuidedClose?'details':'section',undefined,'plan-review-checks');
+      before.append(el(window.DaylightGuidedClose?'summary':'h2','Before you enroll'),el('p','Medicare rules list twelve topics to go over before anyone enrolls in a plan.'+(cmsChecklist ? ` ${cmsChecklist.covered} of ${cmsChecklist.total} have come up in this conversation so far.` : ''),'small'),button('Read the twelve topics',beforeEnroll));
       host.append(before);
       selectionSlot(host);
       host.append(button('Keep talking',() => turn({type:'cancel_plan_review',token:review.token})));
@@ -696,6 +849,36 @@
       || state.partDProfile?.status === 'ready';
     let openingPresentation;
     $('composer').hidden = !!prepared;
+    if (window.DaylightGuidedClose && plansNavigation && !review && !prepared && !state.record.conversation?.editing) {
+      const guide=window.DaylightGuidedClose.guide(plansNavigation,view=>DaylightPlans.continueView(view));
+      if(guide){host.append(guide);$('shortcuts').replaceChildren();
+        for(const id of ['back','review','prepare','samples'])$(id).hidden=true;
+        $('message-label').textContent='Ask about this step';$('message').placeholder='Ask about this step…';syncSend();return;}
+    }
+    if (!review && !prepared && state.closingResearch && window.DaylightEnrollment) {
+      const summary = el('section',undefined,'conversation-check-result');
+      summary.append(el('h3',state.closingResearch.title));
+      window.DaylightEnrollment.card({...state.closingResearch,kind:'finish_summary'},summary);
+      host.append(summary);
+    }
+    if (!review && !prepared && window.DaylightConversationChecks && state.conversationCheck) {
+      const checking = window.DaylightConversationChecks.render(host,state.conversationCheck,{
+        visit:state.continuation,
+        changed:()=>{ $('message').value='';resizeComposer();syncSend();revealSend(); },
+        defer:question=>turn({type:'check_answer',token:question.token,value:'__later__'},'Leave this detail open for now'),
+        edit:kind=>turn(kind==='medicineList' ? {type:'edit',id:'T07'} :
+          {type:'edit',id:kind==='doctor'?'T06':'RC23',...(kind==='doctor'?{}:{entity:state.conversationCheck.question?.item || 'medicine-1'})}),
+        editCheck:(key,field)=>turn({type:'check_edit',key,field}),
+        back:()=>turn({type:'check_back'})
+      });
+      if(checking) {
+        $('shortcuts').replaceChildren();$('message-label').textContent='Type an answer or ask a question';
+        $('message').placeholder='Type your answer or ask a question…';
+        $('reference').hidden=true;
+        for (const id of ['back','review','prepare','samples']) $(id).hidden=true;
+        syncSend();return;
+      }
+    }
     if (window.DaylightDoctorCheck?.render(host)) {
       $('shortcuts').replaceChildren();
       for (const id of ['back','review','prepare','samples']) $(id).hidden = true;
@@ -738,20 +921,25 @@
       }
     }
     else if (state.assessment.journey.samplesVisible) renderSamples(host);
-    else if (opening) {
+    else if (window.DaylightGuidedClose && state.comparisonClose?.show) {
+      host.append(window.DaylightGuidedClose.summary(state.comparisonClose,{
+        review:()=>turn({type:'review_plans'}),open:view=>DaylightPlans.openView(view)}));
+    } else if (opening) {
       openingPresentation = renderOpening(host);
-    } else if (state.planReadiness?.canReview && !q() && state.generated?.status !== 'complete') {
+    } else if (!state.conversationPlanner && state.planReadiness?.canReview && !q() && state.generated?.status !== 'complete') {
       host.append(el('h1','Ready to review your info before we look at plans?'));
     } else if (q() && state.assessment.narrative.focus !== 'prepare') {
       const presentation = questionPresentation(q());
       presentText(host,q().question,presentation,'h1');
-      if (q().why && (state.generated?.status !== 'complete' || q().id.startsWith('MG_')
-          || state.record?.conversation?.task === 'drug_pricing' && ['RC01','T03','RC02','RC03'].includes(q().id))) presentText(host,q().why,presentation,'p','why');
+      // D157 (CV-09): every personal question carries its reason.
+      if (q().why) presentText(host,q().why,presentation,'p','why');
       renderForm(host,q(),presentation);
-      if (service?.local_demo?.doctor_chat && ['T06','RC21'].includes(q().id)) {
+      if (service?.local_demo?.doctor_chat && !service?.local_demo?.conversation_checks && ['T06','RC21'].includes(q().id)) {
         host.append(button('Check a doctor’s office',() => openDoctorCheck()));
       }
       if (state.record.conversation.editing) host.append(button('Return to my current task',() => turn({type:'resume'})));
+    } else if (state.conversationPlanner && !conversationPaused()) {
+      if (!(state.questionProgress || []).some(item => item.state === 'parked')) host.append(el('h1','What would help you next?'));
     } else if (!conversationPaused()) {
       const presentation = questionPresentation(state.assessment);
       presentText(host,'Here’s where we are',presentation,'h1');
@@ -763,19 +951,40 @@
       host.append(topics,presentControl(button('Review your profile',reviewInformation),presentation),presentControl(button('Prepare my next steps',() => turn({type:'review_preparation'}),'primary'),presentation),presentControl(button('Browse sample plans',() => turn({type:'next',step:'samples'})),presentation));
       if (state.comparison) host.append(presentControl(button('Review comparison preparation',reviewComparison),presentation));
     }
+    if (state.conversationPlanner && !review && !prepared && !state.comparisonViewOpen && !state.identityViewOpen) {
+      const parked = (state.questionProgress || []).filter(item => item.state === 'parked');
+      if (parked.length) {
+        const details = el('details'); details.dataset.questionProgress = 'open';
+        details.append(el('summary','Details still open'));
+        details.append(el('p','You can add or correct these details in your message whenever you’re ready.'));
+        for (const item of parked) details.append(el('p',item.label+' — not yet recorded'));
+        host.append(details);
+      }
+    }
     // D138: when the details a tab needs are complete, the conversation
     // offers the way to it. The listed amounts stay on the tab.
-    if (!review && !prepared && !state.comparisonViewOpen && !state.identityViewOpen
+    if (!state.conversationPlanner && !review && !prepared && !state.comparisonViewOpen && !state.identityViewOpen
         && typeof DaylightPlans !== 'undefined' && DaylightPlans.openView) {
-      const task = state.record.conversation?.task;
-      if (task === 'medigap' && state.medigapProfile?.status === 'ready')
-        host.append(button('See your Medigap prices',() => DaylightPlans.openView('supplement')));
-      if (['medigap','drug_pricing'].includes(task) && state.partDProfile?.status === 'ready')
-        host.append(button('See your Part D drug plans',() => DaylightPlans.openView('part-d')));
+      // D157 (CV-35, CV-36): a large button, and only for a tab on the
+      // person's path or one they asked for.
+      const task = state.record.conversation?.task, path = state.coveragePath?.path;
+      const onMedigapPath = task === 'medigap' || path === 'original_medigap';
+      // Owner, November 13 (two-path dashboard only): the way to the prices is offered when no question is
+      // open, or at the review, and "Review your info" is then the one main button. Plans stays in the header.
+      const timely = !state.enrollment || !q() || !!state.planReadiness?.canReview;
+      const main = state.enrollment && state.planReadiness?.canReview ? 'secondary-button tab-ready' : 'primary-button tab-ready';
+      if (timely && onMedigapPath && state.medigapProfile?.status === 'ready')
+        host.append(button('See your Medigap prices',() => DaylightPlans.openView('supplement'),main));
+      if (timely && task === 'drug_pricing' && state.partDProfile?.status === 'ready')
+        host.append(button('See your Part D drug plans',() => DaylightPlans.openView('part-d'),
+          onMedigapPath && state.medigapProfile?.status === 'ready' ? 'secondary-button tab-ready' : main));
       if (!opening && window.DaylightPrescriptionPreview && state.partDProfile?.status === 'ready')
         host.append(button('Check fictional drug costs',() => openPrescriptionPreview()));
     }
-    if (state.planReadiness?.canReview && !review && !prepared && !state.comparisonViewOpen
+    if (!(window.DaylightGuidedClose && state.comparisonClose?.show) && (!state.conversationPlanner || (state.conversationPlanner.guidance
+          ? state.conversationPlanner.guidance.mode === 'work'
+          : state.conversationPlanner.purpose === 'investigate'))
+        && state.planReadiness?.canReview && !review && !prepared && !state.comparisonViewOpen
         && !state.identityViewOpen && !state.record.conversation.editing && !state.assessment.journey.samplesVisible) {
       const action = button('Review your info',() => turn({type:'review_plans'}),'primary');
       action.id = 'review-plan-info';host.append(action);
@@ -987,6 +1196,7 @@
     catch (error) {
       if (error.code && !['conversation_state','conversation_busy'].includes(error.recovery)) throw error;
       // These are free receipt/state reads, never retries of a paid action.
+      pendingProgress?.reconnecting();
       note('Reconnecting to your conversation…');
       try {
         for (let attempt = 0; attempt < 20; attempt++) {
@@ -1042,6 +1252,9 @@
     return narrative.focus === 'prepare' ? '' : usableQuestion(view)?.question || '';
   }
   function appendTurnHistory(requestId, askedQuestion, userWords, result, previous = null) {
+    const closing=previous?.comparisonClose;
+    if(window.DaylightGuidedClose && closing?.show && !history.some(item=>item.cards?.some(c=>c.kind==='guided_archive' && c.revision===closing.revision)))
+      history.push({reply:'',cards:[{...clone(closing),kind:'guided_archive'}]});
     // A recovery turn (advisor.reason === 'recovery') carries one reviewed
     // statement that must stay visible even though generation was unavailable.
     const recovery = result.advisor?.reason === 'recovery';
@@ -1050,10 +1263,11 @@
     userWords ||= opening?.label || '';
     const sources = generationUnavailable(result) && !recovery ? [] : result.advisor?.sources || [];
     const notice = typeof result.notice === 'string' ? plain(result.notice.trim()) : '';
-    const appended = !!(userWords || reply || result.facts?.length || sources.length || notice);
+    const cards = Array.isArray(result.cards) ? result.cards : [];
+    const appended = !!(userWords || reply || result.facts?.length || sources.length || notice || cards.length);
     if (appended && !history.some(item => item.requestId === requestId)) {
       const artifacts = typeof DaylightVisitArtifacts !== 'undefined' ? DaylightVisitArtifacts : null;
-      history.push({requestId,askedQuestion,user:userWords,reply,notice,noticeFirst:recovery,facts:result.facts || [],sources,visual:turnVisual(result),educationFollowups:generationUnavailable(result) ? [] : result.advisor?.educationFollowups || [],
+      history.push({requestId,askedQuestion,user:userWords,reply,notice,cards,facts:result.facts || [],sources,visual:turnVisual(result),educationFollowups:generationUnavailable(result) ? [] : result.advisor?.educationFollowups || [],
         reportedDates:artifacts?.timelineFor(previous,result) || [],
         comparisonMilestone:artifacts?.comparisonMilestone(previous,result) || false});
     }
@@ -1075,11 +1289,11 @@
     const prior = failedRequest && {...failedRequest};if(prior) delete prior.requestId;
     const payload = prior && JSON.stringify(prior) === JSON.stringify(candidate) ? failedRequest : {...candidate,requestId:crypto.randomUUID()};
     const submittedDraft = action.type === 'message' && $('message').value.trim() === userWords.trim() ? $('message').value : '';
-    const pane = $('reading'), following = pane.scrollHeight - pane.clientHeight - pane.scrollTop < 120;
     if (submittedDraft) {$('message').value = '';resizeComposer();}
     const showingPending = candidate.aiConsent || options.opening === true;
     const openingStarted = options.opening ? performance.now() : 0;
-    lastRequest = payload;setBusy(true);beginPending(silent ? '' : userWords,showingPending);note(silent ? 'Saving…' : showingPending ? 'Daylight is preparing a reply.' : 'Working…');
+    lastRequest = payload;setBusy(true);beginPending(silent ? '' : userWords,showingPending,payload.requestId);
+    if (!pendingProgress) note(silent ? 'Saving…' : showingPending ? 'Daylight is preparing a reply.' : 'Working…');
     updateScrollCue();
     let pending = true;
     try {
@@ -1089,6 +1303,7 @@
       }
       failedRequest = null;
       state = result;review = result.review || null;prepared = result.preparation || null;
+      window.DaylightConversationChecks?.clear();
       if (review?.kind === 'interpretation' && userWords) reviewMessage = userWords;
       if (prepared) preparedVersions.push(prepared);
       if (!silent && previous && !previous.conversational && q()?.signature !== previous.signature && !['edit','resume'].includes(action.type)) frames.push(previous.id);
@@ -1100,7 +1315,7 @@
       if (action.type === 'discard_review' && fromReview?.kind === 'interpretation' && !$('message').value.trim()) $('message').value = reviewMessage;
       if (action.type === 'accept_review') reviewMessage = '';
       metrics.turns++;metrics.llmCalls += result.metrics?.llmCalls || 0;
-      if (options.opening) {
+      if (options.opening && !window.DaylightTurnProgress) {
         const remaining = OPENING_REPLY_DELAY - (performance.now() - openingStarted);
         if (remaining > 0) await new Promise(resolve => setTimeout(resolve,remaining));
       }
@@ -1114,16 +1329,14 @@
       if (fromReview && fromReview.kind!=='preparation' && !review && action.type === 'discard_review') note('Your draft is still here. Make edits and continue when ready.');
       const last = appended && $('history').lastElementChild;
       const latestReply = last && (last.querySelector('.chat-daylight:last-child') || last.querySelector('.chat-daylight'));
-      const target = last ? (action.type === 'read_concept' ? latestReply : last.querySelector('.chat-user') || latestReply) || last : $('current');
+      const target = latestReply || last || $('current');
       const reading = $('reading');
-      // Scroll the transcript only; the submitted answer stays in view above the reply.
+      // Start at the reply, including replies with large tables or visuals.
+      // Never schedule a second scroll to its question: reading comes first.
+      // Content growing below this anchor leaves the beginning in view.
       if (target) reading.scrollTop += target.getBoundingClientRect().top - reading.getBoundingClientRect().top - 18;
       target?.setAttribute('tabindex','-1');target?.focus({preventScroll:true});
-      if (following && q()) {
-        const shown = showCurrentQuestion(reading);
-        const settle = textDuration([history.at(-1)?.reply,...(history.at(-1)?.facts || []).map(fact => fact.text)].filter(Boolean).join(' ')) + 400;
-        setTimeout(() => {showCurrentQuestion(reading,shown);updateScrollCue();},settle);
-      }
+      updateScrollCue();
       if (action.type === 'confirm_plan_review' && result.plansHandoff) await openPlansWorkspace();
       await saving;
       return true;
@@ -1152,7 +1365,8 @@
       else if (submittedDraft && $('message').value !== submittedDraft && !parkedMessages.includes(submittedDraft)) parkedMessages.push(submittedDraft);
       $('restore-draft').hidden = !parkedMessages.length;
       if (error.recoveredState || error.code === 401) render();
-      note(error.message+(parkedMessages.includes(submittedDraft) ? ' Your earlier message is available in Restore draft. Your current input is preserved.' : ' Your input is preserved.'));return false;
+      note(error.message+(parkedMessages.includes(submittedDraft) ? ' Your earlier message is available in Restore draft. Your current input is preserved.'
+        : /Send again\?$/.test(error.message || '') ? '' : ' Your input is preserved.'));return false;
     }
     finally {if (pending) endPending();setBusy(false);resizeComposer();}
   }
@@ -1274,7 +1488,7 @@
         },'primary'));
       confirm.showModal();
     }));
-    const details = el('details');details.append(el('summary','Scope and service details'),el('p','Plan cards are five unvalidated 2027 Collier County samples. Recommendations, eligibility, prices, exact doctor/drug fit and enrollment remain independently held. This advisor variant has a $5/UTC-day AI cap within the shared usage ledger. No automatic retries. Production vendor/retention review remains separate.'),el('p',metrics.turns+' turns · '+metrics.llmCalls+' AI calls in this visit. These are diagnostics, not a consumer study.'));d.append(details,button('Close',() => d.close(),'secondary'));d.showModal();
+    const details = el('details');details.append(el('summary','Scope and service details'),el('p','Daylight shows 2026 Medicare Advantage and Part D plans for Collier County, Florida, and Medigap prices dated November 10, 2026 for ZIP codes 34101 to 34108. Daylight does not enroll anyone yet.'),el('p','Your Medigap and Part D details are part of your chat profile. Sensitive details are saved only if you choose to save them. Listed prices and plan data are never saved.'));d.append(details,button('Close',() => d.close(),'secondary'));d.showModal();
   }
   async function restoreVisit() {
     if (busy || !visitResume?.read()) return;
@@ -1285,8 +1499,10 @@
       if (!restored || restored.status !== 'resumed') {
         const text = restored?.status === 'working'
           ? 'Your reply is still being prepared. Choose Continue the conversation to check again.'
-          : 'This visit is no longer available. You can start again or reopen any saved reports.';
-        const notice = el('p',text,'notice');notice.id = 'resume-status';notice.setAttribute('role','status');$('landing').append(notice);
+          : 'That visit has ended. Choose Get started to begin again.';
+        const notice = el('p',text,'notice');notice.id = 'resume-status';notice.setAttribute('role','status');
+        // Inside the text column: appended to the landing grid it became a second column.
+        ($('landing').querySelector('.landing-inner') || $('landing')).append(notice);
         return;
       }
       state = restored.response;review = state.review || null;prepared = state.preparation || null;
@@ -1326,6 +1542,7 @@
       const requestId = crypto.randomUUID();
       const result = await api('/api/conversation/turn',{guide:fresh.guide,record:fresh.record,action:{type:'start'},requestId});
       visitResume?.clear();
+      window.DaylightPlans?.forget?.(); // D161: a new visit starts with no Medicare Advantage step answers
       visitResume?.write(requestId,result.guide.preferences);
       state = result;history = [];frames = [];drafts.clear();parkedMessages.length = 0;
       review = prepared = pendingSave = failedRequest = lastRequest = cmsChecklist = null;
@@ -1340,9 +1557,20 @@
   // D138: all twelve CMS pre-enrollment topics with their reviewed statements.
   // The server returns the wording and records when it was shown and acknowledged.
   async function beforeEnroll() {
+    const intent = state.enrollment?.before;
+    if (intent && intent.applies === false) {
+      // D161: Parts A and B only, keeping current coverage or waiting has no plan to join.
+      const d = dialog('Before you enroll'), route = state.enrollment.route;
+      d.append(el('p','Your plan: '+intent.action+'.'),el('p',intent.text));
+      if (state.enrollment.line?.next?.text) d.append(el('p','Next: '+state.enrollment.line.next.text+'.'));
+      if (route?.guides?.length && typeof DaylightPlans !== 'undefined' && DaylightPlans.openGuide)
+        d.append(button(window.DaylightEnrollment.GUIDE_LABELS[route.guides[0]],() => {d.close();DaylightPlans.openGuide(route.guides[0],route.route);},'primary'));
+      d.append(button('Close',() => d.close(),'secondary'));d.showModal();return;
+    }
     if (!await turn({type:'before_enroll_open'},'',false,{silent:true}) || !state.beforeEnroll) { note('The Before you enroll topics could not open. Try again.'); return; }
     const step = state.beforeEnroll, when = iso => new Date(iso).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
     const d = dialog('Before you enroll');
+    if (intent?.action) d.append(el('p','For joining '+intent.action+'. '+(intent.needs || '')+(intent.ready === false && intent.status ? ' Right now: '+intent.status : '')));
     d.append(el('p','Medicare rules list twelve topics to go over before anyone enrolls in a plan. Daylight does not enroll anyone yet. Read each one, and ask Daylight about anything that is unclear.'));
     step.items.forEach((item,index) => {
       const section = el('section',undefined,'before-enroll-topic');section.append(el('h3',`${index+1}. ${item.title}`));
@@ -1351,7 +1579,7 @@
       d.append(section);
     });
     const status = el('p',step.acknowledged_at ? 'Recorded as read on '+when(step.acknowledged_at)+'.' : 'Shown on '+when(step.shown_at)+'.','small');status.setAttribute('role','status');
-    d.append(status,button('I’ve read these',async () => { if (await turn({type:'before_enroll_ack'},'',false,{silent:true}) && state.beforeEnroll?.acknowledged_at) status.textContent = 'Recorded as read on '+when(state.beforeEnroll.acknowledged_at)+'.'; },'primary'),button('Close',() => d.close(),'secondary'));
+    d.append(status,button('I’ve read these',async () => { if (await turn({type:'before_enroll_ack'},'',false,{silent:true}) && state.beforeEnroll?.acknowledged_at) status.textContent = 'Recorded as read on '+when(state.beforeEnroll.acknowledged_at)+'.'; if (!state.guide.preferences.saveGuide && !d.querySelector('.keep-offer')) { const offer = el('p','Your progress is kept on this device for this visit. ','chat-small keep-offer'); offer.append(button('Keep my details for next time',() => {d.close();privacy();})); d.append(offer); } },'primary'),button('Close',() => d.close(),'secondary'));
     d.showModal();
   }
   async function resume() {
@@ -1434,12 +1662,12 @@
       $('model-control').classList.toggle('model-dev', new URLSearchParams(location.search).has('models'));
     }
     baseline = b;sampleData = p;savedVersion = s.version;state = await api('/api/conversation/initial');state.reportedRows = [];showGuide = state.guide.flow.guideOpen !== false;$('start').disabled = false;$('privacy').disabled = $('landing-privacy').disabled = false;$('fixture').hidden = !config.mockAI;$('resume').hidden = $('landing-resume').hidden = !session.hasSaved;
-    if (service?.local_demo?.doctor_chat && window.DaylightDoctorCheck) {
+    if (service?.local_demo?.doctor_chat && !service?.local_demo?.conversation_checks && window.DaylightDoctorCheck) {
       const check = button('Check a doctor', () => openDoctorCheck());
       check.id = 'chat-doctor-check';
       document.querySelector('.chat-tools').prepend(check);
     }
-    if (service?.local_demo?.prescription_rehearsal) {
+    if (service?.local_demo?.prescription_rehearsal && !service?.local_demo?.conversation_checks) {
       const link = el('a', 'Try fictional drug costs', 'text-button');
       link.id = 'chat-prescription-rehearsal';
       link.href = '/d146/';
@@ -1467,6 +1695,8 @@
     // D97: Plans-page filters write the same free structured answers as the
     // conversation, labelled plans_filter; never an AI call.
     answer:(id,fields) => turn({type:'choice',id,fields,source:'plans_filter'},'',false,{silent:true}),
+    // D161: a tapped step decision (no model call) and a sentence staged for Send.
+    decide:fields => turn({type:'enrollment_decision',...fields},'',false,{silent:true}),stage:stageWords,
     // D131: route to the existing conversation without sending a message,
     // inventing an answer or consuming the person's unsent draft.
     medigapConversation:async id => {
@@ -1481,13 +1711,50 @@
     },
     prescriptionPreview: window.DaylightPrescriptionPreview ? openPrescriptionPreview : null,
     profile:() => ({fields:clone(state.guide.fields),facts:clone(state.record.facts || {}),provenance:clone(state.record.natural?.provenance || {}),
-      readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),medigap:clone(state.medigapProfile || null),partD:clone(state.partDProfile || null),
+      readiness:clone(state.planReadiness || null),handoff:clone(state.plansHandoff || null),
+      comparisonClose:clone(state.comparisonClose || null),
+      medigap:state.medigapProfile && {...clone(state.medigapProfile),
+        ...(state.enrollment && state.continuation ? {continuation:state.continuation,
+          first_eligible:state.recommendationInputs?.medigap?.first_eligible} : {})},partD:clone(state.partDProfile || null),
+      coveragePath:clone(state.coveragePath || null),medigapWindow:clone(state.medigapWindow || null),
+      enrollment:clone(state.enrollment || null),
+      conversationPlanner:clone(state.conversationPlanner || null),
       // D147: evaluation-only sorting inputs; present only when the local demo turns it on.
-      recommendation:service?.eval_recommendations ? clone(state.recommendationInputs || null) : null,task:state.record.conversation?.task || '',visit:state.continuation?.split('.')[0] || '',busy}),
+      recommendation:service?.eval_recommendations && state.recommendationInputs && state.continuation
+        ? {inputs:clone(state.recommendationInputs),continuation:state.continuation,
+          evidence:(state.conversationCheck?.results || []).map(row=>[row.key,row.date,row.office_parts,row.products,row.kind==='drug_comparison'?row.plans:null])}
+        : null,task:state.record.conversation?.task || '',visit:state.continuation?.split('.')[0] || '',busy}),
     review:() => turn({type:'review_plans'}),
     beforeEnroll,
     privacy});
     render();
     if (performance.getEntriesByType('navigation')[0]?.type === 'reload') await restoreVisit();
+    if (service?.local_demo?.conversation_checks) {
+      const verifyChecks = async () => {
+        if (checkRefreshing || busy || !state.continuation || document.hidden) return;
+        const head=state.continuation;checkRefreshing=true;
+        try {
+          const current=await api('/api/conversation/checks',{continuation:head});
+          if(state.continuation===head && !busy && JSON.stringify(current)!==JSON.stringify(state.conversationCheck)) {
+            state.conversationCheck=current;
+            state.closingResearch=null;
+            renderCurrent();
+          }
+        } catch {
+          if(state.continuation===head && !busy && state.conversationCheck?.results?.length) {
+            state.conversationCheck.results=[];state.closingResearch=null;
+            renderCurrent();note('These results could not be checked just now. Your details are still here.');
+          }
+        } finally {checkRefreshing=false;}
+      };
+      checkTimer=window.setInterval(verifyChecks,5000);
+      document.addEventListener('visibilitychange',()=>{
+        if(state.conversationCheck)state.conversationCheck.results=[];
+        renderCurrent();if(!document.hidden)void verifyChecks();
+      });
+      window.addEventListener('focus',()=>void verifyChecks());
+      window.addEventListener('pagehide',()=>window.clearInterval(checkTimer));
+      void verifyChecks();
+    }
   }).catch(error => {note(error.message);$('landing').append(el('p','Daylight could not load. Reload to try again. Existing saved information is unchanged.','notice'));});
 })();

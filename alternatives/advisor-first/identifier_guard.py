@@ -30,6 +30,14 @@ _SSN_SEPARATED = re.compile(_EDGE_BEFORE + r'(\d{3})([- ])(\d{2})\2(\d{4})' + _E
 _SSN_PLAIN = re.compile(_EDGE_BEFORE + r'(\d{3})(\d{2})(\d{4})' + _EDGE_AFTER)
 _CARD_ANY = re.compile(_EDGE_BEFORE + r'\d(?:[ -]?\d){12,18}' + _EDGE_AFTER)
 _CARD_GROUPED = re.compile(_EDGE_BEFORE + r'\d{4}(?:[ -]\d{4}){2}[ -]\d{1,7}' + _EDGE_AFTER)
+# Near-misses in text a person typed (15-profile run, November 13, 2026): a Medicare
+# number with a typo or an invalid first character has the right shape but fails the
+# exact alphabet, so it reached the model. Two looser rules, for submitted text only.
+_MBI_LOOSE = re.compile(_EDGE_BEFORE + r'[0-9A-Za-z]{4}[- ][0-9A-Za-z]{3}[- ][0-9A-Za-z]{4}' + _EDGE_AFTER)
+_CUE = re.compile(r"(?i)\b(medicare (?:number|no\.?|num|#|id|card number|claim number)|mbi|"
+                  r"social security (?:number|no\.?|num|#)|ssn|my social)(?:\b|(?<=#))\W{0,3}(?:is|was|are)?\W{0,3}"
+                  r"((?:[0-9A-Za-z]+[ -]?){1,6})")
+_PHONE = re.compile(r'1?[2-9]\d{2}[2-9]\d{6}')
 
 
 def _valid_ssn(area, group, serial):
@@ -75,7 +83,33 @@ def find_identifiers(text):
         found.append('medicare_number')
     if _cards(text, _CARD_ANY):
         found.append('payment_card')
+    for kind in _near_misses(text):
+        if kind not in found:
+            found.append(kind)
     return found
+
+
+def _near_misses(text):
+    kinds = []
+    for match in _MBI_LOOSE.finditer(text):
+        code = re.sub(r'[ -]', '', match.group(0))
+        if sum(c.isalpha() for c in code) >= 3 and sum(c.isdigit() for c in code) >= 4:
+            kinds.append('medicare_number')
+            break
+    for match in _CUE.finditer(text):
+        # The code is the run of pieces that carry a digit; it ends at the first plain word
+        # ("... MK7 thanks", "... is on my card").
+        code = ''
+        for piece in re.split(r'[ -]', match.group(2)):
+            if not any(c.isdigit() for c in piece):
+                break
+            code += piece
+        if not 8 <= len(code) <= 13 or sum(c.isdigit() for c in code) < 4:
+            continue
+        if code.isdigit() and _PHONE.fullmatch(code):
+            continue   # "Medicare's number is 1-800-633-4227" is a phone number
+        kinds.append('ssn' if re.search(r'(?i)social|ssn', match.group(1)) else 'medicare_number')
+    return kinds
 
 
 def find_transport_identifiers(text):

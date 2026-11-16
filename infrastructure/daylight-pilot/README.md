@@ -32,6 +32,26 @@ parity before the separately reviewed AWS deployment.
 
 ## Prepared locally
 
+The hosted **fictional display rehearsal** can use the shared frontend and
+bound display stores through the existing invite gate. With an isolated
+fictional cohort initialized by `pilot_admin.py`, set
+`DAYLIGHT_PILOT_DATABASE_URL` to the restored display database and run:
+
+```sh
+python -B alternatives/advisor-first/server.py --fixture --port 8893 \
+  --pilot-state /var/lib/daylight-pilot/fictional-cohort \
+  --pilot-origin https://pilot.example.org \
+  --pilot-display-binding /opt/daylight-pilot/evidence/binding.json
+```
+
+Run `package_display_rehearsal.py <verified-display-snapshot-dir> <new-archive>`
+to build the private archive from the working tree. It includes the exact
+compressed display backup and file hashes. Use the Python and dependency
+versions in the bound plan-type runtime, restore as a separate display
+database, and verify the two reader roles and source controls. The archive
+contains restricted Medigap evidence. Linux restore, provider approval,
+production secrets and deployment review are open.
+
 | Item | Implementation and verification |
 | --- | --- |
 | Guest access | Expiring, single-use invitations, server-side revocation, guest-cookie binding, CSRF and allowed routes in `pilot_access.py`. Durable saved profiles remain disabled in the invite-only pilot. |

@@ -1,12 +1,18 @@
-# Plan-path profiles · 2026-11-12 (15 profiles)
+# Plan-path profiles · 2026-11-12 (16 profiles)
 
-Fifteen fictional people for watching how someone moves through Daylight's journey (teach → settle the coverage path → see the plans for that path → Before you enroll), what they understand at the end, how Daylight's sorting (D147) answers them, and how the doctor, pharmacy and medicine checks (D146) treat real 2026 records.
+**D168 evaluation companion:** [Behavior-led complete journeys](../behavioral-journeys-2026-11-14/README.md)
+adds reactive navigation, side questions, backtracking and goal-completion criteria.
+This original corpus remains coverage/claim regression material; its fixed scripts
+alone do not establish completed user journeys.
+
+
+Sixteen fictional people for watching how someone moves through Daylight's journey (teach → settle the coverage path → see the plans for that path → Before you enroll), what they understand at the end, how Daylight's sorting (D147) answers them, and how the doctor, pharmacy and medicine checks (D146) treat real 2026 records.
 
 **Understanding over evaluation.** The point of a run is a short account per profile, not a pass rate: where the person landed, which tabs they reached, what they could say back at the end, where they got stuck, and what the sorting and checks showed them. The answer keys stay so a content error is still caught.
 
 Built from the Daylight Brain (02 UX playbook, 04 Data, 05 Pilot and validation, Decisions), the 2026-11-08 persona set, D147's method, D146's plan and foundation handoff, and the retained 2026 sources listed under "Real data". Nothing here was run against the advisor; no model calls were made.
 
-## The fifteen
+## The profiles
 
 | ID | Who | Typist | Age, ZIP | Path they land on | Real-data checks | What it probes |
 |---|---|---|---|---|---|---|
@@ -25,8 +31,9 @@ Built from the Daylight Brain (02 UX playbook, 04 Data, 05 Pilot and validation,
 | PP13 | Lionel Brandeis | self | 64, 34103 | Original + Medigap + Part D | 2 doctors + a same-surname distractor, 2 medicines | "Albagdadi" matches two real cardiologists; must confirm before checking |
 | PP14 | Walter Brennick | self | 67, 34102 | Medicare Advantage | Doctor, pharmacy, 2 medicines | D91 r7 case; Wellcare 2026 listing vs NCH leaving Wellcare in 2027; a dentist with the same surname |
 | PP15 | Ilse Varga | son | 71, 34103 | Part D only | Independent pharmacy, 5 items | Stoney's is in network for 3 of 10 PDPs; Ozempic needs approval everywhere; vitamin D isn't Part D |
+| PP16 | Russell Thackeray | self | 65, 34102 | Undecided; investigate only when requested | 2 real doctors, 2 medicines | The November 12 owner test conversation, reproduced (D157): turned 65 November 8, on COBRA, neither Part A nor B; asks what is best for him four times. Carries the thirty inputs, the baseline measures and the done-when criteria in `reproduction` |
 
-Outcome mix: Medicare Advantage 4, Original Medicare with Medigap and Part D 6, Part D only 3, keep current or wait 2. Ten profiles run real-data checks: six check real doctors, eight a real pharmacy, ten real medicines with RxCUIs. Four fictional doctors are negative controls. Two helpers type (PP05, PP15).
+Outcome mix: Medicare Advantage 4, Original Medicare with Medigap and Part D 6, Part D only 3, keep current or wait 2, undecided 1. Ten profiles run real-data checks: six check real doctors, eight a real pharmacy, ten real medicines with RxCUIs. Four fictional doctors are negative controls. Two helpers type (PP05, PP15).
 
 ## What changed on November 12 (second pass)
 
@@ -45,12 +52,32 @@ Outcome mix: Medicare Advantage 4, Original Medicare with Medigap and Part D 6, 
   - Medicines: L05 `build-r3` basic formularies for the 10 PDPs plus Humana Gold Plus H1036-217, Wellcare Giveback H1032-198 and HumanaChoice PPO H5216-072.
 - **The D146 foundation package** (`daylight_pilot_foundation_2026_r1`) binds these same sources; a new bound revision from the doctor or pharmacy work may legitimately differ. When it does, record the difference rather than calling either side wrong.
 
-## Running it twice
+## Current expected outcomes — November 14, D166/D167
 
-1. **Now (D147 v1, checks not wired in).** Doctors, networks and drug lists show ? and Advantage and Part D name no pick while medicines are reported. This run tests the conversation, capture, tabs, sorting reasons and understanding.
-2. **After D146 integration.** The same profiles test the doctor, pharmacy and medicine checks against `checks.*.expected`, and whether `after_d146` holds. PP11 (opted-out doctor), PP13 (ambiguous name), PP14 (2026 listing vs 2027) and PP15 (pharmacy out of network) are the sharpest.
+The current key uses `daylight-tiered-v3-20261114` with the discussion planner enabled.
+The November 12 v1 descriptions below are historical context, not the current oracle.
+A scenario’s proposed destination is a route to investigate, never authority to record
+an actual choice. PP16 explicitly remains undecided after the original thirty inputs.
+Predictable costs do not create a Medigap lean, trigger pricing intake or choose a tab.
 
-Record the build, the method version shown and whether D146 checks were active, so the two runs can be compared.
+- Existing MA/Medigap coverage holds automatic path suggestions. Keeping Plan G
+  settles that component only; reporting a policy does not mean choosing to keep it.
+- A drug-cost review in current MA stays on Advantage. A separate drug-plan review
+  opens Original Medicare’s prescriptions step. Explicit links open the requested list,
+  without routing back through A/B signup. General exploration opens the two paths.
+- Exact products produce dated formulary observations. A confirmed outlet enables
+  pharmacy participation observations; absence is unresolved, not an out-of-network finding.
+- Supported estimates use one confirmed refill schedule and retail averages across plans.
+  They can order comparable estimates within fit groups; unsupported estimates remain
+  visible and unranked. Premium order and preferred pharmacy status do not prove the
+  cheapest medicines. Drug estimates exclude medical costs and never authorize a pick.
+- Unknowns, PA/quantity-unit/source holds and 2027 gaps remain visible. An OTC item
+  cannot disappear from a reported list simply to make the cost comparison succeed.
+
+The six-profile replay and its explicit limitations are in
+[the November 14 packet](../../../audit-evidence/profile-replay-20261114/README.md).
+The older `test_pp16_journey.py` intentionally remains legacy-surface regression
+coverage; current planner acceptance is `test_profile_replay_20261114.py`.
 
 ## Running notes
 
@@ -70,7 +97,7 @@ Record the build, the method version shown and whether D146 checks were active, 
 
 ## Files
 
-- `profiles.json`: the fifteen profiles.
+- `profiles.json`: the sixteen profiles.
 - `profiles.schema.json`: the contract.
 - `validate.py`: offline checks (structure, ages from birth dates, pilot ranges, teach-back placement, path mix, identifier probe, real-data check coverage). From the repo root: `infrastructure/daylight-data/.venv/bin/python docs/evaluations/plan-paths-2026-11-12/validate.py`
 - `validation.json`: the last validation report.

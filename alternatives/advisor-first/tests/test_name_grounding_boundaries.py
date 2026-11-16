@@ -57,6 +57,18 @@ class NameGroundingBoundaryTests(unittest.TestCase):
                          + separator + 'These are details for the review.')
                 self.assertEqual(self.compose(reply)['reply'], reply)
 
+    def test_a_name_the_person_typed_earlier_in_the_visit_is_theirs(self):
+        # November 13, 2026: replies naming "Bay Lantern Cardiology" or "Wellcare" a turn after the person
+        # said them were rejected and fell back. Only the person's own earlier words count, never a reply.
+        reply = 'Bay Lantern Cardiology is the practice to look for.'
+        with self.assertRaises(ModelUnavailable):
+            self.compose(reply)
+        self.case.context['recent_exchanges'] = [{'user': 'Priya Talden at Bay Lantern Cardiology.', 'assistant': '', 'question': ''}]
+        self.assertEqual(self.compose(reply)['reply'], reply)
+        self.case.context['recent_exchanges'] = [{'user': 'ok', 'assistant': 'Bay Lantern Cardiology is listed.', 'question': ''}]
+        with self.assertRaises(ModelUnavailable):
+            self.compose(reply)
+
     def test_invented_names_in_later_paragraphs_still_fail(self):
         with self.assertRaisesRegex(ModelUnavailable, 'named entity'):
             self.compose('On the review list: Example Hospital\n\n'
