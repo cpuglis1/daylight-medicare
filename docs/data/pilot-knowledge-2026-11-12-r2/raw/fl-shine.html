@@ -1,0 +1,551 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head id="head"><title>
+	SHINE - Home
+</title><meta charset="UTF-8" /> 
+<link href="/CMSPages/GetResource.ashx?stylesheetname=CorporateSite" type="text/css" rel="stylesheet"/> 
+<link href="/CMSPages/GetResource.ashx?stylesheetname=CorporateSiteContrast" title="contrast" type="text/css" rel="stylesheet"/>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<noscript>Jquery</noscript><!--
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+-->
+<SCRIPT LANGUAGE="JavaScript">
+
+<!-- This script and many more are available free online at -->
+
+<!-- The JavaScript Source!! http://javascript.internet.com --> 
+
+<!-- Begin
+
+// Set up the image files to be used.
+
+var theImages = new Array() // do not change this
+
+// To add more image files, continue with the
+
+// pattern below, adding to the array.
+
+ 
+
+theImages[0] = '/Images/1.aspx'
+
+theImages[1] = '/Images/2.aspx'
+
+theImages[2] = '/Images/3.aspx'
+
+theImages[3] = '/Images/4.aspx'
+
+theImages[4] = '/Images/5.aspx'
+
+theImages[5] = '/Images/6.aspx'
+
+theImages[6] = '/Images/7.aspx'
+
+theImages[7] = '/Images/8.aspx'
+
+theImages[8] = '/Images/9.aspx'
+
+theImages[9] = '/Images/10.aspx'
+
+theImages[10] = '/Images/11.aspx'
+
+ 
+
+// do not edit anything below this line
+
+ 
+
+var j = 0
+
+var p = theImages.length;
+
+var preBuffer = new Array()
+
+for (i = 0; i < p; i++){
+
+   preBuffer[i] = new Image()
+
+   preBuffer[i].src = theImages[i]
+
+}
+
+var whichImage = Math.round(Math.random()*(p-1));
+
+function showImage(){
+
+document.write('<img alt="" src="'+theImages[whichImage]+'">');
+
+}
+
+ 
+
+//  End -->
+
+</script>
+
+<noscript>Gallery</noscript>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54735566-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+/* Fix duplicate id="menuElem" accessibility error:
+   Rename the footer's menuElem to menuElem1 on page load */
+(function() {
+  function fixFooterMenuId() {
+    var footer = document.getElementById('footer');
+    if (!footer) return;
+    var menus = footer.querySelectorAll('#menuElem');
+    for (var i = 0; i < menus.length; i++) {
+      menus[i].id = 'menuElem1';
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixFooterMenuId);
+  } else {
+    fixFooterMenuId();
+  }
+})();
+</script>
+<script>
+/* Fix carousel focus visibility (WCAG 2.4.7):
+   When a link inside a jCarousel item receives focus, scroll the carousel
+   so the focused item is within the visible clip area. */
+(function() {
+  function initCarouselFocusFix() {
+    var carousels = document.querySelectorAll('.jcarousel-skin-tango, .jcarousel-skin-ie7');
+    for (var c = 0; c < carousels.length; c++) {
+      (function(carousel) {
+        var clip = carousel.querySelector('.jcarousel-clip-horizontal') || carousel.querySelector('.jcarousel-clip');
+        var list = carousel.querySelector('.jcarousel-list-horizontal') || carousel.querySelector('.jcarousel-list');
+        if (!clip || !list) return;
+
+        var links = carousel.querySelectorAll('li a');
+        for (var l = 0; l < links.length; l++) {
+          links[l].addEventListener('focus', function() {
+            var li = this.parentNode;
+            while (li && li.tagName !== 'LI') li = li.parentNode;
+            if (!li) return;
+
+            var clipRect = clip.getBoundingClientRect();
+            var liRect = li.getBoundingClientRect();
+
+            /* Check if the item is outside the visible clip area */
+            if (liRect.left < clipRect.left || liRect.right > clipRect.right) {
+              /* Offset needed to bring item to left edge of clip, with small padding */
+              var liOffsetLeft = li.offsetLeft;
+              var newLeft = -(liOffsetLeft) + 10;
+              /* Clamp so we don't scroll past the start */
+              if (newLeft > 0) newLeft = 0;
+              list.style.left = newLeft + 'px';
+            }
+          });
+        }
+      })(carousels[c]);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarouselFocusFix);
+  } else {
+    /* If jCarousel initialises after DOM ready, wait a tick */
+    setTimeout(initCarouselFocusFix, 500);
+  }
+})();
+</script>
+<script>
+/* Fix nested interactive controls (WCAG 4.1.3):
+   #search has role="img" with focusable descendants inside (search input/button).
+   role="img" must not contain interactive elements — remove it so the search
+   widget is exposed correctly to assistive technologies. */
+(function() {
+  function fixSearchRole() {
+    var search = document.getElementById('search');
+    if (!search) return;
+    search.removeAttribute('role');
+    search.removeAttribute('aria-label');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixSearchRole);
+  } else {
+    fixSearchRole();
+  }
+})();
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/scripts/carousel-lite.js"></script>
+
+ 		<script type="text/javascript">
+$(function() {
+    $(".carousel").jCarouselLite({
+        btnNext: ".next",
+        btnPrev: ".prev"
+    });
+});
+</script> 
+<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon"/> 
+<link href="/favicon.ico" type="image/x-icon" rel="icon"/> 
+<link href="/CMSPages/GetResource.ashx?stylesheetfile=/App_Themes/CorporateSite/Skin.css" type="text/css" rel="stylesheet" /></head>
+<body class="LTR ENUS ContentBody" >
+    <form method="post" action="/home.aspx" id="form">
+<div class="aspNetHidden">
+<input type="hidden" name="manScript_HiddenField" id="manScript_HiddenField" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTYwODg0MzQ2NmRkiULuFo+qMn/IswbJfE1vqtRapLZDtmpo7ab94Nzb8ng=" />
+</div>
+
+<input type="hidden" name="lng" id="lng" value="en-US" />
+<script src="/ScriptResource.axd?d=y4NXa1VUYxVN9fd_NEJ7ZFEB0FCck0PkND9zW0it39eTIndnkrd0TVs871L5O7ewbUdpeFWliOo_4GS84rrULpq1P_bnjPTJkRbOP36LDC3GiTmY99l5WoYZbw-2iylnZAksQu3o0aHFR_zlHspGsQ2&amp;t=397b6a7" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A5343185" />
+</div>
+    <div id="CMSHeaderDiv">
+	<!-- -->
+</div>
+     
+<!-- Container -->
+<div id="master_container">
+<div id="banner_wrapper" class="splash">
+<div id="bannerforscreen" class="splash">
+<div style="display:none"><img src="/Home/Shine-full-color-logo.aspx" /></div><div id="primenav_container">
+	<ul id="menuElem">
+		<li class="HighLighted"><a href="/Home.aspx" >Home</a></li>
+		<li><a href="/Community-Events.aspx" >Community Events</a></li>
+		<li><a href="/Counseling-Sites.aspx" >Counseling Sites</a></li>
+		<li style=""><a href="/Resources/Resource-Links.aspx" style="" >Resources</a></li>
+		<li style=""><a href="/Join-the-Team.aspx" style="" >Join Our Team</a></li>
+		<li><a href="/Contact-Us.aspx" >Contact Us</a></li>
+		<li><a href="/Login.aspx" >Login</a></li>
+	</ul>
+
+</div><div id="search"><div id="p_lt_zoneHeader_SearchBox_pnlSearch" class="searchBox">
+	
+    <label for="p_lt_zoneHeader_SearchBox_txtWord" id="p_lt_zoneHeader_SearchBox_lblSearch" class="visually-hidden">Search for:</label>
+    <input name="p$lt$zoneHeader$SearchBox$txtWord" type="text" maxlength="1000" id="p_lt_zoneHeader_SearchBox_txtWord" />
+    <input type="submit" name="p$lt$zoneHeader$SearchBox$btnSearch" value="Search" id="p_lt_zoneHeader_SearchBox_btnSearch" />
+    
+
+</div>
+</div> <div id="ada">
+
+
+
+<!-- TEXT SIZE CONTROLS: START -->
+<script type="text/javascript">
+	function resizeText(multiplier) {
+		var div = document.getElementById("PageContent");
+		if (div.style.fontSize == "") {
+			div.style.fontSize = "1.0em";
+		}
+		div.style.fontSize = parseFloat(div.style.fontSize) + (multiplier * 0.2) + "em";
+	}
+</script>
+TEXT SIZE:
+&nbsp; 
+<a id="plustext" onclick="resizeText(1)" href="javascript:void(0);">+</a>
+&nbsp;
+<a id="minustext" onclick="resizeText(-1)" href="javascript:void(0);">-</a> 
+&nbsp;&nbsp;
+<!------------------- TEXT SIZE CONTROLS: END ------------------->
+
+<!--&emsp;|&emsp;
+
+<!-- CONTRAST CONTROLS: START
+
+<script type="text/javascript" src="/Scripts/stylesheetToggle.js"></script>
+	<script type="text/javascript">
+	$(function()
+		{
+			// Call stylesheet init so that all stylesheet changing functions 
+			// will work.
+			$.stylesheetInit();
+			
+			// This code loops through the stylesheets when you click the link with 
+			// an ID of "toggler" below.
+			$('#toggler').bind(
+				'click',
+				function(e)
+				{
+					$.stylesheetToggle();
+					return false;
+				}
+			);
+			
+			// When one of the styleswitch links is clicked then switch the stylesheet to
+			// the one matching the value of that links rel attribute.
+			$('.styleswitch').bind(
+				'change',
+				function(e)
+				{
+					$.stylesheetSwitch(this.getAttribute('value'));
+					return false;
+				}
+			);
+		}
+	);
+	
+	</script>
+CONTRAST: 
+&nbsp; 
+<input id="contrastOn" type="radio" checked="" value="contrast" name="contrast" class="styleswitch" /> on 
+&nbsp;
+<input id="contrastOff" type="radio" checked="" value="regular" name="contrast" class="styleswitch" /> off 
+<!-------------------CONTRAST CONTROLS: END-------------------
+
+&emsp;|&emsp; -->
+
+<!-- AUDIO CONTROLS: START -->
+
+<!-- AUDIO CONTROLS: END -->
+
+
+
+</div></div><!--end bannerforscreen-->
+</div><!--end banner_wrapper-->
+<div id="content_wrapper" class="splash">
+<div id="content_container" class="splash">
+<div id="PageContent" style="font-size: 1.0em;">
+<div id="socialmedia" class="splash">
+<a href="http://www.facebook.com/Florida.SHIP?v=info#!/Florida.SHIP" target="_blank"><img alt="facebook" src="/Images/social-media-facebook.aspx"></a>
+<a href="http://twitter.com/floridashine" target="_blank"><img alt="twitter" src="/Images/social-media-twitter.aspx"></a>
+<a href="http://www.youtube.com/user/DOEASHINE?ob=0&feature=results_main" target="_blank"><img alt="youtube" src="/Images/social-media-youtube.aspx"></a></div></div>
+<div id="column_left" class="splash">
+<div id="volunteer_spotlight_top">
+</div>
+<div id="volunteer_spotlight_middle">
+<h3 style="text-align: center;">
+	The 2023 Harold Barnes Volunteer Leader of the Year Award Winner</h3>
+<div style="float:left"><img id="p_lt_zoneMainEditableContent_VolunteerSpotlightImage_imgImage" src="/Image/Fran.aspx?width=300&amp;height=399" alt="" /></div><div style="float:left; display:block"><p>
+	At the Leadership Training event in September 2024, The Florida Department of Elder Affairs&#39; SHINE (Serving Health Insurance Needs of Elders) Program announced, Fran Oberne, as the award winner for the Harold Barnes Volunteer of the Year Award. <a href="/Join-the-Team/Volunteer-of-the-Year-Award-Winner.aspx">Learn More</a></p>
+</div>
+<div id="volunteer_spotlight_bottom">
+</div>
+</div>
+</div><div id="right_side" class="splash">
+<div id="column_center" class="splash"><h3>
+	<strong>Virtual Medicare Classes Being Offered Starting Monday, November 9nd, 2026. Please join us! </strong></h3>
+<br />
+<h3>
+	Visit our Facebook Page @Florida.ship for specific event details. Click on the photo below to open the PDF, once you open the document you can find a direct link to any class we are offering. Just locate the class of your choice!</h3>
+<br />
+<a href="/getattachment/Home/VC-11092026.pdf.aspx"><img alt="Virtual-Calendar-092126.png" src="/getattachment/Home/VC-SC-11092026.png.aspx?width=378&amp;height=458" style="width: 378px; height: 458px;" title="Virtual-Calendar-092126.png" /></a><br />
+<h3 style="text-align:center">
+	&nbsp;</h3>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h3>
+	<br />
+	SHINE volunteers continue to serve you, contact us for any Medicare assistance you need!</h3>
+<h3>
+	<br />
+	&nbsp;Who We Are</h3>
+SHINE (Serving Health Insurance Needs of Elders) is a free program offered by the Florida Department of Elder Affairs and your local Area Agency on Aging. Specially trained volunteers can assist you with your Medicare, Medicaid, and health insurance questions by providing one-on-one counseling and information. SHINE services are free, unbiased, and confidential.
+<h3>
+	Our Mission</h3>
+<p>
+	The SHINE program supports the Florida Department of Elder Affairs&rsquo; mission by providing free and unbiased health insurance counseling through a dedicated network of volunteers, empowering Florida seniors to make informed health care choices.</p>
+<h3>
+	Request Assistance</h3>
+<p>
+	Need a Resource?<a href="/Contact-Us.aspx"> Contact Us</a>.<br />
+	&nbsp;</p>
+<p>
+	Find <a href="/Community-Events.aspx">enrollment events</a> in your area.</p>
+<p>
+	<br />
+	&nbsp;</p>
+</div><div id="column_right" class="splash"><h4 style="margin-bottom: 0px; text-align: center;">
+	<span style="background-color: inherit; font-family: Arial, Arial_MSFontService, sans-serif; font-size: 13.5pt; font-variant-ligatures: none;">Latest News</span></h4>
+<div style="font-size:meduim !important;">
+	<div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<p class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{179}" paraid="1257046782" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				&nbsp;</p>
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{179}" paraid="1257046782" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-weight: bold; font-variant-ligatures: none !important;" xml:lang="EN">Make a Difference</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="font-size: 14px; background-color: transparent; margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-weight: bold; font-variant-ligatures: none !important;" xml:lang="EN">Volunteer for SHINE!</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="font-size: 14px; background-color: transparent; margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span><br />
+				&nbsp;</div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{191}" paraid="1866820957" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">The SHINE (Serving Health Insurance Needs of Elders) Program provides health insurance information and free, unbiased, and confidential counseling assistance to Medicare beneficiaries, their families, and caregivers.</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{197}" paraid="763073004" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<br />
+				<span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-weight: bold; font-variant-ligatures: none !important;" xml:lang="EN">What is Volunteer for SHINE All About?</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span><br />
+				&nbsp;</div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{203}" paraid="524394589" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN"><span class="NormalTextRun SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent;">As a SHINE volunteer, you serve your community by performing at least one of the following functions</span><span class="NormalTextRun SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent;">:</span></span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{213}" paraid="2062334275" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Provide Medicare and health insurance information, counseling, and assistance in person or over the phone</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{219}" paraid="311601805" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Deliver educational presentations or speeches</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{225}" paraid="1176448255" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Distribute educational and promotional materials in your community</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{231}" paraid="26776954" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Provide training and leadership to other volunteers</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{237}" paraid="754881674" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<span style="font-size:14px;"><big><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Assist with general program support</span></big><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{243}" paraid="917919241" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<br />
+				<span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-weight: bold; font-variant-ligatures: none !important;" xml:lang="EN">What Benefit Do I Receive Volunteering for SHINE?</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span><br />
+				&nbsp;</div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{249}" paraid="821539881" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Professional training from the Department of Elder Affairs and your local Aging and Disability Resource Center</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{9ea8ca68-f31b-4c54-af73-0b54c083311c}{255}" paraid="809341137" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Opportunities to learn new skills, meet new people, and gain knowledge about Medicare</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{6}" paraid="48586527" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Personal fulfillment from helping others</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{12}" paraid="1684167065" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Pride from being part of an award-winning team</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{18}" paraid="1117803132" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<br />
+				<span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-weight: bold; font-variant-ligatures: none !important;" xml:lang="EN">How Do I Get Started?</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span><br />
+				&nbsp;</div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{24}" paraid="1974687387" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Contact SHINE to complete a volunteer application at 1-800-96-ELDER (1-800-963-5337)</span><span class="LineBreakBlob BlobObject DragDrop SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: WordVisiCarriageReturn_MSFontService, Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);"><span class="SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; white-space: pre !important;">&nbsp;</span></span><br class="SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; white-space: pre !important;" />
+				<span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Complete an online volunteer application at www.floridashine.org</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{32}" paraid="1196861055" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Complete our comprehensive Online Orientation at <a href="http://training.floridashine.org/STL_Modules/Orientation/story.html">http://training.floridashine.org/STL_Modules/Orientation/story.html</a></span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{38}" paraid="1089335107" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Join other community members in completing SHINE Training</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr SCXW18792207 BCX0" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<div class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{44}" paraid="1716382162" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<big><span style="font-size:14px;"><span class="TextRun SCXW18792207 BCX0" data-contrast="none" lang="EN" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(34, 34, 34); line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; font-variant-ligatures: none !important;" xml:lang="EN">* Agree to uphold the integrity of the SHINE Program</span><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;134233117&quot;:true,&quot;134233118&quot;:true,&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:240}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 14px; font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif; color: rgb(34, 34, 34);">&nbsp;</span></span></big></div>
+		</div>
+		<div class="OutlineElement Ltr  BCX0 SCXW18792207" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web&quot;, Arial, Verdana, sans-serif;">
+			<p class="Paragraph SCXW18792207 BCX0" paraeid="{ecd44561-0a4b-406f-a09f-8bc6560231a1}{50}" paraid="1730831961" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; vertical-align: baseline; font-kerning: none; background-color: transparent; color: windowtext; text-align: center;">
+				<span style="font-size:14px;"><span class="EOP SCXW18792207 BCX0" data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; line-height: 18.3458px; font-family: Calibri, Calibri_EmbeddedFont, Calibri_MSFontService, sans-serif;">&nbsp;</span></span></p>
+		</div>
+	</div>
+</div>
+<br />
+</div><!--end pagecontent-->
+</div><!--end content_container-->
+</div><!--end content_wrapper-->
+<div id="logo_wrapper_splash"><div id="logos">
+<a href="http://elderaffairs.state.fl.us/index.php" target="_blank"><img alt="elder-affairs" style="width: 100px !important; height: auto; padding-right:20px" src="/SHINE/media/assets/DOEA-logo.jpg" class="elderImg"></a>
+<a href="https://shipnpr.shiptalk.org" target="_blank"><img alt="shiptalk" src="/Images/logos-interior-shiptalk.aspx"></a>
+
+<!-- PARTNER LOGO GRID: START -->
+<ul id="partner-logos" aria-label="Partner organizations">
+    <li><a href="http://www.seniorresourcealliance.org" target="_blank" rel="noopener"><img src="/images/logoa.aspx" alt="Senior Resource Alliance"></a></li>
+    <li><a href="http://www.aaaswfl.org" target="_blank" rel="noopener"><img src="/images/logob.aspx" alt="Area Agency on Aging for Southwest Florida"></a></li>
+    <li><a href="http://www.allianceforaging.org" target="_blank" rel="noopener"><img src="/images/logoc.aspx" alt="Alliance for Aging"></a></li>
+    <li><a href="http://www.agingresources.org" target="_blank" rel="noopener"><img src="/images/logod.aspx" alt="Aging Resources"></a></li>
+    <li><a href="http://www.agingflorida.com" target="_blank" rel="noopener"><img src="/images/logoe.aspx" alt="Aging True / Aging Florida"></a></li>
+    <li><a href="http://www.agingcarefl.org" target="_blank" rel="noopener"><img src="/images/logof.aspx" alt="Aging Care Florida"></a></li>
+    <li><a href="http://www.adrcbroward.org" target="_blank" rel="noopener"><img src="/images/logog.aspx" alt="ADRC of Broward County"></a></li>
+    <li><a href="http://www.myeldersource.org" target="_blank" rel="noopener"><img src="/images/logoh.aspx" alt="ElderSource"></a></li>
+</ul>
+<!-- PARTNER LOGO GRID: END -->
+
+<style>
+/*#Partner logo grid #*/
+#partner-logos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 24px;
+  align-items: center;
+  justify-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+#partner-logos li { float: none; width: auto; margin: 0; padding-bottom: 0; }
+#partner-logos img { max-width: 100%; height: auto; border: none !important; float: none !important; margin: 0 !important; }
+@media (max-width: 900px) { #partner-logos { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { #partner-logos { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</div></div>
+<div id="footer_wrapper">
+<div id="footer" class="splash">
+	<ul id="menuElem">
+		<li class="HighLighted"><a href="/Home.aspx" >Home</a></li>
+		<li><a href="/Community-Events.aspx" >Community Events</a></li>
+		<li><a href="/Counseling-Sites.aspx" >Counseling Sites</a></li>
+		<li style=""><a href="/Resources/Resource-Links.aspx" style="" >Resources</a></li>
+		<li style=""><a href="/Join-the-Team.aspx" style="" >Join Our Team</a></li>
+		<li><a href="/Contact-Us.aspx" >Contact Us</a></li>
+		<li><a href="/Login.aspx" >Login</a></li>
+	</ul>
+
+<div id="copyright">
+<p> 
+Copyright State of Florida 2018 All Rights Reserved. Site Designed by <a href="http://www.planeteria.com">Planeteria Web Design</a>
+</p></div></div><!--end footer-->
+</div><!--end footer_wrapper-->
+
+
+    
+    
+
+<script type="text/javascript">
+//<![CDATA[
+(function() {var fn = function() {$get("manScript_HiddenField").value = '';Sys.Application.remove_init(fn);};Sys.Application.add_init(fn);})();//]]>
+</script>
+</form>
+</body>
+</html>

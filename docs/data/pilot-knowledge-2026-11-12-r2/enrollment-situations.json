@@ -1,0 +1,167 @@
+{
+  "revision": "pilot-knowledge-2026-11-12-r2",
+  "purpose": "General-education situation reference; not a personal eligibility or deadline engine",
+  "coverage_year": 2026,
+  "situations": [
+    {
+      "id": "turning_65_ab",
+      "situation": "First eligible at 65: Part B or premium-Part A",
+      "window": "Generally three months before the birthday month, that month and three months after.",
+      "action": "Enroll in Part B and, if needed, premium-Part A.",
+      "coverage_start": "Before the eligibility month: that month. During or after it within the IEP: next month.",
+      "checks": "First-day birthday shifts the clock. Automatic enrollment and earlier disability/ALS/ESRD eligibility need separate handling.",
+      "fact_ids": ["pk_iep", "pk_start", "pk_first_day_birthday"],
+      "example_query": "What is my initial enrollment period?"
+    },
+    {
+      "id": "first_day_birthday",
+      "situation": "First eligible at 65 with a birthday on the first",
+      "window": "Four months before the birthday month through two months after it.",
+      "action": "Use the shifted initial enrollment window.",
+      "coverage_start": "Generally the first of the month before the birthday month, subject to the part and enrollment timing.",
+      "checks": "Late Part B is not automatically backdated. Use the existing deterministic date helper for personal dates.",
+      "fact_ids": ["pk_first_day_birthday", "pk_start"],
+      "example_query": "What if my birthday is the first of the month?"
+    },
+    {
+      "id": "premium_free_a",
+      "situation": "Eligible for premium-free Part A at 65",
+      "window": "Initial enrollment or any time later once eligible.",
+      "action": "Enroll in premium-free Part A.",
+      "coverage_start": "Generally the age-65 eligibility month; later applications can be retroactive up to six months, no earlier than initial eligibility.",
+      "checks": "First-day birthdays shift eligibility. HSA contributions require separate attention to retroactive coverage.",
+      "fact_ids": ["pk_start", "pk_hsa", "pk_part_a_premium", "pk_first_day_birthday"],
+      "example_query": "How does premium free Part A start?"
+    },
+    {
+      "id": "first_plan",
+      "situation": "First Medicare Advantage or standalone Part D plan",
+      "window": "Initial plan-enrollment opportunity around first Medicare eligibility; generally seven months for age-65 eligibility.",
+      "action": "Join MA with both A and B, or standalone Part D with A or B.",
+      "coverage_start": "A request before required Medicare starts takes effect with it; a request after generally starts the month after plan receipt.",
+      "checks": "Plan service area and prerequisites apply. This is separate from signing up for Parts A and B.",
+      "fact_ids": ["pk_initial_plan_window", "pk_join"],
+      "example_query": "When can I join my first drug plan?"
+    },
+    {
+      "id": "disability",
+      "situation": "Under 65 with qualifying disability-benefit entitlement",
+      "window": "For the ordinary disability route, three months before the 25th benefit month through three months after it.",
+      "action": "A/B are generally automatic; make separate health/drug-plan choices if applicable.",
+      "coverage_start": "Generally the 25th month of benefit entitlement, or age 65 if earlier; plan start follows its own request timing.",
+      "checks": "Not 24 months after diagnosis or application. ALS and ESRD differ.",
+      "fact_ids": ["pk_disability_eligibility", "pk_initial_plan_window"],
+      "example_query": "How does Medicare disability work after 24 months?"
+    },
+    {
+      "id": "als",
+      "situation": "ALS with disability-benefit entitlement",
+      "window": "The ordinary 24-month Medicare waiting period is waived; confirm the entitlement notice and plan opportunity.",
+      "action": "Receive Medicare through the ALS disability pathway; plan selection remains separate.",
+      "coverage_start": "First month of disability-benefit entitlement.",
+      "checks": "Diagnosis alone does not establish an award or effective date.",
+      "fact_ids": ["pk_disability_eligibility"],
+      "example_query": "Does ALS require a Medicare waiting period?"
+    },
+    {
+      "id": "esrd",
+      "situation": "Medicare based on ESRD",
+      "window": "Separate ESRD eligibility and application rules; do not substitute the age-65 IEP or work SEP.",
+      "action": "Apply based on qualifying treatment and work/benefit record.",
+      "coverage_start": "Usually the fourth dialysis month; qualifying home training or transplant circumstances can allow an earlier start.",
+      "checks": "No personal date calculated. Payer coordination is a separate 30-month rule with prior-primary exceptions.",
+      "fact_ids": ["pk_esrd_eligibility", "pk_payer_esrd"],
+      "example_query": "What are the ESRD eligibility rules?"
+    },
+    {
+      "id": "current_work_b",
+      "situation": "Delayed Part B while covered through current employment",
+      "window": "After the IEP: while qualifying group coverage continues, or eight months after employment or coverage ends, whichever is first.",
+      "action": "Enroll in Part B under a qualifying work SEP without a late penalty.",
+      "coverage_start": "Generally next month; while still working or within the first full month after coverage ends, a start delayed up to three months may be requested.",
+      "checks": "COBRA/retiree coverage does not extend it. Disability family-member coverage needs large-group status. Not the ESRD rule or a Part D deadline.",
+      "fact_ids": ["pk_work_sep_start", "pk_work_sep", "pk_cobra"],
+      "example_query": "How does the eight month window work?"
+    },
+    {
+      "id": "missed_iep",
+      "situation": "Missed initial Part B or premium-Part A enrollment",
+      "window": "General Enrollment Period: January 1–March 31 each year, unless a qualifying SEP provides another route.",
+      "action": "Enroll in Part B and/or premium-Part A.",
+      "coverage_start": "Month after sign-up.",
+      "checks": "A late penalty may apply; do not assume no SEP or exemption without the coverage history.",
+      "fact_ids": ["pk_gep", "pk_penalty_a", "pk_penalty_b"],
+      "example_query": "What is the general enrollment period?"
+    },
+    {
+      "id": "annual_plan_changes",
+      "situation": "Annual Medicare health/drug-plan selection or changes",
+      "window": "October 15–December 7.",
+      "action": "Join, switch or drop eligible MA/Part D coverage, including changing between Original Medicare and MA.",
+      "coverage_start": "January 1 of the following year if the plan receives the request by December 7.",
+      "checks": "This window does not itself permit first Part B enrollment or guarantee Medigap. A person's IEP or SEP can independently overlap these dates.",
+      "fact_ids": ["pk_aep", "pk_join"],
+      "example_query": "What is annual enrollment for?"
+    },
+    {
+      "id": "ma_open",
+      "situation": "Already in Medicare Advantage",
+      "window": "January 1–March 31 MA Open Enrollment.",
+      "action": "One change to another MA plan or to Original Medicare, with an opportunity to join separate Part D.",
+      "coverage_start": "First of the month after the plan receives the request.",
+      "checks": "Not a route from Original Medicare into MA or a general standalone Part D switch window. Medigap and Medical Savings Account plan rules are separate.",
+      "fact_ids": ["pk_ma_oep_effective", "pk_ma_oep", "pk_medigap_underwriting"],
+      "example_query": "When does an MA open enrollment change start?"
+    },
+    {
+      "id": "new_ma",
+      "situation": "Joined MA when first eligible for Medicare",
+      "window": "First three months with Parts A and B for the new-beneficiary MA open-enrollment opportunity.",
+      "action": "Change MA plans or return to Original Medicare, with a separate drug-plan opportunity.",
+      "coverage_start": "Generally first of the month after plan receipt.",
+      "checks": "Separate trial rights may also apply; this row does not adjudicate Medigap rights.",
+      "fact_ids": ["pk_ma_oep_effective"],
+      "example_query": "How does MA OEP work for someone new to Medicare?"
+    },
+    {
+      "id": "adding_b_later",
+      "situation": "Already has Part A and adds Part B later",
+      "window": "An initial MA opportunity tied to first having both parts; exact closing-date wording needs reconciliation before a personal deadline is given.",
+      "action": "Join MA during the applicable initial plan window.",
+      "coverage_start": "With Part B for a request before B starts; generally next month for a request after B starts.",
+      "checks": "The official webpage and booklet describe the endpoint differently. No exact duration is indexed as accepted wording. This does not reset Part D eligibility or create a Part B SEP.",
+      "fact_ids": ["pk_new_part_b_plan_window", "pk_join"],
+      "example_query": "What happens when adding Part B later?"
+    },
+    {
+      "id": "lost_job_plan",
+      "situation": "Leaving employer/union coverage, including COBRA",
+      "window": "Plan SEP continues for two full months after the month coverage ends.",
+      "action": "Join an eligible MA or drug plan.",
+      "coverage_start": "Generally first of the month after plan receipt.",
+      "checks": "This is not the work-based Part B SEP. Avoid a 63-day gap in creditable drug coverage; the plan SEP does not automatically waive penalties.",
+      "fact_ids": ["pk_plan_coverage_loss_window", "pk_creditable", "pk_cobra"],
+      "example_query": "When COBRA ends drug plan enrollment is available?"
+    },
+    {
+      "id": "lost_creditable",
+      "situation": "Involuntary loss of creditable drug coverage or notice it is no longer creditable",
+      "window": "Two full months after the month of loss or notification, whichever is later.",
+      "action": "Join MA with drug coverage or a standalone drug plan, subject to prerequisites.",
+      "coverage_start": "Generally first of the month after plan receipt.",
+      "checks": "Keep the notice and actual end date. The 63-day penalty trigger is not the same as this enrollment deadline.",
+      "fact_ids": ["pk_plan_coverage_loss_window", "pk_penalty_d"],
+      "example_query": "What does loss of creditable coverage allow?"
+    },
+    {
+      "id": "medigap",
+      "situation": "At least 65 and newly enrolled in Part B",
+      "window": "Six months beginning with the first month both conditions are met.",
+      "action": "Buy an available Medigap policy under the federal open-enrollment protection against health-based denial.",
+      "coverage_start": "Confirm the issued policy's effective date; the buying window itself is not an effective-date promise.",
+      "checks": "Not annual. Starting B while working can start the clock. Other buying rights and pre-existing-condition questions remain separate; all three Florida holds stay disabled.",
+      "fact_ids": ["pk_medigap_window_scope", "pk_medigap_window", "pk_medigap_underwriting"],
+      "example_query": "How does the medigap enrollment window work?"
+    }
+  ]
+}
