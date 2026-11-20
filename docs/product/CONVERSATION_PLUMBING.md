@@ -12,6 +12,98 @@ The first model interprets reports and direction. Code resolves those proposals
 and prepares current evidence/questions. The second model writes the answer and
 selects its continuation. This dependency is why the two calls are retained.
 
+## The two records drive the turn (D183, :8895 with DAYLIGHT_RECORDS on)
+
+This is the agreed architecture (owner, November 17, 2026). Every conversation change maps to a node here.
+With `DAYLIGHT_RECORDS=0`, :8895 follows the D180 flow below; :8893 and :8894 always do.
+
+```mermaid
+flowchart TD
+  U[Person's message or tap] --> TURN[Turn: owner, revision, lock]
+  TURN --> ECTX[Interpreter context<br/>PROFILE + EDUCATION + READINESS,<br/>6 exchanges]
+  ECTX --> I[Model 1: interpreter<br/>reads meaning, proposes profile updates,<br/>learner signals and the next profile target]
+  I --> V1[Validate structure only<br/>quote present, right person, right time.<br/>Unsure: one-tap confirm]
+  V1 --> PROFILE[(PROFILE<br/>every field: reported, open, unknown,<br/>deferred, parked, conflicting)]
+  PROFILE --> READY[READINESS, computed by code<br/>plans, enrollment step, Medigap prices,<br/>Part D, recommendation, before you enroll]
+  PROFILE --> FACTS[Facts that apply + dates<br/>code-computed, no 'ask X' notes]
+  READY --> CCTX[Composer context]
+  FACTS --> CCTX
+  EDU[(EDUCATION<br/>concepts with depth, facts delivered,<br/>learner signals, checklist coverage)] --> ECTX
+  EDU --> CCTX
+  PROFILE --> CCTX
+  CCTX --> C[Model 2: composer<br/>answer first, then ask the target or offer work]
+  C --> V2[Validate claims, dates, names<br/>target is open and not parked<br/>no delivered fact repeated unasked<br/>ends on a question or a button]
+  V2 --> REC[Code records what was SHOWN<br/>facts and concepts delivered, questions asked]
+  REC --> EDU
+  REC --> PROFILE
+  V2 --> DISPLAY[Cards from code: status line, timing window,<br/>plans ready, check results]
+  DISPLAY --> U
+```
+
+| Node | Implementation |
+|---|---|
+| Interpreter context | `natural_flow` adds `profile_record` (`conversation_records.compact_profile`), `readiness` and `education_record`; prompt `conversation_prompts.INTERPRETATION_RECORDS` |
+| Model 1 | Schema adds `next_target` (≤2 askable IDs + reason code) and `coverage_reports` (Part A/B status, plans held, birth month and year); validated by `conversation_records.validate_next_target` and `validate_coverage_reports`; target stored by `conversation_planner.observe` |
+| Validate structure only | `narrative_agent.validate_output`: no vocabulary vetoes when `records_enabled`; quote, subject and scope remain; RC09 scoped other than current and unclear situation reports go to the one-tap confirmation; word-based capture in `enrollment_flow.capture` and `natural_flow` is off; `apply_coverage_reports` writes the existing fields |
+| PROFILE | Projection of guide/readiness reports and question-progress receipts (`profile_view`, `field_state`), with value and purpose; age anchor `coverage.birth` (65th-birthday month derived); `intent.selectedPlan` from "Choose this plan"; no second store |
+| READINESS | `conversation_records.readiness`: enrollment step, `plan_review.readiness`, Medigap and Part D views, recommendation inputs, Before you enroll |
+| Facts that apply + dates | `applicable_rules(..., age_65_or_older, day_precision)`; `strip_flow_instructions`; `work_window` (C46) feeds `enrollment_journey.status` (no "unsupported", next step by the window's last day) and the timing card |
+| Candidates | `conversation_planner.refine` → `conversation_records.candidates`: a pending confirmation or correction first, then the interpreter target, readiness needs, then core; optional fields only when raised; at most 12; question progress still narrows and parks |
+| Composer | `COMPOSITION_RECORDS`; schema adds `block_refs` and `offer_concept`; `require_structured` whenever candidates exist; `discussion_plan.next_question` names the validated target |
+| Validate + record | `conversation_planner.finish`: `filter_blocks` (per block, from cited facts; uncited blocks by overlap), `record_shown` (education-v2 in planner visit RAM); `offer_allowed` drops an offer to re-explain |
+| Cards | Status line and route card from the journey; `work_card` (kind `enrollment_timing`); `records_finalize` adds `next_step_offer` to any turn without a question unless the person paused or finished; trace field `records` |
+
+### Pending questions, passes, single-field targets and offers (D188, November 18, 2026; :8895 with DAYLIGHT_PENDING on)
+
+Owner direction of November 18, 2026, recorded as D188. Spec: [PROFILE_AND_EDUCATION_RECORDS.md](PROFILE_AND_EDUCATION_RECORDS.md), same-named section.
+Under the records switch; `DAYLIGHT_PENDING=0` restores the D183 flow above on :8895. No model call, word
+list or prompt growth beyond one line: the interpreter prompt is 8,498 characters (`INTERPRETATION_PENDING`),
+the composer prompt is unchanged, and the guidance for both models travels in the turn context only while
+a question is pending. The diagram changes at five nodes:
+
+```mermaid
+flowchart TD
+  I[Model 1: interpreter<br/>reads meaning, proposes profile updates,<br/>learner signals, the next profile target and<br/>what the reply did with the pending question]
+  I --> PROFILE[(PROFILE<br/>every field: reported, open, pending, unknown,<br/>deferred, parked, conflicting)]
+  PROFILE --> C[Model 2: composer<br/>answer first, then return to the pending question,<br/>ask the target or offer work]
+  C --> V2[Validate claims, dates, names<br/>target is pending, or open and not parked<br/>no delivered fact repeated unasked<br/>ends on a question or a button]
+  V2 --> REC[Code records what was SHOWN<br/>facts and concepts delivered, questions asked,<br/>passes, offers shown and taken]
+  REC --> PROFILE
+```
+
+| Node | Implementation with the pending switch on |
+|---|---|
+| Interpreter context | `profile_record.pending`: the pending question's ID, fields, delivery count and the meaning of each code (`conversation_records.pending_view`) |
+| Model 1 | Schema adds one enum, `pending_disposition`: answered, detour, passed, does_not_know, none (`validate_pending_disposition`) |
+| PROFILE | The delivered question's receipt in the question-progress ledger carries `pending` (ID, fields, revision, whether the delivery was a return), `passes` and `shown`; `field_state` reports `pending`. At most one question is pending. No second store |
+| Validate structure only | `conversation_planner.observe` → `resolve_pending`, once per message after capture. Answered needs the field no longer open or a one-tap confirmation queued for it; otherwise the turn is a detour. `person_raised` with a different target releases the question with no pass. Passed adds one pass, unless the turn carried any capture outcome for that field. Does-not-know with nothing saved sets the field aside for the visit |
+| Candidates | Confirmation or correction, then the pending question (ahead of the timing ask and the close), then the fields of an offer just taken, then the interpreter target, readiness and core. On a return the pending question is the only candidate. A meaning with two or more open fields of one kind is narrowed to one field (`VALUE_KIND`, `FIELD_ORDER`, `_one_field`); only RC11 today |
+| Composer | `discussion_plan.pending_question`: ID, fields, `returning`, `delivered` and the return rule. No fixed bridge wording |
+| Validate + record | `pending_enforce` ends the turn on the pending question when the composer wrote none, unless the person paused or finished. `question_progress.filter_candidates` parks through `should_park` |
+| Cards | `records_finalize` takes the offer from `next_offer` (never while a question is pending, never one already taken, never a third showing) and records it with `record_offer`; `accept_offer` recognizes the tap by the button's own words. Trace field `records` adds `pending_field`, `pending_disposition`, `pending_proposed`, `passes`, `deliveries`, `returned` and `offers` (codes only) |
+
+### Plan checks and the Plans chat (D189, November 18, 2026; :8895 with DAYLIGHT_PLANS_FIXES on)
+
+`DAYLIGHT_PLANS_FIXES=0` restores the earlier behavior on :8895. No model call, prompt change or new scoring.
+
+| Node or handoff | Implementation with the switch on |
+|---|---|
+| Turn: guide validation | `NaturalConversation.validate` and the interpreter's guide pass through `plans_fixes.set_aside`: every field advisor-first defines outside the sealed contract (from `conversation_records`, `medigap_profile`, `SITUATION_FIELDS`, `enrollment_flow`, the planner's version fields and `SENSITIVE_GUIDE_FIELDS`) is set aside for `guest_profiles.validate_guide`, keeps the same envelope checks, and is restored after. A field nobody defines is still rejected. A structural rejection reaches the person as `natural_flow.SEND_FAILED` |
+| Plans handoff | `/api/recommendation` (`recommendation_http.evaluate`) reads the same check results as the conversation (`ConversationChecks.reconcile`) and now passes them, with which check details the record holds, to `plans_fixes.annotate`. Every check with state `unknown` gains `cause` (`needs_person`, `no_data`, `not_calculated`), `cause_fields` and a matching reason. States, groups, order and suggested IDs are untouched |
+| Composer context | `plans-context-v1` accepts an optional `selection` (up to three plan IDs) on the Medigap and Part D views. `plans_fixes.selection` checks them against what code reads now (`flow.plans_selection_read`) and supplies their published fields as `plans_context.plans`; it also adds `chosen_plan` (from `intent.selectedPlan`) and `selection_rule` (report differences, never rank; or say nothing is selected). Amounts come from code as evidence |
+| Validate + record | Unchanged. The existing reply checks already withhold advice such as "you should choose" |
+| Cards | `journey_completion._learned` labels a doctor or medicine the visit has checked "Checked", not "To check". `guided-close.js` `guide()` draws one line, "Any questions about these plans?", and no step button |
+
+### Conversation fixes from the November 18 live run (D190; :8895 with DAYLIGHT_CONVERSATION_FIXES on)
+
+| Node | Implementation with the switch on |
+|---|---|
+| Model 1 | `situation_proposals` items gain one enum, `relative_month` (none, last_month, this_month, next_month), described in the schema; no prompt text added |
+| Validate structure only | `natural_flow.message` passes each proposal through `conversation_records.resolve_relative_month`: an age65 proposal that names no month gets its month and year from today's date. All existing checks then apply. `medigap_profile` already derives the pricing age from the 65th-birthday month; `_still_open` treats a Medigap detail code can derive as answered |
+| Composer context | `discussion_plan.pre_close_detail` (ID and the answer-first rule) when the target comes from the pre-close ask (`conversation_planner.refine` sets `records_preclose`) |
+| Validate + record | When composition is rejected by a validation code and the turn has accepted captures, the reply is `conversation_records.saved_acknowledgement` (labels and values from the profile's own rows); `records_finalize` may still add the offer button |
+| Cards and page | `advisor.js`: "Review your info" is not drawn while a question is open; `guided-close.css`: the question heading stays visible while a turn is pending, its controls hidden |
+
 ## Profile progress, closing and Plans continuation (D180)
 
 `journey_completion` reads the existing eleven comparison criteria. An explicit
@@ -315,6 +407,7 @@ to obtain the results in this packet.
 | Configured model | Interpretation / composition reasoning | Output allowance per call | Transport |
 | --- | --- | --- | --- |
 | gpt-6.1-sol | low / low | 2,400 tokens | OpenAI Responses, buffered SSE |
+| gpt-6.2-sol (:8895 default via `DAYLIGHT_DEFAULT_MODEL`, Nov 17) | low / low | 2,400 tokens | OpenAI Responses, buffered SSE |
 | gpt-5.4 | none / none from model-policy.json | 900 tokens | OpenAI Responses, buffered SSE |
 | claude-opus-5-5 | adaptive thinking, low effort in adapter | 2,400 tokens | Anthropic Messages, full response |
 
@@ -331,7 +424,45 @@ Before each generation the exact packed input is counted at
 stage in the persistent usage ledger. Input has no fixed local token ceiling;
 the request byte bound is 96,000. The ordinary two-generation turn therefore has
 **four provider HTTP operations**, including the two count requests. Count requests
-are not additional inference stages. Each provider has the existing $15/UTC-day
+are not additional inference stages.
+
+**:8895 local input bound (Nov 17, 2026).** The :8895 launcher sets
+`DAYLIGHT_TOKEN_PREFLIGHT=local_bound`. OpenAI requests then skip both count requests:
+`provider_tokens.local_input_bound` reserves the request's own UTF-8 JSON bytes, plus the
+output schema a second time, plus 512. OpenAI's tokenizer emits at most one token per
+byte of text, so this ceiling is never below the real input count (typically four to
+five times above it). The ledger still reserves before sending; settlement records the
+provider's exact usage, which must fit under the reservation. An ordinary two-generation
+turn on :8895 therefore has **two** provider HTTP operations. The Anthropic adapter keeps
+its exact count. Unset (:8893/:8894) or `provider_count` keeps exact counting. Measured
+saving from 59 live :8895 turns: about 0.6 s before the interpreter and 0.5 s before the
+composer. Each stage row in the turn trace now also records `reasoning_tokens` (hidden
+thinking, part of `output_tokens`) and `reserved_input_tokens`.
+
+**:8895 checked-block release and reveal (Nov 17, 2026).** With
+`DAYLIGHT_BLOCK_RELEASE=on` (launcher), `block_release.Releaser` reads the composer's
+stream and releases each finished reply block only after it passes the same single-block
+check `composition_recovery.independent_blocks` uses and the D183 say-once rule
+(`conversation_records.filter_blocks`). To let say-once judge a block before it is shown,
+the composer schema lists `block_refs` before `reply_blocks` when release is on (field
+order only; prompt unchanged). Released blocks ride on the D178 progress receipt while
+the turn works, cleared when it ends; this is the one exception to "never a result
+channel". A block that fails its check stops release. A released block is never taken
+back: say-once keeps it, and a later validation failure, truncation or transport failure
+keeps the released blocks instead of repairing. The page types released text at
+`DAYLIGHT_REVEAL_WPS` (default 3) words a second, holds the question and cards until the
+reply finishes, shows whole blocks under reduced motion, and shows a changed final reply
+whole rather than retyping it. The turn trace records `block_release` counts, the time of
+the first release and whether the final reply began with what was shown; never text.
+
+**:8895 interpreter-notes experiment (Nov 17, 2026).** `DAYLIGHT_INTERPRETER_NOTES` =
+`standard` (default) or `compact`; a one-word file `var/demo-8895/interpreter-notes`
+overrides it without a restart, read only by a process whose launcher sets the switch.
+Compact adds `notes_policy` to the interpreter's `confirmed_context` (shortest exact
+quotes that keep meaning-changing words, short discourse note); the reviewed prompt,
+fields and checks are unchanged. Each extract stage row records `notes`.
+
+Each provider has the existing $15/UTC-day
 admission threshold, with an admitted bounded turn allowed to finish. Uncertain
 issued usage remains accounted for; an unissued stage is released.
 
@@ -374,7 +505,7 @@ proportional speedup. [OpenAI latency guidance](https://developers.openai.com/ap
 | --- | --- | --- |
 | Normal conversation | One user Send at a time per owner | No autonomous next turn; user stays in control |
 | Candidate preview | At most 48 shadow-assessment iterations, at most 24 exposed candidates | Local only; no mutation of actual reports |
-| Token count | At most 2 count attempts for a recoverable connection failure, 0.5s delay | No generation; same exact payload; timeout 15s per count |
+| Token count | At most 2 count attempts for a recoverable connection failure, 0.5s delay; none on :8895 (local bound) | No generation; same exact payload; timeout 15s per count |
 | Extraction | At most 2 generations; only recoverable connection failure before 20s may retry, 0.5s delay | No factual/schema interpretation repair loop; uncertainty stays open |
 | Composition | At most 2 generations total | One shared slot for connection retry OR structural/length repair, never one of each |
 | Composition local retention | Check whole answer alone, then at most 4 declared whole blocks individually and their assembly, then approved question alone if necessary; revalidate retained component | Zero additional generation; never turn rejected prose into evidence |
@@ -384,6 +515,8 @@ proportional speedup. [OpenAI latency guidance](https://developers.openai.com/ap
 | Factual rejection | Unsupported finding, ungrounded entity/literal, bad evidence/reference and similar | Retain an independently valid component if possible; otherwise the current approved question and its explanation; retain unfinished requests internally; no paid factual retry on :8895 |
 | Context fitting | Bounded `_fit_context` reductions; up to 3 assembly tightening passes | Local packing; reports, applicable rules, brief and candidate meanings retained; refuse if still oversized |
 | Repeated question parking | Two delivered asks per unresolved field/entity scope; at most 128 visit-only receipts. Local checks retain their separate budgets | Profile facts and unknown/deferred fields govern eligibility; after one follow-up park on the next turn, expose open details, and accept later answers/edits |
+| Repeated question parking, :8895 with DAYLIGHT_PENDING on | Two passes per unresolved field scope, or four deliveries in total (proposed default, owner confirmation open). A detour, an unclear answer and a queued confirmation never count as a pass; a field with a confirmation waiting is never parked; the editing exception is kept | Same receipts and eligibility. A pending question is returned to in the same reply after a detour; later answers and edits are still accepted |
+| Offer button, :8895 with DAYLIGHT_PENDING on | At most two showings of one offered task; never after it was taken; none while a question is pending | Visit-only counts in planner state; the next task in order is offered, or none |
 | Browser receipt recovery | At most 20 `conversation/recover` polls, 1.5s apart while working | Free state reads; never replay the submitted paid action |
 | Stage cache | Owner/request/signature; 600s | Same request returns prior result; conflicting signature gets 409 |
 | Turn journal | 24h RAM retention, at most 2,048 entries | Idempotent receipt replay; resolved reports survive a later composition failure |

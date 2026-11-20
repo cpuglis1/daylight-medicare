@@ -1,5 +1,7 @@
 # Daylight master design and agent contract
 
+**D178 · November 15, 2026 · Waiting in the conversation.** On :8895, show a stable, body-size status from actual request acceptance, source lookups and reply composition. Keep one screen-reader status and static reduced-motion dots. Reassure at approximately 12 seconds and acknowledge a longer wait around 30 seconds only with current backend confirmation; no percentage, promise, rotating lesson or generated acknowledgment. A failed status read waits for an update rather than asserting continued work. Release the validated reply immediately, preserving the first-line anchor and unsent drafts. No extra model calls. [Implementation and responsive checks](../../audit-evidence/turn-progress-20261115/README.md).
+
 **D100 pilot security engineering · November 7, 2026.** Owner chose private GitHub Free with the recorded manual review procedure for the invite-only pilot and authorized P0 security and abuse engineering. The local pilot rehearsal uses expiring signed invitations, a revocable browser binding and isolated D99 cost accounting. Saved profiles stay disabled on that route pending deployed A05 acceptance. Founder review of the exact PR revision and separate production release approval remain required. [P0 execution record](../../audit-evidence/pilot-p0-security-20261107/README.md).
 
 **D99 pilot budget decision · November 7, 2026.** The pilot has one $100 cumulative model-spend ceiling and per-participant usage accounting. No hourly/daily, session/invitation or guest/saved pool dollar sublimits, calendar reset or $90/$10 split. Count every model stage, retry and unresolved charge; reserve in-flight costs within that single ceiling. This replaces the D98 pilot budget proposal only. Existing D86/D90 local development settings and protected variants remain unchanged. Budget direction is approved; deployed enforcement, detailed telemetry/retention and pilot release remain open. The owner requested cost-saving GitHub alternatives; Free with documented checks/review is the revised recommendation, not approval of a branch-enforcement exception or purchase. [Decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md).
@@ -158,6 +160,142 @@
 
 Version 1.0 · October 21, 2026 · **Design specification only. No UI, storage, data promotion, outreach, deployment, commit or push is implemented or authorized by this document.**
 
+## D179 · Profile progress, reuse and the transition into plans
+
+November 15, 2026. D179 supplied the proposal; **D180 authorizes all four changes
+on :8895**. The implementation uses the existing profile criteria, selected
+identities, visit delivery state, summary and reviewed Plans handoff. The
+[D180 evidence](../../audit-evidence/guided-plan-close-20261115/README.md) records
+actual checks and activation separately from owner acceptance.
+Addresses D180/D179, D154, D161, D172–D178, D64 and D90.
+
+### Intended experience
+
+Remove standing Part A/Part B warnings, phone instructions, missing-detail counts
+and guide-return buttons from the top of the conversation. Preserve the reports,
+sign-up guide and relevant instructions inside the current conversation, summary
+and existing navigation. Keep the existing Plans header link. Add only a slim,
+quiet progress bar, without a prominent percentage or checklist. Its accessible
+label describes comparison preparation, never enrollment or recommendation readiness.
+
+Progress is code-derived from the existing profile: count the applicable core
+comparison criteria already reported or deliberately left open. Unknown/deferred
+is addressed, not verified or known; the summary retains that distinction. Reuse
+the eleven `plan_review.readiness` dimensions where comparison is the purpose;
+do not count all 41 conditional meanings, every source check or every message.
+Learning and unrelated timing detours must not impose comparison intake. Hide the
+bar until its purpose exists; keep its denominator stable for that purpose. It
+may decrease when a genuine correction invalidates a criterion. Do not manufacture
+movement or use a percentage to unlock recommendations. The precise grouping and
+visual treatment are proposed for the :8895 implementation, not yet tested.
+
+### Reuse confirmed doctors, offices and medicines
+
+Keep three distinct records: what the person reported, the exact identity they
+confirmed, and the current evidence about that identity. Bind doctor/office and
+medicine/strength/form selections to their existing item references and revision.
+Ask only for a missing distinction; a source outage does not erase a confirmed
+identity. A deliberate correction invalidates the affected identity/evidence,
+not the whole profile.
+
+When an option explicitly identifies both clinician and exact office, retain both
+trusted identifiers from that choice. Ask about the office separately only when
+it remains ambiguous. Do not infer an office from a name or merge different offices
+because their address text happens to match. The current controller already skips
+a sole office in one branch: reproduce the redundant-selection path before changing
+it. Apply the same reuse contract to exact medicine selections; preserve needed
+strength, form, quantity and pharmacy distinctions.
+
+Show a new result once in the relevant turn. On subsequent unrelated turns, keep
+it in a compact, reopenable summary with Edit and the full evidence available.
+Use a visit-scoped delivery receipt keyed by item, profile revision, evidence
+version and meaningful outcome. Rendering or polling is not a new result. A new
+material result, correction, source withdrawal or explicit request can surface it
+again. Do not suppress unresolved participation/coverage or silently leave stale
+results displayed as current. Matrix rows remain fully inspectable in Plans.
+
+### A useful closing is a core conversation component
+
+At the natural transition from gathering enough information to comparing options,
+at a supported decision, or when the person chooses to pause, provide:
+
+1. **What we learned:** the goal, priorities and relevant retained details.
+2. **What that means:** the supported comparison focus, work completed and only
+   the open questions that change the next decision.
+3. **What happens next:** a short ordered plan, separating the person's actions
+   from work Daylight can do now.
+4. **One continuation:** a working control into the relevant existing Plans path
+   and step, or the appropriate sign-up/preparation/return action.
+
+This is the payoff and continuation of the visit, not a demand to stop talking.
+Do not wait for the person to ask for a recap. Do not force completion of all
+conditional inputs; summarize a paused/incomplete visit honestly. Do not repeat
+the closing every render or every turn. The person can correct a detail, ask a
+question, reopen the alternate path or continue from the same place.
+
+Extend `journey_completion.summary` and the existing review/handoff, rather than
+creating another intake or summary subsystem. Add a code-built closing brief to
+the current composer context: confirmed reports, priorities, result receipts,
+material open work, supported next actions and any approved recommendation reason
+codes. The ordinary composer writes the explanation in its existing call. The
+same brief supplies a useful checked local summary if composition is withheld.
+Trigger from a real readiness transition, explicit decision or requested pause,
+not a keyword or fixed turn count. Keep unresolved goals, such as the timing of
+a job-coverage transition, in the plan even when plan browsing is ready.
+
+### Help the person use the Plans tool
+
+Initially, the closing names the next two or three steps and makes the first
+action work. Use the current reviewed-info gate and same-visit handoff; consolidate
+duplicate Review/See plans actions into one clear primary action for the current
+state. Explain which comparison to inspect first and why, then allow the other
+path. A selected plan view remains exploration, not a recorded insurance choice.
+
+A process suggestion such as starting a comparison with the coverage structure
+relevant to a reported priority is permitted. A claim that a path or named policy
+is the better personal fit requires the deterministic engine's approved result
+and reasons. The model cannot turn one cost preference into a recommendation or
+invent an amount, deadline, coverage start or provider/drug finding. Commercial
+economics remain outside the decision. Avoid a wall of generic limitations.
+
+The subsequent guided-navigation increment should follow the actual open Plans
+path, step and selected item, explain one decision at a time, and preserve the
+conversation on desktop and the return point on narrow screens. Reuse existing
+Send-bound Plans context permission; merely opening or browsing a view adds no
+model call. No tours, parallel intake, unsolicited auto-navigation or extra model
+stage are proposed.
+
+### Original diagnosis and verification scope
+
+Read-only inspection found `advisor.js::phaseTrack` still inserts the status,
+guide-return and what's-left content. `conversation-checks.js::renderResults`
+renders doctor/formulary matrices on every invocation; their branch bypasses the
+older collapse behavior. `conversation_planner.finish` calls the summary only
+for `finish_requested`. These observations explain the missing design mechanisms;
+the exact redundant office-selection and repeated medicine-selection paths still
+need fictional reproduction. The pasted transcript is not proof that the empty
+matrix bullets are empty in the browser; inspect the rendered disclosure.
+
+Implement in this order: (1) remove the top notices and derive profile progress;
+(2) reproduce/fix identity reuse and result delivery; (3) connect the automatic
+closing and existing handoff; (4) add in-tool guidance once the first action and
+return path work. Keep the existing model call/retry budgets throughout.
+
+Verify with fictional offline journeys: one/multiple offices, shared addresses,
+medicine variants, corrections, deferred details, stale/source-withdrawn evidence,
+detours and reloads; readiness crossing and invalidation; incomplete/keep/wait
+finishes; unchanged results not resurfacing; both coverage paths and actual working
+handoffs. Inspect desktop/tablet/phone, reduced motion, keyboard access and reply-
+start anchoring. Confirm call counts and protected-store/service preservation.
+No live/paid conversation tests are authorized. D180 extends the implementation
+through the current Plans step: view-only navigation sends no model request;
+deliberate Send uses the existing Plans-context permission. Review receipts remain
+valid through explanation detours with unchanged reports, and still expire or
+invalidate on actual profile changes. Existing exact-identity reuse is retained;
+the reproduced repetition was the full result being shown again on later turns.
+The original D179 planning pass made no app changes or restart. D180's actual
+implementation, responsive evidence and activation are recorded in its packet.
+
 ## 1. Authority, reading order and change control
 
 **D96 backend-only Collier expansion · November 6, 2026.** Owner authorized
@@ -195,6 +333,7 @@ cumulative-budget controls still require their own exact deployment checks.
 
 | ID | Decision | Consequence |
 |---|---|---|
+| D161 | November 12: first Part A/Part B enrollment is core; organize Plans into Original Medicare and Medicare Advantage | Deliver signup guidance and follow-through in the existing conversation; place Medigap and separate Part D within Original Medicare. The shared enrollment record and two-tab implementation are proposed in the [plan](../planning/medicare-enrollment-2026-11-12/PLAN.md), not yet delivered. This supersedes three peer product tabs while preserving component functionality, the 41 meanings, deterministic decisions, permissions and independent release gates. |
 | D58/D86 | November 2: owner approved `Medicare, plain as day.` as the large :8893 landing headline | Break after `Medicare,`; support with `Understand your coverage options and prepare to enroll, at your pace.`. Keep the sun/Daylight wordmark without the Medicare subtitle and retain Get started. This scoped copy decision supersedes the earlier exact tagline only on :8893; preserve its layout/photo/type, conversation, protected variants/stores and source/recommendation/enrollment gates. [Change and responsive evidence](../../audit-evidence/landing-medicare-20261102/README.md). |
 | D86 | Implement the ongoing advisor correction with education serving understandable coverage decisions; apply the owner's November 2 focused chat refinements | [Ongoing execution contract](ONGOING_ADVISOR_FLOW_2026-11-01.md) remains. November 2 adds typed-date/ASAP consistency, privacy-only OpenAI notice placement, assistant-side pending dots, a growing composer and a contextual inline guide while Sources stays expandable. [Earlier refinement implementation and checks](../../audit-evidence/advisor-chat-refinements-20261102/README.md) are recorded. The latest increment adds spatial dot motion, immediate draft clearing with safe recovery, a conditional downward jump and optional contextual educational questions while preserving the practical return point; [scoped implementation and free verification](../../audit-evidence/advisor-engagement-20261102/README.md) are recorded separately from actual activation and real-model/consumer evaluation. Preserve privacy, independence, protected variants and source/release gates; consumer approval is separate. |
 | D87 | Reuse the existing profile and all 41 meanings; subsequently build the approved comparison design within the actual AI/chat architecture | [Design packet](plan-comparison-2026-11-01/README.md) and [local build evidence](../../audit-evidence/comparison-integration-20261101/README.md). Preserve baseline/extension distinctions, current UI/variants/stores and all source/personal-output gates. |
@@ -404,6 +543,22 @@ Valid endings: learning summary; scoped published comparison; keep current cover
 Scope: national education when reviewed; currently documented local catalog is published 2027 Collier County, Florida. Location resolution elsewhere does not imply available local records. No personal suitability/recommendation service, insurer Medigap quote, personal total-cost estimate, clinical-provider match, contact, cancellation or enrollment becomes available without its separate verified evidence, authority, integration and admission gates.
 
 ## 3. The experience: agent first with a durable visual task
+
+**D166 · :8895 conversation planner, November 13, 2026.** The active discussion
+determines the next useful move. Understand why the person came, their current
+situation and relevant Medicare familiarity; explain concepts as they become
+useful; connect priorities to coverage-path tradeoffs; investigate plans when
+useful or requested. These are available moves, not mandatory stages. An expert
+can request prices immediately and a novice can ask a general question without
+personal intake. Answer the question first. Keep intent, reports, tentative
+understanding, preferences, exploration and explicit decisions separate.
+Viewing or opening a path, learning about Medigap, cost preferences and travel
+are not path choices. Original Medicare does not imply Medigap. Cards follow
+the discussion and do not drive it through pricing counters. Reuse known
+answers and preserve uncertainty/deferral. Keeping coverage, waiting and
+remaining undecided are valid outcomes. Deterministic recommendations, source
+STOPs, all 41 conditional meanings and existing review gates remain authoritative.
+This overrides older find-mode/pricing-first scheduling on :8895 only.
 
 ### Stable common phases
 
@@ -664,6 +819,14 @@ Preserve source-linked medical/legal content as reviewed content. Domain reviewe
 
 ## 11. Delivery increments and non-drift rule
 
+D154 requires a user story through the existing conversation for every newly
+exposed capability. Read the Brain UX playbook and
+[conversation implementation rules](CONVERSATION_IMPLEMENTATION.md). Reuse known
+reports, one visit and one composer; exact matching, results and the next useful
+question belong to that ongoing story. A standalone panel, launch control or
+separate fictional session cannot establish integration. This supersedes the
+separate-entry interpretation of D150–D153 on :8895. Evidence/release gates remain.
+
 See the acceptance/handoff appendix for scoped implementation increments, dependencies and stopping rules. No implementation is authorized by this document. A future request should name the increment, requirement IDs, nodes/components and evidence expected. Implement behavior/state before styling; preserve the current frontend and accepted backend gates. Do not use a visual polish request to remove content or redesign the route.
 
 Each change records: changed requirement/decision; nodes and field dependencies; wireframe/component revision; meaningful regression evidence; rendered device checks; unknown validation. Completion means the authorized slice meets its acceptance and limitations are stated—not that the whole service is ready.
@@ -848,3 +1011,36 @@ The owner directed moving to L15 and wrapping up its Collier demo scope, treatin
 
 
 **L14 additive gap resolution · October 29, 2026:** Owner authorized closing available L14 gaps and one fresh public AHCA PACE report download. [The r2 update](../data/l14-other-coverage-2026-10-29/gap-resolution-r2/REPORT.md) closes the latest published state-census gap, captures all four HCPP sponsors' public restrictions, preserves exact Fenyx deductible/deposit/design differences, and completes a bounded modeled-rule amendment audit. Mechanical validation, 29 new safeguards and 16 byte-identical replay outputs pass; original references remain intact. Current Hope terms, correct Fenyx EOCs/group basis, some HCPP source periods, national anomalies, individual casework and independent R19 review remain explicit. No new questionnaire, personal recommendation, quote, enrollment, outreach, interface change or deployment is added; D64/D73 and separate source/personal/release gates remain protected.
+
+
+**D167 · :8895 integration follow-through, November 14, 2026.** Explicit spoken
+component decisions are independent of current coverage and overall path choice.
+A requested drug-cost investigation reuses shared exact medicine, pharmacy and
+refill inputs across plans without first selecting a plan. The requested product
+view opens directly; curiosity and predictable-cost preferences preserve an
+undecided path. Supported retail-average costs may order plans within existing
+fit groups; unresolved costs remain visible and unranked. Results and corrections
+stay in the conversation. This is implemented source, not runtime/owner acceptance:
+[verification and activation limits](../../audit-evidence/profile-replay-20261114/README.md).
+
+
+## D170 behavioral continuity and useful finishes
+
+The :8895 conversation retains the last explicitly requested investigation separately from the current side question. Plans opens that task; standard G remains distinct from high-deductible G, and education does not launch quote intake. Browsing is not a decision. Explicit negative A/B reports override inferred holdings; conflicting current reports request clarification. A normalized first-of-month date never gains reported-day provenance.
+
+A requested finish records work performed, the actual decision or undecided state, unresolved dependencies and a specific next action in the same visit. A source-blocked comparison is not completed research. Final questions are answered without another generic intake prompt. Unknown personal criteria stay visible without a positive match label. Corrections withdraw affected results and preserve unrelated reports. These changes implement D154, D161, D166–D170 while retaining D64 and all source/release boundaries. [Technical evidence and activation status](../../audit-evidence/behavioral-fixes-20261114/README.md) are distinct from human approval and natural-language quality.
+
+
+## D172–D177 conversation leadership and reply reading
+
+Natural conversation includes leadership: answer the question, suggest a useful next task from known context, and use the existing structured questions when the person asks to proceed. D173 orders priorities as natural flow, obtaining required information, then contextual education. The AI interprets the whole conversation and selects explanation, suggestion, requested work, detour, pause or finish. A shared capability contract supplies existing conditional questions and availability; it does not match user phrases or impose a next-question topic order. Known profile reports, question explanations and key terms remain available. Every message can contribute multiple facts. Delivered education is retained and revisited only when useful or requested; it never establishes comprehension. Buttons retain deliberate Send, no preselection, typed alternatives and unknown/defer choices. Concept detours do not erase the task. Broad reflection is useful when there is a real open question, not as the default ending on every turn.
+
+Process suggestions do not constitute insurance recommendations or choices. Failed generation preserves the approved practical question, and a repaired closing question does not invalidate a checked answer. The transcript positions each new reply at its beginning and does not later jump to its question. Large tables and late visuals grow below the reading position. [D173 evidence](../../audit-evidence/semantic-guidance-20261114/README.md) separates fictional offline mechanics from live language and owner acceptance.
+
+D174 consolidates :8895 into one complete interpreter prompt and one complete composer prompt. Explanation does not erase a practical goal: a detour can answer then return to an existing structured question; a valid process offer survives the checker. Correct mistaken terminology briefly and clarify a choice only when it blocks the next action. The two-path lesson card is explicitly selected instead of automatically duplicating prose, and its delivery is recorded. Missing follow-ups do not manufacture generic topic questions. Local retention of a valid response component avoids unnecessary paid repair. No additional model stage is introduced. [Exact prompts, loops, memory and transport](CONVERSATION_PLUMBING.md); [offline evidence](../../audit-evidence/conversation-plumbing-20261114/README.md).
+
+D175 makes checked recovery quiet when the person’s accepted answer can advance. Coverage uncertainty and embedded questions are not assertions of coverage. A composer response has up to four self-contained blocks; retain independently checked whole blocks or a valid approved question, using its existing explanation rather than an unrelated Medicare introduction. D177 replaces generic unanswered-request notices with internal continuity. Do not mark withheld education delivered, relax source/report checks, or add model calls. [Evidence](../../audit-evidence/quiet-recovery-20261114/README.md).
+
+D176 links the next question to stored reports at field and entity level. `question_progress.py` supplies a shared projection to both model stages and guards eligible and finally delivered controls. The existing profile owns facts; visit-only receipts own exposure counts. Ask only remaining fields, respect unknown/deferred states and allow corrections. Two unanswered deliveries exhaust that field scope’s automatic ask allowance; the existing conversation shows “Details still open” and accepts later answers. Date capture supports standard month abbreviations and punctuation while preserving missing years; no date-dependent conclusion gains authority from partial dates. [Evidence](../../audit-evidence/question-progress-20261115/README.md).
+
+D177 keeps useful answers free of generic unresolved notices and reconnects recovery to the existing loaded question explanations. Up to four unfinished user requests remain in visit RAM, visible to both model stages after detours/history trimming. The same composer can identify offered requests addressed in its reply; only complete checked delivery without recovery retires them. No new fact, extra model stage or forced follow-up arises. Worker-relationship questions and conditionals retain their scope; actual relationship assertions still require matching resolved reports. Consequential source/action limitations remain. [Evidence](../../audit-evidence/continuation-recovery-20261115/README.md).

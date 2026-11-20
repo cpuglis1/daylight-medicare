@@ -1,17 +1,17 @@
 {
   "status": "passed",
   "data_file": "profiles.json",
-  "data_sha256": "b6c4d6117af045f7d1e861f73f37f6ac3160053505ca23e6e169f9fbfb3adff7",
-  "schema_sha256": "4d8081817d334ac76050de44ce5a2a2d0a1929347e38d2ba0945f0c4c5e15904",
-  "validator_sha256": "54ca8e36bf5711e36ddc8dd9612f961afb827245198113874d9630f19c28bb6c",
+  "data_sha256": "ca57c37fe5f5f76af60bdf89bc6f21d0bcef8e248d3d48517201eba63ad57fd6",
+  "schema_sha256": "d655cada63405593d9ea6955bb7b5767710d119e6879305cc4b3b2d10ad93640",
+  "validator_sha256": "02c968d8a2b2fcd5790a63599779c82193c544f997f1a81660d478b4c6c3e12e",
   "jsonschema_version": "4.26.0",
   "errors": [],
   "measurements": {
-    "profiles": 15,
+    "profiles": 16,
     "coverage_paths": {
       "keep_current_or_wait": 2,
       "medicare_advantage": 4,
-      "original_medicare_medigap_part_d": 6,
+      "original_medicare_medigap_part_d": 7,
       "part_d_only": 3
     },
     "distinct_zips": [
@@ -29,6 +29,7 @@
       65,
       65,
       65,
+      65,
       66,
       67,
       68,
@@ -42,18 +43,19 @@
     "short_openings": [
       "PP05",
       "PP08",
-      "PP09"
+      "PP09",
+      "PP16"
     ],
     "long_openings": [
       "PP01"
     ],
-    "teach_backs_with_misconception": 11,
+    "teach_backs_with_misconception": 12,
     "checks": {
-      "real_doctor_profiles": 6,
+      "real_doctor_profiles": 7,
       "negative_control_profiles": 4,
       "pharmacy_profiles": 8,
-      "medicine_profiles": 10,
-      "profiles_with_any_real_check": 10
+      "medicine_profiles": 11,
+      "profiles_with_any_real_check": 11
     },
     "identifier_probe_profiles": [
       "PP06"
@@ -328,6 +330,24 @@
         "negative_control_doctors": 0,
         "pharmacy": true,
         "medicines_with_rxcui": 4
+      },
+      {
+        "id": "PP16",
+        "coverage_path": "original_medicare_medigap_part_d",
+        "tabs": {
+          "medicare_advantage": "optional",
+          "medigap": "unlocks",
+          "part_d": "optional"
+        },
+        "typist": "self",
+        "opening_words": 2,
+        "scripted_messages": 8,
+        "unprompted_messages": 2,
+        "teach_back_misconception": true,
+        "real_doctors": 2,
+        "negative_control_doctors": 0,
+        "pharmacy": false,
+        "medicines_with_rxcui": 1
       }
     ]
   },
