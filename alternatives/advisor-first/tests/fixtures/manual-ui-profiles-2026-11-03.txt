@@ -1,0 +1,363 @@
+DAYLIGHT — FIVE REMIXED MANUAL UI PROFILES
+November 3, 2026 | Use with http://127.0.0.1:8893/
+
+These are manual inputs, not profiles already loaded into the app.
+No manual conversations or AI calls have been run for this set.
+
+EXISTING PROFILE LOCATIONS
+Current :8893 persona journeys (10 base personas + 4 variants):
+/Users/cep4u/daylight/alternatives/advisor-first/tests/fixtures/persona_journeys.json
+Additional field/state scenarios:
+/Users/cep4u/daylight/alternatives/advisor-first/tests/fixtures/field_scenarios.json
+Independently authored expected final profiles (30 scenarios):
+/Users/cep4u/daylight/audit-evidence/advisor-persona-coverage-20261102/expected-profiles.json
+Original :8891 persona definitions (historical):
+/Users/cep4u/daylight/alternatives/chat-first/cms-slice/tests/persona_scenarios.py
+
+HOW TO USE
+1. Use one fresh visit per profile; do not resume a different profile's saved information.
+2. Send only the opening first. Use the answer bank as the chat asks; do not paste the whole profile.
+3. There is no required question order. Rephrase naturally or use matching buttons.
+4. Try the optional turn once at its stated moment. A correction supersedes the earlier answer.
+5. For anything unspecified, say I don't know or leave it for later; do not invent facts.
+6. All people, clinics, pharmacy names and Example medicines are fictional. These runs assess the UI and conversation, not real provider/drug matches.
+7. All five retain ZIP 34102 from the original corpus so geography does not dominate the comparison between runs.
+
+QUICK INDEX
+M1: Maya — retired beginner with COBRA
+M2: Jordan — helping a mother with existing coverage
+M3: Denise — spouse's job coverage and a corrected end date
+M4: Sam — VA care, no prescriptions and a short explanation preference
+M5: Avery — an existing Advantage member exploring a supplement
+
+========================================================================
+M1: Maya — retired beginner with COBRA
+========================================================================
+Recombined from: P2, P4-unknown, P7, P8
+
+START BY SENDING
+I'm 64 and retired last month. I want to get Medicare when I can, but I don't understand when that is.
+
+ANSWER BANK — use only what the chat asks about
+Who this is for:
+This is for me.
+
+Birthday:
+I turn 65 in March 2027.
+
+Current coverage:
+I'm on COBRA. I don't have insurance from a current job.
+
+Former job and work coverage:
+My job and its active employee insurance ended October 31, 2026. COBRA started after that.
+
+COBRA end:
+The COBRA paperwork says April 30, 2027.
+
+Medicare enrollment:
+I haven't applied for Medicare and don't have Parts A or B.
+
+Preferred start:
+As soon as I'm eligible. I need help understanding the timing.
+
+ZIP:
+34102
+
+Doctor:
+Dr. Rivera at Example Clinic in Naples. That's the only doctor I want to keep.
+
+Prescriptions:
+Example Three. It's a tablet, but I don't know the strength.
+
+Fill and pharmacy details:
+I use Example Pharmacy in Naples, in person. I don't know the quantity or days supply right now.
+
+Travel:
+I only need routine care locally.
+
+Priorities:
+Lower monthly payments and keeping my doctor both matter. I haven't ranked them.
+
+Learning preference:
+I'm new to all of this. One small explanation at a time would help.
+
+OPTIONAL TURN — try once
+When: After the first explanation of the coverage paths
+Send: Wait, is Medicare Advantage something I buy in addition to Original Medicare?
+Notice: Does it resolve the confusion in plain language, then return naturally to the practical discussion?
+
+UI POINTS TO WATCH
+- Eligibility explanation arrives before a demand for a preferred date; COBRA stays distinct from current-job coverage.
+- Unknown medicine strength stays open without trapping the chat or inventing a value.
+- Doctor and medicine acknowledgments feel timely without recurring in every reply.
+
+========================================================================
+M2: Jordan — helping a mother with existing coverage
+========================================================================
+Recombined from: P3-replacement, P5, P9, P10
+
+START BY SENDING
+I'm helping my mom review her Medicare. She's happy with her doctors but wants to understand whether her coverage still makes sense.
+
+ANSWER BANK — use only what the chat asks about
+Who this is for:
+My mother, Evelyn. She's 72. I'm helping her; this isn't about my coverage.
+
+Current coverage:
+She has Original Medicare, a Medigap policy and a separate Part D drug plan. She wants to keep them while she looks.
+
+Actual enrollment:
+She already has Parts A and B. Her Part B started in October 2020.
+
+Desired timing:
+No immediate change. We're reviewing what she already has.
+
+ZIP:
+Her ZIP is 34102.
+
+Doctors:
+Dr. Rivera at Example Clinic in Naples, and Dr. Lee at Example Hospital in Tampa.
+
+Prescriptions:
+She takes Example Med 5 mg tablets and Example Med 10 mg tablets. Please keep those as two separate entries.
+
+5 mg fill:
+For the 5 mg tablets: 30 tablets for 30 days, at Example Pharmacy in Naples, retail pickup.
+
+10 mg fill:
+For the 10 mg tablets: 60 tablets for 30 days, at Example Pharmacy in Naples, retail pickup.
+
+Travel:
+She needs routine care in Tampa and also spends summers in Ohio.
+
+Priorities:
+Keeping both doctors and more predictable costs matter most. She hasn't chosen one over the other.
+
+Budget:
+She'd like to keep premiums and what she spends on care to around $200 a month.
+
+Helper's own coverage, only if relevant:
+I have insurance through my current job. My mother doesn't have that insurance.
+
+Learning preference:
+Mom knows the basics, but I need a short explanation when unfamiliar terms come up.
+
+OPTIONAL TURN — try once
+When: After both medicine fills have been entered
+Send: Correction: the 5 mg Example Med is filled as 90 tablets for 90 days. Keep the 10 mg prescription exactly as it was.
+Notice: Does the correction affect only the named strength, without changing the other prescription or assigning the daughter's insurance to her mother?
+
+UI POINTS TO WATCH
+- The mother's reports stay separate from the helper's circumstances.
+- Two strengths remain visually distinguishable and editable.
+- Review and checklist content are readable without a large repeated profile recap in the conversation.
+
+========================================================================
+M3: Denise — spouse's job coverage and a corrected end date
+========================================================================
+Recombined from: P1, P1-payer, P6, P8
+
+START BY SENDING
+I turn 65 in December and my spouse is retiring soon. I'm trying to figure out what happens to my health insurance.
+
+ANSWER BANK — use only what the chat asks about
+Who this is for:
+This is for me.
+
+Birthday:
+My 65th birthday is December 18, 2026.
+
+Current coverage:
+I'm insured through my spouse's current job. I'm not on COBRA.
+
+Whose job ends:
+My spouse's job ends December 15, 2026. It's not my job.
+
+Initial insurance-end answer:
+I think the insurance ends December 31, 2026.
+
+Preferred start:
+I'd prefer February 2027, but I want to understand how the timing works before deciding.
+
+Actual Medicare enrollment:
+I don't have Parts A or B and haven't applied yet.
+
+Employer size:
+My spouse's employer has about 60 employees.
+
+HSA:
+Yes, contributions are still going into my HSA.
+
+ZIP:
+34102
+
+Doctors:
+No particular doctors to include.
+
+Prescription:
+Example One, 10 mg tablet.
+
+Fill:
+30 tablets for 30 days, Example Pharmacy in Naples, retail pickup.
+
+Travel:
+I need routine care locally and in Tampa.
+
+Priorities:
+More predictable costs and flexibility when I'm in Tampa.
+
+Learning preference:
+I know a little about Medicare. Please keep the explanations brief unless I ask for more.
+
+OPTIONAL TURN — try once
+When: After the initial insurance end has been discussed
+Send: I found the letter. Correction: my spouse retires December 15, 2026, but my insurance lasts through January 31, 2027. The job end date hasn't changed.
+Notice: Does the chat update only the insurance end, preserve the job end and keep the February preference separate from a confirmed Medicare start?
+
+UI POINTS TO WATCH
+- Job end, insurance end and preferred Medicare start are easy to distinguish.
+- The corrected date is reflected in any date summary and review.
+- HSA and coverage questions have an understandable purpose without turning into a dense lecture.
+
+========================================================================
+M4: Sam — VA care, no prescriptions and a short explanation preference
+========================================================================
+Recombined from: P5, P7, P8, P4
+
+START BY SENDING
+I use the VA and turn 65 next year. Do I still need to look into Medicare?
+
+ANSWER BANK — use only what the chat asks about
+Who this is for:
+This is for me.
+
+Birthday:
+I turn 65 in June 2027.
+
+Military program:
+VA care only. I don't have TRICARE or TRICARE for Life.
+
+Coverage end:
+I don't know of an end date for my VA care.
+
+Actual Medicare enrollment:
+I haven't applied and don't have Parts A or B.
+
+Preferred start:
+I don't know yet. I'd like to understand this first.
+
+ZIP:
+34102
+
+Doctor, deliberately enter without an honorific:
+Lee at Example Hospital in Tampa
+
+Doctor clarification if asked:
+That's Dr. Lee at Example Hospital in Tampa. I want to keep seeing that doctor.
+
+Prescriptions:
+I don't take any prescription medicines.
+
+Travel:
+I spend two months a year in Tampa and want routine care there too.
+
+Priorities:
+Keeping my doctor and understanding what I might pay each month.
+
+Learning preference:
+I'm a beginner, but shorter explanations work better for me.
+
+OPTIONAL TURN — try once
+When: After a longer explanation or when it asks for a preferred start again
+Send: Can you make that simpler? I haven't picked a start month. Let's leave that open for now.
+Notice: Does it shorten the explanation and leave the date open without inferring TRICARE coverage or repeating a no-medicines question?
+
+UI POINTS TO WATCH
+- VA is treated as the reported program, without silently becoming TRICARE.
+- A bare doctor name can be acknowledged and clarified without an error or a repeated whole question.
+- None and not-yet-decided answers move the conversation forward naturally.
+
+========================================================================
+M5: Avery — an existing Advantage member exploring a supplement
+========================================================================
+Recombined from: P3, P3-replacement, P4, P7
+
+START BY SENDING
+I'm already on Medicare Advantage, but I'd like to understand whether Original Medicare with a supplement would be different for me.
+
+ANSWER BANK — use only what the chat asks about
+Who this is for:
+This is for me. I'm 68.
+
+Current coverage:
+My current coverage is Medicare Advantage. I'm keeping it while I learn about the alternatives.
+
+Parts A and B:
+I already have both Parts A and B. Part B started in October 2023.
+
+Current Advantage episode:
+This Medicare Advantage plan began January 2025.
+
+Prior supplement:
+I've never had a Medigap policy.
+
+Desired timing:
+I haven't chosen a change date. I want to understand the differences first.
+
+ZIP:
+34102
+
+Doctors:
+Dr. Rivera at Example Clinic in Naples.
+
+Initial medicine list:
+Example One 5 mg tablets and Example Two 10 mg capsules.
+
+Example One fill:
+30 tablets for 30 days, Example Pharmacy in Naples, retail pickup.
+
+Example Two fill:
+60 capsules for 30 days, Example Pharmacy in Naples, retail pickup.
+
+Travel:
+I'd like to be able to get routine care locally and during summers in Ohio.
+
+Priorities:
+More predictable bills and flexibility in where I get care. I don't want to rank those yet.
+
+Income and assistance details:
+I don't know whether I qualify for help with costs. I'd rather leave the financial details for later.
+
+Learning preference:
+I know some basics, but I don't understand what a supplement changes.
+
+OPTIONAL TURN — try once
+When: After the medicine list or fill details have been discussed
+Send: Correction: Example One is a 10 mg tablet, not 5 mg. Example Two hasn't changed. Can we go back to the supplement question after that?
+Notice: Does it update the right medicine, retain Example Two and return to the learning question without forcing a restart or implying a switch is approved?
+
+UI POINTS TO WATCH
+- A coverage-path explanation fits the question without promising that a switch or supplement is available.
+- Medicine corrections remain understandable; old fill details are not presented as newly verified for the changed medicine.
+- Unknown financial details do not dominate the conversation or block requested learning.
+
+========================================================================
+REPORT BACK
+========================================================================
+A short note is enough. Copy the message and reply if something goes wrong.
+
+Profile ID:
+Device/browser:
+Last message sent:
+Reply/error received:
+What looked or felt odd:
+What worked well:
+Screenshot/transcript, if available:
+
+OPTIONAL QUICK UI CHECK
+- Was the opening easy to answer?
+- Did explanations help before another question arrived?
+- Were questions, buttons and Send readable and reachable without covering the conversation?
+- Did names, dates, corrections and the current question remain clear?
+- Were callbacks, sources, progress summaries and visuals useful rather than repetitive?
+- If an error appeared, what exact message did you send immediately before it?

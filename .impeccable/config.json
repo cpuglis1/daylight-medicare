@@ -1,0 +1,90 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "fraunces",
+        "files": [
+          "cms-slice/apps/chat/index.html",
+          "cms-slice/apps/chat/styles.css"
+        ],
+        "createdAt": "2026-10-20T20:47:11.267Z",
+        "reason": "Agent: retaining the incumbent self-hosted Fraunces recorded in DAYLIGHT_AESTHETIC_PLAN.md and the pre-restoration stylesheet; the authorized task restores the existing guide and preserves its visual identity."
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "cms-slice/apps/chat/index.html"
+        ],
+        "createdAt": "2026-10-20T22:18:49.138Z",
+        "reason": "Agent: preserving the incumbent warm paper background #fbf9f4. The owner said the aesthetic is good and asked to elevate the service finish; D32 and docs/DAYLIGHT_LEARNING_FLOW.md retain the existing warm palette. This is a deliberate continuity decision for this file."
+      },
+      {
+        "rule": "overused-font",
+        "value": "fraunces",
+        "createdAt": "2026-10-27T21:52:27.272Z",
+        "reason": "Codex: intentional existing typography; alternatives/chat-first/DESIGN.md lines 128 and 176 preserve the approved Fraunces/Atkinson relationship, and the pre-change index already loads Fraunces. D79 preserves this design."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "hyperlegible",
+        "createdAt": "2026-10-30T16:35:16.204Z",
+        "reason": "Agent: detector tokenization false positive; root DESIGN.md declares Atkinson Hyperlegible and advisor.css uses that exact approved family."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "hyperlegible\",arial,sans-serif",
+        "createdAt": "2026-10-30T16:35:16.221Z",
+        "reason": "Agent: detector tokenization false positive; root DESIGN.md declares Atkinson Hyperlegible and advisor.css uses that exact approved family."
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "alternatives/advisor-first/web/index.html"
+        ],
+        "createdAt": "2026-10-30T16:51:15.515Z",
+        "reason": "Agent: D58/root DESIGN.md specifies compact Fraunces display leading. The D86 phone DOM check measured body/control line-height at 1.5; only the approved display heading uses 1.14."
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "alternatives/advisor-first/web/index.html"
+        ],
+        "createdAt": "2026-10-30T16:51:15.529Z",
+        "reason": "Agent: D58/root DESIGN.md requires the approved Daylight paper palette #fbf9f4; D86 explicitly preserves that identity."
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "alternatives/advisor-first/web/advisor.css"
+        ],
+        "createdAt": "2026-10-30T17:03:15.301Z",
+        "reason": "Agent: Impeccable 4.3.1 flags the 3px bottom border of .phase, a square progress indicator with no border-radius. Its minified CSS line also contains unrelated rounded controls; the 4.7 detector reports no finding. Preserve the intentional progress underline."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "alternatives/advisor-first/tests/test_comparison_view.js"
+        ],
+        "createdAt": "2026-11-01T17:07:58.865Z",
+        "reason": "Codex review: literal malicious HTML text in a renderer security test; the test verifies that no img element is created. This is not a shipped image."
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "docs/product/plans-workspace-2026-11-04-r1/layout.html"
+        ],
+        "createdAt": "2026-11-05T00:35:05.859Z",
+        "reason": "Owner confirmed the existing warm paper and olive identity for this Plans workspace; DESIGN.md pins paper #fbf9f4."
+      }
+    ]
+  }
+}

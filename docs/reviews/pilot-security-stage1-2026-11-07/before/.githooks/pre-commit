@@ -1,0 +1,5 @@
+#!/bin/sh
+# Inspect the Git index, including new/changed files; never auto-stage anything.
+set -eu
+repository_root=$(git rev-parse --show-toplevel)
+exec python3 "$repository_root/tools/baseline_checks.py" --root "$repository_root" --staged

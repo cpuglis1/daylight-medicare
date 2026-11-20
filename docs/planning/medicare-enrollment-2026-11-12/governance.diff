@@ -1,0 +1,74 @@
+--- before/DAYLIGHT_REQUIREMENTS.md
++++ DAYLIGHT_REQUIREMENTS.md
+@@ -246,6 +246,8 @@
+ 
+ ## Change log
+ 
++- **2026-11-12, D161 First A/B enrollment is core; two coverage-path tabs.** Owner directs making first enrollment in Medicare Part A and Part B a critical, essential part of the journey, delivered through the existing conversation with focused prompting or other appropriate methods. The Plans dashboard is to have two top-level tabs, **Original Medicare** and **Medicare Advantage**; Medigap and separate Part D work belongs within Original Medicare. Guide the person from missing A/B coverage to the applicable signup steps and onward to coverage choices based on their needs. Read the Brain's revised vision and prepare a robust plan across conversation and dashboard. This supersedes the three-peer-tab product direction, not the existing component functionality or evidence gates. [Plan](docs/planning/medicare-enrollment-2026-11-12/PLAN.md) covers shared enrollment state, official application preparation and return, distinct dates, path components, verification and release limits. Direction and planning only in this task; implementation details are proposed and the running app is unchanged. Preserve deterministic decisions, D64, the 41 conditional meanings, privacy, source STOPs and protected variants.
++
+ - **2026-11-12, D160 Human mission leads the Brain's vision and strategy.** Owner approves the framing that people should not have to become insurance experts to make decisions affecting their health and retirement, and directs updating the second brain to lead with that mission. Explain AI and contextual education as ways to help people understand choices, complete useful work and retain control. Preserve the technical core, deterministic recommendations, Option A and commercial independence. Keep “Medicare, plain as day.” and distinguish intended impact and future advocacy from demonstrated outcomes. The Brain's `01 Vision and strategy.md` owns the revised narrative; this is a documentation change. [Change and verification](audit-evidence/vision-messaging-20261112/README.md).
+ 
+ - **2026-11-12, D159 Activate 40 reviewed pilot facts on :8895.** Owner explicitly approves the 40 non-held D158 facts for general education on :8895 and directs activation and verification while keeping the three Florida holds disabled. Record acceptance of the exact reviewed fact/source digests; source checking by Codex is not independent legal review. The earlier assistant-added blanket qualified-review requirement does not impose an extra reviewer on the 40 general statements. Activation is restricted to :8895 with a separate approval record; :8893 and other surfaces remain inactive. [Acceptance, running verification and preservation](audit-evidence/pilot-knowledge-activation-8895-20261112/README.md).
+--- before/docs/project/CURRENT_STATE.md
++++ docs/project/CURRENT_STATE.md
+@@ -1,6 +1,6 @@
+ # Daylight: current state
+ 
+-Living document · last updated November 12, 2026 (America/New_York), through D160. Edit this
++Living document · last updated November 12, 2026 (America/New_York), through D161. Edit this
+ file in place when direction changes. Do not prepend dated directives here or
+ to any `AGENTS.md`; record them as described in "Changing direction" below.
+ 
+@@ -13,6 +13,16 @@
+ first target is a **2026 controlled pilot in Collier County,
+ Florida** for first-time Medicare enrollees. It is not yet a released advice,
+ recommendation or enrollment service. Consumer recommendation purposes are held.
++
++D161 makes first Part A/Part B enrollment an essential core journey and directs
++two top-level Plans tabs: **Original Medicare** and **Medicare Advantage**, with
++Medigap and separate Part D within Original Medicare. The
++[conversation and dashboard plan](../planning/medicare-enrollment-2026-11-12/PLAN.md)
++keeps the existing conversation and adds shared enrollment status, signup
++preparation, return/follow-through and coordinated coverage steps. **Planned,
++not implemented:** the running app still has the three existing plan tabs and
++fragmentary A/B timing work described below. D161 changes the intended structure;
++it does not release recommendations, application submission or consumer use.
+ 
+ ## Authority, in order
+ 
+--- before/docs/project/DIRECTIVE_HISTORY.md
++++ docs/project/DIRECTIVE_HISTORY.md
+@@ -455,3 +455,23 @@
+ and demonstrated outcomes. Update the Brain's existing vision note and record
+ the decision; no technical-core or app change is part of this direction.
+ [Change and verification](../../audit-evidence/vision-messaging-20261112/README.md).
++
++## D161 · November 12, 2026 · First A/B enrollment and two coverage paths
++
++Owner: “We are not actively addressing the first enrollment of part a, part b
++in the journey. This needs to be critical and an essential core component.”
++The top-level tabs should be “Original Medicare, Medicare Advantage,” with
++Medigap and Part D work within Original Medicare. The owner asks for two fronts:
++focused changes within the existing conversation, using system prompting or
++other appropriate methods, and a guiding Plans dashboard that helps people
++establish missing A/B coverage and choose coverage based on their needs.
++“read the new vision in the brain. And come up with a robust plan”.
++
++The [plan](../planning/medicare-enrollment-2026-11-12/PLAN.md) connects this
++direction to D160's human mission, shared enrollment status, official signup
++preparation and return, distinct dates and path-level guidance. Two path tabs
++supersede three peer product tabs as intended product structure. Existing
++Medigap and Part D functionality remains within Original Medicare. This task
++records direction and proposed implementation; it does not change the running
++app or accept new rules, recommendations or enrollment submission. Preserve
++D64, the 41 meanings, source STOPs, privacy and protected variants.
+--- before/docs/product/MASTER_DESIGN.md
++++ docs/product/MASTER_DESIGN.md
+@@ -195,6 +195,7 @@
+ 
+ | ID | Decision | Consequence |
+ |---|---|---|
++| D161 | November 12: first Part A/Part B enrollment is core; organize Plans into Original Medicare and Medicare Advantage | Deliver signup guidance and follow-through in the existing conversation; place Medigap and separate Part D within Original Medicare. The shared enrollment record and two-tab implementation are proposed in the [plan](../planning/medicare-enrollment-2026-11-12/PLAN.md), not yet delivered. This supersedes three peer product tabs while preserving component functionality, the 41 meanings, deterministic decisions, permissions and independent release gates. |
+ | D58/D86 | November 2: owner approved `Medicare, plain as day.` as the large :8893 landing headline | Break after `Medicare,`; support with `Understand your coverage options and prepare to enroll, at your pace.`. Keep the sun/Daylight wordmark without the Medicare subtitle and retain Get started. This scoped copy decision supersedes the earlier exact tagline only on :8893; preserve its layout/photo/type, conversation, protected variants/stores and source/recommendation/enrollment gates. [Change and responsive evidence](../../audit-evidence/landing-medicare-20261102/README.md). |
+ | D86 | Implement the ongoing advisor correction with education serving understandable coverage decisions; apply the owner's November 2 focused chat refinements | [Ongoing execution contract](ONGOING_ADVISOR_FLOW_2026-11-01.md) remains. November 2 adds typed-date/ASAP consistency, privacy-only OpenAI notice placement, assistant-side pending dots, a growing composer and a contextual inline guide while Sources stays expandable. [Earlier refinement implementation and checks](../../audit-evidence/advisor-chat-refinements-20261102/README.md) are recorded. The latest increment adds spatial dot motion, immediate draft clearing with safe recovery, a conditional downward jump and optional contextual educational questions while preserving the practical return point; [scoped implementation and free verification](../../audit-evidence/advisor-engagement-20261102/README.md) are recorded separately from actual activation and real-model/consumer evaluation. Preserve privacy, independence, protected variants and source/release gates; consumer approval is separate. |
+ | D87 | Reuse the existing profile and all 41 meanings; subsequently build the approved comparison design within the actual AI/chat architecture | [Design packet](plan-comparison-2026-11-01/README.md) and [local build evidence](../../audit-evidence/comparison-integration-20261101/README.md). Preserve baseline/extension distinctions, current UI/variants/stores and all source/personal-output gates. |

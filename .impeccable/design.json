@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T00:40:31.416064+00:00",
+  "title": "Design System: Daylight",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper"
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Raised paper"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Main ink"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Secondary text"
+      },
+      "olive": {
+        "role": "primary",
+        "displayName": "Olive action"
+      },
+      "olive-hover": {
+        "role": "primary",
+        "displayName": "Olive hover"
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Sage teaching surface"
+      },
+      "selected-support": {
+        "role": "secondary",
+        "displayName": "Approved selected support; currently unused in CSS"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Quiet rule"
+      },
+      "focus": {
+        "role": "secondary",
+        "displayName": "Keyboard focus"
+      },
+      "illustrative-data": {
+        "role": "secondary",
+        "displayName": "Approved illustrative-data notice; currently unused in CSS"
+      },
+      "choice-border": {
+        "role": "neutral",
+        "displayName": "Choice boundary"
+      },
+      "composer-border": {
+        "role": "neutral",
+        "displayName": "Composer boundary"
+      },
+      "phase-border": {
+        "role": "neutral",
+        "displayName": "Phase marker boundary"
+      },
+      "ask-composer": {
+        "role": "neutral",
+        "displayName": "Ask composer surface"
+      },
+      "catalog-accent": {
+        "role": "primary",
+        "displayName": "Retained catalog accent"
+      },
+      "catalog-accent-strong": {
+        "role": "primary",
+        "displayName": "Retained catalog strong text"
+      },
+      "catalog-sage-border": {
+        "role": "neutral",
+        "displayName": "Retained catalog sage border"
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Selected catalog text"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Arrival display",
+        "purpose": "Approved arrival headline; responsive sizes documented in Layout/Typography."
+      },
+      "headline": {
+        "displayName": "Task question",
+        "purpose": "Literal current task question."
+      },
+      "body": {
+        "displayName": "Readable body",
+        "purpose": "Body, controls and numbers; self-hosted Atkinson Hyperlegible."
+      },
+      "answer": {
+        "displayName": "Task answer",
+        "purpose": "Concise current concept explanation."
+      },
+      "label": {
+        "displayName": "Supporting label",
+        "purpose": "Context labels and phase text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "0 16px 48px rgba(32,48,32,.19)",
+        "purpose": "Ask overlay and starting-profile dialog."
+      },
+      {
+        "name": "retained-catalog-low",
+        "value": "0 1px 2px rgba(60,55,40,.05), 0 2px 8px rgba(60,55,40,.05)",
+        "purpose": "Incumbent plan-card depth; no blanket card restyling."
+      }
+    ],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "narrow-max",
+        "value": "360px"
+      },
+      {
+        "name": "phone-max",
+        "value": "760px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "1100px"
+      },
+      {
+        "name": "wide-min",
+        "value": "1441px"
+      }
+    ],
+    "focus": {
+      "value": "3px solid #91600c",
+      "offset": "4px",
+      "purpose": "Buttons, links and fields in the approved sheet."
+    },
+    "scrims": {
+      "ask": "rgba(31,49,32,.11)",
+      "starting-profile": "rgba(31,49,32,.2)"
+    },
+    "motionPolicy": "No decorative motion. The retained stylesheet globally disables animations, transitions and smooth scrolling; approved.css retains a reduced-motion safeguard.",
+    "scopeNotes": [
+      {
+        "scope": "The :8893 landing presentation only; protected variants retain their earlier copy.",
+        "sourceText": "**D58/D86 scoped landing override · November 2, 2026:** The owner approved **Medicare, plain as day.** as the large :8893 hero headline, breaking after `Medicare,`, with **Understand your coverage options and prepare to enroll, at your pace.** beneath it. Use the existing sun/Daylight wordmark without its Medicare subtitle and retain Get started. This supersedes the earlier exact-tagline rule only for :8893's landing presentation; preserve all layout, font, palette, photo and interaction decisions. Protected variants retain their earlier copy. [Scoped change and responsive evidence](audit-evidence/landing-medicare-20261102/README.md)."
+      },
+      {
+        "scope": "Review criteria; not new visual or flow authority.",
+        "sourceText": "**D73 strategic review · October 25, 2026:** Follow the [canonical thesis and UI/system checklist](docs/product/STRATEGIC_THESIS.md#ui-and-system-change-review-checklist). Design for useful self-service and comprehension: questions before extensive intake, progressive correction, coverage paths before policies, consistent cost/access/restriction/future-flexibility tradeoffs, and inspectable evidence. Keep sample browsing distinct from recommendations and customer completeness distinct from external verification. Family sharing and human support require actual permissioned capability. This adds review criteria, not a new layout, intake sequence, tagline or permission to replace the accepted simple adaptive chat."
+      },
+      {
+        "scope": "D65 supersedes the permanent task composer; retained composer styling is not current placement guidance.",
+        "sourceText": "D65 replaces the permanent task composer with a compact authored sun-agent launcher labeled **Ask Daylight · AI assistant**, beneath Continue/Back. Something else opens the same overlay in answer mode; help opens conversation mode. The overlay preserves drafts. Send creates a proposal only; **Confirm and continue** explicitly records reviewed/edited reports and proceeds to the previewed next task. No extraction, selection or response automatically advances. Keep raw text and unresolved facts in the current tab. The starting-profile dialog uses the picture/dialog radius and structural overlay shadow."
+      },
+      {
+        "scope": "D65 Ask geometry supersedes the older 466px frontmatter width for the guided overlay. This does not prescribe D92 Plans chat geometry.",
+        "sourceText": "Ask is an overlay over the picture side, never a new grid column or reflow. Background inert, contained focus, no automatic keyboard when opening for reading, visible Return/Escape, exact opener/scroll/draft recovery. Single reading area, question before answer, sources and visible follow-ups. Phone sheet adapts to available height/keyboard. D65 supersedes the prior 466px width: desktop is 600px (bounded by viewport minus 32px); phone uses viewport minus 20px with 10px side insets. The inherited overlay caps height relative to the available dynamic viewport."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Continue",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one prominent action advancing the current guided page.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Continue</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;font-family:'Atkinson Hyperlegible',Arial,sans-serif;background:var(--olive,#40513d);color:var(--paper-raised,#fffefa);font-size:18px;font-weight:700;line-height:1.5;border:0;border-radius:7px;min-height:54px;padding:13px 27px;box-shadow:none;cursor:pointer}.ds-primary:hover{background:#2d422f}.ds-primary:focus-visible{outline:3px solid #91600c;outline-offset:4px;}.ds-primary:disabled{opacity:.48;cursor:default}"
+    },
+    {
+      "name": "Back",
+      "kind": "button",
+      "refersTo": "button-back",
+      "description": "Visible lower-emphasis navigation beneath Continue.",
+      "html": "<button class=\"ds-back\" type=\"button\">Back</button>",
+      "css": ".ds-back{font-family:'Atkinson Hyperlegible',Arial,sans-serif;background:none;border:0;box-shadow:none;color:var(--ink,#283b30);padding:8px 0;min-height:42px;font-size:18px;font-weight:400;line-height:1.5;cursor:pointer}.ds-back:hover{background:none}.ds-back:focus-visible{outline:3px solid #91600c;outline-offset:4px;}"
+    },
+    {
+      "name": "Ask Daylight",
+      "kind": "button",
+      "refersTo": "button-ask",
+      "description": "Retained text-button primitive below Continue and Back. D65 now specifies an authored sun-agent launcher labeled Ask Daylight · AI assistant; this preserved primitive preview does not reproduce that complete launcher.",
+      "html": "<button class=\"ds-ask\" type=\"button\">Ask Daylight</button>",
+      "css": ".ds-ask{font-family:'Atkinson Hyperlegible',Arial,sans-serif;background:none;border:0;box-shadow:none;color:var(--ink,#283b30);padding:8px 0;min-height:42px;font-size:18px;font-weight:700;line-height:1.5;cursor:pointer}.ds-ask:hover{background:none}.ds-ask:focus-visible{outline:3px solid #91600c;outline-offset:4px;}"
+    },
+    {
+      "name": "Answer choice",
+      "kind": "button",
+      "refersTo": "answer-choice",
+      "description": "A full-area selectable answer; selection alone never advances.",
+      "html": "<div class=\"ds-choices\"><button class=\"ds-choice\" type=\"button\" aria-pressed=\"false\">I am new to Medicare</button><button class=\"ds-choice\" type=\"button\" aria-pressed=\"true\">I know some</button></div>",
+      "css": ".ds-choices{display:grid;gap:12px}.ds-choice{display:block;width:100%;text-align:left;font-family:'Atkinson Hyperlegible',Arial,sans-serif;min-height:54px;border:1px solid #99a68e;border-radius:7px;padding:14px 18px;background:var(--paper-raised,#fffefa);color:var(--ink,#283b30);font-size:19px;font-weight:400;line-height:1.35;cursor:pointer;box-shadow:none}.ds-choice:hover{background:var(--paper-raised,#fffefa);border-color:#99a68e;box-shadow:none}.ds-choice[aria-pressed=true]{background:var(--sage,#e8eddf);border:2px solid var(--olive,#40513d);padding:13px 17px;font-weight:700}.ds-choice:focus-visible{outline:3px solid #91600c;outline-offset:4px;}.ds-choice::after{content:\"\";width:21px;height:21px;flex:0 0 21px;border:2px solid var(--sage-border,#b7beaa);border-radius:50%}.ds-choice[aria-pressed=true]::after{background:#7b8966;border-color:#7b8966;box-shadow:inset 0 0 0 4px var(--sage,#e8eddf)}.ds-choice[aria-pressed=true]:hover{background:var(--sage,#e8eddf);border-color:var(--olive,#40513d)}"
+    },
+    {
+      "name": "Free-text composer",
+      "kind": "input",
+      "refersTo": "free-text-composer",
+      "description": "Retained composer style preview from the earlier task surface. D65 replaced the permanent task composer with the Ask Daylight · AI assistant launcher and overlay answer mode; this preview does not authorize restoring the earlier placement or action flow.",
+      "html": "<div class=\"ds-composer\"><label for=\"ds-answer\">Tell Daylight in your own words</label><div class=\"ds-composer-box\"><textarea id=\"ds-answer\" rows=\"3\"></textarea><button class=\"ds-review\" type=\"button\">Review my answer</button></div></div>",
+      "css": ".ds-composer{max-width:475px;font-family:'Atkinson Hyperlegible',Arial,sans-serif;color:var(--ink,#283b30)}.ds-composer label{font-size:17px;display:block;line-height:1.5}.ds-composer-box{margin-top:9px;border:1px solid #a8b19e;background:var(--paper-raised,#fffefa);border-radius:8px;padding:13px 16px 6px}.ds-composer textarea{display:block;width:100%;resize:vertical;min-height:60px;border:0;background:none;padding:0;font:400 17px/1.5 'Atkinson Hyperlegible',Arial,sans-serif;color:var(--ink,#283b30);caret-color:var(--olive,#40513d)}.ds-review{display:block;margin-left:auto;min-height:44px;border:0;background:none;color:var(--ink,#283b30);font:400 16px/1.5 'Atkinson Hyperlegible',Arial,sans-serif;padding:10px 6px;border-radius:7px;cursor:pointer}.ds-review:hover{text-decoration:underline;text-underline-offset:4px}.ds-review:focus-visible,.ds-composer textarea:focus-visible{outline:3px solid #91600c;outline-offset:4px;}"
+    },
+    {
+      "name": "Stable progress",
+      "kind": "nav",
+      "description": "Four fixed phases with text and current state; no mastery implication.",
+      "html": "<nav class=\"ds-phases\" aria-label=\"Your guide\"><ol><li aria-current=\"step\"><span class=\"ds-phase-number\">1</span><span>Your goal</span></li><li><span class=\"ds-phase-number\">2</span><span>Your situation</span></li><li><span class=\"ds-phase-number\">3</span><span>Your options</span></li><li><span class=\"ds-phase-number\">4</span><span>Your next step</span></li></ol></nav>",
+      "css": ".ds-phases{font-family:'Atkinson Hyperlegible',Arial,sans-serif;border-bottom:1px solid var(--line,#ccd3c1);padding:18px 0}.ds-phases ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.ds-phases li{display:flex;gap:12px;align-items:center;color:var(--muted,#596653);font-size:17px;line-height:1.5;min-width:0}.ds-phase-number{display:grid;place-content:center;width:30px;height:30px;flex-shrink:0;border:1px solid #8d9c80;border-radius:50%;font-size:16px;font-weight:400}.ds-phases [aria-current=step]{font-weight:700;color:var(--ink,#283b30)}.ds-phases [aria-current=step] .ds-phase-number{background:var(--olive,#40513d);color:var(--paper-raised,#fffefa);border-color:var(--olive,#40513d)}@media(max-width:760px){.ds-phases ol{grid-template-columns:1fr 1fr;gap:12px 18px}.ds-phases li{font-size:15px;gap:8px}.ds-phase-number{width:25px;height:25px;font-size:13px}}"
+    },
+    {
+      "name": "Concept picture",
+      "kind": "custom",
+      "refersTo": "concept-picture",
+      "description": "Sage teaching surface with named local concept pieces. Preview isolates the implemented concept style; source-reviewed lesson copy remains in the app.",
+      "html": "<div class=\"ds-picture\"><button class=\"ds-concept\" type=\"button\"><strong>Medicare</strong></button></div>",
+      "css": ".ds-picture{background:var(--sage,#e8eddf);border-radius:12px;padding:40px;min-height:250px;display:flex;flex-wrap:wrap;gap:14px;align-content:center;justify-content:center}.ds-concept{font-family:'Atkinson Hyperlegible',Arial,sans-serif;flex-basis:100%;background:var(--olive,#40513d);color:var(--paper-raised,#fffefa);border:0;border-radius:8px;padding:25px;text-align:left;cursor:pointer}.ds-concept strong{display:block;font:450 35px/1.1 Fraunces,Georgia,serif;margin-bottom:7px}.ds-concept:hover{background:var(--olive,#40513d)}.ds-concept:focus-visible{outline:3px solid #91600c;outline-offset:4px;}"
+    },
+    {
+      "name": "Catalog preference chip",
+      "kind": "chip",
+      "refersTo": "catalog-chip",
+      "description": "Retained catalog preference control with an explicit selected state.",
+      "html": "<button class=\"ds-chip\" type=\"button\" aria-pressed=\"false\">Preference</button> <button class=\"ds-chip ds-chip-on\" type=\"button\" aria-pressed=\"true\">Selected preference</button>",
+      "css": ".ds-chip{font:700 14px/1.5 'Atkinson Hyperlegible',Arial,sans-serif;min-height:44px;padding:9px 16px;border:1.5px solid var(--line,#ccd3c1);border-radius:22px;background:var(--paper-raised,#fffefa);color:var(--accent-strong,#3c4938);cursor:pointer}.ds-chip:hover{background:var(--sage,#e8eddf)}.ds-chip-on,.ds-chip-on:hover{background:var(--accent,#4c5a46);border-color:var(--accent,#4c5a46);color:#fff}.ds-chip:focus-visible{outline:3px solid #91600c;outline-offset:4px;}"
+    },
+    {
+      "name": "Published plan card",
+      "kind": "card",
+      "refersTo": "plan-card",
+      "description": "Retained equal-emphasis catalog surface; preview contains placeholders, not fabricated plan facts.",
+      "html": "<article class=\"ds-plan\"><h3>Plan name</h3><dl><dt>Published field</dt><dd>Unknown</dd></dl></article>",
+      "css": ".ds-plan{font:400 18px/1.5 'Atkinson Hyperlegible',Arial,sans-serif;background:var(--paper-raised,#fffefa);color:var(--ink,#283b30);border:1px solid var(--line,#ccd3c1);border-radius:var(--r,12px);box-shadow:var(--elev-1,0 1px 2px rgba(60,55,40,.05),0 2px 8px rgba(60,55,40,.05));padding:18px;min-width:0}.ds-plan h3{font:400 22px/1.3 Fraunces,Georgia,serif;margin:12px 0}.ds-plan dl{display:grid;grid-template-columns:1.3fr 1fr;gap:7px 10px;border-top:1px solid var(--line,#ccd3c1);padding-top:12px;margin:0;font-size:16px;line-height:1.5;color:var(--muted,#596653);font-variant-numeric:tabular-nums}.ds-plan dd{margin:0;text-align:right;color:var(--ink,#283b30)}"
+    }
+  ],
+  "narrative": {
+    "overview": "Approved reference · October 21, 2026 · Candidate02 layout and selected Option A. Preserve the warm paper, sage teaching surfaces, olive actions, readable Atkinson Hyperlegible body and Fraunces display relationship. This is a canonical record of the approved system, not a new aesthetic direction or a new slogan.\n\nThe only brand tagline is exactly **Your coverage, plain as day**. Keep the sun/name. Do not add a header kicker, secondary slogan, fabricated testimonial or decorative motion.",
+    "keyCharacteristics": [
+      "Warm, professional surfaces and meaningful photography.",
+      "One visible task, a deliberate Continue and a growing teaching picture.",
+      "Large readable type, explicit text labels and visible keyboard focus.",
+      "Equal comparison emphasis and visible evidence/unknown distinctions."
+    ],
+    "rules": [],
+    "dos": [
+      "**Do** preserve the approved Candidate02 layout and exact Option A asset with its provenance, license and crop evidence.",
+      "**Do** preserve the sun/name and the sole exact tagline **Your coverage, plain as day**.",
+      "**Do** keep the current task, reason, compact lesson and deliberate Continue easy to find.",
+      "**Do** preserve explicit Back, edit, help, actual answers/notes, adaptive branches and factual safeguards.",
+      "**Do** record D IDs, nodes, state effects, checks, before-images and remaining limits for a scoped implementation.",
+      "**Do** inspect desktop, tablet and phone behavior as part of implementation; document extraction does not establish rendered acceptance."
+    ],
+    "donts": [
+      "**Don't** add a header kicker, secondary slogan, fabricated testimonial, decorative motion or a new visual identity.",
+      "**Don't** reopen the approved layout or replace the photograph without a new owner decision.",
+      "**Don't** infer mastery, health/customer status, endorsement or personally suitable coverage from presentation or imagery.",
+      "**Don't** remove lessons, adaptive branches, factual safeguards or catalog behavior to simplify the interface.",
+      "**Don't** preselect answers, require age-65 arithmetic, use hidden gestures or make choices advance automatically.",
+      "**Don't** treat styling, documentation or a test count as validation of participant comprehension, all accessibility criteria, live AI, secure guest persistence or personal insurance fit."
+    ]
+  },
+  "source": {
+    "path": "DESIGN.md",
+    "sha256": "01b1d878fc914ecc2e3a7fb11cb64a74312e376e53020b0856012e51708d1ce4",
+    "modifiedAt": "2026-11-03T00:46:27.873482+00:00",
+    "syncScope": "Sidecar-only synchronization from the current DESIGN.md. Root DESIGN.md is unchanged; Plans workspace study choices are not global design authority."
+  }
+}
