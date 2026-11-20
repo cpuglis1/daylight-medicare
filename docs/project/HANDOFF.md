@@ -52,6 +52,41 @@ procedure and history are in
 and `audit-evidence/*d20[6-8]*` (local only). Spending limits are in
 CURRENT_STATE under D208: a $50 cumulative app cap and a $50 provider project limit.
 
+## Running :8895 locally
+
+Tested November 20, 2026 from a fresh clone of this branch on macOS:
+
+- the README quick start
+- Python 3.14.7 and the pinned `requirements.lock`
+- a new PostgreSQL 18.6 cluster restored from `pilot.dump.gz`
+- `demo_server.py --fixture`
+
+The page and every asset it loads were served, and 14 of 15 checks in
+`test_unified_demo` passed, including the plan counts. The one failure,
+`test_every_current_frontend_file_is_served_unchanged`, is an outdated test: the
+server deliberately adds the enrollment, guided-close and turn-progress scripts
+and a newer hero photo to `index.html`.
+
+**What Charlie needs from the owner:** the `pilot-subset/2026-11-12-r1` folder.
+It needs `pilot.dump.gz`, `binding.json` and the small JSON files; the two
+~150 MB uncompressed `.dump` files are not needed.
+
+**What works:**
+
+- the conversation with `--fixture`: fictional, offline replies with no API key
+- Medicare Advantage, Medigap and Part D plan panels for Collier County, using the real pilot data
+
+**Needs more than the branch:**
+
+- **Live AI replies:** an `.env` with `OPENAI_API_KEY` (and `ANTHROPIC_API_KEY` for Claude).
+  These cost money, are capped by the daily ledger, and only work while
+  `pricing-review.json` is less than 7 days old.
+- **Doctor checks and prescription checks** (`--doctor-chat`, `--doctor-foundation`,
+  `--conversation-checks`), which the owner runs on the laptop: they read the
+  local research database (`daylight_research_2026_r2`, part of the ~63 GB
+  Postgres state) and the `pilot-foundation-2026-r1` package. Neither is in Git.
+  Without them, the server says doctor research is unavailable and keeps running.
+
 ## Read before changing anything
 
 1. [AGENTS.md](../../AGENTS.md) and [PRINCIPLES.md](../../PRINCIPLES.md)

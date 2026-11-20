@@ -43,7 +43,7 @@ On macOS, run `brew install postgresql@18` and put `$(brew --prefix postgresql@1
 first on your `PATH`. Then start a local server you own:
 
 ```bash
-initdb -D ~/daylight-pg -U daylight_dev --auth=trust
+initdb -D ~/daylight-pg -U daylight_dev --auth=trust -E UTF8 --locale=C   # UTF8 is required
 pg_ctl -D ~/daylight-pg -l ~/daylight-pg.log -o "-p 55499 -h 127.0.0.1" start
 export PGHOST=127.0.0.1 PGPORT=55499 PGUSER=daylight_dev
 psql -d postgres -c "CREATE ROLE daylight_csg_loader NOLOGIN; CREATE ROLE daylight_csg_reader NOLOGIN; CREATE ROLE daylight_plan_research_reader NOLOGIN;"
@@ -52,7 +52,8 @@ gunzip -c infrastructure/daylight-data/.state/pilot-subset/2026-11-12-r1/pilot.d
   | pg_restore --no-owner -d daylight_pilot_collier_2026_r1
 ```
 
-The three `NOLOGIN` roles must exist before the restore; the app reads through them.
+The three `NOLOGIN` roles must exist before the restore; the app reads through them. Use `-E UTF8`: with a SQL_ASCII database the app refuses to start
+with `PILOT_SNAPSHOT_MISMATCH`, which happens when `initdb` runs in a shell without `LANG` set.
 
 **4. Start Daylight**
 
