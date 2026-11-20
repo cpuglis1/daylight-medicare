@@ -20,6 +20,9 @@ PRIVATE_TESTS = {
     "test_unified_demo": "Requires the private Collier pilot database (not in Git). Run it locally after the README quick start.",
     "test_comparison_http": "Its experiment check reads the CMS MPF benefit workbook under docs/data/, which is not in Git.",
     "test_prescription_profile_preview": "Runs the :8895 demo against the private pilot database and pilot foundation data (not in Git).",
+    "test_pilot_knowledge": "Loads the sealed pilot knowledge revision under docs/data/pilot-knowledge-2026-11-12-r2 (not in Git).",
+    "test_pilot_knowledge_activation": "Loads the sealed pilot knowledge revision under docs/data/pilot-knowledge-2026-11-12-r2 (not in Git).",
+    "test_eval_20261113": "Imports pilot_knowledge, which loads the sealed revision under docs/data (not in Git).",
 }
 KNOWN_FAILURES = "alternatives/advisor-first/tests/known-failures.json"
 

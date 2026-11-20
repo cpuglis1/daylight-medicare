@@ -16,7 +16,7 @@ owner. The data is not in Git because its sources have use and transfer terms.
 ```bash
 git clone https://github.com/cpuglis1/daylight-medicare.git daylight
 cd daylight
-git checkout pilot-demo/8895
+git checkout dev
 python3.14 --version   # must print 3.14.7
 python3.14 -m venv infrastructure/daylight-data/.venv
 infrastructure/daylight-data/.venv/bin/pip install -r infrastructure/daylight-data/requirements.lock
