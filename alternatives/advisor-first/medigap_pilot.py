@@ -6,6 +6,7 @@ import sys
 from urllib.parse import urlsplit
 
 from guest_profiles import ProfileError
+from recommendation_engine import medigap_letter_eligibility
 
 BUILD = '7be76407ca94d33223ec0144bac16f2e220fba0205496bdf05577a42ab32831f'
 DATE = '2026-11-10'
@@ -36,7 +37,12 @@ def validate(body):
         raise ProfileError('Enter an exact ZIP, age, sex and tobacco status for these prices.', 422)
 
 
-def prices(repository, body):
+def set_aside(plan, first_eligible):
+    state, reason = medigap_letter_eligibility(plan['variant'], first_eligible)
+    return {'reason': reason} if state == 'not_met' else None
+
+
+def prices(repository, body, *, first_eligible=None):
     validate(body)
     base = {'display_authorization': 'D129', 'display_scope': 'profile_matched_source_prices',
             'source_build': BUILD, 'requested_effective_date': DATE,
@@ -45,11 +51,11 @@ def prices(repository, body):
             'notice': NOTICE, 'plans': []}
     if not 65 <= body['age'] <= 74:
         return {**base, 'status': 'unsupported_pilot_age', 'message': (
-            'Medigap pricing for ages 75+ is not supported in this pilot.' if body['age'] >= 75 else
-            'Medigap pricing in this pilot supports ages 65–74; under-65 pricing is not supported.')}
+            'Daylight doesn’t have Medigap prices for ages 75 and older yet.' if body['age'] >= 75 else
+            'Medigap prices are available for ages 65–74.')}
     if body['zipcode'] not in ZIPS:
         return {**base, 'status': 'unsupported_pilot_zip',
-                'message': 'Medigap pricing in this pilot covers ZIPs 34101–34108. Your ZIP is not supported yet.'}
+                'message': 'Medigap prices are available for ZIPs 34101–34108.'}
     if body['effective_date'] != DATE:
         return {**base, 'status': 'unsupported_price_date',
                 'message': 'These Medigap prices were requested for November 10, 2026. Prices for another date are not available yet.'}
@@ -83,6 +89,8 @@ def prices(repository, body):
             'source_sha256': row['source_sha256'], 'source_locator': row['source_locator'],
             'source_fields': row['raw'], 'rating_labels_need_review': row['id'] in issues,
         })
+        if reason := set_aside(plans[-1], first_eligible):
+            plans[-1]['set_aside'] = reason
     return {**base, 'status': 'matched_source_prices', 'profile': expected,
             'plans': plans, 'source_review_holds': source['holds']}
 
@@ -103,7 +111,21 @@ def install_medigap(server, repository=None):
                 if url.query:
                     raise ProfileError('Keep personal details out of URLs.', 422)
                 body = self.body()
-                value = prices(repository, body)
+                first = None
+                if getattr(server.adaptive, 'd161', False) and 'continuation' in body:
+                    from part_d_visit import current_head
+                    from recommendation_engine import first_eligibility
+
+                    head = body.pop('continuation')
+                    flow = server.adaptive
+                    owner = server.profiles.digest(self.token())
+                    with flow.lock:
+                        response = current_head(flow, owner, head)['response']
+                        profile = response['medigapProfile']
+                        if body != {**profile['inputs'], 'effective_date': profile['effective_date']}:
+                            raise ProfileError('Refresh prices from your current conversation.', 409)
+                        first = first_eligibility(response['guide'], response['record'])
+                value = prices(repository, body, first_eligible=first)
                 return self.respond(200, value)
             except ProfileError as error:
                 return self.respond(error.code, {'error': str(error)})

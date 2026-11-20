@@ -1,0 +1,66 @@
+{
+ "id": "pending_question_20261118",
+ "source": "Visit 12b0f11de2, :8895 turn trace, November 18, 2026, 19:32 to 19:50 UTC (fictional replay; the person's words as given in the implementation prompt)",
+ "today": "2026-11-18",
+ "original_inputs": [
+  {"type": "message", "text": "I am 65 and retiring soon! I would like to get off my employer plan and transition to Medicare, but am feeling overwhelmed with my options."},
+  {"type": "message", "text": "Oh, I have A & B, is that everything I need do you think?"},
+  {"type": "message", "text": "Medicare drug coverage? I am getting a bit confused, is that not a part of the A and B i have?"},
+  {"type": "tap", "text": "Yes, let’s do that: work out my sign-up timing."},
+  {"type": "message", "text": "Nov 30 2026"}
+ ],
+ "baseline_log": {
+  "note": "Codes from the turn trace, records on, before D186. No message text is in the trace.",
+  "questions": ["RC04", "RC11", null, "RC11", null],
+  "cards": [[], [], ["next_step_offer"], [], ["next_step_offer"]],
+  "proposed_target": [["RC04", "RC11"], ["RC11"], [], ["RC11"], []],
+  "validated_target": ["RC04", "RC11", "T03", "RC11", "T03"],
+  "target_source": ["interpreter", "interpreter", "readiness", "interpreter", "readiness"],
+  "capture": [
+   {"RC01": "accepted", "MG_AGE": "accepted", "T05": "accepted", "T01": "accepted", "RC09": "accepted", "S_AGE65": "unsupported:invalid_situation_value", "S_RETIREMENT": "accepted"},
+   {"RC04": "accepted", "coverage.part_a": "accepted", "coverage.part_b": "accepted"},
+   {"RC04": "already_known", "coverage.part_a": "already_known", "coverage.part_b": "already_known"},
+   {},
+   {"RC11": "needs_clarification:tentative"}
+  ],
+  "recovery": [null, "unsupported_finding", null, null, "ungrounded_entity"],
+  "answer_state": [null, "partial", null, null, null],
+  "confirmations_queued": [false, false, false, false, true],
+  "timing_card_ready": [false, false, false, false, false],
+  "enrollment_step_needs": [5, 0, 0, 0, 0]
+ },
+ "fixed_flow": [
+  {"type": "message", "text": "(input 1)",
+   "interpreter": {"updates": ["RC01 self", "MG_AGE 65", "T05 employer", "T01 compare", "RC09 my_job", "retirement retiring"],
+                   "next_target": ["RC04", "RC11"], "pending_disposition": "none"},
+   "note": "T01's value is not in the trace; compare is assumed. The S_AGE65 proposal the log rejected is left out."},
+  {"type": "message", "text": "(input 2)",
+   "interpreter": {"updates": ["RC04 both"], "coverage_reports": ["part_a active", "part_b active"],
+                   "next_target": ["RC11"], "pending_disposition": "answered"}},
+  {"type": "message", "text": "(input 3)",
+   "interpreter": {"updates": ["RC04 both"], "coverage_reports": ["part_a active", "part_b active"],
+                   "next_target": [], "pending_disposition": "detour"},
+   "composer": "no question, as in the log"},
+  {"type": "message", "text": "(input 5)",
+   "interpreter": {"updates": ["RC11 coverageEnd 2026-11-30"], "next_target": [], "pending_disposition": "answered"},
+   "note": "With the fix no offer is shown at turn 3, so input 4 (the tap) has nothing to tap. The tap is covered by the offer tests."}
+ ],
+ "expected": {
+  "questions": ["RC04", "RC11", "RC11", "not RC11"],
+  "rc11_fields": ["coverageEnd"],
+  "turn_3": {"returned": true, "passes": 0, "offer_card": false},
+  "turn_4": {"RC11": "accepted", "coverageEnd": "2026-11-30", "confirmations_queued": false, "parked": []},
+  "timing_card_ready": {
+   "as_logged": false,
+   "why": "The person has Parts A and B, so conversation_records.work_window returns no window (existing code, unchanged). Listed for Chris.",
+   "variant_without_parts": true
+  },
+  "timing_card_variant": {
+   "Part B sign-up window": "December 2026 through July 2027",
+   "If you sign up in November 2026": "Part B generally starts December 1, 2026",
+   "Joining a drug or Medicare Advantage plan": "Through January 2027",
+   "Medigap window": "December 2026 through May 2027"
+  }
+ },
+ "test": "tests/test_pending_questions.py"
+}

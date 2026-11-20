@@ -7,7 +7,7 @@
 #plans-panel .rec-head h2 { font:450 var(--text-item)/1.2 var(--font-display); margin:0; color:var(--ink); }
 .rec-eval { font-size:var(--text-fine); font-weight:700; padding:2px 10px; border:1px solid var(--control-edge); border-radius:var(--radius-pill); color:var(--ink); background:var(--paper-raised); }
 .rec-method { margin-top:10px; }
-.rec-method > summary { cursor:pointer; font-weight:700; font-size:var(--text-help); min-height:32px; }
+.rec-method > h3 { font-weight:700; font-size:var(--text-help); min-height:32px; }
 .rec-method ol { margin:8px 0; padding-left:22px; font-size:var(--text-help); line-height:1.5; }
 .rec-method li { margin:4px 0; }
 .rec-fit { margin:4px 0 14px; }
@@ -25,3 +25,10 @@
 .rec-group-title { font:450 var(--text-section)/1.2 var(--font-display); margin:32px 0 16px; letter-spacing:-.01em; color:var(--ink); }
 .rec-group-title .rec-count { font-family:var(--font-ui); font-size:var(--text-label); color:var(--muted); margin-left:8px; }
 @container plans (max-width:560px) { .rec-summary { padding:16px; } }
+
+/* D157 (CN-04): the sorting explanation sits behind one quiet link below the list. */
+.rec-link-row{margin:18px 0 8px}
+.rec-link{font-size:var(--text-help,16px)}
+.rec-dialog{max-width:min(46rem,94vw);padding:20px 22px}
+.rec-dialog .rec-summary{margin:8px 0 0;background:transparent;padding:0}
+.rec-dialog .sheet-close{float:right}

@@ -41,6 +41,7 @@ function harness(failure) {
     $: element, failedRequest: null, lastRequest: null, frames: [], history: [],
     reviewMessage: '', preparedVersions: [], selectedGoal: '', parkedMessages: [],
     drafts:new Map(),selected:[],currentSignature:'',setTimeout:resolve=>resolve(),performance,
+    closeDoctorCheck() {}, doctorComposer:null, service:{}, window:{DaylightConversationChecks:{clear() {}}},
     metrics: {turns: 0, llmCalls: 0},
     setBusy(value) { context.busy = value; }, note(value) { notices.push(value); },
     beginPending(words, usingAI) { pending.push({kind:'begin',words,usingAI}); },
@@ -428,7 +429,7 @@ test('the actual answer submitter sends precise coverage only after refinement a
 test('the actual goal Send waits for deliberate submission and uses the local opening when supported', async () => {
   const submitSource = source.slice(source.indexOf('  async function submitCurrent('),source.indexOf('  function renderForm('));
   const calls = [];
-  const context = vm.createContext({composing:false,busy:false,review:null,selectedGoal:'compare',state:{assessment:{narrative:{opener:true}}},$:() => ({value:''}),syncSend() {},turn:async (...args) => {calls.push(args);return true;}});
+  const context = vm.createContext({doctorComposer:null,composing:false,busy:false,review:null,selectedGoal:'compare',state:{assessment:{narrative:{opener:true}}},$:() => ({value:''}),syncSend() {},turn:async (...args) => {calls.push(args);return true;}});
   vm.runInContext(openingSource+'\n'+submitSource,context);
   assert.equal(calls.length,0);
   await context.submitCurrent();
@@ -438,12 +439,26 @@ test('the actual goal Send waits for deliberate submission and uses the local op
   assert.equal(context.selectedGoal,'');
 });
 
+test('an inline check choice uses the existing Send and typed words remain a normal message', {skip: !source.includes('conversationCheck?.question')},async()=>{
+  const calls=[],input={value:''};
+  const context=vm.createContext({composing:false,busy:false,doctorComposer:null,service:{},
+    state:{conversationCheck:{question:{token:'current-question'}}},$:()=>input,
+    window:{DaylightConversationChecks:{answer:()=>({token:'current-question',value:'exact-office',label:'Confirmed office'})}},
+    turn:async(...args)=>calls.push(args)});
+  vm.runInContext(source.slice(source.indexOf('  async function submitCurrent('),source.indexOf('  function renderForm(')),context);
+  assert.equal(calls.length,0);
+  await context.submitCurrent();
+  assert.deepEqual(plain(calls[0][0]),{type:'check_answer',token:'current-question',value:'exact-office'});
+  input.value='Why does the office matter?';await context.submitCurrent();
+  assert.deepEqual(plain(calls[1][0]),{type:'message',message:input.value});
+});
+
 test('the local opening shows pending briefly and sends no AI context', {skip: !openingSource}, async () => {
   const h = harness();
   let finishDelay;
   h.context.performance = {now: () => 10};
   h.context.setTimeout = (resolve, delay) => {
-    assert.equal(delay,350);
+    assert.equal(delay,process.env.DAYLIGHT_TEST_WEB === 'web-8894' ? 1850 : 350);
     finishDelay = resolve;
   };
   h.initial.assessment.narrative = {opener:true};

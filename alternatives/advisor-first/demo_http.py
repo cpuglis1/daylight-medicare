@@ -3,7 +3,11 @@
 Keep the backend's original guide contract; override only static serving. This
 reproduces the old UI/proxy split without an upstream HTTP hop.
 """
+import block_release
 import json
+import hashlib
+from datetime import datetime, timezone
+import re
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -24,8 +28,9 @@ STATIC = {'.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=ut
           '.svg':'image/svg+xml', '.jpg':'image/jpeg', '.woff2':'font/woff2'}
 
 
-def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, rehearsal_port=None):
-    if doctor_routes is not None and not (fixture or doctor_chat and server.server_port == 8895):
+def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, rehearsal_port=None, conversation_checks=False,
+            hosted_origin=None):
+    if doctor_routes is not None and not (fixture or (doctor_chat or conversation_checks) and server.server_port == 8895):
         raise ValueError('Doctor research requires the loopback chat or offline fixture.')
     doctor_chat = doctor_chat and doctor_routes is not None
     if doctor_chat:
@@ -33,6 +38,32 @@ def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, 
         fields = standalone.split(b'<main id="main" class="doctor-flow">', 1)[1].split(b'</main>', 1)[0]
         doctor_template = b'<template id="daylight-doctor-template">' + fields + b'</template>\n'
     base = server.RequestHandlerClass
+    root = WEB.parent
+    loaded_files = {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in sorted(root.glob('*.py'))}
+    runtime = {'started_at': datetime.now(timezone.utc).isoformat(),
+               'python_sha256': loaded_files,
+               'revision': hashlib.sha256(json.dumps(loaded_files, sort_keys=True).encode()).hexdigest()}
+
+    def features():
+        flow = server.adaptive
+        progress = bool(getattr(flow, 'turn_progress', None))
+        return {'surface': 'hosted-demo' if hosted_origin else 'unified-8895',
+                'doctor_chat': doctor_chat or conversation_checks,
+                'conversation_checks': bool(conversation_checks and getattr(flow, 'conversation_checks', None)),
+                'prescription_rehearsal': bool(rehearsal_port),
+                'discussion_planner': bool(getattr(flow, 'd166', False)),
+                'turn_progress': progress,
+                'block_release': progress and block_release.enabled()
+                    and (not hosted_origin or bool(getattr(server, 'hosted_block_archive', False))),
+                'reveal_wps': block_release.reveal_speed(),
+                'guided_close': bool(getattr(flow, 'guided_close', False)),
+                'plans_fixes': bool(getattr(flow, 'plans_fixes', False)),
+                'conversation_fixes': bool(getattr(flow, 'records_fixes', False)),
+                'composed_opening': bool(getattr(flow, 'composed_opening', False)),
+                'enrollment_journey': bool(getattr(flow, 'd161', False)),
+                # D200: the hosted gate offers fresh starts on a shared invitation.
+                'fresh_starts': bool(hosted_origin and getattr(server, 'hosted_history', None))}
 
     class Handler(base):
         def reject(self, code, message):
@@ -42,13 +73,17 @@ def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, 
 
         def validate_request(self):
             host = self.headers.get('Host', '')
-            allowed = {f'localhost:{self.server.server_port}', f'127.0.0.1:{self.server.server_port}'}
+            allowed = ({urlsplit(hosted_origin).netloc} if hosted_origin else
+                       {f'localhost:{self.server.server_port}', f'127.0.0.1:{self.server.server_port}'})
             if len(self.headers.get_all('Host', [])) != 1 or host not in allowed:
                 return self.reject(403, 'Request host rejected.')
             origin = self.headers.get('Origin')
+            invitation_navigation = (hosted_origin and self.command == 'GET' and self.path == '/pilot/join'
+                and self.headers.get('Sec-Fetch-Mode') == 'navigate'
+                and self.headers.get('Sec-Fetch-Dest') == 'document')
             if (len(self.headers.get_all('Origin', [])) > 1
-                    or origin is not None and origin != 'http://' + host
-                    or self.headers.get('Sec-Fetch-Site') == 'cross-site'
+                    or origin is not None and origin != (hosted_origin or 'http://' + host)
+                    or self.headers.get('Sec-Fetch-Site') == 'cross-site' and not invitation_navigation
                     or self.command not in {'GET','HEAD'} and origin is None):
                 return self.reject(403, 'Request origin rejected.')
             url = urlsplit(self.path)
@@ -89,11 +124,26 @@ def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, 
             return value
 
         def respond(self, code, value, mime='application/json; charset=utf-8', cookie=None):
-            if self.path == '/api/status' and code == 200 and isinstance(value, dict):
-                value = {**value, 'local_demo': {'surface':'unified-8895', 'fixture':fixture,
+            if hosted_origin and self.path == '/api/status' and code == 200 and isinstance(value, dict):
+                # D199: the page reads its feature switches from local_demo. The hosted demo sends
+                # the switches only (no database names, file hashes or runtime details).
+                value = {**value, 'local_demo': features()}
+            if not hosted_origin and self.path == '/api/status' and code == 200 and isinstance(value, dict):
+                value = {**value, 'runtime_build':runtime, 'local_demo': {'surface':'unified-8895', 'fixture':fixture,
                     'upstream_proxy':False, 'plan_database':binding['database'],
                     'snapshot_id':binding['snapshot_id'], 'doctor_fixture':fixture and doctor_routes is not None,
-                    'doctor_chat':doctor_chat, 'prescription_rehearsal':bool(rehearsal_port)}}
+                    'doctor_chat':doctor_chat or conversation_checks, 'prescription_rehearsal':bool(rehearsal_port),
+                    'conversation_checks':conversation_checks,
+                    'discussion_planner':bool(getattr(server.adaptive,'d166',False)),
+                    'turn_progress':bool(getattr(server.adaptive,'turn_progress',None)),
+                    'block_release':bool(getattr(server.adaptive,'turn_progress',None)) and block_release.enabled(),
+                    'reveal_wps':block_release.reveal_speed(),
+                    'guided_close':bool(getattr(server.adaptive,'guided_close',False)),
+                    'plans_fixes':bool(getattr(server.adaptive,'plans_fixes',False)),
+                    'conversation_fixes':bool(getattr(server.adaptive,'records_fixes',False)),
+                    'composed_opening':bool(getattr(server.adaptive,'composed_opening',False)),
+                    'enrollment_journey':bool(getattr(server.adaptive,'d161',False))},
+                    'pilotKnowledge': server.adaptive.pilot_knowledge.status()}
             if self.command == 'HEAD':
                 raw = value if isinstance(value, bytes) else json.dumps(value).encode()
                 return self.headers_for(code, mime, len(raw), cookie)
@@ -114,12 +164,37 @@ def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, 
 
         def index_html(self):
             body = (WEB / 'index.html').read_bytes()
-            if doctor_routes is not None:
+            if getattr(server,'hosted_history',None):
+                body = body.replace(b'</header>', b'<a class="text-button" href="/pilot/history">Saved chat</a></header>', 1)
+            if getattr(server.adaptive, 'guided_close', False):
+                body = body.replace(b'<script src="/advisor.js"',
+                    b'<link rel="stylesheet" href="/guided-close.css">\n'
+                    b'<script src="/guided-close.js" defer></script>\n<script src="/advisor.js"', 1)
+            if getattr(server.adaptive, 'turn_progress', None):
+                body = body.replace(b'<script src="/advisor.js"',
+                    b'<link rel="stylesheet" href="/turn-progress.css">\n'
+                    b'<script src="/turn-progress.js" defer></script>\n<script src="/advisor.js"', 1)
+            if getattr(server.adaptive, 'd166', False):
+                # Owner-supplied image, :8895 only. Keep the shared landing intact.
+                body = body.replace(b'/art/arrival-option-a.jpg', b'/art/daylight-main.jpg')
+                body = body.replace(b'width="1400" height="933"', b'width="5400" height="3575"')
+                body = body.replace(b'A woman with short silver hair and an ochre cardigan facing the camera outdoors against green foliage.',
+                    b'A woman in an ochre cardigan using a laptop outdoors.')
+                body = re.sub(rb'<p class="photo-credit">.*?</p>', b'', body, count=1)
+            if conversation_checks:
+                body = body.replace(b'<script src="/advisor.js"',
+                    b'<script src="/conversation-checks.js" defer></script>\n<script src="/advisor.js"',1)
+            elif doctor_routes is not None:
                 if doctor_chat:
                     body = body.replace(b'<script src="/advisor.js"', DOCTOR_CHAT_ASSETS + b'<script src="/advisor.js"', 1)
                     body = body.replace(b'</body>', doctor_template + b'</body>', 1)
                 else:
                     body = body.replace(b'</header>', DOCTOR_LINK + b'\n  </header>', 1)
+            if getattr(server.adaptive, 'd161', False):
+                # D161: the enrollment views load on this surface only.
+                body = body.replace(b'<script src="/plans-workspace.js"',
+                    b'<link rel="stylesheet" href="/enrollment.css">\n  <script src="/enrollment-view.js" defer></script>\n'
+                    b'  <script src="/plans-workspace.js"',1)
             return body
 
         def send_static(self, found):
@@ -129,6 +204,11 @@ def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, 
         def do_GET(self):
             if not self.validate_request() or rehearsal_route(self, rehearsal_port):
                 return
+            if urlsplit(self.path).path == '/api/enrollment/content' and getattr(server.adaptive, 'd161', False):
+                # D161: sign-up guides and their sources. Wording awaiting the
+                # owner's sign-off is served here only, never from the shared web folder.
+                import enrollment_flow
+                return self.respond(200, enrollment_flow.content())
             found = self.static_file()
             if found:
                 return self.send_static(found)
@@ -145,6 +225,42 @@ def install(server, *, binding, fixture, doctor_routes=None, doctor_chat=False, 
         def do_POST(self):
             if self.validate_request() and not rehearsal_route(self, rehearsal_port):
                 url = urlsplit(self.path)
+                if url.path == '/api/conversation/progress':
+                    progress = getattr(server.adaptive, 'turn_progress', None)
+                    if progress is None:
+                        return self.reject(404, 'Progress is unavailable on this surface.')
+                    try:
+                        self.csrf()
+                        body = self.body()
+                        if (url.query or set(body) != {'requestId'}
+                                or not isinstance(body['requestId'], str)
+                                or not re.fullmatch(r'[A-Za-z0-9-]{10,80}', body['requestId'])):
+                            raise ProfileError('Use the current request identifier.', 422)
+                        owner = server.profiles.digest(self.token())
+                        return self.respond(200, progress.read(owner, body['requestId']))
+                    except ProfileError as error:
+                        return self.respond(error.code, {'error': str(error)})
+                if url.path == '/api/conversation/checks' and conversation_checks:
+                    try:
+                        self.csrf()
+                        body = self.body()
+                        if url.query or set(body) != {'continuation'}:
+                            raise ProfileError('Use the current conversation.',422)
+                        from part_d_visit import current_head
+                        owner = server.profiles.digest(self.token())
+                        with server.adaptive.lock:
+                            entry = current_head(server.adaptive,owner,body['continuation'])
+                            paused = entry['response'].get('conversationCheck',{}).get('paused',False)
+                            if paused and getattr(server.adaptive, 'd166', False):
+                                return self.respond(200, {'question': None, 'results': [], 'canBack': False,
+                                    'participant_release': False, 'paused': True})
+                            view = server.adaptive.conversation_checks.reconcile(owner,
+                                entry['response']['guide'],entry['response']['record'])
+                            view['paused'] = paused
+                            if view['paused']:view['question']=None
+                        return self.respond(200,view)
+                    except ProfileError as error:
+                        return self.respond(error.code,{'error':str(error)})
                 prefix = '/api/pilot-doctors/'
                 if url.path.startswith(prefix):
                     if doctor_routes is None:

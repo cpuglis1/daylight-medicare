@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saved chat · Daylight</title>
+<link rel="stylesheet" href="/pilot/join.css">
+<main>
+  <h1>Saved chat</h1>
+  <section id="restart" hidden>
+    <h2>Start a new conversation</h2>
+    <p>This clears this saved chat and opens a fresh conversation on the same invitation. <span id="restart-left"></span></p>
+    <label class="consent"><input id="confirm-restart" type="checkbox"> Clear this chat and start fresh.</label>
+    <p><button id="restart-visit" disabled>Start a new conversation</button></p>
+    <p id="restart-status" role="status"></p>
+  </section>
+  <h2>Delete saved chat</h2>
+  <p>If you agreed to saved chat, Daylight keeps your submitted messages, answers, corrections and prepared replies for demo review. Unsent drafts are not saved.</p>
+  <p>History expires 90 days after your last activity. Deleting it removes the live history and ends access to this visit. Backup copies expire within 30 days; deleted visits must be removed before any backup is put back into service.</p>
+  <p>Cost records without chat text remain so Daylight can enforce its spending limits. Deletion cannot reverse a request already sent to OpenAI. This browser cannot recover a deleted visit.</p>
+  <label class="consent"><input id="confirm-delete" type="checkbox"> Delete this saved visit and end my access.</label>
+  <p><button id="delete-history" disabled>Delete saved visit</button></p>
+  <p id="delete-status" role="status"></p>
+  <a href="/">Back to Daylight</a>
+</main>
+<script src="/pilot/history.js" defer></script>
+</html>

@@ -45,9 +45,10 @@ test('chat answers automatically fetch exact prices; rerenders do not refetch',a
 test('missing profile invites conversation without a second intake or price request',async()=>{
   const f=fixture(response,profile({tobacco:null}));assert.equal(f.calls.length,0);
   assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
-  assert.match(f.host.textContent,/Considering Medigap/);assert.match(f.host.textContent,/use what you’ve already shared/);
-  f.find(n=>n.tagName==='button'&&n.textContent==='Talk to Daylight').onclick();
-  assert.deepEqual(f.conversations,[undefined]);assert.equal(f.calls.length,0);
+  // D157 (CN-10): never a generic panel; the button opens the exact missing question.
+  assert.match(f.host.textContent,/1 detail left to see your Medigap prices/);assert.doesNotMatch(f.host.textContent,/Talk to Daylight|Pilot coverage/);
+  f.find(n=>n.tagName==='button'&&n.textContent==='Continue in the conversation').onclick();
+  assert.deepEqual(f.conversations,['MG_TOBACCO']);assert.equal(f.calls.length,0);
   f.mount(profile({tobacco:'Tobacco User'}));await f.tick();
   assert.equal(f.calls.length,1);assert.equal(f.calls[0].body.age,68);assert.equal(f.calls[0].body.tobacco,'Tobacco User');
   assert.equal(f.find(n=>n.textContent==='Talk to Daylight'),undefined);
@@ -65,8 +66,9 @@ test('75+ removes rates without asking sex or tobacco; corrected age reloads aut
 test('unknown stays open and deliberate editing routes to its chat question',async()=>{
   const f=fixture(response,profile({tobacco:null},['MG_TOBACCO']));await f.tick();
   assert.equal(f.calls.length,0);assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
-  assert.match(f.host.textContent,/Details you left unknown/);
-  f.find(n=>n.tagName==='button'&&n.textContent==='Edit tobacco in conversation').onclick();
+  // D157 (CN-12): one pricing line with a single Edit that opens each detail.
+  assert.equal(f.all().filter(n=>n.tagName==='button'&&n.textContent==='Edit').length,1);
+  f.find(n=>n.tagName==='button'&&n.textContent==='Tobacco').onclick();
   assert.deepEqual(f.conversations,['MG_TOBACCO']);assert.equal(f.calls.length,0);
 });
 test('failed lookup keeps shared answers and retries only deliberately',async()=>{

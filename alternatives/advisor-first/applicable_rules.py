@@ -44,7 +44,8 @@ def _add_months(day, months):
     return date(day.year + total // 12, total % 12 + 1, 1)
 
 
-def applicable_rules(report, value, *, focus='', today=None, concern='', plans_view=False):
+def applicable_rules(report, value, *, focus='', today=None, concern='', plans_view=False,
+                     trial_at_first_eligibility=None, age_65_or_older=None, day_precision=False):
     """Return the ordered rules for the resolved state.
 
     ``report(id)`` returns the resolved report dict for an RC meaning (or {});
@@ -71,16 +72,25 @@ def applicable_rules(report, value, *, focus='', today=None, concern='', plans_v
     # "affordability", "high drug costs" (R4, Nov 9, 2026: Extra Help never
     # fired for "can barely afford groceries on a fixed income").
     cost_pressure = bool(re.search(
-        r"(?i)\b(?:afford\w*|unaffordab\w*|groceries|can'?t pay|cannot pay|struggl\w* (?:to|with) (?:pay|cost|afford)\w*|too expensive|expens\w*|"
-        r"money|budget\w*|cost of|bills? pil\w*|(?:low|fixed|limited|small) income|assistance|help (?:paying|with (?:the )?costs?)|"
+        r"(?i)\b(?:afford\w*|unaffordab\w*|groceries|can'?t pay|cannot pay|struggl\w* (?:to|with) (?:pay|cost|afford)\w*|too expensive|"
+        r"bills? pil\w*|(?:low|fixed|limited|small) income|assistance|help (?:paying|with (?:the )?costs?)|"
+        r"(?:lower|reduce|cut|save on|cheaper) (?:\w+ ){0,2}(?:drug|prescription|medication|medicine)s?(?: costs?| prices?)?|"
         r"financial (?:strain|hardship|pressure|stress)|(?:high|rising|steep|crushing|large) (?:\w+ ){0,2}(?:costs?|prices?|bills?|copays?)|"
         r"(?:drug|prescription|medication|medicine|insulin|inhaler|pharmacy) (?:costs?|prices?|bills?|copays?) (?:are|is) (?:too|so|very|eating|killing))",
         concern or ''))
-    cost_pressure = cost_pressure or cost_preference == 'lower_monthly' or bool(priorities & {'total_cost', 'bills'}) or _choice(report('RC25')) == 'amount'
+    cost_pressure = cost_pressure or _choice(report('RC25')) == 'amount'
     coverage_ended = _month_start(report('RC11').get('coverageEnd')) or _month_start(report('RC11').get('jobEnd'))
     if coverage_ended and (_month_start(report('RC11').get('jobEnd')) or coverage_ended) < coverage_ended:
         coverage_ended = _month_start(report('RC11').get('jobEnd'))
     ended_already = bool(coverage_ended and coverage_ended <= date(today.year, today.month, 1))
+    if day_precision:
+        # D183: a reported end later this month has not happened yet. Use the
+        # stated day, or the last day of a stated month, never the month start.
+        from conversation_records import end_date
+        ends = [d for d in (end_date(report('RC11').get('jobEnd')), end_date(report('RC11').get('coverageEnd'))) if d]
+        ended_already = bool(ends and min(ends) < today)
+    if age_65_or_older:
+        age65 = True
     working = bool(value('situation.working')) or rc09 in {'my_job', 'spouse_job', 'family_job'}
     on_medicare = bool(coverage & {'original', 'advantage', 'medigap', 'drug'}) or rc04 in {'both', 'a_only', 'b_only'} or rc07 in {'original', 'advantage'}
     has_drug_coverage = bool(coverage & {'advantage', 'drug', 'employer', 'retiree', 'cobra', 'military', 'medicaid'})
@@ -97,7 +107,8 @@ def applicable_rules(report, value, *, focus='', today=None, concern='', plans_v
             ['RC04'] if rc04 is None else [],
             'Say first that COBRA does not count as current-employment coverage and does not extend the time to sign up for Part B, so Part B timing comes before any plan choice; then ask which Medicare parts they have now. Do not compute a personal deadline.')
     # Working-coverage timing: the most common first-time question.
-    if ('employer' in coverage or working) and rc09 not in {'retiree', 'cobra'} and not (coverage_ended and coverage_ended <= date(today.year, today.month, 1)):
+    if ('employer' in coverage or working) and rc09 not in {'retiree', 'cobra'} and not (
+            ended_already if day_precision else (coverage_ended and coverage_ended <= date(today.year, today.month, 1))):
         because = ['coverage.current includes current-job coverage' if 'employer' in coverage else 'situation.working']
         if rc10 == 'yes':
             because.append('RC10: employer has 20 or more employees')
@@ -123,9 +134,22 @@ def applicable_rules(report, value, *, focus='', today=None, concern='', plans_v
     # Job-based coverage that has already ended (or COBRA/retiree reported) with
     # Part B not yet in place: the 8-month window, resolved against the reported
     # end month when there is one (P20, Nov 9, 2026).
-    if rc04 in {'a_only', 'neither', None} and (coverage_ended or rc09 in {'cobra', 'retiree'} or 'cobra' in coverage or rc08 == 'loss') and (ended_already or not working):
+    birthday_month = (date(int(birthday['year']), int(birthday['month']), 1)
+                      if birthday.get('year') and birthday.get('month') else None)
+    # D157 (CV-08): someone still inside their Initial Enrollment Period whose job
+    # coverage did not continue to 65 uses that window; the 8-month Special
+    # Enrollment Period is for coverage from current work at or after 65.
+    in_initial_window = bool(birthday_month and date(today.year, today.month, 1) <= _add_months(birthday_month, 3)
+                             and not (coverage_ended and coverage_ended >= birthday_month))
+    if not in_initial_window and rc04 in {'a_only', 'neither', None} and (coverage_ended or rc09 in {'cobra', 'retiree'} or 'cobra' in coverage or rc08 == 'loss') and (ended_already or not working):
         because = ['job-based coverage reported as ended' if coverage_ended else 'coverage.current includes COBRA/retiree coverage or a reported loss of coverage']
-        if coverage_ended and coverage_ended <= date(today.year, today.month, 1):
+        if day_precision and coverage_ended:
+            # D183: the person's own window is computed once, by the journey, and
+            # shown on a code card. The rule states the general rule only.
+            status = 'conditional'
+            note = ('State the general 8-month special enrollment period after job-based coverage ends, and that COBRA '
+                    'does not extend it. The person\'s own months are on the timing card when it is shown; never restate them.')
+        elif coverage_ended and coverage_ended <= date(today.year, today.month, 1):
             window_end = _add_months(coverage_ended, 9)  # 8 full months after the month it ended
             because.append('RC11: coverage ended %s; 8-month Part B window runs through %s' % (coverage_ended.strftime('%B %Y'), _add_months(coverage_ended, 8).strftime('%B %Y')))
             status = 'met' if today < window_end else 'not_met'
@@ -140,7 +164,7 @@ def applicable_rules(report, value, *, focus='', today=None, concern='', plans_v
         add('partb_sep_coverage_ended', 'partb_sep_coverage_ended', because, ['RC11'] if rc11 is None and not coverage_ended else [], note)
         rules[-1]['status'] = status
     # Missed Part B with no job-based coverage: the General Enrollment Period and penalty.
-    if rc04 in {'a_only', 'neither'} and turned_65 and not working and not coverage_ended and rc09 not in {'cobra', 'retiree'} and 'cobra' not in coverage:
+    if not in_initial_window and rc04 in {'a_only', 'neither'} and turned_65 and not working and not coverage_ended and rc09 not in {'cobra', 'retiree'} and 'cobra' not in coverage:
         add('partb_gep_penalty', 'partb_gep_penalty', ['RC04: no Part B after the reported 65th birthday month, no current job coverage'], ['RC11'] if rc11 is None else [],
             'Say that without a special enrollment period Part B is added in the General Enrollment Period (January–March, coverage the month after signing up), that fall Open Enrollment does not add Part B, and that the Part B penalty is 10% per full 12 months of delay; ask whether any job-based coverage ended recently before treating the penalty as certain.')
         rules[-1]['status'] = 'met'
@@ -203,12 +227,15 @@ def applicable_rules(report, value, *, focus='', today=None, concern='', plans_v
                 note = ('Say that on the reported start of %s the 12-month trial right would have ended around %s, so buying Medigap now '
                         'usually means health questions and possible refusal or higher prices unless another protected right applies. '
                         'Use the reported month as reported; do not state eligibility as a fact.' % (start.strftime('%B %Y'), window_end.strftime('%B %Y')))
-            else:
+            elif trial_at_first_eligibility is not False:
                 status = 'met'
                 because.append('RC16: first Advantage plan started %s; 12-month window runs to %s' % (start.strftime('%B %Y'), window_end.strftime('%B %Y')))
                 note = ('Say that on the reported start of %s the 12-month trial right would run until about %s, so leaving for Original Medicare within '
                         'that time carries a guaranteed right to buy Medigap; the insurer confirms the dates. Do not state eligibility as a fact.'
                         % (start.strftime('%B %Y'), window_end.strftime('%B %Y')))
+            else:
+                note = ('The reported start is within the first 12 months. Give the general rule and say that '
+                        'whether this was when the person first qualified at 65 still needs confirmation.')
         add('ma_trial_right', 'ma_trial_right', because, confirm, note)
         rules[-1]['status'] = status
         add('original_nationwide', 'original_nationwide', ['Medicare Advantage with care away from home' if focus in {'travel', 'doctors', 'flexibility'} else 'Medicare Advantage'], [],
@@ -252,7 +279,7 @@ def applicable_rules(report, value, *, focus='', today=None, concern='', plans_v
         add('partd_cap', 'partd_cap_2026', ['Original Medicare without a drug plan'], [],
             'If the person mentions the drug spending limit or cap, say that it applies only to people enrolled in Medicare drug coverage, so without a drug plan there is no cap; a plan joined in Open Enrollment starts January 1. Use the published 2026 figure as published.')
         rules[-1]['status'] = 'met'
-    if (rc18 is None and (focus in {'drugs', 'total_cost', 'bills'} or cost_pressure)) or rc18 in {'medicaid', 'extra_help', 'part_b_help', 'ssi'}:
+    if (rc18 is None and cost_pressure) or rc18 in {'medicaid', 'extra_help', 'part_b_help', 'ssi'}:
         add('extra_help', 'extra_help', ['cost concern or assistance status'], ['RC18'] if rc18 is None else [],
             'Say that Extra Help exists and what it does, then ask whether they already get help with Medicare costs.')
 

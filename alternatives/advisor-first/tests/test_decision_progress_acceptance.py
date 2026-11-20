@@ -106,7 +106,9 @@ class DecisionProgressAcceptanceTests(unittest.TestCase):
         self.assertTrue(out['reply'])
         self.assertEqual(out['advisor']['reason'], 'recovery')
         self.assertEqual(out['generated']['status'], 'unavailable')
-        self.assertTrue(out['notice'])
+        # D157 (CV-03): a failed reply no longer shows "I couldn't finish that answer".
+        self.assertNotIn('notice', out)
+        self.assertEqual(out['generated']['status'], 'unavailable')
         self.assertIsNotNone(out['assessment']['nextQuestion'])
         self.assertNotIn('review', out)
         self.assertEqual(len(self.case.calls), 1)

@@ -1,4 +1,5 @@
 """Local HTTP recovery seam; pinned engine, storage and paid-call policy stay intact."""
+import copy
 import logging
 import re
 import threading
@@ -55,8 +56,10 @@ def _visit_history(flow, owner, chain, entries, latest_id, latest_response):
             turn.update(reply=response.get('reply', '') if not unavailable or recovery else '',
                         notice=response.get('notice', ''), noticeFirst=recovery,
                         sources=advisor.get('sources', []) if not unavailable or recovery else [],
+                        # D157: cards are part of the reply; a restored visit keeps them.
+                        cards=copy.deepcopy(response.get('cards', [])),
                         educationFollowups=advisor.get('educationFollowups', []) if not unavailable else [])
-        if user or any(turn.get(key) for key in ('openingChoice', 'reply', 'notice', 'sources')):
+        if user or any(turn.get(key) for key in ('openingChoice', 'reply', 'notice', 'sources', 'cards')):
             turn.update(requestId=request_id, user=user,
                         askedQuestion=asked if user or asked != current_question else '')
             history.append(turn)

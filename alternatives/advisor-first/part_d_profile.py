@@ -42,9 +42,9 @@ def profile(guide, record):
                 held.append(identifier)
     message = ''
     if year is not None and year != 2026:
-        message = 'This pilot has 2026 Part D plan information. Plans for another coverage year are not supported yet.'
+        message = 'Daylight has 2026 Part D plans. Plans for another coverage year aren’t loaded yet; you can look at the 2026 plans by choosing 2026.'
     elif county_fips and county_fips != '12021':
-        message = 'Part D plan information in this pilot covers Collier County, Florida.'
+        message = 'Daylight has Part D plans for Collier County, Florida so far.'
     status = 'unsupported' if message else 'missing' if missing else 'ready'
     medicine_status = value('guide.fields.needs.medicinesStatus')
     medicines = value('guide.fields.needs.medications')
@@ -56,5 +56,5 @@ def profile(guide, record):
             'details': [
                 {'id': 'T03', 'label': 'Home ZIP code', 'value': zipcode},
                 {'id': 'RC02', 'label': 'County', 'value': county.get('name') if isinstance(county, dict) else None},
-                {'id': 'RC03', 'label': 'Coverage year', 'value': f'{year} (pilot data)' if defaulted else year},
+                {'id': 'RC03', 'label': 'Coverage year', 'value': year},
                 {'id': 'T07', 'label': 'Medicines shared in chat', 'value': 'None reported' if medicine_status == 'no' else medicines}]}

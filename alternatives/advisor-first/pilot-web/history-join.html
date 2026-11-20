@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try Daylight</title>
+<link rel="stylesheet" href="/pilot/join.css">
+<main>
+  <h1>Try Daylight</h1>
+  <p><strong>Demo only.</strong> Use fictional details to explore Medicare with 2026 Collier County plan data. Do not enter names, Medicare or Social Security numbers, payment details, or real health information.</p>
+  <p>This demo is for education and feedback. It does not recommend a plan, submit an enrollment or change your coverage.</p>
+  <p>Chat uses OpenAI. If you agree below, Daylight saves your submitted messages, answers, corrections and the replies and cards prepared for you on AWS, so the founder can review and improve the demo. Unsent drafts are not saved.</p>
+  <p>Saved history expires 90 days after your last activity. Backup copies expire within a further 30 days. You can delete this visit through <strong>Saved chat</strong>. Keep this browser private on a shared device; a new browser does not recover your visit.</p>
+  <label class="consent"><input id="save-history" type="checkbox"> I agree to AI chat and to saving this visit for demo review.</label>
+  <p>Leave this unchecked to browse without saved chat. Chat will be unavailable.</p>
+  <div id="invitation-entry" hidden>
+    <label for="invitation-link">Full invitation link</label>
+    <input id="invitation-link" type="url" autocomplete="off" spellcheck="false" placeholder="https://daylightmedicare.com/pilot/…">
+  </div>
+  <button id="continue-invitation" type="button" disabled>Continue</button>
+  <p role="status"></p>
+</main>
+<script src="/pilot/join.js" defer></script>
+</html>

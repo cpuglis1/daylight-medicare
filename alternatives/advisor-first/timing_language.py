@@ -7,13 +7,20 @@ from guest_profiles import ProfileError
 
 MONTHS = 'january february march april may june july august september october november december'.split()
 MONTH_PATTERN = r'(?:' + '|'.join(MONTHS) + r')'
+MONTH_ALIASES = {name[:3]:name for name in MONTHS}
+MONTH_ALIASES['sept'] = 'september'
+
+
+def expanded_months(text):
+    return re.sub(r'\b('+'|'.join(sorted(MONTH_ALIASES,key=len,reverse=True))+r')\b\.?',
+                  lambda m: MONTH_ALIASES[m[1].lower()], text, flags=re.I)
 
 
 def reported_end_date(value):
     """Keep missing years missing; accept ordinary ordinal day spelling."""
     if not isinstance(value, str):
         raise ProfileError('Use the end date actually reported.')
-    text = re.sub(r'(?<=\d)(?:st|nd|rd|th)\b', '', value.strip(), flags=re.I)
+    text = expanded_months(re.sub(r'(?<=\d)(?:st|nd|rd|th)\b', '', value.strip().rstrip(','), flags=re.I))
     partial = re.fullmatch(r'('+MONTH_PATTERN+r')(?:\s+(\d{1,2}))?', text, re.I)
     if partial:
         name = partial[1].lower()
@@ -26,22 +33,43 @@ def reported_end_date(value):
     return month(text)
 
 
-def end_date_supported(value, quote):
+def quoted_end_dates(quote):
     pattern = (r'\b'+MONTH_PATTERN+r'\b(?:\s+\d{1,2}(?:st|nd|rd|th)?\b,?)?'
                r'(?:\s+(?:19|20)\d{2}\b)?|\b(?:19|20)\d{2}-(?:0[1-9]|1[0-2])'
                r'(?:-\d{2})?\b|\b(?:0?[1-9]|1[0-2])[/.-](?:(?:19|20)?\d{2})\b'
                r'|\b(?:0[1-9]|1[0-2])\d{2}\b|no scheduled end|still working|ongoing')
-    try:
-        expected = reported_end_date(value)
-    except ProfileError:
-        return False
-    for match in re.finditer(pattern, quote, re.I):
+    for match in re.finditer(pattern, expanded_months(quote), re.I):
         try:
-            if reported_end_date(match[0]) == expected:
-                return True
+            yield reported_end_date(match[0])
         except ProfileError:
             pass
-    return False
+
+
+def end_date_supported(value, quote):
+    try:
+        return reported_end_date(value) in quoted_end_dates(quote)
+    except ProfileError:
+        return False
+
+
+def grounded_end_date(value, quote):
+    """Keep the stated precision when a model has supplied an unsupported year.
+
+    Only a unique matching month/day in the quoted report can survive. Never
+    manufacture a year, change a stated date, or choose between two partial dates.
+    """
+    expected = reported_end_date(value)
+    stated = set(quoted_end_dates(quote))
+    if expected in stated:
+        return expected
+    if re.fullmatch(r'\d{4}-\d{2}(?:-\d{2})?', expected):
+        name = MONTHS[int(expected[5:7])-1]
+        candidates = {s for s in stated if re.fullmatch(MONTH_PATTERN+r'(?: \d{1,2})?', s)
+            and s.split()[0] == name
+            and (len(expected)==7 or len(s.split())==2 and int(s.split()[1])==int(expected[8:10]))}
+        if len(candidates)==1:
+            return candidates.pop()
+    raise ProfileError('A date was not supplied at the stated precision.')
 
 
 def after_coverage_supported(quote, active=None):
