@@ -1,5 +1,15 @@
 # Implement the person's journey
 
+D205 · November 19, 2026: the final delivered continuation has one owner. Both
+models keep reading the user/profile and education records. The model chooses a
+useful question or supported work; code retains validated clarification separately
+from teaching until delivery, then reconciles profile questions, check controls,
+review/handoff actions and intentional finishes. The UI uses `conversationNext`
+to avoid a competing automatic action. Validate actual final output, and record
+conversational memory only after assembly; a clarification is not a teaching receipt.
+Source withdrawal still applies on replay, without consuming asks or offers.
+No case-specific dialogue script or added model call. [Evidence](../../audit-evidence/delivered-continuation-d205-20261119/README.md).
+
 D180/D179 · November 15, 2026 · Implemented on the :8895 branch: a useful
 closing is part of the ordinary journey. At the natural handoff into comparison,
 a supported decision or a requested pause, summarize what was learned, explain

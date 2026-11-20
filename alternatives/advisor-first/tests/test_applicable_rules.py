@@ -60,7 +60,12 @@ class RuleSelectionTests(unittest.TestCase):
     def test_original_without_drug_plan_gets_penalty_and_extra_help(self):
         report, value = make({}, {'coverage.current': ['original']})
         ids = [r['rule_id'] for r in applicable_rules(report, value, focus='drugs', today=date(2026, 11, 8))]
-        self.assertEqual(ids, ['partd_penalty', 'partd_cap', 'extra_help', 'annual_enrollment'])
+        # D157 (CV-04): Extra Help is raised by income or affordability trouble or by
+        # asking how to lower drug costs, not by a drug focus alone.
+        self.assertEqual(ids, ['partd_penalty', 'partd_cap', 'annual_enrollment'])
+        asked = [r['rule_id'] for r in applicable_rules(report, value, focus='drugs', today=date(2026, 11, 8),
+                                                        concern='asks how to lower prescription costs')]
+        self.assertIn('extra_help', asked)
 
     def test_cobra_comes_before_any_plan_choice(self):
         report, value = make({}, {'coverage.current': ['cobra']})
@@ -218,7 +223,9 @@ class SecondSetRuleTests(unittest.TestCase):
         self.assertEqual(rules['msp_extra_help_basics']['confirm_with'], ['RC18'])
         self.assertIn('extra_help', rules)
         self.assertNotIn('msp_extra_help_basics', self.ids({}, {'coverage.current': ['original', 'drug']}, concern='wants to understand networks'))
-        self.assertIn('msp_extra_help_basics', self.ids({}, {'coverage.current': ['original', 'drug'], 'needs.costPreference': 'lower_monthly'}))
+        # D157 (CV-04): a cost preference or priority is not a report of money trouble.
+        self.assertNotIn('msp_extra_help_basics', self.ids({}, {'coverage.current': ['original', 'drug'], 'needs.costPreference': 'lower_monthly'}))
+        self.assertNotIn('msp_extra_help_basics', self.ids({}, {'coverage.current': ['original', 'drug'], 'needs.priorities': ['total_cost', 'bills']}))
 
     def test_medicaid_or_part_b_help_gets_the_qmb_billing_rule(self):
         rules = self.ids({'RC18': {'choice': 'medicaid'}}, {'coverage.current': ['original', 'drug', 'medicaid']})

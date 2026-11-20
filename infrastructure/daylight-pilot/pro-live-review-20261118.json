@@ -1,0 +1,50 @@
+{
+  "observed_at": "2026-11-18T23:45:00Z",
+  "observation_method": "AWS CloudShell output through Firefox accessibility; transcription of observed results",
+  "account": "020055445580",
+  "region": "us-east-1",
+  "live_stage": "foundation",
+  "archive_sha256": "f5979aadfa5cd85b7c5d39f0746e28a23924ad521baea58e26ade3b7a79514b0",
+  "change_set": "arn:aws:cloudformation:us-east-1:020055445580:changeSet/pro-remove-nat-20261118T234428Z/2fbc7f72-1d18-4562-91fa-5793256eb7f1",
+  "plan_sha256": "986453319bbdcf85ba0d5d4c4d33e4a59af23e1bbb4bd20004b8d40103cfc999",
+  "change_set_status": "CREATE_COMPLETE",
+  "execution_status": "AVAILABLE",
+  "changes": [
+    {
+      "logical_id": "NatGateway",
+      "action": "Remove",
+      "physical_id": "nat-0c377273f2843be31"
+    },
+    {
+      "logical_id": "PrivateRoute",
+      "action": "Modify",
+      "replacement": "False",
+      "properties": [
+        "GatewayId",
+        "NatGatewayId"
+      ]
+    }
+  ],
+  "verified": {
+    "four_templates_syntax_valid": true,
+    "live_template_matches_foundation": true,
+    "host_no_public_ip": true,
+    "host_ingress_closed": true,
+    "cpu_credits_standard": true,
+    "encrypted_disks_total_gib": 50,
+    "managed_cache_zero_ttl": true,
+    "managed_forwarding_all_viewer": true,
+    "cloudfront_prefix_list_id": "pl-3b927c52"
+  },
+  "open": [
+    "No DNS lookup succeeded in CloudShell; local dig also blocked by sandbox",
+    "Installed boto3 does not expose pricingplanmanager",
+    "Pro eligibility and subscription activation unverified",
+    "Action-time network migration confirmation pending"
+  ],
+  "workload_resources_changed": false,
+  "subscription_purchased": false,
+  "site_live": false,
+  "cloudshell_evidence_directory": "/home/cloudshell-user/daylight-pro",
+  "next_step": "After specific network-change confirmation: re-inspect and execute remove-nat with exact plan hash; verify completion; prepare/inspect/execute/verify attach-address only if it adds exactly the existing EIP association and preserves closed ingress."
+}

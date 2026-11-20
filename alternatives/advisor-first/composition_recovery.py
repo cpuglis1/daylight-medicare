@@ -26,7 +26,82 @@ VALIDATION_CODES = {
     'The response exceeded the conversational text allowance.': 'text_bound',
     'The conversational response was empty.': 'empty_response',
 }
-OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work', 'conversation_assessment'}
+OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work', 'conversation_assessment', '_reply_blocks', 'addressed_requests',
+                   'block_refs', 'offer_concept'}
+
+
+def normalize_blocks(value):
+    """Adapt the bounded :8895 wire blocks to the existing renderer contract."""
+    if not isinstance(value, dict):
+        return value
+    value = {k:v for k,v in value.items() if k != '_reply_blocks'}
+    if 'reply_blocks' not in value:
+        return value  # legacy variants and explicitly scripted old fixtures
+    blocks = value.pop('reply_blocks')
+    if (not isinstance(blocks, list) or len(blocks) > 4
+            or any(not isinstance(b, str) or not b.strip() for b in blocks)):
+        raise ModelUnavailable('The conversational response could not be checked.')
+    value.update(reply='\n\n'.join(b.strip() for b in blocks), _reply_blocks=blocks)
+    return value
+
+
+def neutral_metadata():
+    return {'education': {'purpose':'advance', 'updates':[], 'visual':'none'},
+            'education_followups': [],
+            'task_work': {'check_ids':[], 'blocking_concepts':[], 'next_step':'answer'}}
+
+
+def recovery_display(context, question, retained_reply=''):
+    """A code-owned continuation, without an unrelated lesson or error banner.
+
+    A usable answer or question advances quietly; unfinished requests remain in
+    visit context. The question/why comes from the current approved meaning,
+    never from rejected prose or a fabricated acknowledgement of a report.
+    """
+    asked = bool(context.get('_person_asked') or context.get('discussion_plan', {}).get('answer_first')
+                 or context.get('education_context', {}).get('user_requested'))
+    reply = retained_reply.strip()
+    if reply:
+        return {'reply': reply, 'notice': None,
+                'answer_state': 'partial' if asked else 'continued'}
+    if question:
+        why = question.get('why') if isinstance(question, dict) else None
+        return {'reply': why.strip() if isinstance(why, str) else '',
+                'notice': None,
+                'answer_state': 'unanswered' if asked else 'continued'}
+    return {'reply': 'I don’t have a reliable answer to that yet.', 'notice': None,
+            'answer_state': 'unanswered'}
+
+
+def independent_blocks(validate, draft, context, moves):
+    """Keep only model-declared, independently checked whole blocks.
+
+    No sentence splitting or phrase deletion. Each surviving block must pass
+    alone, then the assembled result passes again. Dropped teaching metadata
+    cannot mark an unseen concept delivered. Legacy prose is never split.
+    """
+    blocks = draft.get('_reply_blocks')
+    if not context.get('discussion_plan') or not isinstance(blocks, list) or len(blocks) < 2:
+        return None
+    core = {k:v for k,v in draft.items() if k not in OPTIONAL_FIELDS}
+    kept = []
+    for block in blocks:
+        try:
+            checked = validate({**core, 'reply':block, 'question_target':None, 'question':''}, context, moves)
+        except (ModelUnavailable, TypeError, ValueError, KeyError):
+            continue
+        if checked['reply'] == block.strip():
+            kept.append(block.strip())
+    if not kept or len(kept) == len(blocks):
+        return None
+    candidate = {**core, 'reply':'\n\n'.join(kept)}
+    for option in (candidate, {**candidate, 'question_target':None, 'question':''}):
+        try:
+            checked = validate(option, context, moves)
+        except (ModelUnavailable, TypeError, ValueError, KeyError):
+            continue
+        return {**checked, **neutral_metadata()}, 'reply_blocks'
+    return None
 
 
 class CompositionRejected(ModelUnavailable):
@@ -73,13 +148,17 @@ def independent_component(validate, draft, context, moves):
         else:
             return {**checked, **{key: copy.deepcopy(draft[key]) for key in OPTIONAL_FIELDS if key in draft},
                     'education_followups': []}, 'reply'
+    retained = independent_blocks(validate, draft, context, moves)
+    if retained:
+        return retained
     target, question = core.get('question_target'), core.get('question')
     if (not isinstance(target, str) or not any(move['id'] == target for move in moves)
             or not isinstance(question, str) or not question.strip()
             or not isinstance(core.get('agenda_update'), dict) or core['agenda_update'].get('pause') is not False):
         return None
     try:
-        checked = validate({**core, 'reply': ''}, context, moves)
+        question_context = {**context, '_retaining_question': True} if context.get('discussion_plan') else context
+        checked = validate({**core, 'reply': ''}, question_context, moves)
         if checked['question'] != question.strip():
             return None
         # The core also has assertion checks specific to reply. Apply them to

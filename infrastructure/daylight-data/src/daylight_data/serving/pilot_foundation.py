@@ -25,10 +25,21 @@ def file_hash(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
-def source_controls(dsn):
+# D199: a hosted binding serves the owner-approved invited fictional demo. Its STOP
+# authority is a root-managed copy of the ledger on the host, so the local cluster
+# identity cannot apply; any STOP row added there still fails every read closed.
+HOSTED_PURPOSE = 'fictional_invited_demo'
+HOSTED_CONTROLS = 'hosted_copy'
+
+
+def source_controls(dsn, *, identity=True):
     """Any change to the local authoritative STOP ledger invalidates the snapshot."""
     with psycopg.connect(dsn, row_factory=dict_row, connect_timeout=3,
                          options='-c default_transaction_read_only=on -c statement_timeout=5000') as conn:
+        if not identity:
+            rows = conn.execute('''SELECT source_id,state,reason,updated_at
+                FROM dl_control.source_access_state ORDER BY source_id''').fetchall()
+            return {'source_access_states': json_safe(rows)}
         identity = conn.execute('''SELECT datname AS database, oid AS database_oid,
             (SELECT system_identifier::text FROM pg_control_system()) AS cluster_system_identifier
             FROM pg_database WHERE datname=current_database()''').fetchone()
@@ -37,15 +48,23 @@ def source_controls(dsn):
     return {**identity, 'source_access_states': json_safe(rows)}
 
 
-def enforce_scope(manifest, *, year, county_fips, purpose, now):
+def enforce_scope(manifest, *, year, county_fips, purpose, now, served=None):
     policy = manifest['policy']
+    if served is not None:
+        # The hosted reader is constructed for its binding's declared purpose; internal
+        # research-shaped calls are admitted only under that exact hosted binding.
+        if (served != HOSTED_PURPOSE or policy['purpose'] != HOSTED_PURPOSE
+                or manifest.get('control_mode') != HOSTED_CONTROLS or purpose == 'participant'
+                or purpose not in {'offline_research', HOSTED_PURPOSE}):
+            raise ResearchServingError('PILOT_PURPOSE_NOT_ALLOWED')
+        purpose = policy['purpose']
     if type(year) is not int or year != policy['year']:
         raise ResearchServingError('PILOT_WRONG_YEAR')
     if county_fips != policy['plan_county_fips']:
         raise ResearchServingError('PILOT_UNSUPPORTED_PLAN_GEOGRAPHY')
     if purpose == 'participant':
         raise ResearchServingError('PILOT_PARTICIPANT_ACCEPTANCE_MISSING')
-    if purpose != 'offline_research' or purpose != policy['purpose']:
+    if purpose not in {'offline_research', HOSTED_PURPOSE} or purpose != policy['purpose']:
         raise ResearchServingError('PILOT_PURPOSE_NOT_ALLOWED')
     deadlines = [policy['technical_read_until_utc'],
                  *(date for date in policy['source_review_expiry'].values() if date)]
@@ -57,7 +76,7 @@ class PilotFoundation:
     """Exact and literal reads over the verified projection, gated on every call."""
 
     def __init__(self, binding_path, *, root, package_dsn, source_dsn,
-                 clock=lambda: datetime.now(timezone.utc)):
+                 clock=lambda: datetime.now(timezone.utc), served=None):
         self.root = Path(root).resolve()
         self.manifest = json.loads(Path(binding_path).read_text())
         body = {key: value for key, value in self.manifest.items() if key != 'binding_id'}
@@ -66,17 +85,24 @@ class PilotFoundation:
         self.package_dsn = package_dsn
         self.source_dsn = source_dsn
         self.clock = clock
+        self.served = served
+        hosted = self.manifest.get('control_mode') == HOSTED_CONTROLS
+        if hosted != (served is not None):
+            raise ResearchServingError('PILOT_BINDING_INVALID')
 
     def _check_controls(self):
         try:
-            live = source_controls(self.source_dsn)
+            live = source_controls(self.source_dsn, identity=self.served is None)
             for path, expected in self.manifest['controls'].items():
                 local = (self.root / path).resolve()
                 if not local.is_relative_to(self.root) or file_hash(local) != expected:
                     raise ResearchServingError('PILOT_SOURCE_CONTROL_CHANGED')
         except (psycopg.Error, OSError):
             raise ResearchServingError('PILOT_SOURCE_CONTROLS_UNAVAILABLE') from None
-        if live != self.manifest['source_control_snapshot'] or any(
+        expected = self.manifest['source_control_snapshot']
+        if self.served is not None:
+            expected = {'source_access_states': expected['source_access_states']}
+        if live != expected or any(
                 row['state'] != 'permitted' for row in live['source_access_states']):
             raise ResearchServingError('PILOT_SOURCE_WITHDRAWAL_OR_CONTROL_CHANGE')
 
@@ -84,25 +110,27 @@ class PilotFoundation:
     def snapshot(self, *, year, county_fips, purpose):
         """Bound read-only connection for internal, fixed-query projections."""
         scope = {'year': year, 'county_fips': county_fips, 'purpose': purpose}
-        enforce_scope(self.manifest, **scope, now=self.clock())
+        enforce_scope(self.manifest, **scope, now=self.clock(), served=self.served)
         self._check_controls()
         try:
             with psycopg.connect(self.package_dsn, row_factory=dict_row, connect_timeout=3,
                                  options='-c default_transaction_read_only=on -c statement_timeout=5000') as conn:
                 stamp = conn.execute('SELECT current_database() AS db, binding_id FROM dl_pilot_foundation.binding').fetchone()
-                if stamp != {'db': self.manifest['database'], 'binding_id': self.manifest['binding_id']}:
+                # A hosted revision keeps the sealed package's own stamp (never rewritten).
+                package = self.manifest.get('package_binding_id', self.manifest['binding_id'])
+                if stamp != {'db': self.manifest['database'], 'binding_id': package}:
                     raise ResearchServingError('PILOT_DATABASE_BINDING_MISMATCH')
                 yield conn
         except psycopg.Error:
             raise ResearchServingError('PILOT_DATABASE_UNAVAILABLE') from None
         self._check_controls()
-        enforce_scope(self.manifest, **scope, now=self.clock())
+        enforce_scope(self.manifest, **scope, now=self.clock(), served=self.served)
 
     def read(self, dataset, *, year, county_fips, purpose, filters=None, name=None,
              limit=MAX_PAGE, after=0, expected_binding=None):
         """Return source observations and an ordinal cursor bound to this revision."""
         scope = {'year': year, 'county_fips': county_fips, 'purpose': purpose}
-        enforce_scope(self.manifest, **scope, now=self.clock())
+        enforce_scope(self.manifest, **scope, now=self.clock(), served=self.served)
         binding = self.manifest['binding_id']
         if ((after and expected_binding is None)
                 or expected_binding is not None and expected_binding != binding):

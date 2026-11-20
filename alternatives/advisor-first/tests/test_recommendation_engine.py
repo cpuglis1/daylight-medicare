@@ -12,7 +12,7 @@ def inputs(**changes):
     value = {'version': engine.INPUTS_VERSION,
              'scope': {'zipcode': '34102', 'county_fips': '12021', 'year': 2026},
              'medigap': {'status': 'ready', 'zipcode': '34102', 'age': 66, 'reported_age': 66,
-                         'gender': 'Female', 'tobacco': 'Non-Tobacco'},
+                         'gender': 'Female', 'tobacco': 'Non-Tobacco', 'first_eligible': None},
              'part_d_status': 'ready', 'doctors': None, 'medicines': 'no', 'travel': [],
              'cost_preference': None, 'priorities': [], 'current_coverage': [], 'medicaid': None}
     for key, item in changes.items():
@@ -107,11 +107,13 @@ class TieredRecommendationTests(unittest.TestCase):
     def test_medigap_letters_cf_rule_and_select(self):
         result = run(cost_preference='predictable', priorities=['bills'], doctors='list')['medigap']
         plans = result['plans']
-        self.assertEqual(plans['F-20000']['group'], 'excluded')      # age 66: not eligible before 2020
+        self.assertEqual(plans['F-20000']['group'], 'excluded')      # eligibility unconfirmed
         self.assertEqual(plans['N-11000']['group'], 'needs')         # copays
         self.assertEqual(plans['G-15000']['group'], 'priority')
-        self.assertEqual(result['recommended_ids'], ['G-15000'])     # SELECT G cheaper but doctors not checked: fewer met
-        self.assertEqual(run(reported_age=72)['medigap']['plans']['F-20000']['group'], 'priority')
+        self.assertTrue(all(next(c for c in plan['checks'] if c['id'] == 'doctors')['state'] == 'unknown'
+                            for plan in plans.values()))
+        self.assertEqual(run(first_eligible='2019-12')['medigap']['plans']['F-20000']['group'], 'priority')
+        self.assertEqual(run(reported_age=72)['medigap']['plans']['F-20000']['group'], 'excluded')
         self.assertEqual(run(reported_age=71)['medigap']['plans']['F-20000']['group'], 'excluded')
         abroad = run(travel=['outside_us'], priorities=['travel'])['medigap']['plans']
         self.assertEqual(abroad['A-12000']['group'], 'needs')
@@ -129,7 +131,8 @@ class TieredRecommendationTests(unittest.TestCase):
 
     def test_coverage_path(self):
         doctors = run(doctors='list', priorities=['doctors', 'bills'], cost_preference='predictable')['path']
-        self.assertEqual(doctors['recommended_ids'], ['original'])
+        self.assertEqual(doctors['recommended_ids'], [])  # doctor evidence remains unknown
+        self.assertIn('unresolved', doctors['no_pick_reason'])
         self.assertEqual(doctors['plans']['advantage']['group'], 'needs')   # predictable: copays
         cheap = run(cost_preference='lower_monthly')['path']
         self.assertEqual(cheap['recommended_ids'], ['advantage'])           # $0 MA vs $60 + $0
@@ -138,7 +141,8 @@ class TieredRecommendationTests(unittest.TestCase):
         abroad = run(travel=['outside_us'], priorities=['travel'], cost_preference='lower_monthly')['path']
         self.assertEqual(abroad['recommended_ids'], ['original'])            # a met priority outranks a met preference
         tie = run(medicines='yes')['path']                                  # nothing separates them
-        self.assertEqual((tie['recommended_ids'], tie['no_pick_reason'][:10]), ([], 'Both paths'))
+        self.assertEqual(tie['recommended_ids'], [])
+        self.assertIn('unresolved', tie['no_pick_reason'])
 
     def test_unavailable_tabs_do_not_guess(self):
         result = run(medigap={'status': 'unsupported', 'zipcode': '34110', 'age': None, 'reported_age': None,

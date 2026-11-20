@@ -1,0 +1,204 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "D193 closed CloudFront Pro candidate; no automatic activation or traffic",
+  "Parameters": {
+    "ViewerCertificateArn": {
+      "Type": "String",
+      "AllowedPattern": "arn:aws:acm:us-east-1:020055445580:certificate/[0-9a-f-]+"
+    },
+    "OriginToken": {
+      "Type": "String",
+      "NoEcho": true,
+      "MinLength": 64,
+      "MaxLength": 64,
+      "AllowedPattern": "[0-9a-f]{64}"
+    }
+  },
+  "Resources": {
+    "ClosedWebAcl": {
+      "Type": "AWS::WAFv2::WebACL",
+      "Properties": {
+        "Scope": "CLOUDFRONT",
+        "DefaultAction": {
+          "Block": {}
+        },
+        "Description": "All requests blocked until separately reviewed pilot admission",
+        "VisibilityConfig": {
+          "SampledRequestsEnabled": false,
+          "CloudWatchMetricsEnabled": false,
+          "MetricName": "daylight-pro-closed"
+        },
+        "Rules": []
+      }
+    },
+    "Distribution": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Enabled": false,
+          "Comment": "Daylight Pro pending activation and privacy verification",
+          "Aliases": [
+            "daylightmedicare.com",
+            "test.daylightmedicare.com"
+          ],
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "PriceClass": "PriceClass_All",
+          "WebACLId": {
+            "Fn::GetAtt": [
+              "ClosedWebAcl",
+              "Arn"
+            ]
+          },
+          "Origins": [
+            {
+              "Id": "daylight-origin",
+              "DomainName": "origin.daylightmedicare.com",
+              "OriginCustomHeaders": [
+                {
+                  "HeaderName": "X-Daylight-Origin-Token",
+                  "HeaderValue": {
+                    "Ref": "OriginToken"
+                  }
+                }
+              ],
+              "ConnectionAttempts": 1,
+              "ConnectionTimeout": 10,
+              "CustomOriginConfig": {
+                "HTTPSPort": 443,
+                "OriginProtocolPolicy": "https-only",
+                "OriginSSLProtocols": [
+                  "TLSv1.2"
+                ],
+                "OriginReadTimeout": 60,
+                "OriginKeepaliveTimeout": 5
+              }
+            }
+          ],
+          "DefaultCacheBehavior": {
+            "TargetOriginId": "daylight-origin",
+            "ViewerProtocolPolicy": "https-only",
+            "AllowedMethods": [
+              "GET",
+              "HEAD",
+              "OPTIONS",
+              "PUT",
+              "PATCH",
+              "POST",
+              "DELETE"
+            ],
+            "CachedMethods": [
+              "GET",
+              "HEAD"
+            ],
+            "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+            "OriginRequestPolicyId": "216adef6-5c7f-47e4-b989-5492eafa07d3",
+            "Compress": false
+          },
+          "CustomErrorResponses": [
+            {
+              "ErrorCode": 400,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 403,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 404,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 405,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 414,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 416,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 500,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 501,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 502,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 503,
+              "ErrorCachingMinTTL": 0
+            },
+            {
+              "ErrorCode": 504,
+              "ErrorCachingMinTTL": 0
+            }
+          ],
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Ref": "ViewerCertificateArn"
+            },
+            "SslSupportMethod": "sni-only",
+            "MinimumProtocolVersion": "TLSv1.2_2021"
+          }
+        }
+      }
+    },
+    "ProSubscription": {
+      "Type": "AWS::PricingPlanManager::Subscription",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "PlanFamily": "CloudFront",
+        "PlanTier": "PRO",
+        "UsageLevel": "DEFAULT",
+        "ResourceArns": [
+          {
+            "Fn::Sub": "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${Distribution}"
+          },
+          {
+            "Fn::GetAtt": [
+              "ClosedWebAcl",
+              "Arn"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "DistributionId": {
+      "Value": {
+        "Ref": "Distribution"
+      }
+    },
+    "DistributionDomain": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Distribution",
+          "DomainName"
+        ]
+      }
+    },
+    "SubscriptionArn": {
+      "Value": {
+        "Ref": "ProSubscription"
+      }
+    },
+    "SubscriptionStatus": {
+      "Value": {
+        "Fn::GetAtt": [
+          "ProSubscription",
+          "Status"
+        ]
+      }
+    }
+  }
+}

@@ -41,6 +41,51 @@ class PilotSecurityTests(unittest.TestCase):
         self.access.set_flag('guest_chat', True)
         self.access.set_flag('all_chat', True)
 
+    def test_hosted_display_uses_the_shared_ui_and_admits_only_display_routes(self):
+        from unittest.mock import Mock
+
+        origin = 'https://daylight.example'
+        app = server.build(0, fixture=True, pilot_state=self.root, pilot_origin=origin,
+                           medigap_repository=Mock(), part_d_repository=Mock(),
+                           pilot_display_binding={'snapshot_id': 'fictional'})
+        thread = Thread(target=app.serve_forever, daemon=True)
+        thread.start()
+        self.addCleanup(thread.join)
+        self.addCleanup(app.server_close)
+        self.addCleanup(app.shutdown)
+
+        def request(path, data=None, **headers):
+            connection = http.client.HTTPConnection('127.0.0.1', app.server_port)
+            try:
+                connection.request('POST' if data is not None else 'GET', path,
+                    json.dumps(data) if data is not None else None,
+                    {'Host': 'daylight.example', 'Origin': origin, 'Content-Type': 'application/json', **headers})
+                response = connection.getresponse()
+                return response.status, response.read(), response.headers
+            finally:
+                connection.close()
+
+        code, body, headers = request('/')
+        self.assertEqual(code, 303)  # D197: friendly invitation landing, never protected app data
+        self.assertEqual(headers['Location'], '/pilot/join')
+        self.assertNotIn(b'/plans-workspace.js', body)
+        self.assertEqual(request('/api/guest/session')[0], 401)
+        _, invitation = self.invite()
+        status, _, headers = request('/pilot/redeem', {'invitation': invitation})
+        self.assertEqual(status, 200)
+        invite_cookie = headers['Set-Cookie'].split(';')[0]
+        status, body, headers = request('/api/guest/session', Cookie=invite_cookie)
+        self.assertEqual(status, 200)
+        cookies = invite_cookie + '; ' + headers['Set-Cookie'].split(';')[0]
+        csrf = json.loads(body)['csrf']
+        self.assertIn(b'/plans-workspace.js', request('/', Cookie=cookies)[1])
+        self.assertEqual(request('/api/plans/catalog', {}, Cookie=cookies,
+                                 **{'X-Daylight-CSRF': csrf})[0], 200)
+        self.assertEqual(request('/api/recommendation', {}, Cookie=cookies,
+                                 **{'X-Daylight-CSRF': csrf})[0], 404)
+        self.assertEqual(request('/api/plans/catalog', {}, Cookie=cookies)[0], 403)
+        self.assertEqual(request('/api/plans/catalog', {}, Cookie=cookies, Host='127.0.0.1')[0], 403)
+
     def test_signed_expiring_single_use_and_revocation(self):
         key, invite = self.invite()
         with self.assertRaises(ProfileError):
@@ -105,9 +150,9 @@ class PilotSecurityTests(unittest.TestCase):
             discrepancy = self.budget.reconcile(provider_total + 1)
             self.assertEqual((discrepancy['status'], discrepancy['difference_nano_usd']), ('difference', 1))
             with self.budget.db() as db:
-                # Fictional historic cost, leaving enough room for one attempt.
+                # Pre-policy historic charges remain counted in the new ceiling.
                 db.execute('UPDATE ai_charges SET charged=?,measured=? WHERE id=?',
-                           (100 * NANO - 64_000_000, 100 * NANO - 64_000_000, key))
+                           (20 * NANO - 64_000_000, 20 * NANO - 64_000_000, key))
             self.reviewed += 86400
         finally:
             participant.reset(context)
@@ -122,11 +167,11 @@ class PilotSecurityTests(unittest.TestCase):
                 participant.reset(binding)
 
         with ThreadPoolExecutor(2) as pool:
-            keys = list(pool.map(reserve, (first, second)))
+            keys = list(pool.map(reserve, (second, self.joined())))
         self.assertEqual(sum(key is not None for key in keys), 1)
         with self.budget.db() as db:
             total, _, held, count = self.budget._total(db)
-        self.assertLessEqual(total, 100 * NANO)
+        self.assertLessEqual(total, 20 * NANO)
         self.assertGreater(held, 0)
         self.assertEqual(self.budget.reconcile(total - held)['status'], 'unresolved_charges')
         self.assertEqual(count, 2)
@@ -136,8 +181,35 @@ class PilotSecurityTests(unittest.TestCase):
         self.access.mark_completed(first)
         report = self.budget.session_costs()
         self.assertEqual(report['completed'], 1)
-        self.assertEqual(report['max_completed_nano_usd'], 100 * NANO - 64_000_000)
+        self.assertEqual(report['max_completed_nano_usd'], 20 * NANO - 64_000_000)
         self.assertEqual(report['held_nano_usd'], held)
+
+    def test_invite_limit_atomic_at_exact_boundary_and_survives_reopen(self):
+        self.enable_chat()
+        owner = self.joined()
+        def reserve(_):
+            binding = participant.set(owner)
+            try:
+                return self.budget.reserve(1000, 900, 'gpt-5.4')
+            except BudgetError:
+                return None
+            finally:
+                participant.reset(binding)
+
+        first = reserve(None)
+        with self.budget.db() as db:
+            amount, = db.execute('SELECT charged FROM ai_charges WHERE id=?', (first,)).fetchone()
+            db.execute("UPDATE ai_charges SET charged=?, status='uncertain' WHERE id=?",
+                       (2 * NANO - amount, first))
+        with ThreadPoolExecutor(2) as pool:
+            self.assertEqual(sum(key is not None for key in pool.map(reserve, range(2))), 1)
+        reopened = PilotBudget.open(self.access)
+        self.assertFalse(reopened.messaging_available(owner))
+        self.assertTrue(reopened.messaging_available(self.joined()))
+        with reopened.db() as db:
+            self.assertEqual(reopened._total(db), (2 * NANO, 0, 2 * NANO, 2))
+            db.execute('UPDATE ai_charges SET charged=charged+? WHERE id=?', (18 * NANO, first))
+        self.assertFalse(reopened.messaging_available(self.joined()))
 
     def test_reservation_rechecked_when_switch_flips(self):
         self.enable_chat()
@@ -152,6 +224,21 @@ class PilotSecurityTests(unittest.TestCase):
             self.assertEqual(self.budget.participant_usage(), [])
         finally:
             participant.reset(binding)
+
+    def test_counted_input_cannot_expand_output_reservation_past_invite_limit(self):
+        self.enable_chat()
+        context = participant.set(self.joined())
+        try:
+            with TurnReservation(self.budget, 'gpt-5.4', ('compose',)) as turn:
+                stage = turn.stage('compose')
+                with self.assertRaises(BudgetError):
+                    stage.check_input(800_000)
+                with self.assertRaises(BudgetError):
+                    stage.issued()
+                with self.budget.db() as db:
+                    self.assertEqual(db.execute('SELECT input_bound FROM ai_charges').fetchone(), (0,))
+        finally:
+            participant.reset(context)
 
     def test_http_gate_headers_csrf_browser_binding_and_revocation(self):
         origin = 'https://pilot.example.test'
@@ -175,7 +262,10 @@ class PilotSecurityTests(unittest.TestCase):
             finally:
                 connection.close()
 
-        self.assertEqual(request('GET', '/')[0], 401)
+        code, headers, body = request('GET', '/')
+        self.assertEqual(code, 303)
+        self.assertEqual(headers['Location'], '/pilot/join')
+        self.assertNotIn(b'/plans-workspace.js', body)
         self.assertEqual(request('GET', '/api/guest/session')[0], 401)
         self.assertEqual(request('GET', '/pilot/join', host='wrong.example.test')[0], 403)
         with self.assertLogs('daylight.pilot.access', level='INFO') as captured:
@@ -186,6 +276,7 @@ class PilotSecurityTests(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertEqual(headers['Strict-Transport-Security'], 'max-age=31536000')
         self.assertIn(b'Continue', body)
+        self.assertIn(b'Demo only', body)
         self.assertIn("script-src 'self'", headers['Content-Security-Policy'])
 
         def join():
@@ -196,7 +287,8 @@ class PilotSecurityTests(unittest.TestCase):
                 code, headers, _ = request('POST', '/pilot/redeem', data=body)
             self.assertEqual(code, 200)
             record = json.loads(captured.records[0].getMessage())
-            self.assertEqual(set(record), {'event', 'route', 'status', 'time'})
+            self.assertEqual(set(record), {'event', 'route', 'status', 'time', 'release'})
+            self.assertEqual(record['release'], headers['X-Daylight-Release'])
             self.assertEqual((record['route'], record['status']), ('/pilot/redeem', 200))
             self.assertNotIn(invite, captured.records[0].getMessage())
             self.assertIn('Secure; HttpOnly; SameSite=Strict', headers['Set-Cookie'])
@@ -226,5 +318,14 @@ class PilotSecurityTests(unittest.TestCase):
         self.assertNotEqual(renewed, both)
         csrf = json.loads(body)['csrf']
         self.assertEqual(request('POST', '/api/conversation/turn', cookie=renewed, data=message, csrf=csrf)[0], 429)
+        binding = participant.set(owner)
+        try:
+            charge = self.budget.reserve(1000, 900, 'gpt-5.4')
+            with self.budget.db() as db:
+                db.execute('UPDATE ai_charges SET charged=? WHERE id=?', (2 * NANO, charge))
+        finally:
+            participant.reset(binding)
+        self.assertEqual(request('POST', '/api/conversation/turn', cookie=renewed, data=message, csrf=csrf)[0], 503)
+        self.assertEqual(request('GET', '/api/conversation/initial', cookie=renewed)[0], 200)
         self.access.revoke(owner)
         self.assertEqual(request('GET', '/api/conversation/initial', cookie=renewed)[0], 401)

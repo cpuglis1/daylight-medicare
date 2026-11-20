@@ -10,6 +10,16 @@ and follow each entry's linked evidence packet.
 
 ## Current rules
 
+**Conversation integration (D154).** Read the Daylight Brain's `02 UX playbook`
+and [implementation rules](../../docs/product/CONVERSATION_IMPLEMENTATION.md)
+before UI or conversation work. :8895 is the shared working demo. A new doctor,
+drug or other capability must occur naturally from the ongoing conversation and
+its reported facts, using the same composer, guest visit and next question.
+Do not ship a launch button, parallel intake, separate tab or fictional setup as
+the user journey. Update model capability context and prove the route from the
+person's words, including correction and continuation. Source candidates and
+amounts stay in deterministic software. One agent at a time edits this surface.
+
 **UI (D93).** The :8894 refresh lives in `web-8894/`, served by `ui-8894/serve.py`,
 which forwards every other request to :8893. Do not edit `web/` for that work;
 :8893 stays the reference until the owner promotes :8894. Plans sorting,

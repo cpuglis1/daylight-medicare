@@ -247,7 +247,9 @@ class ConversationContinuityTests(unittest.TestCase):
         # reviewed statement takes its place, never the rejected amount.
         self.assertTrue(out['reply'])
         self.assertNotIn('$20', out['reply'])
-        self.assertTrue(out['notice'])
+        # D157 (CV-03): a failed reply no longer shows "I couldn't finish that answer".
+        self.assertNotIn('notice', out)
+        self.assertEqual(out['generated']['status'], 'unavailable')
         self.assertEqual(out['generated']['status'], 'unavailable')
         self.assertIn(out['assessment']['nextQuestion']['id'], {'T03', 'T05'})
         diagnostic = self.flow.composition_diagnostics[-1]

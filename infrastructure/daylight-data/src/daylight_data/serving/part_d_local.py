@@ -22,3 +22,17 @@ def fictional_report(case, choice):
             'medicines': [{key: value for key, value in med.items() if key != 'label'}
                           for med in case['medicines']],
             'pharmacy': choice['pharmacy'], 'offering_id': choice['offering_id']}
+
+
+def hosted_readers(root, binding_path, *, package_dsn, controls_dsn):
+    """D199: doctor and drug readers for the hosted invited fictional demo.
+
+    The hosted binding declares its purpose and its STOP-ledger copy; every read still
+    checks scope, the deadline, the control-file hashes and the ledger, and fails closed.
+    """
+    from .pilot_doctors import PilotDoctors
+    from .pilot_foundation import HOSTED_PURPOSE
+    def reader():
+        return PilotFoundation(binding_path, root=root, package_dsn=package_dsn,
+                               source_dsn=controls_dsn, served=HOSTED_PURPOSE)
+    return PilotDoctors(reader()), PartDEstimate(reader())

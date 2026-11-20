@@ -1,5 +1,7 @@
 # Daylight AWS launch workstream
 
+**Current launch work, November 18 (D185–D187).** Start with the [domain launch plan](DOMAIN_LAUNCH.md) and [step 1 execution record](STEP_1_ACCOUNT.md). The hosted target uses a $20 cumulative model cap and $2 per redeemed invite; it has not been deployed. The earlier $100 figure below records the D141 design.
+
 D141 · November 11, 2026. This is the continuation point for the secure backend
 and site launch. AWS `us-east-1`, CloudFront and AWS WAF are selected. Start
 with the existing invite-only pilot and one **$100 cumulative model budget**.
@@ -32,11 +34,31 @@ parity before the separately reviewed AWS deployment.
 
 ## Prepared locally
 
+The hosted **fictional display rehearsal** can use the shared frontend and
+bound display stores through the existing invite gate. With an isolated
+fictional cohort initialized by `pilot_admin.py`, set
+`DAYLIGHT_PILOT_DATABASE_URL` to the restored display database and run:
+
+```sh
+python -B alternatives/advisor-first/server.py --fixture --port 8893 \
+  --pilot-state /var/lib/daylight-pilot/fictional-cohort \
+  --pilot-origin https://pilot.example.org \
+  --pilot-display-binding /opt/daylight-pilot/evidence/binding.json
+```
+
+Run `package_display_rehearsal.py <verified-display-snapshot-dir> <new-archive>`
+to build the private archive from the working tree. It includes the exact
+compressed display backup and file hashes. Use the Python and dependency
+versions in the bound plan-type runtime, restore as a separate display
+database, and verify the two reader roles and source controls. The archive
+contains restricted Medigap evidence. Linux restore, provider approval,
+production secrets and deployment review are open.
+
 | Item | Implementation and verification |
 | --- | --- |
 | Guest access | Expiring, single-use invitations, server-side revocation, guest-cookie binding, CSRF and allowed routes in `pilot_access.py`. Durable saved profiles remain disabled in the invite-only pilot. |
 | Refresh | :8894 stores a non-authorizing request reference and presentation metadata. The backend recovers accepted reports and the current reply from its existing memory journal. Polling an in-flight reply performs free reads. |
-| Budget | `PilotBudget` reserves and settles all model stages within the single $100 ledger. Per-participant reporting, uncertain-charge holds, reconciliation and kill switches are implemented in the isolated rehearsal. |
+| Budget | `PilotBudget` reserves and settles all model stages within the persistent pilot ledger and both D185 ceilings. Per-participant reporting, uncertain-charge holds, reconciliation and kill switches are implemented in the isolated rehearsal. |
 | Pacing | The participant gate covers both free-text requests and choices that explicitly request AI composition. Free recovery has separate bounded slots. |
 | UI proxy | Host and browser origin are checked before rewriting the origin for the loopback backend. Request framing, body size and read timeouts are checked at the proxy. |
 | AWS policies | [edge-policies.json](edge-policies.json) prepares a CloudFront-scope WAF ACL, a cache policy with all TTLs zero and a guest origin request policy. Request sampling is disabled. CloudWatch receives counters. |
@@ -103,9 +125,10 @@ again against the exact release before participant admission.
    invitation, cookie, CSRF value, private URL, message or health fact.
 6. Configure the dedicated OpenAI project and exact permitted model endpoints
    from the verified account agreements and retention settings. Store its key
-   in the approved AWS secret store. OpenAI project spend alerts do not stop
-   requests; the application ledger must enforce the $100 ceiling. Verify any
-   additional account cutoff without treating an alert as a hard cap.
+   in the approved AWS secret store. D187 requires the dedicated OpenAI project's
+   $20 monthly limit with Enforce a hard limit enabled; verify it in the account.
+   The application ledger independently enforces the cumulative D185 ceilings.
+   Provider enforcement may slightly overshoot and resets monthly; the ledger does not.
    [OpenAI project budgets](https://help.openai.com/en/articles/9186755-managing-projects-in-the-api-platform).
    Bind every model stage and allowed model to the same cumulative ledger.
    Check the framework's historical budget seeding cannot populate the pilot

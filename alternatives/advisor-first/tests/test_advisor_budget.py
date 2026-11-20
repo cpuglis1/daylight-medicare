@@ -382,6 +382,8 @@ class AdvisorBudgetTests(unittest.TestCase):
         budget = self.base
         agent = SimpleNamespace(budget=budget)
         adaptive = SimpleNamespace(agent=SimpleNamespace(budget=budget),
+                                   pilot_knowledge=SimpleNamespace(surface=None),
+                                   plan_reviews=SimpleNamespace(),
                                    validate=lambda guide, record: (guide, record),
                                    initial=lambda: ({}, {}))
         return SimpleNamespace(

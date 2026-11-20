@@ -80,12 +80,14 @@ test('groups keep backend order; rows it did not sort go last',async()=>{
 });
 test('summaries name the pick or why there is none, and explain the method',async()=>{
   const {R}=load();R.configure(async()=>RESULT);R.update({v:1});await tick();
-  const path=R.summary('path',{original:'Original Medicare, with Medigap and a Part D drug plan'}).textContent;
-  assert.match(path,/Evaluation mode/);assert.match(path,/Top match: Original Medicare, with Medigap/);
-  assert.match(path,/What it used: Keep your doctors \(your priority\), Predictable costs\./);
+  // D157 (CN-04): the page carries one quiet link; the explanation opens from it.
+  assert.equal(R.summary('path',{}).textContent,'How Daylight sorted these');
+  const path=R.explain('path',{original:'Original Medicare, with Medigap and a Part D drug plan'}).textContent;
+  assert.doesNotMatch(path,/Evaluation mode|pilot/i);assert.match(path,/Top match: Original Medicare, with Medigap/);
+  assert.match(path,/What you told Daylight: Keep your doctors \(your priority\), Predictable costs\./);
   assert.match(path,/Commissions and any payment to Daylight are not part of this sorting/);
-  assert.match(R.summary('part_d').textContent,/No pick yet: fictional reason\./);
-  assert.match(R.summary('advantage').textContent,/Fictional: not available\./);
+  assert.match(R.explain('part_d').textContent,/No pick yet: fictional reason\./);
+  assert.match(R.explain('advantage').textContent,/Fictional: not available\./);
 });
 test('Medigap tab defaults to the evaluation order, grouped, and keeps the other sorts',async()=>{
   const env=load(['recommendation-view.js','medigap-plans.js']),{R,window,document,all}=env;
@@ -98,7 +100,7 @@ test('Medigap tab defaults to the evaluation order, grouped, and keeps the other
   const select=all(host).find(n=>n.tagName==='select'&&n.children.some(o=>o.value==='fit'));
   assert.equal(select.value,'fit');
   const list=document.getElementById('medigap-list');
-  assert.deepEqual(list.children.map(n=>n.tagName),['section','section','details']);
+  assert.deepEqual(list.children.map(n=>n.tagName),['section','section','section']);
   assert.deepEqual(all(list).filter(n=>n.dataset.medigapId).map(n=>n.dataset.medigapId),['g1','g2','n1','f1']);
   assert.match(list.children[0].textContent,/^Matches your priorities2 rates/);
   select.value='premium';select.onchange();
