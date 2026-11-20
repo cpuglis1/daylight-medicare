@@ -1,0 +1,67 @@
+{
+  "date_eastern": "2026-11-18",
+  "observed_via": "Authenticated AWS CloudShell and Namecheap UI in Firefox; values transcribed from observed output",
+  "account": "020055445580",
+  "region": "us-east-1",
+  "certificates": {
+    "viewer": {
+      "arn": "arn:aws:acm:us-east-1:020055445580:certificate/375918f2-e6df-407a-ab90-38f72a9b6747",
+      "domains": [
+        "daylightmedicare.com",
+        "test.daylightmedicare.com"
+      ],
+      "export": "DISABLED",
+      "status": "PENDING_VALIDATION"
+    },
+    "origin": {
+      "arn": "arn:aws:acm:us-east-1:020055445580:certificate/7dc53f28-855c-46c1-8683-81b3f6661957",
+      "domains": [
+        "origin.daylightmedicare.com"
+      ],
+      "export": "ENABLED",
+      "status": "PENDING_VALIDATION",
+      "approved_usd_per_issuance_or_renewal": 7
+    }
+  },
+  "dns_validation_records": [
+    {
+      "domain": "daylightmedicare.com",
+      "type": "CNAME",
+      "host": "_e74775961994b67300b4777580f260f3",
+      "value": "_a1d8fdb950b2c0315c369d113759001b.wzccmgtwzk.acm-validations.aws."
+    },
+    {
+      "domain": "test.daylightmedicare.com",
+      "type": "CNAME",
+      "host": "_8834cc9a8ad2890c7cbb084c26aa3805.test",
+      "value": "_9856db689537e79d2a72d621d352802d.wzccmgtwzk.acm-validations.aws."
+    },
+    {
+      "domain": "origin.daylightmedicare.com",
+      "type": "CNAME",
+      "host": "_978352daa92bc5f3ca5496f6ddcf8403.origin",
+      "value": "_1d47c612a0eda61aa62d40390a73c83b.wzccmgtwzk.acm-validations.aws."
+    }
+  ],
+  "pricing_plan_api": {
+    "boto3_service": "pricing-plan-manager",
+    "boto3_version": "1.43.83",
+    "list_subscriptions_http_status": 200,
+    "subscription_count": 0
+  },
+  "cloudfront_distribution_count_before_work": 0,
+  "namecheap_authenticated": false,
+  "dns_records_changed": false,
+  "waf_created": false,
+  "pro_purchased": false,
+  "app_deployed": false,
+  "cloudshell_evidence": "/home/cloudshell-user/daylight-pro/edge-evidence",
+  "next_actions": [
+    "Namecheap login and inspection of authoritative DNS/existing records",
+    "Add the three validation CNAMEs without changing mail records",
+    "Verify both certificates ISSUED",
+    "Disclose/approve temporary WAF prorated setup charge before creating edge resources",
+    "Create disabled distribution with block-all WAF and activate PRO only",
+    "Complete protected runtime and release checks before ingress/public activation"
+  ]
+}

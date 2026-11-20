@@ -1,0 +1,72 @@
+{
+  "date_eastern": "2026-11-18",
+  "observed_via": "Authenticated AWS CloudShell UI; selected readbacks transcribed, not raw API export",
+  "owner_confirmation": "yeah confirm.",
+  "account": "020055445580",
+  "region": "us-east-1",
+  "instance": "i-0f641362addf26b76",
+  "permission_change": {
+    "changeset": "arn:aws:cloudformation:us-east-1:020055445580:changeSet/runtime-read-access-20261119/aa6750d7-2f34-48cc-8d7c-fab2b231be45",
+    "status": "UPDATE_COMPLETE",
+    "template_matches_runtime_access_json": true,
+    "exact_role_policy_readback_verified": true,
+    "ingress_rules_after_update": 0,
+    "new_services_or_subscriptions": false
+  },
+  "private_install": {
+    "archive_sha256": "aaa19850dd02ccd61b25f633e170bc8f01d0321cbe26e5b1715874e2cfe3ec42",
+    "files_verified": 357,
+    "tls_exported_directly_on_host": true,
+    "private_key_mode": "0600",
+    "certificate_key_match": true,
+    "trust_chain_checked": true,
+    "origin_hostname_checked": true,
+    "python": "3.14.7",
+    "postgresql": "18.6",
+    "locked_dependencies_installed": true,
+    "runtime_command": "98e7bc8f-d5b0-461b-a7b1-bacbea290dde"
+  },
+  "restore": {
+    "database": "daylight_pilot_collier_2026_r1",
+    "volume": "vol-04a5e06e77ec054ac",
+    "volume_uuid": "e1ef476d-ef5c-4fb8-9b46-f81e9a2be7f6",
+    "encrypted": true,
+    "mount": "/var/lib/daylight-state",
+    "service": "daylight-postgres.service",
+    "unix_socket": "/var/lib/daylight-state/pgsocket",
+    "port": 55485,
+    "listen_addresses": "",
+    "read_only_default": "on",
+    "snapshot_id": "b60269211a7896a80ae0f1ebe66af1be37a0a4f58fcd9d70ef15accf5b16b47c",
+    "csg_rates": 55040,
+    "pdp_payloads": 3,
+    "command": "db8d6b8d-fe69-414d-b96f-62c46c9c9ef7",
+    "first_attempt": "mkfs rejected overlong label before initialization; shortened to daylight; guarded retry succeeded"
+  },
+  "verification": {
+    "command": "e9e079b5-c98c-4dc6-9ad6-6ebd0313fcca",
+    "status": "Success",
+    "all_8_csg_table_row_hashes_match": true,
+    "all_3_pdp_payload_hashes_match": true,
+    "exact_code_and_runtime_bindings_match": true,
+    "reader_privileges_verified": true,
+    "application_imports_on_linux": true,
+    "app_role_http_checks": "not run",
+    "fresh_local_source_reconciliation": "blocked: local PostgreSQL socket Operation not permitted"
+  },
+  "local_checks": {
+    "archive_checks": 6,
+    "volume_guard_cases": 6,
+    "volume_guard_unittest_count": 1,
+    "python_syntax": "passed",
+    "source_helper_zsh_syntax": "passed",
+    "live_model_calls": 0
+  },
+  "application_serving": false,
+  "public_traffic_enabled": false,
+  "cloudshell_evidence": "/home/cloudshell-user/daylight-pro/edge-evidence",
+  "host_evidence": [
+    "/var/lib/daylight-state/restore-receipt.json",
+    "/var/lib/daylight-state/restore-verification.json"
+  ]
+}

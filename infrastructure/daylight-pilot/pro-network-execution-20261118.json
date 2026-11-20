@@ -1,0 +1,78 @@
+{
+  "observation_method": "Transcribed from AWS CloudShell output observed through Firefox; full generated plans and verification receipts remain in the CloudShell evidence directory.",
+  "account": "020055445580",
+  "region": "us-east-1",
+  "stack": "daylight-pilot-foundation",
+  "authorization": "Owner answered yes to the action-time request for NAT removal and reuse of its IP on the host, preserving blocked inbound access.",
+  "stages": [
+    {
+      "stage": "remove-nat",
+      "change_set": "arn:aws:cloudformation:us-east-1:020055445580:changeSet/pro-remove-nat-20261118T234428Z/2fbc7f72-1d18-4562-91fa-5793256eb7f1",
+      "plan_sha256": "986453319bbdcf85ba0d5d4c4d33e4a59af23e1bbb4bd20004b8d40103cfc999",
+      "verified_at": "2026-11-18T23:52:16.111026+00:00",
+      "changes": {
+        "NatGateway": "Remove",
+        "PrivateRoute": "Modify without replacement"
+      }
+    },
+    {
+      "stage": "attach-address",
+      "change_set": "arn:aws:cloudformation:us-east-1:020055445580:changeSet/pro-attach-address-20261118T235237Z/034ecfcc-d933-42ae-a22f-dc44c07c25f1",
+      "plan_sha256": "98a266aef442702e76e32d15684f58234736571a7ecd197f9aefa88befd06644",
+      "verified_at": "2026-11-18T23:54:09.493331+00:00",
+      "changes": {
+        "OriginAddressAssociation": "Add"
+      }
+    }
+  ],
+  "preserved": {
+    "host": "i-0f641362addf26b76",
+    "host_eni": "eni-0c71d5bc5d1ccb184",
+    "volume_ids": [
+      "vol-04a5e06e77ec054ac",
+      "vol-0ecde0bdf0b3417eb"
+    ],
+    "allocation_id": "eipalloc-0424da677dbc19769",
+    "public_ip": "54.83.20.244",
+    "encrypted_gib": 50,
+    "cpu_credits": "standard"
+  },
+  "final": {
+    "live_stage": "attach-address",
+    "stable_stack": true,
+    "nat_removed": true,
+    "association_id": "eipassoc-0de8d3d566e65c098",
+    "inbound_rules": 0,
+    "disk_ids_preserved": true,
+    "public_site_live": false,
+    "pro_subscription_purchased": false
+  },
+  "ssm_round_trip": {
+    "CommandId": "aadba5bc-aa22-430c-a33b-3e5de546b979",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "StandardOutputContent": "daylight-network-ok",
+    "StandardErrorContent": "",
+    "ExecutionEndDateTime": "2026-11-18T23:54:29.679Z"
+  },
+  "estimates_730_hours": {
+    "current_baseline_usd": 39.42,
+    "nat_monthly_reduction_usd": 32.85,
+    "pro_not_yet_purchased_usd": 15,
+    "proposed_baseline_with_pro_usd": 54.42,
+    "exclusions": [
+      "metered usage",
+      "applicable tax",
+      "origin certificate issuance/renewal"
+    ]
+  },
+  "cloudshell_evidence_directory": "/home/cloudshell-user/daylight-pro/pro-migration-evidence",
+  "open": [
+    "Pro eligibility and activation",
+    "DNS and TLS",
+    "Authenticated proxy and restricted CloudFront ingress",
+    "Runtime integration and deployment pipeline",
+    "Durable consented history and bounded backups/logs",
+    "Shared AI allowance binding and remaining spending controls"
+  ]
+}
