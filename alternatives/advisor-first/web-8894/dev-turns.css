@@ -1,0 +1,42 @@
+/*
+ * Dev turn panel styles (D155 Q6b). Loaded with dev-turns.js; inert unless the
+ * local backend reports devTraces. Uses the shared design tokens so it follows
+ * the page theme. Wide screens dock the panel on the right and pad the page;
+ * narrow screens show it as a full-width sheet over the chat.
+ */
+.dt-toggle {
+  /* Right edge, mid height: the footer links (Privacy & saving) and the chat
+     box sit at the bottom corners, so a bottom-right toggle covered them. */
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 60;
+  font: 600 0.875rem var(--font-ui); color: var(--paper); background: var(--ink);
+  border: 0; border-radius: var(--radius-control, 8px) 0 0 var(--radius-control, 8px); padding: 8px 12px; cursor: pointer;
+}
+.dt-toggle:focus-visible, .dt-panel button:focus-visible, .dt-panel summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.dt-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61; width: min(440px, 100vw);
+  display: flex; flex-direction: column; background: var(--paper); color: var(--ink);
+  border-left: 1px solid var(--line); box-shadow: var(--elev-2); font: 0.8125rem/1.45 var(--font-ui);
+}
+.dt-panel[hidden] { display: none; }
+@media (min-width: 1100px) { body.dt-open { padding-right: 440px; } }
+.dt-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.dt-header h2 { font-size: 1rem; margin: 0; }
+.dt-note { color: var(--ink-2); font-size: 0.75rem; flex: 1; }
+.dt-close, .dt-copy { font: inherit; background: var(--surface-2); color: var(--ink); border: 1px solid var(--control-edge); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.dt-list { list-style: none; margin: 0; padding: 8px; max-height: 30vh; overflow: auto; border-bottom: 1px solid var(--line); }
+.dt-item button { width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-radius: 6px; padding: 6px 8px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dt-item button:hover { background: var(--surface-2); }
+.dt-item.dt-selected button { background: var(--surface-2); font-weight: 600; }
+.dt-pane { flex: 1; overflow: auto; padding: 12px 16px 48px; }
+.dt-turn-head { display: flex; align-items: center; gap: 8px; }
+.dt-id { font-size: 0.75rem; word-break: break-all; flex: 1; }
+.dt-meta, .dt-empty { color: var(--ink-2); margin: 4px 0; }
+.dt-message { font-style: italic; margin: 8px 0; }
+.dt-error { color: #a4262c; margin: 4px 0; }
+.dt-section { margin-top: 14px; }
+.dt-section h3 { font-size: 0.8125rem; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-2); }
+.dt-row { margin: 4px 0; word-break: break-word; }
+.dt-strong { font-weight: 600; }
+.dt-reveal summary { cursor: pointer; color: var(--accent); margin: 2px 0; }
+.dt-panel pre { white-space: pre-wrap; word-break: break-word; max-height: 50vh; overflow: auto; background: var(--surface-2); padding: 8px; border-radius: 6px; font-size: 0.75rem; margin: 4px 0; }
+@media (prefers-color-scheme: dark) { .dt-error { color: #ff8a8a; } }

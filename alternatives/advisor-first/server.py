@@ -53,7 +53,7 @@ from part_d_profile import profile as part_d_profile_view
 def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=None,
           research_repository=None, reference_adapter=None, identity_service=None,
           comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None,
-          medigap_repository=None, part_d_repository=None, local_demo=False):
+          medigap_repository=None, part_d_repository=None, local_demo=False, turn_traces=None):
     if port in {8890,8891,8896}:
         raise ValueError('That port belongs to a preserved Daylight surface.')
     if pilot_origin is not None:
@@ -203,6 +203,15 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
         # with the pilot gate (checked above), so participants never see it.
         from recommendation_http import install_recommendation
         service = install_recommendation(service, medigap_repository, part_d_repository)
+    # D155 Q6a: a local test run saves every turn for the dev side panel; the
+    # pilot and any hosted origin never do (install_turn_traces refuses them).
+    # build() leaves traces off unless asked, so tests and other callers never
+    # write trace files; the command-line run below turns them on.
+    if turn_traces:
+        from turn_trace import install_turn_traces
+        trace_root = Path(turn_traces) if isinstance(turn_traces, (str, Path)) else REPO/'cms-slice/var/turn-traces'
+        service = install_turn_traces(service, trace_root, pilot=pilot is not None, hosted=pilot_origin is not None)
+        config['devTraces'] = True
     if pilot:
         service.adaptive.agent.budget = pilot_budget
         # Owner direction (DQ-01 pilot scope): replies say this is a pilot on 2026 sample data.
@@ -226,6 +235,8 @@ if __name__ == '__main__':
                         help='Connect the exact existing private 2026 research build; no consumer release.')
     parser.add_argument('--pilot-data', type=Path,
                         help='Use a verified local display-subset binding and DAYLIGHT_PILOT_DATABASE_URL.')
+    parser.add_argument('--no-turn-traces', action='store_true',
+                        help='Do not save local turn traces (they are saved by default outside the pilot).')
     parser.add_argument('--identity-research',action='store_true',
                         help='Explicit internal-only identity review; no consumer source purpose or personal findings.')
     args=parser.parse_args()
@@ -266,7 +277,9 @@ if __name__ == '__main__':
                   research_repository=repository,reference_adapter=reference_adapter,identity_service=identity_service,
                   comparison_preview=args.comparison_preview,research_catalog=research_catalog,
                   pilot_state=args.pilot_state,pilot_origin=args.pilot_origin,
-                  medigap_repository=medigap_repository,part_d_repository=part_d_repository)
+                  medigap_repository=medigap_repository,part_d_repository=part_d_repository,
+                  # D155 Q6a: local runs save turn traces; the pilot rehearsal never does.
+                  turn_traces=not (args.no_turn_traces or args.pilot_state or args.pilot_origin))
     try:
         if args.pilot_origin:
             import logging
