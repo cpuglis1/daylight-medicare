@@ -195,6 +195,18 @@ class TraceUnitTests(unittest.TestCase):
         self.assertEqual(sorted(p.stem for p in self.root.glob('*.json')), ids[1:])
         self.assertIsNone(store.get('../../etc/passwd'))
 
+    def test_a_repeated_turn_id_never_replaces_a_saved_turn_or_another_owners(self):
+        """A replay keeps the first ok record; another owner never overwrites; a failed record can be replaced by its owner."""
+        store = turn_trace.TraceStore(self.root)
+        store.save({'turnId': 'turn-000001', 'owner': 'a', 'status': 'ok', 'reply': 'first'})
+        self.assertFalse(store.save({'turnId': 'turn-000001', 'owner': 'a', 'status': 'ok', 'reply': 'replay'}))
+        self.assertFalse(store.save({'turnId': 'turn-000001', 'owner': 'b', 'status': 'ok', 'reply': 'other'}))
+        self.assertEqual(store.get('turn-000001')['reply'], 'first')
+        store.save({'turnId': 'turn-000002', 'owner': 'a', 'status': 'error', 'reply': None})
+        self.assertFalse(store.save({'turnId': 'turn-000002', 'owner': 'b', 'status': 'ok', 'reply': 'other'}))
+        self.assertTrue(store.save({'turnId': 'turn-000002', 'owner': 'a', 'status': 'ok', 'reply': 'retried'}))
+        self.assertEqual(store.get('turn-000002')['reply'], 'retried')
+
     def test_show_turn_cli_prints_a_turn_by_id(self):
         """Agents retrieve a saved turn by ID; --summary shows each panel section."""
         import show_turn

@@ -28,17 +28,23 @@ python3 tools/evaluation/sim_conversations.py --base http://127.0.0.1:8893 --all
 - Results land in `cms-slice/var/sim-runs/<time>/` (`results.json`,
   `report.md`), which is gitignored. Each turn's ID opens in the dev Turns panel
   or with `python3 tools/show_turn.py <id>`.
-- Exit code: 0 all checks pass or have no data, 1 a check failed or the budget
-  stopped the run, 2 a setup error.
+- Exit code: 0 when every check passes or has no data; 1 when a check failed,
+  a judge errored, a `must_cover` / `must_not_claim` item failed, a
+  conversation errored or the budget stopped the run; 2 a setup error.
 
 ## Cost rules
 
-- The simulated person and the judges run through `claude -p` on Charlie's
+- The simulated person and the judges run through `claude -p --safe-mode` in
+  an empty temp folder (no CLAUDE.md, hooks or skills) on Charlie's
   subscription (default models: person `sonnet`, judges `haiku,sonnet`; the
   second judge decides when the first is under 0.7 confidence).
 - Daylight's own model calls are metered by the server's `/api/status`
   budget. The run stops before a turn that could push this run's spend past
-  `--cap-usd` (default and maximum $10; above $10 only with `--all`).
+  `--cap-usd` (default and maximum $10, `--all` included). The next turn
+  is estimated from the costliest turn so far, so a turn costlier than any
+  before it (the first turn included) can pass the cap by that one turn. Spend is the sum
+  of each turn's meter increase; a meter that disappears or goes down (the
+  server's budget resets each UTC day) stops the run.
 - A fixture server has no meter, so it needs `--allow-unmetered`. Running
   against a live server spends real money: only when Charlie asks. The full
   set (about $30) runs only on request.

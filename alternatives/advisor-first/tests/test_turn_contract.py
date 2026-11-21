@@ -137,7 +137,10 @@ class TurnContractTests(unittest.TestCase):
         for _ in range(7):
             self.case.message('Tell me more.', compose={'question_target': None, 'question': '', 'reply': 'We can continue.'})
         context = self.case.composed_context()
-        self.assertNotIn(text, json.dumps(context['recent_exchanges']))
+        # D155 Q11: the whole visit chat is sent, so the quote is still in the
+        # exchanges; the report must also be carried as a report, and the saved
+        # transcript must not grow a working assessment (checked below).
+        self.assertIn(text, json.dumps(context['recent_exchanges']))
         self.assertEqual(self.case.flow.value(self.case.g, 'situation.age65')['first_day'], False)
         self.assertIn('guide.situation.age65', [item['id'] for item in context['reports'] + context['known']])
         self.assertNotIn('S_AGE65', [c['id'] for c in self.case.flow.eligible(self.case.owner, self.case.g, self.case.r)])

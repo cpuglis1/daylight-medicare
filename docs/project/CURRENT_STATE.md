@@ -1,6 +1,6 @@
 # Daylight: current state
 
-Living document · last updated November 12, 2026 (America/New_York), through D153. Edit this
+Living document · last updated November 21, 2026 (America/New_York), through D155. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 

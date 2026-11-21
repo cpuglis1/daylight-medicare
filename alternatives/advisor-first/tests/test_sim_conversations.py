@@ -7,10 +7,14 @@ opening, a scripted event and simulated replies, links each turn ID to its
 saved trace, asks one judge per check plus one per must item, escalates a
 low-confidence verdict to the strong judge, and writes a report;
 (3) a 429 from the advisor's 8-turns-per-minute limit is waited out
-and retried, not recorded as a failed turn; the budget meter stops the run before a turn that could pass the cap, and
+and retried, not recorded as a failed turn; the budget meter stops the run
+before a turn that could pass the cap, stops on a meter that falls (UTC day
+reset) or disappears, never allows a cap above $10 (--all included), and
 refuses an unmetered server unless allowed; (4) scoring applies floors,
-failOnAny and not-applicable; (5) a judge returning junk is an error, not a
-pass; (6) a non-loopback base is refused. No live models, no real spend.
+failOnAny and not-applicable, and a judge error marks the check 'error';
+(5) a judge returning junk, or a failed must item, fails the exit code;
+(6) a non-loopback base is refused; (7) `claude -p` runs with --safe-mode in
+an empty temp folder. No live models, no real spend.
 """
 import json
 import os
@@ -40,14 +44,19 @@ model = args[args.index('--model') + 1]
 prompt = sys.stdin.read()
 with open(os.environ['FAKE_LOG'], 'a') as log:
     log.write(json.dumps({'model': model, 'person': 'leaving' in schema['properties'],
+                          'safe': '--safe-mode' in args, 'cwd': os.getcwd(),
                           'privacy': 'never asks for, invites' in prompt}) + '\n')
 mode = os.environ.get('FAKE_JUDGE', 'pass')
 if 'leaving' in schema['properties']:
     out = {'message': "I'm not sure.", 'leaving': False}
+elif mode == 'junkchecks' and 'pass means Daylight did NOT do it' not in prompt and 'pass means Daylight covered it' not in prompt:
+    print('not json at all'); sys.exit(0)
 elif mode == 'junk':
     print('not json at all'); sys.exit(0)
 elif mode == 'lowconf' and model == 'cheap':
     out = {'applicable': True, 'pass': False, 'confidence': 0.3, 'reason': 'unsure'}
+elif mode == 'itemfail' and 'pass means Daylight did NOT do it' in prompt:
+    out = {'applicable': True, 'pass': False, 'confidence': 0.9, 'reason': 'item missed'}
 elif mode == 'fail' and 'never asks for, invites' in prompt:
     out = {'applicable': True, 'pass': False, 'confidence': 0.9, 'reason': 'asked for the number in turn 2'}
 else:
@@ -155,6 +164,8 @@ class RunTests(Base):
         self.assertTrue(all(c['model'] == 'cheap' for c in judges))
         self.assertEqual(code, 0)
         self.assertTrue((self.dir / 'out/report.md').exists())
+        self.assertTrue(all(c['safe'] for c in self.calls()), 'every claude call uses --safe-mode')
+        self.assertTrue(all(Path(c['cwd']).name.startswith('sim-claude-') for c in self.calls()), 'an empty temp cwd')
 
     def test_low_confidence_escalates_to_the_strong_judge(self):
         """A cheap verdict under 0.7 is replaced by the strong judge's verdict."""
@@ -171,12 +182,47 @@ class RunTests(Base):
         self.assertEqual(code, 1)
 
     def test_junk_judge_output_is_an_error_not_a_pass(self):
-        """Unparseable judge output is recorded as an error and counts as no data."""
+        """Unparseable judge output is recorded as an error, the check's status is 'error' and the exit code is 1."""
         with mock.patch.dict(os.environ, {'FAKE_JUDGE': 'junk'}):
-            _, result = self.run_main('--case', 'c13-dont-know-repeatedly', '--probes-only')
+            code, result = self.run_main('--case', 'c13-dont-know-repeatedly', '--probes-only')
         verdicts = result['runs'][0]['checks']
         self.assertTrue(all('error' in v for v in verdicts.values()))
-        self.assertEqual(result['summary']['no_reask']['status'], 'no_data')
+        self.assertEqual(result['summary']['no_reask']['status'], 'error')
+        self.assertEqual(code, 1)
+
+    def test_a_check_error_alone_fails_the_exit_code(self):
+        """Judges error on checks but every must item passes: the exit code is still 1."""
+        with mock.patch.dict(os.environ, {'FAKE_JUDGE': 'junkchecks'}):
+            code, result = self.run_main('--case', 'c17-privacy-probe', '--probes-only')
+        self.assertTrue(result['runs'][0]['items'] and all(i.get('pass') for i in result['runs'][0]['items']))
+        self.assertIn('error', {s['status'] for s in result['summary'].values()})
+        self.assertEqual(code, 1)
+
+    def test_an_unreachable_advisor_is_a_run_error_and_a_missing_meter(self):
+        """A refused connection raises RunError from request() and reads as no meter, never an OSError."""
+        import socket
+        with socket.socket() as probe:
+            probe.bind(('127.0.0.1', 0))
+            port = probe.getsockname()[1]
+        advisor = sim.Advisor(f'http://127.0.0.1:{port}')
+        with self.assertRaises(sim.RunError):
+            advisor.request('/api/status')
+        self.assertIsNone(advisor.spent_usd())
+
+    def test_a_failed_must_item_fails_the_exit_code(self):
+        """Checks all pass but one must_not_claim item fails: the exit code is 1."""
+        with mock.patch.dict(os.environ, {'FAKE_JUDGE': 'itemfail'}):
+            code, result = self.run_main('--case', 'c17-privacy-probe', '--probes-only')
+        self.assertTrue(all(s['status'] in {'pass', 'no_data'} for s in result['summary'].values()))
+        self.assertTrue(any(not i['pass'] for i in result['runs'][0]['items']))
+        self.assertEqual(code, 1)
+
+    def test_an_errored_conversation_fails_the_exit_code(self):
+        """A conversation that raises mid-run is recorded and makes the exit code 1."""
+        with mock.patch.object(sim, 'run_conversation', side_effect=RuntimeError('advisor said 500')):
+            code, result = self.run_main('--case', 'c13-dont-know-repeatedly')
+        self.assertIn('500', result['runs'][0]['error'])
+        self.assertEqual(code, 1)
 
     def test_unmetered_server_is_refused_without_the_flag(self):
         """A fixture server has no budget meter, so a run needs --allow-unmetered."""
@@ -197,6 +243,36 @@ class RunTests(Base):
         self.assertLessEqual(result['meta']['spentUsd'], 10.0)
         self.assertEqual(result['runs'], [])
 
+    def meter_run(self, readings):
+        """Run c13 with the meter returning `readings` in order; returns (code, results)."""
+        values = iter(readings)
+        with mock.patch.object(sim.Advisor, 'spent_usd', lambda self: next(values)):
+            code = sim.main(['--base', self.base, '--case', 'c13-dont-know-repeatedly', '--out', str(self.dir / 'm'),
+                             '--judge-models', 'cheap', '--person-model', 'person'])
+        return code, json.loads((self.dir / 'm/results.json').read_text())
+
+    def test_a_meter_that_goes_down_stops_the_run(self):
+        """The server's daily budget resets at UTC midnight; the run stops instead of counting from zero."""
+        code, result = self.meter_run([9.0, 9.5, 0.2] + [0.2 + i for i in range(100)])
+        self.assertEqual(code, 1)
+        self.assertIn('went down', result['meta']['budgetStop'])
+        self.assertAlmostEqual(result['meta']['spentUsd'], 0.5)
+
+    def test_a_meter_that_disappears_stops_the_run(self):
+        """A meter that reads None mid-run is a budget stop, not an uncapped turn or a crash."""
+        code, result = self.meter_run([1.0, 1.1, None] + [None] * 100)
+        self.assertEqual(code, 1)
+        self.assertIn('disappeared', result['meta']['budgetStop'])
+
+    def test_cap_above_ten_is_refused_even_with_all(self):
+        """--cap-usd 30 is a usage error with or without --all, before any call."""
+        for extra in ((), ('--all',)):
+            with self.subTest(extra=extra), self.assertRaises(SystemExit) as stop, \
+                    mock.patch('sys.stderr'):
+                sim.main(['--base', self.base, '--cap-usd', '30', '--dry-run', *extra])
+            self.assertEqual(stop.exception.code, 2)
+        self.assertEqual(self.calls(), [])
+
 
 class ScoreTests(unittest.TestCase):
     """Floors, failOnAny and not applicable."""
@@ -213,6 +289,13 @@ class ScoreTests(unittest.TestCase):
         self.assertEqual(summary['a']['status'], 'pass')
         self.assertEqual(summary['b']['status'], 'fail')
         self.assertEqual(summary['c']['status'], 'no_data')
+
+    def test_an_errored_verdict_is_an_error_not_a_pass(self):
+        """19 passes plus one judge error on a failOnAny gate is 'error', not 'pass'."""
+        checks = [{'id': 'g', 'floor': 1.0, 'failOnAny': True}]
+        runs = [{'checks': {'g': {'applicable': True, 'pass': True}}} for _ in range(19)]
+        runs.append({'checks': {'g': {'error': 'judge returned junk'}}})
+        self.assertEqual(sim.score(runs, checks)['g']['status'], 'error')
 
 
 if __name__ == '__main__':

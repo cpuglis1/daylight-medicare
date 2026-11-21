@@ -126,16 +126,33 @@ class TraceStore:
         return self.root / f'{turn_id}.json'
 
     def save(self, record):
-        """Write one turn record atomically, then prune the oldest files."""
+        """Write one turn record atomically, then prune the oldest files.
+
+        A turn ID is chosen by the client, so the same ID can arrive again: a
+        replay of an answered turn, a refused retry, or another visitor. The
+        first successful record for an ID is kept; a later record replaces an
+        existing one only when that one failed and belongs to the same owner.
+
+        Returns:
+            True when the record was written, False when an existing one was kept.
+        """
         target = self.path(record['turnId'])
         temporary = target.with_suffix('.tmp')
         with self.lock:
+            try:
+                existing = json.loads(target.read_text())
+            except (OSError, ValueError):
+                existing = None
+            if isinstance(existing, dict) and (existing.get('owner') != record.get('owner')
+                                               or existing.get('status') == 'ok'):
+                return False
             temporary.write_text(json.dumps(record, ensure_ascii=False, indent=1, default=str))
             os.chmod(temporary, 0o600)
             temporary.replace(target)
             files = sorted(self.root.glob('*.json'), key=lambda item: item.stat().st_mtime)
             for old in files[:max(0, len(files) - self.max_turns)]:
                 old.unlink(missing_ok=True)
+        return True
 
     def get(self, turn_id, owner=None):
         """Return one record, or None when missing or owned by someone else.

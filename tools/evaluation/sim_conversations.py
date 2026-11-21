@@ -19,6 +19,8 @@ Who pays (D155 Q7): the simulated person and the judges are `claude -p` calls on
 Charlie's subscription (no API key read here). Daylight's own model calls are
 metered by the server's /api/status ai_budget.accountedUsd; the run stops before
 a turn that could push Daylight's spend for this run past --cap-usd (default $10).
+The next turn is estimated from the costliest turn so far, so one turn that
+costs more than any before it can pass the cap by that turn's cost.
 A server with no budget meter (fixture mode) runs only with --allow-unmetered.
 Running this against a live (non-fixture) server spends real money: run it only
 when Charlie asks.
@@ -47,6 +49,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import tempfile
 import sys
 import time
 from urllib.parse import urlsplit
@@ -163,11 +166,15 @@ def claude_json(prompt, schema, model, timeout=300):
     Raises:
         RuntimeError: non-zero exit, a timeout, or output that is not that JSON.
     """
-    command = [os.environ.get('CLAUDE_BIN', 'claude'), '-p', '--tools', '', '--strict-mcp-config',
+    # --safe-mode drops CLAUDE.md, skills, hooks and plugins but keeps the
+    # subscription sign-in (--bare would need an API key). The empty temp cwd
+    # keeps the repo's CLAUDE.md and AGENTS.md out of the person and judges.
+    command = [os.environ.get('CLAUDE_BIN', 'claude'), '-p', '--safe-mode', '--tools', '', '--strict-mcp-config',
                '--no-session-persistence', '--output-format', 'json',
                '--json-schema', json.dumps(schema), '--model', model]
     try:
-        done = subprocess.run(command, input=prompt, capture_output=True, text=True, timeout=timeout)
+        with tempfile.TemporaryDirectory(prefix='sim-claude-') as empty:
+            done = subprocess.run(command, input=prompt, capture_output=True, text=True, timeout=timeout, cwd=empty)
     except subprocess.TimeoutExpired:
         raise RuntimeError(f'claude -p timed out after {timeout}s') from None
     if done.returncode:
@@ -209,7 +216,13 @@ class Advisor:
         self.csrf = None
 
     def request(self, path, payload=None):
-        """Send one request; returns (status, parsed JSON or {})."""
+        """Send one request; returns (status, parsed JSON or {}).
+
+        Raises:
+            RunError: when the advisor cannot be reached or drops the connection.
+                It is a RuntimeError, so mid-run it is recorded as that
+                conversation's error and the report is still written.
+        """
         connection = http.client.HTTPConnection(self.host, self.port, timeout=300)
         headers = {'Origin': self.origin, 'Accept': 'application/json'}
         if self.cookie:
@@ -229,6 +242,8 @@ class Advisor:
                 return response.status, json.loads(raw) if raw else {}
             except ValueError:
                 return response.status, {}
+        except (OSError, http.client.HTTPException) as error:
+            raise RunError(f'Advisor at {self.origin} unreachable: {type(error).__name__}: {error}') from None
         finally:
             connection.close()
 
@@ -245,8 +260,11 @@ class Advisor:
         return initial
 
     def spent_usd(self):
-        """Return /api/status ai_budget.accountedUsd, or None when the server has no meter."""
-        status, value = self.request('/api/status')
+        """Return /api/status ai_budget.accountedUsd, or None when the server has no meter or is unreachable."""
+        try:
+            status, value = self.request('/api/status')
+        except RunError:
+            return None  # Mid-run, a missing meter is a budget stop (Meter.after_turn).
         budget = value.get('ai_budget') if status == 200 else None
         spent = budget.get('accountedUsd') if isinstance(budget, dict) else None
         return float(spent) if isinstance(spent, (int, float)) else None
@@ -282,11 +300,12 @@ class Meter:
         if self.start is None and not allow_unmetered:
             raise RunError('The advisor reports no AI budget meter; use --allow-unmetered only for a fixture server.')
         self.largest_turn = 0.0
+        self.total = 0.0
         self.last = self.start
 
     def spent(self):
-        """Daylight spend so far this run, in USD (0 when unmetered)."""
-        return 0.0 if self.start is None else max(0.0, (self.last or 0) - self.start)
+        """Daylight spend so far this run, in USD: the sum of each turn's meter increase (0 when unmetered)."""
+        return self.total
 
     def before_turn(self):
         """Raise BudgetStop if the next turn, sized like the largest so far, could pass the cap."""
@@ -297,10 +316,17 @@ class Meter:
         """Read the meter and remember the costliest turn."""
         if self.start is None:
             return
-        before, self.last = self.last, self.advisor.spent_usd()
-        if self.last is None:
-            raise RunError('The AI budget meter disappeared mid-run.')
-        self.largest_turn = max(self.largest_turn, self.last - before)
+        now = self.advisor.spent_usd()
+        # A missing or falling meter (the server's budget is per UTC day, so it
+        # drops at midnight) means spend can no longer be measured: stop the run
+        # rather than let a turn through uncounted.
+        if now is None:
+            raise BudgetStop('The AI budget meter disappeared mid-run.')
+        if now < self.last:
+            raise BudgetStop('The AI budget meter went down (a new budget day?); stopping so spend stays measured.')
+        turn, self.last = now - self.last, now
+        self.total += turn
+        self.largest_turn = max(self.largest_turn, turn)
 
 
 def person_prompt(case, transcript, number):
@@ -448,7 +474,7 @@ def score(runs, checks):
 
     Returns:
         {check_id: {passed, applicable, rate, floor, failOnAny, status, errors}}
-        where status is pass, fail or no_data.
+        where status is pass, fail, error (a judge failed) or no_data.
     """
     summary = {}
     for check in checks:
@@ -457,7 +483,11 @@ def score(runs, checks):
         applicable = [v for v in verdicts if 'error' not in v and v['applicable']]
         passed = sum(1 for v in applicable if v['pass'])
         rate = passed / len(applicable) if applicable else None
-        if rate is None:
+        if errors:
+            # A verdict the judge could not give is not a pass: the check fails
+            # until it is re-judged, so a broken judge never hides a failure.
+            status = 'error'
+        elif rate is None:
             status = 'no_data'
         elif check['failOnAny'] and passed < len(applicable):
             status = 'fail'
@@ -524,8 +554,10 @@ def main(argv=None):
     parser.add_argument('--out', type=Path, default=None)
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
-    if args.trials < 1 or args.cap_usd <= 0 or args.cap_usd > 10 and not args.all:
-        parser.error('trials must be at least 1; the cap is above $0 and at most $10 unless --all.')
+    # AGENTS.md hard rule (D155): Daylight's own calls are capped at $10 per
+    # run, --all included; a full set over $10 means several runs, each asked for.
+    if args.trials < 1 or args.cap_usd <= 0 or args.cap_usd > 10:
+        parser.error('trials must be at least 1; the cap is above $0 and at most $10.')
     try:
         checks = load_checks()
         cases = load_cases(check_ids={c['id'] for c in checks})
@@ -566,9 +598,12 @@ def main(argv=None):
             'consistency': consistency(runs) if args.trials > 1 else None, 'judges': judges}
     report = write_report(args.out or OUT_ROOT / started, runs, summary, meta)
     print(f'Report: {report}')
-    failed = [cid for cid, s in summary.items() if s['status'] == 'fail']
+    failed = [cid for cid, s in summary.items() if s['status'] in {'fail', 'error'}]
+    broken = [f"{r['key']} (trial {r['trial']})" for r in runs if r.get('error')]
+    items = sum(1 for r in runs for i in r.get('items', []) if 'error' in i or not i['pass'])
     print('Failed checks: ' + (', '.join(failed) if failed else 'none'))
-    return 1 if failed or budget_stop else 0
+    print(f'Failed must items: {items}; conversations that errored: ' + (', '.join(broken) if broken else 'none'))
+    return 1 if failed or broken or items or budget_stop else 0
 
 
 if __name__ == '__main__':

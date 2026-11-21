@@ -69,17 +69,24 @@ or selecting never calls AI or infers preferences.
 - $15 per UTC day for OpenAI and, separately, $15 for Anthropic (raised from $5 on Nov 8, 2026 for the 20-persona evaluation). Admit a turn
   while accounted usage is below the threshold; let the bounded turn finish.
 - At most two composition attempts: one recovery slot, shared by connection
-  recovery and a same-model repair. HTTP, billing and factual rejections are not retried.
+  recovery and a same-model repair. Exception (D155 Q5): a reply with an
+  unsourced fact or amount gets up to 3 repairs (`FACT_REPAIR_LIMIT`), then the
+  retrieved source is quoted or the "reviewed sources don't cover that yet"
+  note is shown. HTTP and billing rejections are not retried.
 - No fixed input-token ceiling; output and transport limits remain.
 - Session recovery is free and never executes the rejected action.
 
 **Privacy.** Raw chat stays visit-only. Saving is a separate choice. No research
-row enters saved reports or model context. No new transcript persistence,
-including in traces.
+row enters saved reports or model context. No new transcript persistence for
+real users or the pilot, including in traces. Exception (D155, this branch):
+localhost testing may save raw chat and turn traces; the pilot is hard-off.
 
 ## Checks
 
 Use offline, network-forbidden tests and fictional personas
-(`tests/persona_runner.py`). Do not run live model conversations or paid probes;
-the owner assesses conversation quality. Record actual results in a dated
+(`tests/persona_runner.py`). No paid probes. Agent-run simulated conversations
+(`tools/evaluation/sim_conversations.py`, D155) run the simulated person and
+judges on the owner's subscription, cap Daylight's own calls at $10 per run, and
+run against a live server only when the owner asks; the full set runs only on
+request. The owner still assesses conversation quality. Record actual results in a dated
 `audit-evidence/` packet.
