@@ -1058,10 +1058,15 @@ class NaturalConversation(AdvisorConversation):
                 'Optional familiarity question only if needed to calibrate explanations; do not make it a required intake step.')
         # Current insurance helps establish the timing rules before asking for
         # a preferred start, including when the birthday is not yet known.
-        # Birthday does not establish desired start or enrollment.
+        # Birthday does not establish desired start or enrollment. Q2 (D155):
+        # this is guidance the AI weighs (its purpose text and the suggested
+        # order), not a rule code enforces.
         if metadata(r)['task'] == 'timing' or self.value(g, 'situation.age65'):
             for item in candidates:
-                if item['id'] == 'T05': item['priority'] = 0
+                if item['id'] == 'T05':
+                    item['priority'] = 0
+                    item['purpose'] = ('When timing matters, current insurance usually comes before a preferred '
+                                       'start date because it decides which enrollment rules apply.')
         readiness = plan_readiness(g, r)
         if readiness['active']:
             needed = self.plan_questions(g, r, readiness)
@@ -1730,9 +1735,15 @@ class NaturalConversation(AdvisorConversation):
             context['applicable_rules'] = [{**rule, 'statement': self.facts[rule['fact_id']]['summary']} for rule in rules]
         if required_id:
             candidate = next(item for item in moves if item['id'] == required_id)
-            context['required_target'] = {'id': required_id, 'reason': required_reason,
+            # Q2 (D155): only code gates (an unresolved report, a pending
+            # question or a locked re-confirmation) must be asked now. A rule
+            # or decision-relevant meaning must be answered before plans; the
+            # AI chooses when. The plan gate itself stays in plan_readiness.
+            ask_now = required_reason in {'clarification', 'pending'}
+            context['required_target'] = {'id': required_id, 'reason': required_reason, 'ask_now': ask_now,
                 'question': candidate['question'].get('question') if isinstance(candidate.get('question'), dict) else candidate.get('question'),
-                'rule': 'Your question must target this meaning unless the person asked to pause. You write the wording.'}
+                'rule': ('Your question must target this meaning unless the person asked to pause. You write the wording.' if ask_now
+                         else 'This meaning must be answered before plans can be shown. Ask it when it fits the conversation; you write the wording.')}
         for identifier in list(dict.fromkeys(ids))[:8]:
             if identifier in self.facts:
                 evidence[identifier] = self.facts[identifier]
