@@ -26,7 +26,7 @@ VALIDATION_CODES = {
     'The response exceeded the conversational text allowance.': 'text_bound',
     'The conversational response was empty.': 'empty_response',
 }
-OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work', 'conversation_assessment'}
+OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work', 'conversation_assessment', 'source_gap'}
 
 
 class CompositionRejected(ModelUnavailable):

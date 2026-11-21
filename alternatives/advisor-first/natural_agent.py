@@ -56,6 +56,16 @@ EDUCATION_REASONS = ('new', 'deepen', 'requested_revisit', 'clarify')
 EDUCATION_VISUALS = ('none',)
 EDUCATION_REQUEST_KINDS = ('none', 'explain', 'clarify', 'revisit')
 LOGGER = logging.getLogger(__name__)
+# D155 Q5: a reply that states a Medicare fact its cited sources do not support
+# is rejected and retried at most this many times (other failures keep one
+# repair). After that, code answers from the reviewed source or shows the gap
+# note; it never falls back to model prose or to "I'll need to check that".
+FACT_REPAIR_LIMIT = 3
+FACT_SOURCE_CODES = frozenset({'missing_evidence', 'ungrounded_literal'})
+SOURCE_GAP_NOTE = "Daylight's reviewed sources don't cover that yet."
+# Same test NarrativeAgent.retrieve uses to decide a message asks something;
+# the gap note is shown only when the person asked (D155 Q5).
+ASKS_QUESTION = re.compile(r'\?|\b(?:what|how|why|explain|tell me|difference|help me understand)\b', re.I)
 EXTRACTION_ERROR_CODES = {
     'The reply could not be checked. Your information is unchanged.':'invalid_structure',
     'The reply used an unsupported action.':'unsupported_action',
@@ -130,9 +140,16 @@ class ReservedStage:
             return False
         return self._replace()
 
-    def repair(self):
-        """A settled invalid response may fund the same single recovery slot."""
-        if self.status != 'settled' or self.attempts >= 2:
+    def repair(self, limit=1):
+        """Fund one more attempt after a settled invalid response.
+
+        Args:
+            limit: repairs this stage may take in total. Ordinary failures keep
+                one; an unsourced fact gets FACT_REPAIR_LIMIT (D155 Q5).
+        Returns:
+            True when a replacement reservation was funded.
+        """
+        if self.status != 'settled' or self.attempts >= 1 + min(limit, FACT_REPAIR_LIMIT):
             return False
         return self._replace()
 
@@ -203,7 +220,9 @@ class TurnReservation:
                 continuing = False
                 if _recovery_of is not None:
                     if (not isinstance(_recovery_of, ReservedStage) or _recovery_of.budget is not budget
-                            or _recovery_of.model != model or _recovery_of.attempts != 1
+                            or _recovery_of.model != model
+                            # One recovery normally; up to FACT_REPAIR_LIMIT for an unsourced fact (D155 Q5).
+                            or not 1 <= _recovery_of.attempts <= FACT_REPAIR_LIMIT
                             or _recovery_of.status not in {'settled', 'uncertain'} or stages != ('compose',)):
                         raise BudgetError('Use the existing stage receipt for bounded recovery.')
                     receipt = db.execute('SELECT status FROM ai_charges WHERE id=?', (_recovery_of.key,)).fetchone()
@@ -391,6 +410,12 @@ Evidence and scope (apply to both reply and question):
 - Medicare explanations use this turn's evidence and evidence_refs. Choose a narrow supported
   claim and retain the conditions material to that claim. Available source material need not
   all be taught. Prior assistant prose and learning receipts are not factual authority.
+- Never state a Medicare fact, rule, amount or date from memory. Each one comes from this
+  turn's evidence and is cited in evidence_refs, even when an earlier turn already covered
+  it. message_evidence_ids lists the sources retrieved fresh for the person's current message.
+- When this turn's evidence does not cover the Medicare fact the person asked about, set
+  source_gap true and answer only what the evidence does cover. Do not write your own note
+  about the gap or promise to check later; Daylight adds the note. Otherwise source_gap is false.
 - Names, amounts and dates must be grounded. Do not calculate personal enrollment windows,
   deadlines or coverage start dates without an authorized result. Supported general relative
   rules remain available. Do not invent eligibility, participation, costs or recommendations.
@@ -1438,15 +1463,24 @@ No weights, inferred motives or commercial considerations.'''
             self.local.stage_timings = timings
 
     def _compose_with_recovery(self, owner, resolved_context, moves, request_id, reservation):
+        """Compose, repairing a rejected draft within bounded, funded attempts.
+
+        Ordinary validation failures keep one repair. A Medicare fact the cited
+        sources do not support gets up to FACT_REPAIR_LIMIT repairs; if every
+        one fails, _source_fallback answers from the reviewed source or shows
+        the gap note (D155 Q5). A connection failure keeps its single recovery,
+        and only on the first attempt.
+        """
         feedback = partial = recovery_reason = None
         recovery_enabled = getattr(self, 'composition_recovery', False)
-        for attempt in range(2):
+        repairs, first = 0, True
+        while True:
             try:
                 answer = self._compose_once(owner, resolved_context, moves, request_id, reservation,
                                             repair_feedback=feedback)
                 if feedback:
                     answer['validation_recovery'] = {'component': 'composition',
-                        'replacement': 'validated_model_repair', 'reason': recovery_reason}
+                        'replacement': 'validated_model_repair', 'reason': recovery_reason, 'repairs': repairs}
                     answer['continuation']['validation_changed_continuation'] = True
                     self._cache_composition(owner, resolved_context, moves, request_id, answer)
                 return answer
@@ -1460,25 +1494,105 @@ No weights, inferred motives or commercial considerations.'''
                 if partial and partial[1] == 'reply' and not resolved_context.get('require_followup'):
                     return self._retain_component(owner, resolved_context, moves, request_id,
                                                   partial, recovery_reason)
-                if not attempt and reservation.stage('compose').repair():
+                fact = error.code in FACT_SOURCE_CODES
+                limit = FACT_REPAIR_LIMIT if fact else 1
+                if repairs < limit and reservation.stage('compose').repair(limit):
+                    repairs, first = repairs + 1, False
                     feedback = error.feedback
-                    LOGGER.warning('Daylight composition recovery stage=compose')
+                    LOGGER.warning('Daylight composition recovery stage=compose repair=%d', repairs)
                     continue
+                if fact:
+                    return self._source_fallback(owner, resolved_context, moves, request_id,
+                                                 partial, recovery_reason, error)
                 if partial:
                     return self._retain_component(owner, resolved_context, moves, request_id,
                                                   partial, recovery_reason)
                 raise
             except ModelUnavailable:
                 diagnostic = getattr(self.local, 'last_transport_failure', None)
-                if (attempt or not getattr(self, 'connection_retries', 0)
+                if (not first or not getattr(self, 'connection_retries', 0)
                         or not recoverable_connection(diagnostic)
                         or not reservation.stage('compose').recover()):
                     if partial:
                         return self._retain_component(owner, resolved_context, moves, request_id,
                                                       partial, recovery_reason)
                     raise
+                first = False
                 LOGGER.warning('Daylight connection recovery stage=compose')
                 time.sleep(0.5)
+
+    def _source_fallback(self, owner, context, moves, request_id, partial, reason, error):
+        """Answer an unsourced-fact failure from reviewed material, never model prose (D155 Q5).
+
+        If a source retrieved for this message (context['message_evidence_ids'])
+        is in this turn's evidence, the reply quotes its reviewed summary and
+        cites it. Otherwise, when the message asks something (ASKS_QUESTION),
+        the reply is SOURCE_GAP_NOTE and the gap is logged by reason only; when
+        it asks nothing, the earlier retain-or-hold path applies. The follow-up question is the model's own retained
+        question when it passed every check, else the first approved candidate
+        (required ones first) that passes validation.
+
+        Raises:
+            error: when no approved question passes, as before this fallback.
+        """
+        retrieved = set(context.get('message_evidence_ids') or [])
+        fact = next((item for item in context.get('evidence', []) if item.get('id') in retrieved
+                     and isinstance(item.get('summary'), str) and item['summary'].strip()), None)
+        if not fact and not ASKS_QUESTION.search(str(context.get('current_message') or '')):
+            # The person asked nothing, so a gap note would answer a question
+            # nobody posed ("This is for me." -> "sources don't cover that").
+            # Keep the earlier path: the safe question alone, or held.
+            if partial:
+                return self._retain_component(owner, context, moves, request_id, partial, reason)
+            raise error
+        if fact:
+            reply = ("Here is what Daylight's reviewed source says (" + str(fact.get('title') or 'Medicare.gov')
+                     + '): \u201c' + fact['summary'].strip() + '\u201d')
+            fallback = {'kind': 'quoted', 'reason': reason, 'evidence_ids': [fact['id']]}
+        else:
+            reply = SOURCE_GAP_NOTE
+            fallback = {'kind': 'gap', 'reason': reason, 'evidence_ids': []}
+        LOGGER.warning('Daylight source gap kind=%s reason=%s', fallback['kind'], reason)
+        candidates = _question_candidates(moves)
+        required_id = (context.get('required_target') or {}).get('id')
+        drafts = [copy.deepcopy(partial[0])] if partial and partial[1] == 'question' else []
+        drafts += [{'question_target': move['id'], 'reply': '', 'question': _question_text(move),
+                    'report_refs': [], 'evidence_refs': [],
+                    'agenda_update': {'current_concern': '', 'pause': False},
+                    'education': {'purpose': 'answer', 'updates': [], 'visual': 'none'}}
+                   for move in sorted(candidates, key=lambda move: (not move.get('required'), move['id'] != required_id))]
+        answer = None
+        for draft in drafts:
+            try:
+                answer = self.validate_composition(draft, context, candidates)
+            except (ModelUnavailable, TypeError, ValueError, KeyError):
+                continue
+            break
+        if answer is None:
+            raise error
+        # The reply is fixed code text or a verbatim reviewed summary, added
+        # after validation of the question; the model wrote none of it.
+        answer.update(reply=reply, evidence_refs=fallback['evidence_ids'], source_fallback=fallback,
+                      validation_recovery={'component': 'source', 'reason': reason,
+                                           'replacement': 'reviewed_source_quote' if fact else 'source_gap_note'})
+        answer['continuation']['validation_changed_continuation'] = True
+        self._cache_composition(owner, context, moves, request_id, answer)
+        return answer
+
+    def message_evidence_ids(self, message, last_fact_ids=()):
+        """Return the reviewed sources retrieved for this message alone (D155 Q5).
+
+        Runs the keyword retrieval fresh on every turn, so a fact mentioned
+        again is looked up again; a pronoun follow-up ("what about that?")
+        re-retrieves the sources the last turn taught. Defaults and teaching
+        candidates are excluded: they are not evidence the message asked for.
+        """
+        saved = getattr(self.local, 'turn_context', None)
+        self.local.turn_context = {'lastFactIds': list(last_fact_ids or [])}
+        try:
+            return [fact['id'] for fact in NarrativeAgent.retrieve(self, message, None)]
+        finally:
+            self.local.turn_context = saved if saved is not None else {}
 
     def _cache_composition(self, owner, context, moves, request_id, answer):
         signature = hashlib.sha256(json.dumps([context, _question_candidates(moves)], sort_keys=True).encode()).hexdigest()
@@ -1621,6 +1735,8 @@ No weights, inferred motives or commercial considerations.'''
                 'evidence_refs': {'type': 'array', 'maxItems': evidence_cap, 'items': {'type': 'string', **({'enum': evidence_ids} if evidence_ids else {})}, **({'maxItems': 0} if not evidence_ids else {})},
                 'agenda_update': schema({'current_concern': {'type':'string','maxLength':160},
                                          'pause': {'type':'boolean'}}),
+                # D155 Q5: the model reports a question its sources do not cover.
+                'source_gap': {'type': 'boolean'},
                 'conversation_assessment': schema({
                     'goal_progress': {'type':'string','enum':list(PROGRESS)},
                     'next_move': {'type':'string','enum':list(MOVES)},
@@ -1803,7 +1919,7 @@ No weights, inferred motives or commercial considerations.'''
         # never turn an otherwise useful, grounded response into a failed turn.
         if not isinstance(value, dict):
             raise ModelUnavailable('The conversational response could not be checked.')
-        core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work', 'conversation_assessment'}}
+        core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work', 'conversation_assessment', 'source_gap'}}
         checked, recovery = validate_with_question_recovery(self._validate_composition_core, core, context, moves)
         if (context.get('require_followup') and not checked['agenda_update']['pause']
                 and not checked['question']):
@@ -1822,6 +1938,12 @@ No weights, inferred motives or commercial considerations.'''
                   'education_followups': []}
         if recovery:
             result['validation_recovery'] = recovery
+        if value.get('source_gap') is True:
+            # D155 Q5: code, not the model, writes the gap note, and the gap is
+            # logged by reason only (no message text reaches the log).
+            result['reply'] = (result['reply'].rstrip() + '\n\n' + SOURCE_GAP_NOTE).lstrip()
+            result['source_fallback'] = {'kind': 'gap', 'reason': 'model_reported', 'evidence_ids': []}
+            LOGGER.warning('Daylight source gap kind=gap reason=model_reported')
         try:
             result['task_work'] = validate_selection(value.get('task_work', neutral_selection()))
         except ValueError:

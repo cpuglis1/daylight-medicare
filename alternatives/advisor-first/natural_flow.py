@@ -1713,6 +1713,16 @@ class NaturalConversation(AdvisorConversation):
         # The advisor gets relevant reviewed material even when no explicit
         # educational request was classified by the extractor.
         evidence = {fact['id']: fact for fact in out.get('facts', [])}
+        # D155 Q5: retrieve the sources for this message fresh on every turn,
+        # so a fact mentioned again is looked up again rather than repeated
+        # from an earlier reply. These ids also select what the source
+        # fallback may quote when the composer cannot support a fact.
+        retrieve_for = getattr(self.agent, 'message_evidence_ids', None)
+        message_ids = [identifier for identifier in (retrieve_for(message, metadata(out['record']).get('lastFactIds', []))
+                       if callable(retrieve_for) else []) if identifier in self.facts]
+        for identifier in message_ids:
+            evidence.setdefault(identifier, self.facts[identifier])
+        context['message_evidence_ids'] = message_ids
         ids = [ref for item in catalog_context()['concepts'] if item['concept_id'] in revisit_concepts
                for ref in item['evidence_refs']]
         ids += [ref for item in catalog_context()['concepts'] if item['concept_id'] in open_concepts
@@ -1868,6 +1878,9 @@ class NaturalConversation(AdvisorConversation):
             out['metrics']['continuation'] = copy.deepcopy(composed.get('continuation'))
             if composed.get('validation_recovery'):
                 out['generated']['validation_recovery'] = copy.deepcopy(composed['validation_recovery'])
+            if composed.get('source_fallback'):
+                # D155 Q5: record the quote or gap for the eval answer rate.
+                out['generated']['source_fallback'] = copy.deepcopy(composed['source_fallback'])
             used = [identifier for identifier in composed['evidence_refs'] if identifier in evidence]
             taught = list(dict.fromkeys(ref for item in planned['accepted_updates']
                 if item['depth'] != 'needs_clarification' for ref in item['evidence_refs']))
