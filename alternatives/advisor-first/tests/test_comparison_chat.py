@@ -62,7 +62,12 @@ class CurrentChatHarness:
     def extraction():
         common = {'subject': 'beneficiary', 'quote': TEXT, 'uncertain': False,
                   'correction': False, 'year': None}
-        return {'updates': [], 'requests': [], 'fact_ids': [], 'goal_quote': '',
+        # Q10 (D155): the extractor reports "for me" from the person's
+        # first-person words, quoting them; code no longer guesses it.
+        return {'updates': [{'id': 'RC01', 'entity': 'profile', 'fields': [{'key': 'choice', 'value': 'self'}],
+                             'quote': TEXT, 'scope': 'current', 'subject': 'beneficiary',
+                             'uncertain': False, 'correction': False}],
+                'requests': [], 'fact_ids': [], 'goal_quote': '',
                 'education_request': {'kind': 'none', 'concept_ids': [], 'quote': ''},
                 'agenda': {'concerns': [], 'priorityReason': {
                     'topic': '', 'reason': '', 'quote': '', 'subject': 'beneficiary', 'scope': 'current'}},

@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import test_natural_flow as fixtures
 from chat import ModelUnavailable
-from natural_flow import CONTEXT_POLICY, LEGACY_CONTEXT_POLICY, VISIT_HISTORY_LIMIT
+from natural_flow import CONTEXT_POLICY, LEGACY_CONTEXT_POLICY
 from session_recovery import resume_visit
 
 
@@ -99,18 +99,19 @@ class ConversationContinuityTests(unittest.TestCase):
         self.flow.current_chain['another-owner'] = old_chain
         self.assertEqual(self.flow.recent_exchanges('another-owner', '', CONTEXT_POLICY), [])
 
-    def test_history_expires_and_is_bounded_by_exchanges_and_characters(self):
+    def test_history_expires_and_otherwise_keeps_the_whole_visit(self):
+        """History expires with the visit; until then every exchange is kept (D155)."""
         self.message('Please keep things simple.')
         chain = self.flow.current_chain[self.owner]
         entry = self.flow.visit_memory[(self.owner, chain)]
         entry['expires'] = 0
         self.message('Please continue.')
         self.assertEqual(self.extracted_context()['recent_exchanges'], [])
-        for _ in range(4):
+        before = len(self.flow.visit_memory[(self.owner, chain)]['exchanges'])
+        for _ in range(7):
             self.message('A fictional concern. ' * 45)
         exchanges = self.flow.visit_memory[(self.owner, chain)]['exchanges']
-        self.assertLessEqual(len(exchanges), 6)
-        self.assertLessEqual(sum(len(text) for item in exchanges for text in item.values()), VISIT_HISTORY_LIMIT)
+        self.assertEqual(len(exchanges), before + 7)
 
     def test_old_message_cannot_be_replayed_as_a_new_profile_quote(self):
         text = 'I know a little about Medicare.'
@@ -239,7 +240,8 @@ class ConversationContinuityTests(unittest.TestCase):
         self.assertIsNone(out['assessment']['nextQuestion'])
 
     def test_invalid_prose_keeps_the_post_capture_question_without_repeated_failure_reply(self):
-        self.message('I turn 65 in November.')
+        # Q10 (D155): the extractor, not code, reports "for me" from these words.
+        self.message('I turn 65 in November.', [self.update('RC01', {'choice':'self'}, 'I turn 65 in November')])
         out = self.message('I know a little about Medicare.',
             [self.update('T02', {'choice':'some'}, 'I know a little about Medicare.')],
             compose={'reply':'Your premium will be $20.', 'report_refs':[]})
@@ -286,7 +288,10 @@ class ConversationContinuityTests(unittest.TestCase):
 
     def test_followup_insurance_reports_advance_even_if_advisory_task_quote_is_bad(self):
         first = 'I turn 65 in November and want to enroll in Medicare. I know very little about it.'
+        # Q10 (D155): the instructed extractor reports "for me" from the
+        # person's own first-person words; code no longer guesses it.
         self.message(first, extraction=self.extraction([
+            self.update('RC01', {'choice':'self'}, 'I turn 65 in November'),
             self.update('T02', {'choice':'new'}, 'I know very little about it.')],
             practical_request={'task':'timing', 'quote':'want to enroll in Medicare'}))
         self.assertIn(self.flow.assess(self.g, self.r)['nextQuestion']['id'], {'T03', 'T05'})

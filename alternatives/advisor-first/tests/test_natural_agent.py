@@ -981,6 +981,21 @@ class NaturalAgentTests(unittest.TestCase):
                          content['resolved_context']['education_context'])
         self.assertEqual(actual['question_candidates'],content['question_candidates'])
 
+    def test_whole_chat_over_the_byte_bound_drops_only_the_oldest_exchanges(self):
+        """D155: an extraction request past max_input_bytes keeps the newest exchanges and reports the drop."""
+        history = [{'user': 'u%02d ' % index + 'x' * 1000, 'assistant': 'a' * 1000} for index in range(40)]
+        content = {'confirmed_context': {'recent_exchanges': history, 'reports': [{'id': 'keep'}]}}
+        payload = {'input': [{'role': 'user', 'content': json.dumps(content)}]}
+        self.agent.max_input_bytes = 30_000
+        self.agent.count_tokens = lambda _, value: 1000
+        self.agent.count_request_tokens(self.agent.client, payload)
+        self.assertLessEqual(len(json.dumps(payload).encode()), 30_000)
+        kept = json.loads(payload['input'][0]['content'])['confirmed_context']['recent_exchanges']
+        self.assertGreater(len(kept), 5)
+        self.assertEqual(kept[-1], history[-1])
+        self.assertEqual(kept, history[-len(kept):])
+        self.assertEqual(self.agent.local.request_sizes['history_exchanges_dropped'], 40 - len(kept))
+
     def test_input_that_already_fits_keeps_every_exchange_with_one_count(self):
         content = {'resolved_context':{'recent_exchanges':[{'user':'old','assistant':'old'},
                                                          {'user':'new','assistant':'new'}]}}
@@ -1260,10 +1275,14 @@ class ContextFitTests(unittest.TestCase):
         context = self.big_context()
         before = len(json.dumps(context))
         steps = NaturalAgent._fit_context(context, self.moves, 40_000)
-        after = len(json.dumps({'resolved_context': context, 'question_candidates': self.moves}))
+        # Measured the way _fit_context measures (compact UTF-8 JSON); with D155
+        # history goes last, so compaction stops at the bound with little slack.
+        after = len(json.dumps({'resolved_context': context, 'question_candidates': self.moves}, ensure_ascii=False, separators=(',', ':')).encode())
         self.assertLessEqual(after, 40_000)
         self.assertLess(after, before)
-        self.assertEqual(steps[0], 'recent_exchanges:3')
+        # D155: history is compacted last, and only the oldest exchanges.
+        self.assertNotIn('recent_exchanges:3', steps)
+        self.assertTrue(all(not s.startswith('recent_exchanges') for s in steps[:-1]))
         self.assertEqual(context['reports'][0]['id'], 'guide.coverage.current')
         self.assertEqual(context['applicable_rules'][0]['rule_id'], 'ma_trial_right')
         self.assertEqual(context['advisor_brief']['discourse'], ['note'] * 5)

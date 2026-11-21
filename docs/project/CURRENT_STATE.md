@@ -37,8 +37,11 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
 - Keep the 41 conditional meanings, source STOPs, material holds and exact-purpose gates.
 - Changing accepted or sealed data/code means a new revision with exact
   before/after accounting and the applicable review. Never edit a sealed revision.
-- Privacy: no new raw-transcript persistence; chat stays visit-only; saving, AI
-  transfer, family sharing, human handoff and enrollment are separate permissions.
+- Privacy: no new raw-transcript persistence for real users or the pilot; chat
+  stays visit-only; saving, AI transfer, family sharing, human handoff and
+  enrollment are separate permissions. Exception (D155, branch
+  `charlie/rebalance-and-live-view`): localhost testing may save raw chat,
+  traces and tool inputs/outputs.
 - Redirect, don't deflect (D109, November 8): state the general rule the
   person's reports make relevant, name the personal gap in one clause, then ask
   the approved question. Outside parties are the confirming step, never the
@@ -67,8 +70,10 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
   acknowledged once in the next chat reply. The current source was checked
   offline and activated during D122; unaccepted rule drafts remain unloaded.
   [Restart review and saved-data verification](../../audit-evidence/midmorning-backend-20261110/README.md).
-- Use fictional data for development and tests. No agent-run live conversation
-  tests or paid probes; the owner assesses conversational quality.
+- Use fictional data for development and tests. Agent-run simulated
+  conversations are allowed (D155): the simulated person and judges run on the
+  owner's subscription; Daylight's own calls are capped at $10 per run, and the
+  full set runs only on request. The owner still assesses conversational quality.
 - Report remaining gaps honestly. Do not mark a requirement implemented on intent.
 
 ## Surfaces and where to work

@@ -334,7 +334,7 @@ The current_turn capture_outcomes describe what the backend actually accepted, a
 knew, could not capture or needs clarified. Acknowledge recorded facts from resolved reports,
 not merely from the raw message or a proposed extraction. For an unresolved report, address
 the specific ambiguity if consequential; do not claim it was recorded or externally checked.
-Reports and known presence/status markers outlive the bounded recent_exchanges. Missing
+recent_exchanges holds the whole visit chat, oldest first; reports and known presence/status markers also persist. Missing
 history or a missing field never proves the person did not answer. If they challenge a repeat,
 reconcile the available question, outcomes, reports and recent exchange; acknowledge a gap
 without denying their account or guessing the lost value. Ask only for the detail still needed.
@@ -376,6 +376,10 @@ Evidence and scope (apply to both reply and question):
 - Personal assertions use current resolved reports and report_refs. submitted_answer identifies
   the latest resolved answer. Superseded values may acknowledge a correction, never establish
   current facts. Keep learner and beneficiary, current and intended circumstances separate.
+- When the guide.subject.role report is someone, the visit is for another person. Word
+  personal questions about that person, using how the writer named them when they did
+  ("When does your mom need coverage to begin?"), not "you". Questions about the
+  writer's own understanding stay addressed to "you".
 - Medicare explanations use this turn's evidence and evidence_refs. Choose a narrow supported
   claim and retain the conditions material to that claim. Available source material need not
   all be taught. Prior assistant prose and learning receipts are not factual authority.
@@ -739,6 +743,12 @@ my Medicare options or a direct personal request about turning 65 can establish
 self; do not require the literal phrase this is for me or wait to ask RC01 again.
 RC01 is the visit's beneficiary relationship, not a personal insurance attribute.
 Use subject beneficiary for RC01, including I am helping my mother -> someone.
+Report RC01 self only from the person's own first-person statement about their own
+Medicare, quoting those words (I turn 65 in November -> self). A first-person
+statement about acting for others is someone, not self: I'm signing up my parents
+-> someone. Nothing else records RC01 for you; when you do not report it, Daylight
+asks who the visit is for. The whole visit chat is in recent_exchanges, so an
+earlier turn that named who it is for still counts.
 The helper's own insurance, birthday and other circumstances remain learner reports
 and must never become the beneficiary's personal coverage or life circumstances.
 Interpret the whole message: my mother's Medicare options identifies someone, not
@@ -892,11 +902,14 @@ No weights, inferred motives or commercial considerations.'''
     def count_request_tokens(self, client, payload):
         """Compact duplicate presentation data and count the request as sent.
 
-        Retain the supplied exchanges. There is no local input-token ceiling;
-        the stage funds this count against the shared daily cap before generation.
+        Retain the supplied exchanges (the whole visit, D155) unless the request
+        would pass ``max_input_bytes``; then the oldest go first. There is no
+        local input-token ceiling; the stage funds this count against the
+        shared daily cap before generation.
         """
         before = request_sizes(payload)
         packed = copy.deepcopy(payload)
+        dropped_history = 0
         try:
             item = packed['input'][0]
             content = json.loads(item['content'])
@@ -918,11 +931,23 @@ No weights, inferred motives or commercial considerations.'''
             # Formatting whitespace is not conversational context. Compact it
             # losslessly before counting, including requests that already fit.
             item['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
+            # D155: the whole visit chat is sent. Only if the request would pass
+            # the reviewed byte bound are the oldest exchanges dropped, one at a
+            # time, so a long chat degrades instead of failing the turn.
+            limit = getattr(self, 'max_input_bytes', None)
+            stage_context = content.get('confirmed_context') or content.get('resolved_context')
+            history = stage_context.get('recent_exchanges') if isinstance(stage_context, dict) else None
+            while (limit and isinstance(history, list) and history
+                   and len(json.dumps(packed).encode()) > limit):
+                history.pop(0); dropped_history += 1
+                item['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
         except (KeyError, IndexError, TypeError, ValueError):
             content = None
         count = self.count_tokens(client, packed)
         self.local.request_sizes = {'before': before, 'after': request_sizes(packed),
             'counted_input_tokens': token_int(count), 'count_calls': 1}
+        if dropped_history:
+            self.local.request_sizes['history_exchanges_dropped'] = dropped_history
         LOGGER.info('Daylight request sizes %s', json.dumps(self.local.request_sizes, sort_keys=True))
         payload['input'] = packed['input']
         return count
@@ -1475,9 +1500,9 @@ No weights, inferred motives or commercial considerations.'''
         """Shrink the composition context to the request bound, oldest and least load-bearing first.
 
         Owner direction (Nov 8–9, 2026): a bounded context is compacted, never
-        refused. The rolling discourse brief (``advisor_brief``) already carries
-        the gist of dropped exchanges, so old turns go first; three compared
-        plans with every published field go next (readers see the table). The
+        refused. D155 (Nov 21, 2026): the AI reads the whole visit chat, so plan
+        detail, catalog, evidence and learner context shrink first and the
+        oldest exchanges go only as a last resort, one at a time. The
         person's reports, the applicable rules and the approved question
         candidates are never dropped. Returns the steps applied.
         """
@@ -1490,12 +1515,6 @@ No weights, inferred motives or commercial considerations.'''
         def step(name, action):
             if size() > limit:
                 action(); steps.append(name)
-        def trim_exchanges(keep):
-            def act():
-                recent = context.get('recent_exchanges')
-                if isinstance(recent, list) and len(recent) > keep:
-                    context['recent_exchanges'] = recent[-keep:] if keep else []
-            return act
         def slim_plan_fields():
             plans = (context.get('plans_context') or {}).get('plans') or []
             for plan in plans:
@@ -1531,16 +1550,22 @@ No weights, inferred motives or commercial considerations.'''
                         concept.pop(key, None)
         def drop_learner_context():
             context.pop('learner_context', None)
-        step('recent_exchanges:3', trim_exchanges(3))
+        # D155: the whole visit chat is the last thing compacted. Everything
+        # else shrinks first; then only as many of the oldest exchanges as the
+        # request bound requires are dropped, and the step is logged.
         step('plan_fields:slim', slim_plan_fields)
         step('plan_evidence:not_applicable', drop_not_applicable_plan_evidence)
         step('plan_evidence:shorten', shorten_plan_evidence)
-        step('recent_exchanges:1', trim_exchanges(1))
         step('plan_context:fields_to_refs', drop_plan_context_fields)
         step('catalog:slim', slim_catalog)
         step('evidence:general_cap', cap_general_evidence(max(evidence_cap, 4)))
         step('learner_context:drop', drop_learner_context)
-        step('recent_exchanges:0', trim_exchanges(0))
+        recent = context.get('recent_exchanges')
+        dropped = 0
+        while size() > limit and isinstance(recent, list) and recent:
+            recent.pop(0); dropped += 1
+        if dropped:
+            steps.append('recent_exchanges:oldest_%d' % dropped)
         return steps
 
     def _compose_once(self, owner, resolved_context, moves, request_id, reservation, *, repair_feedback=None):
@@ -2111,7 +2136,10 @@ No weights, inferred motives or commercial considerations.'''
             return False
         if id == 'T06' and _question_text(move).startswith('Which ') and re.match(r'(?:are there|do you (?:have|want)|is there)\b',lower):
             return False
-        if id == 'T04' and not (re.search(r'want|like|prefer|hope|hoping|plan|planning', lower) and re.search(r'start|begin', lower)):
+        # "Need" asks the same desired-start meaning as "want" (the approved
+        # wording itself says "need"); rejecting it swapped a helper-worded
+        # question ("When does your mom need coverage to begin?") back to "you".
+        if id == 'T04' and not (re.search(r'want|like|prefer|hope|hoping|plan|planning|need', lower) and re.search(r'start|begin', lower)):
             return False
         if id == 'RC04' and (not re.search(r'\bparts?\b|\ba\s*(?:and|&|or|/)\s*b\b', lower) or not re.search(r'\ba\b|\bb\b|enrolled|enrollment|have|signed', lower) or re.search(r'want|would like|hoping', lower)):
             return False

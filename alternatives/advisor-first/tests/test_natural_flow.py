@@ -164,7 +164,10 @@ class NaturalFlowTests(unittest.TestCase):
         question = 'What health insurance do you have now?'
         # Current coverage remains an allowed consequential follow-up even
         # when comparison guidance ranks ZIP first; choose its meaning explicitly.
-        out = self.message(text, compose={'question_target': 'T05', 'reply': reply, 'question': question})
+        # Q10 (D155): the extractor reports "for me" from these first-person
+        # words; code no longer guesses it.
+        out = self.message(text, [self.update('RC01', {'choice': 'self'}, text)],
+                           compose={'question_target': 'T05', 'reply': reply, 'question': question})
         self.assertNotIn('review', out)
         self.assertEqual(out['pendingUpdates'], [])
         self.assertEqual(out['reply'], reply)

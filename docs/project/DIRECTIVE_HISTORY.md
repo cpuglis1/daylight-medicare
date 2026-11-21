@@ -326,3 +326,45 @@ rehearsal keeps its own model-free guest visit on the same port. Earlier
 previews remain reference evidence. Participant release is held pending
 official comparisons and review.
 [Implementation and verification](../../audit-evidence/d146-chat-8895-20261112/README.md).
+
+## D154 · November 21, 2026 · Advisor rebalance on its own branch
+
+“Let's build out the fixes first, and I want to be able to test all of this on a branch
+other than main. ... we're not going to merge into main for this until I maybe give my
+go-ahead later down the line, if the features all work out.”
+
+On who the visit is for, after a correction: “Switch, re-confirm each”.
+
+Work happens on `charlie/rebalance-and-live-view`. No pull request to `main` is opened
+while D149 auto-merge is on, so nothing reaches `main` without the owner's go-ahead.
+
+## D155 · November 21, 2026 · Conversation architecture, traces and evaluation
+
+On ordering: “I want to make sure that the conversation is smooth and plan
+recommendations are gated on knowing the right information. ... the AI could be
+given these questions as just that, as guidances, but you don't necessarily need
+to use them in this order or exactly verbatim.” Then: “For Q2, yes, that's split.”
+
+On unanswered questions: “if someone asks a question and the AI ... says, I'll have
+to get back to you on that ... and just moves on without answering their question,
+I think that's a huge fault. ... a really high success rate bar, like 99 or 100%
+of the time. ... Let's set that at a maximum of 3 retries for now.” And: “let's
+have a note that says that Daylight's reviewed sources don't cover that yet.”
+
+On saved data: “for real users, let's not save the dictation or the traces. But for
+us on our testing, local host servers, we can save all of that we want. For the
+pilot, it will be a hard off for now.”
+
+On the side panel: “I just need to know what tools were triggered and used, what
+facts were pulled. I want the inputs and outputs of the tools if I so choose.”
+
+On evaluation: “For each of the checks, let's call those each an eval. Let's have a
+separate judge for each.” Simulated runs may use the owner's Claude or Codex
+subscription; Daylight's own calls stay on the API.
+
+On memory: “let's just let the agent read the whole conversation, just like a
+regular agent session in, say, the Claude desktop app does.”
+
+This supersedes, on this branch only, the rules against new transcript persistence
+(localhost testing only) and against agent-run conversation tests. Real users and
+the pilot keep both protections.
