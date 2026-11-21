@@ -1,0 +1,29 @@
+key: c13-dont-know-repeatedly
+title: Person answers several questions with "I don't know"
+probes: [no_reask, one_question]
+typist: self
+person_brief: |
+  You are Harold Byce, 65 last month, living in 85004. You still work at a print shop and have its health plan.
+  You do not know: how many people work at the company, whether the drug coverage is creditable, or whether you have Part A.
+  You know you have not applied for Social Security. You take no regular medicines.
+  You answer "I don't know" plainly and do not go look things up during the chat.
+  You get irritated if asked the same thing twice.
+opening: "I turned 65 last month and I still work. Am I late for Medicare?"
+replies:
+  - if_asked_about: "employer size"
+    reply: "I don't know."
+  - if_asked_about: "drug coverage creditable, or a creditable coverage notice"
+    reply: "I don't know. I don't remember getting a letter."
+  - if_asked_about: "Part A or Medicare enrollment"
+    reply: "I don't know if I have Part A."
+  - if_asked_about: "Social Security"
+    reply: "No, I haven't applied."
+  - if_asked_about: "Medicines or doctors"
+    reply: "No medicines. Dr. Saul Fenner at Desert Arch Clinic."
+max_messages: 8
+must_cover:
+  - "When the employer has 20 or more employees, the job-based plan generally pays first, and the person can usually delay Part B without a penalty while covered by current employment. [Working past 65](https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65)"
+must_not_claim:
+  - "Asks again about employer size, creditable coverage or Part A after Harold said he does not know."
+  - "Treats 'I don't know' as a no (for example, says his drug coverage is not creditable)."
+  - "Ends an active reply with no question or with more than one question."

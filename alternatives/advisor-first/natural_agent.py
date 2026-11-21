@@ -26,6 +26,7 @@ from narrative_agent import ExtractionTransportFailure, NarrativeAgent, provider
 from natural_state import AGENDA_TOPICS, PRIORITY_TOPICS
 from education import catalog_context
 import learner_state
+import conversation_config
 from turn_contract import bound_answer, PROGRESS, MOVES, continuation
 from situation import birthday_first_day
 from request_limits import OUTPUT_TOKENS
@@ -498,6 +499,28 @@ Hard output bounds: reply at most {COMPOSITION_REPLY_BOUND} characters, question
 {COMPOSITION_QUESTION_BOUND}, combined at most {COMPOSITION_TEXT_BOUND} including their
 separating space. These are ceilings, not length targets. Finish complete sentences and
 keep metadata compact. There is no minimum response length.'''
+
+# D155 Q2: question order is AI guidance the owner may tune on the localhost
+# "Checks and instructions" page (config/conversation-instructions.json). The
+# built-in paragraph is sliced from the text above so the default stays
+# byte-identical; compose_instructions() swaps in a valid override.
+_GUIDANCE_START = COMPOSE_INSTRUCTIONS.index('Ordering guidance:')
+_GUIDANCE_END = COMPOSE_INSTRUCTIONS.index('calibrating explanations.', _GUIDANCE_START) + len('calibrating explanations.')
+ORDERING_GUIDANCE = COMPOSE_INSTRUCTIONS[_GUIDANCE_START:_GUIDANCE_END]
+
+
+def compose_instructions():
+    """Return COMPOSE_INSTRUCTIONS with the owner's ordering guidance, if any.
+
+    Returns:
+        The built-in instructions unchanged when the config file is missing,
+        invalid or equal to the default; otherwise the same text with only the
+        ordering-guidance paragraph replaced. Never raises in a live turn.
+    """
+    override = conversation_config.ordering_guidance()
+    if not override or override == ORDERING_GUIDANCE:
+        return COMPOSE_INSTRUCTIONS
+    return COMPOSE_INSTRUCTIONS[:_GUIDANCE_START] + override + COMPOSE_INSTRUCTIONS[_GUIDANCE_END:]
 
 # Owner direction (November 7, 2026, DQ-01 pilot scope): the invite-only pilot
 # runs on 2026 sample data only. Applied only when server.py sets pilot_scope.
@@ -1714,7 +1737,7 @@ No weights, inferred motives or commercial considerations.'''
         # leave the person without an answer (P12/P16/P17, Nov 9, 2026). The
         # schema below is built from the compacted context so every id the
         # model may cite is one it was shown.
-        fixed = COMPOSE_INSTRUCTIONS + self._pilot_scope_instructions(owner) + (REPAIR_INSTRUCTIONS if repair_feedback else '')
+        fixed = compose_instructions() + self._pilot_scope_instructions(owner) + (REPAIR_INSTRUCTIONS if repair_feedback else '')
         budget_bytes = self.max_input_bytes - len(fixed.encode()) - 9000 - len(json.dumps(repair_feedback or {}).encode())
         trimmed = self._fit_context(context, moves, budget_bytes)
         output_limit = getattr(self, 'max_output_tokens', OUTPUT_BOUND)
@@ -1749,7 +1772,7 @@ No weights, inferred motives or commercial considerations.'''
                     'next_step': {'type':'string','enum':list(WORK_STEPS)},
                 }),
             })
-            payload = {'model': self.client.model, 'instructions': COMPOSE_INSTRUCTIONS + self._pilot_scope_instructions(owner),
+            payload = {'model': self.client.model, 'instructions': compose_instructions() + self._pilot_scope_instructions(owner),
                 'input': [{'role': 'user', 'content': json.dumps({'resolved_context': context, 'question_candidates': moves}, ensure_ascii=False, separators=(',', ':'))}],
                 'store': False, 'max_output_tokens': output_limit, 'reasoning': {'effort': self.composition_reasoning_effort}, 'tools': [],
                 'text': {'format': {'type': 'json_schema', 'name': 'daylight_resolved_conversation', 'strict': True, 'schema': spec}},

@@ -211,6 +211,9 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
         from turn_trace import install_turn_traces
         trace_root = Path(turn_traces) if isinstance(turn_traces, (str, Path)) else REPO/'cms-slice/var/turn-traces'
         service = install_turn_traces(service, trace_root, pilot=pilot is not None, hosted=pilot_origin is not None)
+        # D155 Q8: the "Checks and instructions" dev page lives exactly where traces do.
+        from dev_checks_http import install_dev_checks
+        service = install_dev_checks(service, pilot=pilot is not None, hosted=pilot_origin is not None)
         config['devTraces'] = True
     if pilot:
         service.adaptive.agent.budget = pilot_budget

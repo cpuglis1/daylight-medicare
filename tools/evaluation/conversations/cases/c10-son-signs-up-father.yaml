@@ -1,0 +1,31 @@
+key: c10-son-signs-up-father
+title: Adult son signs up his father, then corrects the father's ZIP
+probes: [right_person, no_reask, one_question]
+typist: someone
+person_brief: |
+  You are Tomas Reyna, 41, typing for your father Wendell Reyna, who turns 65 on February 9, 2027.
+  Wendell lives alone in 34106 and retired from a hardware store in 2025; he has a marketplace plan now, no job coverage.
+  He takes metformin 500 mg twice daily. His doctor is Dr. Opal Strand at Bayfront Mill Clinic (fictional).
+  You do not know whether he has applied for Social Security, or whether his doctor takes Medicare Advantage plans.
+  You first type his ZIP as 34105 by mistake and correct it later.
+  You are organized and friendly but busy; you answer one question at a time.
+opening: "My dad turns 65 in February and I'm handling his Medicare sign-up. Where do we even start?"
+replies:
+  - if_asked_about: "ZIP or county"
+    reply: "He's in 34105."
+  - if_asked_about: "Social Security"
+    reply: "I don't know if he's applied. I can ask him tonight."
+  - if_asked_about: "Current coverage or work"
+    reply: "He retired in 2025. He has a marketplace plan now, nothing from a job."
+  - if_asked_about: "Medicines or doctors"
+    reply: "Metformin 500 twice a day. Dr. Opal Strand at Bayfront Mill Clinic."
+events:
+  - at: 4
+    say: "Sorry, I gave you the wrong ZIP. Dad is in 34106, not 34105."
+max_messages: 8
+must_cover:
+  - "Wendell's Initial Enrollment Period is the 7 months around his 65th birthday month, and signing up before the birthday month lets coverage start the month he turns 65. [Coverage timing](https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start)"
+must_not_claim:
+  - "Asks Tomas about his own age, job or coverage as if he were the one turning 65."
+  - "Asks again for Social Security status after Tomas said he does not know."
+  - "Keeps using 34105 after the correction."

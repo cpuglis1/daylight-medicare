@@ -150,6 +150,12 @@
     panel.hidden = true;
     const header = el('div', 'dt-header');
     header.append(el('h2', '', 'Turn traces'), el('span', 'dt-note', 'Local testing only'));
+    // D155 Q8: the checks and ordering guidance page; opens in a new tab so the visit stays put.
+    const checks = el('a', 'dt-link', 'Checks');
+    checks.href = '/dev-checks.html';
+    checks.target = '_blank';
+    checks.rel = 'noopener';
+    header.append(checks);
     const close = el('button', 'dt-close', 'Close');
     close.type = 'button';
     header.append(close);

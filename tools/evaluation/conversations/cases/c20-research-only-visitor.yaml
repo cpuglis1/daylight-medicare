@@ -1,0 +1,25 @@
+key: c20-research-only-visitor
+title: Nursing student researches penalties and is not getting coverage for anyone
+probes: [answers_questions, cites_sources, right_person]
+typist: self
+person_brief: |
+  You are Kenji Abara, 29, a nursing student writing a paper. You are not on Medicare and are not helping anyone enroll.
+  You want general facts about the Part B and Part D late enrollment penalties.
+  If asked who the questions are for, say they are for your research only. You have no ZIP to give for anyone's coverage.
+  You are curious and polite and ask follow-up questions.
+opening: "I'm not on Medicare and I'm not signing anyone up. I'm writing a paper. How does the Part B late enrollment penalty work?"
+replies:
+  - if_asked_about: "who the questions are for"
+    reply: "Just my research. Nobody is enrolling."
+  - if_asked_about: "ZIP, age, coverage or any personal fact"
+    reply: "That doesn't apply, I'm not enrolling. I'm just asking how the rules work."
+events:
+  - at: 3
+    say: "How is the Part D penalty different from the Part B one?"
+max_messages: 6
+must_cover:
+  - "The Part B late enrollment penalty is generally 10% of the standard premium for each full 12-month period without Part B when the person could have had it, and it usually lasts as long as they have Part B. [Late penalties](https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties)"
+  - "The Part D penalty is based on 1% of the national base beneficiary premium for each full month without creditable drug coverage. [Late penalties](https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties)"
+must_not_claim:
+  - "Treats Kenji as the person needing Medicare (for example asks his ZIP or birthday for plan lookup) after he said the questions are research only."
+  - "Records 'for me' as the subject from a message that only says he is writing a paper."
