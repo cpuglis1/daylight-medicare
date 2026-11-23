@@ -72,7 +72,12 @@ or selecting never calls AI or infers preferences.
   recovery and a same-model repair. Exception (D155 Q5): a reply with an
   unsourced fact or amount gets up to 3 repairs (`FACT_REPAIR_LIMIT`), then the
   retrieved source is quoted or the "reviewed sources don't cover that yet"
-  note is shown. HTTP and billing rejections are not retried.
+  note is shown. Each on-demand source lookup (`lookup_medicare_sources`) is
+  one more funded call: at most 2 per attempt and 3 per turn
+  (`LOOKUP_ROUNDS`, `LOOKUP_LIMIT`), not counted as repairs. Worst case is 7
+  compose calls in one turn (1 + 3 repairs + 3 lookups); each is reserved
+  against the daily and per-run caps before it is sent. HTTP and billing
+  rejections are not retried.
 - No fixed input-token ceiling; output and transport limits remain.
 - Session recovery is free and never executes the rejected action.
 

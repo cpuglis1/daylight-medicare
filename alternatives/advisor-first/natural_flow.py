@@ -70,6 +70,12 @@ COMPOSITION_CODES = frozenset({'ungrounded_literal', 'ungrounded_entity', 'inval
     'unavailable', 'transport_or_format', 'provider_failure', 'composition_unavailable',
     'input_token_verification', 'text_bound', 'invalid_structure', 'input_bound'})
 LOGGER = logging.getLogger(__name__)
+# Shown when a fixture (mock AI) turn would otherwise end with no reply and no
+# next question: the page would sit waiting with nothing to render.
+# Guest-facing, so no operator advice: the D146 and pilot rehearsals force
+# fixture mode, and fixture answers are kept for the visit only.
+FIXTURE_NO_REPLY_NOTICE = ('In this offline preview, AI replies are off. Your answer is kept for this visit; '
+                           'type a question below to continue.')
 install_log_guard()  # HP-09: last-line identifier filter on Daylight loggers.
 # Questions a Plans-page filter may answer (D97). All are free structured answers.
 PLANS_FILTER_QUESTIONS = frozenset({'T01', 'RC01', 'T03', 'RC03', 'T05', 'RC04', 'T06', 'T07', 'T08', 'T09', 'T10'})
@@ -1710,18 +1716,24 @@ class NaturalConversation(AdvisorConversation):
         context['current_message'] = message
         if policy == CONTEXT_POLICY:
             context['learner_context'] = learner_state.context(learner)
+        # D155 Q5 (on demand, Nov 21, 2026): on a route with function tools the
+        # composer looks Medicare sources up itself (lookup_medicare_sources),
+        # so code preloads only the applicable rule statements and plan facts.
+        # A route without tools keeps the earlier preloading below.
+        lookup_on = getattr(self.agent, 'source_lookup_enabled', None)
+        on_demand = bool(callable(lookup_on) and lookup_on())
         # The advisor gets relevant reviewed material even when no explicit
         # educational request was classified by the extractor.
-        evidence = {fact['id']: fact for fact in out.get('facts', [])}
-        # D155 Q5: retrieve the sources for this message fresh on every turn,
-        # so a fact mentioned again is looked up again rather than repeated
-        # from an earlier reply. These ids also select what the source
-        # fallback may quote when the composer cannot support a fact.
+        evidence = {} if on_demand else {fact['id']: fact for fact in out.get('facts', [])}
+        # Retrieve the sources for this message fresh on every turn. Without
+        # tools they join the evidence, so a fact mentioned again is looked up
+        # again; either way these ids select what the source fallback may quote.
         retrieve_for = getattr(self.agent, 'message_evidence_ids', None)
         message_ids = [identifier for identifier in (retrieve_for(message, metadata(out['record']).get('lastFactIds', []))
                        if callable(retrieve_for) else []) if identifier in self.facts]
-        for identifier in message_ids:
-            evidence.setdefault(identifier, self.facts[identifier])
+        if not on_demand:
+            for identifier in message_ids:
+                evidence.setdefault(identifier, self.facts[identifier])
         context['message_evidence_ids'] = message_ids
         ids = [ref for item in catalog_context()['concepts'] if item['concept_id'] in revisit_concepts
                for ref in item['evidence_refs']]
@@ -1737,6 +1749,9 @@ class NaturalConversation(AdvisorConversation):
                 ids += ['original', 'advantage', 'checks']
         ids += self.teaching_candidates(out['guide'], out['record'], context_question)
         ids += ['routesintro', 'basics', 'dates', 'enrollment_intro']
+        if on_demand:
+            # Teaching, concept and default sources are looked up on demand now.
+            ids = []
         if rules:
             # Rule statements come first so they survive the six-source bound.
             ids = [rule['fact_id'] for rule in rules] + ids
@@ -1881,6 +1896,12 @@ class NaturalConversation(AdvisorConversation):
             if composed.get('source_fallback'):
                 # D155 Q5: record the quote or gap for the eval answer rate.
                 out['generated']['source_fallback'] = copy.deepcopy(composed['source_fallback'])
+            # D155 Q5: a source the composer looked up this turn is not in the
+            # preloaded `evidence`; the agent already checked every cited id
+            # against what the model saw, so resolve it from the reviewed store.
+            for identifier in composed['evidence_refs']:
+                if identifier not in evidence and identifier in self.facts:
+                    evidence[identifier] = self.facts[identifier]
             used = [identifier for identifier in composed['evidence_refs'] if identifier in evidence]
             taught = list(dict.fromkeys(ref for item in planned['accepted_updates']
                 if item['depth'] != 'needs_clarification' for ref in item['evidence_refs']))
@@ -3019,6 +3040,17 @@ class NaturalConversation(AdvisorConversation):
             out['continuation'] = self.bind(owner, out['guide'], out['record'], chain)
             with self.lock:
                 generated_conversation(out)
+                # Fixture mode never composes, and generated_conversation has
+                # just blanked any uncomposed reply. A button answer that also
+                # leaves no next question (Understand Medicare, then "new"; or
+                # "I don't know") would show nothing (trace a76674fb), so say
+                # why. Plans-filter answers stay silent (D97), and an opening
+                # choice gets its reply from the page.
+                if (self.fixture and not plans_filter and not out.get('openingChoice')
+                        and action.get('type') in {'choice', 'stage', 'unknown', 'defer'}
+                        and not out.get('reply') and not out.get('notice')
+                        and not out['assessment'].get('nextQuestion')):
+                    out['notice'] = FIXTURE_NO_REPLY_NOTICE
                 preparation = out.get('preparation') or {}
                 preparation_valid = (preparation.get('kind') == 'preparation'
                     and preparation.get('status') == 'prepared'

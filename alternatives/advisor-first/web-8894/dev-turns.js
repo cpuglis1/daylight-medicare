@@ -60,6 +60,30 @@
     parent.append(details);
   }
 
+  /**
+   * List the reviewed sources a tool call handed the model, one row each.
+   *
+   * @param {HTMLElement} parent - section body to append to.
+   * @param {object} output - one of: `sources` (a lookup the model chose to
+   *   make, lookup_medicare_sources), `evidence` (sources_supplied_by_code:
+   *   rule statements and plan facts code put in the prompt) or `facts`
+   *   (topic_match, extract stage); each item {id, title?, summary, text}.
+   *   A lookup that was not run carries a `note` instead of sources.
+   *
+   * Why: the raw JSON hid what the model actually read, so each source gets a
+   * plain row with its text behind a reveal.
+   */
+  function renderSources(parent, output) {
+    const items = (output && (output.sources || output.evidence || output.facts)) || [];
+    if (output && output.note) parent.append(el('p', 'dt-empty', output.note));
+    if (!items.length) { if (!(output && output.note)) parent.append(el('p', 'dt-empty', 'No sources given to the model.')); return; }
+    for (const item of items) {
+      if (!item || typeof item !== 'object') continue;  // A malformed entry must not blank the panel.
+      parent.append(el('p', 'dt-row', `${item.id}: ${item.summary || item.title || ''}`));
+      if (item.text) reveal(parent, 'Source text', item.text);
+    }
+  }
+
   /** Render one full turn record into the detail pane. */
   function renderTurn(pane, turn) {
     pane.replaceChildren();
@@ -83,6 +107,7 @@
     const tools = section(pane, 'Tool calls', (turn.toolCalls || []).length);
     for (const call of turn.toolCalls || []) {
       tools.append(el('p', 'dt-row dt-strong', `${call.tool} (${call.stage})`));
+      renderSources(tools, call.output);
       reveal(tools, 'Input', call.input);
       reveal(tools, 'Output', call.output);
     }
@@ -142,7 +167,7 @@
 
   /** Build the toggle and panel once dev traces are confirmed on. */
   function mount() {
-    const toggle = el('button', 'dt-toggle', 'Turns');
+    const toggle = el('button', 'dt-toggle', 'Turn traces');
     toggle.type = 'button';
     toggle.setAttribute('aria-expanded', 'false');
     const panel = el('aside', 'dt-panel');

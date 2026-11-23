@@ -345,6 +345,11 @@ recommendations are gated on knowing the right information. ... the AI could be
 given these questions as just that, as guidances, but you don't necessarily need
 to use them in this order or exactly verbatim.” Then: “For Q2, yes, that's split.”
 
+On looking up facts: “I want this to be on demand, but I also never want the AI to state
+Medicare facts from memory. I want them always to come from the documents, from the facts
+in the document store.” And, later the same day: “Why does the lookup run every time? I
+thought we discussed having it only run on demand.”
+
 On unanswered questions: “if someone asks a question and the AI ... says, I'll have
 to get back to you on that ... and just moves on without answering their question,
 I think that's a huge fault. ... a really high success rate bar, like 99 or 100%

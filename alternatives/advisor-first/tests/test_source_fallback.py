@@ -10,7 +10,8 @@ the person's words; an approved question still follows (D109);
 (3) when the person asked nothing, no gap note is shown;
 (4) a model-reported source_gap appends the note;
 (5) retrieval runs fresh for every message, including a repeated mention and
-a pronoun follow-up, and reaches the composer as message_evidence_ids;
+a pronoun follow-up; its sources reach the composer as evidence, while the
+ids themselves (message_evidence_ids) stay with code for the fallback;
 (6) the composer is told never to state a Medicare fact from memory.
 No live models; all data is fictional.
 """
@@ -116,6 +117,16 @@ class SourceFallbackTests(recovery.CompositionRecoveryTests):
         self.assertIn('Never state a Medicare fact, rule, amount or date from memory', COMPOSE_INSTRUCTIONS)
         self.assertIn('source_gap true', COMPOSE_INSTRUCTIONS)
 
+    def test_replay_of_a_repaired_compacted_turn_returns_the_cached_answer(self):
+        """A turn trimmed to fit and then repaired is replayed from cache, not refused with 409."""
+        self.agent.max_input_bytes = 30000  # Small enough that _fit_context compacts this context.
+        self.context['evidence'] = [copy.deepcopy(fact) for fact in list(self.agent.facts.values())[:8]]
+        self.responses = [self.draft(reply=INVENTED), self.draft()]
+        answer = self.compose()
+        self.assertTrue(self.agent.local.context_trim, 'The fixture must actually be compacted')
+        self.assertEqual(self.compose(), answer)
+        self.assertEqual(len(self.calls), 2, 'A replay must not call the model again')
+
 
 # Run only the tests above, not the inherited recovery suite a second time.
 for _name in [name for name in dir(recovery.CompositionRecoveryTests) if name.startswith('test_')]:
@@ -139,12 +150,12 @@ class FreshRetrievalTests(unittest.TestCase):
         self.assertEqual(self.agent.message_evidence_ids('This is for me.', ['partb']), [])
 
     def test_composer_receives_the_sources_retrieved_for_each_message(self):
-        """The compose context carries message_evidence_ids and their facts, on every mention."""
+        """Each mention preloads partb (tools off); the model never sees the retrieval ids."""
         self.case.message('This is for me.', [self.case.update('RC01', {'choice': 'self'}, 'This is for me.')])
         for _ in range(2):
             self.case.message('What is Part B?')
             context = self.case.composed_context()
-            self.assertEqual(context['message_evidence_ids'], ['partb'])
+            self.assertNotIn('message_evidence_ids', context)
             self.assertIn('partb', [item['id'] for item in context['evidence']])
 
 

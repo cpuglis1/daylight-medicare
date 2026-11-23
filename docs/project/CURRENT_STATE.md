@@ -318,6 +318,7 @@ error checks retain Daylight. No further app edit or restart was needed.
 | Legal and operating route (counsel questions, brokerage plan §7) | Pending counsel. Add: whether HIPAA formally applies to the agency. |
 | Legal entity name and consumer brand (D137) | Local :8894 branding and the shared advisor identity are restored to **Daylight**, with **Medicare, plain as day.** The earlier naming screens remain historical evidence. D143: the legal entity is CSquared, a Delaware C-corp (filing planned January 1, 2027); Daylight remains the public brand. Trademark clearance remains open. [Restoration](../../audit-evidence/daylight-restore-20261111/README.md) · [Name-screen history](../reviews/brand-screen-2026-11-10/README.md). |
 | Enrollment route and FMO | D143: Spark Advisors is the FMO in talks (demo pending). Enrollment route not yet chosen. |
+| Subscription-backed model route for local testing | Owner wants it as future development (November 21, 2026): let local hand testing run Daylight's own model calls on the owner's Claude subscription (through `claude -p`) instead of a paid API key. Not built. Needs a founder-reviewed `model-routes.json` change, a dev-only route that can never reach the pilot, and a note that it tests Claude, not the default `gpt-6.1-sol`. |
 
 ## How work runs
 

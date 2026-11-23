@@ -35,7 +35,8 @@ import turn_trace
 PROMPT = {'model': 'fictional-model', 'instructions': 'Compose.',
           'input': [{'role': 'user', 'content': json.dumps({'resolved_context': {
               'current_message': 'What is Part B?', 'message_evidence_ids': ['partb'],
-              'evidence': [{'id': 'partb', 'title': 'Part B basics', 'kind': 'teaching'}]}})}]}
+              'evidence': [{'id': 'partb', 'summary': 'Part B covers outpatient care.', 'text': 'Fictional Part B text.'},
+                           {'id': 'basics', 'summary': 'Medicare basics.', 'text': 'Fictional basics text.'}]}})}]}
 RESPONSE = {'status': 'completed', 'usage': {'input_tokens': 120, 'output_tokens': 30, 'total_tokens': 150}}
 
 
@@ -100,7 +101,12 @@ class TraceUnitTests(unittest.TestCase):
         record = turn_trace.TraceStore(self.root).get(request_id, 'owner-a')
         self.assertEqual(record['message'], 'What is Part B?')
         self.assertEqual(record['factsSaved'], [{'field': 'helpingFor', 'before': None, 'after': 'self'}])
-        self.assertEqual(record['toolCalls'][0]['output']['messageEvidenceIds'], ['partb'])
+        # The evidence code placed in the prompt is recorded as the model saw it
+        # (id, summary, text) and named for what it is: not a model lookup.
+        self.assertEqual(record['toolCalls'][0]['tool'], 'sources_supplied_by_code')
+        self.assertEqual(record['toolCalls'][0]['output']['evidence'], [
+            {'id': 'partb', 'summary': 'Part B covers outpatient care.', 'text': 'Fictional Part B text.'},
+            {'id': 'basics', 'summary': 'Medicare basics.', 'text': 'Fictional basics text.'}])
         compose, extract = record['modelCalls']
         self.assertEqual((compose['kind'], compose['model'], compose['status']), ('compose', 'fictional-model', 'ok'))
         self.assertEqual(compose['tokens'], {'input_tokens': 120, 'output_tokens': 30, 'total_tokens': 150})
@@ -185,6 +191,32 @@ class TraceUnitTests(unittest.TestCase):
             with self.assertRaises(turn_trace.TraceDisabled):
                 turn_trace.install_turn_traces(FakeService(FakeAgent(), lambda o, p: {}), self.root, **flags)
         self.assertFalse(self.root.exists())
+
+    def test_model_lookups_are_paired_with_their_results_once_each(self):
+        """D155 Q5: each lookup the model makes shows its own arguments and the sources sent back.
+
+        The second request resends the first call and its output, so the entry
+        must appear once; a call that never got an output (limit or budget) is
+        shown as not run rather than dropped.
+        """
+        call = {'type': 'function_call', 'call_id': 'c1', 'name': 'lookup_medicare_sources',
+                'arguments': json.dumps({'query': 'Part B premium', 'source_ids': ['partb']})}
+        result = {'type': 'function_call_output', 'call_id': 'c1',
+                  'output': json.dumps({'sources': [{'id': 'partb', 'title': 'Part B', 'summary': 'S', 'text': 'T'}]})}
+        stray = {'type': 'function_call', 'call_id': 'c2', 'name': 'lookup_medicare_sources',
+                 'arguments': json.dumps({'query': 'again', 'source_ids': []})}
+        second = {**PROMPT, 'input': PROMPT['input'] + [call, result]}
+        store = turn_trace.TraceStore(self.root)
+        store.save({'turnId': 'turn-000001', 'owner': 'x', 'toolCalls': [], 'modelCalls': [
+            {'kind': 'compose', 'request': PROMPT, 'response': {'output': [call]}},
+            {'kind': 'compose', 'request': second, 'response': {'output': [stray]}}]})
+        tools = store.get('turn-000001')['toolCalls']
+        self.assertEqual([entry['tool'] for entry in tools],
+                         ['sources_supplied_by_code', 'lookup_medicare_sources', 'lookup_medicare_sources'])
+        self.assertEqual(tools[1]['input'], {'query': 'Part B premium', 'source_ids': ['partb']})
+        self.assertEqual(tools[1]['output']['sources'][0]['id'], 'partb')
+        self.assertEqual(tools[2]['output']['sources'], [])
+        self.assertIn('Not run', tools[2]['output']['note'])
 
     def test_store_prunes_to_its_limit_and_rejects_path_ids(self):
         """The store keeps the newest files only and never reads outside its root."""

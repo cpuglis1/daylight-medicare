@@ -13,7 +13,7 @@ import server  # Registers the retained engine imports without starting a server
 from advisor_flow import fingerprint
 from chat import ModelUnavailable, ResponsesClient
 from guest_profiles import ProfileError
-from natural_flow import CONTEXT_POLICY, NaturalConversation
+from natural_flow import CONTEXT_POLICY, FIXTURE_NO_REPLY_NOTICE, NaturalConversation
 from situation import observations
 
 
@@ -1067,6 +1067,87 @@ class RetestNov9FlowTests(unittest.TestCase):
         second = self.message('So is he right?', compose=ModelUnavailable('x'))
         self.assertIn('I don’t have a checked answer to that question here yet', first['reply'])
         self.assertNotEqual(first['reply'].split('\n\n')[0], 'The sign-up window and coverage start are different; current insurance helps identify the relevant timing questions.')
+
+
+class FixtureDeadEndTests(unittest.TestCase):
+    """Fixture (mock AI) mode never composes, so a choice can leave nothing to show.
+
+    Trace a76674fb (Nov 21, 2026): Understand Medicare, then "new to Medicare",
+    returned no reply, no next question and no notice, and the :8894 page hung.
+    """
+
+    def setUp(self):
+        def transport(payload):
+            raise AssertionError('Fixture mode must not call the model')
+        self.flow = NaturalConversation(None, None,
+            json.loads((HERE/'web/guide-contract.json').read_text()),
+            json.loads((HERE/'web/teaching-facts.json').read_text()),
+            json.loads((HERE/'web/readiness-content.json').read_text()),
+            ResponsesClient(key='synthetic', model='gpt-5.4', transport=transport),
+            True, None, fixture=True)
+        self.g, self.r = self.flow.initial()
+        self.owner = uuid.uuid4().hex
+        self.continuation = None
+
+    def send(self, action):
+        """Send one action the way the page does without AI consent; return (payload, out)."""
+        payload = {'guide': self.g, 'record': self.r, 'requestId': str(uuid.uuid4()), 'action': action}
+        if self.continuation:
+            payload['continuation'] = self.continuation
+        out = self.flow.turn(self.owner, copy.deepcopy(payload))
+        self.g, self.r, self.continuation = out['guide'], out['record'], out['continuation']
+        return payload, out
+
+    def choice(self, id, choice):
+        """Send one button answer."""
+        return self.send({'type': 'choice', 'id': id, 'fields': {'choice': choice}})[1]
+
+    def test_learn_then_new_explains_instead_of_going_silent(self):
+        """A fixture turn with no reply and no next question carries the fixture notice."""
+        first = self.choice('T01', 'learn')
+        self.assertEqual(first['assessment']['nextQuestion']['id'], 'T02')
+        self.assertIsNone(first.get('notice'))  # A turn with a next question needs no notice.
+        second = self.choice('T02', 'new')
+        self.assertEqual(second['reply'], '')
+        self.assertIsNone(second['assessment']['nextQuestion'])
+        self.assertEqual(second['notice'], FIXTURE_NO_REPLY_NOTICE)
+        self.assertEqual(self.flow.value(second['guide'], 'knowledge.general'), 'new')
+
+    def test_unknown_and_defer_also_explain(self):
+        """'I don't know' and 'check later' carry an uncomposed reply that is blanked, so they need the notice too."""
+        for kind in ('unknown', 'defer'):
+            with self.subTest(kind=kind):
+                self.setUp()
+                self.choice('T01', 'learn')
+                out = self.send({'type': kind, 'id': 'T02'})[1]
+                self.assertEqual(out['reply'], '')
+                self.assertIsNone(out['assessment']['nextQuestion'])
+                self.assertEqual(out['notice'], FIXTURE_NO_REPLY_NOTICE)
+
+    def test_replay_of_the_same_request_keeps_the_notice(self):
+        """A retried request (same requestId) returns the journaled turn, notice included."""
+        self.choice('T01', 'learn')
+        payload, first = self.send({'type': 'choice', 'id': 'T02', 'fields': {'choice': 'new'}})
+        again = self.flow.turn(self.owner, copy.deepcopy(payload))
+        self.assertEqual(again['notice'], first['notice'])
+
+    def test_plans_filter_answer_stays_silent(self):
+        """A Plans-page filter answer is acknowledged by the next chat reply only (D97), never by this notice."""
+        self.choice('T01', 'learn')
+        self.choice('T02', 'new')  # The dead-end state, where the notice would otherwise fire.
+        for action in ({'type': 'choice', 'id': 'T06', 'fields': {'choice': 'none'}, 'source': 'plans_filter'},
+                       {'type': 'choice', 'id': 'T03', 'fields': {'zip': '34102'}, 'source': 'plans_filter'}):
+            with self.subTest(id=action['id']):
+                out = self.send(action)[1]
+                self.assertIsNone(out['assessment']['nextQuestion'])
+                self.assertIsNone(out.get('notice'))
+
+    def test_live_mode_never_shows_the_fixture_notice(self):
+        """Outside fixture mode the same dead-end sequence carries no fixture notice."""
+        self.flow.fixture = False
+        self.choice('T01', 'learn')
+        out = self.choice('T02', 'new')
+        self.assertNotEqual(out.get('notice'), FIXTURE_NO_REPLY_NOTICE)
 
 
 if __name__ == '__main__':

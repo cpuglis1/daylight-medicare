@@ -30,6 +30,10 @@ def provider_schema(schema):
 
 class ClaudeClient:
     model = 'claude-opus-5-5'
+    # body() sends no tools and transport() returns text only, so this route
+    # keeps the per-message keyword retrieval instead of the on-demand source
+    # lookup tool (D155 Q5; NaturalAgent.source_lookup_enabled).
+    supports_function_tools = False
 
     def __init__(self, key):
         self.key = key

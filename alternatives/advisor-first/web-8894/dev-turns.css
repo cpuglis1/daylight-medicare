@@ -6,11 +6,19 @@
  */
 .dt-toggle {
   /* Right edge, mid height: the footer links (Privacy & saving) and the chat
-     box sit at the bottom corners, so a bottom-right toggle covered them. */
+     box sit at the bottom corners, so a bottom-right toggle covered them.
+     A tall vertical tab in a dev-only orange (not a page token) so it is easy
+     to spot and never mistaken for part of the consumer design; a small dark
+     tab was missed in hand testing. White on #b5470b is about 5.2:1. */
   position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 60;
-  font: 600 0.875rem var(--font-ui); color: var(--paper); background: var(--ink);
-  border: 0; border-radius: var(--radius-control, 8px) 0 0 var(--radius-control, 8px); padding: 8px 12px; cursor: pointer;
+  writing-mode: vertical-rl; text-orientation: mixed; letter-spacing: 0.04em;
+  font: 700 1rem var(--font-ui); color: #fff; background: #b5470b;
+  border: 0; border-radius: 10px 0 0 10px; padding: 18px 10px; cursor: pointer;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.25);
 }
+.dt-toggle:hover { background: #963a09; }
+/* While the panel is open its own header has Close, so the tab steps aside. */
+body.dt-open .dt-toggle { display: none; }
 .dt-toggle:focus-visible, .dt-panel button:focus-visible, .dt-panel summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .dt-panel {
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 61; width: min(440px, 100vw);

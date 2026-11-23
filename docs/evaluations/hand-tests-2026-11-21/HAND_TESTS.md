@@ -38,7 +38,7 @@ What to check:
 ## 5. Early stop after three messages (answers_questions, one_question)
 Type: `Quick question: when can I sign up for Medicare if I turn 65 in June?`, `34101.`, then `Okay, thanks, that's enough for today.`
 What to check:
-- Reply 1 states the 7-month Initial Enrollment Period with a medicare.gov citation; Tool calls shows `reviewed_source_lookup (compose)` with evidence listed.
+- Reply 1 states the 7-month Initial Enrollment Period with a medicare.gov citation; Tool calls shows `lookup_medicare_sources (compose)` with the enrollment source it returned.
 - Reply 3 is a short goodbye with no intake question; Next question shows `none` (or empty).
 
 ## 6. State program gap (answers_questions, cites_sources)
@@ -66,7 +66,7 @@ What to check:
 Type: `I turn 65 in April and I'm retired.`, then when asked the next fact reply `34103. Wait, does Part A cost anything?`
 What to check:
 - Facts saved shows `comparison.scope.zip: → 34103` and the reply also answers the Part A premium question with a citation (or the gap note).
-- Tool calls shows `reviewed_source_lookup (compose)` this turn with evidence for Part A.
+- Tool calls shows a new `lookup_medicare_sources (compose)` this turn returning the Part A source.
 - Next question is a new fact, not the ZIP; exactly one question.
 
 ## 10. Already retired (premise_respected, no_reask)
@@ -86,7 +86,7 @@ What to check:
 Type: `I'm not on Medicare and I'm not signing anyone up. I'm writing a paper. How does the Part B late enrollment penalty work?` then `How is the Part D penalty different?`
 What to check:
 - Facts saved does not show `subject.role: → self`.
-- Each answer cites medicare.gov; Tool calls shows `reviewed_source_lookup (compose)` each turn.
+- Each answer cites medicare.gov; Tool calls shows a `lookup_medicare_sources (compose)` on each factual turn.
 - No ZIP or birthday question.
 
 ## 13. Who it's for comes first (right_person)

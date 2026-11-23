@@ -168,6 +168,10 @@ class TraceStore:
             return None
         if owner is not None and record.get('owner') != owner_key(owner):
             return None
+        # Rebuild the lookups from the saved prompts so turns saved before the
+        # source fields and model lookups were recorded show them too.
+        if isinstance(record.get('modelCalls'), list):
+            record['toolCalls'] = _lookups(record['modelCalls'])
         return record
 
     def list(self, owner=None, limit=200):
@@ -207,31 +211,78 @@ def facts_saved(before, after):
 
 
 def _lookups(calls):
-    """Return the source lookups this turn's model calls were given.
+    """Return the source lookups behind this turn's model calls, one entry each.
 
-    Retrieval runs in code before each model call (D155 Q5), so the lookup's
-    input and output are read back from the prompt each call received.
+    Three kinds (D155 Q5, on demand):
+      - ``lookup_medicare_sources`` (compose): a lookup the model chose to
+        make. Its input is the model's own arguments, read from the
+        function_call item in a response; its output is the
+        function_call_output the next request carried back. Entries are
+        deduplicated by call_id, because every later round resends them.
+      - ``sources_supplied_by_code`` (compose): the evidence code placed in
+        the first composition prompt (rule statements and plan facts; on a
+        route without tools, also the per-message keyword retrieval).
+      - ``topic_match`` (extract): the sources matched by keyword for the
+        extraction stage, which uses them only to classify the message.
+
+    Each source is recorded as the model saw it: id, summary and text (the
+    prompt carries no title or kind, so reading those showed every source as
+    null in the panel).
     """
-    tools = []
-    for call in calls:
+    def sources(items):
+        """Return the id, summary and text of each source dict."""
+        return [{key: item.get(key) for key in ('id', 'summary', 'text')} if isinstance(item, dict)
+                else {'id': item} for item in items]
+
+    def decoded(value):
+        """Decode a JSON string from a tool item; keep the raw value if it is not JSON."""
         try:
-            content = json.loads(call['request']['input'][0]['content'])
+            return json.loads(value) if isinstance(value, str) else value
+        except ValueError:
+            return value
+
+    tools, supplied, looked, order = [], False, {}, []
+    for call in calls:
+        request = call.get('request') if isinstance(call.get('request'), dict) else {}
+        items = request.get('input') if isinstance(request.get('input'), list) else []
+        try:
+            content = json.loads(items[0]['content'])
         except (KeyError, IndexError, TypeError, ValueError):
-            continue
-        if call['kind'] == 'compose':
-            context = content.get('resolved_context') or {}
-            evidence = context.get('evidence') or []
-            tools.append({'tool': 'reviewed_source_lookup', 'stage': 'compose',
-                          'input': {'message': context.get('current_message')},
-                          'output': {'messageEvidenceIds': context.get('message_evidence_ids'),
-                                     'evidence': [{'id': item.get('id'), 'title': item.get('title'),
-                                                   'kind': item.get('kind')} for item in evidence
-                                                  if isinstance(item, dict)]}})
-        elif call['kind'] == 'extract':
-            facts = content.get('reviewed_facts') or []
-            tools.append({'tool': 'reviewed_source_lookup', 'stage': 'extract',
+            content = None
+        if call['kind'] == 'extract' and isinstance(content, dict):
+            tools.append({'tool': 'topic_match', 'stage': 'extract',
                           'input': {'message': content.get('submitted_text'), 'node': content.get('current_node')},
-                          'output': {'facts': [item.get('id') if isinstance(item, dict) else item for item in facts]}})
+                          'output': {'facts': sources(content.get('reviewed_facts') or [])}})
+            continue
+        if call['kind'] != 'compose':
+            continue
+        if not supplied and isinstance(content, dict):
+            supplied = True
+            context = content.get('resolved_context') or {}
+            tools.append({'tool': 'sources_supplied_by_code', 'stage': 'compose',
+                          'input': {'message': context.get('current_message')},
+                          'output': {'evidence': sources([item for item in context.get('evidence') or []
+                                                          if isinstance(item, dict)])}})
+        response = call.get('response') if isinstance(call.get('response'), dict) else {}
+        outputs = response.get('output') if isinstance(response.get('output'), list) else []
+        for item in items[1:] + outputs:
+            if not isinstance(item, dict) or not item.get('call_id'):
+                continue
+            entry = looked.get(item['call_id'])
+            if entry is None:
+                entry = looked[item['call_id']] = {'tool': 'lookup_medicare_sources', 'stage': 'compose',
+                                                   'input': None, 'output': None}
+                order.append(item['call_id'])
+            if item.get('type') == 'function_call':
+                entry['tool'] = item.get('name') or entry['tool']
+                entry['input'] = decoded(item.get('arguments'))
+            elif item.get('type') == 'function_call_output':
+                entry['output'] = decoded(item.get('output'))
+    for call_id in order:
+        if looked[call_id]['output'] is None:
+            # The model asked, but no result was sent back (limit or budget).
+            looked[call_id]['output'] = {'sources': [], 'note': 'Not run: the lookup limit or budget stopped it.'}
+        tools.append(looked[call_id])
     return tools
 
 
