@@ -20,7 +20,10 @@ class CobraConversationTests(unittest.TestCase):
         return self.case.update(id,fields,text,**extra)
 
     def test_cobra_end_question_does_not_call_it_current_work_insurance(self):
-        q=next(x['question'] for x in self.case.flow.eligible(self.case.owner,self.case.g,self.case.r) if x['id']=='RC11')
+        # D157 (CV-07): the COBRA end date changes nothing the person sees, so it
+        # is no longer asked. The wording protection still holds for an edit.
+        self.assertNotIn('RC11',{x['id'] for x in self.case.flow.eligible(self.case.owner,self.case.g,self.case.r)})
+        q=next(x['question'] for x in self.case.flow._eligible(self.case.owner,self.case.g,self.case.r) if x['id']=='RC11')
         self.assertEqual(q['question'],'When does your COBRA coverage end?')
         self.assertEqual([x['key'] for x in q['fields']],['coverageEnd'])
         self.assertFalse(self.case.flow.agent._valid_question('When does that work insurance end?',{'question':q,'id':'RC11'}))

@@ -14,7 +14,7 @@ function dom(){
     replaceChildren(...nodes){this.children=[];this.append(...nodes);}
     setAttribute(k,v){this.attributes[k]=v;}addEventListener(k,v){this.listeners[k]=v;}focus(){}
   }
-  const document={createElement:t=>new Node(t),getElementById:id=>ids.get(id),body:new Node('body')};
+  const document={createElement:t=>new Node(t),createElementNS:(_ns,t)=>new Node(t),getElementById:id=>ids.get(id),body:new Node('body')};
   class Option extends Node {constructor(label,value){super('option');this.textContent=label;this.value=value;}}
   const all=n=>[n,...n.children.filter(x=>typeof x==='object').flatMap(all)];
   return {Node,document,Option,all};
@@ -80,12 +80,14 @@ test('groups keep backend order; rows it did not sort go last',async()=>{
 });
 test('summaries name the pick or why there is none, and explain the method',async()=>{
   const {R}=load();R.configure(async()=>RESULT);R.update({v:1});await tick();
-  const path=R.summary('path',{original:'Original Medicare, with Medigap and a Part D drug plan'}).textContent;
-  assert.match(path,/Evaluation mode/);assert.match(path,/Top match: Original Medicare, with Medigap/);
-  assert.match(path,/What it used: Keep your doctors \(your priority\), Predictable costs\./);
+  // D157 (CN-04): the page carries one quiet link; the explanation opens from it.
+  assert.equal(R.summary('path',{}).textContent,'How Daylight sorted these');
+  const path=R.explain('path',{original:'Original Medicare, with Medigap and a Part D drug plan'}).textContent;
+  assert.doesNotMatch(path,/Evaluation mode|pilot/i);assert.match(path,/Top match: Original Medicare, with Medigap/);
+  assert.match(path,/What you told Daylight: Keep your doctors \(your priority\), Predictable costs\./);
   assert.match(path,/Commissions and any payment to Daylight are not part of this sorting/);
-  assert.match(R.summary('part_d').textContent,/No pick yet: fictional reason\./);
-  assert.match(R.summary('advantage').textContent,/Fictional: not available\./);
+  assert.match(R.explain('part_d').textContent,/No pick yet: fictional reason\./);
+  assert.match(R.explain('advantage').textContent,/Fictional: not available\./);
 });
 test('Medigap tab defaults to the evaluation order, grouped, and keeps the other sorts',async()=>{
   const env=load(['recommendation-view.js','medigap-plans.js']),{R,window,document,all}=env;
@@ -98,9 +100,45 @@ test('Medigap tab defaults to the evaluation order, grouped, and keeps the other
   const select=all(host).find(n=>n.tagName==='select'&&n.children.some(o=>o.value==='fit'));
   assert.equal(select.value,'fit');
   const list=document.getElementById('medigap-list');
-  assert.deepEqual(list.children.map(n=>n.tagName),['section','section','details']);
+  assert.deepEqual(list.children.map(n=>n.tagName),['section','section','section']);
   assert.deepEqual(all(list).filter(n=>n.dataset.medigapId).map(n=>n.dataset.medigapId),['g1','g2','n1','f1']);
   assert.match(list.children[0].textContent,/^Matches your priorities2 rates/);
   select.value='premium';select.onchange();
   assert.deepEqual(all(document.getElementById('medigap-list')).filter(n=>n.dataset.medigapId).map(n=>n.dataset.medigapId),['n1','g1','g2','f1']);
+});
+
+test('D214 card findings show explicit outcomes, conditional drug warnings and scoped cost amounts',async()=>{
+  const {R,all}=load();
+  const data=plain(RESULT);
+  data.plan_card_checks={version:'collier-plan-card-checks-v1'};
+  data.part_d.plans.p1.card_checks=[
+    {id:'medicines',label:'Your medicines',state:'unknown',kind:'observation',indicator:'warning',outcome:'Needs checking',note:'Fictional medicine requires prior authorization. This is not an approval.'},
+    {id:'drug_cost',label:'Premiums and drug spending',state:'met',kind:'observation',indicator:'supported',outcome:'Estimate available',note:'$22.34 for the selected December refills. Uses retail averages and excludes medical costs.'},
+    {id:'total_cost',label:'Total yearly cost',state:'unknown',kind:'observation',indicator:'warning',outcome:'Not calculated',note:'A complete medical-plus-drug estimate is not available.'}
+  ];
+  R.configure(async()=>data);R.update({planCardChecks:true,inputs:{v:1},continuation:'fictional'});await tick();
+  const list=R.checks('part_d','p1');
+  const rows=all(list).filter(n=>n.dataset.checkId);
+  assert.deepEqual(rows.map(n=>n.className),['rec-check rec-evidence rec-warning','rec-check rec-evidence rec-supported','rec-check rec-evidence rec-warning']);
+  assert.deepEqual(rows.map(n=>n.dataset.finding),['unknown','met','unknown']);
+  assert.match(list.textContent,/Your medicinesNeeds checking/);
+  assert.match(list.textContent,/prior authorization/);
+  assert.match(list.textContent,/Estimate available.*\$22\.34/);
+  assert.match(list.textContent,/Total yearly costNot calculated/);
+  assert.equal(all(list).filter(n=>n.tagName==='svg').length,3);
+  assert.match(R.explain('part_d').textContent,/does not mean a plan is affordable or cheapest/);
+});
+
+test('D214 changed or withdrawn evidence clears old marks before the replacement arrives',async()=>{
+  const {R}=load();let release,changed=0,calls=0;
+  const first=plain(RESULT);first.part_d.plans.p1.card_checks=[{id:'medicines',label:'Your medicines',state:'met',kind:'observation',indicator:'supported',outcome:'Listed',note:'Fictional dated listing.'}];
+  R.configure(async()=>++calls===1?first:new Promise(resolve=>{release=()=>resolve(RESULT);}));
+  R.onChange(()=>changed++);
+  R.update({planCardChecks:true,inputs:{n:1},continuation:'same',evidence:[{membership:'listed_in_network'}]});await tick();
+  assert.ok(R.checks('part_d','p1'));
+  R.update({planCardChecks:true,inputs:{n:1},continuation:'same',evidence:[]});
+  assert.equal(R.checks('part_d','p1'),null);
+  assert.equal(R.status().pending,true);
+  assert.ok(changed>=3);release();await tick();
+  assert.equal(R.status().pending,false);
 });

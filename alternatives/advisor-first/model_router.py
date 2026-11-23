@@ -43,8 +43,9 @@ SCHEMA = 'daylight-model-routes/v1'
 ENVIRONMENT_VARIABLE = 'DAYLIGHT_MODEL_ENVIRONMENT'
 DEFAULT_ENVIRONMENT = 'development'
 # Each environment carries one class of data. Development uses fictional
-# people only; anything in the pilot is treated as real health information.
-ENVIRONMENT_DATA = {'development': 'fictional', 'pilot': 'health'}
+# people only. The invited hosted demo is fictional too; the separate real-data
+# pilot remains held until its BAA, region and retention configuration is accepted.
+ENVIRONMENT_DATA = {'development': 'fictional', 'hosted-demo': 'fictional', 'pilot': 'health'}
 LOGGER = logging.getLogger(__name__)
 
 # The only URLs a caller may build. The route decides where each one goes.
@@ -102,6 +103,8 @@ class Route:
             return False
         if self.data == 'health':
             return self.project is not None and self.region == 'us'
+        if self.environment == 'hosted-demo':
+            return self.project is not None
         return True
 
 
@@ -159,6 +162,11 @@ def _route(item):
         raise ValueError('Record the processing region.')
     if data == 'health' and region != 'us':
         raise ValueError('Routes that carry health information must process in the US.')
+    if environment == 'hosted-demo' and (provider != 'openai' or models != ['gpt-6.1-sol']
+            or endpoints != {'responses':'https://api.openai.com/v1/responses',
+                             'input_tokens':'https://api.openai.com/v1/responses/input_tokens'}
+            or region != 'provider-default'):
+        raise ValueError('The fictional hosted demo uses only its reviewed OpenAI Sol 6.1 route.')
     return Route(identifier, environment, provider, data, tuple(models),
                  tuple((kind, _endpoint(provider, kind, endpoints[kind])) for kind in KINDS[provider]),
                  project, region)

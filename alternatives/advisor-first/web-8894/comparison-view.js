@@ -89,8 +89,8 @@
       sources.append(locations);column.append(sources);grid.append(column);
     }
     section.append(grid);
-    const assumptions=el('details');
-    assumptions.append(el('summary','What the examples assume'),
+    const assumptions=el('section');
+    assumptions.append(el('h3','What the examples assume'),
       el('p','Four ordinary covered office visits and one formally ordered acute admission in network. Hospital days exclude discharge day. Required authorization is assumed for the example. It assumes room under the medical out-of-pocket maximum and no assistance adjustment.'),
       el('p','Federal premiums, optional packages, tests, procedures, professional fees, drug spending, transfers and readmissions fall outside these examples.'));
     for(const source of preview.sources) {

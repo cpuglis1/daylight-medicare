@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),test=require('node:test'),assert=require('node:assert/strict');
 const source=fs.readFileSync(path.join(__dirname,'../web-8894/part-d-plans.js'),'utf8');
-function fixture(request, initial=profile()){
+function fixture(request, initial=profile(), recommend=null){
   const ids=new Map();let document;
   class Node {
     constructor(tag){this.tagName=tag;this.children=[];this.listeners={};this.dataset={};this.attributes={};this.value='';this.isConnected=true;this.text='';}
@@ -15,7 +15,7 @@ function fixture(request, initial=profile()){
   }
   document={createElement:tag=>new Node(tag),getElementById:id=>ids.get(id),body:new Node('body')};
   class Option extends Node {constructor(label,value){super('option');this.textContent=label;this.value=value;}}
-  const window={};vm.runInNewContext(source,{window,document,Option,Intl,Number,Set,Object,Array,Infinity,Error,String});
+  const window=recommend?{DaylightRecommend:recommend}:{};vm.runInNewContext(source,{window,document,Option,Intl,Number,Set,Object,Array,Infinity,Error,String});
   const host=new Node('main');document.body.append(host);const calls=[];
   let current=initial;const conversations=[];
   const options={context:'fictional-visit',profile:current,request:async(url,body)=>{calls.push({url,body});return request(body);},
@@ -41,7 +41,7 @@ test('ready shared profile automatically loads all published plans without demog
 });
 test('missing scope invites chat without a duplicate form or price request',async()=>{
   const f=fixture(response,profile({zipcode:null}));assert.equal(f.calls.length,0);assert.equal(f.all().filter(n=>['form','input','select'].includes(n.tagName)).length,0);
-  f.find(n=>n.tagName==='button'&&n.textContent==='Talk to Daylight').onclick();assert.deepEqual(f.conversations,[undefined]);
+  f.find(n=>n.tagName==='button'&&n.textContent==='Continue in the conversation').onclick();assert.deepEqual(f.conversations,['T03']);   // D157 (CN-10)
   f.mount(profile());await f.tick();assert.equal(f.calls.length,1);
 });
 test('chat corrections discard delayed old results and unsupported years clear prices',async()=>{
@@ -50,8 +50,8 @@ test('chat corrections discard delayed old results and unsupported years clear p
   assert.match(f.host.textContent,/another coverage year/);f.mount(profile({zipcode:'34108'}));waiting[1]();await f.tick();assert.match(f.host.textContent,/ZIP 34108/);
 });
 test('unknown answers remain open and corrections return to the specific chat question',async()=>{
-  const f=fixture(response,profile({zipcode:null},['T03']));assert.match(f.host.textContent,/Details you left unknown/);
-  f.find(n=>n.tagName==='button'&&n.textContent==='Edit Home ZIP code in conversation').onclick();assert.deepEqual(f.conversations,['T03']);assert.equal(f.calls.length,0);
+  const f=fixture(response,profile({zipcode:null},['T03']));assert.match(f.host.textContent,/1 detail left to see your Part D drug plans/);
+  f.find(n=>n.tagName==='button'&&n.textContent==='Home ZIP code').onclick();assert.deepEqual(f.conversations,['T03']);assert.equal(f.calls.length,0);
 });
 test('source details preserve negative components and do not assign personal costs',async()=>{
   const f=fixture(response);await f.tick();const b=f.find(n=>n.tagName==='button'&&n.textContent==='See full details');b.onclick({currentTarget:b});
@@ -66,4 +66,14 @@ test('three-plan comparison and removal retain all plans',async()=>{
 test('failed reads keep profile and retry only deliberately',async()=>{
   let fail=true;const f=fixture(body=>{if(fail)throw Error('Unavailable');return response(body);});await f.tick();f.mount();await f.tick();assert.equal(f.calls.length,1);
   fail=false;f.find(n=>n.tagName==='button'&&n.textContent==='Try Part D plans again').onclick();await f.tick();assert.equal(f.calls.length,2);assert.equal(f.all().filter(n=>n.dataset.partDId).length,4);
+});
+
+test('scoped card findings replace the old blanket not-checked notice',async()=>{
+  const recommend={plan:()=>({card_checks:[{id:'medicines',state:'met'}]}),
+    tab:()=>null,summary:()=>null,arrange:()=>null,decorate:()=>{},active:()=>false};
+  const f=fixture(response,profile(),recommend);await f.tick();
+  assert.equal(f.all().filter(n=>n.dataset.partDId).length,4);
+  assert.doesNotMatch(f.host.textContent,/aren’t checked against each drug list yet|Personal medicine and pharmacy costs: not checked/);
+  assert.match(f.host.textContent,/medicine, pharmacy and cost findings below/);
+  assert.match(f.host.textContent,/Deductible exceptions may apply/);
 });

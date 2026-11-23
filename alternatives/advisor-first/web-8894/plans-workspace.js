@@ -4,11 +4,16 @@
    except through the existing plans-context-v1 snapshot on a deliberate Send. */
 (() => {
   'use strict';
-  let api, activate, ask, opts = {}, data, token = null, selected = null, field = null, mode = 'all', query = '', opened = false, matchesShown = false, railOpen = null;
+  let api, activate, ask, opts = {}, data, token = null, selected = null, field = null, mode = 'all', query = '', opened = false, matchesShown = false;
   // D97 filters: personal details save to the profile; the rest only narrow this list.
   let panel = null, premiumMax = 'any', pharmacy = '', zipIndex = null, saving = false;
   // Owner (Nov 8): the workspace opens on the coverage-path page; the plan list is one step in.
   let view = 'paths'; // 'paths' | 'advantage' | 'supplement'
+  // D161: with the enrollment journey on, two path tabs hold three decisions each:
+  // Original Medicare (ab, supplement, part-d) and Medicare Advantage (ab, advantage, advantage-drugs).
+  let pathTab = 'original', guideId = null, guideRoute = null, maLocal = {}, chatClose = null;
+  const STEP_VIEW = {original: {ab: 'ab', medigap: 'supplement', part_d: 'part-d'}, advantage: {ab: 'ab', plan: 'advantage', drugs: 'advantage-drugs'}};
+  const MA_TEXT = {plan: {decide_later: 'Decide later'}, drugs: {chosen: 'Checked', not_needed: 'Not needed', decide_later: 'Decide later'}};
   const benefits = new Set(), content = {};
   const compared = new Set(), filters = {type: 'any', drugs: 'any', sort: 'premium'}, $ = id => document.getElementById(id);
   const WIDE = 1280;
@@ -24,7 +29,7 @@
     ['Doctor visits', ['primary_care_in_network', 'specialist_in_network']],
     ['Hospital and emergency', ['hospital_in_network', 'emergency', 'urgent']]];
   const REASONS = {CONFIRM_CURRENT_PROFILE: 'Review and confirm your information in the conversation first.'};
-  const METRIC_WORDS = {monthly_plan_premium: 'lower monthly premium', in_network_medical_limit: 'lower yearly medical limit'};
+  const METRIC_WORDS = {monthly_plan_premium: 'lower monthly premium', in_network_medical_limit: 'lower yearly in-network limit'};
 
   function el(tag, text, cls) {const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n;}
   function button(label, run, cls = 'btn-quiet') {const b = el('button', label, cls); b.type = 'button'; b.onclick = run; return b;}
@@ -99,8 +104,10 @@
     const t = $('plans-chat-toggle'); if (t) {t.setAttribute('aria-expanded', String(open)); t.textContent = open ? 'Hide chat' : 'Ask Daylight';}
     $('plans-backdrop').hidden = !(open && drawer());
     $('plans-fab').hidden = open || !opened;
+    if (chatClose) chatClose.lastChild.textContent = open && view === 'guide' && enroll() ? 'Back to the guide' : 'Close';
     document.body.classList.toggle('plans-chat-open', open);
     if (open) $('message').focus(); else ($('plans-chat-toggle') || $('plans-fab'))?.focus();
+    if(open && window.DaylightGuidedClose) document.dispatchEvent(new Event('daylight:plans-chat-open'));
   }
   function stage(plan, key) {
     selected = plan.id; field = key;
@@ -124,22 +131,36 @@
     if (!data) return;
     window.DaylightRecommend?.update(prof().recommendation); // D147: inert unless the local demo turns it on
     const host = $('plans-panel'), rec = data.recommendation, scope = data.scope || {};
+    if (window.DaylightGuidedClose && opened) {
+      const actualView=view;
+      queueMicrotask(()=>document.dispatchEvent(new CustomEvent('daylight:plans-navigation',{detail:actualView})));
+    }
     host.replaceChildren();
     // Order: sticky header (plan kinds, way back), then the page for this view.
-    const sticky = el('div', undefined, 'plans-sticky');
+    const sticky = el('div', undefined, 'plans-sticky'), E = enroll();
     sticky.append(kinds(), withIcon(button('Back to my conversation', close, 'btn-quiet plans-crumb'), 'back', false));
-    if (opts.beforeEnroll) sticky.append(button('Before you enroll', () => opts.beforeEnroll(), 'btn-quiet plans-crumb')); // D138
+    const stepped = E && !['paths', 'guide'].includes(view);
+    // D161: the three decisions stay in view, each showing its answer. Owner, November 13: nothing else sits
+    // between the top of the page and the plans; the Parts A and B status and its next step live in step 1.
+    if (stepped) sticky.append(window.DaylightEnrollment.steps(E, {tab: pathTab, step: currentStep(), local: pathTab === 'advantage' ? maLocal : null,
+      onStep: id => showView(STEP_VIEW[pathTab][id])}));
     host.append(sticky); headerOffset();
+    $('workspace').classList.toggle('guide-open', view === 'guide'); document.body.classList.toggle('guide-open', view === 'guide');
+    if (E && view === 'ab') {renderParts(host, E); return;}
+    if (E && view === 'guide') {renderGuide(host, E); return;}
+    if (E && view === 'advantage-drugs') {renderAdvantageDrugs(host, E); return;}
     if (view === 'part-d') {
       const nav = sticky.querySelector('.plan-kinds');
       nav.scrollLeft = nav.scrollWidth - nav.clientWidth;
     }
     if (view !== 'advantage') document.body.classList.remove('plans-has-tray');
+    const nextStep = () => {if (opts.beforeEnroll && host.isConnected) {const row = el('p', undefined, 'plans-next-step'); row.append(button('Next: Before you enroll', () => opts.beforeEnroll(), view === 'supplement' ? 'btn-secondary' : 'primary-button')); host.append(row);}};
     if (view === 'paths') {renderPaths(host); return;}
-    if (view === 'supplement') {renderSupplement(host); return;}
-    if (view === 'part-d') {renderPartD(host); return;}
-    // Medicare Advantage list: way back to the two paths, title with ZIP / save / chat, one banner, filters, plans.
-    host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
+    if (view === 'supplement') {renderSupplement(host); stepEnd(host, 'medigap'); nextStep(); return;}
+    if (view === 'part-d') {renderPartD(host); stepEnd(host, 'part_d'); nextStep(); return;}
+    const after = [];   // what follows the plan list instead of standing above it
+    queueMicrotask(() => {if (view !== 'advantage' || !host.isConnected) return; host.append(...after); stepEnd(host, 'plan'); nextStep();});
+    // Medicare Advantage list: title with ZIP, the active sort, filters, plans (D157).
     const top = el('div', undefined, 'plans-top');
     const title = el('h1', 'Medicare Advantage plans', 'plans-title'); title.tabIndex = -1;
     top.append(title);
@@ -147,19 +168,15 @@
     const zip = fieldValue('comparison.scope.zip'), county = fieldValue('comparison.scope.county');
     const where = button(zip ? `${zip} · ${(county?.name || scope.county || '').replace(/ County.*$/, '')}` : 'Add your ZIP', () => togglePanel('zip'), 'btn-quiet plans-zip');
     where.append(iconPencil()); where.setAttribute('aria-label', zip ? `ZIP ${zip}. Change ZIP code` : 'Add your ZIP code');
-    const saveBtn = button('Save progress', () => opts.privacy?.(), 'btn-quiet plans-save'); saveBtn.append(iconBookmark());
-    acts.append(where, saveBtn);
+    acts.append(where);
     top.append(acts);
-    const chatOpen = !$('workspace').classList.contains('chat-closed');
-    const toggle = button(chatOpen ? 'Hide chat' : 'Ask Daylight', () => chat($('workspace').classList.contains('chat-closed')), 'btn-secondary plans-chat-toggle');
-    toggle.prepend(el('span', undefined, 'sun-mark'));
-    toggle.id = 'plans-chat-toggle'; toggle.setAttribute('aria-controls', 'composer'); toggle.setAttribute('aria-expanded', String(chatOpen));
-    acts.append(toggle); host.append(top);
+    host.append(top);
     if (data.profile_binding && !rec.scope_supported) host.append(el('p', `Your information asks about ${data.profile_binding.scope.year}. These plans do not match that year and county yet.`, 'plans-year'));
 
     if (rec.state !== 'supported' && mode !== 'compare' && !reviewedHandoff()) {
       const line = el('p', 'To have plans checked against your situation, finish the review in your conversation. ', 'plans-help plans-review-line');
-      line.append(button('Continue my conversation', close, 'btn-quiet')); host.append(line);
+      line.append(button('Continue my conversation', close, 'btn-quiet'));
+      if (E) after.push(line); else host.append(line);
     }
     else if (rec.state !== 'supported' && mode !== 'compare') {
       // Owner direction (Nov 8, 2026): once the person has answered the questions,
@@ -184,23 +201,25 @@
         words.append(h, el('p', `${first.charAt(0).toUpperCase() + first.slice(1)} first${second ? ', then ' + second : ''}. The published terms for this county and year are not available to order yet.`));
       } else {
         h.textContent = 'Tell Daylight what matters more';
-        words.append(h, el('p', 'Choose below whether a lower monthly premium or a lower yearly medical limit comes first, and Daylight orders the plans by their published terms.'));
+        words.append(h, el('p', 'Choose below whether a lower monthly premium or a lower yearly in-network limit comes first, and Daylight orders the plans by their published terms.'));
       }
       const bActs = el('div', undefined, 'banner-actions');
       if (!token || open) bActs.append(button(open && token ? `Answer ${open} open ${open === 1 ? 'question' : 'questions'}` : 'Check plans for me', checkFlow, 'primary-button'));
       bActs.append(button('Continue my conversation', close, 'btn-quiet'));
       banner.append(words, bActs);
-      host.append(banner);
+      if (token && open) {h.textContent = `${open} ${open === 1 ? 'detail is' : 'details are'} still open`; words.replaceChildren(h);}
+      if (!token || open) host.append(banner);
     }
     if (token) {
-      const pr = el('div', undefined, 'plans-row plans-priorities'), label = el('label', rec.priority_source === 'derived_from_conversation' ? 'What matters more to you? (from your conversation)' : 'What matters more to you?', 'plans-field'), select = el('select'); select.id = 'plan-priorities';
-      for (const [v, t] of [['', 'Choose one'], ['monthly_plan_premium,in_network_medical_limit', 'Lower monthly premium first'], ['in_network_medical_limit,monthly_plan_premium', 'Lower yearly medical limit first']]) {const o = el('option', t); o.value = v; select.append(o);}
+      const pr = el('div', undefined, 'plans-row plans-priorities plans-sortchip'), label = el('label', 'Sorted for', 'plans-field'), select = el('select'); select.id = 'plan-priorities';
+      for (const [v, t] of [['', 'Choose one'], ['monthly_plan_premium,in_network_medical_limit', 'Lower monthly premium'], ['in_network_medical_limit,monthly_plan_premium', 'Predictable costs (lower yearly in-network limit)']]) {const o = el('option', t); o.value = v; select.append(o);}
       select.value = rec.priority_order.join(','); label.append(select);
-      pr.append(label, button(rec.priority_source === 'confirmed' ? 'Confirmed' : 'Confirm', async () => {if (!select.value) return; try {data = await api('/api/plans/priorities', {token, order: select.value.split(','), confirmed: true}); render();} catch (e) {status(e.message);}}, 'btn-secondary'));
-      host.append(pr, el('p', 'These two costs do not measure total spending. Doctor, medicine and eligibility checks stay separate.', 'plans-help'));
+      select.addEventListener('change', async () => {if (!select.value) return; try {data = await api('/api/plans/priorities', {token, order: select.value.split(','), confirmed: true}); render();} catch (e) {status(e.message);}});
+      pr.append(label);
+      host.append(pr);
     }
     const fitSummary = window.DaylightRecommend?.summary('advantage', Object.fromEntries(data.plans.map(p => [p.id, p.name])));
-    if (fitSummary) host.append(fitSummary); // D147
+    if (fitSummary) queueMicrotask(() => {if (view === 'advantage' && host.isConnected) host.append(fitSummary);}); // CN-04: below the plan list
     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
 
     // Tabs: no tab ever reads (0).
@@ -228,7 +247,121 @@
   // The conversation's Review your info step produces a handoff; only then is
   // "Check plans for me" offered here. Until then, the review belongs in the chat.
   function reviewedHandoff() {return !!(token || prof().handoff);}
-  function showView(next) {view = next;render(); scrollTo({top: 0}); $('plans-panel').querySelector('h1')?.focus?.();}
+  function showView(next) {
+    if (view === 'guide' && next !== 'guide') chat(false);
+    if (['supplement', 'part-d'].includes(next)) pathTab = 'original';
+    if (['advantage', 'advantage-drugs'].includes(next)) pathTab = 'advantage';
+    view = next; noteStep(); render(); scrollTo({top: 0}); $('plans-panel').querySelector('h1')?.focus?.();
+  }
+  // --- D161: the enrollment journey on the plans pages ------------------------
+  function enroll() {const e = prof().enrollment; return window.DaylightEnrollment && e?.dashboard ? e : null;}
+  function currentStep() {return Object.entries(STEP_VIEW[pathTab]).find(([, target]) => target === view)?.[0] || null;}
+  function stepOf(E, id) {return E.dashboard.paths[pathTab].steps.find(step => step.id === id);}
+  // Medicare Advantage steps 2 and 3 are kept in this browser tab only, under one key, and cleared when the visit starts over.
+  const MA_KEY = 'daylight.ma-steps';
+  function keepLocal() {try {sessionStorage.setItem(MA_KEY, JSON.stringify(maLocal));} catch {}}
+  function loadLocal() {try {maLocal = JSON.parse(sessionStorage.getItem(MA_KEY) || '{}') || {};} catch {maLocal = {};}}
+  function forgetLocal() {maLocal = {}; lastStep = {}; try {sessionStorage.removeItem(MA_KEY); sessionStorage.removeItem(SEEN_KEY); sessionStorage.removeItem(GUIDE_KEY);} catch {}}
+  // Owner, November 13: a path tab opens at step 1 on a first visit (the server says so until both parts are in
+  // place), then at the step the person last saw on that path. Kept in this browser tab; cleared with the visit.
+  const SEEN_KEY = 'daylight.path-steps';
+  let lastStep = {};
+  function loadSeen() {try {lastStep = JSON.parse(sessionStorage.getItem(SEEN_KEY) || '{}') || {};} catch {lastStep = {};}}
+  function noteStep() {
+    if (!enroll() || !Object.values(STEP_VIEW[pathTab]).includes(view)) return;
+    lastStep[pathTab] = view; try {sessionStorage.setItem(SEEN_KEY, JSON.stringify(lastStep));} catch {}
+  }
+  function pathView(tab) {
+    const seen = lastStep[tab];
+    return Object.values(STEP_VIEW[tab]).includes(seen) ? seen : STEP_VIEW[tab][enroll().dashboard.paths[tab].open];
+  }
+  async function decideStep(id, value) {
+    if (value === 'compare') {
+      // "Compare" records nothing: it shows the plans listed under this step.
+      const first = $('plans-panel').querySelector('.plan-card, .medigap-rate, .pdp-plan, [data-plan-id], article');
+      first?.scrollIntoView?.({block: 'start', behavior: 'smooth'}); first?.setAttribute?.('tabindex', '-1'); first?.focus?.({preventScroll: true});
+      return;
+    }
+    if (id === 'medigap' || id === 'part_d') {
+      saving = true; const ok = await opts.decide({component: id, value}); saving = false;
+      if (!ok) {render(); status('That could not be saved. Your details are kept; try again.'); return;}
+      if (id === 'medigap') showView('part-d'); else render();
+      return;
+    }
+    maLocal[id] = {...(maLocal[id] || {}), state: value, text: MA_TEXT[id][value]}; keepLocal();
+    if (id === 'plan') showView('advantage-drugs'); else render();
+  }
+  function choosePlan(p) {
+    maLocal.plan = {state: 'chosen', text: p.name, id: p.id}; delete maLocal.drugs; keepLocal(); showView('advantage-drugs');
+    // D183: where the server keeps the choice (:8895), send it too; elsewhere this stays in the tab.
+    if (enroll()?.selectedPlanSupported && opts.decide) opts.decide({selected_plan: {product: 'advantage', plan_id: String(p.id), name: String(p.name || '').slice(0, 160)}});
+  }
+  // How this step ends: done, keep what I have, not needed or decide later. A tab or a step button never records one.
+  function stepEnd(host, id) {
+    const E = enroll(); if (!E) return;
+    const step = stepOf(E, id); if (!step) return;
+    const local = pathTab === 'advantage' ? maLocal[id] : null;
+    const choices = id === 'plan' ? step.choices.filter(([value]) => value !== 'chosen') : step.choices;
+    host.append(window.DaylightEnrollment.decisions({...step, choices}, local?.state || step.state, value => decideStep(id, value), 'This step:'));
+  }
+  const GUIDE_KEY = 'daylight.guide-last';
+  function openGuide(id, route) {
+    guideId = id; guideRoute = route || enroll()?.record?.route || null;
+    try {sessionStorage.setItem(GUIDE_KEY, JSON.stringify({id: guideId, route: guideRoute}));} catch {}
+    return opened ? showView('guide') : open(null, 'guide');
+  }
+  function lastGuide() {try {const kept = JSON.parse(sessionStorage.getItem(GUIDE_KEY) || 'null'); return kept?.id ? kept : null;} catch {return null;}}
+  // A tapped answer on the plans pages: save it, then draw the page from the new state.
+  async function tapped(fields) {
+    saving = true; const ok = await opts.decide(fields); saving = false;
+    if (opened && view !== 'guide') render();
+    if (!ok) status('That could not be saved. Your details are kept; try again.');
+    return ok;
+  }
+  function renderParts(host, E) {
+    host.append(window.DaylightEnrollment.partsPanel(E, {guide: openGuide, stage: opts.stage, decide: tapped}));
+    const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+  }
+  function renderGuide(host, E) {
+    const nav = el('div', undefined, 'enroll-guide-nav');
+    nav.append(button('Back to Parts A and B', () => showView('ab'), 'btn-secondary'), button('Full conversation', () => close(), 'btn-secondary'));
+    for (const id of (E.route || E.signup)?.guides || []) if (id !== guideId) nav.append(button(window.DaylightEnrollment.GUIDE_LABELS[id], () => openGuide(id, guideRoute)));
+    const slot = el('div'); slot.append(el('p', 'Loading the guide…', 'plans-lede')); host.append(nav, slot);
+    const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+    // The chat stays open beside the guide where there is room; below that, Ask Daylight opens it over the guide.
+    if (innerWidth >= 1100) {$('workspace').classList.remove('chat-closed'); $('plans-backdrop').hidden = true; $('plans-fab').hidden = true; document.body.classList.remove('plans-chat-open');}
+    const wanted = guideId;
+    window.DaylightEnrollment.load().then(content => {
+      if (view !== 'guide' || guideId !== wanted || !slot.isConnected) return;
+      const page = window.DaylightEnrollment.guide(content, wanted, {route: guideRoute, ask: opts.stage, notes: enroll()?.notes});
+      slot.replaceChildren(page || el('p', 'That guide isn’t available. The official page is ssa.gov/medicare/sign-up.', 'plans-lede'));
+    }).catch(() => {if (slot.isConnected) slot.replaceChildren(el('p', 'The guide could not load. Try again in a moment.', 'plans-lede'));});
+  }
+  function renderAdvantageDrugs(host, E) {
+    const h = el('h1', 'Check that plan’s drug coverage', 'plans-title'); h.tabIndex = -1; host.append(h);
+    const chosen = data.plans.find(p => p.id === maLocal.plan?.id);
+    if (!chosen) {
+      host.append(el('p', 'Choose a plan in step 2 first. Its drug coverage then shows here.', 'plans-lede'),
+        button('Go to step 2: choose a plan', () => showView('advantage'), 'primary-button'));
+    } else {
+      const box = el('article', undefined, 'plan-card'); box.dataset.planId = chosen.id;
+      box.append(el('h3', chosen.name, 'plan-name'));
+      const facts = el('p', undefined, 'plan-facts');
+      facts.append(el('span', typeLine(chosen)), el('span', drugs(chosen) ? 'Includes drug coverage' : 'No drug coverage', drugs(chosen) ? 'fact-yes' : 'fact-no'));
+      box.append(facts);
+      if (drugs(chosen)) {
+        const amounts = el('dl', undefined, 'plan-amounts'), item = el('div', undefined, 'amount'), v = value(chosen, 'part_d_deductible');
+        item.append(el('dt', LABELS.part_d_deductible, 'amount-label'), el('dd', v ?? HELD, v ? 'amount-value' : 'amount-value held')); amounts.append(item); box.append(amounts);
+      }
+      const checks = personalChecks(); if (checks) box.append(checks);
+      const actions = el('div', undefined, 'plan-actions');
+      actions.append(withIcon(button('See full details', () => details(chosen)), 'chevron'), button('Choose a different plan', () => showView('advantage'), 'btn-secondary'));
+      box.append(actions); host.append(box);
+    }
+    const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
+    if (chosen) stepEnd(host, 'drugs');
+    if (opts.beforeEnroll) {const row = el('p', undefined, 'plans-next-step'); row.append(button('Next: Before you enroll', () => opts.beforeEnroll(), chosen ? 'primary-button' : 'btn-secondary')); host.append(row);}
+  }
   function headerOffset() {
     const header = document.querySelector('.site-header'), host = $('plans-panel');
     if (header && host) host.style.setProperty('--plans-header-h', header.offsetHeight + 'px');
@@ -260,15 +393,17 @@
   function renderPaths(host) {
     const h = el('h1', 'Two ways to get Medicare', 'plans-title'); h.tabIndex = -1; host.append(h);
     const R = window.DaylightRecommend; // D147: evaluation-only sorting
-    host.append(el('p', R?.active() ? 'Choose a path to see what is available. Daylight’s tiered sorting is on for evaluation.'
-      : 'Choose a path to see what is available. Nothing here is a recommendation.', 'plans-lede'));
+    host.append(el('p', 'Choose a path to see your plans.', 'plans-lede'));
     const fitSummary = R?.summary('path', Object.fromEntries(PATHS.map(p => [p.id, p.title]))); if (fitSummary) host.append(fitSummary);
     const cards = el('div', undefined, 'path-cards');
     for (const p of PATHS) {
-      const card = el('section', undefined, 'path-card'), title = el('h2', p.title); title.id = 'path-' + p.id; card.setAttribute('aria-labelledby', title.id);
+      // D161: Original Medicare is a path of its own; Medigap and Part D are optional pieces of it.
+      const E = enroll(), original = E && p.id === 'original';
+      const card = el('section', undefined, 'path-card'), title = el('h2', original ? 'Original Medicare' : p.title); title.id = 'path-' + p.id; card.setAttribute('aria-labelledby', title.id);
       const list = el('ul', undefined, 'path-points'); for (const text of p.points) list.append(el('li', text));
       const src = el('a', 'Medicare.gov source', 'path-source'); src.href = p.source; src.target = '_blank'; src.rel = 'noopener noreferrer';
-      card.append(title, list, src, button(p.action, () => showView(p.view), 'btn-secondary path-action'));
+      card.append(title, list, src, button(original ? 'See Original Medicare' : p.action,
+        () => {if (original) pathTab = 'original'; showView(original ? pathView('original') : p.view);}, 'btn-secondary path-action'));
       R?.decorate('path', p.id, card, src, 'Suggested path for what you told Daylight'); cards.append(card);
     }
     host.append(cards);
@@ -277,12 +412,18 @@
     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
   }
   function renderSupplement(host) {
-    host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
+    if (prof().conversationPlanner?.education_only) {
+      host.append(el('h1', 'Your share of medical costs', 'plans-title'));
+      host.append(el('p', PATHS[0].points[1], 'plans-lede'), el('p', PATHS[0].points[2], 'plans-lede'));
+      host.append(button('Back to coverage paths', () => showView('paths'), 'btn-secondary'));
+      return;
+    }
     const medigap = el('section',undefined,'medigap-workspace'); host.append(medigap);
-    window.DaylightMedigap.render(medigap, {request:api, profile:prof().medigap, context:prof().visit,
+    window.DaylightMedigap.render(medigap, {request:api, profile:prof().medigap, context:prof().visit, window:prof().medigapWindow, compact:!!enroll(),
+      variant:prof().conversationPlanner?.medigap_variant,
       conversation:async id => {
         if (!await opts.medigapConversation(id)) {
-          status('The conversation could not open. Your details and draft are kept; try Talk to Daylight again.');
+          status('The conversation could not open. Your details and draft are kept; try again.');
           return;
         }
         $('current').setAttribute('tabindex','-1');
@@ -292,12 +433,11 @@
         scrollTo({top:0});
       }});
     // D138: Original Medicare is one journey. Offer the drug-plan step here.
-    if (prof().partD?.status === 'ready') host.append(button('Next: see Part D drug plans', () => showView('part-d'), 'btn-secondary'));
+    if (prof().partD?.status === 'ready') host.append(button('Next: see Part D drug plans', () => showView('part-d'), 'primary-button'));
     const notice = el('p', '', 'plans-notice'); notice.id = 'plans-status'; notice.setAttribute('role', 'status'); host.append(notice);
   }
 
   function renderPartD(host) {
-    host.append(button('Back to the two paths', () => showView('paths'), 'btn-quiet plans-paths-link'));
     const partD = el('section',undefined,'part-d-workspace'); host.append(partD);
     window.DaylightPartD.render(partD, {request:api, profile:prof().partD, context:prof().visit,
       prescriptionPreview: opts.prescriptionPreview ? openPrescriptionPreview : null,
@@ -321,10 +461,9 @@
 
   function rail() {
     const aside = el('aside', undefined, 'plans-rail'); aside.setAttribute('aria-label', 'Filter plans');
-    const box = el('details', undefined, 'rail-box');
-    if (railOpen === null) railOpen = innerWidth >= 900;
-    box.open = railOpen; box.addEventListener('toggle', () => {railOpen = box.open;});
-    box.append(el('summary', 'Filter plans', 'rail-title'));
+    const box = el('section', undefined, 'rail-box');
+    const summary = el('h3', 'Filter plans', 'rail-title');
+    box.append(summary);
     const search = el('label', 'Plan or company name', 'plans-field plans-search'), input = el('input'); input.type = 'search'; input.id = 'plans-search'; input.value = query;
     input.autocomplete = 'off'; input.oninput = () => {query = input.value; renderCards(); clearState();}; search.append(input); box.append(search);
     const group = (legend, key, options) => {
@@ -351,7 +490,7 @@
   }
   function sortControl() {
     const wrap = el('label', 'Sort by', 'plans-sort'), s = el('select'); s.id = 'plans-sort';
-    for (const [v, t] of [...(fitReady() ? [['fit', 'Daylight’s sorting (evaluation)']] : []),
+    for (const [v, t] of [...(fitReady() ? [['fit', 'Daylight’s sorting']] : []),
       ['premium', 'Lowest monthly premium'], ['limit', 'Lowest yearly limit'], ['name', 'Plan name, A to Z'],
       ...(data.reference_comparison?.state === 'available' ? [['costs', 'Published cost order']] : [])]) {const o = el('option', t); o.value = v; s.append(o);}
     s.value = sortChoice();
@@ -400,6 +539,17 @@
   }
 
   function kinds() {
+    if (enroll()) {
+      // D161: two coverage paths. A tab is a view and never records a choice.
+      const paths = el('nav', undefined, 'plan-kinds enroll-kinds'); paths.setAttribute('aria-label', 'Coverage paths');
+      for (const [label, tab] of [['Original Medicare', 'original'], ['Medicare Advantage', 'advantage']]) {
+        const current = view !== 'paths' && view !== 'guide' && pathTab === tab;
+        const b = button(label, () => {pathTab = tab; showView(pathView(tab));},
+          current ? 'plan-kind current' : 'plan-kind');
+        if (current) b.setAttribute('aria-current', 'page'); paths.append(b);
+      }
+      return paths;
+    }
     const nav = el('nav', undefined, 'plan-kinds'); nav.setAttribute('aria-label', 'Plan types');
     for (const [label,target] of [['Medicare Advantage','advantage'],['Medicare Supplement (Medigap)','supplement'],['Part D drug plans','part-d']]) {
       const tab = button(label,()=>showView(target),view === target ? 'plan-kind current' : 'plan-kind');
@@ -419,7 +569,7 @@
       b.setAttribute('aria-expanded', String(panel === key)); b.setAttribute('aria-controls', 'plans-pill-panel');
       return b;
     };
-    const all = button('', () => {railOpen = true; panel = null; render(); $('plans-search')?.focus();}, 'pill pill-all');
+    const all = button('', () => {panel = null; render(); $('plans-search')?.focus();}, 'pill pill-all');
     all.append(icon('filter'), el('span', 'All filters'));
     bar.append(all,
       pill('doctors', docs.length ? 'Doctors' : 'Add doctors', docs.length, !docs.length),
@@ -443,7 +593,7 @@
     learn.append(el('h3', 'Why it matters'));
     if (q.why) learn.append(el('p', q.why.replace(/^Why we ask:\s*/, '')));
     for (const line of [].concat(extra || [])) learn.append(el('p', line));
-    if (q.teach) {const d = el('details'); d.append(el('summary', 'Good to know'), el('p', q.teach)); learn.append(d);}
+    if (q.teach) {const d = el('section'); d.append(el('h3', 'Good to know'), el('p', q.teach)); learn.append(d);}
     const b = button('Ask Daylight about this', () => {ask(ask_); chat();}, 'btn-secondary'); b.prepend(el('span', undefined, 'sun-mark')); learn.append(b);
   }
   function renderPanel() {
@@ -585,8 +735,8 @@
   }
 
   function yourDetails() {
-    const box = el('details', undefined, 'rail-box rail-details'); box.open = innerWidth >= 900;
-    const h = el('summary', undefined, 'rail-title'); h.append(el('span', 'Your details')); box.append(h);
+    const box = el('section', undefined, 'rail-box rail-details');
+    const h = el('h3', undefined, 'rail-title'); h.append(el('span', 'Your details')); box.append(h);
     let added = 0;
     const dl = el('dl');
     const row = (label, val, ref, key) => {
@@ -702,7 +852,7 @@
     if (mode === 'compare') return renderCompare(list);
     if (mode === 'recommended') {
       const best = data.recommendation.top_three.map(id => data.plans.find(p => p.id === id)).filter(Boolean);
-      const first = {monthly_plan_premium: 'lower monthly premium', in_network_medical_limit: 'lower yearly medical limit'}[data.recommendation.priority_order?.[0]];
+      const first = {monthly_plan_premium: 'lower monthly premium', in_network_medical_limit: 'lower yearly in-network limit'}[data.recommendation.priority_order?.[0]];
       list.append(el('h2', `Your top ${best.length}`, 'plans-compare-title'),
         el('p', `In order of what you said matters most${first ? ': ' + first + ' first' : ''}. Doctor, medicine and joining checks are listed in each plan’s details.`, 'plans-help'));
       best.forEach((p, n) => list.append(card(p, n + 1))); return tray(list);
@@ -724,8 +874,8 @@
       for (const g of fitGroups) {
         const rows = fit ? g.rows : sorted(g.rows);
         if (g.id === 'excluded') {
-          const d = el('details', undefined, 'plans-group plans-ruled'); d.open = !!q || rows.some(p => p.id === selected || compared.has(p.id));
-          const s = el('summary'); s.append(el('span', `${g.label} (${rows.length})`, 'plans-ruled-title'),
+          const d = el('section', undefined, 'plans-group plans-ruled');
+          const s = el('h3'); s.append(el('span', `${g.label} (${rows.length})`, 'plans-ruled-title'),
             el('span', 'Set aside by who can join or by something you need. Each plan shows why.', 'plans-ruled-help'));
           d.append(s); rows.forEach(p => d.append(card(p))); list.append(d); continue;
         }
@@ -740,8 +890,8 @@
     if (!joinable.length) section.append(el('p', 'No plans match these choices. Try “Any type” or clear the search.', 'plans-help'));
     joinable.forEach(p => section.append(card(p))); list.append(section);
     if (ruled.length) {
-      const d = el('details', undefined, 'plans-group plans-ruled'); d.open = !!q || ruled.some(p => p.id === selected || compared.has(p.id));
-      const s = el('summary'); s.append(el('span', `Plans with joining rules (${ruled.length})`, 'plans-ruled-title'),
+      const d = el('section', undefined, 'plans-group plans-ruled');
+      const s = el('h3'); s.append(el('span', `Plans with joining rules (${ruled.length})`, 'plans-ruled-title'),
         el('span', 'For people with both Medicare and Medicaid, certain chronic conditions, a nursing-home stay, or who live in an Erickson community.', 'plans-ruled-help'));
       d.append(s); ruled.forEach(p => d.append(card(p))); list.append(d);
     }
@@ -778,6 +928,7 @@
     const cmp = button(compared.has(p.id) ? 'Added to compare' : 'Add to compare', () => toggleCompare(p), 'btn-secondary');
     cmp.setAttribute('aria-pressed', String(compared.has(p.id))); if (compared.has(p.id)) withIcon(cmp, 'check', false);
     actions.append(cmp, withIcon(button('See full details', () => details(p)), 'chevron'));
+    if (enroll()) {const pick = button(maLocal.plan?.id === p.id ? 'Your choice' : 'Choose this plan', () => choosePlan(p), 'btn-secondary'); pick.setAttribute('aria-pressed', String(maLocal.plan?.id === p.id)); actions.append(pick);}
     if (opts.prescriptionPreview && drugs(p) && p.id.startsWith('2026:'))
       actions.append(button('Check fictional drug costs', () => openPrescriptionPreview(p)));
     c.append(actions); return c;
@@ -852,7 +1003,7 @@
     const r = rule(p); if (r) {const n = el('p', undefined, 'plan-rule'); n.append(el('strong', 'Joining rule: '), r + '. Daylight has not checked whether you qualify.'); d.append(n);}
     const acts = el('div', undefined, 'plans-row');
     const cmp = button(compared.has(p.id) ? 'Remove from compare' : 'Add to compare', () => {if (toggleCompare(p)) cmp.textContent = compared.has(p.id) ? 'Remove from compare' : 'Add to compare';}, 'btn-secondary');
-    acts.append(button('Ask Daylight about this plan', () => discuss(p), 'primary-button'), cmp); d.append(acts);
+    acts.append(button('Ask Daylight about this plan', () => discuss(p), 'btn-quiet'), cmp); d.append(acts);
     for (const [titleText, keys] of rowsFor([p])) {
       const sec = el('section', undefined, 'sheet-section'); sec.append(el('h3', titleText));
       for (const key of keys) {
@@ -873,11 +1024,11 @@
       for (const [key, check] of Object.entries(checks)) sec.append(el('p', `${key.replaceAll('_', ' ')}: ${check.state.replaceAll('_', ' ')}${check.reason_codes.length ? ' · ' + check.reason_codes.join(', ').replaceAll('_', ' ').toLowerCase() : ''}`, 'sheet-note'));
       d.append(sec);
     }
-    const ex = el('details', undefined, 'sheet-more'); ex.append(el('summary', 'Example costs (made-up situations, not your spending)'));
+    const ex = el('section', undefined, 'sheet-more'); ex.append(el('h3', 'Example costs (made-up situations, not your spending)'));
     for (const e of Object.values(p.examples)) ex.append(el('p', `${e.label}: ${e.amount ? '$' + Number(e.amount.amount).toLocaleString('en-US', {maximumFractionDigits: 2}) : HELD + (e.reason_codes.length ? ' (' + e.reason_codes.join(', ').replaceAll('_', ' ').toLowerCase() + ')' : '')}`, 'sheet-note'));
     ex.append(el('p', 'Assumes 12 premium months, four ordinary covered in-network primary care visits, or one covered in-network hospital admission of three or four counted days. Required referral and authorization are assumed, with no assistance adjustment and enough room below the medical spending limit. Excludes discharge day, transfers, readmissions and separately billed professional services. These are separate cost pieces, not a combined yearly estimate.', 'sheet-note'));
     d.append(ex);
-    const fine = el('details', undefined, 'sheet-more'); fine.append(el('summary', 'Fine print'));
+    const fine = el('section', undefined, 'sheet-more'); fine.append(el('h3', 'Fine print'));
     fine.append(el('p', `Plan ID ${p.id} · ${p.type}`, 'sheet-note'), el('p', 'Listed in published data. Daylight has not verified that this plan is available to you.', 'sheet-note'));
     if (p.retained_restrictions.length) fine.append(el('p', 'Published restrictions: ' + p.retained_restrictions.join('; ') + '.', 'sheet-note'));
     d.append(fine);
@@ -892,7 +1043,7 @@
   function about() {
     const d = el('details', undefined, 'plans-about'); d.append(el('summary', 'About this plan data'));
     const scope = data.scope || {}, dated = scope.landscape_data_date ? new Date(scope.landscape_data_date + 'T12:00:00').toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}) : null;
-    d.append(el('p', `${scope.year} plans from Medicare’s public plan data${dated ? ', dated ' + dated : ''}. ${window.DaylightRecommend?.active() ? 'Daylight’s tiered sorting is on for evaluation; the other sort choices only change the order.' : 'The list is not ranked for you; sorting only changes the order.'}${scope.year === 2026 ? ' 2027 plans are not loaded yet.' : ''}`));
+    d.append(el('p', `${scope.year} plans from Medicare’s public plan data${dated ? ', dated ' + dated : ''}. ${window.DaylightRecommend?.active() ? 'The other sort choices only change the order.' : 'Sorting only changes the order.'}${scope.year === 2026 ? ' 2027 plans are not loaded yet.' : ''}`));
     d.append(el('p', `“${HELD}” means the published data didn’t settle that amount yet. Ask Daylight about it, or check with the plan.`));
     d.append(el('p', data.notice));
     const cov = data.coverage;
@@ -907,8 +1058,25 @@
     // the checked list; every other open starts on the two coverage paths.
     // D138: when the conversation is about Medigap or Part D, open that tab.
     // The person asked for it; Medicare Advantage stays one click away.
-    const asked = target || {medigap: 'supplement', drug_pricing: 'part-d'}[prof().task] || null;
-    token = handoff?.token || null; opened = true; view = asked || (token ? 'advantage' : 'paths'); activate();
+    const byPath = {original_medigap: 'supplement', medicare_advantage: 'advantage'}[prof().coveragePath?.path] || null;
+    const discussion = prof().conversationPlanner?.plans_view ? prof().conversationPlanner : null;
+    const asked = target || (window.DaylightGuidedClose && handoff && prof().comparisonClose?.destination)
+      || (discussion ? discussion.plans_view : {medigap: 'supplement', drug_pricing: 'part-d'}[prof().task] || byPath);
+    token = handoff?.token || null; opened = true; view = asked || 'paths'; activate();
+    const E = enroll();
+    if (E) {
+      // D161: the Original Medicare tab opens on the decision this person is at; someone who only needs drug coverage opens at step 3.
+      loadLocal(); loadSeen();
+      // D189: where the server keeps the chosen plan (:8895), a choice this tab remembers from another
+      // visit is not this person's choice. Step 2 shows a plan only when this visit's record holds it.
+      if (E.selectedPlanSupported && maLocal.plan?.state === 'chosen'
+          && String(E.selectedPlan?.plan_id ?? '') !== String(maLocal.plan.id)) {delete maLocal.plan; delete maLocal.drugs; keepLocal();}
+      // A button that names a step ("See your Medigap prices") opens that step; anything else follows the rule above.
+      if (view === 'original' || view === 'supplement' && target !== 'supplement' && !discussion) {pathTab = 'original'; view = pathView('original');}
+      else if (view === 'advantage' && target !== 'advantage' && !discussion) {pathTab = 'advantage'; view = pathView('advantage');}
+      if (['supplement', 'part-d'].includes(view)) pathTab = 'original'; else if (['advantage', 'advantage-drugs'].includes(view)) pathTab = 'advantage';
+      noteStep();
+    } else if (['original', 'ab', 'guide'].includes(view)) view = 'supplement';
     const ws = $('workspace'); document.body.classList.add('plans-page'); ws.classList.add('plans-open'); ws.classList.toggle('chat-closed', drawer());
     $('plans-backdrop').hidden = true; $('plans-fab').hidden = false; $('plans-tab').setAttribute('aria-current', 'page');
     $('plans-panel').hidden = false; $('plans-panel').replaceChildren(el('p', 'Loading plans…', 'plans-lede'));
@@ -916,14 +1084,42 @@
     await refresh(); scrollTo({top: 0}); return !!data;
   }
   function close(focusId = 'message') {
-    opened = false; openDialog()?.close(); $('workspace').classList.remove('plans-open', 'chat-closed'); document.body.classList.remove('plans-page');
+    opened = false; openDialog()?.close(); $('workspace').classList.remove('plans-open', 'chat-closed', 'guide-open'); document.body.classList.remove('plans-page', 'guide-open');
     $('plans-panel').hidden = true; $('plans-backdrop').hidden = true; $('plans-fab').hidden = true; document.body.classList.remove('plans-chat-open', 'plans-has-tray'); $('plans-tab').removeAttribute('aria-current');
     if (focusId === 'current') $('current').focus({preventScroll:true}); else $('message').focus();
+    // The conversation's own line (status, what is left, the way back to a guide) is drawn again on return.
+    if (enroll() || window.DaylightGuidedClose) document.dispatchEvent(new Event('daylight:plans-closed'));
   }
   function snapshot() {
-    if (!opened || !data || ['supplement','part-d'].includes(view)) return null;
+    if (!opened || !data || !window.DaylightGuidedClose && ['supplement','part-d'].includes(view)) return null;
     const visible = [...document.querySelectorAll('[data-plan-id]')].filter(n => {const r = n.getBoundingClientRect(); return r.height && r.bottom > 0 && r.top < innerHeight;}).map(n => n.dataset.planId).slice(0, 12);
-    return {version: 'plans-context-v1', reviewToken: token, viewDigest: data.view_digest, visibleIds: visible, comparedIds: [...compared], selectedId: selected, field, mode};
+    const inCatalog=!window.DaylightGuidedClose || view==='advantage';
+    return {version: 'plans-context-v1', reviewToken: token, viewDigest: data.view_digest,
+      visibleIds:inCatalog?visible:[], comparedIds:inCatalog?[...compared]:[],
+      selectedId:inCatalog?selected:null, field:inCatalog?field:null, mode,
+      ...(window.DaylightGuidedClose?{navigation:view}:{})};
+  }
+  // X-03 (D157; owner, November 12, 2026: a range, not one plan letter). The
+  // browser fills the two-path card in the chat with listed ranges from the
+  // same reads the tabs use. Amounts never pass through the model.
+  let catalogRange = null;
+  async function pathAmounts(host) {
+    const cents = n => '$' + (n % 100 ? (n / 100).toFixed(2) : String(n / 100)), dollars = n => '$' + n.toLocaleString('en-US');
+    const span = (low, high, show) => low === high ? show(low) : `${show(low)} to ${show(high)}`;
+    const set = (source, text) => {for (const n of host.querySelectorAll(`[data-source="${source}"]`)) n.textContent = text;};
+    const p = prof(), jobs = [];
+    if (window.DaylightMedigap?.range) jobs.push(window.DaylightMedigap.range(api, p.medigap).then(r => {
+      if (r) set('medigap', `${span(r.low, r.high, cents)} a month · ${r.count} listed rates`);}));
+    if (window.DaylightPartD?.range) jobs.push(window.DaylightPartD.range(api, p.partD).then(r => {
+      if (r) set('part_d', `${span(r.low, r.high, cents)} a month · ${r.count} plans`);}));
+    catalogRange = catalogRange || (data ? Promise.resolve(data) : api('/api/plans/catalog', {})).then(d => {
+      const pick = get => (d.plans || []).map(get).filter(Number.isFinite);
+      return {premium: pick(x => amount(value(x, 'plan_premium'))), limit: pick(x => amount(inNetworkLimit(x))), count: (d.plans || []).length};
+    }).catch(() => {catalogRange = null; return null;});
+    jobs.push(catalogRange.then(r => {
+      if (r?.premium.length) set('ma_premium', `${span(Math.min(...r.premium), Math.max(...r.premium), dollars)} a month · ${r.count} plans`);
+      if (r?.limit.length) set('ma_limit', span(Math.min(...r.limit), Math.max(...r.limit), dollars));}));
+    await Promise.all(jobs);
   }
   window.DaylightPlans = Object.freeze({init(options) {
     api = options.request; activate = options.activate; ask = options.ask; opts = options;
@@ -939,11 +1135,18 @@
     $('plans-tab').disabled = false; $('plans-tab').onclick = () => open(); DaylightPlansHandoff.register(handoff => open(handoff));
     const head = el('div', undefined, 'plans-chat-head'), name = el('p', 'Ask Daylight', 'plans-chat-title');
     const closeButton = withIcon(button('Close', () => chat(false)), 'close', false); closeButton.classList.add('plans-close-chat');
-    head.append(name, closeButton); document.querySelector('.chat-workspace').prepend(head);
+    chatClose = closeButton;
+    // Beside a guide the chat is one panel of two: "Full conversation" closes the guide and returns to the conversation.
+    const fullButton = button('Full conversation', () => close(), 'btn-secondary plans-full-conversation');
+    head.append(name, fullButton, closeButton); document.querySelector('.chat-workspace').prepend(head);
     const backdrop = el('div', undefined, 'plans-backdrop'); backdrop.id = 'plans-backdrop'; backdrop.hidden = true; backdrop.onclick = () => chat(false); document.body.append(backdrop);
     const fab = button('Ask Daylight', () => chat(true), 'plans-fab'); fab.id = 'plans-fab'; fab.hidden = true; fab.setAttribute('aria-controls', 'composer');
     fab.prepend(el('span', undefined, 'sun-mark')); document.body.append(fab);
-    addEventListener('resize', () => {if (opened) {$('plans-backdrop').hidden = !(drawer() && !$('workspace').classList.contains('chat-closed')); headerOffset();}});
+    addEventListener('resize', () => {
+      if (!opened || view === 'guide') return;
+      $('plans-backdrop').hidden = !(drawer() && !$('workspace').classList.contains('chat-closed'));
+      headerOffset();
+    });
     document.addEventListener('keydown', e => {
       if (opened && e.key === 'Escape' && !openDialog()) chat(false);
       if (opened && drawer() && !$('workspace').classList.contains('chat-closed') && e.key === 'Tab') {
@@ -953,14 +1156,23 @@
       }
     });
   }, snapshot,
+  refreshCardChecks() {
+    if (opened) window.DaylightRecommend?.update(prof().recommendation);
+  },
   afterTurn(result) {
     if (!opened) return;
-    if (['supplement','part-d'].includes(view) && !saving) {render(); return;}
     if (result.plansContext?.profile_changed) invalidate('Your information changed. Return to the conversation and review it before continuing.');
+    else if (['supplement','part-d'].includes(view) && !saving) {render(); return;}
     else if (result.generated?.code === 'plans_evidence_changed') invalidate('The plan data changed. Try again to load the latest.');
     else if (data && result.plansContext && (result.plansContext.view_digest !== data.view_digest || result.plansContext.selected_id !== selected || result.plansContext.focused_field !== field)) status('This reply is about the plans you were viewing when you pressed Send.');
     else if (data && !saving && !openDialog()) render();
-  }, close,
+  }, close, pathAmounts, openGuide,
+  continueView(target) {if(['paths','ab','supplement','part-d','advantage','advantage-drugs'].includes(target)) {
+    if(opened)showView(target);else return open(null,target);
+  }},
+  // D161: beside a guide the chat is already open; elsewhere it opens over the page.
+  forget: forgetLocal, lastGuide,
+  showChat() {if (view === 'guide' && innerWidth >= 1100) $('message').focus(); else chat(true);},
   // D138: the conversation can open a ready tab directly.
-  openView(target) {return ['paths', 'advantage', 'supplement', 'part-d'].includes(target) ? open(null, target) : open();}});
+  openView(target) {return ['paths', 'advantage', 'supplement', 'part-d', 'original', 'ab'].includes(target) ? open(null, target) : open();}});
 })();

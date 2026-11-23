@@ -21,12 +21,17 @@
     }
     const next = JSON.stringify(inputs);
     if (next === key) return;
-    key = next; result = null; error = ''; void load(next, inputs);
+    key = next; result = null; error = '';
+    // :8897 removes old positive findings while corrected/withdrawn evidence
+    // is rechecked. The other surfaces keep their existing update behavior.
+    if (inputs.planCardChecks) {pending = true; notify();}
+    void load(next, inputs);
   }
   async function load(current, inputs) {
     pending = true;
     try {
-      const value = await request('/api/recommendation', {inputs});
+      const body = inputs.continuation ? {inputs:inputs.inputs,continuation:inputs.continuation} : {inputs};
+      const value = await request('/api/recommendation', body);
       if (current === key) result = value;
     } catch (e) {
       if (current === key) error = e.message || 'Daylight’s sorting is temporarily unavailable.';
@@ -38,12 +43,37 @@
   const tab = kind => result?.[kind]?.state === 'ready' ? result[kind] : null;
   const plan = (kind, id) => tab(kind)?.plans?.[id] || null;
 
+  function evidenceMark(indicator) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('width', '20'); svg.setAttribute('height', '20');
+    svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2'); svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round'); svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', indicator === 'supported' ? 'M5 12l4 4L19 6' :
+      indicator === 'information' ? 'M12 8h.01M12 11v6' : 'M12 3L2 21h20L12 3zM12 9v5M12 17h.01');
+    svg.append(path); return svg;
+  }
+
   function checks(kind, id) {
     const p = plan(kind, id);
-    if (!p || !p.checks.length) return null;
+    if (!p) return null;
+    const scoped = Array.isArray(p.card_checks), rows = scoped ? p.card_checks : p.checks;
+    if (!rows?.length) return null;
     const list = el('ul', undefined, 'rec-checks');
     list.setAttribute('aria-label', 'How this fits what you told Daylight');
-    for (const c of [...p.checks].sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind])) {
+    for (const c of [...rows].sort((a, b) => (KIND_ORDER[a.kind] ?? 4) - (KIND_ORDER[b.kind] ?? 4))) {
+      if (scoped) {
+        const indicator = c.indicator || (c.state === 'met' ? 'supported' : 'warning');
+        const item = el('li', undefined, 'rec-check rec-evidence rec-' + indicator);
+        item.dataset.checkId = c.id; item.dataset.finding = c.state;
+        const sign = el('span', undefined, 'rec-mark'); sign.setAttribute('aria-hidden', 'true');
+        sign.append(evidenceMark(indicator));
+        const words = el('span', undefined, 'rec-words');
+        words.append(el('strong', c.label), el('span', c.outcome || (c.state === 'met' ? 'Meets' :
+          c.state === 'not_met' ? 'Does not meet' : 'Needs checking'), 'rec-outcome'), el('span', c.note, 'rec-note'));
+        item.append(sign, words); list.append(item); continue;
+      }
       const [mark, word] = MARK[c.state] || MARK.unknown;
       const item = el('li', undefined, 'rec-check rec-' + c.state), sign = el('span', mark, 'rec-mark');
       sign.setAttribute('aria-hidden', 'true');
@@ -80,8 +110,8 @@
     return out;
   }
   function method() {
-    const d = el('details', undefined, 'rec-method');
-    d.append(el('summary', 'How Daylight sorts these'));
+    const d = el('section', undefined, 'rec-method');
+    d.append(el('h3', 'How Daylight sorts these'));
     const steps = el('ol');
     for (const text of [
       'Who can join. A plan you may not qualify for, or with a joining rule you have not confirmed, is set aside and never suggested.',
@@ -90,24 +120,50 @@
       'Then, inside each group, plans that meet more of your priorities come first, then more of your other preferences, and the cost order shown breaks ties.'])
       steps.append(el('li', text));
     d.append(steps,
-      el('p', '✓ meets it. ✗ does not. ? means Daylight has not checked it yet; it never counts against a plan.'),
+      el('p', result?.plan_card_checks ? 'A check marks a supported finding. A warning states what needs attention, including missing evidence. An estimate being available does not mean a plan is affordable or cheapest. These additional card checks do not change the sorting method.' :
+        '✓ meets it. ✗ does not. ? means Daylight has not checked it yet; it never counts against a plan.'),
       el('p', 'Plans missing an amount stay in their group, listed after the others; they are not treated as worse and are not suggested.'),
       el('p', 'Commissions and any payment to Daylight are not part of this sorting.'),
-      el('p', `Method ${result?.method || ''}. Evaluation mode for fictional testing; not shown to pilot participants.`, 'rec-fine'));
+      el('p', `Method ${result?.method || ''}.`, 'rec-fine'));
     return d;
   }
-  function used() {
-    const prefs = result?.preferences || [];
-    if (!prefs.length) return 'You have not told Daylight what matters most yet, so plans are grouped by what you need and ordered by cost.';
-    return 'What it used: ' + prefs.map(p => p.label + (p.priority ? ' (your priority)' : '')).join(', ') + '.';
+  // PG-04: only inputs that were actually checked are listed as used. The
+  // backend marks each preference; this view never relabels a reason.
+  function used(kind) {
+    const prefs = result?.[kind]?.preferences || result?.preferences || [];
+    if (!prefs.length) return ['You have not told Daylight what matters most yet, so plans are grouped by what you need and ordered by cost.'];
+    const name = p => p.label + (p.priority ? ' (your priority)' : '');
+    const checked = prefs.filter(p => p.checked !== false), open = prefs.filter(p => p.checked === false);
+    const lines = [];
+    if (checked.length) lines.push('What you told Daylight: ' + checked.map(name).join(', ') + '.');
+    if (open.length) lines.push('Not checked: ' + open.map(name).join(', ') + '.');
+    return lines;
   }
   // One summary block per page: what was suggested, or why nothing was.
-  function summary(kind, names = {}) {
+  // CN-04: one small link at the bottom of the plan list opens the whole
+  // explanation: the top match or why there is none, what was checked, the
+  // order and the method. Group headers and each plan's checks stay on the plans.
+  function summary(kind, names = {}, hideNote = null) {
+    const box = details(kind, names, hideNote);
+    if (!box) return null;
+    const link = el('button', 'How Daylight sorted these', 'btn-quiet rec-link'); link.type = 'button';
+    link.addEventListener('click', () => {
+      const dialog = el('dialog', undefined, 'plan-sheet rec-dialog');
+      const close = el('button', 'Close', 'btn-quiet sheet-close'); close.type = 'button';
+      close.addEventListener('click', () => dialog.close());
+      dialog.append(close, details(kind, names, hideNote) || box);
+      dialog.addEventListener('close', () => {dialog.remove(); if (link.isConnected) link.focus();}, {once: true});
+      document.body.append(dialog); dialog.showModal(); close.focus();
+    });
+    const wrap = el('p', undefined, 'rec-link-row'); wrap.append(link);
+    return wrap;
+  }
+  function details(kind, names = {}, hideNote = null) {
     if (!active()) return null;
     const box = el('section', undefined, 'rec-summary'), head = el('div', undefined, 'rec-head');
-    const title = el('h2', 'Daylight’s sorting'); title.id = 'rec-title-' + kind;
+    const title = el('h2', 'How Daylight sorted these'); title.id = 'rec-title-' + kind;
     box.setAttribute('aria-labelledby', title.id);
-    head.append(title, el('span', 'Evaluation mode', 'rec-eval'));
+    head.append(title);
     box.append(head);
     if (pending) {box.append(el('p', 'Sorting for what you told Daylight…')); return box;}
     if (error) {box.append(el('p', error)); return box;}
@@ -118,12 +174,12 @@
     if (t.recommended_ids.length) box.append(el('p', top.length ? 'Top match: ' + top.join('; ') + '.'
       : `${t.recommended_ids.length === 1 ? 'One top match is' : t.recommended_ids.length + ' top matches are'} marked below.`, 'rec-lead'));
     else if (t.no_pick_reason) box.append(el('p', t.no_pick_reason, 'rec-lead'));
-    box.append(el('p', used()));
+    for (const line of used(kind)) box.append(el('p', line));
     if (t.sort_note) box.append(el('p', t.sort_note));
-    for (const note of t.notes || []) box.append(el('p', note, 'rec-fine'));
+    for (const note of t.notes || []) if (!(typeof hideNote === 'function' && hideNote(note))) box.append(el('p', note, 'rec-fine'));
     box.append(method());
     return box;
   }
-  window.DaylightRecommend = Object.freeze({configure, onChange, update, active, tab, plan, checks, decorate, arrange, summary,
+  window.DaylightRecommend = Object.freeze({configure, onChange, update, active, tab, plan, checks, decorate, arrange, summary, explain: details,
     status: () => ({active: active(), pending, error, ready: !!result})});
 })();

@@ -185,9 +185,22 @@ do NOT add Original Medicare as a separate current delivery arrangement.
         if value.get('task')==current and not value.get('task_quote','').strip():value['task']=''
         result=super().validate_output(value,message,guide,facts,eligible,owner)
         active=getattr(self.local,'turn_context',{}).get('activeQuestion')
+        # D183 (:8895): semantic capture. The interpreter's quote-grounded reading
+        # is not second-guessed by vocabulary lists; quote, subject and scope
+        # checks (above and below) still apply. Uncertain readings are confirmed.
+        semantic=bool(getattr(self.local,'turn_context',{}).get('records_enabled'))
         clean=[];rejected=[]
         for update in result['updates']:
             id=update['id'].split('.')[0];values={f['key']:f['value'] for f in update['fields']}
+            if semantic:
+                # Job coverage that is ending is still current until it ends; a
+                # reading the interpreter scoped otherwise is confirmed with one
+                # tap (D112 pending confirmation), never dropped.
+                if id=='RC09' and update['scope']!='current':
+                    clean.append({**update,'id':id,'uncertain':True})
+                else:
+                    clean.append({**update,'id':id})
+                continue
             if id=='T05' and ',' in values.get('choice',''):
                 supported=[choice for choice in values['choice'].split(',') if supported_choice(id,choice,update['quote'],active)]
                 if supported and len(supported)<len(values['choice'].split(',')):
@@ -204,11 +217,13 @@ do NOT add Original Medicare as a separate current delivery arrangement.
             if valid:clean.append({**update,'id':id})
             else:rejected.append(id)
         result['updates']=clean
-        if result['task']=='timing' and current!='timing' and not timing_request(message):result['task']='';result['task_quote']=''
+        if not semantic and result['task']=='timing' and current!='timing' and not timing_request(message):result['task']='';result['task_quote']=''
         # The server derives only narrowly explicit life observations; arbitrary
         # narrative text or model-authored summaries are never persisted.
+        # D183 (:8895): no word-based observations; the interpreter's
+        # situation_proposals are validated structurally instead.
         role=guide['fields'].get('subject.role',{}).get('value')
-        self.local.observations=observations(message,role)
+        self.local.observations={} if semantic else observations(message,role)
         if self.local.observations and not current and not result['task'] and 'age65' in self.local.observations:
             result['task']='timing';result['task_quote']=message
         self.local.decision={'move':move,'reason':reason};self.local.rejected=rejected
@@ -239,6 +254,8 @@ do NOT add Original Medicare as a separate current delivery arrangement.
             if self.max_calls is not None and self.calls>=self.max_calls:raise ModelUnavailable('The configured live-request budget is reached. Manual guidance remains available.')
             self.active.add(key)
         reservation=None;completed_response=None
+        request_started=time.perf_counter();issued_at=None;payload=None
+        self.local.stream_status=None
         phase = 'preflight'
         # A local two-stage caller can reserve the whole turn before either
         # request. The pinned shared runner is unchanged; never reserve twice.
@@ -253,7 +270,7 @@ do NOT add Original Medicare as a separate current delivery arrangement.
             emit('status',{'message':'Finding reviewed teaching and the current task…'})
             facts=self.retrieve(message,guide['flow']['node']);spec=self.output_schema(facts,eligible)
             output_limit=getattr(self,'max_output_tokens',900)
-            payload={'model':self.client.model,'instructions':getattr(self,'instructions',INSTRUCTIONS),'input':[{'role':'user','content':json.dumps({'submitted_text':message,'confirmed_context':self.context(guide),'current_node':guide['flow']['node'],'eligible_tasks':[{'id':x,'question':self.nodes[x]['question']} for x in eligible],'reviewed_facts':facts,'field_rules':self.field_rules()},ensure_ascii=False,separators=(',',':'))}],'store':False,'max_output_tokens':output_limit,'reasoning':{'effort':self.reasoning_effort},'tools':[],'text':{'format':{'type':'json_schema','name':'daylight_guide_commands','strict':True,'schema':spec}},'stream':True,'service_tier':'default'}
+            payload={'model':self.client.model,'instructions':getattr(self,'instructions',INSTRUCTIONS),'input':[{'role':'user','content':json.dumps({'submitted_text':message,'confirmed_context':self.context(guide),'current_node':guide['flow']['node'],'eligible_tasks':[{'id':x,'question':self.nodes[x]['question']} for x in eligible],'reviewed_facts':facts,'field_rules':self.field_rules()},ensure_ascii=False,separators=(',',':'))}],'store':False,'max_output_tokens':output_limit,'reasoning':{'effort':self.reasoning_effort},'tools':[],'text':{'format':{'type':'json_schema','name':'daylight_guide_commands','strict':True,'schema':spec}},'stream':True,'service_tier':getattr(self.client,'service_tier','default')}
             raw=json.dumps(payload).encode()
             if len(raw)>getattr(self,'max_input_bytes',24000):raise ProfileError('This request is too large for the configured test budget.')
             with self.lock:
@@ -270,6 +287,7 @@ do NOT add Original Medicare as a separate current delivery arrangement.
                 if self.on_call:self.on_call(len(raw),output_limit)
                 self.calls+=1
             emit('status',{'message':'Daylight is preparing a grounded response…'})
+            issued_at=time.perf_counter()
             phase = 'stream'
             if self.client.transport:
                 if budget_stage:budget_stage.issued()
@@ -290,6 +308,7 @@ do NOT add Original Medicare as a separate current delivery arrangement.
                         if line[6:].strip()==b'[DONE]':break
                         event=json.loads(line[6:]);kind=event.get('type')
                         if kind=='response.output_text.delta':
+                            self.local.stream_status.setdefault('first_text_ms', round((time.perf_counter()-issued_at)*1000))
                             text+=event.get('delta','');count+=1
                             self.local.stream_status.update(delta_events=count,text_chars=len(text))
                             if len(text)>20000:raise ModelUnavailable('The response exceeded its bound.')
@@ -322,6 +341,8 @@ do NOT add Original Medicare as a separate current delivery arrangement.
         except (HTTPError, URLError, TimeoutError, SSLError, ConnectionError, json.JSONDecodeError, KeyError, TypeError) as error:
             raise ExtractionTransportFailure(error, phase) from error
         finally:
+            if hasattr(self, 'record_model_request'):
+                self.record_model_request(payload, request_started, issued_at, completed_response)
             if budget_stage:budget_stage.finish()
             elif reservation:self.budget.uncertain(reservation)
             with self.lock:self.active.discard(key)

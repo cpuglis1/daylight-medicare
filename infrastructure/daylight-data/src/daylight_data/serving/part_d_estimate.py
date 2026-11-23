@@ -17,6 +17,8 @@ PARAMETER_MANIFEST = 'c231f95a50ceab5b0ecf2d24654b25a1a8d258b4414937a702c1230b6e
 FORMULARY_FIELDS = ('TIER_LEVEL_VALUE', 'PRIOR_AUTHORIZATION_YN', 'STEP_THERAPY_YN',
                     'QUANTITY_LIMIT_YN', 'QUANTITY_LIMIT_AMOUNT', 'QUANTITY_LIMIT_DAYS',
                     'SELECTED_DRUG_YN')
+# The CMS archive's release date, distinct from the date embedded in member names.
+FORMULARY_RELEASE = '2026-09-16'
 CHANNELS = {('retail', 'preferred'): 'PREF', ('retail', 'standard'): 'NONPREF',
             ('mail', 'preferred'): 'MAIL_PREF', ('mail', 'standard'): 'MAIL_NONPREF'}
 UNITS = {'ORAL TABLET': 'tablet', 'EXTENDED RELEASE ORAL TABLET': 'tablet',
@@ -91,7 +93,8 @@ class PartDEstimate:
 
     def _scope(self, purpose='offline_research', year=2026, county_fips='12021'):
         scope = dict(year=year, county_fips=county_fips, purpose=purpose)
-        enforce_scope(self.foundation.manifest, **scope, now=self.foundation.clock())
+        enforce_scope(self.foundation.manifest, **scope, now=self.foundation.clock(),
+                      served=getattr(self.foundation, "served", None))
         self.foundation._check_controls()
 
     def rows(self, dataset, refs, *, name=None, **filters):
@@ -204,6 +207,56 @@ class PartDEstimate:
                             'formulary_id': plan['formulary_id'], 'version': plan['formulary_version'],
                             **{field: native.get(field) for field in FORMULARY_FIELDS}})
         return matched
+
+    def formulary_matrix(self, medicines):
+        """Compare exact products under one bound offline snapshot."""
+        if not 1 <= len(medicines) <= 12:
+            raise EstimateHold('list_size_unsupported')
+        codes = sorted({m['rxcui'] for m in medicines if m.get('rxcui')})
+        with self.foundation.snapshot(**SCOPE) as conn:
+            offered = conn.execute("""
+                SELECT data->>'offering_id' AS id, (data->>'payload')::jsonb AS plan
+                FROM dl_pilot_foundation.drug_plans ORDER BY ordinal
+            """).fetchall()
+            if (len(offered) != self.foundation.manifest['datasets']['drug_plans']['rows']
+                    or len({row['id'] for row in offered}) != len(offered)):
+                raise ResearchServingError('PILOT_DATABASE_FORMULARY_SCOPE_MISMATCH')
+            found = conn.execute("""
+                SELECT data FROM dl_pilot_foundation.formulary_rows
+                WHERE data->>'rxcui' = ANY(%s) ORDER BY ordinal
+            """, (codes,)).fetchall() if codes else []
+        basic, supplemental = {}, set()
+        for row in found:
+            data = row['data']
+            raw = parse(data, 'raw_json')
+            if data['table_name'] == 'basic' and raw['CONTRACT_YEAR'] == '2026':
+                key = data['formulary_id'], raw['FORMULARY_VERSION'], data['rxcui']
+                basic.setdefault(key, set()).add(tuple(raw.get(field) for field in FORMULARY_FIELDS))
+            elif data['table_name'] != 'basic':
+                supplemental.add((raw.get('CONTRACT_ID'), raw.get('PLAN_ID'), data['rxcui']))
+
+        plans = {}
+        for row in offered:
+            plan = row['plan']
+            _, contract, pbp, _ = row['id'].split(':')
+            checks = []
+            for medicine in medicines:
+                code = medicine.get('rxcui')
+                matches = basic.get((plan['formulary_id'], plan['formulary_version'], code), set())
+                status = ('needs_detail' if not code else 'unknown' if plan['suppressed']
+                          else 'covered' if len(matches) == 1 else 'unknown' if matches
+                          or (contract, pbp, code) in supplemental else 'not_listed')
+                values = dict(zip(FORMULARY_FIELDS, next(iter(matches)))) if status == 'covered' else {}
+                flag = {'Y': True, 'N': False, '1': True, '0': False}
+                checks.append({**medicine, 'state': status, 'evidence_date': FORMULARY_RELEASE,
+                               'tier': values.get('TIER_LEVEL_VALUE'),
+                               'prior_authorization': flag.get(values.get('PRIOR_AUTHORIZATION_YN')),
+                               'step_therapy': flag.get(values.get('STEP_THERAPY_YN')),
+                               'quantity_limit': flag.get(values.get('QUANTITY_LIMIT_YN')),
+                               'quantity_limit_amount': values.get('QUANTITY_LIMIT_AMOUNT'),
+                               'quantity_limit_days': values.get('QUANTITY_LIMIT_DAYS')})
+            plans[row['id']] = {'name': plan['name'], 'medicines': checks}
+        return plans
 
     def _parameters(self):
         root = self.foundation.root / PARAMETERS

@@ -52,10 +52,12 @@ class ProviderBudgetTests(unittest.TestCase):
             key = self.budget.reserve(1000, spec.output_tokens, model)
             self.budget.uncertain(key)
         self.case.now[0] += 86400
-        self.assertEqual(self.budget.summary('gpt-6.1-sol')['reservedOrUncertainUsd'], .0425)
+        # GPT-6.2 Sol is also in the local registry: 0.0265 held in addition
+        # to GPT-5.4 (0.016) and GPT-6.1 Sol (0.0265).
+        self.assertEqual(self.budget.summary('gpt-6.1-sol')['reservedOrUncertainUsd'], .069)
         self.assertEqual(self.budget.summary('claude-opus-5-5')['reservedOrUncertainUsd'], .052)
         with self.budget.db() as db:
-            self.assertEqual(self.budget._amounts(db, self.budget.day())[0], 94_500_000)
+            self.assertEqual(self.budget._amounts(db, self.budget.day())[0], 121_000_000)
 
     def test_legacy_attribution_is_additive_and_idempotent(self):
         with self.budget.db() as db:
@@ -72,8 +74,11 @@ class ProviderBudgetTests(unittest.TestCase):
             rows = db.execute('SELECT charge_id,model,provider,attribution FROM advisor_charge_models ORDER BY charge_id').fetchall()
         self.assertEqual(rows, [
             ('old-claude', 'claude-opus-5-5', 'Anthropic', 'legacy_unique_rate_match'),
-            ('old-gpt', 'gpt-5.4', 'OpenAI', 'legacy_unique_rate_match'),
-            ('old-sol', 'gpt-6.1-sol', 'OpenAI', 'legacy_unique_rate_match')])
+            ('old-gpt', 'gpt-5.4', 'OpenAI', 'legacy_unique_rate_match')])
+        # Equal 6.1/6.2 prices make this old Sol record ambiguous. Fail closed;
+        # never guess a model or discard its outstanding money.
+        self.assertFalse(self.budget.summary('gpt-6.1-sol')['canRequest'])
+        self.assertEqual(self.budget.summary('gpt-6.1-sol')['unattributedUsd'], .064)
 
     def test_unattributable_cost_stays_visible_and_never_becomes_free_allowance(self):
         with self.budget.db() as db:

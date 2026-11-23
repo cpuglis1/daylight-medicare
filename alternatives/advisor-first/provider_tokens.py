@@ -4,6 +4,7 @@ Same counted payload and bounds as the pinned counter. No generation or retry.
 """
 import json
 import logging
+import os
 import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
@@ -28,7 +29,45 @@ def _unavailable(diagnostic):
     return TokenCountUnavailable(diagnostic)
 
 
+PREFLIGHT_ENV = 'DAYLIGHT_TOKEN_PREFLIGHT'
+PREFLIGHT_MODES = frozenset({'provider_count', 'local_bound'})
+LOCAL_BOUND_MARGIN = 512
+
+
+def preflight_mode():
+    """provider_count (default) asks OpenAI; local_bound is set only by the :8895 launcher."""
+    mode = os.environ.get(PREFLIGHT_ENV, 'provider_count').strip() or 'provider_count'
+    if mode not in PREFLIGHT_MODES:
+        raise _unavailable({'phase':'preflight','reason':'preflight_mode_invalid'})
+    return mode
+
+
+def uses_local_bound(client):
+    # Only OpenAI requests use the local bound. A client with its own counter
+    # (the Anthropic development adapter) keeps its exact count.
+    return preflight_mode() == 'local_bound' and not hasattr(client, 'count')
+
+
+def local_input_bound(payload):
+    """A ceiling on input tokens computed without a network call.
+
+    OpenAI's tokenizer is byte-level: every text token covers at least one
+    UTF-8 byte, so the request's own JSON bytes (which also carry escapes, keys
+    and punctuation the model never sees) can only overstate the count. The
+    structured-output schema is added a second time for its rendered form, plus
+    a fixed margin for message framing. Reserving this ceiling keeps the ledger's
+    reserve-before-sending rule; settlement then records the provider's exact
+    usage, which must be at or below this bound.
+    """
+    body = {key: payload[key] for key in ('model', 'instructions', 'input', 'tools', 'text')}
+    request = json.dumps(body, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    schema = json.dumps(payload['text'], ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    return len(request) + len(schema) + LOCAL_BOUND_MARGIN
+
+
 def count_input_tokens(client, payload):
+    if uses_local_bound(client):
+        return local_input_bound(payload)
     # Counting is not generation: retry one dropped connection without
     # issuing a paid call or changing the exact payload being verified.
     for attempt in range(2):

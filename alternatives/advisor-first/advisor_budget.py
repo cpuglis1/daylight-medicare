@@ -142,12 +142,18 @@ class AdvisorDailyBudget(DailyBudget):
         if model not in MODELS:
             raise BudgetError('Use a reviewed AI model.')
 
+    def model_spec(self, model, tier=None):
+        return MODELS[model]
+
+    def receipt_tiers(self, model):
+        return {'standard', 'default'} if MODELS[model].provider == 'Anthropic' else {'default'}
+
     def settle_model(self, key, response, model):
         with self.db() as db:
             self.verify_model(db, key, model)
         if model == 'gpt-5.4':
             return self.settle(key, response)
-        spec = MODELS[model]
+        spec = self.model_spec(model, response.get('service_tier'))
         try:
             usage = response['usage']
             details = usage['input_tokens_details']
@@ -164,8 +170,7 @@ class AdvisorDailyBudget(DailyBudget):
                                and token_int(writes['ttl_12h_tokens']) == 0)
             cost = ((inputs - cached - written) * spec.input_rate + cached * spec.cached_rate
                     + written * spec.cache_write_rate + outputs * spec.output_rate)
-            tier = 'standard' if spec.provider == 'Anthropic' else 'default'
-            valid = (response['model'] == model and response['service_tier'] in {tier, 'default'}
+            valid = (response['model'] == model and response['service_tier'] in self.receipt_tiers(model)
                      and response['status'] in {'completed', 'incomplete'}
                      and token_int(usage['total_tokens']) == inputs + outputs
                      and cached + written <= inputs and cache_valid)
@@ -239,7 +244,9 @@ class AdvisorDailyBudget(DailyBudget):
     def reserve(self, input_tokens, output_tokens, model):
         self.check_rates(model)
         i, o = token_int(input_tokens), token_int(output_tokens)
-        spec = MODELS[model]
+        if i > getattr(self, 'max_input_tokens', float('inf')):
+            raise BudgetError('This request exceeds the reviewed pricing context window.')
+        spec = self.model_spec(model)
         if i < 1 or o != spec.output_tokens:
             raise BudgetError('Use a verified input count and the configured output allowance.')
         amount = i * max(spec.input_rate, spec.cache_write_rate) + o * spec.output_rate

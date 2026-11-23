@@ -4,12 +4,21 @@ from guest_profiles import ProfileError
 
 POLICY = 'plans-context-v1'
 KEYS = {'version', 'reviewToken', 'viewDigest', 'visibleIds', 'comparedIds', 'selectedId', 'field', 'mode'}
+NAVIGATION = {'paths':('paths','compare_routes'), 'ab':('enrollment','parts_a_b'),
+    'guide':('enrollment','sign_up_guide'), 'supplement':('original','medigap'),
+    'part-d':('original','drug_plan'), 'advantage':('advantage','compare_plans'),
+    'advantage-drugs':('advantage','check_drugs')}
 
 
 def rehydrate(service, owner, request, handoff):
-    if (not isinstance(request, dict) or set(request) != KEYS or request['version'] != POLICY
+    if (not isinstance(request, dict) or set(request) not in (KEYS, KEYS | {'navigation'}) or request['version'] != POLICY
             or not isinstance(request['mode'], str) or request['mode'] not in {'all', 'recommended', 'compare', 'costs'}):
         raise ProfileError('Use the current Plans view context.', 422)
+    navigation = request.get('navigation')
+    if 'navigation' in request and (not isinstance(navigation,str) or navigation not in NAVIGATION):
+        raise ProfileError('Use a supported Plans step.',422)
+    if navigation and navigation != 'advantage' and any(request[k] for k in ('visibleIds','comparedIds','selectedId','field')):
+        raise ProfileError('Use the plan identities visible in this Plans step.',422)
     if request['reviewToken'] is not None and not isinstance(request['reviewToken'], str):
         raise ProfileError('Use the current reviewed-profile receipt.', 422)
     view = service.for_handoff(owner, handoff)
@@ -40,6 +49,10 @@ def rehydrate(service, owner, request, handoff):
         'attention_is_not_preference': True, 'plans': [], 'reference_notice': REFERENCE_NOTICE,
         'recommendation': {k: view['recommendation'][k] for k in
                            ('state', 'top_three', 'priority_order', 'reason_codes')}}
+    if navigation:
+        path, step = NAVIGATION[navigation]
+        context['navigation'] = {'view':navigation,'path':path,'step':step,
+                                 'attention_is_not_preference':True}
     for identifier in ids:
         plan = plans[identifier]
         # Only server-projected fields; no hidden candidates, profile or browser prose.

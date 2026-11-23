@@ -1,0 +1,146 @@
+{
+  "id": "job_coverage_20261117",
+  "source": "Visit ea3c981c3c, :8895 turn trace, November 17, 2026 (fictional replay; the person's words as pasted by Chris)",
+  "today": "2026-11-17",
+  "original_inputs": [
+    {
+      "type": "message",
+      "text": "I'm 68 and retiring at the end of the year and losing coverage provided by my company. I want to enroll in Medicare but an feeling a bit overwhelmed by the options..."
+    },
+    {
+      "type": "choice",
+      "id": "T05",
+      "label": "Through a current job"
+    },
+    {
+      "type": "choice",
+      "id": "RC09",
+      "label": "My current job"
+    },
+    {
+      "type": "message",
+      "text": "November 21st 2026 my job will end, insurance will end Nov 30 2026"
+    },
+    {
+      "type": "choice",
+      "id": "RC13",
+      "label": "Administrator says yes"
+    },
+    {
+      "type": "message",
+      "text": "Sure"
+    },
+    {
+      "type": "message",
+      "text": "sure, I want to keep my doctors"
+    }
+  ],
+  "baseline_log": {
+    "turn_1_capture": {
+      "T05": "unsupported_meaning",
+      "RC09": "unsupported_meaning",
+      "RC01": "accepted",
+      "T01": "accepted",
+      "MG_AGE": "accepted",
+      "RC08": "accepted",
+      "S_RETIREMENT": "accepted"
+    },
+    "questions": [
+      "T05",
+      "RC09",
+      "RC11",
+      "RC13",
+      null,
+      null,
+      null
+    ],
+    "cards": [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_counts": [
+      1,
+      2,
+      2,
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  "fixed_flow": [
+    {
+      "type": "message",
+      "text": "(opening, as above)",
+      "interpreter": {
+        "updates": [
+          "RC01 self",
+          "T05 employer",
+          "RC09 my_job",
+          "MG_AGE 68",
+          "retirement retiring"
+        ],
+        "next_target": [
+          "RC04",
+          "RC10"
+        ]
+      }
+    },
+    {
+      "type": "message",
+      "text": "I don't have Part A or Part B yet.",
+      "interpreter": {
+        "updates": [
+          "RC04 neither"
+        ],
+        "next_target": [
+          "RC10"
+        ]
+      }
+    },
+    {
+      "type": "choice",
+      "id": "RC10",
+      "choice": "yes"
+    },
+    {
+      "type": "message",
+      "text": "November 21st 2026 my job will end, insurance will end Nov 30 2026",
+      "interpreter": {
+        "updates": [
+          "RC11 jobEnd 2026-11-21, coverageEnd 2026-11-30"
+        ],
+        "next_target": [
+          "RC12"
+        ]
+      }
+    }
+  ],
+  "expected": {
+    "questions": [
+      "RC04",
+      "RC10",
+      "RC11",
+      "RC12"
+    ],
+    "timing_card": {
+      "Part B sign-up window": "December 2026 through July 2027",
+      "If you sign up in November 2026": "Part B generally starts December 1, 2026",
+      "Joining a drug or Medicare Advantage plan": "Through January 2027",
+      "Medigap window": "December 2026 through May 2027",
+      "Your employer": "20 or more employees"
+    },
+    "never_asked": [
+      "T05",
+      "RC09",
+      "RC13",
+      "T02"
+    ]
+  },
+  "test": "tests/test_conversation_records.py"
+}

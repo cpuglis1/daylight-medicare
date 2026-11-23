@@ -61,6 +61,12 @@ class NaturalFlowTests(unittest.TestCase):
                              'goal_quote': value.get('goal_quote', goal)}
                 if isinstance(value, dict):
                     value.setdefault('education_request', {'kind': 'none', 'concept_ids': [], 'quote': ''})
+                    if getattr(self, 'script_legacy_discussion', False) and getattr(self.flow, 'd166', False):
+                        from legacy_discussion_fixture import scripted_proposal, bind_guidance
+                        request = json.loads(payload['input'][0]['content'])
+                        text, prior = request['submitted_text'], request['confirmed_context'].get('discussion_context', {})
+                        value['discussion'] = (bind_guidance(value['discussion'], text, prior)
+                            if value.get('discussion') else scripted_proposal(text, prior))
             elif name == 'daylight_resolved_conversation':
                 sent = json.loads(payload['input'][0]['content'])
                 self.assertIn('question_candidates', sent)
@@ -643,7 +649,8 @@ class NaturalFlowTests(unittest.TestCase):
         self.assertEqual(first['guide']['fields']['coverage.current']['value'], ['employer'])
         self.assertEqual(first['guide']['fields']['coverage.current']['confirmation'], 'reported_by_user')
         self.assertEqual(first['generated']['status'], 'unavailable')
-        self.assertIsNone(first['assessment']['nextQuestion'])
+        # D157 (CV-03): a failed reply still asks the next question.
+        self.assertEqual(first['assessment']['nextQuestion']['id'], 'RC01')
         self.assertNotIn('review', first)
         self.assertEqual(self.flow.turn(self.owner, copy.deepcopy(payload)), first)
         self.assertEqual(len(self.calls), 2)
@@ -672,7 +679,8 @@ class NaturalFlowTests(unittest.TestCase):
                            compose={'move_id': 'fabricated-enrollment-action'})
         self.assertEqual(self.flow.value(self.g, 'coverage.current'), ['employer'])
         self.assertEqual(out['generated']['status'], 'unavailable')
-        self.assertIsNone(out['assessment']['nextQuestion'])
+        # D157 (CV-03): a failed reply still asks the next question.
+        self.assertEqual(out['assessment']['nextQuestion']['id'], 'RC01')
         self.assertNotIn('preparation', out)
         self.assertNotIn('review', out)
         self.assertEqual(len(self.calls), 2)
