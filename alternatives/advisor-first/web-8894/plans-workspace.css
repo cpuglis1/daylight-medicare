@@ -440,3 +440,10 @@ body.plans-page .site-header { position:sticky; top:0; z-index:12; background:va
   .path-card { padding:18px 16px; }
   .path-cards { gap:14px; }
 }
+
+/* D204: informational sections stay visible; only source disclosures expand. */
+.plans-ruled > h3 { display:grid; gap:6px; padding:16px 0; margin:0; font-size:var(--text-label); }
+.rail-box > h3.rail-title { margin:0; padding:12px 0; font-size:var(--text-label); cursor:default; }
+section.sheet-more > h3, section.plans-tucked > h3 { margin:16px 0 10px; font-size:var(--text-label); color:var(--olive); }
+
+.plans-ruled > h3 .plans-ruled-help { grid-column:1; }

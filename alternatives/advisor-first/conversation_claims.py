@@ -125,6 +125,59 @@ def personal_insurance_assertion(text):
     return False
 
 
+def asserted_coverage_text(text):
+    """Project asserted coverage propositions for the :8895 coverage checks only.
+
+    This is a grammatical scope boundary, not an intent/topic recognizer. Keep
+    the original text for every other factual check. Embedded whether-questions
+    and epistemic status predicates do not assert the answer to that question.
+    Independent adversative clauses must still be checked in their own scope.
+    """
+    unresolved = re.compile(
+        r'\b(?:your|their|his|her)\s+' + _PERSONAL_COVERAGE_NOUN +
+        r'\s+(?:is|remains|seems|appears)(?:\s+to be)?\s+'
+        r'(?:(?:still|currently|presently|as yet)\s+)?'
+        r'(?:unknown|unclear|unconfirmed|unreported|undetermined|unspecified|'
+        r'(?:not(?:\s+yet)?|never)\s+(?:known|confirmed|reported|established|determined|specified))\b', re.I)
+    asserted = []
+    for sentence in clauses(text):
+        sentence = unresolved.sub('', sentence)
+        for part in re.split(r'\s*(?:,\s*)?\b(?:but|yet|however|nevertheless)\b\s*|'
+                             r'\s*\b(?:and|so)\s+(?=(?:you|your|they|their|he|his|she|her)\b)',
+                             sentence, flags=re.I):
+            part = part.strip()
+            if not part or '?' in part or re.match(r'^(?:if|suppose|hypothetically)\b', part, re.I):
+                continue
+            # The prefix may contain an independent assertion; retain it.
+            embedded = re.search(r'\bwhether\b', part, re.I)
+            if embedded:
+                part = part[:embedded.start()]
+            # "... know/check/ask if ..." is an embedded question, not coverage.
+            embedded = re.search(r'\b(?:know|understand|check|confirm|ask|learn|clarify|determine|establish|find out|see)\b'
+                                 r'[^.!?;]{0,60}?\bif\b', part, re.I)
+            if embedded:
+                part = part[:embedded.start()]
+            asserted.append(unresolved.sub('', part))
+    return '\n'.join(asserted)
+
+
+def worker_relationship_assertion(text):
+    """A question about a worker is not a report identifying that worker.
+
+    Keep independent assertions after a hypothetical antecedent. The existing
+    scope projection also keeps assertions beside embedded questions/uncertainty.
+    This changes no profile value and grants no Medicare eligibility authority.
+    """
+    scopes=[]
+    for clause in clauses(text):
+        if re.match(r'^(?:if|suppose|hypothetically)\b',clause,re.I):
+            clause=clause.split(',',1)[1] if ',' in clause else ''
+        scopes.append(clause)
+    return bool(re.search(r"\b(?:your|their|his|her) (?:wife|husband|spouse)'s\s+"
+        r"(?:\w+\s+){0,2}(?:job|employer|employment|work|workplace)\b",
+        asserted_coverage_text('\n'.join(scopes)),re.I))
+
+
 def application_status(text):
     """Return only an asserted personal application status, never topic mention."""
     statuses = []
@@ -136,6 +189,20 @@ def application_status(text):
         elif re.search(r"\b(?:you|they|he|she)(?:'ve| have| has)?\s+(?:already\s+)?(?:applied|submitted (?:your |their |an? |the )?application)\b|\byour application\s+(?:is|has been|was)\s+(?:pending|submitted|received)\b", clause, re.I):
             statuses.append('pending')
     return statuses
+
+
+def personal_result_assertion(text):
+    """Passive personal coverage results still belong to checked software cards.
+
+    The existing action guard catches "a plan covers your ...". The grammatical
+    inverse must not gain authority merely because the covered item is first.
+    Use the same question/conditional scope boundary, not a task-name exception.
+    """
+    return bool(re.search(
+        r'\b(?:your|their|his|her)\s+(?:doctors?|providers?|hospitals?|'
+        r'medicines?|medications?|prescriptions?|drugs?|care|procedures?|services?)\s+'
+        r'(?:is|are|will be)\s+(?:not\s+)?(?:covered|included|paid for|in (?:the |a )?network)\b',
+        asserted_coverage_text(text), re.I))
 
 
 def provider_access_supported(text, evidence):

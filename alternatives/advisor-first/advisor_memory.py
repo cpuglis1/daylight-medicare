@@ -1,4 +1,10 @@
-"""Bounded, permissioned conversation continuity held only in server memory.
+"""Permissioned conversation continuity held only in server memory.
+
+D155 (owner, Nov 21, 2026): the whole visit chat is kept and sent to the AI each
+turn, "just like a regular agent session". There is no exchange-count or
+character cap on what the AI reads; compaction or caching comes later, only if
+conversations get too long. HISTORY_RAM_BYTES is a server-memory guard against a
+runaway visit, not a context limit: about 100x a long real conversation.
 
 This is working conversation context, never profile authority or saved data. The
 caller owns validation of explicit goal reports and question eligibility. Older
@@ -17,19 +23,22 @@ from turn_contract import checked_continuation
 
 
 CONTEXT_POLICY = 'natural-context-v3'
-HISTORY_EXCHANGES = 6
-HISTORY_LIMIT = 5000
+# RAM guard only (D155): evicts the oldest exchanges of a single runaway visit.
+HISTORY_RAM_BYTES = 2_000_000
 DISCOURSE_NOTES = 10
 DISCOURSE_CHARS = 1200
-HISTORY_TTL = 3600
+# D157 (owner, November 12, 2026): a visit restores for 24 hours on the same
+# device. One hour before. Still RAM only and cookie bound.
+HISTORY_TTL = 86400
 VISIT_LIMIT = 128
 _TARGET = re.compile(
     r'(?:T(?:0[1-9]|10)|RC(?:0[1-9]|1[0-9]|2[0-8])|'
-    r'RC11\.C1|RC16\.C[12]|S_AGE65|S_RETIREMENT|MG_(?:AGE|SEX|TOBACCO))\Z')
+    r'RC11\.C1|RC16\.C[12]|S_AGE65|S_RETIREMENT|MG_(?:AGE|SEX|TOBACCO)|'
+    r'CP_(?:PURPOSE|REASON|REACTION|UNDERSTANDING|INVESTIGATE|NEXT|TIMING|RETRY|PARTS|COVERAGE))\Z')
 
 
 class VisitMemory:
-    """Owner-and-chain isolated, one-hour RAM-only dialogue and working brief."""
+    """Owner-and-chain isolated, 24-hour RAM-only dialogue and working brief."""
 
     def __init__(self, clock=None):
         self._clock = clock or time.monotonic
@@ -149,8 +158,8 @@ class VisitMemory:
         the previous return point during an educational side answer. The caller
         must check that a remembered target remains eligible before using it.
 
-        Oversize exchanges are omitted intact rather than clipped into misleading
-        partial quotes. Their bounded working brief can still be remembered.
+        Every exchange is kept whole (D155); each field is already bounded by
+        ``_text`` (8,000 characters per message or reply).
         """
         with self._lock:
             key = self._permitted(owner, chain, policy)
@@ -221,14 +230,13 @@ class VisitMemory:
                 brief['discourse'] = notes
 
             exchanges = memory['exchanges']
-            if sum(map(len, exchange.values())) <= HISTORY_LIMIT:
-                request_ids = memory.get('request_ids', [None] * len(exchanges))
-                exchanges.append(exchange)
-                request_ids.append(request_id)
-                exchanges = exchanges[-HISTORY_EXCHANGES:]
-                while sum(len(text) for item in exchanges for text in item.values()) > HISTORY_LIMIT:
-                    exchanges.pop(0)
-                memory['request_ids'] = request_ids[-len(exchanges):]
+            request_ids = memory.get('request_ids', [None] * len(exchanges))
+            exchanges.append(exchange)
+            request_ids.append(request_id)
+            # D155: keep the whole visit. Only the RAM guard evicts, oldest first.
+            while len(exchanges) > 1 and sum(len(text) for item in exchanges for text in item.values()) > HISTORY_RAM_BYTES:
+                exchanges.pop(0)
+            memory['request_ids'] = request_ids[-len(exchanges):]
             memory.update(exchanges=exchanges,
                           expires=self._clock() + HISTORY_TTL)
             self._visits.pop(key, None)

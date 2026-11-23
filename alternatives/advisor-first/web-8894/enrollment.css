@@ -1,0 +1,115 @@
+/* D161: Parts A and B status line, sign-up cards and guides, two-path dashboard.
+   Uses the tokens in tokens.css only. Loaded where the enrollment journey is on. */
+
+/* Status line: one compact line above the conversation and on the plans pages. */
+.enroll-line { margin:0 0 6px; font-size:var(--text-help); line-height:1.45; color:var(--ink); text-align:center; }
+.enroll-line strong { font-weight:700; }
+.enroll-part[data-state="active"] { color:var(--ok); }
+.enroll-next { color:var(--muted); }
+#plans-panel .enroll-line { text-align:left; font-size:var(--text-label); margin:8px 0 10px; }
+
+/* Cards in the conversation. */
+.chat-card .enroll-actions, .enroll-panel .enroll-actions, .enroll-choices .enroll-actions { display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0; }
+.chat-card .enroll-actions button { min-height:48px; }
+.chat-card dd a { color:var(--olive); text-decoration:underline; text-underline-offset:3px; }
+.chat-card[data-kind="finish_summary"] h4 { margin:16px 0 0; }
+.enroll-choices { margin:14px 0 0; padding-top:12px; border-top:1px solid var(--line); }
+.enroll-basis { display:inline-block; margin:4px 0 0; padding:2px 8px; border-radius:999px; font-size:var(--text-fine); background:var(--wait-bg); color:var(--wait); }
+.enroll-basis[data-basis="reported"] { background:var(--ok-bg); color:var(--ok); }
+
+/* Dashboard: two path tabs, then three decisions that each show their answer. */
+.plan-kinds.enroll-kinds { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.enroll-board { margin:0 0 12px; }
+.enroll-steps { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.enroll-step { display:grid; grid-template-columns:auto 1fr; column-gap:10px; align-items:center; width:100%; min-height:56px; padding:8px 12px; text-align:left;
+  background:var(--paper-raised); color:var(--ink); border:1px solid var(--control-edge); border-radius:var(--radius-control); font:inherit; cursor:pointer; }
+.enroll-step:hover { background:var(--sage); }
+.enroll-step:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+.enroll-step.current { background:var(--sage); border-color:var(--olive); box-shadow:inset 0 -3px 0 var(--olive); }
+.enroll-step-n { grid-row:1 / span 2; display:grid; place-items:center; width:28px; height:28px; border-radius:50%; border:1.5px solid var(--olive); color:var(--olive); font-weight:700; font-size:var(--text-help); }
+.enroll-step[data-state="done"] .enroll-step-n, .enroll-step[data-state="chosen"] .enroll-step-n, .enroll-step[data-state="keep_existing"] .enroll-step-n,
+.enroll-step[data-state="not_needed"] .enroll-step-n { background:var(--olive); color:var(--paper-raised); }
+.enroll-step-title { font-weight:700; font-size:var(--text-help); line-height:1.25; }
+.enroll-step-text { grid-column:2; font-size:var(--text-fine); line-height:1.3; color:var(--muted); overflow-wrap:anywhere; }
+/* The step's choices follow the list (owner, November 13), with room above and below. */
+.enroll-decide { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:28px 0 16px; padding-top:20px; border-top:1px solid var(--line); }
+.plans-sticky .enroll-steps { margin:0 0 14px; }
+#plans-panel .plans-next-step { margin:16px 0 0; }
+.plans-tucked { margin:0 0 14px; }
+/* The call branch, the trade-off question and "For your call" (approved design, November 13). */
+.enroll-call { margin:14px 0 0; padding-top:12px; border-top:1px solid var(--line); }
+.enroll-call-question { font-weight:700; margin:10px 0 0; }
+.enroll-dates { display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin:12px 0 0; }
+.enroll-dates[hidden] { display:none; }
+.enroll-date { display:grid; gap:4px; font-size:var(--text-help); color:var(--muted); }
+.enroll-date input { min-height:44px; padding:6px 10px; font:inherit; border:1px solid var(--control-edge); border-radius:var(--radius-control); background:var(--paper-raised); color:var(--ink); }
+.chat-card.enroll-folded > :not(h3):not(.enroll-actions) { display:none; }
+.enroll-trade .enroll-list { margin:6px 0 10px; padding-left:18px; }
+.enroll-trade .enroll-list li { margin:0 0 6px; font-size:var(--text-help); line-height:1.4; }
+.enroll-start[aria-pressed="true"] { background:var(--sage); border-color:var(--olive); box-shadow:inset 0 -3px 0 var(--olive); }
+.enroll-notes { padding:16px 18px; background:var(--sage); border-radius:var(--radius-card); }
+.enroll-notes h2 { margin-top:0; }
+.enroll-notes h3 { font:700 var(--text-help)/1.3 var(--font-ui); margin:12px 0 4px; color:var(--ink); }
+.enroll-guide-return { margin-top:8px; min-height:44px; }
+.plans-full-conversation { display:none; }
+#workspace.plans-open.guide-open .plans-full-conversation { display:inline-flex; margin-left:auto; }
+.plans-tucked > summary { cursor:pointer; min-height:44px; display:inline-flex; align-items:center; font:600 var(--text-help)/1.2 var(--font-ui); color:var(--olive); text-decoration:underline; text-underline-offset:3px; }
+.plans-tucked[open] > summary { margin-bottom:6px; }
+.enroll-decide-lead { font-size:var(--text-help); color:var(--muted); }
+.enroll-decision { min-height:44px; padding:6px 14px; background:var(--paper-raised); color:var(--olive); border:1px solid var(--control-edge); border-radius:var(--radius-pill); font:600 var(--text-help)/1.2 var(--font-ui); cursor:pointer; }
+.enroll-decision:hover { background:var(--sage); }
+.enroll-decision[aria-pressed="true"] { background:var(--olive); color:var(--paper-raised); border-color:var(--olive); }
+.enroll-decision:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+
+/* Step 1 panel and the guides. */
+.enroll-panel, .enroll-guide { max-width:760px; }
+.enroll-panel > .plans-title { margin-top:14px; }
+.enroll-panel .chat-card dl { margin-top:14px; }
+.enroll-panel h2, .enroll-guide h2 { font:700 var(--text-item)/1.25 var(--font-ui); margin:28px 0 10px; color:var(--ink); }
+.enroll-panel dl { margin:0; display:grid; gap:12px; }
+.enroll-panel dt { font-size:var(--text-help); color:var(--muted); }
+.enroll-panel dd { margin:0; font:700 19px/1.35 var(--font-ui); }
+.enroll-panel .card-note, .enroll-guide .card-note { font-size:var(--text-help); line-height:1.45; color:var(--muted); margin:2px 0 0; }
+.enroll-lead { font-size:var(--text-body); line-height:1.55; margin:10px 0 0; max-width:62ch; }
+.enroll-meta { font-size:var(--text-help); color:var(--muted); margin:8px 0 4px; }
+.enroll-meta a, .enroll-guide .sources a { color:var(--olive); }
+.enroll-list { margin:0; padding-left:22px; display:grid; gap:8px; font-size:var(--text-body); line-height:1.5; max-width:62ch; }
+.enroll-guide-steps { list-style:none; margin:0; padding:0; display:grid; gap:14px; }
+.enroll-guide-steps > li { display:grid; grid-template-columns:88px 1fr; gap:16px; align-items:start; padding:14px 16px; background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius-card); }
+.enroll-drawing { display:grid; place-items:center; width:88px; height:68px; border-radius:var(--radius-control); background:var(--sage); color:var(--olive); }
+.enroll-step-words h3 { font:700 20px/1.3 var(--font-ui); margin:0 0 4px; }
+.enroll-step-words p { margin:0; font-size:var(--text-body); line-height:1.5; }
+.enroll-step-words .text-button { padding-left:0; }
+.enroll-safe { margin:24px 0 8px; padding:12px 14px; background:var(--sage); border-radius:var(--radius-control); font-size:var(--text-help); line-height:1.45; }
+.enroll-guide-nav { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 12px; }
+
+/* The chat stays open beside a guide where there is room; below that it is
+   one tap away and opens over the guide. */
+@media(min-width:1100px) {
+  #workspace.plans-open.guide-open:not(.chat-closed) { display:grid; grid-template-columns:minmax(0,1fr) minmax(360px,440px); gap:32px; align-items:start; }
+  #workspace.plans-open.guide-open:not(.chat-closed) .chat-workspace { position:sticky; inset:auto; top:calc(var(--plans-header-h,64px) + 12px); width:auto; height:calc(100dvh - var(--plans-header-h,64px) - 36px);
+    min-height:420px; z-index:auto; animation:none !important; box-shadow:none; border:1px solid var(--line); border-radius:var(--radius-card); }
+  #workspace.plans-open.guide-open .plans-close-chat { display:none; }
+  body.guide-open { overflow:auto; }
+}
+/* A long answer (a plan's name) takes two lines at most, so the row keeps its height. */
+.enroll-step-text { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+/* Tablet keeps the three decisions in one row, so the first plan stays above the fold. */
+@media(max-width:900px) {
+  .enroll-steps { gap:6px; }
+  .enroll-step { padding:6px 8px; column-gap:8px; }
+}
+@media(max-width:600px) {
+  .enroll-steps { grid-template-columns:1fr; }
+  .enroll-step { min-height:48px; padding:6px 10px; }
+  /* Two path tabs, side by side and fully in view: no sideways scrolling strip. */
+  .plan-kinds.enroll-kinds { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); overflow:visible; gap:6px; margin-inline:0; padding:0 0 8px; }
+  .plan-kinds.enroll-kinds > * { min-height:44px; min-width:0; white-space:normal; line-height:1.2; padding-inline:8px; }
+  .enroll-guide-steps > li { grid-template-columns:64px 1fr; gap:12px; padding:12px; }
+  .enroll-drawing { width:64px; height:52px; }
+  .enroll-drawing svg { width:52px; height:40px; }
+  .enroll-line { text-align:left; }
+}
+@media print { .enroll-guide-nav, .enroll-step-words .text-button { display:none; } }
+/* D183: a next-step offer is one button under the reply, not an empty card frame. */
+.chat-card[data-kind="next_step_offer"] { border:0; background:transparent; padding:0; margin:8px 0 14px; }

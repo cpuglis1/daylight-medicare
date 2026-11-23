@@ -1,0 +1,73 @@
+/*
+ * Dev turn panel styles (D155 Q6b). Loaded with dev-turns.js; inert unless the
+ * local backend reports devTraces. Uses the shared design tokens so it follows
+ * the page theme. Wide screens dock the panel on the right and pad the page;
+ * narrow screens show it as a full-width sheet over the chat.
+ */
+.dt-toggle {
+  /* Right edge, mid height: the footer links (Privacy & saving) and the chat
+     box sit at the bottom corners, so a bottom-right toggle covered them.
+     A tall vertical tab in a dev-only orange (not a page token) so it is easy
+     to spot and never mistaken for part of the consumer design; a small dark
+     tab was missed in hand testing. White on #b5470b is about 5.2:1. */
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 60;
+  writing-mode: vertical-rl; text-orientation: mixed; letter-spacing: 0.04em;
+  font: 700 1rem var(--font-ui); color: #fff; background: #b5470b;
+  border: 0; border-radius: 10px 0 0 10px; padding: 18px 10px; cursor: pointer;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.25);
+}
+.dt-toggle:hover { background: #963a09; }
+/* While the panel is open its own header has Close, so the tab steps aside. */
+body.dt-open .dt-toggle { display: none; }
+.dt-toggle:focus-visible, .dt-panel button:focus-visible, .dt-panel summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.dt-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61; width: min(440px, 100vw);
+  display: flex; flex-direction: column; background: var(--paper); color: var(--ink);
+  border-left: 1px solid var(--line); box-shadow: var(--elev-2); font: 0.8125rem/1.45 var(--font-ui);
+}
+.dt-panel[hidden] { display: none; }
+@media (min-width: 1100px) { body.dt-open { padding-right: 440px; } }
+.dt-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.dt-header h2 { font-size: 1rem; margin: 0; }
+.dt-note { color: var(--ink-2); font-size: 0.75rem; flex: 1; }
+.dt-close, .dt-copy { font: inherit; background: var(--surface-2); color: var(--ink); border: 1px solid var(--control-edge); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.dt-list { list-style: none; margin: 0; padding: 8px; max-height: 30vh; overflow: auto; border-bottom: 1px solid var(--line); }
+.dt-item button { width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-radius: 6px; padding: 6px 8px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dt-item button:hover { background: var(--surface-2); }
+.dt-item.dt-selected button { background: var(--surface-2); font-weight: 600; }
+.dt-pane { flex: 1; overflow: auto; padding: 12px 16px 48px; }
+.dt-turn-head { display: flex; align-items: center; gap: 8px; }
+.dt-id { font-size: 0.75rem; word-break: break-all; flex: 1; }
+.dt-meta, .dt-empty { color: var(--ink-2); margin: 4px 0; }
+.dt-message { font-style: italic; margin: 8px 0; }
+.dt-error { color: #a4262c; margin: 4px 0; }
+.dt-section { margin-top: 14px; }
+.dt-section h3 { font-size: 0.8125rem; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-2); }
+.dt-row { margin: 4px 0; word-break: break-word; }
+.dt-strong { font-weight: 600; }
+.dt-reveal summary { cursor: pointer; color: var(--accent); margin: 2px 0; }
+.dt-panel pre { white-space: pre-wrap; word-break: break-word; max-height: 50vh; overflow: auto; background: var(--surface-2); padding: 8px; border-radius: 6px; font-size: 0.75rem; margin: 4px 0; }
+@media (prefers-color-scheme: dark) { .dt-error { color: #ff8a8a; } }
+.dt-link { color: var(--accent); font-weight: 600; }
+
+/* Checks and instructions page (dev-checks.html, D155 Q8). Same tokens as the panel. */
+.dc-page { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; font: 0.9375rem/1.5 var(--font-ui); color: var(--ink); }
+.dc-page h1 { font-size: 1.5rem; margin: 0 0 4px; }
+.dc-page h2 { font-size: 1.125rem; margin: 28px 0 8px; }
+.dc-check { border: 1px solid var(--line); border-radius: var(--radius-control, 8px); padding: 12px 16px; margin: 12px 0; background: var(--paper); }
+.dc-check-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.dc-check-head code { color: var(--ink-2); font-size: 0.8125rem; }
+.dc-badge { font-size: 0.75rem; padding: 1px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); }
+.dc-field { display: block; margin: 10px 0 0; font-weight: 600; font-size: 0.8125rem; }
+.dc-field input[type=text], .dc-field input[type=number], .dc-page textarea { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; font: 0.9375rem/1.45 var(--font-ui); color: var(--ink); background: var(--surface-2); border: 1px solid var(--control-edge); border-radius: 6px; padding: 8px; }
+.dc-field input[type=number] { max-width: 120px; }
+.dc-page textarea { min-height: 120px; resize: vertical; }
+.dc-inline { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.875rem; }
+.dc-readonly { color: var(--ink-2); white-space: pre-wrap; margin: 8px 0 0; }
+.dc-actions { position: sticky; bottom: 0; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 12px 0; background: var(--paper); border-top: 1px solid var(--line); }
+.dc-save { font: 600 0.9375rem var(--font-ui); color: var(--paper); background: var(--ink); border: 0; border-radius: var(--radius-control, 8px); padding: 10px 18px; cursor: pointer; }
+.dc-secondary { font: inherit; background: var(--surface-2); color: var(--ink); border: 1px solid var(--control-edge); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.dc-status { color: var(--ink-2); }
+.dc-error { color: #a4262c; }
+.dc-save:focus-visible, .dc-secondary:focus-visible, .dc-page input:focus-visible, .dc-page textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+@media (prefers-color-scheme: dark) { .dc-error { color: #ff8a8a; } }

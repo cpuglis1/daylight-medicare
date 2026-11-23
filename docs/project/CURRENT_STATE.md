@@ -1,6 +1,6 @@
 # Daylight: current state
 
-Living document · last updated November 12, 2026 (America/New_York), through D153. Edit this
+Living document · last updated November 23, 2026 (America/New_York), with D222's Plans repair. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 
@@ -37,8 +37,11 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
 - Keep the 41 conditional meanings, source STOPs, material holds and exact-purpose gates.
 - Changing accepted or sealed data/code means a new revision with exact
   before/after accounting and the applicable review. Never edit a sealed revision.
-- Privacy: no new raw-transcript persistence; chat stays visit-only; saving, AI
-  transfer, family sharing, human handoff and enrollment are separate permissions.
+- Privacy: no new raw-transcript persistence for real users or the pilot; chat
+  stays visit-only; saving, AI transfer, family sharing, human handoff and
+  enrollment are separate permissions. Exception (D155, branch
+  `charlie/rebalance-and-live-view`): localhost testing may save raw chat,
+  traces and tool inputs/outputs.
 - Redirect, don't deflect (D109, November 8): state the general rule the
   person's reports make relevant, name the personal gap in one clause, then ask
   the approved question. Outside parties are the confirming step, never the
@@ -67,14 +70,17 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
   acknowledged once in the next chat reply. The current source was checked
   offline and activated during D122; unaccepted rule drafts remain unloaded.
   [Restart review and saved-data verification](../../audit-evidence/midmorning-backend-20261110/README.md).
-- Use fictional data for development and tests. No agent-run live conversation
-  tests or paid probes; the owner assesses conversational quality.
+- Use fictional data for development and tests. Agent-run simulated
+  conversations are allowed (D155): the simulated person and judges run on the
+  owner's subscription; Daylight's own calls are capped at $10 per run, and the
+  full set runs only on request. The owner still assesses conversational quality.
 - Report remaining gaps honestly. Do not mark a requirement implemented on intent.
 
 ## Surfaces and where to work
 
 | Port | Source | Status |
 | --- | --- | --- |
+| :8897 / hosted one-call | `alternatives/one-call/` and `alternatives/advisor-first/web-8894/` | D222 repair prepared from GitHub `dev` at `27a341c`: Send-bound plan comparison evidence, current confirmed-office context and clean plan-list headers. Newer local work is excluded. The retained hosted release and offline invitation handlers are tested separately; live activation, real directory verification and responsive visual inspection remain open. [Evidence](../reviews/plans-context-2026-11-23/README.md). |
 | :8895 | `alternatives/advisor-first/demo_server.py`, current `web-8894/` assets | D145 unified local demo: one loopback process serves the UI and API directly, using the D144 195 MB database. Independent guest store/cookies; shared existing development model budget. No :8893/:8894 proxy. Start with `Start Daylight Demo.command` (restart: `Restart Daylight Demo.command`). D147 turns on evaluation-only tiered sorting here only. [Runbook and checks](../../audit-evidence/unified-demo-8895-20261112/README.md). |
 | :8893 | `alternatives/advisor-first/` | Daylight advisor backend (D137 restores the name). The reference `web/` frontend retains Daylight branding. Scoped rules in its [AGENTS.md](../../alternatives/advisor-first/AGENTS.md). |
 | :8894 | `alternatives/advisor-first/web-8894/`, `ui-8894/serve.py` | Daylight consumer interface (D137), with “Medicare, plain as day.” and “Understand your coverage options and prepare to enroll, at your pace.” Retains D93/D109 layout and behavior. Forwards API requests to :8893; D137 restores Daylight model instructions and public backend messages. D129 connects the Medigap tab to exact November 10 source prices for ZIPs 34101–34108, ages 65–74, with MA-style cards/details/comparison. D130 connects the shared chat profile and refreshes prices automatically. D131 replaces duplicate Medigap-page intake with “Talk to Daylight”; missing questions and corrections use the existing chat buttons/free text, preserving known reports and drafts. [Conversation entry](../../audit-evidence/medigap-conversation-entry-20261110/README.md). [Profile integration](../../audit-evidence/medigap-chat-profile-20261110/README.md). [Medigap verification](../../audit-evidence/medigap-ui-8894-20261110/README.md). D134 connects the Part D tab to the ten dated 2026 Collier PDP offerings, using the shared chat profile and the same conversation-first entry, cards/details/comparison. Published premiums/deductibles are available; personal drug costs and enrollment checks remain held. [Part D verification](../../audit-evidence/part-d-ui-8894-20261110/README.md). Internal identifiers, saved data and MA logic remain unchanged. |
@@ -313,6 +319,7 @@ error checks retain Daylight. No further app edit or restart was needed.
 | Legal and operating route (counsel questions, brokerage plan §7) | Pending counsel. Add: whether HIPAA formally applies to the agency. |
 | Legal entity name and consumer brand (D137) | Local :8894 branding and the shared advisor identity are restored to **Daylight**, with **Medicare, plain as day.** The earlier naming screens remain historical evidence. D143: the legal entity is CSquared, a Delaware C-corp (filing planned January 1, 2027); Daylight remains the public brand. Trademark clearance remains open. [Restoration](../../audit-evidence/daylight-restore-20261111/README.md) · [Name-screen history](../reviews/brand-screen-2026-11-10/README.md). |
 | Enrollment route and FMO | D143: Spark Advisors is the FMO in talks (demo pending). Enrollment route not yet chosen. |
+| Subscription-backed model route for local testing | Owner wants it as future development (November 21, 2026): let local hand testing run Daylight's own model calls on the owner's Claude subscription (through `claude -p`) instead of a paid API key. Not built. Needs a founder-reviewed `model-routes.json` change, a dev-only route that can never reach the pilot, and a note that it tests Claude, not the default `gpt-6.1-sol`. |
 
 ## How work runs
 

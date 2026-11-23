@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+  Checks and instructions (D155 Q8, Q2): localhost dev page for editing the
+  conversation checks the simulated-conversation runner judges and the ordering
+  guidance the compose model reads. Data comes from GET/POST /api/dev/checks,
+  which exist only on a local run that saves turn traces. Gates are read-only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Checks and instructions</title>
+  <link rel="icon" href="/daylight.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/dev-turns.css">
+  <script src="/dev-checks.js" defer></script>
+</head>
+<body>
+  <main class="dc-page" id="dc-root">
+    <h1>Checks and instructions</h1>
+    <p class="dc-status">Local testing only. Loading…</p>
+  </main>
+</body>
+</html>

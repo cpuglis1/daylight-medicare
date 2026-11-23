@@ -1,0 +1,25 @@
+key: c14-early-stop-after-three
+title: Quick visitor gets an answer and leaves after three messages
+probes: [answers_questions, one_question]
+typist: self
+person_brief: |
+  You are Marisol Teague, 64, turning 65 on June 18, 2027, living in 34101.
+  You retired early and have a marketplace plan. You only want to know when you can sign up.
+  You do not know whether Social Security will enroll you automatically.
+  You are pleasant and in a hurry; after your third message you say goodbye and leave.
+opening: "Quick question: when can I sign up for Medicare if I turn 65 in June?"
+replies:
+  - if_asked_about: "ZIP or county"
+    reply: "34101."
+  - if_asked_about: "work or current coverage"
+    reply: "I retired early. I'm on a marketplace plan."
+events:
+  - at: 3
+    say: "Okay, thanks, that's enough for today."
+max_messages: 6
+stop_early_after: 3
+must_cover:
+  - "The Initial Enrollment Period runs 7 months: the 3 months before the 65th birthday month, the birthday month and the 3 months after. [Coverage timing](https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start)"
+must_not_claim:
+  - "Holds back the sign-up answer until more facts are collected."
+  - "Answers the goodbye with another intake question or pressure to continue."

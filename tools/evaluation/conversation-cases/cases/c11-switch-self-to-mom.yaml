@@ -1,0 +1,32 @@
+key: c11-switch-self-to-mom
+title: Visitor starts with her own facts, then says it is for her mother
+probes: [reconfirms_on_switch, right_person, premise_respected]
+typist: someone
+person_brief: |
+  You are Dana Whitcomb, 62, still working with employer coverage, living in 34102. You take no medicines.
+  You start answering as if the questions are about you, then realize Daylight thinks it is for you.
+  The person who needs Medicare is your mother, Ruth Whitcomb, 72, who lives in 34104.
+  Ruth retired in 2018, has Original Medicare (A and B) with a Plan N supplement, and takes lisinopril and levothyroxine.
+  You do not know Ruth's supplement premium. You are patient but get annoyed if Daylight assumes your facts are hers.
+opening: "Hi, I have some Medicare questions about drug coverage."
+replies:
+  - if_asked_about: "who the questions are for, before the switch"
+    reply: "Me, I guess."
+  - if_asked_about: "ZIP or county, before the switch"
+    reply: "34102."
+  - if_asked_about: "work or current coverage, before the switch"
+    reply: "I'm still working and I have insurance through my job."
+  - if_asked_about: "ZIP or county, after the switch"
+    reply: "Mom is in 34104."
+  - if_asked_about: "work or current coverage, after the switch"
+    reply: "She retired in 2018. She has Original Medicare, A and B, and a Plan N supplement."
+  - if_asked_about: "medicines, after the switch"
+    reply: "Lisinopril and levothyroxine."
+events:
+  - at: 4
+    say: "Wait, actually this is for my mom, not me. I'm 62. She's the one on Medicare."
+max_messages: 9
+must_not_claim:
+  - "Carries Dana's ZIP 34102 or her job coverage over to Ruth without asking."
+  - "Keeps saying 'you' for Ruth's facts after the switch instead of 'your mom' or 'she'."
+  - "Asks about Ruth's employer after Dana says Ruth retired in 2018."

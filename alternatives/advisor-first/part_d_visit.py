@@ -4,6 +4,7 @@ from collections import OrderedDict
 from copy import deepcopy
 from datetime import date
 import re
+import turn_progress
 from secrets import token_urlsafe
 from time import time
 
@@ -42,14 +43,14 @@ def reported_fields(guide, record):
     subject = fields.get('subject.role', {})
     medications = fields.get('needs.medications', {})
     normalized = build_comparison_profile(guide, record)
-    values, references, conflicting = {}, {}, False
+    values, references, conflicts = {}, {}, set()
     for fact in normalized['facts']:
         identifier = fact.get('question_id')
         if identifier not in {'RC22', 'RC23', 'RC18'}:
             continue
         ref = fact['ref']
         if fact['report_state'] == 'conflicting':
-            conflicting = True
+            conflicts.add(identifier)
         if not fact['usable_for_bound_subject'] or fact['temporal_scope'] != 'current':
             continue
         key = (identifier, ref['item_id'])
@@ -94,23 +95,27 @@ def reported_fields(guide, record):
     visit_stamp = [subject, scope['inputs'], scope['year_defaulted']]
     outlet_stamp = [(key, value['pharmacy'], value['channel'])
                     for key, value in meds.items() if value['pharmacy'] or value['channel']]
-    return scope, meds, assistance, [visit_stamp, outlet_stamp, help_stamp, conflicting,
+    return scope, meds, assistance, [visit_stamp, outlet_stamp, help_stamp, sorted(conflicts),
                                      medications.get('revision')]
 
 
 class PrescriptionVisit:
     """Fills and exact choices are scoped to one active guest visit, in RAM."""
 
-    def __init__(self, flow, service):
+    FORMULARY_FIELDS = ('tier', 'prior_authorization', 'quantity_limit', 'step_therapy')
+
+    def __init__(self, flow, service, *, assume_30_days=False, pharmacy_first=False):
         self.flow = flow
         self.service = service
+        self.assume_30_days = assume_30_days
+        self.pharmacy_first = pharmacy_first
         self.visits = OrderedDict()
         self.revision = 0
 
-    def sync(self, owner, entry, plan):
+    def sync(self, owner, entry, plan, *, formulary=False):
         guide, record = entry['response']['guide'], entry['response']['record']
         scope, meds, assistance, stamps = reported_fields(guide, record)
-        visit_stamp, outlet_stamp, help_stamp, conflicting, list_revision = stamps
+        visit_stamp, outlet_stamp, help_stamp, conflicts, list_revision = stamps
         head = entry['response']['continuation']
         chain = head.split('.')[0]
         for key in list(self.visits):
@@ -123,7 +128,7 @@ class PrescriptionVisit:
             prior = {'chain': chain, 'subject': visit_stamp[0], 'scope': None, 'outlet_stamp': None,
                      'help_stamp': None, 'list_revision': None, 'head': None, 'plan': None,
                      'meds': {}, 'details': {}, 'revision': 0}
-        if (head, plan) != (prior['head'], prior['plan']):
+        if not formulary and (head, plan) != (prior['head'], prior['plan']):
             self.revision += 1
             prior['revision'] = self.revision
             prior.pop('receipt', None)
@@ -146,7 +151,9 @@ class PrescriptionVisit:
                 data['fill_stamp'] = meds[key]['fill_stamp']
                 data['answers'] = {field: value for field, value in data['answers'].items()
                                    if field == 'rxcui'}
-        prior.update(head=head, plan=plan, scope=visit_stamp, outlet_stamp=outlet_stamp,
+        if not formulary:
+            prior.update(head=head, plan=plan)
+        prior.update(scope=visit_stamp, outlet_stamp=outlet_stamp,
                      help_stamp=help_stamp, list_revision=list_revision, expires=entry['expires'])
         self.visits[owner] = prior
         self.visits.move_to_end(owner)
@@ -154,20 +161,56 @@ class PrescriptionVisit:
             self.visits.popitem(last=False)
         if scope['status'] != 'ready':
             issue = 'scope_unsupported' if scope['status'] == 'unsupported' else 'scope_missing'
-        elif self.flow.pending_for(owner) or conflicting:
+        elif (self.flow.pending_for(owner) and not formulary) or ('RC22' in conflicts if formulary else conflicts):
             issue = 'profile_needs_confirmation'
         elif not meds:
             issue = 'no_reported_medicines'
         elif len(meds) > 12:
             issue = 'list_size_unsupported'
-        elif any(m['unsupported_fill'] for m in meds.values()):
+        elif not formulary and any(m['unsupported_fill'] for m in meds.values()):
             issue = 'reported_fill_unsupported'
-        elif (len({m['pharmacy'].casefold() for m in meds.values() if m['pharmacy']}) > 1
+        elif not formulary and (len({m['pharmacy'].casefold() for m in meds.values() if m['pharmacy']}) > 1
               or len({m['channel'] for m in meds.values() if m['channel']}) > 1):
             issue = 'multiple_outlets_unsupported'
         else:
             issue = None
         return prior, meds, assistance, issue
+
+    def formulary_matrix(self, owner, entry):
+        state, meds, _, issue = self.sync(owner, entry, None, formulary=True)
+        if issue:
+            return {'state': 'held', 'hold': issue}
+        medicines, needs = [], []
+        self.service._scope()
+        for item, med in meds.items():
+            selection = state['meds'].get(item, {})
+            code = selection.get('answers', {}).get('rxcui')
+            label = selection.get('label') or med['identity']['name']
+            medicines.append({'name': label, 'rxcui': code})
+            if not code:
+                question = {'field': 'rxcui', 'item': item, 'label': label}
+                needs.append(question)
+        if needs:
+            question = needs[0]
+            candidate_key = [question['item'], meds[question['item']]['stamp']]
+            if state.get('candidate_key') != candidate_key:
+                state['candidate_choices'] = self.choices(state, meds, question)
+                state['candidate_key'] = candidate_key
+            needs[0] = {**question, 'choices': state['candidate_choices']}
+            return {'state': 'needs_detail', 'needs': needs, 'plans': {}}
+        # Recheck the source gates on each read, even when the product list
+        # did not change. Reuse the tabulation across ordinary chat turns.
+        cached = state.get('matrix')
+        if not cached or cached[0] != medicines:
+            cached = (medicines, turn_progress.run('medicines', self.service.formulary_matrix, medicines))
+            state['matrix'] = cached
+        return {'state': 'checked', 'needs': [], 'plans': cached[1]}
+
+    def select_formulary_product(self, owner, entry, item, value):
+        state, meds, _, issue = self.sync(owner, entry, None, formulary=True)
+        checked(not issue and item in meds, 'Review the current medicine list.', 409)
+        self.service._scope()
+        self.answer(state, meds, {'item': item, 'field': 'rxcui'}, value)
 
     def report(self, state, meds, assistance):
         details = state['details']
@@ -179,18 +222,31 @@ class PrescriptionVisit:
             outlet_zip = next(iter(reported_zips)) if len(reported_zips) == 1 else None
         channel = next((m['channel'] for m in meds.values() if m['channel']), None)
         outlet = details.get('pharmacy')
+        medicines = []
+        for item, med in meds.items():
+            selection = state['meds'].get(item, {})
+            inputs = {**med['inputs'], **selection.get('answers', {})}
+            if (self.assume_30_days and inputs.get('rxcui') and 'days_supply' not in inputs
+                    and not selection.get('ask_days_supply')):
+                inputs['days_supply'] = 30
+            medicines.append(inputs)
         return {
             'offering_id': state['plan'], 'period': details.get('period'),
             'assistance': assistance or details.get('assistance'),
             'prior_spending': details.get('prior_spending'),
             'outlet_zip': outlet_zip,
             'pharmacy': {**outlet, 'channel': channel or details.get('channel')} if outlet else None,
-            'medicines': [{**m['inputs'], **state['meds'].get(item, {}).get('answers', {})}
-                          for item, m in meds.items()],
+            'medicines': medicines,
         }
 
     def question(self, meds, report):
         """The ordered missing-only flow. Source lookups are read-only."""
+        if self.pharmacy_first and all(m.get('rxcui') for m in report['medicines']):
+            if not report['outlet_zip']: return {'field':'outlet_zip'}
+            if not report['pharmacy']:
+                return {'field':'pharmacy', 'zip':report['outlet_zip'],
+                        'reported':next((m['pharmacy'] for m in meds.values() if m['pharmacy']),None)}
+            if not report['pharmacy'].get('channel'): return {'field':'channel'}
         for item, med in zip(meds, report['medicines'], strict=True):
             label = meds[item]['identity']['name']
             for field in ('rxcui', 'quantity', 'unit', 'days_supply', 'fills'):
@@ -214,9 +270,13 @@ class PrescriptionVisit:
             name = identity['name'].strip()
             strength = identity.get('strength', '').strip()
             query = name if not strength or strength.casefold() in name.casefold() else f'{name} {strength}'
-            candidates = self.service.products([], name=query)
+            candidates = turn_progress.run('medicines', self.service.products, [], name=query)
+            suggest = getattr(self.flow, 'medicine_spelling_choices', None)
+            suggested = bool(not candidates and suggest)
+            if suggested:
+                candidates = suggest(self.service, name, strength)
             form = identity.get('form', '').casefold().split()
-            return [{'value': row['rxcui'], 'label': row['name']} for row in candidates
+            return [{'value': row['rxcui'], 'label': row['name'], **({'suggested': True} if suggested else {})} for row in candidates
                     if row['type'] in ('SCD', 'SBD') and row['route'] and row['strength_description']
                     and all(word in row['form'].casefold() for word in form)]
         if question['field'] == 'pharmacy':
@@ -225,7 +285,7 @@ class PrescriptionVisit:
                          next(iter(outlet['aliases']), outlet['name']) or f"NPI {outlet['npi']}",
                          *outlet['address'].values()])),
                      'outlet': {key: outlet[key] for key in ('address_id', 'npi', 'zip')}}
-                    for outlet in self.service.outlets([], zip=question['zip'])]
+                    for outlet in turn_progress.run('medicines', self.service.outlets, [], zip=question['zip'])]
         return []
 
     def answer(self, state, meds, question, value):
@@ -272,7 +332,7 @@ class PrescriptionVisit:
         else:
             details[field] = value
 
-    def dispatch(self, owner, body):
+    def dispatch(self, owner, body, *, _entry=None):
         from daylight_data.serving.binding import ResearchServingError
         from daylight_data.serving.part_d_math import EstimateHold
 
@@ -285,7 +345,9 @@ class PrescriptionVisit:
         checked(isinstance(head, str) and CONTINUATION.fullmatch(head) and isinstance(plan, str)
                 and OFFERING.fullmatch(plan), 'Open a 2026 plan from the current conversation.')
         with self.flow.lock:
-            entry = current_head(self.flow, owner, head)
+            # D154's controller calls this only inside an authenticated ordinary
+            # turn. HTTP callers never supply this server-owned snapshot.
+            entry = _entry if _entry is not None else current_head(self.flow, owner, head)
             live, meds, assistance, issue = self.sync(owner, entry, plan)
             revision = live['revision']
             checked(action == 'read' or type(body['revision']) is int and body['revision'] == revision,
@@ -310,7 +372,7 @@ class PrescriptionVisit:
                 status = {'state': 'current' if valid else 'held', 'hold': None if valid else 'result_changed'}
             elif action == 'estimate':
                 checked(question is None, 'Finish the missing prescription details first.', 409)
-                outcome = self.service.estimate(report, revision)
+                outcome = turn_progress.run('medicines', self.service.estimate, report, revision)
                 status = {key: value for key, value in outcome.items() if key in {
                     'state', 'hold', 'period_kind', 'start', 'end', 'plan_premium_cents',
                     'drug_spending_cents', 'plan_premium_plus_drugs_cents'}}
@@ -334,12 +396,19 @@ class PrescriptionVisit:
                         if field in ('outlet_zip', 'pharmacy'):
                             state['details'].pop('pharmacy_label', None)
                     else:
-                        checked(item in state['meds'] and field in state['meds'][item]['answers'])
-                        answers = state['meds'][item]['answers']
+                        checked(item in state['meds'])
+                        choice = state['meds'][item]
+                        answers = choice['answers']
+                        assumed = (self.assume_30_days and field == 'days_supply'
+                                   and 'days_supply' not in meds[item]['inputs']
+                                   and not choice.get('ask_days_supply') and answers.get('rxcui'))
+                        checked(field in answers or assumed)
                         if field == 'rxcui':
                             answers.clear()
                         else:
-                            answers.pop(field)
+                            answers.pop(field, None)
+                        if field == 'days_supply':
+                            choice['ask_days_supply'] = True
                 report = self.report(state, meds, assistance)
                 question = self.question(meds, report)
                 if question:
@@ -349,6 +418,12 @@ class PrescriptionVisit:
                 status['editable'] = [
                     {'item': item, 'field': field, 'medicine': meds[item]['identity']['name']}
                     for item, detail in state['meds'].items() for field in detail['answers']]
+                assumed = {item for item, med in zip(meds, report['medicines'], strict=True)
+                           if 'days_supply' in med and 'days_supply' not in meds[item]['inputs']
+                           and 'days_supply' not in state['meds'].get(item, {}).get('answers', {})}
+                status['editable'].extend({'item': item, 'field': 'days_supply',
+                                           'medicine': meds[item]['identity']['name']}
+                                          for item in meds if item in assumed)
                 status['editable'].extend({'item': None, 'field': field} for field in state['details']
                                           if field != 'pharmacy_label')
                 if question is None:
@@ -361,6 +436,7 @@ class PrescriptionVisit:
                         'medicines': [
                             {'name': state['meds'][item]['label'], 'quantity': med['quantity'],
                              'unit': med['unit'], 'days_supply': med['days_supply'],
+                             'days_supply_assumed': item in assumed,
                              'fill_count': len(med['fills'])}
                             for item, med in zip(meds, report['medicines'], strict=True)],
                     }
@@ -373,7 +449,8 @@ class PrescriptionVisit:
                     'participant_release': False}
 
         with self.flow.lock:
-            current_head(self.flow, owner, head)
+            if _entry is None:
+                current_head(self.flow, owner, head)
             latest = self.visits.get(owner)
             checked(latest is live and latest['revision'] == revision and latest['plan'] == plan,
                     'These prescription details changed. Review them again.', 409)

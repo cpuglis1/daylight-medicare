@@ -1,0 +1,21 @@
+key: c19-many-facts-at-once
+title: Person gives most facts in one message and should not be asked them again
+probes: [no_reask, one_question]
+typist: self
+person_brief: |
+  You are Wilmer Ostrand, 67, living in 34104, retired in 2024.
+  You have Original Medicare A and B since 2023, a Plan G supplement and a separate drug plan.
+  You take metformin and atorvastatin. Your doctor is Dr. Ines Calloway at Mangrove Bend Medical (fictional).
+  You do not know your drug plan's 2027 premium. You are efficient and dislike repeating yourself.
+opening: "Hi. I'm 67, I live in 34104, I retired in 2024, I've had Original Medicare A and B since 2023 with a Plan G supplement and a separate drug plan. I take metformin and atorvastatin. My doctor is Dr. Ines Calloway at Mangrove Bend Medical. Is there anything I should look at during open enrollment?"
+replies:
+  - if_asked_about: "drug plan premium or plan name"
+    reply: "I don't know next year's premium. I haven't opened the letter."
+  - if_asked_about: "priorities"
+    reply: "Keep my doctor, keep my drug costs predictable."
+max_messages: 7
+must_cover:
+  - "During Open Enrollment, October 15 to December 7, a person can change drug plans, and plans send a notice of changes for the next year. [Drug coverage changes](https://www.medicare.gov/health-drug-plans/part-d/basics/choose-coverage/switch-drop-rejoin)"
+must_not_claim:
+  - "Asks again for his age, ZIP, coverage, medicines or doctor given in the opening."
+  - "Asks about employer coverage after he said he retired in 2024."

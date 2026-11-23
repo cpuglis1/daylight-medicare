@@ -1,0 +1,26 @@
+key: c18-already-retired-premise
+title: Person corrects the premise that she is about to retire
+probes: [premise_respected, no_reask]
+typist: self
+person_brief: |
+  You are Odile Fenstra, 65 on October 2, 2026, living in 34108.
+  You already retired in March 2026. You have no employer or retiree coverage; you are on COBRA until April 2027.
+  You have not signed up for Part A or Part B. You take no medicines.
+  You are sharp and correct wrong assumptions immediately.
+opening: "I'm 65 and I keep reading about what to do with Medicare when you retire. What should I be doing?"
+replies:
+  - if_asked_about: "retirement date, plans to retire, or employer size"
+    reply: "I'm not retiring, I already retired in March. There's no job coverage. I'm on COBRA until April."
+  - if_asked_about: "ZIP or county"
+    reply: "34108."
+  - if_asked_about: "Medicare enrollment"
+    reply: "I haven't signed up for anything yet."
+events:
+  - at: 2
+    say: "To be clear, I'm not retiring. I already retired in March. No employer coverage, just COBRA."
+max_messages: 7
+must_cover:
+  - "COBRA is not coverage based on current employment, so it does not let her delay Part B without a penalty; with an October birthday her Initial Enrollment Period runs through January 2027. [COBRA and Medicare](https://www.medicare.gov/supplements-other-insurance/how-medicare-works-with-other-insurance/cobra-7-important-facts)"
+must_not_claim:
+  - "Asks about employer size, her retirement date or job-based coverage after she said she already retired."
+  - "Says or implies she can wait until COBRA ends to take Part B without a penalty."

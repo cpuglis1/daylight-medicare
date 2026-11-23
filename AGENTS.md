@@ -26,7 +26,9 @@ before changing it.
   source STOPs, the 41 conditional meanings and the protected variants
   (:8890, :8891, :8896) and their stores.
 - Acquisition, tests, sealing or model agreement are not acceptance.
-- Use fictional data. No agent-run live conversation tests or paid probes.
+- Use fictional data. Agent-run simulated conversations follow D155 (subscription
+  for the simulated person and judges, $10 cap per run on Daylight's own calls,
+  full set only on request); no other paid probes.
 - The workspace has substantial uncommitted work: targeted patches only; never
   reset, stash or discard unrelated changes.
 - Report what you actually ran and what remains open.

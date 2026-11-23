@@ -82,7 +82,12 @@ class ReplyIsCheckedBeforeAnyOutput(Harness):
         statements = {fact['summary'] for fact in self.f.flow.facts.values() if fact.get('summary')}
         statements |= {'Let’s keep going with the next useful detail.', 'Let’s keep going. You can ask me anything about your coverage.'}
         body = out['reply'].split('\n\n')[0]
-        self.assertIn(body, statements, out['reply'])
+        # D157 (CV-03): the floor may open with one code-built sentence that uses
+        # what the person just reported; the rest is still a reviewed statement.
+        acknowledgement = 'You have coverage from a current job.'
+        if body.startswith(acknowledgement):
+            body = body[len(acknowledgement):].strip()
+        self.assertTrue(not body or body in statements, out['reply'])
         self.assertTrue(out['assessment']['nextQuestion'] or out['reply'].rstrip().endswith('?'))
 
     def test_rejected_reply_is_never_shown_and_accepted_facts_survive(self):
@@ -104,7 +109,9 @@ class ReplyIsCheckedBeforeAnyOutput(Harness):
         out = self.f.message(TEXT, self.employer_report(), compose={'reply': 'Noted.', 'question_target': None, 'question': ''})
         self.assertEqual(out['generated']['status'], 'complete')
         self.assertTrue(out['reply'].startswith('Noted.'))
-        self.assertTrue(out['reply'].rstrip().endswith('What would you like to understand next?'))
+        # D157 (CV-25): the continuation is the next real question, never a topic menu.
+        self.assertNotIn('What would you like to understand next?', out['reply'])
+        self.assertTrue(out['assessment']['nextQuestion'])
         self.assertEqual(out['generated']['validation_recovery']['reason'], 'missing_followup')
         self.assertEqual(len(self.f.calls), 2)
 

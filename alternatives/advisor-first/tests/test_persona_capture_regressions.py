@@ -94,43 +94,115 @@ class PersonaCaptureRegressionTests(unittest.TestCase):
         self.assertIsNone(case.flow.pending_for(case.owner))
         self.assertEqual(case.flow.value(case.g, 'subject.role'), 'self')
 
-    def test_stale_person_conflict_cannot_reassign_retained_personal_facts(self):
+    # Fix 2 (subject correction, Charlie 2026-11-21): a corrected "who is this
+    # for" switches the subject and asks again about each earlier fact, instead
+    # of refusing with "Open a separate visit".
+
+    def age65(self, quote, month=3, year=2027):
+        """Return an extraction carrying one turning-65 situation proposal."""
+        return {'kind': 'age65', 'subject': 'beneficiary', 'scope': 'current', 'quote': quote,
+                'uncertain': False, 'correction': False, 'month': month, 'year': year,
+                'status': '', 'when': ''}
+
+    def test_helper_first_person_wording_does_not_save_for_me(self):
+        """'She turns 65 ... and I'll handle it' leaves who-it-is-for open instead of guessing 'self'."""
         case = self.case()
         case.choice('T01', choice='compare')
-        case.choice('RC01', choice='someone')
-        case.choice('T05', choice='cobra')
-        text = 'This is for me.'
-        case.message(text, [case.update('RC01', {'choice': 'self'}, text)])
-        clarified = 'Yes, this is for me.'
-        case.message(clarified, [case.update('RC01', {'choice': 'self'}, clarified, correction=True)])
-        self.assertEqual(case.r['facts']['RC01']['value']['choice'], 'someone')
+        text = "She turns 65 in March 2027 and I'll handle it."
+        case.message(text, [], extraction=case.extraction([], situation_proposals=[self.age65(text)]))
         self.assertIsNone(case.flow.value(case.g, 'subject.role'))
-        self.assertIsNotNone(case.flow.pending_for(case.owner))
+        self.assertNotIn('RC01', case.r['facts'])
+
+    def test_corrected_subject_switches_and_reconfirms_each_retained_fact(self):
+        """A confirmed 'it is for my mom' switches to someone and holds T05 for re-confirmation."""
+        case = self.case()
+        case.choice('T01', choice='compare')
+        case.choice('RC01', choice='self')
+        case.choice('T05', choice='cobra')
+        text = 'No, this is for my mom.'
+        case.message(text, [case.update('RC01', {'choice': 'someone'}, text)])
+        clarified = 'Yes, it is for my mom, not me.'
+        case.message(clarified, [case.update('RC01', {'choice': 'someone'}, clarified, correction=True)])
+        self.assertEqual(case.flow.value(case.g, 'subject.role'), 'someone')
+        self.assertEqual(case.r['facts']['RC01']['value']['choice'], 'someone')
+        self.assertFalse(case.r['facts']['RC01']['stale'])
+        # The old answer is kept but not used until the person re-confirms it.
+        self.assertIsNone(case.flow.value(case.g, 'coverage.current'))
+        self.assertEqual(case.g['fields']['coverage.current']['value'], ['cobra'])
+        self.assertEqual(case.flow.report(case.r, 'RC09'), {})
+        pending = case.flow.pending_for(case.owner)
+        self.assertEqual((pending['update']['id'], pending['update']['fields']), ('T05', {'choice': 'cobra'}))
+        self.assertTrue(pending['update'].get('reconfirm'))
+        move = case.flow.eligible(case.owner, case.g, case.r)[0]
+        self.assertEqual(move['id'], 'T05')
+        self.assertIn('who this visit is for', move['purpose'])
+        case.message('Yes.', [])
         self.assertEqual(case.flow.value(case.g, 'coverage.current'), ['cobra'])
         self.assertEqual(case.flow.report(case.r, 'RC09')['choice'], 'cobra')
+        self.assertIsNone(case.flow.pending_for(case.owner))
 
-    def test_readiness_only_facts_still_belong_to_the_original_person(self):
+    def test_button_subject_change_switches_and_holds_readiness_facts(self):
+        """Choosing 'self' after 'someone' no longer refuses; RC06 waits for re-confirmation."""
+        case = self.case()
+        case.choice('RC01', choice='someone')
+        case.choice('RC06', choice='disability')
+        case.choice('RC01', choice='self')
+        self.assertEqual(case.flow.value(case.g, 'subject.role'), 'self')
+        self.assertEqual(case.flow.report(case.r, 'RC06'), {})
+        self.assertEqual(case.r['facts']['RC06']['value']['choice'], 'disability')
+        pending = case.flow.pending_for(case.owner)
+        self.assertEqual((pending['update']['id'], pending['update']['fields']), ('RC06', {'choice': 'disability'}))
+
+    def test_subject_change_reconfirms_the_turning_65_report(self):
+        """A held birthday is offered back as the exact proposed value and a 'yes' restores it."""
+        case = self.case()
+        case.choice('T01', choice='compare')
+        case.choice('RC01', choice='self')
+        text = 'I turn 65 in March 2027.'
+        case.message(text, [], extraction=case.extraction([], situation_proposals=[self.age65(text)]))
+        self.assertEqual(case.flow.value(case.g, 'situation.age65')['month'], 3)
+        case.choice('RC01', choice='someone')
+        self.assertIsNone(case.flow.value(case.g, 'situation.age65'))
+        pending = case.flow.pending_for(case.owner)
+        self.assertEqual(pending['update']['id'], 'S_AGE65')
+        self.assertEqual(pending['update']['proposed']['month'], 3)
+        case.message('Yes, that is right.', [])
+        self.assertEqual(case.flow.value(case.g, 'situation.age65')['month'], 3)
+        self.assertIsNone(case.flow.pending_for(case.owner))
+
+    def test_reconfirmation_survives_a_dropped_in_memory_clarification(self):
+        """Held targets live in the record, so a cleared pending question comes back next turn."""
+        case = self.case()
+        case.choice('RC01', choice='someone')
+        case.choice('T05', choice='cobra')
+        case.choice('RC01', choice='self')
+        case.flow.clear_pending(case.owner)
+        move = case.flow.eligible(case.owner, case.g, case.r)[0]
+        self.assertEqual(move['id'], 'T05')
+        self.assertTrue(move['required'])
+
+    def test_research_only_still_cannot_take_over_a_persons_reports(self):
+        """Switching from a person to research-only keeps the old refusal; no facts change."""
         case = self.case()
         case.choice('RC01', choice='someone')
         case.choice('RC06', choice='disability')
         before = copy.deepcopy((case.g, case.r))
         with self.assertRaisesRegex(ProfileError, 'separate visit'):
-            case.choice('RC01', choice='self')
+            case.flow.apply(case.g, case.r, {'id': 'RC01', 'fields': {'choice': 'research'}})
         self.assertEqual((case.g, case.r), before)
-        self.assertEqual(case.flow.value(case.g, 'subject.role'), 'someone')
-        self.assertEqual(case.flow.report(case.r, 'RC06')['choice'], 'disability')
 
-    def test_saved_role_mirror_still_owns_reports_when_sensitive_facts_are_omitted(self):
+    def test_saved_role_mirror_switch_holds_reports_when_sensitive_facts_are_omitted(self):
+        """A pruned saved visit (role mirror only) also switches and holds T05 instead of refusing."""
         case = self.case()
         case.choice('RC01', choice='someone')
         case.choice('T05', choice='cobra')
         guide, record = prune_for_storage(case.g, case.r)
         self.assertNotIn('RC01', record['facts'])
-        self.assertEqual(guide['fields']['subject.role']['value'], 'someone')
-        before = copy.deepcopy((guide, record))
-        with self.assertRaisesRegex(ProfileError, 'separate visit'):
-            case.flow.apply(guide, record, {'id': 'RC01', 'fields': {'choice': 'self'}})
-        self.assertEqual((guide, record), before)
+        case.flow.apply(guide, record, {'id': 'RC01', 'fields': {'choice': 'self'}})
+        self.assertEqual(guide['fields']['subject.role']['value'], 'self')
+        self.assertEqual(guide['fields']['coverage.current']['status'], 'stale')
+        held = record['natural']['dialogue']['clarifications']
+        self.assertIn({'id': 'T05', 'entity': 'profile', 'fields': []}, held)
 
 
 if __name__ == '__main__':

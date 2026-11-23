@@ -32,9 +32,9 @@ def published_plans(repository, body, zip_reference):
             'personal_recommendation_available': False, 'all_market_complete': False,
             'notice': NOTICE, 'plans': []}
     if body['year'] != 2026:
-        return {**base, 'status': 'unsupported_year', 'message': 'This pilot has 2026 Part D plan information. Plans for another coverage year are not supported yet.'}
+        return {**base, 'status': 'unsupported_year', 'message': 'Daylight has Part D plan information for 2026.'}
     if body['county_fips'] != '12021':
-        return {**base, 'status': 'unsupported_county', 'message': 'Part D plan information in this pilot covers Collier County, Florida.'}
+        return {**base, 'status': 'unsupported_county', 'message': 'Daylight has Part D plan information for Collier County, Florida.'}
     if not any(row[0] == body['county_fips'] for row in zip_reference.get(body['zipcode'], [])):
         raise ProfileError('Confirm the home ZIP and county in the conversation before viewing Part D plans.', 422)
     if repository is None:
