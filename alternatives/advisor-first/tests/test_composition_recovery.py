@@ -15,7 +15,7 @@ from advisor_models import MODELS
 from ai_budget import BudgetError
 from chat import ModelUnavailable
 from composition_recovery import CompositionRejected
-from natural_agent import _question_candidates
+from natural_agent import FACT_REPAIR_LIMIT, _question_candidates
 
 
 class CompositionRecoveryTests(unittest.TestCase):
@@ -115,33 +115,33 @@ class CompositionRecoveryTests(unittest.TestCase):
     def test_failed_repair_preserves_only_the_independently_checked_question(self):
         bad = self.draft(reply='An example amount is $777777.',
                          education={'purpose': 'teach', 'updates': [{'unearned': 'credit'}], 'visual': 'none'})
-        self.responses = [bad, copy.deepcopy(bad)]
+        self.responses = [copy.deepcopy(bad) for _ in range(1 + FACT_REPAIR_LIMIT)]
         answer = self.compose()
         self.assertEqual(answer['reply'], '')
         self.assertEqual(answer['question'], self.draft()['question'])
         self.assertEqual(answer['education']['updates'], [])
         self.assertEqual(answer['task_work']['check_ids'], [])
         self.assertEqual(answer['validation_recovery']['component'], 'question')
-        self.assertEqual(len(self.calls), 2)
+        self.assertEqual(len(self.calls), 1 + FACT_REPAIR_LIMIT)
         replay = self.compose()
         self.assertEqual(replay, answer)
-        self.assertEqual(len(self.calls), 2, 'Replay must not charge for recovery again')
+        self.assertEqual(len(self.calls), 1 + FACT_REPAIR_LIMIT, 'Replay must not charge for recovery again')
         self.assertNotIn('777777', json.dumps(list(self.agent.cache.values())))
 
-    def test_both_invalid_components_stay_held_after_one_repair(self):
+    def test_both_invalid_components_stay_held_after_every_repair(self):
         bad = self.draft(reply='An example amount is $777777.',
                          question='With your $888888 premium, what insurance do you have now?')
-        self.responses = [bad, copy.deepcopy(bad)]
+        self.responses = [copy.deepcopy(bad) for _ in range(1 + FACT_REPAIR_LIMIT)]
         with self.assertRaises(CompositionRejected):
             self.compose()
-        self.assertEqual(len(self.calls), 2)
+        self.assertEqual(len(self.calls), 1 + FACT_REPAIR_LIMIT)
         self.assertFalse(self.agent.cache)
         self.assertTrue(all(row[0] == 'settled' for row in self.rows()))
 
     def test_freeform_orphan_question_cannot_survive_an_invalid_answer(self):
         bad = self.draft(reply='An example amount is $777777.', question_target=None,
                          question='Would that work for you?')
-        self.responses = [bad, copy.deepcopy(bad)]
+        self.responses = [copy.deepcopy(bad) for _ in range(1 + FACT_REPAIR_LIMIT)]
         with self.assertRaises(CompositionRejected):
             self.compose()
         self.assertFalse(self.agent.cache)
@@ -149,7 +149,7 @@ class CompositionRecoveryTests(unittest.TestCase):
     def test_question_premises_receive_the_answer_factual_checks(self):
         bad = self.draft(reply='An example amount is $777777.',
             question='Your insurance is employer coverage. What insurance do you have now?')
-        self.responses = [bad, copy.deepcopy(bad)]
+        self.responses = [copy.deepcopy(bad) for _ in range(1 + FACT_REPAIR_LIMIT)]
         with self.assertRaises(CompositionRejected):
             self.compose()
         self.assertFalse(self.agent.cache)
@@ -206,14 +206,16 @@ class CompositionRecoveryTests(unittest.TestCase):
         self.assertEqual(len(self.calls), 1)
         self.assertEqual([row[0] for row in self.rows()], ['settled'])
 
-    def test_repair_and_connection_recovery_share_one_attempt_slot(self):
-        self.responses = [ConnectionResetError(54, 'fictional disconnect'),
-                          self.draft(reply='An example amount is $777777.')]
+    def test_repair_and_connection_recovery_share_one_attempt_budget(self):
+        """A connection recovery spends one of the 1 + FACT_REPAIR_LIMIT attempts, so the total stays bounded."""
+        self.responses = [ConnectionResetError(54, 'fictional disconnect')] + [
+            self.draft(reply='An example amount is $777777.') for _ in range(FACT_REPAIR_LIMIT)]
         answer = self.compose()
         self.assertEqual(answer['reply'], '')
         self.assertEqual(answer['question'], self.draft()['question'])
-        self.assertEqual(len(self.calls), 2)
-        self.assertEqual(sorted(row[0] for row in self.rows()), ['settled', 'uncertain'])
+        self.assertEqual(len(self.calls), 1 + FACT_REPAIR_LIMIT)
+        self.assertEqual(sorted(row[0] for row in self.rows()),
+                         ['settled'] * FACT_REPAIR_LIMIT + ['uncertain'])
 
     def test_disconnect_during_repair_retains_original_safe_component(self):
         self.responses = [self.draft(reply='An example amount is $777777.'),
@@ -317,7 +319,10 @@ class RecoveryControllerTests(unittest.TestCase):
                            'concept_id': 'coverage_paths', 'depth': 'introduced',
                            'reason': 'new', 'evidence_refs': ['routesintro']}]}}
                 good = {**bad, 'reply': 'Original Medicare is the federal program for Parts A and B.'}
-                fixture.compositions = [bad, good if repaired else copy.deepcopy(bad)]
+                # Unrepaired: every one of the 1 + FACT_REPAIR_LIMIT drafts invents the amount.
+                fixture.compositions = ([bad, good] if repaired else
+                                        [copy.deepcopy(bad) for _ in range(1 + FACT_REPAIR_LIMIT)])
+                composes = len(fixture.compositions)
                 out = fixture.message('This is for me.',
                     [fixture.update('RC01', {'choice': 'self'}, 'This is for me.')])
                 self.assertEqual(out['generated']['status'], 'complete')
@@ -325,8 +330,8 @@ class RecoveryControllerTests(unittest.TestCase):
                 self.assertEqual(out['guide']['fields']['subject.role']['confirmation'], 'reported_by_user')
                 self.assertEqual(out['assessment']['nextQuestion']['id'], 'T05')
                 self.assertEqual([call['text']['format']['name'] for call in fixture.calls],
-                    ['daylight_guide_commands', 'daylight_resolved_conversation', 'daylight_resolved_conversation'])
-                self.assertEqual(out['metrics']['llmCalls'], 3)
+                    ['daylight_guide_commands'] + ['daylight_resolved_conversation'] * composes)
+                self.assertEqual(out['metrics']['llmCalls'], 1 + composes)
                 contexts = fixture.stage_payloads('daylight_resolved_conversation')
                 self.assertEqual(contexts[0]['resolved_context'], contexts[1]['resolved_context'])
                 for key in ('reports', 'evidence', 'education_context', 'learner_context'):

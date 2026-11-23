@@ -38,7 +38,10 @@ class AdvisorPlanningTests(unittest.TestCase):
             return {'question_target':move['id'],'reply':'Medicare is federal health insurance.',
                 'question':move['question']['question'],'evidence_refs':['basics'],
                 'education':self.teaching('medicare_basics','basics')}
-        out=self.message(text,[self.update('T02',{'choice':'new'},'I know very little about Medicare.')],compose=compose)
+        # D155 Q10: code no longer guesses "for me" from first-person wording; the
+        # extraction model records RC01 self from the person's own quote, as here.
+        out=self.message(text,[self.update('RC01',{'choice':'self'},'I turn 65 in November'),
+            self.update('T02',{'choice':'new'},'I know very little about Medicare.')],compose=compose)
         self.assertEqual(out['advisor']['kind'],'teach')
         self.assertEqual(out['assessment']['nextQuestion']['id'],'T05')
         self.assertEqual(out['facts'],[])
@@ -77,7 +80,9 @@ class AdvisorPlanningTests(unittest.TestCase):
                 'education_followups':prompts,
                 'education':self.teaching('coverage_paths','routesintro','routes')}
         before=len(self.calls)
-        out=self.message('I turn 65 in November and want to understand my options.', compose=compose)
+        # D155 Q10: the extraction model, not code, records RC01 self from this quote.
+        out=self.message('I turn 65 in November and want to understand my options.',
+            [self.update('RC01',{'choice':'self'},'I turn 65 in November')], compose=compose)
         self.assertEqual(out['advisor']['educationFollowups'],prompts)
         self.assertEqual(out['assessment']['nextQuestion']['id'],'T05')
         self.assertEqual(len(self.calls)-before,2)

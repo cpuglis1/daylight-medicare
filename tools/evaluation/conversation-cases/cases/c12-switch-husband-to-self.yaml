@@ -1,0 +1,31 @@
+key: c12-switch-husband-to-self
+title: Wife starts asking for her husband, then says the questions are really for herself
+probes: [reconfirms_on_switch, right_person]
+typist: self
+person_brief: |
+  You are Lorna Pike, 64, turning 65 on March 3, 2027, living in 34107.
+  You start by asking for your husband Gil, 67, who already has Original Medicare and a drug plan; he is sorted.
+  Partway through you realize your real question is about you. You work part time at a bakery with no health benefits.
+  You are on a marketplace plan. You take atorvastatin. You do not know your Social Security plans yet.
+  Gil also lives at 34107, so the ZIP is the same, but you expect to be asked to confirm it for yourself.
+  You are chatty and easily sidetracked.
+opening: "I'm asking for my husband Gil. He's 67 and has Medicare. Does he need to do anything this fall?"
+replies:
+  - if_asked_about: "ZIP or county"
+    reply: "We're in 34107."
+  - if_asked_about: "Gil's coverage"
+    reply: "He has Original Medicare and a separate drug plan."
+  - if_asked_about: "work or current coverage, after the switch"
+    reply: "I work part time at a bakery, no benefits. I'm on a marketplace plan."
+  - if_asked_about: "birthday or age, after the switch"
+    reply: "In March. I'll be 65."
+  - if_asked_about: "Social Security"
+    reply: "I don't know yet."
+events:
+  - at: 3
+    say: "Actually, scratch that, Gil is fine. It's me who needs help. I turn 65 in March."
+max_messages: 8
+must_not_claim:
+  - "Keeps calling Lorna 'your husband' or applies Gil's Original Medicare and drug plan to her."
+  - "Treats the ZIP as confirmed for Lorna without at least checking it still applies to her."
+  - "Asks again about Social Security after she said she does not know yet."

@@ -1,10 +1,10 @@
-"""Bounded visit-only context contracts; no network, model or profile store."""
+"""Visit-only context contracts (whole visit kept, D155); no network, model or profile store."""
 from pathlib import Path
 import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from advisor_memory import (CONTEXT_POLICY, HISTORY_LIMIT, HISTORY_TTL,
+from advisor_memory import (CONTEXT_POLICY, HISTORY_RAM_BYTES, HISTORY_TTL,
                             VISIT_LIMIT, VisitMemory)
 
 
@@ -82,30 +82,41 @@ class VisitMemoryTests(unittest.TestCase):
         self.now += 2
         self.assertEqual(len(self.recent()), 2)
 
-    def test_chronological_six_exchange_limit_with_brief_surviving_eviction(self):
+    def test_whole_visit_is_kept_with_no_exchange_count_cap(self):
+        """D155: ten exchanges are all kept, oldest first; the old cap kept only six."""
         self.remember(user='0', goal='Explicit goal', question_target='T05')
-        for index in range(1, 9):
+        for index in range(1, 10):
             self.remember(user=str(index))
-        self.assertEqual([x['user'] for x in self.recent()], list(map(str, range(3, 9))))
+        self.assertEqual([x['user'] for x in self.recent()], list(map(str, range(10))))
         self.assertEqual(self.brief()['goal'], 'Explicit goal')
         self.assertEqual(self.brief()['pending_question'], 'T05')
 
-    def test_total_character_bound_preserves_complete_exchanges(self):
+    def test_long_exchanges_are_kept_whole_with_no_character_cap(self):
+        """D155: six 1,400-character exchanges all survive; the old 5,000-character cap kept three."""
         for index in range(6):
             self.remember(user=str(index) * 1200, reply='r' * 200)
         exchanges = self.recent()
-        self.assertLessEqual(sum(len(v) for item in exchanges for v in item.values()), HISTORY_LIMIT)
-        self.assertEqual(len(exchanges), 3)
-        self.assertEqual(exchanges[0]['user'], '3' * 1200)
+        self.assertEqual(len(exchanges), 6)
+        self.assertEqual(exchanges[0]['user'], '0' * 1200)
 
-    def test_oversize_exchange_is_omitted_without_clipping_or_losing_brief(self):
+    def test_single_large_exchange_is_kept_whole(self):
+        """A 6,000-character message (over the old cap) is kept intact, not dropped or clipped."""
         self.remember(user='Earlier complete message')
-        self.remember(user='x' * (HISTORY_LIMIT + 1), goal='Updated explicit goal',
+        self.remember(user='x' * 6000, goal='Updated explicit goal',
                       question_target='RC11', agenda_update={'current_concern': 'Timing'})
-        self.assertEqual(len(self.recent()), 1)
-        self.assertEqual(self.recent()[0]['user'], 'Earlier complete message')
+        self.assertEqual([len(x['user']) for x in self.recent()], [24, 6000])
         self.assertEqual(self.brief()['goal'], 'Updated explicit goal')
         self.assertEqual(self.brief()['pending_question'], 'RC11')
+
+    def test_ram_guard_evicts_oldest_only_past_its_bound(self):
+        """The RAM guard is the only eviction: past HISTORY_RAM_BYTES the oldest exchanges go first."""
+        count = HISTORY_RAM_BYTES // 16000 + 2
+        for index in range(count):
+            self.remember(user=str(index % 10) * 8000, reply='r' * 8000)
+        exchanges = self.recent()
+        self.assertLessEqual(sum(len(v) for item in exchanges for v in item.values()), HISTORY_RAM_BYTES)
+        self.assertGreater(len(exchanges), 100)
+        self.assertEqual(exchanges[-1]['user'], str((count - 1) % 10) * 8000)
 
     def test_invalid_mutations_are_atomic(self):
         self.remember(goal='Original goal', question_target='T05')

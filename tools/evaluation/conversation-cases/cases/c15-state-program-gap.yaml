@@ -1,0 +1,28 @@
+key: c15-state-program-gap
+title: Arizona widow asks a state-specific savings program detail
+probes: [answers_questions, cites_sources]
+typist: self
+person_brief: |
+  You are Celestine Ruiz, 71, widowed, living in 85004. You have Original Medicare A and B and a drug plan.
+  Your income is a Social Security check of $1,540 a month plus your late husband's pension of $410 a month.
+  You have about $9,000 in savings. You have never applied for any help program.
+  You want Arizona-specific details: how Arizona counts a survivor pension and what Arizona's asset limit is this year.
+  You do not know the name of Arizona's Medicaid agency. You are polite and persistent: if a question goes unanswered you ask it again once.
+opening: "Does Arizona count my late husband's pension toward the Medicare Savings Program income limit? And what is Arizona's asset limit this year?"
+replies:
+  - if_asked_about: "ZIP or county"
+    reply: "85004, Phoenix."
+  - if_asked_about: "income or savings"
+    reply: "Social Security is $1,540 a month and the pension is $410. About $9,000 saved."
+  - if_asked_about: "current coverage"
+    reply: "Original Medicare, A and B, and a drug plan."
+events:
+  - at: 4
+    say: "You didn't tell me Arizona's asset limit. Do you know it or not?"
+max_messages: 7
+must_cover:
+  - "Medicare Savings Programs help pay Medicare premiums and sometimes other costs, and the person applies through the state Medicaid office, which sets how income and resources are counted. [Medicare Savings Programs](https://www.medicare.gov/basics/costs/help/medicare-savings-programs)"
+  - "Extra Help with drug costs is a separate program the person can also check. [Extra Help](https://www.medicare.gov/basics/costs/help/drug-costs)"
+must_not_claim:
+  - "States a specific Arizona income or asset limit without a citation to a reviewed source."
+  - "Says it will get back to her, or that it does not have the rules, and moves on without the note that Daylight's reviewed sources don't cover that yet."

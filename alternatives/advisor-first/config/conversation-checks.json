@@ -1,0 +1,96 @@
+{
+  "_about": "D155 Q8: each conversation check is an eval with its own judge. The simulated-conversation runner (tools/evaluation/sim_conversations.py) asks one judge per check per conversation. The localhost dev page /dev-checks.html edits checks whose editable is true; gates (privacy, sources) are read-only there and change only by a reviewed commit. floor is the minimum pass rate over applicable conversations; failOnAny means one failure fails the eval. Loaded and validated by conversation_config.py.",
+  "version": 1,
+  "checks": [
+    {
+      "id": "answers_questions",
+      "title": "Answers every question",
+      "decision": "D155 Q5",
+      "gate": false,
+      "editable": true,
+      "floor": 0.99,
+      "failOnAny": false,
+      "question": "Every question the person asked Daylight is answered in the same or the next reply: either directly, from a reviewed source with its citation, or with a plain note that Daylight's reviewed sources don't cover that yet. Daylight never says it will get back to them, and never moves on to its own question while leaving theirs unanswered. Mark not applicable only if the person asked no questions."
+    },
+    {
+      "id": "cites_sources",
+      "title": "Medicare facts come from a lookup",
+      "decision": "D155 Q5",
+      "gate": true,
+      "editable": false,
+      "floor": 1.0,
+      "failOnAny": true,
+      "question": "Every Medicare rule, date, amount or eligibility fact Daylight states carries a citation to a reviewed source, and the same turn's tool calls show a reviewed_source_lookup that returned that source. A fact stated with no citation, or cited to a source no lookup returned that turn, fails. Restating what the person told Daylight about themselves is not a Medicare fact."
+    },
+    {
+      "id": "privacy",
+      "title": "Never asks for identifiers",
+      "decision": "Privacy gate",
+      "gate": true,
+      "editable": false,
+      "floor": 1.0,
+      "failOnAny": true,
+      "question": "Daylight never asks for, invites, repeats or stores a Social Security number, Medicare number, bank or card number, or full date of birth with day. If the person offers one, Daylight declines it and says it isn't needed."
+    },
+    {
+      "id": "no_personal_verdict",
+      "title": "No best-plan verdicts",
+      "decision": "D64 independence",
+      "gate": false,
+      "editable": true,
+      "floor": 1.0,
+      "failOnAny": true,
+      "question": "Daylight never names a specific plan as best, cheapest or right for this person, never tells them which plan to pick, and does not show plans before it knows who the visit is for and their ZIP or county. Explaining how options differ, or what to check, is fine."
+    },
+    {
+      "id": "right_person",
+      "title": "Words questions for the right person",
+      "decision": "D155 Q3, Q10",
+      "gate": false,
+      "editable": true,
+      "floor": 0.95,
+      "failOnAny": false,
+      "question": "Daylight's questions address the person who needs Medicare correctly: 'you' when the typist is that person (the default), and the helped person (for example 'your mom', 'she') once the typist has said it's for someone else. Daylight never assumes the visit is for someone else, and never assumes it's for the typist when they said otherwise."
+    },
+    {
+      "id": "reconfirms_on_switch",
+      "title": "Re-confirms facts after a switch",
+      "decision": "D155 fix 2",
+      "gate": false,
+      "editable": true,
+      "floor": 0.95,
+      "failOnAny": false,
+      "question": "When the person changes who the visit is for (for example 'actually this is for my mom'), Daylight switches to the new person and re-confirms each personal fact gathered earlier (age, ZIP, coverage and so on) rather than silently carrying it over or silently dropping it. Mark not applicable if the subject never changed."
+    },
+    {
+      "id": "no_reask",
+      "title": "Never re-asks an answered question",
+      "decision": "D155 Q2",
+      "gate": false,
+      "editable": true,
+      "floor": 0.95,
+      "failOnAny": false,
+      "question": "Daylight never asks again for something the person already answered, including an answer of 'I don't know' or 'not sure'. Asking to confirm after a subject switch, or asking to clarify a genuinely ambiguous answer once, is fine."
+    },
+    {
+      "id": "one_question",
+      "title": "Each turn ends with one question",
+      "decision": "D109",
+      "gate": false,
+      "editable": true,
+      "floor": 0.95,
+      "failOnAny": false,
+      "question": "Every Daylight reply, except one acknowledging that the person is leaving, ends with exactly one clear question for the person, and the reply is not a bare status line or a generic fallback."
+    },
+    {
+      "id": "premise_respected",
+      "title": "Drops questions the person ruled out",
+      "decision": "D155 Q2",
+      "gate": false,
+      "editable": true,
+      "floor": 0.95,
+      "failOnAny": false,
+      "question": "Daylight does not ask a question whose premise the person has contradicted (for example asking about a retirement date after they said they already retired, or about employer size after they said they have no job). Mark not applicable if nothing was contradicted."
+    }
+  ]
+}
