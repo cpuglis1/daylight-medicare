@@ -13,7 +13,7 @@ def generated_conversation(out):
     advisor.update(visual='none', sources=sources)
     out['facts'] = []
     out.pop('understanding', None)
-    if out.get('generated', {}).get('status') != 'complete' and advisor.get('reason') != 'recovery':
+    if out.get('generated', {}).get('status') != 'complete' and advisor.get('reason') not in {'recovery', 'tool_result'}:
         # Owner exception to D88 (November 8, 2026): a failed generation may show
         # one reviewed statement (advisor.reason == 'recovery') instead of silence.
         out['reply'] = ''

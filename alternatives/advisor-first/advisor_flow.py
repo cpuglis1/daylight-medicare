@@ -84,6 +84,10 @@ class AdvisorConversation(AdaptiveConversation):
         if q['why']=='This missing detail can help prepare the specific check you requested.':q['why']=''
         if id=='RC01':q['why']=''
         if id=='RC09':q['question']='Whose job is this health insurance through?'
+        if id=='RC13' and getattr(self,'records_v1',False):
+            # D183 fix (f): one proposition, matching the stored meaning, under
+            # its yes/no-style choices; never the two-part benefits-office override.
+            q['question']=super().question(id,fields,entity)['question']
         if id=='T04':
             q['why']='Your preferred start can differ from when your current insurance ends.'
             q['choices']=[['soonest','As soon as possible'],['after_coverage','After my current coverage ends'],*q['choices']]
@@ -97,7 +101,23 @@ class AdvisorConversation(AdaptiveConversation):
                 field['label']='Month and year' if len(q['fields'])==1 else {'jobEnd':'Job end','coverageEnd':'Work insurance end'}.get(field['key'],field['label'])
         return q
 
+    def invalidate(self,record,key):
+        # D183 (:8895): a first answer to a field invalidates nothing. Answers given
+        # before it did not assume a value it never had (e.g. Parts A and B, then
+        # current coverage). A change to an earlier value still marks dependents stale.
+        guide=getattr(self,'_applying_guide',None)
+        if getattr(self,'records_v1',False) and guide is not None and self.value(guide,key) in (None,'',[],{}):
+            return
+        return super().invalidate(record,key)
+
     def apply(self,guide,record,update,source='user_choice'):
+        self._applying_guide=guide
+        try:
+            return self._apply(guide,record,update,source)
+        finally:
+            self._applying_guide=None
+
+    def _apply(self,guide,record,update,source='user_choice'):
         identifier=update['id'].split('.')[0]
         data=update.get('fields',{})
         if identifier=='T05':
@@ -209,7 +229,7 @@ class AdvisorConversation(AdaptiveConversation):
                 coverage=self.value(g,'coverage.current')
                 return {'kind':'timeline','title':'Your Medicare timing','items':[
                     ['65th birthday',describe_situation('age65',birthday)],
-                    ['Current health insurance',', '.join(dict(Q['T05']['choices']).get(x,x) for x in coverage) if coverage else 'Not stated'],
+                    ['Current health insurance',', '.join(dict(self.question('T05')['choices']).get(x,x) for x in coverage) if coverage else 'Not stated'],
                     ['Preferred coverage start',preferred or 'Not stated']]}
             return {'kind':'timeline','title':'Your coverage timeline','items':[
                 ['Job ends',self.report(r,'RC11').get('jobEnd') or 'Still open'],

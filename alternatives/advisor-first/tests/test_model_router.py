@@ -5,6 +5,7 @@ process, and the route file under test is either the shipped one or a
 fictional copy written to a temporary folder.
 """
 import ast
+from dataclasses import replace
 import io
 import json
 import os
@@ -80,6 +81,32 @@ class Process:
 
 
 class RouteFileTests(unittest.TestCase):
+    def test_fictional_hosted_demo_requires_dedicated_project_and_does_not_release_health(self):
+        routes=router.load_routes()
+        demo=next(route for route in routes if route.environment=='hosted-demo')
+        self.assertEqual((demo.data,demo.provider,demo.models),('fictional','openai',('gpt-6.1-sol',)))
+        self.assertFalse(replace(demo,project=None).configured)
+        self.assertEqual(router.allowed_models('hosted-demo',(replace(demo,project=None),)),frozenset())
+        self.assertEqual(router.allowed_models('pilot',routes),frozenset())
+        route=openai_route(id='hosted-demo-openai',environment='hosted-demo',data='fictional',
+            endpoints={'responses':RESPONSES,'input_tokens':COUNT},region='provider-default')
+        with tempfile.TemporaryDirectory() as folder:
+            configured=router.load_routes(route_file([route],folder))
+        with patch.dict(os.environ,{router.ENVIRONMENT_VARIABLE:'hosted-demo'}):
+            permitted=router.authorize(RESPONSES,HEADERS,{'model':'gpt-6.1-sol','store':True},configured)
+        self.assertFalse(permitted.body['store'])
+        self.assertIn(('OpenAI-Project',PROJECT),permitted.headers)
+        self.assertEqual(router.allowed_models('hosted-demo',configured),{'gpt-6.1-sol'})
+
+    def test_hosted_demo_refuses_changed_models_endpoints_or_data_class(self):
+        base=openai_route(id='hosted-demo-openai',environment='hosted-demo',data='fictional',
+            endpoints={'responses':RESPONSES,'input_tokens':COUNT},region='provider-default')
+        for change in ({'models':['gpt-6.2-sol']},{'models':['gpt-6.1-sol','gpt-5.4']},
+                       {'data':'health'},{'endpoints':{'responses':US_RESPONSES,'input_tokens':COUNT}},
+                       {'project':'sk-not-a-project'}):
+            with self.subTest(change=change),tempfile.TemporaryDirectory() as folder:
+                with self.assertRaises(ValueError):router.load_routes(route_file([{**base,**change}],folder))
+
     def test_shipped_file_loads_and_pilot_stays_blocked_until_filled_in(self):
         routes = router.load_routes()
         pilot = [route for route in routes if route.environment == 'pilot']

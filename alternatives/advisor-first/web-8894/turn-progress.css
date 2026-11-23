@@ -1,0 +1,17 @@
+/* Only loaded by the :8895 progress-enabled handler. Keep the existing layout. */
+.thinking[data-progress] .thinking-line {align-items:flex-start;font-size:18px;line-height:1.5;color:var(--ink)}
+.thinking[data-progress] .thinking-dots {flex-shrink:0;margin-top:2px}
+.thinking[data-progress] .thinking-more {font-size:18px;line-height:1.5;color:var(--ink);max-width:65ch}
+@media (prefers-reduced-motion: reduce) {
+  .thinking[data-progress] .thinking-dot {animation:none!important}
+}
+
+/* Checked-block release and the word-by-word reveal (:8895, Nov 17, 2026). */
+.streamed-reply {margin-bottom:8px}
+.rw {opacity:0;transition:opacity .35s ease}
+.rw.on {opacity:1}
+body.reply-revealing #current {visibility:hidden}
+.chat-message.revealing > :not(.reply-body) {visibility:hidden}
+@media (prefers-reduced-motion: reduce) {
+  .rw {opacity:1;transition:none}
+}

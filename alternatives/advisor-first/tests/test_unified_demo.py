@@ -14,6 +14,8 @@ from test_session_recovery_http import RecoveryHttpTests
 from demo_server import build_demo
 from demo_http import WEB, STATIC
 from server import HERE, build
+import enrollment_flow
+import conversation_planner
 
 
 class UnifiedDemoTests(unittest.TestCase):
@@ -52,18 +54,34 @@ class UnifiedDemoTests(unittest.TestCase):
             with self.subTest(file=relative):
                 code,raw,headers=self.request('/'+relative)
                 self.assertEqual(code,200)
-                self.assertEqual(hashlib.sha256(raw).digest(),hashlib.sha256(path.read_bytes()).digest())
+                original = path.read_bytes()
+                if relative == 'index.html':
+                    self.assertIn(b'/art/daylight-main.jpg', raw)
+                    self.assertNotIn(b'photo-credit', raw)
+                    original = original.replace(b'/art/arrival-option-a.jpg', b'/art/daylight-main.jpg')
+                    original = original.replace(b'width="1400" height="933"', b'width="5400" height="3575"')
+                    original = original.replace(b'A woman with short silver hair and an ochre cardigan facing the camera outdoors against green foliage.',
+                        b'A woman in an ochre cardigan using a laptop outdoors.')
+                    import re
+                    original = re.sub(rb'<p class="photo-credit">.*?</p>', b'', original, count=1)
+                    for asset in (b'<link rel="stylesheet" href="/enrollment.css">\n  ',
+                                  b'<script src="/enrollment-view.js" defer></script>\n  '):
+                        self.assertIn(asset, raw)
+                        raw = raw.replace(asset, b'', 1)
+                self.assertEqual(hashlib.sha256(raw).digest(),hashlib.sha256(original).digest())
                 self.assertEqual(headers['Cache-Control'],'no-store')
         code,raw,headers=self.request('/')
-        self.assertEqual(raw,(WEB/'index.html').read_bytes())
-        code,raw,head=self.request('/',method='HEAD')
-        self.assertEqual(code,200);self.assertEqual(raw,b'')
-        self.assertEqual(int(head['Content-Length']),len((WEB/'index.html').read_bytes()))
+        self.assertEqual(raw, self.request('/index.html')[1])
+        code,body,head=self.request('/',method='HEAD')
+        self.assertEqual(code,200);self.assertEqual(body,b'')
+        self.assertEqual(int(head['Content-Length']),len(raw))
 
     def test_direct_api_and_complete_demo_plan_displays(self):
         code,raw,_=self.request('/api/status');status=json.loads(raw)
         self.assertEqual(code,200);self.assertFalse(status['local_demo']['upstream_proxy'])
         self.assertEqual(status['local_demo']['plan_database'],'daylight_pilot_collier_2026_r1')
+        self.assertFalse(status['pilotKnowledge']['enabled'])
+        self.assertEqual(status['pilotKnowledge']['available_count'], 0)
         session,cookie=self.session()
         auth={'Cookie':cookie,'X-Daylight-CSRF':session['csrf']}
         for route,body,count in [('/api/plans/catalog',{},72),
@@ -73,7 +91,12 @@ class UnifiedDemoTests(unittest.TestCase):
             self.assertEqual(code,200);self.assertEqual(len(json.loads(raw)['plans']),count)
         baseline=build(0,fixture=True,database=Path(self.tmp.name)/'baseline.sqlite3')
         try:
+            self.assertFalse(enrollment_flow.enabled(baseline.adaptive))
+            self.assertFalse(conversation_planner.enabled(baseline.adaptive))
+            enrollment_flow.enable(baseline.adaptive)
+            conversation_planner.enable(baseline.adaptive)
             self.assertEqual(self.server.adaptive.contract,baseline.adaptive.contract)
+            self.assertIsNone(baseline.adaptive.pilot_knowledge.surface)
         finally:
             baseline.server_close()
 

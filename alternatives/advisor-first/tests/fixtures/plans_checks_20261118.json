@@ -1,0 +1,44 @@
+{
+ "id": "plans_checks_20261118",
+ "source": "Visit 130911a983, :8895 turn trace, November 18, 2026, 20:34 to 20:45 UTC (fictional replay; codes only in the trace)",
+ "today": "2026-11-18",
+ "profile": {
+  "zip": "34102", "current_coverage": ["retiree"], "parts_a_b": "both active",
+  "priorities": ["total_cost", "drugs"], "cost_preference": "lower_monthly",
+  "medicines": "one medicine, exact version selected (RC22 accepted)",
+  "doctors": "one doctor, office selected (RC21 accepted)",
+  "travel": ["local"],
+  "medigap_details_open": ["MG_AGE", "MG_SEX", "MG_TOBACCO"]
+ },
+ "recommendation_inputs": {
+  "doctors": "list", "medicines": "yes", "priorities": ["total_cost", "drugs"], "cost_preference": "lower_monthly",
+  "travel": ["local"], "current_coverage": ["retiree"], "medicaid": null, "part_d_status": "ready",
+  "medigap": {"status": "incomplete", "age": null, "gender": null, "tobacco": null, "reported_age": null}
+ },
+ "before": {
+  "note": "Reproduced offline on November 18 with the real 72-plan catalog and the local Part D data, doctor check present with no network record.",
+  "path_original": {"doctors": ["met", "Published Medicare records list assignment at your selected offices."],
+                    "medicines": ["unknown", "Plan-by-plan evidence is incomplete."],
+                    "lower_monthly": ["unknown", "Needs Medigap prices for your details"],
+                    "total_cost": ["unknown", "Needs your medicines and care use"]},
+  "path_advantage": {"doctors": ["unknown", "Plan-by-plan evidence is incomplete."],
+                     "medicines": ["unknown", "Plan-by-plan evidence is incomplete."],
+                     "lower_monthly": ["unknown", "Needs Medigap prices for your details"],
+                     "total_cost": ["unknown", "Needs your medicines and care use"]},
+  "advantage_plans": {"doctors": "unknown on 72 of 72: Network evidence is incomplete for your selected offices.",
+                      "total_cost": "unknown on 72 of 72: Needs your medicines and care use"},
+  "advantage_lowest_premium_available": true,
+  "send_error": {"text": "Unsupported profile field.", "field": "intent.selectedPlan",
+                 "call": "natural_flow._turn -> NaturalConversation.validate -> AdvisorConversation.validate -> AdaptiveConversation.validate -> guest_profiles.validate_guide (line 41)"}
+ },
+ "expected": {
+  "total_cost": {"cause": "not_calculated", "reason": "Daylight does not calculate this yet."},
+  "lower_monthly_original": {"cause": "needs_person", "fields": ["MG_AGE", "MG_SEX", "MG_TOBACCO"],
+                             "reason": "Needs your age, sex and tobacco use for Medigap prices."},
+  "lower_monthly_advantage": {"reason_starts": "Lowest listed premium: $0.00 a month.", "must_not_mention": "Medigap"},
+  "doctors_with_check": {"cause": "no_data", "reason": "No network record for your doctor’s office in this plan."},
+  "doctors_without_check": {"cause": "needs_person", "fields": ["RC21"],
+                            "reason": "Doctor check not run yet. Ask Daylight to check your doctors."}
+ },
+ "test": "tests/test_plans_fixes.py"
+}

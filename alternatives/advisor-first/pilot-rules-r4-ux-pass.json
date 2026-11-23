@@ -1,0 +1,65 @@
+{
+  "version": "pilot-rules-2026-11-12-r4-ux-pass",
+  "scope": "General Medicare rules added by the November 12, 2026 UX pass (D157). Each statement is a general rule with its conditions. Personal dates shown beside them (sign-up window, Part A and Part B start, Medigap window) are computed in code by ux_pass.enrollment_timing from the person's reported 65th-birthday month; the model never computes them.",
+  "review_state": "owner_accepted_2026-11-12",
+  "acceptance_note": "Drafted November 12, 2026 and checked that day against the listed Medicare.gov and CMS pages. The owner signed off in the UX-pass session the same day (\"And yeah signed off.\"). The owner corrected nothing; the drafting agent corrected the brief's own Part A start (premium-free Part A starts the month a person turns 65, not the month after sign-up). An independent reviewer has not yet checked the wording.",
+  "facts": [
+    {
+      "id": "initial_enrollment_window",
+      "title": "The Initial Enrollment Period and when coverage starts",
+      "question": "When can I sign up for Medicare, and when does it start?",
+      "text": "The Initial Enrollment Period lasts 7 months: the 3 months before the month a person turns 65, that month, and the 3 months after. Someone who signs up before the month they turn 65 has Part B start that month; someone who signs up in the month they turn 65 or in the 3 months after has Part B start the next month. Premium-free Part A starts the month a person turns 65. Coverage always starts on the first of a month, and a birthday on the first of the month counts as the month before.",
+      "summary": "The Initial Enrollment Period is the 3 months before the month a person turns 65, that month, and the 3 months after; signing up in or after the birthday month starts Part B the next month.",
+      "source": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start",
+      "sources": [
+        {"url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start", "label": "Medicare.gov: When does Medicare coverage start?"},
+        {"url": "https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare", "label": "Medicare.gov: When can I sign up for Medicare?"}
+      ]
+    },
+    {
+      "id": "cobra_initial_window",
+      "title": "COBRA and signing up for Part B",
+      "question": "I have COBRA. Can I wait to sign up for Part B?",
+      "text": "COBRA isn’t coverage from a current job, so it doesn’t let someone put off Part B without a penalty, and it doesn’t create a later Special Enrollment Period. People on COBRA who are turning 65 generally sign up for Part A and Part B during their Initial Enrollment Period.",
+      "summary": "COBRA isn’t coverage from a current job, so people on COBRA who are turning 65 generally sign up for Part A and Part B during their Initial Enrollment Period.",
+      "source": "https://www.cms.gov/training-education/find-provider-type/employers-unions/top-five-medicare-enrollment",
+      "sources": [
+        {"url": "https://www.cms.gov/training-education/find-provider-type/employers-unions/top-five-medicare-enrollment", "label": "CMS: 5 things you need to know about signing up for Medicare"}
+      ]
+    },
+    {
+      "id": "cobra_pays_second",
+      "title": "COBRA pays second once someone is 65",
+      "question": "Does COBRA still pay my bills once I'm eligible for Medicare?",
+      "text": "Once someone is 65 and eligible for Medicare, Medicare pays first and COBRA pays second. COBRA may pay only a small part of a bill, so without Part B a person can be left paying most of the cost.",
+      "summary": "Once someone is 65, Medicare pays first and COBRA pays second, so without Part B a person can be left paying most of a bill.",
+      "source": "https://www.medicare.gov/health-drug-plans/coordination/who-pays-first",
+      "sources": [
+        {"url": "https://www.medicare.gov/health-drug-plans/coordination/who-pays-first", "label": "Medicare.gov: Who pays first?"}
+      ]
+    },
+    {
+      "id": "medigap_window",
+      "title": "The Medigap Open Enrollment Period",
+      "question": "When can I buy a Medigap policy?",
+      "text": "The Medigap Open Enrollment Period is a one-time 6 months that starts the month Part B starts for someone 65 or older. During it, an insurer can’t turn a person down or charge more because of their health. After it, an insurer can ask health questions and may decline or charge more.",
+      "summary": "The Medigap Open Enrollment Period is a one-time 6 months starting the month Part B starts at 65 or older; after it an insurer can ask health questions.",
+      "source": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when",
+      "sources": [
+        {"url": "https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy/when", "label": "Medicare.gov: When can I buy a Medigap policy?"}
+      ]
+    },
+    {
+      "id": "glp1_prior_authorization",
+      "title": "Ozempic and similar medicines: prior authorization",
+      "question": "Will a drug plan cover Ozempic?",
+      "text": "Medicare drug plans generally cover Ozempic for type 2 diabetes, and many require prior authorization: the plan’s approval, requested by the prescriber, before it pays. Medicare drug plans don’t cover a drug prescribed only for weight loss.",
+      "summary": "Medicare drug plans generally cover Ozempic for type 2 diabetes and many require prior authorization, the plan’s approval requested by the prescriber; they don’t cover a drug prescribed only for weight loss.",
+      "source": "https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover/plan-rules",
+      "sources": [
+        {"url": "https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover/plan-rules", "label": "Medicare.gov: Drug plan rules"},
+        {"url": "https://www.medicare.gov/coverage/weight-loss-drugs", "label": "Medicare.gov: Weight loss drugs"}
+      ]
+    }
+  ]
+}

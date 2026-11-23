@@ -1,4 +1,5 @@
 """Local HTTP recovery seam; pinned engine, storage and paid-call policy stay intact."""
+import copy
 import logging
 import re
 import threading
@@ -35,6 +36,7 @@ def _visit_history(flow, owner, chain, entries, latest_id, latest_response):
     inputs = flow.memory.display_inputs(owner, chain)
     history = []
     previous_question = ''
+    previous_stamps = {}
     for request_id, entry in entries:
         recorded = entry['response']
         current_question = _question(recorded)
@@ -55,8 +57,15 @@ def _visit_history(flow, owner, chain, entries, latest_id, latest_response):
             turn.update(reply=response.get('reply', '') if not unavailable or recovery else '',
                         notice=response.get('notice', ''), noticeFirst=recovery,
                         sources=advisor.get('sources', []) if not unavailable or recovery else [],
+                        # D157: cards are part of the reply; a restored visit keeps them.
+                        cards=copy.deepcopy(response.get('cards', [])),
                         educationFollowups=advisor.get('educationFollowups', []) if not unavailable else [])
-        if user or any(turn.get(key) for key in ('openingChoice', 'reply', 'notice', 'sources')):
+        new_check = False
+        if hasattr(flow, 'shown_checks') and recorded.get('conversationCheck'):
+            turn['checkStamps'] = flow.shown_checks(recorded['conversationCheck']).get('chatResultStamps', {})
+            new_check = any(previous_stamps.get(key) != stamp for key, stamp in turn['checkStamps'].items())
+            previous_stamps = turn['checkStamps']
+        if user or new_check or any(turn.get(key) for key in ('openingChoice', 'reply', 'notice', 'sources', 'cards')):
             turn.update(requestId=request_id, user=user,
                         askedQuestion=asked if user or asked != current_question else '')
             history.append(turn)

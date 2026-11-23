@@ -31,6 +31,20 @@
       "note": "Existing development option under D90. Not allowed in the pilot (D101)."
     },
     {
+      "id": "hosted-demo-openai",
+      "environment": "hosted-demo",
+      "provider": "openai",
+      "data": "fictional",
+      "models": ["gpt-6.1-sol"],
+      "endpoints": {
+        "responses": "https://api.openai.com/v1/responses",
+        "input_tokens": "https://api.openai.com/v1/responses/input_tokens"
+      },
+      "project": "proj_XVkWvLOovz4I7JBUS0B0o9QE",
+      "region": "provider-default",
+      "note": "D185-D187 invited fictional demo only. Blocked until the dedicated project ID is recorded in the immutable release after its $20 enforced project limit and restricted key are verified. Both stages use low reasoning. This does not release the separate real-health pilot route or imply BAA coverage. store is forced false and provider-hosted tools are refused."
+    },
+    {
       "id": "pilot-openai",
       "environment": "pilot",
       "provider": "openai",

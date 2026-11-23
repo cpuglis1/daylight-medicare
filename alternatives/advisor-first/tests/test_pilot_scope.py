@@ -33,17 +33,21 @@ class PilotScopeTests(unittest.TestCase):
         self.compose('We can focus on the first steps.')
         self.assertEqual(self.sent_instructions(), COMPOSE_INSTRUCTIONS)
 
-    def test_first_pilot_reply_is_asked_for_the_notice_once(self):
+    def test_the_plan_year_is_a_plain_label_with_no_pilot_or_sample_wording(self):
+        # D157 (owner, November 12, 2026): no pilot, demo, sample or research
+        # language and no first-reply notice; the plan year stays as a label.
         self.agent.pilot_scope = True
-        self.compose('This is a pilot, for 2026 sample data only. We can start with the first steps.')
+        self.compose('We can start with the first steps.')
         first = self.sent_instructions()
         self.assertTrue(first.startswith(COMPOSE_INSTRUCTIONS))
-        self.assertIn(PILOT_SCOPE_INSTRUCTIONS, first)
-        self.assertTrue(first.endswith(PILOT_FIRST_REPLY_INSTRUCTION))
+        self.assertTrue(first.endswith(PILOT_SCOPE_INSTRUCTIONS))
+        self.assertEqual(PILOT_FIRST_REPLY_INSTRUCTION, '')
+        self.assertIn('2026 plans', PILOT_SCOPE_INSTRUCTIONS)
+        said = PILOT_SCOPE_INSTRUCTIONS.split('never\n  the words')[0]
+        for word in ('pilot', 'sample', 'research', 'demo'):
+            self.assertNotIn(word, said.split('):')[1].casefold())
         self.compose('We can focus on the first steps.')
-        later = self.sent_instructions()
-        self.assertIn(PILOT_SCOPE_INSTRUCTIONS, later)
-        self.assertNotIn(PILOT_FIRST_REPLY_INSTRUCTION, later)
+        self.assertEqual(self.sent_instructions(), first)
 
     def test_a_reply_that_omits_the_notice_is_followed_by_another_request(self):
         self.agent.pilot_scope = True

@@ -6,8 +6,13 @@
 <link rel="stylesheet" href="/pilot/join.css">
 <main>
   <h1>Join the Daylight pilot</h1>
-  <p>Open your invitation on the browser you plan to use for the pilot.</p>
-  <button type="button" disabled>Continue</button>
+  <p><strong>Demo only.</strong> Explore Medicare using fictional details and 2026 Collier County plan data. Please leave out names, Medicare numbers and personal health information.</p>
+  <p>This demo is for education and feedback. It does not recommend a plan, submit an enrollment or change your coverage.</p>
+  <div id="invitation-entry" hidden>
+    <label for="invitation-link">Full invitation link</label>
+    <input id="invitation-link" type="url" autocomplete="off" spellcheck="false" placeholder="https://daylightmedicare.com/pilot/…">
+  </div>
+  <button id="continue-invitation" type="button" disabled>Continue</button>
   <p role="status"></p>
 </main>
 <script src="/pilot/join.js" defer></script>

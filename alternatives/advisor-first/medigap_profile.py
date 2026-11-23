@@ -12,11 +12,11 @@ from zoneinfo import ZoneInfo
 DATE = '2026-11-10'
 FIELDS = {'MG_AGE': 'medigap.ageOn20261110', 'MG_SEX': 'medigap.pricingSex',
           'MG_TOBACCO': 'medigap.tobaccoCategory'}
-LABELS = {'MG_AGE': 'Age reported for Medigap pricing', 'MG_SEX': 'Sex used for Medigap pricing',
+LABELS = {'MG_AGE': 'Age for Medigap pricing', 'MG_SEX': 'Sex used for Medigap pricing',
           'MG_TOBACCO': 'Medigap tobacco category'}
 DEFINITIONS = {
     'MG_AGE': ('How old are you?',
-        'The pilot prices cover ages 65–74. Your age helps us match the listed prices. For someone who is 64, prices are shown for age 65.', []),
+        'Medigap prices are set by age. Daylight has prices for ages 65–74; someone who is 64 sees the age-65 prices.', []),
     'MG_SEX': ('Which sex category should we use for Medigap prices?',
         'The price source uses Female and Male categories. Choose the category to use for this lookup, or leave it unknown.',
         [['Female', 'Female'], ['Male', 'Male']]),
@@ -98,42 +98,82 @@ def birthday_age(guide):
     if type(month) is not int or not 1 <= month <= 12:
         return None
     if month == 11 and value.get('first_day') is not True:
-        # A later November birthday may be before or after the 10th. Someone
-        # turning 65 that month is priced at 65 either way (D138).
-        return 64 if value['year'] == 2026 else None
+        # A later November birthday may be before or after the 10th, and the
+        # report holds a month, not a day. Someone turning 65 that month is
+        # priced at 65 either way (D138), so 65 is the pricing age; nothing
+        # here claims the person reported an age (D157, PG-01).
+        return 65 if value['year'] == 2026 else None
     years = 65 + 2026 - value['year'] - (month > 11)
     return years if 0 <= years <= 120 else None
 
 
-def profile(guide):
+def _medicare_before_65(guide, record, dated_starts=False):
+    """D181 (:8895, record supplied): a 64-year-old who already has Part A or B is not
+    "about to turn 65" unless they qualified by age (turning 65 this month).
+    True = qualified another way; False = by age or no parts yet; None = not known yet."""
+    if record is None:
+        return False
+    def fact(identifier):
+        item = (record.get('facts') or {}).get(identifier) or {}
+        return {} if item.get('stale') else (item.get('value') or {})
+    reports = [((guide.get('fields') or {}).get(name) or {}).get('value') for name in ('enrollment.partA', 'enrollment.partB')]
+    active = (fact('RC04').get('choice') in ('both', 'a_only', 'b_only')
+              or any(isinstance(v, dict) and v.get('status') in ('active', 'approved') for v in reports))
+    if not active:
+        return False
+    basis = fact('RC06').get('choice')
+    if basis == 'age65':
+        return False
+    if basis in ('disability', 'esrd', 'als', 'other'):
+        return True
+    if dated_starts:
+        birthday = usable(guide, 'situation.age65') or {}
+        if birthday.get('year') and birthday.get('month'):
+            boundary = '%04d-%02d' % (birthday['year'], birthday['month'])
+            if all(isinstance(v, dict) and v.get('status') == 'approved' and v.get('date_kind') == 'start'
+                   and (v.get('date') or '')[:7] >= boundary for v in reports):
+                return False  # both card dates are future starts in or after the 65th-birthday month
+    return None
+
+
+def profile(guide, record=None, *, dated_starts=False):
     role = usable(guide, 'subject.role')
     values = {key: usable(guide, name) for key, name in FIELDS.items()}
     # An explicit unknown/correction supersedes birthday arithmetic too.
     age_report = guide.get('fields', {}).get(FIELDS['MG_AGE'], {})
     _, birthday_revision = birthday_source(guide)
+    derived_age = False
     if not age_report or (age_report.get('status') in {'reported', 'stale'}
             and birthday_revision > age_report.get('revision', 0)):
         values['MG_AGE'] = birthday_age(guide)
+        derived_age = values['MG_AGE'] is not None
     zip_code = usable(guide, 'comparison.scope.zip')
     # D138: a 64-year-old turns 65 within the year, so the listed age-65
     # prices are the relevant reference. The reported age stays visible.
     turning = values['MG_AGE'] == 64 and type(values['MG_AGE']) is int
+    early = turning and _medicare_before_65(guide, record, dated_starts)
+    if early is True:
+        turning = False
     inputs = {'zipcode': zip_code, 'age': 65 if turning else values['MG_AGE'],
               'gender': values['MG_SEX'], 'tobacco': values['MG_TOBACCO']}
     note = TURNING_65_NOTE if turning else ''
+    if turning and derived_age and dated_starts:
+        note = 'Your reported birthday puts you at age 64 on the price date. These are the listed age-65 prices.'
     message = ''
     if isinstance(values['MG_AGE'], int) and values['MG_AGE'] >= 75:
-        message = 'Medigap pricing for ages 75+ is not supported in this pilot.'
-    elif isinstance(values['MG_AGE'], int) and values['MG_AGE'] < 64:
-        message = 'Medigap pricing in this pilot supports ages 65–74, and age 64 for people about to turn 65. Younger ages are not supported.'
+        message = 'Daylight doesn’t have Medigap prices for ages 75 and older yet. You can still look at Medicare Advantage and Part D plans.'
+    elif isinstance(values['MG_AGE'], int) and (values['MG_AGE'] < 64 or early is True):
+        message = 'Daylight has Medigap prices for ages 65 to 74, and for people about to turn 65. You can still look at Medicare Advantage and Part D plans.'
     elif zip_code and zip_code not in {str(z) for z in range(34101, 34109)}:
-        message = 'Medigap pricing in this pilot supports ZIP codes 34101–34108.'
+        message = 'Daylight has Medigap prices for ZIP codes 34101 to 34108 so far. Tell Daylight if your ZIP changes.'
     missing = []
     if role not in {'self', 'someone'}:
         missing.append('RC01')
     if not zip_code:
         missing.append('T03')
     missing.extend(key for key in FIELDS if values[key] is None)
+    if early is None and not message:
+        missing.append('RC06')   # D181: how they qualified decides whether age-65 prices apply
     held = [key for key, name in FIELDS.items()
             if guide.get('fields', {}).get(name, {}).get('status') in {'unknown', 'skipped'}]
     return {'effective_date': DATE, 'inputs': inputs,
@@ -141,8 +181,10 @@ def profile(guide):
             'message': message, 'note': '' if message else note, 'missing': missing, 'held': held,
             'questions': [question(key, role) for key in missing if key in FIELDS and key not in held] if not message else [],
             'edit_questions': [question(key, role) for key in FIELDS],
+            'age_basis': 'birthday' if derived_age else 'reported' if values['MG_AGE'] is not None else None,
             'details': [{'id': key, 'label': LABELS[key], 'value': values[key],
-                         'status': guide.get('fields', {}).get(name, {}).get('status', 'missing')}
+                         'status': ('derived' if key == 'MG_AGE' and derived_age else
+                                    guide.get('fields', {}).get(name, {}).get('status', 'missing'))}
                         for key, name in FIELDS.items()]}
 
 
@@ -214,3 +256,9 @@ def validate_proposal(update, message, role, active=None, today=None):
         if re.search(r'\b(?:quit|stopped|former|used to)\b', text) or not (negative if value == 'Non-Tobacco' else positive and not negative):
             raise ValueError('Smoking history alone does not establish a tobacco price category.')
     return copy.deepcopy(update)
+
+
+def for_flow(flow, guide, record):
+    """D181: the record-aware view on :8895 (guided close); unchanged elsewhere."""
+    return profile(guide, record if getattr(flow, 'guided_close', False) else None,
+                   dated_starts=getattr(flow, 'reuse_card_start_dates', False))

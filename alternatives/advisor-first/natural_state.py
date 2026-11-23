@@ -20,7 +20,8 @@ SAFE_FIELDS = frozenset({'intent.goal', 'knowledge.general', 'subject.role', 'co
 SENSITIVE_GUIDE_FIELDS = frozenset({'coverage.requestedStartMonth', 'needs.medicationDetails',
     'intent.goalDetail', 'needs.priorityOther', 'subject.displayLabel', 'coverage.birth',
     'coverage.birth.firstDay', 'needs.medications', 'needs.pharmacies', 'needs.providers',
-    'outcome.drafts', 'comparison.requestedNames', 'situation.retirement', 'situation.age65', *MEDIGAP_FIELDS.values()})
+    'outcome.drafts', 'comparison.requestedNames', 'situation.retirement', 'situation.age65',
+    'intent.selectedPlan', *MEDIGAP_FIELDS.values()})  # D183: the chosen plan (:8895 only writes it)
 CONFIRMATIONS = {'user_reported': 'reported_by_user', 'explicitly_confirmed': 'explicitly_confirmed'}
 # plans_filter: a structured answer entered on the Plans page (D97). It is a
 # user report like any structured answer; the conversation confirms it once.
@@ -53,6 +54,8 @@ FIELD_NAMES = {
 # Clarification-only targets. They do not extend the original question inventory
 # or make a life circumstance a required intake item.
 SITUATION_TARGETS = {'S_AGE65': {'month', 'year'}, 'S_RETIREMENT': {'status', 'when'}}
+# Conversation-only meanings. They carry no fields and cannot write reports.
+DISCUSSION_TARGETS = frozenset({'CP_PURPOSE', 'CP_REASON', 'CP_REACTION', 'CP_UNDERSTANDING', 'CP_INVESTIGATE', 'CP_NEXT', 'CP_TIMING', 'CP_RETRY', 'CP_PARTS', 'CP_COVERAGE'})
 FIELD_NAMES.update({key: {'choice'} for key in MEDIGAP_FIELDS})
 _LOCATION = {'comparison.scope.zip', 'comparison.scope.county'}
 _PRIORITIES = {'needs.costPreference', 'needs.priorities'}
@@ -257,6 +260,8 @@ def ensure_state(record):
 
 
 def _valid_target(target):
+    if isinstance(target, dict) and target.get('id') in DISCUSSION_TARGETS:
+        return set(target) == {'id', 'entity', 'fields'} and target['entity'] == 'profile' and target['fields'] == []
     return (isinstance(target, dict) and set(target) == {'id', 'entity', 'fields'}
             and isinstance(target['id'], str) and (bool(QUESTION.fullmatch(target['id'])) or target['id'] in SITUATION_TARGETS)
             and isinstance(target['entity'], str) and bool(ENTITY.fullmatch(target['entity']))
