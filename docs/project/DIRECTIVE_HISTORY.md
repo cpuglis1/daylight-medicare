@@ -373,3 +373,15 @@ regular agent session in, say, the Claude desktop app does.”
 This supersedes, on this branch only, the rules against new transcript persistence
 (localhost testing only) and against agent-run conversation tests. Real users and
 the pilot keep both protections.
+
+## D222 · November 23, 2026 · Plans comparisons and confirmed doctors
+
+The owner asks to work from GitHub `dev`, excluding newer local turn-trace work.
+Restore Ask Daylight's ability to explain the selected two plans' differences;
+reuse the doctor and exact office already confirmed; remove the numbered Parts A
+and B / Choose a plan block above plan lists; investigate unresolved doctor-network
+findings without equating Original Medicare assignment with Advantage membership.
+Preserve the existing deployment's invitations, histories, budgets and source
+boundaries. No agent-run paid or live model conversation tests.
+
+[D222 evidence and remaining blockers](../reviews/plans-context-2026-11-23/README.md).

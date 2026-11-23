@@ -139,9 +139,8 @@
     // Order: sticky header (plan kinds, way back), then the page for this view.
     const sticky = el('div', undefined, 'plans-sticky'), E = enroll();
     sticky.append(kinds(), withIcon(button('Back to my conversation', close, 'btn-quiet plans-crumb'), 'back', false));
-    const stepped = E && !['paths', 'guide'].includes(view);
-    // D161: the three decisions stay in view, each showing its answer. Owner, November 13: nothing else sits
-    // between the top of the page and the plans; the Parts A and B status and its next step live in step 1.
+    const stepped = E && ['ab', 'advantage-drugs'].includes(view);
+    // D222: enrollment status belongs to its own step, not above the plan lists.
     if (stepped) sticky.append(window.DaylightEnrollment.steps(E, {tab: pathTab, step: currentStep(), local: pathTab === 'advantage' ? maLocal : null,
       onStep: id => showView(STEP_VIEW[pathTab][id])}));
     host.append(sticky); headerOffset();

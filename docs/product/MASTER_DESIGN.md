@@ -1,5 +1,18 @@
 # Daylight master design and agent contract
 
+## D222: Plans conversation repair
+
+On the existing one-call surface, a deliberate Plans Send carries server-validated
+selected/compared plan fields and their evidence IDs to the model and reply check.
+Keep all published conditions, missing values and holds; viewing alone sends no
+AI request and establishes no preference. Reuse exact doctor/office selections
+and fresh check results. Original Medicare findings cannot establish membership
+in an Advantage network. Remove the numbered enrollment strip from Advantage,
+Medigap and Part D lists; retain enrollment information on its relevant steps.
+Work from pinned GitHub `dev`, with no newer local changes. This is a targeted
+repair under D92/D154/D180/D189, not a new source acceptance or recommendation
+release. [D222 evidence](../reviews/plans-context-2026-11-23/README.md).
+
 **D100 pilot security engineering · November 7, 2026.** Owner chose private GitHub Free with the recorded manual review procedure for the invite-only pilot and authorized P0 security and abuse engineering. The local pilot rehearsal uses expiring signed invitations, a revocable browser binding and isolated D99 cost accounting. Saved profiles stay disabled on that route pending deployed A05 acceptance. Founder review of the exact PR revision and separate production release approval remain required. [P0 execution record](../../audit-evidence/pilot-p0-security-20261107/README.md).
 
 **D99 pilot budget decision · November 7, 2026.** The pilot has one $100 cumulative model-spend ceiling and per-participant usage accounting. No hourly/daily, session/invitation or guest/saved pool dollar sublimits, calendar reset or $90/$10 split. Count every model stage, retry and unresolved charge; reserve in-flight costs within that single ceiling. This replaces the D98 pilot budget proposal only. Existing D86/D90 local development settings and protected variants remain unchanged. Budget direction is approved; deployed enforcement, detailed telemetry/retention and pilot release remain open. The owner requested cost-saving GitHub alternatives; Free with documented checks/review is the revised recommendation, not approval of a branch-enforcement exception or purchase. [Decision packet](../reviews/pilot-security-stage1-2026-11-07/DECISIONS.md).

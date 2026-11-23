@@ -116,7 +116,9 @@ def doctors(inputs, identifier, selected, expected, *, medigap=None):
         elif row.get('membership') == 'out_of_network' and row.get('state') == 'confirmed':
             adverse.append(who)
         else:
-            reason = {'conflict': 'records disagree', 'stale': 'newer evidence needed'}.get(row.get('state'), 'no applicable record')
+            missing = ('office confirmed; no applicable network record' if result and medigap is None else
+                       'no applicable Medicare assignment record' if result else 'office check not available')
+            reason = {'conflict': 'records disagree', 'stale': 'newer evidence needed'}.get(row.get('state'), missing)
             open_.append(who + ' (' + reason + ')')
     count = f'{len(positive)} of {len(expected)} selected offices'
     note = count + (' have published Medicare assignment records.' if medigap is not None else ' listed in this plan’s network.')
