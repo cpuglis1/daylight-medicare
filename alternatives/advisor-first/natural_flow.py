@@ -24,7 +24,7 @@ from identifier_guard import IDENTIFIER_MESSAGE, find_identifiers, submitted_str
 from log_guard import install as install_log_guard
 from situation import FIELDS as SITUATION_FIELDS, MONTHS, birthday_first_day, observations
 from advisor_models import MODELS
-from advisor_memory import VisitMemory, CONTEXT_POLICY, HISTORY_LIMIT as VISIT_HISTORY_LIMIT, HISTORY_TTL as VISIT_HISTORY_TTL
+from advisor_memory import VisitMemory, CONTEXT_POLICY, HISTORY_RAM_BYTES as VISIT_HISTORY_RAM_BYTES, HISTORY_TTL as VISIT_HISTORY_TTL
 from education import catalog_context, learning_context, concepts_for_lesson, plan_update
 import learner_state
 from decision_guidance import guidance
@@ -78,6 +78,12 @@ COMPOSITION_CODES = frozenset({'ungrounded_literal', 'ungrounded_entity', 'inval
     'unavailable', 'transport_or_format', 'provider_failure', 'composition_unavailable',
     'input_token_verification', 'text_bound', 'invalid_structure', 'input_bound'})
 LOGGER = logging.getLogger(__name__)
+# Shown when a fixture (mock AI) turn would otherwise end with no reply and no
+# next question: the page would sit waiting with nothing to render.
+# Guest-facing, so no operator advice: the D146 and pilot rehearsals force
+# fixture mode, and fixture answers are kept for the visit only.
+FIXTURE_NO_REPLY_NOTICE = ('In this offline preview, AI replies are off. Your answer is kept for this visit; '
+                           'type a question below to continue.')
 install_log_guard()  # HP-09: last-line identifier filter on Daylight loggers.
 # Questions a Plans-page filter may answer (D97). All are free structured answers.
 PLANS_FILTER_QUESTIONS = frozenset({'T01', 'RC01', 'T03', 'RC03', 'T05', 'RC04', 'T06', 'T07', 'T08', 'T09', 'T10'})
@@ -533,6 +539,9 @@ class NaturalConversation(AdvisorConversation):
                 choices = self.reference['zips'].get(self.value(g, 'comparison.scope.zip'), [])
                 if len(choices) > 1:
                     question['fields'][0].update(type='select', options=[[x[0], x[1]+', '+x[2]] for x in choices])
+            # Same visit-specific wording as every other offered question, so a
+            # helper is not asked plan questions about "you".
+            question = self.contextual_question(g, r, question)
             candidates.append({'id': identifier, 'question': question, 'priority': 1,
                 'required': criterion['state'] == 'needs_clarification',
                 'topic': QUESTION_TOPICS.get(identifier, ''),
@@ -555,7 +564,51 @@ class NaturalConversation(AdvisorConversation):
             moves = [m for m in self.eligible(owner, g, r) if m['id'] != 'T04']
             out['assessment']['nextQuestion'] = copy.deepcopy(moves[0]['question']) if moves else None
 
+    # Wording for a visit about someone else (subject.role == 'someone'). The
+    # approved wordings address the reader as the beneficiary ("you"), which
+    # tells a helper the questions are about them. Each entry keeps the
+    # approved meaning, choices and fields; only who is named changes. The
+    # pinned engine config is not edited, so this table lives here. The AI
+    # composer may still write its own wording (for example "your mom"); this
+    # is the text used when code falls back to the approved question.
+    HELPER_QUESTIONS = {
+        'T03': 'What ZIP code does the person you are helping live in?',
+        'T04': 'When does the person you are helping need Medicare coverage to start?',
+        'T05': 'What health coverage does the person you are helping have now?',
+        'T06': 'Which doctors or hospitals would the person you are helping like to keep?',
+        'T07': 'What prescriptions does the person you are helping take?',
+        'T08': 'Will the person you are helping need routine care away from home?',
+        'T09': 'How would the person you are helping prefer to balance monthly payments and costs when they get care?',
+        'T10': 'What matters most to the person you are helping when we compare their options?',
+        'RC02': 'Where is the permanent home of the person you are helping?',
+        'RC04': 'Which Medicare parts does the person you are helping have now?',
+        'RC06': 'How did the person you are helping first qualify, or expect to qualify, for Medicare?',
+        'RC07': 'How does the person you are helping get their A and B benefits now?',
+        'RC08': 'What changed about their coverage?',
+        'RC12': 'Does the person you are helping have a written notice saying their drug coverage counts as creditable (as good as Medicare’s standard coverage), and has there been a gap?',
+        'RC14': 'Is the person you are helping, or their employer, adding money to an HSA?',
+        'RC16': 'Was this their first Medicare Advantage plan, when did it start, and did they have Medigap before?',
+        'RC16.C2': 'Did they have Medigap before it?',
+        'RC17': 'Is the person you are helping replacing an existing Medigap policy?',
+        'RC18': 'Does the person you are helping currently receive benefits from any of these programs?',
+        'RC19': 'For the Special Needs Plan type they want to explore, what exact qualifying program or plan confirmation do they have?',
+        'RC20': 'Where will the person you are helping need routine care away from home?',
+        'RC25': 'Is there a monthly amount they want to stay under?',
+        'RC26': 'Which military or veterans’ coverage does the person you are helping have?',
+        'RC27': 'Is there a coverage interruption the person you are helping needs help with now?',
+        'S_AGE65': 'What month and year will the person you are helping turn 65, and does their birthday fall on the first of that month?',
+        'S_RETIREMENT': 'Is the person you are helping retired, planning to retire, or still working?',
+    }
+
     def contextual_question(self,guide,record,question):
+        """Return the approved question worded for this visit.
+
+        Medigap pricing questions and the RC11 coverage-end question have their
+        own context. Every other personal question is reworded for a helper
+        when the visit is about someone else (HELPER_QUESTIONS); the meaning,
+        choices and fields are unchanged. Never mutates the caller's question.
+        """
+        role=self.value(guide, 'subject.role')
         if question and conversation_planner.enabled(self) and not question.get('why'):
             # Reuse the loaded question catalog's explanation, including the
             # conditional meanings whose generic placeholder was removed.
@@ -564,7 +617,14 @@ class NaturalConversation(AdvisorConversation):
             question = copy.deepcopy(question)
             question['why'] = definition.get('why','').removeprefix('Why we ask: ').strip()
         if question and question['id'] in medigap_profile.FIELDS:
-            return medigap_profile.question(question['id'], self.value(guide, 'subject.role'))
+            return medigap_profile.question(question['id'], role)
+        if question and role=='someone' and question.get('question')==self.question(question['id'])['question'] \
+                and question['id'] in self.HELPER_QUESTIONS:
+            # Only replace the stock wording; a question already rewritten
+            # for its context (for example a narrowed field set) stays as is.
+            question=copy.deepcopy(question)
+            question['question']=self.HELPER_QUESTIONS[question['id']]
+            return question
         if not question or question['id']!='RC11':
             return question
         kind=self.report(record,'RC09').get('choice')
@@ -765,8 +825,17 @@ class NaturalConversation(AdvisorConversation):
             personal_guide = set(guide['fields']) - {'intent.goal', 'intent.goalDetail', 'knowledge.general', 'subject.role'}
             personal_reports = set(record['facts']) - {'RC01'}
             personal_details = metadata(record).get('details', {})
-            if prior in {'self', 'someone'} and update.get('fields', {}).get('choice') != prior and (personal_guide or personal_reports or personal_details):
-                raise ProfileError('These reports belong to the person already identified. Open a separate visit for another person; the existing information is preserved.')
+            choice = update.get('fields', {}).get('choice')
+            if prior in {'self', 'someone'} and choice != prior and (personal_guide or personal_reports or personal_details):
+                if choice not in {'self', 'someone'}:
+                    # Research-only or an unknown subject cannot take over a
+                    # person's retained reports; that still needs a new visit.
+                    raise ProfileError('These reports belong to the person already identified. Open a separate visit for another person; the existing information is preserved.')
+                # A corrected "it's for my mom" (or "it's for me") switches the
+                # subject. Every earlier personal report is kept but held as
+                # stale until the person re-confirms it for the new subject
+                # (fix 2, Charlie 2026-11-21: "switch, re-confirm each").
+                self.hold_for_new_subject(guide, record)
         retired=(identifier=='RC21' and self.value(guide,'needs.providersStatus')=='none'
                  or identifier=='RC22' and self.value(guide,'needs.medicinesStatus')=='no')
         if retired and identifier in record['facts']:
@@ -846,6 +915,136 @@ class NaturalConversation(AdvisorConversation):
             if held and identifier in record['facts']:
                 record['facts'][identifier]['stale'] = True
 
+    # Guide fields about the learner or the visit itself, not the person who
+    # receives coverage. A subject switch leaves them as reported.
+    SUBJECT_NEUTRAL_FIELDS = frozenset({'intent.goal', 'intent.goalDetail', 'knowledge.general', 'subject.role'})
+    SITUATION_TARGET_FIELDS = {'S_AGE65': SITUATION_FIELDS['age65'], 'S_RETIREMENT': SITUATION_FIELDS['retirement']}
+    # Free-text companions re-offered with their question so a "yes" restores
+    # the whole earlier answer, not just its choice.
+    RECONFIRM_COMPANIONS = {'T04': ('month', 'coverage.requestedStartMonth'), 'T06': ('text', 'needs.providers'),
+                            'T07': ('text', 'needs.medications'), 'T10': ('text', 'needs.priorityOther')}
+
+    def hold_for_new_subject(self, guide, record):
+        """Hold every personal report for re-confirmation after a subject switch.
+
+        Called from apply() before the engine records the new RC01 choice.
+        Values are kept (nothing is deleted) but marked stale, so value() and
+        report() stop using them. The old RC01 fact is also marked stale; that
+        is what lets the pinned engine's own RC01 guard accept the new choice.
+        A value-free list of what to re-confirm is stored in the record's
+        dialogue metadata so it survives a dropped in-memory clarification;
+        restore_reconfirmation() turns it back into questions.
+
+        Args:
+            guide: The guide being mutated in place.
+            record: The record being mutated in place.
+        """
+        neutral = self.SUBJECT_NEUTRAL_FIELDS
+        for key, envelope in guide['fields'].items():
+            # Unknown or skipped answers carry no value to re-confirm.
+            if key not in neutral and envelope.get('status') == 'reported':
+                envelope['status'] = 'stale'
+        for fact in record['facts'].values():
+            fact['stale'] = True
+        stale = {key for key, envelope in guide['fields'].items() if envelope.get('status') == 'stale'}
+        held = [{'id': identifier, 'entity': 'profile', 'fields': []}
+                for identifier, key in FIELD.items() if key not in neutral and key in stale]
+        held += [{'id': identifier, 'entity': 'profile', 'fields': []}
+                 for identifier, key in self.SITUATION_TARGET_FIELDS.items() if key in stale]
+        mirrors = {'RC09'} if any(item['id'] == 'T05' for item in held) else set()
+        for identifier in sorted(record['facts']):
+            if identifier == 'RC01' or identifier in mirrors:
+                # RC09 is rewritten by the engine when T05 cobra/retiree is
+                # re-confirmed, so asking for it separately would double-ask.
+                continue
+            if identifier in {'RC21', 'RC22', 'RC23'}:
+                held += [{'id': identifier, 'entity': item['entity'], 'fields': []}
+                         for item in record['facts'][identifier].get('value', {}).get('items', [])
+                         if isinstance(item.get('entity'), str)]
+            else:
+                held.append({'id': identifier, 'entity': 'profile', 'fields': []})
+        # The schema caps the list at 100 value-free targets.
+        ensure_state(record)['dialogue']['clarifications'] = held[:100]
+
+    def reconfirm_target(self, guide, record, held):
+        """Rebuild one value-bearing clarification target from a held entry.
+
+        Args:
+            guide: Current guide.
+            record: Current record.
+            held: A value-free entry from dialogue['clarifications'].
+
+        Returns:
+            A pending target shaped like the other clarification targets, with
+            'reconfirm': True, or None when the report is no longer stale (it
+            was re-confirmed, answered anew, or marked unknown) or has no
+            string value a bare "yes" could restore.
+        """
+        identifier, entity = held['id'], held['entity']
+        if identifier in self.SITUATION_TARGET_FIELDS:
+            envelope = guide['fields'].get(self.SITUATION_TARGET_FIELDS[identifier], {})
+            if envelope.get('status') != 'stale' or not isinstance(envelope.get('value'), dict):
+                return None
+            return {'id': identifier, 'fields': {}, 'entity': 'profile',
+                    'proposed': copy.deepcopy(envelope['value']), 'reconfirm': True}
+        if identifier in FIELD:
+            envelope = guide['fields'].get(FIELD[identifier], {})
+            value = envelope.get('value')
+            if envelope.get('status') != 'stale':
+                return None
+            if isinstance(value, int) and not isinstance(value, bool):
+                value = str(value)  # MG_AGE is stored as a number, answered as text.
+            if isinstance(value, list) and value and all(isinstance(item, str) for item in value):
+                value = ','.join(value)  # Multi-select answers (T05, T08, T10) parse from a comma list.
+            if not isinstance(value, str) or not value:
+                return None
+            fields = {'zip': value} if identifier == 'T03' else {'choice': value}
+            companion = self.RECONFIRM_COMPANIONS.get(identifier)
+            if companion:
+                other = guide['fields'].get(companion[1], {})
+                if other.get('status') == 'stale' and isinstance(other.get('value'), str) and other['value']:
+                    fields[companion[0]] = other['value']
+            return {'id': identifier, 'entity': 'profile', 'fields': fields, 'reconfirm': True}
+        fact = record['facts'].get(identifier)
+        if not fact or not fact.get('stale') or identifier not in Q:
+            return None
+        value = fact.get('value', {})
+        if identifier in {'RC21', 'RC22', 'RC23'}:
+            value = next((item for item in value.get('items', []) if item.get('entity') == entity), {})
+        fields = {key: item for key, item in value.items() if key != 'entity' and isinstance(item, str) and item}
+        if not fields:
+            return None
+        return {'id': identifier, 'entity': entity, 'fields': fields, 'reconfirm': True}
+
+    def reconfirm_purpose(self, guide, target):
+        """Instruction for the composer when asking to re-confirm a held report.
+
+        The earlier value is included so the reply can say what was said
+        ("Earlier you said COBRA. Is that also true for your mom?"). It is the
+        visit's own report, already in the model's context before the switch.
+        """
+        earlier = target.get('proposed') or target.get('fields')
+        role = self.value(guide, 'subject.role')
+        person = 'the person being helped' if role == 'someone' else 'the person writing'
+        return ('The person changed who this visit is for. This earlier report was given before that change: '
+                + json.dumps(earlier, sort_keys=True)[:300] + '. Say what was said earlier and ask whether it is true for '
+                + person + '. Do not assume either way; a yes keeps it, anything else replaces or clears it.')
+
+    def restore_reconfirmation(self, owner, guide, record):
+        """Queue held re-confirmation questions when nothing else is pending.
+
+        The in-memory clarification can be dropped (a state change, a server
+        restart). The held list in the record is the durable source, so this
+        rebuilds every still-stale target. It never mutates the record, which
+        keeps the turn's continuation binding valid.
+        """
+        if self.pending_for(owner) or owner not in self.current_chain:
+            return
+        held = record.get('natural', {}).get('dialogue', {}).get('clarifications', [])
+        targets = [target for target in (self.reconfirm_target(guide, record, item) for item in held) if target]
+        if targets:
+            self.queue_pending(owner, targets, guide, record)
+
     def capture(self, g, r, update, method='direct_report', resolve_aggregate=False):
         before_g, before_r = copy.deepcopy(g), copy.deepcopy(r)
         cg, cr = copy.deepcopy(g), copy.deepcopy(r)
@@ -887,6 +1086,9 @@ class NaturalConversation(AdvisorConversation):
         pending = self.pending_for(owner)
         if pending and pending['revision'] != [g['stateVersion'], r['stateVersion']]:
             self.clear_pending(owner); pending = None
+        if not pending:
+            self.restore_reconfirmation(owner, g, r)
+            pending = self.pending_for(owner)
         if pending:
             update = pending['update']
             fields = [key for key in update.get('fields', {}) if key != 'choice']
@@ -897,7 +1099,8 @@ class NaturalConversation(AdvisorConversation):
                                              or self.pending_situation_confirmation(owner, 'Yes, that\u2019s right.', {}) is not None,
                                              'confirmLabel': 'Yes, that\u2019s right'}
             return [{'id': question['id'], 'question': question, 'topic': QUESTION_TOPICS.get(question['id'], ''),
-                'purpose': 'Clarify this unresolved report before using it. Do not assert either candidate.',
+                'purpose': (self.reconfirm_purpose(g, update) if update.get('reconfirm')
+                            else 'Clarify this unresolved report before using it. Do not assert either candidate.'),
                 'priority': 0, 'required': True}]
         pricing = self.medigap_questions(g, r) or self.part_d_questions(g, r)
         if pricing:
@@ -966,10 +1169,15 @@ class NaturalConversation(AdvisorConversation):
                 'Optional familiarity question only if needed to calibrate explanations; do not make it a required intake step.')
         # Current insurance helps establish the timing rules before asking for
         # a preferred start, including when the birthday is not yet known.
-        # Birthday does not establish desired start or enrollment.
+        # Birthday does not establish desired start or enrollment. Q2 (D155):
+        # this is guidance the AI weighs (its purpose text and the suggested
+        # order), not a rule code enforces.
         if metadata(r)['task'] == 'timing' or self.value(g, 'situation.age65'):
             for item in candidates:
-                if item['id'] == 'T05': item['priority'] = 0
+                if item['id'] == 'T05':
+                    item['priority'] = 0
+                    item['purpose'] = ('When timing matters, current insurance usually comes before a preferred '
+                                       'start date because it decides which enrollment rules apply.')
         readiness = plan_readiness(g, r)
         if readiness['active']:
             needed = self.plan_questions(g, r, readiness)
@@ -1668,9 +1876,25 @@ class NaturalConversation(AdvisorConversation):
         context['current_message'] = message
         if policy == CONTEXT_POLICY:
             context['learner_context'] = learner_state.context(learner)
+        # D155 Q5 (on demand, Nov 21, 2026): on a route with function tools the
+        # composer looks Medicare sources up itself (lookup_medicare_sources),
+        # so code preloads only the applicable rule statements and plan facts.
+        # A route without tools keeps the earlier preloading below.
+        lookup_on = getattr(self.agent, 'source_lookup_enabled', None)
+        on_demand = bool(callable(lookup_on) and lookup_on())
         # The advisor gets relevant reviewed material even when no explicit
         # educational request was classified by the extractor.
-        evidence = {fact['id']: fact for fact in out.get('facts', [])}
+        evidence = {} if on_demand else {fact['id']: fact for fact in out.get('facts', [])}
+        # Retrieve the sources for this message fresh on every turn. Without
+        # tools they join the evidence, so a fact mentioned again is looked up
+        # again; either way these ids select what the source fallback may quote.
+        retrieve_for = getattr(self.agent, 'message_evidence_ids', None)
+        message_ids = [identifier for identifier in (retrieve_for(message, metadata(out['record']).get('lastFactIds', []))
+                       if callable(retrieve_for) else []) if identifier in self.facts]
+        if not on_demand:
+            for identifier in message_ids:
+                evidence.setdefault(identifier, self.facts[identifier])
+        context['message_evidence_ids'] = message_ids
         ids = [ref for item in catalog_context()['concepts'] if item['concept_id'] in revisit_concepts
                for ref in item['evidence_refs']]
         ids += [ref for item in catalog_context()['concepts'] if item['concept_id'] in open_concepts
@@ -1685,6 +1909,9 @@ class NaturalConversation(AdvisorConversation):
                 ids += ['original', 'advantage', 'checks']
         ids += self.teaching_candidates(out['guide'], out['record'], context_question)
         ids += ['routesintro', 'basics', 'dates', 'enrollment_intro']
+        if on_demand:
+            # Teaching, concept and default sources are looked up on demand now.
+            ids = []
         if rules:
             # Rule statements come first so they survive the six-source bound.
             ids = [rule['fact_id'] for rule in rules] + ids
@@ -1693,9 +1920,15 @@ class NaturalConversation(AdvisorConversation):
             context['applicable_rules'] = [{**rule, 'statement': self.facts[rule['fact_id']]['summary']} for rule in rules]
         if required_id:
             candidate = next(item for item in moves if item['id'] == required_id)
-            context['required_target'] = {'id': required_id, 'reason': required_reason,
+            # Q2 (D155): only code gates (an unresolved report, a pending
+            # question or a locked re-confirmation) must be asked now. A rule
+            # or decision-relevant meaning must be answered before plans; the
+            # AI chooses when. The plan gate itself stays in plan_readiness.
+            ask_now = required_reason in {'clarification', 'pending'}
+            context['required_target'] = {'id': required_id, 'reason': required_reason, 'ask_now': ask_now,
                 'question': candidate['question'].get('question') if isinstance(candidate.get('question'), dict) else candidate.get('question'),
-                'rule': 'Your question must target this meaning unless the person asked to pause. You write the wording.'}
+                'rule': ('Your question must target this meaning unless the person asked to pause. You write the wording.' if ask_now
+                         else 'This meaning must be answered before plans can be shown. Ask it when it fits the conversation; you write the wording.')}
         for identifier in list(dict.fromkeys(ids))[:8]:
             if identifier in self.facts:
                 evidence[identifier] = self.facts[identifier]
@@ -1915,6 +2148,15 @@ class NaturalConversation(AdvisorConversation):
                 out['metrics']['questionSelection'] = copy.deepcopy(composed.get('question_diagnostic'))
             if composed.get('validation_recovery'):
                 out['generated']['validation_recovery'] = copy.deepcopy(composed['validation_recovery'])
+            if composed.get('source_fallback'):
+                # D155 Q5: record the quote or gap for the eval answer rate.
+                out['generated']['source_fallback'] = copy.deepcopy(composed['source_fallback'])
+            # D155 Q5: a source the composer looked up this turn is not in the
+            # preloaded `evidence`; the agent already checked every cited id
+            # against what the model saw, so resolve it from the reviewed store.
+            for identifier in composed['evidence_refs']:
+                if identifier not in evidence and identifier in self.facts:
+                    evidence[identifier] = self.facts[identifier]
             used = [identifier for identifier in composed['evidence_refs'] if identifier in evidence]
             if conversation_records.enabled(self):
                 # D183: what this reply actually cites, for the education record (popped by the planner).
@@ -2124,6 +2366,25 @@ class NaturalConversation(AdvisorConversation):
             # Synthetic mode remains explicitly labeled and makes no AI claim.
             result = self.fixture_result(message, current)
             result['updates'] = [u for u in result['updates'] if u['id'] not in {'T05','RC09'} or not observations(message)]
+            # Q10 (D155): "for me" is recorded only from the person's own
+            # first-person report, never guessed by code. The pinned synthetic
+            # extractor proposes RC01 self for any retirement message and omits
+            # the subject/scope labels the live extractor sends, so the
+            # validator rejected it as missing_scope (main hid this with a code
+            # guess, removed in fix 2). Test mode stands in for the instructed
+            # extractor: keep the proposal only when the message names no one
+            # else, and label it as the live schema does. Live mode never runs
+            # this branch.
+            helping = re.search(r"(?i)\b(?:my|our|his|her|their)\s+(?:mom|mother|dad|father|parents?|spouse|wife|husband|partner|"
+                                r"aunt|uncle|grand(?:ma|pa|mother|father|parents?)|sister|brother|friend|client)\b|\bhelping\b|\bfor (?:him|her|them)\b", message)
+            updates_in = []
+            for u in result['updates']:
+                if u['id'] == 'RC01':
+                    if helping:
+                        continue
+                    u = {**u, 'subject': 'beneficiary', 'scope': 'current', 'uncertain': False, 'correction': False}
+                updates_in.append(u)
+            result['updates'] = updates_in
             reservation = None
         else:
             reservation = self.agent.reserve_turn(stages=('compose',) if direct_birthday else ('extract', 'compose'))
@@ -2440,8 +2701,9 @@ class NaturalConversation(AdvisorConversation):
                             'accepted' if changed_paths else 'already_known', 'semantic_report'))
                     if changed_paths:
                         accepted_updates.append({'id': 'coverage_reports'})
-            if situation and not self.value(g, 'subject.role') and re.search(r"(?i)\bI(?:'|’|m\b| am| have| turn)", message) and not re.search(r'(?i)\bmy (?:mother|father|mom|dad|parent|spouse|wife|husband)\b', message):
-                self.capture(g, r, {'id':'RC01', 'fields':{'choice':'self'}, 'entity':'profile'})
+            # No "for me" guess from first-person wording: helpers say "I'll
+            # handle it" about a parent. Who the visit is for stays open and
+            # RC01 is asked (fix 2, Charlie 2026-11-21).
             m = metadata(r)
             if not m['task']:
                 m['task'], m['preparing'] = 'compare', True
@@ -3267,6 +3529,9 @@ class NaturalConversation(AdvisorConversation):
                             out['record']['facts'][identifier]['stale'] = False
                         self.resolve_pending(owner,legacy['action'],out['guide'],out['record'])
                         out['assessment'] = self.assess(out['guide'], out['record'])
+                    # A subject switch by button holds earlier reports; queue
+                    # their re-confirmation questions now.
+                    self.restore_reconfirmation(owner, out['guide'], out['record'])
                     if self.pending_for(owner):
                         pending=self.pending_for(owner)
                         pending['revision'] = [out['guide']['stateVersion'], out['record']['stateVersion']]
@@ -3397,6 +3662,17 @@ class NaturalConversation(AdvisorConversation):
                 out['metrics']['questionSelection']['delivered_target'] = (out['assessment'].get('nextQuestion') or {}).get('id')
             with self.lock:
                 generated_conversation(out)
+                # Fixture mode never composes, and generated_conversation has
+                # just blanked any uncomposed reply. A button answer that also
+                # leaves no next question (Understand Medicare, then "new"; or
+                # "I don't know") would show nothing (trace a76674fb), so say
+                # why. Plans-filter answers stay silent (D97), and an opening
+                # choice gets its reply from the page.
+                if (self.fixture and not plans_filter and not out.get('openingChoice')
+                        and action.get('type') in {'choice', 'stage', 'unknown', 'defer'}
+                        and not out.get('reply') and not out.get('notice')
+                        and not out['assessment'].get('nextQuestion')):
+                    out['notice'] = FIXTURE_NO_REPLY_NOTICE
                 preparation = out.get('preparation') or {}
                 preparation_valid = (preparation.get('kind') == 'preparation'
                     and preparation.get('status') == 'prepared'

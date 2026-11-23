@@ -40,6 +40,40 @@ class ProviderTokenTests(unittest.TestCase):
             ('model','instructions','input','tools','text')})
         self.assertEqual(self.payload,before)
 
+    def test_tool_settings_are_counted_because_the_provider_bills_them(self):
+        """A lookup request's tool_choice, parallel_tool_calls and reasoning reach the counter.
+
+        Without parallel_tool_calls the count ran 78 tokens under the bill on
+        Nov 21, 2026, which left the charge unverified and paused paid calls.
+        """
+        payload = {**self.payload, 'tools': [{'type': 'function', 'name': 'lookup_medicare_sources'}],
+                   'tool_choice': 'auto', 'parallel_tool_calls': False, 'reasoning': {'effort': 'low'},
+                   'include': ['reasoning.encrypted_content']}
+        with patch('provider_tokens.urlopen', return_value=io.BytesIO(
+                b'{"object":"response.input_tokens","input_tokens":10581}')) as transport:
+            self.assertEqual(count_input_tokens(self.client, payload), 10581)
+        sent = json.loads(transport.call_args.args[0].data)
+        self.assertEqual(sent, {key: payload[key] for key in
+            ('model', 'instructions', 'input', 'tools', 'text', 'tool_choice', 'parallel_tool_calls', 'reasoning')})
+
+    def test_reasoning_without_tools_is_counted_and_no_tool_settings_appear(self):
+        """An extraction-shaped request counts its reasoning and adds no tool fields."""
+        payload = {**self.payload, 'reasoning': {'effort': 'low'}}
+        with patch('provider_tokens.urlopen', return_value=io.BytesIO(
+                b'{"object":"response.input_tokens","input_tokens":900}')) as transport:
+            count_input_tokens(self.client, payload)
+        sent = json.loads(transport.call_args.args[0].data)
+        self.assertEqual(sent, {key: payload[key] for key in
+            ('model', 'instructions', 'input', 'tools', 'text', 'reasoning')})
+
+    def test_payload_missing_a_base_field_fails_closed_without_a_request(self):
+        """A payload without ``text`` raises the gate's own error, never a raw KeyError, and sends nothing."""
+        payload = {key: value for key, value in self.payload.items() if key != 'text'}
+        with patch('provider_tokens.urlopen') as transport:
+            with self.assertRaises(TokenCountUnavailable):
+                count_input_tokens(self.client, payload)
+        transport.assert_not_called()
+
     def test_connection_failure_never_retries_or_exposes_provider_text(self):
         with patch('provider_tokens.urlopen',side_effect=URLError('PRIVATE-CANARY')) as transport:
             with self.assertRaises(BudgetError) as caught:

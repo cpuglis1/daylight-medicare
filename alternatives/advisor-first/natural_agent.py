@@ -24,11 +24,12 @@ from adaptive_flow import Q, MONTHS, month, CHECKS
 from ai_budget import BudgetError, CAP, token_int
 from chat import ModelUnavailable, schema
 from guest_profiles import ProfileError
-from narrative_agent import ExtractionTransportFailure, NarrativeAgent, provider_failure_diagnostic, provider_failure_message
+from narrative_agent import ExtractionTransportFailure, NarrativeAgent, provider_failure_diagnostic, provider_failure_message, TOPICS, STOP
 from natural_state import AGENDA_TOPICS, PRIORITY_TOPICS
 from education import catalog_context
 import block_release
 import learner_state
+import conversation_config
 from turn_contract import bound_answer, PROGRESS, MOVES, continuation, assessment as checked_assessment
 from situation import birthday_first_day
 from request_limits import OUTPUT_TOKENS
@@ -73,6 +74,26 @@ PROCESS_SUGGESTION = re.compile(
     r"(?:your |the |our )?(?:Medicare timing|coverage end dates|current coverage|coverage options|doctors|medicines|drug costs|reported details|open questions|next steps)"
     r"(?: together)?(?: first| next)?[.!]")
 LOGGER = logging.getLogger(__name__)
+# D155 Q5: a reply that states a Medicare fact its cited sources do not support
+# is rejected and retried at most this many times (other failures keep one
+# repair). After that, code answers from the reviewed source or shows the gap
+# note; it never falls back to model prose or to "I'll need to check that".
+FACT_REPAIR_LIMIT = 3
+FACT_SOURCE_CODES = frozenset({'missing_evidence', 'ungrounded_literal'})
+SOURCE_GAP_NOTE = "Daylight's reviewed sources don't cover that yet."
+# D155 Q5, on demand (Charlie, Nov 21, 2026): the composer looks Medicare facts
+# up with this tool over the reviewed document store instead of receiving
+# preloaded teaching sources. Each lookup round is one more funded model call:
+# at most LOOKUP_ROUNDS per attempt and LOOKUP_LIMIT per turn, never counted as
+# repairs. LOOKUP_RESULTS bounds how many sources one lookup returns.
+LOOKUP_TOOL = 'lookup_medicare_sources'
+LOOKUP_ROUNDS = 2
+LOOKUP_LIMIT = 3
+LOOKUP_RESULTS = 4
+LOOKUP_QUERY_BOUND = 300
+# Same test NarrativeAgent.retrieve uses to decide a message asks something;
+# the gap note is shown only when the person asked (D155 Q5).
+ASKS_QUESTION = re.compile(r'\?|\b(?:what|how|why|explain|tell me|difference|help me understand)\b', re.I)
 EXTRACTION_ERROR_CODES = {
     'The reply could not be checked. Your information is unchanged.':'invalid_structure',
     'The reply used an unsupported action.':'unsupported_action',
@@ -89,9 +110,17 @@ class ReservedStage:
         self.budget, self.key, self.model = budget, key, model
         self.status = 'unissued'
         self.attempts = 0
+        # Funded source-lookup continuations (D155 Q5). They are issued calls,
+        # so they count in attempts, but never as repairs or recoveries.
+        self.lookups = 0
         self.input_count = None
         self.settled_nano = 0
         self.unresolved_attempts = 0
+
+    @property
+    def primary_attempts(self):
+        """Issued calls that were a first attempt, repair or recovery (not a lookup round)."""
+        return self.attempts - self.lookups
 
     def check_input(self, count):
         self.input_count = None
@@ -149,13 +178,35 @@ class ReservedStage:
     def recover(self):
         """Retain the uncertain attempt and fund one replacement separately."""
         self.finish()
-        if self.status != 'uncertain' or self.attempts >= 2:
+        if self.status != 'uncertain' or self.primary_attempts >= 2:
             return False
         return self._replace()
 
-    def repair(self):
-        """A settled invalid response may fund the same single recovery slot."""
-        if self.status != 'settled' or self.attempts >= 2:
+    def lookup(self):
+        """Fund one more call that continues a settled response after a source lookup.
+
+        Returns:
+            True when a replacement reservation was funded; False when this
+            turn already used LOOKUP_LIMIT lookups, the last call did not
+            settle, or the daily budget refuses it.
+        """
+        if self.status != 'settled' or self.lookups >= LOOKUP_LIMIT:
+            return False
+        if not self._replace():
+            return False
+        self.lookups += 1
+        return True
+
+    def repair(self, limit=1):
+        """Fund one more attempt after a settled invalid response.
+
+        Args:
+            limit: repairs this stage may take in total. Ordinary failures keep
+                one; an unsourced fact gets FACT_REPAIR_LIMIT (D155 Q5).
+        Returns:
+            True when a replacement reservation was funded.
+        """
+        if self.status != 'settled' or self.primary_attempts >= 1 + min(limit, FACT_REPAIR_LIMIT):
             return False
         return self._replace()
 
@@ -237,7 +288,12 @@ class TurnReservation:
                 continuing = False
                 if _recovery_of is not None:
                     if (not isinstance(_recovery_of, ReservedStage) or _recovery_of.budget is not budget
-                            or _recovery_of.model != model or _recovery_of.attempts != 1
+                            or _recovery_of.model != model
+                            # One recovery normally; up to FACT_REPAIR_LIMIT for an unsourced fact (D155 Q5).
+                            # A lookup round may follow the last repair, hence + 1; repair()
+                            # itself still stops at FACT_REPAIR_LIMIT repairs.
+                            or not 1 <= _recovery_of.primary_attempts <= FACT_REPAIR_LIMIT + 1
+                            or not 0 <= _recovery_of.lookups <= LOOKUP_LIMIT
                             or _recovery_of.status not in {'settled', 'uncertain'} or stages != ('compose',)):
                         raise BudgetError('Use the existing stage receipt for bounded recovery.')
                     receipt = db.execute('SELECT status FROM ai_charges WHERE id=?', (_recovery_of.key,)).fetchone()
@@ -386,14 +442,22 @@ Every active turn ends with one question: the one that gets this person closest 
 either a missing detail or a decision. Once the person has said what they want, never offer a
 menu of topics ("a simpler picture or what to look for?", "What would you like to understand next?").
 Let that judgment shape the response; do not narrate an internal assessment. Candidate
-questions are available meanings, not a checklist or an order.
+questions are available meanings, not a checklist or an order. Each candidate's question
+text is an example phrasing of its meaning: word it naturally for this person (for the
+person being helped when that is someone else), keeping the meaning and the fixed answer
+choices. Each candidate's purpose says when it tends to help; use judgment about order.
+Ordering guidance: who the visit is for comes before personal coverage questions; when
+timing matters (turning 65, retiring, a timing task), current insurance usually comes
+before a preferred start date because it decides which enrollment rules apply; with COBRA,
+establish actual Medicare Part A/B enrollment before a preferred start; the familiarity
+question is optional and only for calibrating explanations.
 The curriculum is a reference for what would help this person understand, not a lesson queue.
 
 The current_turn capture_outcomes describe what the backend actually accepted, already
 knew, could not capture or needs clarified. Acknowledge recorded facts from resolved reports,
 not merely from the raw message or a proposed extraction. For an unresolved report, address
 the specific ambiguity if consequential; do not claim it was recorded or externally checked.
-Reports and known presence/status markers outlive the bounded recent_exchanges. Missing
+recent_exchanges holds the whole visit chat, oldest first; reports and known presence/status markers also persist. Missing
 history or a missing field never proves the person did not answer. If they challenge a repeat,
 reconcile the available question, outcomes, reports and recent exchange; acknowledge a gap
 without denying their account or guessing the lost value. Ask only for the detail still needed.
@@ -435,6 +499,10 @@ Evidence and scope (apply to both reply and question):
 - Personal assertions use current resolved reports and report_refs. submitted_answer identifies
   the latest resolved answer. Superseded values may acknowledge a correction, never establish
   current facts. Keep learner and beneficiary, current and intended circumstances separate.
+- When the guide.subject.role report is someone, the visit is for another person. Word
+  personal questions about that person, using how the writer named them when they did
+  ("When does your mom need coverage to begin?"), not "you". Questions about the
+  writer's own understanding stay addressed to "you".
 - Medicare explanations use this turn's evidence and evidence_refs. Choose a narrow supported
   claim and retain the conditions material to that claim. Available source material need not
   all be taught. Prior assistant prose and learning receipts are not factual authority.
@@ -444,6 +512,12 @@ Evidence and scope (apply to both reply and question):
   Answer naturally with the existing next question; never ask the person to launch an index.
 - knowledge_limits lists unresolved claims that must stay out of answers even when a user
   proposes a date or duration. Respect it independently of numbers elsewhere in context.
+- Never state a Medicare fact, rule, amount or date from memory. Each one comes from this
+  turn's evidence and is cited in evidence_refs, even when an earlier turn already covered
+  it.
+- When this turn's evidence does not cover the Medicare fact the person asked about, set
+  source_gap true and answer only what the evidence does cover. Do not write your own note
+  about the gap or promise to check later; Daylight adds the note. Otherwise source_gap is false.
 - Names, amounts and dates must be grounded. Do not calculate personal enrollment windows,
   deadlines or coverage start dates without an authorized result. Supported general relative
   rules remain available. Do not invent eligibility, participation, costs or recommendations.
@@ -455,9 +529,12 @@ Evidence and scope (apply to both reply and question):
   factual support; no prepared lesson or guide will be appended to your response.
 
 Output contract:
-- Ask one useful follow-up question on every active turn. When required_target is present,
-  question_target must be that meaning (you write the wording, keeping its sense and choices);
-  the only exception is an explicit pause. Prefer learning something consequential about the
+- Ask one useful follow-up question on every active turn. When required_target.ask_now is
+  true (an unresolved report or a pending re-confirmation), question_target must be that
+  meaning (you write the wording, keeping its sense and choices); the only exception is an
+  explicit pause. Otherwise required_target must be answered before plans can be shown:
+  ask it when it fits, and you may ask another approved candidate first when that suits
+  the conversation better. Prefer learning something consequential about the
   person or their priorities over offering more explanation. For personal intake choose its question_target from approved
   candidates, retaining purpose, dependencies, qualifications and choice meanings. Actual
   required clarification precedes other personal intake; supported education may still proceed.
@@ -523,6 +600,43 @@ Hard output bounds: reply at most {COMPOSITION_REPLY_BOUND} characters, question
 {COMPOSITION_QUESTION_BOUND}, combined at most {COMPOSITION_TEXT_BOUND} including their
 separating space. These are ceilings, not length targets. Finish complete sentences and
 keep metadata compact. There is no minimum response length.'''
+
+# D155 Q2: question order is AI guidance the owner may tune on the localhost
+# "Checks and instructions" page (config/conversation-instructions.json). The
+# built-in paragraph is sliced from the text above so the default stays
+# byte-identical; compose_instructions() swaps in a valid override.
+_GUIDANCE_START = COMPOSE_INSTRUCTIONS.index('Ordering guidance:')
+_GUIDANCE_END = COMPOSE_INSTRUCTIONS.index('calibrating explanations.', _GUIDANCE_START) + len('calibrating explanations.')
+ORDERING_GUIDANCE = COMPOSE_INSTRUCTIONS[_GUIDANCE_START:_GUIDANCE_END]
+
+
+# Appended only when the selected model route supports function tools; a route
+# without them receives the per-message keyword retrieval instead (D155 Q5).
+LOOKUP_INSTRUCTIONS = '''
+Source lookup (lookup_medicare_sources):
+- This turn's evidence arrives holding only the applicable rule statements and plan facts.
+  Before you state any other Medicare fact, rule, amount or date, call lookup_medicare_sources
+  with the person's question and the source_catalog ids that fit it. The sources it returns
+  join this turn's evidence; cite them in evidence_refs.
+- Look a fact up again in every turn that states it, including follow-ups. Earlier replies and
+  earlier lookups are not sources for this turn.
+- Skip the lookup when the reply states no Medicare fact, such as an acknowledgement or a
+  personal question. If the lookups do not cover what the person asked, set source_gap true.
+'''
+
+
+def compose_instructions():
+    """Return COMPOSE_INSTRUCTIONS with the owner's ordering guidance, if any.
+
+    Returns:
+        The built-in instructions unchanged when the config file is missing,
+        invalid or equal to the default; otherwise the same text with only the
+        ordering-guidance paragraph replaced. Never raises in a live turn.
+    """
+    override = conversation_config.ordering_guidance()
+    if not override or override == ORDERING_GUIDANCE:
+        return COMPOSE_INSTRUCTIONS
+    return COMPOSE_INSTRUCTIONS[:_GUIDANCE_START] + override + COMPOSE_INSTRUCTIONS[_GUIDANCE_END:]
 
 # Owner direction (November 7, 2026, DQ-01 pilot scope): the invite-only pilot
 # runs on 2026 sample data only. Applied only when server.py sets pilot_scope.
@@ -834,6 +948,12 @@ my Medicare options or a direct personal request about turning 65 can establish
 self; do not require the literal phrase this is for me or wait to ask RC01 again.
 RC01 is the visit's beneficiary relationship, not a personal insurance attribute.
 Use subject beneficiary for RC01, including I am helping my mother -> someone.
+Report RC01 self only from the person's own first-person statement about their own
+Medicare, quoting those words (I turn 65 in November -> self). A first-person
+statement about acting for others is someone, not self: I'm signing up my parents
+-> someone. Nothing else records RC01 for you; when you do not report it, Daylight
+asks who the visit is for. The whole visit chat is in recent_exchanges, so an
+earlier turn that named who it is for still counts.
 The helper's own insurance, birthday and other circumstances remain learner reports
 and must never become the beneficiary's personal coverage or life circumstances.
 Interpret the whole message: my mother's Medicare options identifies someone, not
@@ -997,11 +1117,14 @@ No weights, inferred motives or commercial considerations.'''
     def count_request_tokens(self, client, payload):
         """Compact duplicate presentation data and count the request as sent.
 
-        Retain the supplied exchanges. There is no local input-token ceiling;
-        the stage funds this count against the shared daily cap before generation.
+        Retain the supplied exchanges (the whole visit, D155) unless the request
+        would pass ``max_input_bytes``; then the oldest go first. There is no
+        local input-token ceiling; the stage funds this count against the
+        shared daily cap before generation.
         """
         before = request_sizes(payload)
         packed = copy.deepcopy(payload)
+        dropped_history = 0
         try:
             item = packed['input'][0]
             content = json.loads(item['content'])
@@ -1023,12 +1146,24 @@ No weights, inferred motives or commercial considerations.'''
             # Formatting whitespace is not conversational context. Compact it
             # losslessly before counting, including requests that already fit.
             item['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
+            # D155: the whole visit chat is sent. Only if the request would pass
+            # the reviewed byte bound are the oldest exchanges dropped, one at a
+            # time, so a long chat degrades instead of failing the turn.
+            limit = getattr(self, 'max_input_bytes', None)
+            stage_context = content.get('confirmed_context') or content.get('resolved_context')
+            history = stage_context.get('recent_exchanges') if isinstance(stage_context, dict) else None
+            while (limit and isinstance(history, list) and history
+                   and len(json.dumps(packed).encode()) > limit):
+                history.pop(0); dropped_history += 1
+                item['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
         except (KeyError, IndexError, TypeError, ValueError):
             content = None
         count = self.count_tokens(client, packed)
         local_bound = self.count_tokens is count_input_tokens and uses_local_bound(client)
         self.local.request_sizes = {'before': before, 'after': request_sizes(packed),
             'counted_input_tokens': token_int(count), 'count_calls': 0 if local_bound else 1}
+        if dropped_history:
+            self.local.request_sizes['history_exchanges_dropped'] = dropped_history
         LOGGER.info('Daylight request sizes %s', json.dumps(self.local.request_sizes, sort_keys=True))
         payload['input'] = packed['input']
         return count
@@ -1593,17 +1728,30 @@ No weights, inferred motives or commercial considerations.'''
             self.local.stage_timings = timings
 
     def _compose_with_recovery(self, owner, resolved_context, moves, request_id, reservation):
+        """Compose, repairing a rejected draft within bounded, funded attempts.
+
+        Ordinary validation failures keep one repair. A Medicare fact the cited
+        sources do not support gets up to FACT_REPAIR_LIMIT repairs; if every
+        one fails, _source_fallback answers from the reviewed source or shows
+        the gap note (D155 Q5). A connection failure keeps its single recovery,
+        and only on the first attempt.
+        """
         feedback = partial = recovery_reason = None
         recovery_enabled = getattr(self, 'composition_recovery', False)
         self.local.block_release = None
-        for attempt in range(2):
+        # Sources looked up on demand this turn (id -> fact, D155 Q5). A repair
+        # or connection recovery reuses them instead of paying for a new lookup;
+        # nothing here outlives the turn.
+        self.local.looked_up = {}
+        repairs, first = 0, True
+        while True:
             began = time.perf_counter()
             try:
                 answer = self._compose_once(owner, resolved_context, moves, request_id, reservation,
                                             repair_feedback=feedback)
                 if feedback:
                     answer['validation_recovery'] = {'component': 'composition',
-                        'replacement': 'validated_model_repair', 'reason': recovery_reason}
+                        'replacement': 'validated_model_repair', 'reason': recovery_reason, 'repairs': repairs}
                     answer['continuation']['validation_changed_continuation'] = True
                     self._cache_composition(owner, resolved_context, moves, request_id, answer)
                 return answer
@@ -1629,10 +1777,20 @@ No weights, inferred motives or commercial considerations.'''
                         'invalid_agenda', 'missing_followup', 'text_bound', 'empty_response'}:
                     # A factual refusal does not become another paid attempt.
                     raise
-                if not attempt and reservation.stage('compose').repair():
+                fact = error.code in FACT_SOURCE_CODES
+                limit = FACT_REPAIR_LIMIT if fact else 1
+                if repairs < limit and reservation.stage('compose').repair(limit):
+                    repairs, first = repairs + 1, False
                     feedback = error.feedback
-                    LOGGER.warning('Daylight composition recovery stage=compose')
+                    if fact and self.source_lookup_enabled():
+                        feedback = {**feedback, 'source_guidance': (
+                            'Call lookup_medicare_sources for each Medicare fact before stating it and cite what it '
+                            'returns, or leave the fact out.')}
+                    LOGGER.warning('Daylight composition recovery stage=compose repair=%d', repairs)
                     continue
+                if fact:
+                    return self._source_fallback(owner, resolved_context, moves, request_id,
+                                                 partial, recovery_reason, error)
                 if partial:
                     return self._retain_component(owner, resolved_context, moves, request_id,
                                                   partial, recovery_reason)
@@ -1643,21 +1801,223 @@ No weights, inferred motives or commercial considerations.'''
                     return self._retain_component(owner, resolved_context, moves, request_id,
                                                   released, 'released_before_failure')
                 diagnostic = getattr(self.local, 'last_transport_failure', None)
-                if (attempt or not getattr(self, 'connection_retries', 0) or time.perf_counter() - began > SLOW_ATTEMPT
+                if (not first or not getattr(self, 'connection_retries', 0) or time.perf_counter() - began > SLOW_ATTEMPT
                         or not recoverable_connection(diagnostic)
                         or not reservation.stage('compose').recover()):
                     if partial:
                         return self._retain_component(owner, resolved_context, moves, request_id,
                                                       partial, recovery_reason)
                     raise
+                first = False
                 LOGGER.warning('Daylight connection recovery stage=compose')
                 time.sleep(0.5)
 
+    def _source_fallback(self, owner, context, moves, request_id, partial, reason, error):
+        """Answer an unsourced-fact failure from reviewed material, never model prose (D155 Q5).
+
+        If the model looked a source up this turn (self.local.looked_up), or a
+        source retrieved for this message (context['message_evidence_ids']) is
+        in this turn's evidence, the reply quotes its reviewed summary and
+        cites it. Otherwise, when the message asks something (ASKS_QUESTION),
+        the reply is SOURCE_GAP_NOTE and the gap is logged by reason only; when
+        it asks nothing, the earlier retain-or-hold path applies. The follow-up question is the model's own retained
+        question when it passed every check, else the first approved candidate
+        (required ones first) that passes validation.
+
+        Raises:
+            error: when no approved question passes, as before this fallback.
+        """
+        # Prefer what the model itself looked up this turn, in lookup order;
+        # then the per-message keyword retrieval (D155 Q5).
+        looked = getattr(self.local, 'looked_up', None) or {}
+        # A looked-up source the keyword retrieval also found comes first, so
+        # an off-topic id the model chose is not quoted ahead of one both agree on.
+        retrieved = [identifier for identifier in context.get('message_evidence_ids') or [] if identifier in self.facts]
+        candidates = [looked[identifier] for identifier in retrieved if identifier in looked]
+        candidates += [fact for fact in looked.values()]
+        # Quote the copy this turn's checks saw when it was preloaded (tools
+        # off); with the lookup tool on it is not preloaded, so read the store.
+        shown = {item.get('id'): item for item in context.get('evidence') or [] if isinstance(item, dict)}
+        candidates += [shown.get(identifier) or self.facts[identifier] for identifier in retrieved]
+        fact = next((item for item in candidates
+                     if isinstance(item.get('summary'), str) and item['summary'].strip()), None)
+        if not fact and not ASKS_QUESTION.search(str(context.get('current_message') or '')):
+            # The person asked nothing, so a gap note would answer a question
+            # nobody posed ("This is for me." -> "sources don't cover that").
+            # Keep the earlier path: the safe question alone, or held.
+            if partial:
+                return self._retain_component(owner, context, moves, request_id, partial, reason)
+            raise error
+        if fact:
+            reply = ("Here is what Daylight's reviewed source says (" + str(fact.get('title') or 'Medicare.gov')
+                     + '): \u201c' + fact['summary'].strip() + '\u201d')
+            fallback = {'kind': 'quoted', 'reason': reason, 'evidence_ids': [fact['id']]}
+        else:
+            reply = SOURCE_GAP_NOTE
+            fallback = {'kind': 'gap', 'reason': reason, 'evidence_ids': []}
+        LOGGER.warning('Daylight source gap kind=%s reason=%s', fallback['kind'], reason)
+        candidates = _question_candidates(moves)
+        required_id = (context.get('required_target') or {}).get('id')
+        drafts = [copy.deepcopy(partial[0])] if partial and partial[1] == 'question' else []
+        drafts += [{'question_target': move['id'], 'reply': '', 'question': _question_text(move),
+                    'report_refs': [], 'evidence_refs': [],
+                    'agenda_update': {'current_concern': '', 'pause': False},
+                    'education': {'purpose': 'answer', 'updates': [], 'visual': 'none'}}
+                   for move in sorted(candidates, key=lambda move: (not move.get('required'), move['id'] != required_id))]
+        answer = None
+        for draft in drafts:
+            try:
+                answer = self.validate_composition(draft, self._looked_up_context(context), candidates)
+            except (ModelUnavailable, TypeError, ValueError, KeyError):
+                continue
+            break
+        if answer is None:
+            raise error
+        # The reply is fixed code text or a verbatim reviewed summary, added
+        # after validation of the question; the model wrote none of it.
+        answer.update(reply=reply, evidence_refs=fallback['evidence_ids'], source_fallback=fallback,
+                      validation_recovery={'component': 'source', 'reason': reason,
+                                           'replacement': 'reviewed_source_quote' if fact else 'source_gap_note'})
+        answer['continuation']['validation_changed_continuation'] = True
+        self._cache_composition(owner, context, moves, request_id, answer)
+        return answer
+
+    def source_lookup_enabled(self):
+        """Return True when this route lets the composer call lookup_medicare_sources.
+
+        A client may declare supports_function_tools. Otherwise only the live
+        OpenAI route (no scripted transport) is assumed to support function
+        calls; the Claude client and fixture transports keep the per-message
+        keyword retrieval (D155 Q5). The OpenAI client lives in the pinned
+        engine, which is why this is detected here and not declared there.
+        """
+        if not getattr(self, 'facts', None):
+            return False  # Nothing to look up, and an empty strict enum may be refused.
+        declared = getattr(self.client, 'supports_function_tools', None)
+        if declared is not None:
+            return declared is True
+        return not getattr(self.client, 'transport', None)
+
+    def source_catalog(self):
+        """List every reviewed source the lookup can return, as {id, title, question}.
+
+        The model sees only these index lines, never the source text, until
+        it looks a source up. Ids are sorted so the prompt is stable.
+        """
+        return [{'id': identifier, 'title': str(fact.get('title') or ''), 'question': str(fact.get('question') or '')}
+                for identifier, fact in sorted(self.facts.items())]
+
+    def lookup_spec(self):
+        """Return the strict function-tool definition for lookup_medicare_sources."""
+        return {'type': 'function', 'name': LOOKUP_TOOL, 'strict': True,
+                'description': ("Look up Daylight's reviewed Medicare sources. Call this before stating any "
+                                'Medicare fact, rule, amount or date, every turn you state one.'),
+                'parameters': {'type': 'object', 'additionalProperties': False, 'required': ['query', 'source_ids'],
+                    'properties': {
+                        'query': {'type': 'string', 'maxLength': LOOKUP_QUERY_BOUND,
+                                  'description': 'The Medicare question to answer, in plain words.'},
+                        'source_ids': {'type': 'array', 'maxItems': LOOKUP_RESULTS,
+                                       'items': {'type': 'string', 'enum': sorted(self.facts)},
+                                       'description': 'source_catalog ids that fit the question; may be empty.'}}}}
+
+    def lookup_sources(self, arguments):
+        """Run one lookup over the reviewed fact store; no model call, no network.
+
+        Args:
+            arguments: the decoded tool arguments. Untrusted model output, so
+                every field is type-checked and bounded; unknown ids are ignored.
+        Returns:
+            Up to LOOKUP_RESULTS facts: the ids the model chose first, then
+            the TOPICS patterns and word-overlap ranking NarrativeAgent.retrieve
+            uses, without its "is this a question" gate (the model already
+            decided a fact is needed).
+        """
+        arguments = arguments if isinstance(arguments, dict) else {}
+        query = arguments.get('query')
+        query = query[:LOOKUP_QUERY_BOUND] if isinstance(query, str) else ''
+        chosen = arguments.get('source_ids')
+        ids = [item for item in (chosen if isinstance(chosen, list) else [])[:LOOKUP_RESULTS]
+               if isinstance(item, str) and item in self.facts]
+        ids += [identifier for identifier, pattern in TOPICS.items() if re.search(pattern, query, re.I)]
+        words = set(re.findall(r'[a-z]{4,}', query.lower())) - STOP
+        ranked = []
+        for identifier, fact in self.facts.items():
+            terms = set(re.findall(r'[a-z]{4,}', (str(fact.get('title') or '') + ' '
+                                                  + str(fact.get('question') or '')).lower())) - STOP
+            score = len(words & terms)
+            if score >= 2:
+                ranked.append((score, identifier))
+        ids += [identifier for _, identifier in sorted(ranked, reverse=True)]
+        return [self.facts[identifier] for identifier in dict.fromkeys(ids) if identifier in self.facts][:LOOKUP_RESULTS]
+
+    def _run_lookup(self, call, context):
+        """Answer one function_call item and add what it found to this turn's evidence.
+
+        Returns:
+            The function_call_output input item. Facts found are appended to
+            context['evidence'] (so the schema may cite them) and remembered in
+            self.local.looked_up for repairs and the source fallback.
+        """
+        try:
+            arguments = json.loads(call.get('arguments') or '{}')
+        except (TypeError, ValueError):
+            arguments = {}
+        facts = self.lookup_sources(arguments) if call.get('name') == LOOKUP_TOOL else []
+        looked = getattr(self.local, 'looked_up', None)
+        if looked is None:
+            looked = self.local.looked_up = {}
+        evidence = context.setdefault('evidence', [])
+        present = {item.get('id') for item in evidence}
+        for fact in facts:
+            looked.setdefault(fact['id'], copy.deepcopy(fact))
+            if fact['id'] not in present:
+                evidence.append(copy.deepcopy(fact))
+                present.add(fact['id'])
+        sources = [{'id': fact['id'], 'title': fact.get('title'), 'summary': fact.get('summary'), 'text': fact.get('text')}
+                   for fact in facts]
+        result = {'sources': sources} if sources else {
+            'sources': [], 'note': 'No reviewed source matched. If the person asked this, set source_gap true.'}
+        return {'type': 'function_call_output', 'call_id': str(call.get('call_id') or ''),
+                'output': json.dumps(result, ensure_ascii=False, separators=(',', ':'))}
+
+    def message_evidence_ids(self, message, last_fact_ids=()):
+        """Return the reviewed sources retrieved for this message alone (D155 Q5).
+
+        Runs the keyword retrieval fresh on every turn, so a fact mentioned
+        again is looked up again; a pronoun follow-up ("what about that?")
+        re-retrieves the sources the last turn taught. Defaults and teaching
+        candidates are excluded: they are not evidence the message asked for.
+        """
+        saved = getattr(self.local, 'turn_context', None)
+        self.local.turn_context = {'lastFactIds': list(last_fact_ids or [])}
+        try:
+            return [fact['id'] for fact in NarrativeAgent.retrieve(self, message, None)]
+        finally:
+            self.local.turn_context = saved if saved is not None else {}
+
     def _cache_composition(self, owner, context, moves, request_id, answer):
+        """Cache a recovered answer under the signature _compose_once would compute.
+
+        _compose_once signs the caller's context before compaction and
+        reseeding, without message_evidence_ids (D155 Q5); this signs the same
+        thing, so a replay of a repaired or compacted turn does not fail with 409.
+        """
+        context = {key: value for key, value in context.items() if key != 'message_evidence_ids'}
         signature = hashlib.sha256(json.dumps([context, _question_candidates(moves)], sort_keys=True).encode()).hexdigest()
         with self.lock:
             self.cache[(owner, 'compose:' + request_id)] = {'signature': signature,
                 'result': copy.deepcopy(answer), 'expires': time.time() + 600}
+
+    def _looked_up_context(self, context):
+        """Return context with this turn's looked-up sources added to its evidence (D155 Q5).
+
+        Used only to validate a retained or fallback component; the cache is
+        still keyed by the turn's own context so a replay matches.
+        """
+        looked = getattr(self.local, 'looked_up', None) or {}
+        present = {item.get('id') for item in context.get('evidence') or [] if isinstance(item, dict)}
+        extra = [copy.deepcopy(fact) for identifier, fact in looked.items() if identifier not in present]
+        return {**context, 'evidence': list(context.get('evidence') or []) + extra} if extra else context
 
     def _retain_component(self, owner, context, moves, request_id, partial, reason):
         # Revalidate against exactly the same current context before publishing.
@@ -1673,7 +2033,8 @@ No weights, inferred motives or commercial considerations.'''
             if candidate:
                 draft = {**draft, 'question_target': candidate['id'], 'question': _question_text(candidate)}
         validation_context = {**context, '_retaining_question': True} if context.get('discussion_plan') and partial[1] == 'question' else context
-        answer = self.validate_composition(draft, validation_context, _question_candidates(moves))
+        # A retained part may cite a source looked up this turn (D155 Q5).
+        answer = self.validate_composition(draft, self._looked_up_context(validation_context), _question_candidates(moves))
         answer['validation_recovery'] = {'component': partial[1],
             'replacement': 'independently_validated_component', 'reason': reason}
         answer['continuation']['validation_changed_continuation'] = True
@@ -1685,9 +2046,9 @@ No weights, inferred motives or commercial considerations.'''
         """Shrink the composition context to the request bound, oldest and least load-bearing first.
 
         Owner direction (Nov 8–9, 2026): a bounded context is compacted, never
-        refused. The rolling discourse brief (``advisor_brief``) already carries
-        the gist of dropped exchanges, so old turns go first; three compared
-        plans with every published field go next (readers see the table). The
+        refused. D155 (Nov 21, 2026): the AI reads the whole visit chat, so plan
+        detail, catalog, evidence and learner context shrink first and the
+        oldest exchanges go only as a last resort, one at a time. The
         person's reports, the applicable rules and the approved question
         candidates are never dropped. Returns the steps applied.
         """
@@ -1700,12 +2061,6 @@ No weights, inferred motives or commercial considerations.'''
         def step(name, action):
             if size() > limit:
                 action(); steps.append(name)
-        def trim_exchanges(keep):
-            def act():
-                recent = context.get('recent_exchanges')
-                if isinstance(recent, list) and len(recent) > keep:
-                    context['recent_exchanges'] = recent[-keep:] if keep else []
-            return act
         def slim_plan_fields():
             plans = (context.get('plans_context') or {}).get('plans') or []
             for plan in plans:
@@ -1741,16 +2096,22 @@ No weights, inferred motives or commercial considerations.'''
                         concept.pop(key, None)
         def drop_learner_context():
             context.pop('learner_context', None)
-        step('recent_exchanges:3', trim_exchanges(3))
+        # D155: the whole visit chat is the last thing compacted. Everything
+        # else shrinks first; then only as many of the oldest exchanges as the
+        # request bound requires are dropped, and the step is logged.
         step('plan_fields:slim', slim_plan_fields)
         step('plan_evidence:not_applicable', drop_not_applicable_plan_evidence)
         step('plan_evidence:shorten', shorten_plan_evidence)
-        step('recent_exchanges:1', trim_exchanges(1))
         step('plan_context:fields_to_refs', drop_plan_context_fields)
         step('catalog:slim', slim_catalog)
         step('evidence:general_cap', cap_general_evidence(max(evidence_cap, 4)))
         step('learner_context:drop', drop_learner_context)
-        step('recent_exchanges:0', trim_exchanges(0))
+        recent = context.get('recent_exchanges')
+        dropped = 0
+        while size() > limit and isinstance(recent, list) and recent:
+            recent.pop(0); dropped += 1
+        if dropped:
+            steps.append('recent_exchanges:oldest_%d' % dropped)
         return steps
 
     def _block_releaser(self, context, moves):
@@ -1802,6 +2163,9 @@ No weights, inferred motives or commercial considerations.'''
         if not self.enabled or not self.client.available:
             raise ModelUnavailable('Live composition is unavailable. Your accepted details remain available.')
         context = copy.deepcopy(resolved_context)
+        # Fallback-only data (D155 Q5): the keyword retrieval for this message
+        # selects what _source_fallback may quote; the model is not shown it.
+        context.pop('message_evidence_ids', None)
         moves = _question_candidates(moves)
         reports = _reports(context)
         evidence = context.get('evidence', [])
@@ -1812,10 +2176,30 @@ No weights, inferred motives or commercial considerations.'''
         # schema below is built from the compacted context so every id the
         # model may cite is one it was shown.
         instructions = (conversation_prompts.COMPOSITION_RECORDS if context.get('profile_record')
-                        else conversation_prompts.COMPOSITION if context.get('discussion_plan') else COMPOSE_INSTRUCTIONS)
+                        else conversation_prompts.COMPOSITION if context.get('discussion_plan') else compose_instructions())
         instructions += self._pilot_scope_instructions(owner)
-        fixed = instructions + (REPAIR_INSTRUCTIONS if repair_feedback else '')
-        budget_bytes = self.max_input_bytes - len(fixed.encode()) - 9000 - len(json.dumps(repair_feedback or {}).encode())
+        # D155 Q5: on a route with function tools, no teaching sources arrive
+        # preloaded; the model looks them up. Sources an earlier attempt of this
+        # turn looked up are reseeded so a repair needs no new lookup; they are
+        # left out of the cache signature below, so an identical retry of this
+        # request still matches its cached answer.
+        # Sign the request as the caller sent it, before reseeding and before
+        # _fit_context compacts it: _cache_composition signs the same
+        # uncompacted context, so a replay of a recovered answer still matches.
+        signature = hashlib.sha256(json.dumps([context, moves], sort_keys=True).encode()).hexdigest()
+        tools_on = self.source_lookup_enabled()
+        catalog = self.source_catalog() if tools_on else None
+        seeded = []
+        if tools_on:
+            present = {item['id'] for item in evidence}
+            seeds = [copy.deepcopy(fact) for identifier, fact in (getattr(self.local, 'looked_up', None) or {}).items()
+                     if identifier not in present]
+            if seeds:
+                context['evidence'] = evidence + seeds
+                seeded = [fact['id'] for fact in seeds]
+        fixed = instructions + (REPAIR_INSTRUCTIONS if repair_feedback else '') + (LOOKUP_INSTRUCTIONS if tools_on else '')
+        budget_bytes = (self.max_input_bytes - len(fixed.encode()) - 9000 - len(json.dumps(repair_feedback or {}).encode())
+                        - (len(json.dumps([catalog, self.lookup_spec()]).encode()) if tools_on else 0))
         trimmed = self._fit_context(context, moves, budget_bytes)
         output_limit = getattr(self, 'max_output_tokens', OUTPUT_BOUND)
 
@@ -1839,6 +2223,8 @@ No weights, inferred motives or commercial considerations.'''
                 'evidence_refs': {'type': 'array', 'maxItems': evidence_cap, 'items': {'type': 'string', **({'enum': evidence_ids} if evidence_ids else {})}, **({'maxItems': 0} if not evidence_ids else {})},
                 'agenda_update': schema({'current_concern': {'type':'string','maxLength':160},
                                          'pause': {'type':'boolean'}}),
+                # D155 Q5: the model reports a question its sources do not cover.
+                'source_gap': {'type': 'boolean'},
                 'conversation_assessment': schema({
                     'goal_progress': {'type':'string','enum':list(PROGRESS)},
                     'next_move': {'type':'string','enum':list(MOVES)},
@@ -1877,11 +2263,26 @@ No weights, inferred motives or commercial considerations.'''
                         order = [*first, 'block_refs', 'reply_blocks', *rest]
                         spec['properties'] = {k: spec['properties'][k] for k in order}
                         spec['required'] = [k for k in order if k in spec['required']]
+            content = {'resolved_context': context, 'question_candidates': moves}
+            if tools_on:
+                content['source_catalog'] = catalog
             payload = {'model': self.client.model, 'instructions': instructions,
-                'input': [{'role': 'user', 'content': json.dumps({'resolved_context': context, 'question_candidates': moves}, ensure_ascii=False, separators=(',', ':'))}],
+                'input': [{'role': 'user', 'content': json.dumps(content, ensure_ascii=False, separators=(',', ':'))}],
                 'store': False, 'max_output_tokens': output_limit, 'reasoning': {'effort': self.composition_reasoning_effort}, 'tools': [],
                 'text': {'format': {'type': 'json_schema', 'name': 'daylight_resolved_conversation', 'strict': True, 'schema': spec}},
                 'stream': True, 'service_tier': getattr(self.client, 'service_tier', 'default')}
+            if tools_on:
+                payload['instructions'] += LOOKUP_INSTRUCTIONS
+                payload['tools'] = [self.lookup_spec()]
+                # One lookup per response keeps each round's cost bounded; the
+                # last allowed round may not call the tool, so it must answer.
+                payload['parallel_tool_calls'] = False
+                payload['tool_choice'] = 'none' if final else 'auto'
+                if self.composition_reasoning_effort != 'none':
+                    # store is False, so reasoning before a tool call must be
+                    # returned to the model in encrypted form on the next round.
+                    payload['include'] = ['reasoning.encrypted_content']
+                payload['input'] += copy.deepcopy(continuation)
             if repair_feedback:
                 payload['instructions'] += REPAIR_INSTRUCTIONS
                 content = json.loads(payload['input'][0]['content'])
@@ -1889,6 +2290,7 @@ No weights, inferred motives or commercial considerations.'''
                 payload['input'][0]['content'] = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
             return payload, json.dumps(payload).encode()
 
+        continuation, rounds, final = [], 0, False
         payload, raw = assemble()
         for _ in range(3):
             if len(raw) <= self.max_input_bytes:
@@ -1902,7 +2304,6 @@ No weights, inferred motives or commercial considerations.'''
             LOGGER.warning('Daylight composition context compacted steps=%s', ','.join(trimmed))
         if len(raw) > self.max_input_bytes:
             raise ProfileError('This response context exceeds the reviewed request bounds.')
-        signature = hashlib.sha256(json.dumps([context, moves], sort_keys=True).encode()).hexdigest()
         key = (owner, 'compose:' + request_id)
         with self.lock:
             cached = self.cache.get(key)
@@ -1914,11 +2315,17 @@ No weights, inferred motives or commercial considerations.'''
                 raise ProfileError('This response is still running.', 409)
             self.active.add(key)
         stage = reservation.stage('compose')
+        if tools_on and stage.lookups >= LOOKUP_LIMIT:
+            # This turn's lookups are spent (an earlier attempt used them): the
+            # repair answers from the reseeded sources without calling the tool.
+            final = True
+            payload, raw = assemble()
         phase = 'preflight'
         issued_at = response = None
-        try:
-            if stage.budget is not self.budget:
-                raise BudgetError('The composition reservation belongs to another budget.')
+
+        def send(payload, raw):
+            """Count, fund, issue and settle one composition call; returns (response, text)."""
+            nonlocal phase, issued_at
             if self.budget:
                 self.budget.check_rates(self.client.model)
                 stage.check_input(self.count_request_tokens(self.client, payload))
@@ -1950,6 +2357,47 @@ No weights, inferred motives or commercial considerations.'''
                 raise ModelUnavailable(provider_failure_message(diagnostic, accepted=True))
             self.usage.append(response.get('usage', {}))
             stage.settle(response)
+            return response, text
+
+        try:
+            if stage.budget is not self.budget:
+                raise BudgetError('The composition reservation belongs to another budget.')
+            response, text = send(payload, raw)
+            while tools_on:
+                calls = [item for item in response.get('output') or []
+                         if isinstance(item, dict) and item.get('type') == 'function_call']
+                if not calls:
+                    break
+                phase = 'lookup'
+                # A call on the last allowed round, or a lookup the budget will
+                # not fund, never becomes an unsourced answer: it is rejected as
+                # a missing source, so recovery reaches the source fallback.
+                if final or rounds >= LOOKUP_ROUNDS or stage.lookups >= LOOKUP_LIMIT:
+                    raise CompositionRejected(ModelUnavailable('The insurance explanation needs reviewed evidence.'))
+                rounds += 1
+                # One lookup per round even if a route ignores parallel_tool_calls.
+                call = calls[0]
+                # Snapshot what earlier rounds found: a round refused below was
+                # never sent, so its sources must not reach repairs or the fallback.
+                before = dict(getattr(self.local, 'looked_up', None) or {})
+                outputs = [self._run_lookup(call, context)]
+                # The output items go back (reasoning, then this function_call),
+                # then its result. Other calls are dropped: a call sent back
+                # without an output is refused. A reasoning item without
+                # encrypted_content cannot be resent with store false.
+                continuation += [copy.deepcopy(item) for item in response.get('output') or []
+                                 if isinstance(item, dict)
+                                 and (item.get('type') != 'function_call' or item is call)
+                                 and (item.get('type') != 'reasoning' or item.get('encrypted_content'))] + outputs
+                final = rounds >= LOOKUP_ROUNDS or stage.lookups + 1 >= LOOKUP_LIMIT
+                # A fresh payload each round, so each traced request is exact.
+                payload, raw = assemble()
+                # Size-check before funding: an unaffordable round is never
+                # reserved, so the stage stays settled and repairs remain.
+                if len(raw) > self.max_input_bytes or not stage.lookup():
+                    self.local.looked_up = before
+                    raise CompositionRejected(ModelUnavailable('The insurance explanation needs reviewed evidence.'))
+                response, text = send(payload, raw)
             phase = 'decode'
             parsed = None
             validation_started = time.perf_counter()
@@ -2077,7 +2525,7 @@ No weights, inferred motives or commercial considerations.'''
         # never turn an otherwise useful, grounded response into a failed turn.
         if not isinstance(value, dict):
             raise ModelUnavailable('The conversational response could not be checked.')
-        core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work', 'conversation_assessment', '_reply_blocks', 'addressed_requests', 'block_refs', 'offer_concept'}}
+        core = {key: item for key, item in value.items() if key not in {'education_followups', 'education', 'task_work', 'conversation_assessment', '_reply_blocks', 'addressed_requests', 'block_refs', 'offer_concept', 'source_gap'}}
         intent = checked_assessment(value.get('conversation_assessment'))
         validation_context = {**context, '_continuation_kind': (intent or {}).get('next_move')}
         checked, recovery = validate_with_question_recovery(self._validate_composition_core, core, validation_context, moves)
@@ -2127,6 +2575,12 @@ No weights, inferred motives or commercial considerations.'''
             }
         if recovery:
             result['validation_recovery'] = recovery
+        if value.get('source_gap') is True:
+            # D155 Q5: code, not the model, writes the gap note, and the gap is
+            # logged by reason only (no message text reaches the log).
+            result['reply'] = (result['reply'].rstrip() + '\n\n' + SOURCE_GAP_NOTE).lstrip()
+            result['source_fallback'] = {'kind': 'gap', 'reason': 'model_reported', 'evidence_ids': []}
+            LOGGER.warning('Daylight source gap kind=gap reason=model_reported')
         try:
             result['task_work'] = validate_selection(value.get('task_work', neutral_selection()))
         except ValueError:
@@ -2488,7 +2942,10 @@ No weights, inferred motives or commercial considerations.'''
             return False
         if id == 'T06' and _question_text(move).startswith('Which ') and re.match(r'(?:are there|do you (?:have|want)|is there)\b',lower):
             return False
-        if id == 'T04' and not (re.search(r'want|like|prefer|hope|hoping|plan|planning', lower) and re.search(r'start|begin', lower)):
+        # "Need" asks the same desired-start meaning as "want" (the approved
+        # wording itself says "need"); rejecting it swapped a helper-worded
+        # question ("When does your mom need coverage to begin?") back to "you".
+        if id == 'T04' and not (re.search(r'want|like|prefer|hope|hoping|plan|planning|need', lower) and re.search(r'start|begin', lower)):
             return False
         if id == 'RC04' and (not re.search(r'\bparts?\b|\ba\s*(?:and|&|or|/)\s*b\b', lower) or not re.search(r'\ba\b|\bb\b|enrolled|enrollment|have|signed', lower) or re.search(r'want|would like|hoping', lower)):
             return False

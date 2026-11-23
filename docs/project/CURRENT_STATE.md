@@ -1,6 +1,6 @@
 # Daylight: current state
 
-Living document · last updated November 12, 2026 (America/New_York), through D153. Edit this
+Living document · last updated November 21, 2026 (America/New_York), through D155. Edit this
 file in place when direction changes. Do not prepend dated directives here or
 to any `AGENTS.md`; record them as described in "Changing direction" below.
 
@@ -37,8 +37,11 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
 - Keep the 41 conditional meanings, source STOPs, material holds and exact-purpose gates.
 - Changing accepted or sealed data/code means a new revision with exact
   before/after accounting and the applicable review. Never edit a sealed revision.
-- Privacy: no new raw-transcript persistence; chat stays visit-only; saving, AI
-  transfer, family sharing, human handoff and enrollment are separate permissions.
+- Privacy: no new raw-transcript persistence for real users or the pilot; chat
+  stays visit-only; saving, AI transfer, family sharing, human handoff and
+  enrollment are separate permissions. Exception (D155, branch
+  `charlie/rebalance-and-live-view`): localhost testing may save raw chat,
+  traces and tool inputs/outputs.
 - Redirect, don't deflect (D109, November 8): state the general rule the
   person's reports make relevant, name the personal gap in one clause, then ask
   the approved question. Outside parties are the confirming step, never the
@@ -67,8 +70,10 @@ recommendation or enrollment service. Consumer recommendation purposes are held.
   acknowledged once in the next chat reply. The current source was checked
   offline and activated during D122; unaccepted rule drafts remain unloaded.
   [Restart review and saved-data verification](../../audit-evidence/midmorning-backend-20261110/README.md).
-- Use fictional data for development and tests. No agent-run live conversation
-  tests or paid probes; the owner assesses conversational quality.
+- Use fictional data for development and tests. Agent-run simulated
+  conversations are allowed (D155): the simulated person and judges run on the
+  owner's subscription; Daylight's own calls are capped at $10 per run, and the
+  full set runs only on request. The owner still assesses conversational quality.
 - Report remaining gaps honestly. Do not mark a requirement implemented on intent.
 
 ## Surfaces and where to work
@@ -313,6 +318,7 @@ error checks retain Daylight. No further app edit or restart was needed.
 | Legal and operating route (counsel questions, brokerage plan §7) | Pending counsel. Add: whether HIPAA formally applies to the agency. |
 | Legal entity name and consumer brand (D137) | Local :8894 branding and the shared advisor identity are restored to **Daylight**, with **Medicare, plain as day.** The earlier naming screens remain historical evidence. D143: the legal entity is CSquared, a Delaware C-corp (filing planned January 1, 2027); Daylight remains the public brand. Trademark clearance remains open. [Restoration](../../audit-evidence/daylight-restore-20261111/README.md) · [Name-screen history](../reviews/brand-screen-2026-11-10/README.md). |
 | Enrollment route and FMO | D143: Spark Advisors is the FMO in talks (demo pending). Enrollment route not yet chosen. |
+| Subscription-backed model route for local testing | Owner wants it as future development (November 21, 2026): let local hand testing run Daylight's own model calls on the owner's Claude subscription (through `claude -p`) instead of a paid API key. Not built. Needs a founder-reviewed `model-routes.json` change, a dev-only route that can never reach the pilot, and a note that it tests Claude, not the default `gpt-6.1-sol`. |
 
 ## How work runs
 

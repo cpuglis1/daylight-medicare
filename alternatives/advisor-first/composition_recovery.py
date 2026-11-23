@@ -27,7 +27,7 @@ VALIDATION_CODES = {
     'The conversational response was empty.': 'empty_response',
 }
 OPTIONAL_FIELDS = {'education', 'education_followups', 'task_work', 'conversation_assessment', '_reply_blocks', 'addressed_requests',
-                   'block_refs', 'offer_concept'}
+                   'block_refs', 'offer_concept', 'source_gap'}
 
 
 def normalize_blocks(value):

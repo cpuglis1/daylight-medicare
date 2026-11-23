@@ -1,0 +1,12 @@
+key: c02-p02-med-list-confirmed
+title: Anxious spouse-coverage case where the medicine list is already complete
+persona: P02
+probes: [no_reask, one_question]
+typist: self
+replies:
+  - if_asked_about: "Whether the medicine list is complete, or any other medicines"
+    reply: "Just those two. That's the complete list."
+max_messages: 8
+must_not_claim:
+  - "Asks again whether the medicine list is complete after Maribel said it is (the November 8 run asked four times)."
+  - "Ends an active reply with no question, or with two questions."

@@ -136,8 +136,11 @@ class ConversationQualityJourneyTests(unittest.TestCase):
             self.case.message(message, extraction=self.extraction(facts=['routesintro']),
                 compose=self.response('The coverage paths have different rules and costs.', refs=['routesintro']))
         recent = self.case.flow.memory.recent(self.case.owner, self.case.flow.current_chain[self.case.owner], CONTEXT_POLICY)
-        self.assertEqual(len(recent), 6)
-        self.assertFalse(any(item['user'] == first for item in recent))
+        # D155 Q11: the whole visit chat is sent each turn (only a RAM guard and the
+        # request byte bound drop the oldest), so all 9 exchanges, the first included,
+        # are still recent. The profile and learning below must hold regardless.
+        self.assertEqual(len(recent), 9)
+        self.assertTrue(any(item['user'] == first for item in recent))
         self.assertEqual(self.case.flow.value(self.case.g, 'subject.role'), 'self')
         self.assertEqual(self.case.flow.value(self.case.g, 'coverage.current'), ['none'])
         self.assertEqual(self.case.flow.value(self.case.g, 'situation.age65'), {'month': 11, 'year': None})
