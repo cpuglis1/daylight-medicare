@@ -46,6 +46,10 @@ DEFAULT_BINDING = PACKAGE / '.state/pilot-subset/2026-11-12-r1/binding.json'
 # advisor-first's server keeps a live local demo's guest store inside its own private folder
 # and refuses any other place. The variant gets its own file there, apart from :8895's.
 LIVE_DATABASE = _paths.ADVISOR / 'var/demo-8895/one-call-8897.sqlite3'
+# Full turn traces for the dev side panel (D155 Q6, local testing only): every turn's
+# messages, prompts, tool calls and raw model output, one JSON file per turn. Kept in
+# this variant's own gitignored folder, apart from :8893's cms-slice/var/turn-traces.
+TURN_TRACES = Path(__file__).resolve().parent / 'var' / 'turn-traces'
 
 
 def configure(flow, *, medigap_repository=None, part_d_repository=None):
@@ -121,9 +125,13 @@ def attach_checks(flow, *, doctor_service, prescription_service, part_d_reposito
 def build_one_call(port=PORT, *, fixture=False, client=None, database=None, binding_path=DEFAULT_BINDING, dsn=None,
                    medigap_repository=None, part_d_repository=None, research_catalog=None, count_tokens=None,
                    conversation_checks=False, doctor_service=None, prescription_service=None,
-                   reconcile=None, one_call=True):
+                   reconcile=None, one_call=True, turn_traces=None):
     """Build the server. ``one_call=False`` builds the same wiring around advisor-first's
-    own two-call conversation, for the bake-off's like-for-like comparison."""
+    own two-call conversation, for the bake-off's like-for-like comparison.
+
+    ``turn_traces`` is a folder for advisor-first's dev turn traces (``turn_trace.py``),
+    which also turn on the side panel and its ``/api/dev/turns`` routes. None leaves
+    them off; advisor-first refuses them for a pilot or hosted service."""
     if port in REFUSED_PORTS:
         raise ValueError('That port belongs to another Daylight surface. The one-call variant uses %d.' % PORT)
     if client is not None and not fixture:
@@ -151,7 +159,8 @@ def build_one_call(port=PORT, *, fixture=False, client=None, database=None, bind
     try:
         service = build(port, fixture=fixture, database=database, local_demo=True, client=client,
                         count_tokens=count_tokens, research_catalog=catalog,
-                        medigap_repository=medigap_repository, part_d_repository=part_d_repository)
+                        medigap_repository=medigap_repository, part_d_repository=part_d_repository,
+                        turn_traces=turn_traces)
     except Exception:
         if scratch:
             scratch.cleanup()
@@ -187,6 +196,14 @@ def build_one_call(port=PORT, *, fixture=False, client=None, database=None, bind
                 # trace stays inside this variant's.
                 flow.one_call_trace = str(TRACE_FILE)
         log_guard.install(names=LOGGERS)
+        if turn_traces:
+            # The panel's "checks fired" reads WARNING diagnostics from advisor-first's
+            # loggers; this variant's own loggers report there too.
+            import turn_trace
+            for name in LOGGERS:
+                logger = logging.getLogger(name)
+                if turn_trace._HANDLER not in logger.handlers:
+                    logger.addHandler(turn_trace._HANDLER)
         base = service.RequestHandlerClass
 
         class Handler(base):
@@ -239,6 +256,8 @@ def main(argv=None):
     parser.add_argument('--doctor-foundation', type=Path, help='Local doctor research binding, for --conversation-checks.')
     parser.add_argument('--conversation-checks', action='store_true',
                         help='Use the current chat reports for local doctor and prescription checks.')
+    parser.add_argument('--no-turn-traces', action='store_true',
+                        help='Do not save full turn traces for the dev side panel (saved by default for a live local run).')
     args = parser.parse_args(argv)
     if args.fixture and (args.conversation_checks or args.doctor_foundation):
         parser.error('--fixture starts without any data service.')
@@ -264,9 +283,12 @@ def main(argv=None):
                 print(f'Doctor research is unavailable ({type(error).__name__}).', flush=True)
     service = build_one_call(args.port, fixture=args.fixture, binding_path=args.binding,
                              conversation_checks=args.conversation_checks, doctor_service=doctor_service,
-                             prescription_service=prescription_service)
+                             prescription_service=prescription_service,
+                             turn_traces=None if args.fixture or args.no_turn_traces else TURN_TRACES)
     print(f'Daylight one-call variant: http://127.0.0.1:{service.server_port}/', flush=True)
     print('Experimental. Same interface and data wiring as :8895; one model call per typed message.', flush=True)
+    if getattr(service, 'turn_traces', None):
+        print(f'Turn traces on (Turn traces tab on the page): {TURN_TRACES}', flush=True)
     if not args.conversation_checks:
         print('Started without --conversation-checks: no doctor or medicine picker will appear. '
               'Use "Start Daylight One-Call 8897.command" for the full wiring.', flush=True)
