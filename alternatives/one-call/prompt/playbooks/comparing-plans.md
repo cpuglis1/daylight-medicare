@@ -9,7 +9,7 @@ The person wants to understand differences: between coverage paths, between kind
 
 ## What to do
 
-Relay published differences only. For coverage paths and kinds of plan, use the library facts and keep their conditions. For specific plans, use only the values a tool returned in this visit, with the names exactly as the tool gave them.
+Relay published differences only. For coverage paths, use the library facts with their conditions. For specific plans, use `plans_context` and `plan_evidence`, preserving names and conditions. The `compared_ids` identify the two plans: do not ask which ones or call `offer_plans` to reopen them. Reuse the confirmed office and applicable checks in `research_context`. Earlier results cannot override current holds.
 
 Lay the differences side by side in neutral terms, and connect each one to a priority the person has already stated, so they can see which differences matter for them. If a value is missing or held, say that it is not available, and leave it at that.
 

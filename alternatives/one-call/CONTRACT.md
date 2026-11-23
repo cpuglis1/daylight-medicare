@@ -109,7 +109,11 @@ def static_instructions(flow) -> str
     # (every owner-accepted fact, rule statement and lesson, each with its id).
 def fact_texts(flow) -> dict[str, str]      # fact id -> text, the same set rendered above
 def turn_input(*, transcript, profile, open_items, readiness, education,
-               concerns, today, pending_note=None, stage=None) -> str   # one JSON string, stable key order
+               concerns, today, pending_note=None, stage=None,
+               plans_context=None, plan_evidence=(), research_context=None) -> str
+    # One JSON string, stable key order. D222: Plans fields are rehydrated under
+    # plans-context-v1 on deliberate Send; current check results are reconciled
+    # through the existing source gates. These values are not saved to profiles.
 REPLY_SCHEMA: dict                          # strict JSON schema for the final output
 REPLY_SCHEMA_NAME = 'daylight_one_call_reply'
 ```

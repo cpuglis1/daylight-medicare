@@ -319,7 +319,8 @@ class TurnInputTests(unittest.TestCase):
         self.assertEqual(first, second)
         value = json.loads(first)
         self.assertEqual(list(value), ['today', 'profile', 'open_items', 'readiness', 'education',
-                                       'concerns', 'stage', 'pending_note', 'transcript'])
+                                       'concerns', 'stage', 'pending_note', 'plans_context', 'plan_evidence',
+                                       'research_context', 'transcript'])
         self.assertIsNone(value['pending_note'])
         self.assertEqual(value['transcript'][-1], {'role': 'person', 'text': 'A fictional message from Pat Example.'})
 

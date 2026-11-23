@@ -69,6 +69,7 @@ from one_call_reconcile import Reconciler
 from one_call_tools import TOOL_NAMES, ToolRunner
 import one_call_prompt
 import one_call_plan_checks
+import one_call_context
 
 LOGGER = logging.getLogger(__name__)
 LOGGERS = ('one_call_flow', 'one_call_agent', 'one_call_tools', 'one_call_reconcile', 'one_call_server')
@@ -1228,19 +1229,37 @@ class OneCallConversation(NaturalConversation):
             notes.append(CONFIRMED_NOTE % ', '.join(dict.fromkeys(confirmed)))
         if check_answered:
             notes.append(CHECK_NOTE)
+        plans_context, plan_evidence = one_call_context.plans(self, guide, record)
+        research_context = one_call_context.research(self, owner, guide, record, plans_context)
+        evidence_profile = one_call_context.input_digest(guide, record)
+        turn['plan_evidence'] = plan_evidence
         values = {'transcript': transcript, 'profile': self._profile(owner, guide, record, state),
                   'open_items': open_items, 'readiness': self._readiness(owner, guide, record, state, today),
                   'education': conversation_records.education_view(state), 'concerns': concerns, 'today': today,
-                  'stage': {**self._stage(concerns), 'detail_permission': turn['permission_before']}}
+                  'stage': {**self._stage(concerns), 'detail_permission': turn['permission_before']},
+                  'plans_context': plans_context, 'plan_evidence': plan_evidence,
+                  'research_context': research_context}
         request = {'instructions': fixed['instructions'], 'runner': runner, 'request_id': payload['requestId'],
                    'reservation': reservation}
 
         def grounding():
+            nonlocal evidence_profile, plans_context, plan_evidence, research_context
+            current_profile = one_call_context.input_digest(runner.guide, runner.record)
+            if current_profile != evidence_profile:
+                # A tool may correct the quote profile in this same request.
+                # Validate against the new evidence and use it in any repair.
+                plans_context, plan_evidence = one_call_context.plans(self, runner.guide, runner.record)
+                research_context = one_call_context.research(self, owner, runner.guide, runner.record, plans_context)
+                values.update(plans_context=plans_context, plan_evidence=plan_evidence, research_context=research_context)
+                turn['plan_evidence'] = plan_evidence
+                evidence_profile = current_profile
             after = conversation_planner.state(self, owner)
+            previous = [item for item in prior_outputs if research_context is None or
+                        item.get('name') not in ('check_doctor', 'check_medicine')]
             return {'person_text': [item['text'] for item in transcript if item['role'] == 'person'],
                     'reports': self._profile(owner, runner.guide, runner.record, after),
-                    'tool_outputs': [*prior_outputs, *runner.results],
-                    'fact_texts': fixed['fact_texts'],
+                    'tool_outputs': [*previous, *runner.results, research_context or {}, plans_context or {}],
+                    'fact_texts': {**fixed['fact_texts'], **{item['id']: item['text'] for item in plan_evidence}},
                     'open_ids': set(runner.open_ids()) | {
                         move['id'] for move in conversation_planner.refine(self, owner, runner.guide, runner.record, [])}}
 
@@ -1495,6 +1514,8 @@ class OneCallConversation(NaturalConversation):
         by_id = {move['id']: move['question'] for move in moves}
         if complete:
             out['reply'] = '\n\n'.join(block['text'] for block in turn['blocks'])
+            if turn.get('plan_evidence'):
+                out['planEvidence'] = [item for item in turn['plan_evidence'] if item['id'] in cited]
             cards = copy.deepcopy(runner.cards)
             # On a handoff turn the step to see plans is the one thing asked of the person.
             question = None if handoff else turn['question']

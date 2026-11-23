@@ -107,6 +107,13 @@ class Doctors(unittest.TestCase):
         self.assertEqual(out['state'], 'not_met')
         self.assertIn('Confirmed out of network', out['note'])
 
+    def test_confirmed_medicare_doctor_does_not_imply_advantage_network_membership(self):
+        out = self.check({'doctor:doctor-1': matrix(state='unknown', membership=None, evidence_dates=[])})
+        self.assertEqual((out['indicator'], out['state']), ('warning', 'unknown'))
+        self.assertIn('office confirmed; no applicable network record', out['note'])
+        self.assertNotIn('Confirmed out of network', out['note'])
+        self.assertIn('office check not available', self.check({})['note'])
+
     def test_medicare_record_is_not_select_network_evidence(self):
         for select in (None, True):
             out = self.check({'doctor:doctor-1': matrix()}, medigap={'select_observed': select})

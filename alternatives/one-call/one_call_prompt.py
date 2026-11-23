@@ -290,7 +290,7 @@ _ROLES = ('person', 'daylight')
 
 
 def turn_input(*, transcript, profile, open_items, readiness, education, concerns, today, pending_note=None,
-               stage=None):
+               stage=None, plans_context=None, plan_evidence=(), research_context=None):
     """One JSON string with a fixed key order; the transcript comes last.
 
     The same values always give the same string, whatever order the caller
@@ -311,6 +311,9 @@ def turn_input(*, transcript, profile, open_items, readiness, education, concern
         'stage': stage if stage is not None else {
             'now': 'understand_the_person', 'still_to_learn': ['why_now', 'worries', 'tried'], 'detail_permission': 'open'},
         'pending_note': pending_note,
+        'plans_context': plans_context,
+        'plan_evidence': list(plan_evidence),
+        'research_context': research_context,
         'transcript': turns,
     }
     return _ordered(value, tuple(value))

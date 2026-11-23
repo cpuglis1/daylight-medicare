@@ -274,7 +274,8 @@ class WholeVisit(FlowCase):
         tools = {json.dumps(payload['tools'], sort_keys=True) for payload in self.script.sent}
         self.assertEqual(len(tools), 1)
         self.assertEqual(list(eighth), ['today', 'profile', 'open_items', 'readiness', 'education', 'concerns',
-                                        'stage', 'pending_note', 'transcript'])
+                                    'stage', 'pending_note', 'plans_context', 'plan_evidence',
+                                    'research_context', 'transcript'])
         self.assertEqual(eighth['today'], support.TODAY.isoformat())
 
     def test_a_button_answer_between_two_typed_turns_reaches_the_next_model_input(self):
