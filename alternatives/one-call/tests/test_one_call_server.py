@@ -10,6 +10,7 @@ import logging
 from pathlib import Path
 import socket
 import sys
+from tempfile import TemporaryDirectory
 import threading
 import unittest
 from unittest.mock import patch
@@ -242,6 +243,70 @@ class OfflineFixture(ServerCase):
         self.assertEqual(status, 428)
         self.assertEqual(refused['error'], one_call_flow.POLICY_MESSAGE)
         self.assertEqual(len(script.sent), 2)
+
+    def test_turn_traces_record_a_scripted_turn_for_the_side_panel(self):
+        """With turn traces on, a typed turn is saved with its model and tool calls and the
+        panel's routes return it to the same visit only (D155 Q6, local testing)."""
+        script = Script()
+        folder = Path(self.enterContext(TemporaryDirectory(prefix='daylight-one-call-traces-')))
+        service = self.build(client=ResponsesClient(key='synthetic-offline-only', model='gpt-5.4', transport=script),
+                             reconcile=False, turn_traces=folder)
+        support.temporary_ledger(self, service.adaptive.agent)
+        port = self.serve(service)
+        auth, state = self.session(port)
+        status, _, raw = self.request(port, 'GET', '/ten-config.json', headers=auth)
+        self.assertEqual(status, 200)
+        self.assertIs(json.loads(raw).get('devTraces'), True)        # the panel mounts only when this is true
+        status, _, raw = self.request(port, 'GET', '/api/status', headers=auth)
+        info = json.loads(raw)
+        self.assertTrue(info['dev_turn_traces'] and info['conversation_logging'])
+        self.assertEqual(info['local_demo']['surface'], one_call_server.SURFACE)   # one-call's own status survives
+
+        status, out = self.turn(port, auth, state, {'type': 'start'}, consent=False, policy=None)
+        self.assertEqual(status, 200)
+        script.add([save(update('RC01', {'choice': 'self'}, 'This coverage is for me')), call('c2', 'get_plan_status', {})],
+                   [message(reply('Thank you, I have noted that.', question='Do you have any part of Medicare yet?',
+                                  target='RC04', detail_step='requested_work'))])
+        text = 'This coverage is for me. Please help me check which parts of Medicare I have.'
+        status, out = self.turn(port, auth, out, {'type': 'message', 'message': text}, consent=True, policy=CONTEXT_POLICY)
+        self.assertEqual(status, 200, out)
+
+        status, _, raw = self.request(port, 'GET', '/api/dev/turns', headers=auth)
+        self.assertEqual(status, 200)
+        turns = json.loads(raw)['turns']
+        typed = [row for row in turns if row.get('action') == 'message']
+        self.assertEqual(len(typed), 1, turns)
+        status, _, raw = self.request(port, 'GET', '/api/dev/turns/' + typed[0]['turnId'], headers=auth)
+        self.assertEqual(status, 200)
+        record = json.loads(raw)
+        self.assertEqual((record['status'], record['message'], record['reply']),
+                         ('ok', text, 'Thank you, I have noted that.'))
+        # Both requests of the one-call turn, each with its full prompt and raw output.
+        self.assertEqual([call_['kind'] for call_ in record['modelCalls']], ['compose', 'compose'])
+        self.assertTrue(all(call_['request'] and call_['status'] == 'ok' for call_ in record['modelCalls']))
+        self.assertEqual(record['modelCalls'][0]['request']['instructions'], script.sent[0]['instructions'])
+        # The variant's own tools, with the model's arguments and what code sent back.
+        tools = {item['tool']: item for item in record['toolCalls']}
+        self.assertIn('save_profile_fields', tools)
+        self.assertIn('get_plan_status', tools)
+        self.assertIsNotNone(tools['save_profile_fields']['output'])
+        self.assertIn('subject.role', json.dumps(record['factsSaved']))
+        self.assertEqual(len(list(folder.glob('*.json'))), len(turns))
+
+        # Another visit sees none of these turns.
+        other, _ = self.session(port)
+        status, _, raw = self.request(port, 'GET', '/api/dev/turns', headers=other)
+        self.assertEqual((status, json.loads(raw)['turns']), (200, []))
+        status, _, _ = self.request(port, 'GET', '/api/dev/turns/' + typed[0]['turnId'], headers=other)
+        self.assertEqual(status, 404)
+
+    def test_turn_traces_are_off_unless_asked(self):
+        port = self.serve(self.build())
+        auth, _ = self.session(port)
+        status, _, raw = self.request(port, 'GET', '/ten-config.json', headers=auth)
+        self.assertNotEqual(json.loads(raw).get('devTraces'), True)
+        status, _, _ = self.request(port, 'GET', '/api/dev/turns', headers=auth)
+        self.assertNotEqual(status, 200)
 
     def test_requests_from_another_host_name_are_rejected(self):
         port = self.serve(self.build())
