@@ -66,7 +66,7 @@ def grade(case, call=claude_json, rubric=""):
         except (OSError, RuntimeError, ValueError, KeyError):
             # Keep subprocess stderr and local environment details out of exported traces.
             attempts.append({"model": model, "error": "Judge unavailable or invalid verdict"})
-    return {"verdict": "error", "confidence": 0, "model": MODELS[-1],
+    return {"verdict": "error", "confidence": None, "model": None,
             "reason": "No valid final judge verdict", "trace": {"judgeInput": prompt, "judgeCalls": attempts}}
 
 

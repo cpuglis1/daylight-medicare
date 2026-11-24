@@ -157,6 +157,8 @@ class ReservedStage:
                     if not getattr(self.budget, 'finish_admitted_turn', False) and total - row[0] + amount > cap:
                         raise BudgetError(self.budget.limit_message(self.model) if hasattr(self.budget, 'limit_message') else
                                           f'This request could exceed the shared ${cap / 1_000_000_000:g} daily AI limit. Try after 00:00 UTC or use manual guidance.')
+                    if hasattr(self.budget, 'check_run_allowance'):
+                        self.budget.check_run_allowance(db, amount - row[0])
                     if hasattr(self.budget, 'check_invite_allowance'):
                         self.budget.check_invite_allowance(db, amount - row[0], self.model)
                     db.execute('UPDATE ai_charges SET reserved=?,charged=?,input_bound=? WHERE id=?',

@@ -56,7 +56,8 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
           comparison_preview=False, research_catalog=None, pilot_state=None, pilot_origin=None,
           medigap_repository=None, part_d_repository=None, local_demo=False, pilot_display_binding=None,
           pilot_ledger=None, hosted_setup=None, hosted_plans_review=False, hosted_recommendation=False,
-          hosted_checks=False, turn_traces=None):
+          hosted_checks=False, turn_traces=None, diagnostic_budget=None):
+    """Build one advisor; diagnostic budgets are private to isolated local trials."""
     if port in {8890,8891,8896}:
         raise ValueError('That port belongs to a preserved Daylight surface.')
     if pilot_origin is not None:
@@ -73,6 +74,13 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
     db = Path(database).resolve() if database else default_db
     if local_demo and not fixture and not db.is_relative_to(demo_store.resolve()):
         raise ValueError('The unified local demo must use its separate private store.')
+    if diagnostic_budget is not None:
+        private = (HERE / 'var' / 'eval-diagnostics').resolve()
+        if (port != 0 or fixture or local_demo or pilot_state is not None or pilot_origin is not None
+                or not database or not db.is_relative_to(private) or db.exists()
+                or not isinstance(turn_traces, Path) or not turn_traces.resolve().is_relative_to(db.parent)
+                or Path(diagnostic_budget) != private / 'usage.sqlite3'):
+            raise ValueError('Diagnostic budgets require a new private local evaluation store.')
     pilot = pilot_budget = None
     if (pilot_ledger is not None or hosted_setup is not None) and not (pilot_state and pilot_origin):
         raise ValueError('Hosted setup requires the isolated pilot state and HTTPS origin.')
@@ -119,7 +127,7 @@ def build(port=8893, *, fixture=False, database=None, client=None, count_tokens=
               'responseReliabilityContract':RESPONSE_RELIABILITY_VERSION}
     service=make_server(port, database=db, web=HERE/'web', client=client, public_origin=pilot_origin,
         enable_live=not fixture, live_limit=None, count_tokens=count_tokens or count_input_tokens,
-        budget_database=None if fixture else REPO/'cms-slice/var/ai-budget/usage.sqlite3',
+        budget_database=None if fixture else diagnostic_budget or REPO/'cms-slice/var/ai-budget/usage.sqlite3',
         cookie_namespace=(('daylight_demo_8895_fixture' if fixture else 'daylight_demo_8895_dev') if local_demo
                           else GUEST_COOKIE if pilot else ('daylight_advisor_fixture' if fixture else 'daylight_advisor_dev')),
         ui_config=config, conversation_class=ChatConversation, profile_gate_class=ProfileReadiness,
