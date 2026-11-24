@@ -9,3 +9,7 @@ Evidence entries reference exact statement text in the repository's owner-accept
 Agent-authored reference labels apply to the named judge only. The five related cases in a family share their underlying scenario and often share sample replies. Interpret agreement as calibration on these fixtures. Replaying a case through a running advisor would require separate setup of the visit, applicable data, and tools. The state summary is for offline evaluation and must stay out of the visitor message.
 
 Run `python evals/diagnostics/validate_cases.py` from the repository root to check the stored split, case schema, evidence text and corpus counts without network or model calls.
+
+For a tuning worker, use `python3 evals/diagnostics/export_training.py /absolute/path/to/new-package` from the owner environment. Grant the worker access only to that training package in an isolated session. Full-repository access includes the operator's validation data.
+
+From the repository root, `python3 tools/evaluation/calibrate_turns.py --suite tool_use --split training --trials 3 --reason "Review tool-use rubric" --output-dir /private/tmp/daylight-calibration` prints the selection and upper call count. This uses the D155 Python environment with PyYAML installed. An owner-requested subscription run additionally takes `--run`. Output files contain fictional judge inputs and responses; keep them in private local storage.
