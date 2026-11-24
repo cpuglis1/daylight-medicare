@@ -44,11 +44,12 @@ def subscription_available():
     return not any(value and key.startswith(blocked) for key, value in os.environ.items())
 
 
-def grade(case, call=claude_json):
+def grade(case, call=claude_json, rubric=""):
     """Grade an allowlisted view, escalating uncertain judgments to the stronger model."""
     observed = {k: case[k] for k in ("context", "user_prompt", "expected_behavior",
                                       "sample_reply", "evidence", "tool_trace")}
-    prompt = INSTRUCTION + "\n" + fenced("record", json.dumps(observed, ensure_ascii=False))
+    instruction = INSTRUCTION + ("\n" + fenced("rubric", rubric) if rubric else "")
+    prompt = instruction + "\n" + fenced("record", json.dumps(observed, ensure_ascii=False))
     attempts = []
     for model in MODELS:
         try:
@@ -77,10 +78,17 @@ def main():
     parser.add_argument("--trials", choices=range(1, 11), default=1, type=int)
     parser.add_argument("--reason", required=True)
     parser.add_argument("--output-dir", required=True, type=Path)
+    parser.add_argument("--judge-prompt-file", type=Path, help="Plain-text owner rubric for this suite")
     parser.add_argument("--run", action="store_true", help="Execute subscription judge calls")
     args = parser.parse_args()
     if not args.reason.strip() or len(args.reason) > 300:
         parser.error("Supply a short reason for the run")
+    rubric = ""
+    if args.judge_prompt_file:
+        with args.judge_prompt_file.open(encoding="utf-8") as handle:
+            rubric = handle.read(12001).strip()
+        if not rubric or len(rubric) > 12000:
+            parser.error("Use a nonempty rubric of up to 12000 characters")
     data = ROOT / "evals" / "diagnostics" / "cases" / (args.suite + ".jsonl")
     selected = []
     for line in data.read_text().splitlines():
@@ -97,11 +105,12 @@ def main():
     started = datetime.now(timezone.utc).isoformat()
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     batch = {"schemaVersion": 1, "kind": "calibration", "candidate": revision,
-             "judgeVersion": digest(Path(__file__).read_text() + Path(__file__).with_name("sim_conversations.py").read_text() + json.dumps(MODELS)),
+             "judgeVersion": digest(Path(__file__).read_text() + Path(__file__).with_name("sim_conversations.py").read_text() + json.dumps(MODELS) + rubric),
+             "judgePrompt": INSTRUCTION + ("\n" + fenced("rubric", rubric) if rubric else ""), "judgeModels": list(MODELS),
              "startedAt": started, "changeReason": args.reason, "judgeId": args.suite, "split": args.split, "trials": []}
     for case, raw_hash in selected:
         for trial in range(1, args.trials + 1):
-            outcome = grade(case)
+            outcome = grade(case, rubric=rubric)
             batch["trials"].append({"caseId": case["id"], "rawLineHash": raw_hash,
                                     "trial": trial, "reply": case["sample_reply"],
                                     "referenceLabel": case["reference_label"], **outcome})
