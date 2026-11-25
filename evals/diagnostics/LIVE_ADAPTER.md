@@ -25,7 +25,7 @@ it into the isolated checkout. Keep it out of the patch. The adapter also
 checks the original contract's digest and every bound source and refuses
 before a trial if anything differs.
 
-The typed pause and ZIP correction starts use ordinary structured answers.
+The typed validation starts use structured answers, verified visit memory and available local evidence.
 The correction case also seeds fictional exchanges in the actual visit-memory
 store. These exchanges supply context only. The seal and profile gates still
 apply. The 480 calibration rows are unchanged. Unsupported starting states
@@ -42,6 +42,11 @@ working traces are cleaned up after the run. Output reports and the isolated
 usage ledger persist under `alternatives/advisor-first/var/eval-diagnostics`.
 
 Local observations are diagnostic evidence only. Model aliases and unsigned
-digests cannot attest a release identity. Live judge scoring, complete
-executable validation coverage and matched baseline evidence are absent. The
+digests cannot attest a release identity. Complete executable validation coverage and matched baseline evidence remain open. The
 adapter emits no release comparison and cannot feed the deployment gate.
+
+### Validation preflight and grading
+
+Run `python evals/diagnostics/run_live.py --available-validation --trials 1` to list the bound holdout cases and identify missing fixtures without spending. A paid subset run adds the owner authorization flag and an explicit cap in cents. Each trial starts from a fresh visitor state. Per-run manifests and intermediate JSONL observations are retained in the private diagnostics progress directory. A partial run cannot qualify a release.
+
+To score a completed private artifact, run `python evals/diagnostics/score_observations.py PATH` in the D155 Python environment with a signed-in Claude subscription. Case reference replies and agent labels stay out of grader requests. The report describes the individual outcomes and identifies errors or missing evidence. These scores evaluate the current candidate; a release comparison also requires the same checks, cases and trial counts on the previous build.
