@@ -52,3 +52,55 @@ adapter emits no release comparison and cannot feed the deployment gate.
 Run `python evals/diagnostics/run_live.py --available-validation --trials 1` to list the bound holdout cases and identify missing fixtures without spending. A paid subset run adds the owner authorization flag and an explicit cap in cents. Each trial starts from a fresh visitor state. Per-run manifests and intermediate JSONL observations are retained in the private diagnostics progress directory. A partial run cannot qualify a release.
 
 To score a completed private artifact, run `python evals/diagnostics/score_observations.py PATH` in the D155 Python environment with a signed-in Claude subscription. Case reference replies and agent labels stay out of grader requests. The report describes the individual outcomes and identifies errors or missing evidence. These scores evaluate the current candidate; a release comparison also requires the same checks, cases and trial counts on the previous build.
+
+### Fixture demo export
+
+The local operator can prepare a private review artifact from a completed
+validation run. The inputs contain provider payloads and untrusted model
+text. Someone with access to a shared path could try to substitute a file,
+and reply text could expose identifiers or carry active markup. The exporter
+admits owner-only files under the diagnostic directory, pins prompts to the
+reviewed corpus, verifies the manifest and trial identities, and copies only
+allowlisted fields. It suppresses unsafe replies as a whole. Keep exported
+text inert in the demo and review the actual artifact before publishing it.
+
+Use a restrictive umask when running the live adapter so its progress manifest
+also has private permissions. Export from the same checkout:
+
+```sh
+python evals/diagnostics/export_demo_observations.py PATH_TO_LIVE_OBSERVATION
+python evals/diagnostics/export_demo_observations.py PATH_TO_LIVE_OBSERVATION --scores PATH_TO_LIVE_SCORES
+```
+
+The run's manifest is read from `progress/` by run ID. A missing, in-progress,
+or inconsistent file stops the export. The score file is optional and must
+match the exact observation file and its trial keys. Only a valid subscription
+judge outcome on an observed trial appears in the export, including a judge
+error. Screened judge reasons accompany displayable replies when available. A
+suppressed or missing reply is omitted. Unbound case IDs identify fictional cases
+without trials.
+
+The content-addressed export stays in the private diagnostic directory. Review
+every projected reply and judge reason before deployment and attest the exact
+SHA-256 of the reviewed bytes at demo launch. This command has no network or
+publishing step. Remove private artifacts through the operator's normal local
+retention process.
+
+A signed-in Codex subscription can score a completed run or follow its private progress
+journal. In the D155 Python environment, run
+`python evals/diagnostics/score_codex.py RUN_UUID` after the owner authorizes scoring.
+The scorer uses `gpt-6.2-sol` on ChatGPT authentication, checks each trial against its
+suite rubric and case criterion, and saves completed receipts as it goes. Run the same
+command to resume an interrupted scoring process against the same judge and case versions.
+A final score report is linked to the exact completed observation artifact after checking
+each receipt. Private outputs contain fictional scoring evidence. Treat model names as
+requested aliases and judge grades as diagnostics subject to owner review.
+
+The scorer accepts only bounded, owner-owned files in the private run folder. It
+sends the tracker's fictional evidence and untrusted generated text as delimited data,
+with reference labels and mock outputs excluded. The CLI runs in an empty directory
+with ChatGPT-only authentication, a read-only sandbox, disabled tools, and a bounded
+worker pool. The grader gets no inherited model-routing or API credential variables.
+A removed or expired subscription fails closed. The temporary CLI directories are
+removed after each trial, the receipt journal is removed after final publication, and
+the owner retains the private reports under the existing diagnostics retention policy.
