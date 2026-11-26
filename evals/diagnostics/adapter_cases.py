@@ -9,7 +9,7 @@ Authored calibration outputs and descriptive context never enter these inputs.
 # case records and replaces the ZIP using the actual Plans filter action.
 STARTS = {
     'question_timing-pause-1': {
-        'lineHash': '3916532f4ad58588613b7b7395f024fbd1de6ba129dbfce934276c11864bc44a',
+        'lineHash': '05142fec2be54835d84c9cfa01a1797d0332a9442f17262e53ebc1003749772c',
         'setup': [
             {'type': 'choice', 'id': 'T01', 'fields': {'choice': 'compare'}},
             {'type': 'choice', 'id': 'RC01', 'fields': {'choice': 'self'}},
@@ -20,7 +20,7 @@ STARTS = {
         'fields': {'intent.goal': 'compare', 'intent.coveragePath': None},
     },
     'conversational_continuity-correction-1': {
-        'lineHash': '06b46e7addc436445589f85b2e543d1b49c6ff0a45105a4e98143a42ff7e765e',
+        'lineHash': 'f4dc629958206a14a974e6e1a82400c740f6db4c18e4a4811eea825f153b989d',
         'setup': [
             {'type': 'choice', 'id': 'T01', 'fields': {'choice': 'compare'}},
             {'type': 'choice', 'id': 'RC01', 'fields': {'choice': 'self'}},

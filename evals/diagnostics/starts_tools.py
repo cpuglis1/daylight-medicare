@@ -11,8 +11,8 @@ import starts_facts
 
 
 HELDOUT_HASHES = {
-    'tool_use': 'd221c73e83c6e914ea6a886d17ae07386822e6a4e45af87c417e0726a6a3eb46',
-    'unsupported_inferences': '98cb9d1edd1b1024e47dadf3ccb69b025eacc3e55f5df8be6feb80c52dd9fb6d',
+    'tool_use': '070daee33abc08f90d0b315db6c6edaa381250bbe6a33b7b2bf48cf872d90254',
+    'unsupported_inferences': '1a98b7db925db3333b3ebf92daca0450e138e768a52e373e450959fb57c284d8',
 }
 
 # Unknown fields are genuine absent reports. The same readback after Send is
@@ -28,22 +28,21 @@ INFERENCE_CHECKS = {
     'selection': ({'intent.selectedPlan': None}, {}),
 }
 
+# The directory fixture needs a real selected plan and exact-office result.
+# The current composer exposes neither a directory lookup nor that result as
+# a tool response, so pass_trace remains calibration-only.
 TOOL_RULES = {
     'needed': ('working_coverage_sep', False),
     'preloaded': ('partd_penalty', True),
     'nomatch': (None, False),
+    # These case families retain their existing IDs and split assignments.
+    'handoff_no_send': ('hsa_medicare', False),
+    'handoff_summary': (None, False),
 }
-# Neither human handoff case has a corresponding model tool. The only
-# composition function is the source lookup (natural_agent.py); the local
-# Plans handoff in natural_flow.py is a catalog receipt, not a human transfer.
-
-# These utterances recreate the earlier conversational preferences described
-# by the corpus. They are visit memory only, with no authority to record facts.
-PRIOR_PREFERENCES = {
-    '2': 'Please keep the earlier explanations in plain language.',
-    '4': 'I want to make the decision myself.',
-    '5': 'Please take this one step at a time.',
-}
+SUMMARY_REPORT = (
+    'I wrote down $18 a month on one listing and $31 on the other. '
+    'I haven’t found the pharmacy costs yet.'
+)
 
 
 def _choice(identifier, choice):
@@ -57,16 +56,18 @@ def _start(case, line_hash):
     relationship = 'someone' if case['journey'] == 'caregiver' else 'self'
     setup = [_choice('T01', 'compare'), _choice('RC01', relationship)]
     history = []
-    pref = PRIOR_PREFERENCES.get(case['id'].rsplit('-', 1)[1])
-    if pref:
-        history.append((pref, '', ''))
     fields = {'intent.goal': 'compare', 'subject.role': relationship}
     reports = {}
     start = {'lineHash': line_hash, 'setup': setup, 'history': history, 'fields': fields,
              'reports': reports, 'relationship': relationship}
     if case['judge'] == 'tool_use':
         fact_id, supplied = TOOL_RULES[family]
-        start['toolRule'] = {'factId': fact_id, 'codeSupplied': supplied}
+        start['toolRule'] = {'factId': fact_id, 'codeSupplied': supplied,
+                             'outsideCatalog': 'arizona' if family == 'nomatch' else None}
+        if family == 'handoff_summary':
+            # Prior visitor reports are memory only. There is no fabricated
+            # price response, selected plan, or transfer in this setup.
+            history.append((SUMMARY_REPORT, '', ''))
         if family == 'preloaded':
             # The ordinary applicable-rule selector supplies the accepted
             # Part D statement for Original Medicare without drug coverage.
@@ -77,8 +78,6 @@ def _start(case, line_hash):
         absent_fields, absent_reports = INFERENCE_CHECKS[family]
         fields.update(absent_fields)
         reports.update(absent_reports)
-        if family == 'priorities':
-            history.append(('What does a low premium mean?', '', ''))
         start['postFields'] = dict(absent_fields)
         start['postReports'] = dict(absent_reports)
         if family == 'selection':
@@ -111,14 +110,17 @@ def verify_start(flow, state, start):
     if not rule:
         return
     fact_id = rule['factId']
+    outside_catalog = rule['outsideCatalog']
+    if outside_catalog and any(
+            outside_catalog in ' '.join(str(fact.get(key, '')) for key in
+                                        ('title', 'question', 'summary', 'text')).casefold()
+            for fact in flow.facts.values()):
+        raise ValueError('The reviewed catalog now contains material for the out-of-scope request.')
     if fact_id is None:
-        if any('arizona' in ' '.join(str(fact.get(key, '')) for key in
-                                     ('title', 'summary', 'text')).casefold()
-               for fact in flow.facts.values()):
-            raise ValueError('The reviewed catalog now contains Arizona material.')
         return
-    if fact_id not in flow.rule_facts or fact_id not in flow.facts:
-        raise ValueError('The accepted source needed for this trial is unavailable.')
+    starts_facts.verify_start(flow, state, {'source_id': fact_id})
+    if flow.facts.get(fact_id, {}).get('text') != flow.rule_facts[fact_id]['text']:
+        raise ValueError('The lookup catalog lacks the exact accepted source for the trial.')
     native_rules = applicable_rules(lambda identifier: flow.report(state['record'], identifier),
                                     lambda field: flow.value(state['guide'], field))
     if any(r['fact_id'] == fact_id for r in native_rules) != rule['codeSupplied']:
@@ -142,19 +144,31 @@ def verify_observation(trace, start):
                     and plans['compared_ids'] == [])
         except (KeyError, IndexError, TypeError, ValueError):
             return False
-    if not any(tool.get('type') == 'function' and tool.get('name') == 'lookup_medicare_sources'
-               for tool in first.get('tools', [])):
+    lookup = next((tool for tool in first.get('tools', [])
+                   if tool.get('type') == 'function' and tool.get('name') == 'lookup_medicare_sources'), None)
+    if lookup is None:
         return False
-    supplied = next((entry['output']['evidence'] for entry in trace.get('toolCalls', [])
-                     if entry.get('tool') == 'sources_supplied_by_code'), None)
-    return (supplied is not None and
-            any(item.get('id') == rule['factId'] for item in supplied) == rule['codeSupplied'])
+    fact_id = rule['factId']
+    try:
+        context = json.loads(first['input'][0]['content'])['resolved_context']
+        supplied = context['evidence']
+        available = lookup['parameters']['properties']['source_ids']['items']['enum']
+    except (KeyError, IndexError, TypeError, ValueError):
+        return False
+    if not isinstance(supplied, list) or not isinstance(available, list):
+        return False
+    if fact_id is not None and (fact_id not in available or
+            any(item.get('id') == fact_id for item in supplied) != rule['codeSupplied']):
+        return False
+    if start['history']:
+        return any(exchange.get('user') == SUMMARY_REPORT for exchange in context.get('recent_exchanges', []))
+    return True
 
 
 def prepare_trial(service, owner, state, start):
-    """Open a real plan card while keeping the comparison shortlist empty."""
+    """Open a real plan listing while keeping the comparison shortlist empty."""
     permissions = starts_facts.prepare_trial(service, owner, state, start)
     request = permissions.get('plansContext')
     if request is not None and request['comparedIds'] != []:
-        raise ValueError('The opened card must have an empty comparison shortlist.')
+        raise ValueError('The opened listing must have an empty comparison shortlist.')
     return permissions

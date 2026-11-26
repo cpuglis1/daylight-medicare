@@ -28,7 +28,9 @@ before a trial if anything differs.
 The typed validation starts use structured answers, verified visit memory and available local evidence.
 The correction case also seeds fictional exchanges in the actual visit-memory
 store. These exchanges supply context only. The seal and profile gates still
-apply. The 480 calibration rows are unchanged. Unsupported starting states
+apply. Each start is pinned to the exact version of its calibration case.
+A wording change requires reviewing what the visitor could actually see or
+have said before binding the new version. Unsupported starting states
 fail at preflight. The runner sends only the case's exact bound visitor message
 and never forwards its prose context, sample reply, expected behavior or label.
 

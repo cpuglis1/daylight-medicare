@@ -8,6 +8,18 @@ Evidence entries reference exact statement text in the repository's owner-accept
 
 Agent-authored reference labels apply to the named judge only. The five related cases in a family share their underlying scenario and often share sample replies. Interpret agreement as calibration on these fixtures. Replaying a case through a running advisor would require separate setup of the visit, applicable data, and tools. The state summary is for offline evaluation and must stay out of the visitor message.
 
+Write each visitor turn as something a shopper could actually say. A person can
+refer to “these two plans” if the plans were just discussed or the visitor says
+what they are looking at. When the difference depends on a brochure, a price or
+a prior answer, put it where the visitor and Daylight could know it. Keep
+internal evidence status, tool names and grading criteria in the fixture. A
+caregiver can ask a question in their own voice. Read the five variations
+together and vary the actual question or situation instead of attaching a
+stock introduction to the same sentence.
+
+Edits create new case versions. Earlier runs retain the original prompts and
+outputs. Compare releases on the same case versions.
+
 Run `python evals/diagnostics/validate_cases.py` from the repository root to check the stored split, case schema, evidence text and corpus counts without network or model calls.
 
 For a tuning worker, use `python3 evals/diagnostics/export_training.py /absolute/path/to/new-package` from the owner environment. Grant the worker access only to that training package in an isolated session. Full-repository access includes the operator's validation data.

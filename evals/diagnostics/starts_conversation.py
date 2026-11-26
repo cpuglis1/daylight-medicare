@@ -11,25 +11,24 @@ from hashlib import sha256
 # Hash each family's five source lines in variant order. Changes require review
 # before a replacement row may reach the model under the same fixture.
 FAMILY_HASHES = {
-    'conversational_continuity-correction': '79d4e145eb3c439fb765df3889ea9b662f2841a351ceba2126cc09a3e2b46215',
-    'conversational_continuity-office': '62bbceed5a8bd208e0b563d67215cf8452282627cc5fc07caddc3b2edabf3c32',
-    'conversational_continuity-silent': 'bcf7005453f39fd6ac9937843070780d0ecadc3bc1baac9d721fcfaf40678da7',
-    'conversational_continuity-uncertain': 'e0aa284831cd922d2fed67cc63bc34e66cf4a435b899311427e0511433a62ab9',
-    'conversational_continuity-yes': '5ecad166f78a2dfa9bfc6776c5f3bb05768c9e45b07600c6a89281239961ad54',
-    'question_timing-medigap': '2d948eb6dca9e191fc50f298a0fde7c538c0392bc25ec476adf55657ce9c8b8e',
-    'question_timing-time': 'cdc2cb77dc9fb3ab4fc80393ad767c587d331a8e6773ec67e7c90cfcbd0d1592',
-    'question_timing-handoff_consent': '05368ae5998b5ef8913d8b8107d220246a4fae7d9b809f6baf7c512ab2ec5ad4',
-    'question_timing-format': '0177c9e5f882477fe48d91738f1b2f46093a352dfb5aaf1f008c692975aebfb9',
-    'question_timing-relative': '1f71647827b3275d2bd9c0ff027c8c9ae4a56c48a1b438f53d546b29847c3f33',
+    'conversational_continuity-correction': '2dd51ae8427d62ef90e7f40977a3e38dfbd16a81ca215fac6680fc97cf1d73f2',
+    'conversational_continuity-office': '1738e6edd4d4214c256ddc771e73e5755640c415938aeeeae323873b986b86e2',
+    'conversational_continuity-parts': '29bbf95575c6471397619a7e83d6b87be45f61b0be264927a6ce95e595ea80d3',
+    'conversational_continuity-silent': 'f53ad7bfd062eee636bf62b1dca5ea4165efcb3b6e0cf19eec81d8e05c46cb1f',
+    'conversational_continuity-uncertain': 'ba0c06fe67a7fb057e425f866cad3fbebe2d4853b335e0df43afeceb10d3b81e',
+    'conversational_continuity-yes': '79e2cb8b369ecc9edae4492eb78e248d14a05c2fe6e9c6c67afb1718e86b8cfa',
+    'question_timing-format': 'c94a4883f8985909da161fd2f0003f00d81c9dc5229bfbac26d25cee5769efb1',
+    'question_timing-handoff_consent': 'e7e4b95c819c6e5c90b23e07210857450ead634c6ba6a5e3abba1e8dff8371e7',
+    'question_timing-medigap': 'adf228d2a039b09fbc409d5a5f4e0544954f61b8147d27b0635223d0d87f21a1',
+    'question_timing-relative': '8176010c89a67f0daa6e01726699a27d92232dde8815926e94953528b98e7fe6',
+    'question_timing-time': 'b1fc6e0c891c56449e4e39c895d08be8a51b149512a05d4fca746ecf12c1e9e5',
+    'question_timing-year': 'c0d164517b88e3d4d8aef2fccdf3bf5c4af809bd1839326c7b2b2a090ad8ee09',
 }
 
-# Context from the browser tab in variant 3 has not been shared with Daylight.
-# The other prior preferences are deliberately worded as fictional visitor text.
-PREFERENCES = {
-    2: ('Please use plain language.', '', ''),
-    4: ('I want to make the decision myself.', '', ''),
-    5: ('Please take this one step at a time.', '', ''),
-}
+# The Aetna booklet has a known year. The Humana printout is a visitor
+# report with an unknown year, so it must not become a catalog selection.
+AETNA_BOOKLET = '2026:H5521:033:000'
+HUMANA_PRINTOUT = 'HumanaChoice Florida H5216-072 (PPO)'
 
 
 def _choice(identifier, *, entity=None, source=None, **fields):
@@ -47,13 +46,13 @@ def _task(task):
     return {'type': 'task', 'task': task, 'preparing': True}
 
 
-def _fixture(family, journey, variant):
+def _fixture(family, journey):
     """Return setup and verified facts independently of the calibration examples."""
     relation = ('someone' if journey == 'caregiver' else 'self')
     if family == 'question_timing-relative':
         relation = None
     setup = [] if relation is None else [_choice('RC01', choice=relation)]
-    history = [PREFERENCES[variant]] if variant in PREFERENCES else []
+    history = []
     if relation == 'someone':
         history.insert(0, ('I am helping my dad with his Medicare visit. He is here with me.', '', ''))
     start = {'setup': setup, 'history': history, 'relationship': relation,
@@ -67,6 +66,12 @@ def _fixture(family, journey, variant):
         start['postFields'] = {'comparison.scope.zip': '34103'}
         history.extend([('My home ZIP is 34102.', '', ''),
                         ('I need to correct that. My home ZIP is 34103.', 'I have 34103 now.', '')])
+    elif family == 'conversational_continuity-parts':
+        setup.extend([_task('timing'), _choice('RC04', choice='a_only')])
+        reports['RC04'] = {'choice': 'a_only'}
+        start['postReports'] = dict(reports)
+        history.append(("The card only shows Part A. I'm retired and I no longer have insurance through work.",
+                        'I have Part A only and no current job coverage.', ''))
     elif family == 'conversational_continuity-office':
         setup.extend([_choice('T06', text='Dr. Finch'),
                       _choice('RC21', entity='doctor-1', practice='Downtown Clinic', city='Naples')])
@@ -107,7 +112,14 @@ def _fixture(family, journey, variant):
     elif family == 'question_timing-time':
         setup.extend([_task('timing'), _choice('RC10', choice='yes')])
         reports.update({'RC09': None, 'RC10': {'choice': 'yes'}})
-        history.append(('My health coverage is through an employer with 35 people. I want to understand how it works with Medicare.',
+        history.append(("The company behind my health insurance has 35 employees. I'm trying to figure out how this insurance affects when I sign up for Medicare.",
+                        '', ''))
+    elif family == 'question_timing-year':
+        setup.extend([_choice('T01', choice='compare'), _choice('T03', zip='34103')])
+        fields['comparison.scope.zip'] = '34103'
+        start['datedBooklet'] = AETNA_BOOKLET
+        history.append((f'I have the 2026 Aetna Medicare Signature (PPO) H5521-033 summary and '
+                        f'a printout for {HUMANA_PRINTOUT} without the year showing.',
                         '', ''))
     elif family == 'question_timing-handoff_consent':
         history.append(('I may want a person to go over this with me.', '', ''))
@@ -134,11 +146,11 @@ def build_starts(rows):
         hashes = [rows[key][1] for key in keys]
         if sha256(''.join(hashes).encode('ascii')).hexdigest() != family_hash:
             continue
-        for variant, key in enumerate(keys, 1):
+        for key in keys:
             case, line_hash = rows[key]
             if case['split'] != 'heldout':
                 raise ValueError('Conversation diagnostic binding requires a held-out row.')
-            starts[key] = {**_fixture(family, case['journey'], variant), 'lineHash': line_hash}
+            starts[key] = {**_fixture(family, case['journey']), 'lineHash': line_hash}
     return starts
 
 
@@ -169,6 +181,24 @@ def prepare_state(flow, owner, state, start):
         if flow.plans_additions.get((owner, chain)) != start['plansAdditions']:
             raise ValueError('The first Plans acknowledgement is not queued for this visit.')
     return state
+
+
+def prepare_trial(service, owner, state, start):
+    """Bind the dated comparison reference through normal Plans permission."""
+    if not start.get('datedBooklet'):
+        return {}
+    from starts_facts import prepare_trial as bind_plan
+
+    return bind_plan(service, owner, state, {'selected_plan': start['datedBooklet']})
+
+
+def verify_observation(trace, start):
+    """Require the exact dated browsing entry at composition for year cases."""
+    if not start.get('datedBooklet'):
+        return True
+    from starts_facts import verify_observation as verify_plan
+
+    return verify_plan(trace, {'selected_plan': start['datedBooklet'], 'requires_source_lookup': False})
 
 
 def observe_state(flow, owner, out, start):

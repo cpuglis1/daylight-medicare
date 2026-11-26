@@ -1,8 +1,8 @@
 """Bind held-out fact and coverage prompts to ordinary local advisor visits.
 
-Only manually reviewed source-line hashes are admitted. Setup records visitor
-reports and prior visitor turns. Current-turn evidence must come from the
-advisor's normal retrieval and Plans projection.
+The runner admits only pinned source lines. Setup records the shopper’s
+goal and relationship. The prompt supplies the rest of the question. Evidence
+comes from the advisor's normal retrieval and Plans projection.
 """
 
 import hashlib
@@ -24,74 +24,56 @@ RULES = {
 # The selected hypothetical plan is a checked-in 2026 Collier browsing entry.
 PLAN = '2026:H1032:198:000'
 
-PRIOR_TOPIC = {
-    'work_cobra': 'Suppose someone’s former employer offers them COBRA.',
-    'hsa_spend': 'Suppose someone saved money in an HSA before starting Medicare.',
-    'drug_delay': 'I’m asking generally about a gap after someone first had a chance to enroll in drug coverage.',
-    'drug_basis': 'I have a question about how the Part D penalty is calculated when it applies. I might want to speak with an advisor after this.',
-    'help_penalty': 'I’m asking about the Part D late-enrollment penalty.',
-    'annual_date': 'I’m asking about the yearly Medicare plan change period.',
-    'plan_year': 'I’m looking at a 2026 plan listing.',
-    'program': 'I’d like to understand Extra Help for prescription costs.',
-    'handoff_yes': 'I’d like the option to speak with someone.',
-}
-
-PRIOR_PREFERENCE = {
-    2: 'Plain language, please.',
-    4: 'I want to make this decision for myself.',
-    5: 'Let’s take this one step at a time.',
-}
-
-# Earlier-turn-only tool conditions require a real prior tool turn. An exact
-# office assignment and a displayed Medigap price need their native sources.
+# These rows can run with the normal advisor source or Plans context below.
+# Cases that need evidence from a verified earlier lookup are outside this adapter.
 LINE_HASHES = {
-    'medicare_factual_support-work_cobra-1': '2c80b8becddf9cacd7132264eb55e63a01a9ac5e5a933196d44b3a8285edbd99',
-    'medicare_factual_support-work_cobra-2': '0a60b09a207958f1e4a901ddb43e73c83269aae657c52f61eeff7a0bed30da7e',
-    'medicare_factual_support-work_cobra-3': '43e6ef68ddd012a7a807a3db91719013fb4f063f57b8cf7d391581242d21bf51',
-    'medicare_factual_support-work_cobra-4': '99a5aa06df66025015ae495b8bdfcbde8b21cb00390be7deaed8102e1891fb3a',
-    'medicare_factual_support-work_cobra-5': '85c65059624fc971d9020f2c89af45837f4edb1625d619557a61b10c9112f98b',
-    'medicare_factual_support-hsa_spend-1': '9fa8a1cb9b8b3e755a67c76ca7097b6148e3e0e9a4f00b4f8117c893e2a84410',
-    'medicare_factual_support-hsa_spend-2': 'ed897b31e57dd51f2b09ed5e77d7be54e782cffd18edd48fd23603c669d55521',
-    'medicare_factual_support-hsa_spend-3': 'f75f5db2c5aeba26b025b5cdde6e57498fa71a130021ff7b34e622a3b637c2c7',
-    'medicare_factual_support-hsa_spend-5': '3feee482e61cbbf4ede3a67abee56a0da1114839072b203561af4e7e1f895283',
-    'medicare_factual_support-drug_delay-1': '1bcf5d936d247ba6181bfed06e3ecf05dccdb0c95163eaf640d1ecec9edbc851',
-    'medicare_factual_support-drug_delay-2': '8fb1d0ce44650a7ef0d0e3ce3c12add39aa35dc4c5f0fca6164056c48a7a37c4',
-    'medicare_factual_support-drug_delay-3': 'd781902c4853435d0850c6eac8c61465ca703b67c68c013b21c687ec5e4f6fff',
-    'medicare_factual_support-drug_delay-5': '81c929364339699bf23bf34b7f58dbdaa616cfd5aa8eb80c2f0c00f774f9e4e4',
-    'medicare_factual_support-drug_basis-1': '60c9091622db15034affb06dd418fc285ad1827987e750b5a4c40d5aa3242486',
-    'medicare_factual_support-drug_basis-2': '7f514a09fe17dc0db85d8b1b3fd5e0f996de08d44073eff9787828a51233815c',
-    'medicare_factual_support-drug_basis-3': '3fed7bdc8853981e3b03d9cc3564d6124b95d3528f2243ac8a01323dc7a3f2ef',
-    'medicare_factual_support-drug_basis-4': 'e739ed43a0a684870b7ca4db5277c4ce5a4c99aa73c377e5bdecd324521ebfda',
-    'medicare_factual_support-drug_basis-5': 'f6a0784631a5c81769e735e95e42e2ba981870d851d0aa75e78518653a8b2779',
-    'medicare_factual_support-help_penalty-1': 'a4d8a9c0d7a367e3a4bcef27be503342d3c013855e20cc77ca93871fed5a9125',
-    'medicare_factual_support-help_penalty-2': '3ddfeeeb9a2f55178a159bdddbc53159db865ffbf2b001a7621f5a359289a9e6',
-    'medicare_factual_support-help_penalty-3': 'b98f7d7e755f5939f0c32cd64f35518d5cf8222ba52c719bfbced1ab5b4d369e',
-    'medicare_factual_support-help_penalty-4': '9978250498741aa58732fdc77e4d56467e94f8578ee12f5c27a033eeec7b3519',
-    'medicare_factual_support-help_penalty-5': '5d13729d80b87bb7073751c20e905632daec74482105f92c80a372f62bdae35b',
-    'medicare_factual_support-switch_period-1': '9c8d92d60a9f85a4f60542bf544856fa0f25b258bc8d23aa86f959ba74813098',
-    'medicare_factual_support-switch_period-2': '855efd369b47aef0ae4626555958dcd4569f57c8bc6aa1448807fbdb45beb39e',
-    'medicare_factual_support-switch_period-3': 'e9a2b056aac25f9265d49019cdbd9dbda6bdab95ed0e97bd95fcd50899345d6d',
-    'medicare_factual_support-switch_period-5': '08c34cc92a1041dde5a7c2e91870d81d53b585174c5408b4b246bd4cb72c6231',
-    'required_coverage-annual_date-1': '0996e00ac1378b8113524cf6de5228b462beaed0e798f582822b28176319a340',
-    'required_coverage-annual_date-2': '251418c054950c4f5b3e7a50037941dd6972851cd33f15a72c405d239c5fb5cb',
-    'required_coverage-annual_date-3': 'd09432f2b64684c0fcd0d4b09dfbc2bb7d27f847d38bc25bea4482475d28ebfb',
-    'required_coverage-annual_date-4': '16fa72549aa89db06886f45d66a2fba6751836597f32e2da2557e10689af28fb',
-    'required_coverage-annual_date-5': 'cb8a0671ee89164c578e471bceb317aae9587e99871bde39da1fc752bffe26c8',
-    'required_coverage-plan_year-1': 'b81b5e39b7bf52c4ad3cfc2081042d97c3d088cd9904a7fdfccd636ea5d0f38f',
-    'required_coverage-plan_year-2': '6824004fa34ff51b6698c847c7156947dbeb180969864a92240ae9c7da6fbc36',
-    'required_coverage-plan_year-3': '71cfda3f8ef963417b7ae6921113d31a2005a29049a3b7aaed59b9f2a6e677e6',
-    'required_coverage-plan_year-4': '4a3b1fa26493e893fd90f55b7f7f3e11e6cc061d9f07cccf9df530581f7bbe23',
-    'required_coverage-plan_year-5': 'afd4f0a713178e8463ca62dcbaaa0e69d66c7e7589e7b97866fcc8c6f605bee4',
-    'required_coverage-program-1': '0b3996d70520aadd3575d1ec5275ca67c43759c716316d7089a0c610ee60822c',
-    'required_coverage-program-2': '17aba9acf092daf5bb59bb47696d46727451623c589109b3a6550cc009fad39f',
-    'required_coverage-program-3': '25555b2871fa5451e37ceba0cbdb93d186c9650b736d088c3105a23e383e3a55',
-    'required_coverage-program-4': '7f4803611d075a0bfe02f67204111a83a2060abadeda4d8e07a46c1231207787',
-    'required_coverage-program-5': '957009434a53ce891ddbaf26175c9986b55a913da5ff94d40b66d4600b07dd8f',
-    'required_coverage-handoff_yes-1': 'c5884f6c948b5a3b904aff266fe50b4f4750483ce8277c0445535f794d3ad0ab',
-    'required_coverage-handoff_yes-2': '06c1a3ac98740ed7d2e1043dea1e8683f13438da1d63d4c02bdde1fd42de3df9',
-    'required_coverage-handoff_yes-3': '00669e7ce4602a227337e099fa36980e1d917643e223b834f539b0515e2a222f',
-    'required_coverage-handoff_yes-4': 'dde9a09e14003cbef9bafee101d63713ee52c60fb579d48772a4f5b8c4f22cb5',
-    'required_coverage-handoff_yes-5': 'b7abdb3063d9e56ffc56763df2bef1efc3bf5303c3a14226c1218225280268c5',
+    'medicare_factual_support-work_cobra-1': '538242c19469c60f2674eaef9775d545ff1d34f27c91aa47fb16a34fa5b2cb17',
+    'medicare_factual_support-work_cobra-2': 'dc91817103ff8a6342c5d5f84d86b9cf747487683eb7242bf68e8146a4e1b0a3',
+    'medicare_factual_support-work_cobra-3': '3a86be35db2922d6a90bb5ee2646d2e207378f4502a4659a0200a73d2161931c',
+    'medicare_factual_support-work_cobra-4': '6818af7f8d613c0999d9d02b56d6c9bd8a9150da100aeb29294ccbaaba07e1da',
+    'medicare_factual_support-work_cobra-5': 'f469c8f14fd2a8e3c8688c4b20ede1b4c2b8ff955a9cdb1e6dc4950050dea95e',
+    'medicare_factual_support-hsa_spend-1': '1b01684bceddd276a6e178c91cf729b1469d491319d51d31f81531a62309cdcb',
+    'medicare_factual_support-hsa_spend-2': '1159fb65629c5b1e4da3a128377cdad73b2fa7acc2d11a14e8301fbe7fb08838',
+    'medicare_factual_support-hsa_spend-3': 'c00490e50258703fb2dc4a1f1adb8a842d73959a6ce0224425fc14b0a899397b',
+    'medicare_factual_support-hsa_spend-5': '0c7020bd6af731292e9212368474117938b683c285c6827845759a90e36eb68f',
+    'medicare_factual_support-drug_delay-1': 'fc6c0f0ad7223d0ef3d322f2a9ddd5cf88acbf7d7ea11ac5d5f7d7b4a09e80e0',
+    'medicare_factual_support-drug_delay-2': '08451132b76b14526875d64f1ead64de559586ef96bc57780d89925ea4506bfd',
+    'medicare_factual_support-drug_delay-3': '525bc3f3c25c831f45ca26c80a89650caf63e3ca7c5e6d4ddd46b9775c3b2e8a',
+    'medicare_factual_support-drug_delay-5': '6b061ff58d78ad2c9a31d7aca48542e3278e38876ee45d80f3d588c0a03eb1b6',
+    'medicare_factual_support-drug_basis-1': '4fa42bc28e2730af52b3afad0f05c9e953425fe0e2d9fa143f9a6808505200e5',
+    'medicare_factual_support-drug_basis-2': 'ef282baf1f6838e90732062a5e724f30530c468037fb7413efdab134cad21ef8',
+    'medicare_factual_support-drug_basis-3': '64d6b8669717dfb49bf2a5ae028f86ddd7279b741dfe154e68e97cd43a4fadad',
+    'medicare_factual_support-drug_basis-4': 'b11f019a08147590f99c568dcdb778bdeca4c6f2790a4e5437f44c3c561d7e20',
+    'medicare_factual_support-drug_basis-5': '67bbd64264b19921ef2571c8d08db5c508a2579901a4c939e49e57ea45299157',
+    'medicare_factual_support-help_penalty-1': '1d6272d14b0ebf93eb3ddc252e32e12aa1c2f2505f0d769750f1d7169511778e',
+    'medicare_factual_support-help_penalty-2': 'd17cc09364cb83037e4f49395f81376a3c5f49a5265fb45c9f83dbb0552b13d5',
+    'medicare_factual_support-help_penalty-3': 'a6de9c61d41977c147d6e883985adf9897d01fbc04bc2d23e52916d1f4c005ec',
+    'medicare_factual_support-help_penalty-4': 'df14254494f88a06c9e82b7cc27234e11363971e7950c9f7a622f853d18372ac',
+    'medicare_factual_support-help_penalty-5': 'ba697c8ee3e4a1e60022adbeb79892a6dfbb6070e18317eccc37c3e486ab9e9c',
+    'medicare_factual_support-switch_period-1': 'c3d6ade3225e143eab6c8099138040facc0c92f1e7e601d9537760572b30be26',
+    'medicare_factual_support-switch_period-2': '2e29449ae4f468241e43a10bed206c770e0fc5f485992de025b22b9155fba79c',
+    'medicare_factual_support-switch_period-3': '2c3abcc62b2bc1d8e47793e7539ca93949b9494f66c46e659930a86c38d54e27',
+    'medicare_factual_support-switch_period-5': 'dab119fd513d75e1e318e73035cb242d9b8b9641efe117a8d0192286a1c4cbaf',
+    'required_coverage-annual_date-1': '5c337da5ef5ce3972c6622e63a1aec0a8b3c9344e2b63c29251d60df8ebb3405',
+    'required_coverage-annual_date-2': 'd4c32ba51c89dff6f092247ed27a5ba574759328446a5f88c18329a20a105880',
+    'required_coverage-annual_date-3': '70caf6238e91a1a7d8fc4205ccdd8b6e098c76999441ef1b1021e65bff2993a7',
+    'required_coverage-annual_date-4': 'd71878d729348d6ca0989ed78aea764a71d1f02419456c819f9948c6983d8e7f',
+    'required_coverage-annual_date-5': '782889f76ad54925a554a475c6f9052080b1bba8e6aa0ea52174dae7309e7bee',
+    'required_coverage-plan_year-1': 'f65c8336710d2144789ac1c4f43ae286e924995398a65e3ba52aca4d47dbe575',
+    'required_coverage-plan_year-2': 'd9c520ef4d00fe5bd81961b96818abc6654dce82be39dfadf0cb64d0d692e353',
+    'required_coverage-plan_year-3': '02bda8f1a7cacba6f26f5cbc53b090f4aa32c22b7c9d1c1f1d64643490e4aeb2',
+    'required_coverage-plan_year-4': 'adc30a34c351cd9f4e5073956db52d70f03e98d26aa6c4587edecd8339d95898',
+    'required_coverage-plan_year-5': '6c83f04cca8d00627ff58a9fbb73f65e3f9d3cac963f58d29e63b4ee827859de',
+    'required_coverage-program-1': '6f7d3ea09bdd62431a2aae0fa99c5883ad8a4be1f2b23079baa86393d261f82e',
+    'required_coverage-program-2': 'c82b5546f569e5ce71fcc89c1aa22007ab0850041b1e14e90d77d1693f6d47d2',
+    'required_coverage-program-3': '87905f600b687c6cb76704c498e467c047e78d0546522fe3468d89c45eb20c23',
+    'required_coverage-program-4': '2a91b07353cb8981a1c66a7a053fc6ed306624eaaf6493911332ac8c151981f6',
+    'required_coverage-program-5': '1ef1b816316fc432e54a4636e91aeca3431d98c2f82abea4e71ad4f2a62b60ab',
+    'required_coverage-handoff_yes-1': 'a9df3ab30d1151d065e19015daac18c8bf45d14efd5011d24de3f81be26fbfc7',
+    'required_coverage-handoff_yes-2': 'fdfa29531cda8eb49941c7eedeeb277b0147161ecf38b574f7c8173fb593743e',
+    'required_coverage-handoff_yes-3': '6f6bde60bf211f27c7238fb28a19cd1e05021efa5de5e47f362baf38e119cd47',
+    'required_coverage-handoff_yes-4': '91dc988d0e16a52b0e3792cc6b406df51bae90fd5e74a68ba7b24fb3c0d7a037',
+    'required_coverage-handoff_yes-5': 'c70d5a5f58910304d62f7fb97c8def2649a279d0eab4449f3c841471937bd525',
 }
 
 RULE_TEXT_HASHES = {
@@ -117,20 +99,14 @@ def build_starts(rows):
             continue
         case, _ = rows[case_id]
         family = case['scenario_family']
-        variant = int(case_id.rsplit('-', 1)[1])
         relationship = 'someone' if case['journey'] == 'caregiver' else 'self'
         goal = 'review' if family == 'plan_year' else 'learn'
         setup = [
             {'type': 'choice', 'id': 'T01', 'fields': {'choice': goal}},
             {'type': 'choice', 'id': 'RC01', 'fields': {'choice': relationship}},
         ]
-        history = []
-        if variant in PRIOR_PREFERENCE:
-            history.append((PRIOR_PREFERENCE[variant], '', ''))
-        if family in PRIOR_TOPIC:
-            history.append((PRIOR_TOPIC[family], '', ''))
         starts[case_id] = {
-            'lineHash': line_hash, 'setup': setup, 'history': history,
+            'lineHash': line_hash, 'setup': setup, 'history': [],
             'relationship': relationship, 'fields': {'intent.goal': goal},
             'source_id': RULES.get(family),
             'requires_source_lookup': case['judge'] == 'medicare_factual_support',
