@@ -207,6 +207,42 @@ class DemoExportTest(unittest.TestCase):
                     self.assertEqual(exporter.main([str(run)]), 0)
                 self.assertTrue((store / out.getvalue().strip()).is_file())
 
+    def test_optional_change_reason_at_cli_boundary(self):
+        """Accept a safe operator reason and refuse unsafe values without exposing their text."""
+        with TemporaryDirectory() as root:
+            store = Path(root)
+            progress = store / 'progress'
+            progress.mkdir(mode=0o700)
+            manifest = progress / f'{self.run_id}.manifest'
+            manifest.write_text(json.dumps(self.manifest))
+            manifest.chmod(0o600)
+            run = store / f'live-observation-{self.run_id}.json'
+            run.write_bytes(self.raw_run())
+            run.chmod(0o600)
+            with patch.object(exporter, 'STORE', store), patch.object(exporter, 'load_validation_cases', return_value=self.cases):
+                for invalid in ('', ' ', 'x ' * 150 + 'x', '🙂 ' * 101, 'Second\nline', 'End\n',
+                                'Second\u2028line', 'Second\u2029line', 'Contains\ttab',
+                                'https://example.com', '<script>text</script>', 'person@example.com'):
+                    with self.subTest(invalid=invalid):
+                        error = io.StringIO()
+                        with redirect_stderr(error), self.assertRaises(SystemExit):
+                            exporter.main([str(run), '--change-reason', invalid])
+                        self.assertIn('Export refused', error.getvalue())
+                        if invalid.strip():
+                            self.assertNotIn(invalid, error.getvalue())
+                self.assertEqual(list(store.glob('demo-observation-*')), [])
+                out = io.StringIO()
+                with redirect_stdout(out):
+                    self.assertEqual(exporter.main([str(run)]), 0)
+                before = json.loads((store / out.getvalue().strip()).read_bytes())
+                self.assertNotIn('changeReason', before)
+                reason = 'Rewrote shoppers’ questions and reran validation.'
+                out = io.StringIO()
+                with redirect_stdout(out):
+                    self.assertEqual(exporter.main([str(run), '--change-reason', reason]), 0)
+                after = json.loads((store / out.getvalue().strip()).read_bytes())
+                self.assertEqual(after, {**before, 'changeReason': reason})
+
     def test_digest_output_races_and_refuses_a_conflicting_path(self):
         """Concurrent retries converge on complete owner-only content without overwriting a collision."""
         with TemporaryDirectory() as root, exporter.private_directory(root) as directory:

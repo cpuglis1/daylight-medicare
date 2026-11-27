@@ -80,11 +80,16 @@ error. Screened judge reasons accompany displayable replies when available. A
 suppressed or missing reply is omitted. Unbound case IDs identify fictional cases
 without trials.
 
+When there is a verified change that triggered the evaluation, add
+`--change-reason 'One sentence describing the change.'` to the export command.
+Use a single line of at most 300 characters suitable for display. The exporter
+refuses unsafe reasons and adds `changeReason` only when the option is supplied.
+
 The content-addressed export stays in the private diagnostic directory. Review
-every projected reply and judge reason before deployment and attest the exact
-SHA-256 of the reviewed bytes at demo launch. This command has no network or
-publishing step. Remove private artifacts through the operator's normal local
-retention process.
+every projected reply, judge reason and change reason before deployment and
+attest the exact SHA-256 of the reviewed bytes at demo launch. This command has
+no network or publishing step. Remove private artifacts through the operator's
+normal local retention process.
 
 A signed-in Codex subscription can score a completed run or follow its private progress
 journal. In the D155 Python environment, run

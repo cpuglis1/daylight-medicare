@@ -1,7 +1,7 @@
 """Prepare a private, reviewable projection of actual fictional validation trials.
 
-Read local runner and optional subscription score receipts. Only the pinned
-fictional prompts and screened reply text cross into the projected artifact.
+Read local runner and optional subscription score receipts. Project the pinned
+fictional prompts, screened trial text and an optional screened operator reason.
 The command never invokes a provider or publishes files.
 """
 
@@ -42,6 +42,7 @@ JUDGE_MODELS = {None: {'haiku', 'sonnet'}, 'codex-chatgpt-subscription': {'gpt-6
 MAX_INPUT = 160_000_000
 MAX_TEXT = 12_000
 MAX_REASON = 2_000
+MAX_CHANGE_REASON = 300
 UNSAFE_TEXT = re.compile(
     r"""[<>`@\\]|\[[^\n]*\]\s*[\[(]|&(?:#\w+|\w+);|%[a-f0-9]{2}"""
     r"""|\b(?:https?|ftp|file|data|javascript|mailto|blob|vscode|plugin|ssh):|(?<!:)//"""
@@ -233,10 +234,14 @@ def metadata(run, run_id):
                                        'accountedNanoUsd', 'measuredNanoUsd')}}
 
 
-def project(run_id, raw, manifest, report, cases):
-    """Export observed statuses and screened replies without copying any raw trace fields."""
+def project(run_id, raw, manifest, report, cases, *, change_reason=None):
+    """Export observed statuses, screened replies and an optional operator reason."""
     run = parse_object(raw)
     result = metadata(run, run_id)
+    if change_reason is not None:
+        require(safe_text(change_reason, MAX_CHANGE_REASON) and change_reason.isprintable(),
+                'Use a short, safe, single-line change reason.')
+        result['changeReason'] = change_reason
     bound, unbound, repetitions = validation_partition(manifest, cases, run_id)
     planned = {(case, n) for case in bound for n in range(1, repetitions + 1)}
     trials = {}
@@ -300,6 +305,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('observation', type=Path)
     parser.add_argument('--scores', type=Path)
+    parser.add_argument('--change-reason', help='One sentence describing what changed before this evaluation.')
     args = parser.parse_args(argv)
     try:
         match = re.fullmatch(r'live-observation-(' + RUN_ID + r')\.json', args.observation.name)
@@ -314,7 +320,8 @@ def main(argv=None):
             with private_directory('progress', directory) as progress:
                 manifest = parse_object(read_private(progress, run_id + '.manifest'))
             report = parse_object(read_private(directory, args.scores.name)) if args.scores else None
-            result = project(run_id, raw, manifest, report, load_validation_cases())
+            result = project(run_id, raw, manifest, report, load_validation_cases(),
+                             change_reason=args.change_reason)
             print(write_export(directory, result))
     except (OSError, ValueError, RecursionError):
         # Neither parser diagnostics nor path exceptions may reveal private input values.
